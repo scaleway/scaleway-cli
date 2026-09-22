@@ -15,6 +15,7 @@ AVAILABLE COMMANDS:
   server-type     Instance type management commands
   snapshot        Snapshot management commands
   ssh             SSH Utilities
+  template        Template management commands
   user-data       User data management commands
   volume          Volume management commands
   volume-type     Volume type management commands
@@ -25,6 +26,7 @@ FLAGS:
       --web                 open console page for the current resource
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

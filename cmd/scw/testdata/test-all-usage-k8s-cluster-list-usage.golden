@@ -22,14 +22,16 @@ ARGS:
   [status]               Status to filter on, only clusters with this status will be returned (unknown | creating | ready | deleting | deleted | updating | locked | pool_required)
   [type]                 Type to filter on, only clusters with this type will be returned
   [private-network-id]   Private Network ID to filter on, only clusters within this Private Network will be returned
+  [version]              Version to filter on, only cluster matching this prefix version will be returned
   [organization-id]      Organization ID on which to filter the returned clusters
-  [region=fr-par]        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+  [region=fr-par]        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil | all)
 
 FLAGS:
   -h, --help                help for list
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

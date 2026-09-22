@@ -7,6 +7,7 @@ USAGE:
 
 ARGS:
   instance-id                                     UUID of the Database Instance
+  [endpoint.public]                               
   [endpoint.private-network.private-network-id]   UUID of the Private Network
   [region=fr-par]                                 Region to target. If none is passed will use default region from the config (fr-par)
 
@@ -15,6 +16,7 @@ FLAGS:
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

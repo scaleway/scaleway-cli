@@ -10,6 +10,7 @@ AVAILABLE COMMANDS:
   cache-stage   Cache-stage management commands
   dns-stage     DNS-stage management commands
   pipeline      Pipeline management commands
+  plan          Plan management commands
   purge-request Purge-request management commands
   route-rules   Route-rules management commands
   route-stage   Route-stage management commands
@@ -21,6 +22,7 @@ FLAGS:
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

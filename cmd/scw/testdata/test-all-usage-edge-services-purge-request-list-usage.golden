@@ -9,13 +9,14 @@ ARGS:
   [order-by]          Sort order of purge requests in the response (created_at_asc | created_at_desc)
   [project-id]        Project ID to filter for. Only purge requests from this Project will be returned
   [pipeline-id]       Pipeline ID to filter for. Only purge requests from this pipeline will be returned
-  [organization-id]   Organization ID to filter for. Only purge requests from this Project will be returned
+  [organization-id]   Organization ID to filter for. Only purge requests from this Organization will be returned
 
 FLAGS:
   -h, --help                help for list
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

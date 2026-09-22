@@ -6,7 +6,7 @@ USAGE:
   scw product-catalog product list [arg=value ...]
 
 ARGS:
-  [product-types.{index}]   The list of filtered product categories. (unknown_product_type | instance | apple_silicon | elastic_metal | dedibox | block_storage | object_storage | managed_inference | generative_apis | load_balancer | secret_manager | key_manager | managed_redis_database | kubernetes | managed_relational_database | managed_mongodb)
+  [product-types.{index}]   The list of filtered product categories. (unknown_product_type | instance | apple_silicon | elastic_metal | dedibox | block_storage | object_storage | managed_inference | generative_apis | load_balancer | secret_manager | key_manager | managed_redis_database | kubernetes | managed_relational_database | managed_mongodb | serverless_functions | serverless_containers | serverless_jobs | apache_kafka | open_search | instance_local_ssd_snapshot | instance_local_ssd_storage | file_storage | serverless_sql_database)
   [global]                  Filter global products.
   [region]                  Filter products by region.
   [zone]                    Filter products by zone.
@@ -19,6 +19,7 @@ FLAGS:
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

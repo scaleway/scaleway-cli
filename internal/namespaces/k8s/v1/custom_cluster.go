@@ -375,7 +375,7 @@ func k8sClusterWaitCommand() *core.Command {
 		Resource:  "cluster",
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(customClusterWaitArgs{}),
+		ArgsType:  reflect.TypeFor[customClusterWaitArgs](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*customClusterWaitArgs)
 

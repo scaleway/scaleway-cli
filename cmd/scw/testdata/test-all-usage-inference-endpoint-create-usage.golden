@@ -7,6 +7,7 @@ USAGE:
 
 ARGS:
   deployment-id                                   ID of the deployment to create the endpoint for
+  [endpoint.public-network]                       Set the endpoint as public
   [endpoint.private-network.private-network-id]   
   [endpoint.disable-auth=false]                   Disable the authentication on the endpoint.
   [region=fr-par]                                 Region to target. If none is passed will use default region from the config (fr-par)
@@ -16,6 +17,7 @@ FLAGS:
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

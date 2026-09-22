@@ -1,6 +1,11 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Create a private NIC connecting an Instance to a Private Network.
+Some private NICs, such as those in deleting, detaching, or in error state are
+not listed in v1.
+Therefore, you may encounter quota limits errors when creating a new private NIC, even if your visible
+count is below the threshold.
+We strongly recommend migrating to v2alpha1 to see all private NICs.
 
 USAGE:
   scw instance private-nic create [arg=value ...]
@@ -20,6 +25,7 @@ FLAGS:
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

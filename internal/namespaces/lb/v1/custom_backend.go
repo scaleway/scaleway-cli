@@ -99,7 +99,7 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 		BaremetalServerTag        []string
 	}
 
-	c.ArgsType = reflect.TypeOf(lbBackendCreateRequestCustom{})
+	c.ArgsType = reflect.TypeFor[lbBackendCreateRequestCustom]()
 
 	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
 		Name:  "instance-server-id.{index}",
@@ -317,7 +317,7 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 		BaremetalServerTag        []string
 	}
 
-	c.ArgsType = reflect.TypeOf(lbBackendAddBackendServersRequestCustom{})
+	c.ArgsType = reflect.TypeFor[lbBackendAddBackendServersRequestCustom]()
 
 	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
 		Name:  "instance-server-id.{index}",
@@ -508,7 +508,7 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 		BaremetalServerTag        []string
 	}
 
-	c.ArgsType = reflect.TypeOf(lbBackendRemoveBackendServersRequestCustom{})
+	c.ArgsType = reflect.TypeFor[lbBackendRemoveBackendServersRequestCustom]()
 
 	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
 		Name:  "instance-server-id.{index}",
@@ -699,7 +699,7 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 		BaremetalServerTag        []string
 	}
 
-	c.ArgsType = reflect.TypeOf(lbBackendSetBackendServersRequestCustom{})
+	c.ArgsType = reflect.TypeFor[lbBackendSetBackendServersRequestCustom]()
 
 	c.ArgSpecs.AddBefore("server-ip.{index}", &core.ArgSpec{
 		Name:  "instance-server-id.{index}",

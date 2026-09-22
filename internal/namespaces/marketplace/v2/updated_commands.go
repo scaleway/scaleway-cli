@@ -22,7 +22,7 @@ func updateMarketplaceGetImage(c *core.Command) {
 		Label string
 	}
 
-	c.ArgsType = reflect.TypeOf(getImagesArgs{})
+	c.ArgsType = reflect.TypeFor[getImagesArgs]()
 	c.ArgSpecs = core.ArgSpecs{
 		{
 			Name:     "label",

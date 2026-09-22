@@ -134,7 +134,7 @@ func (ts *Tasks) Execute(ctx context.Context, data any) (any, error) {
 	cancelableCtx, cleanCtx := setupContext(ctx)
 	defer cleanCtx()
 
-	logger, err := NewTasksLogger(context.Background(), ts.LoggerMode)
+	logger, err := NewTasksLogger(ctx, ts.LoggerMode)
 	if err != nil {
 		return nil, err
 	}

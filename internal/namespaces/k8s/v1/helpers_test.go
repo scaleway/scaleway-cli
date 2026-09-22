@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	kapsuleVersion    = "1.32.3"
+	kapsuleVersion    = "1.35.3"
 	clusterMetaKey    = "Cluster"
 	kubeconfigMetaKey = "Kubeconfig"
 	poolMetaKey       = "DefaultPool"
@@ -84,6 +84,7 @@ func fetchClusterKubeconfigMetadata(
 				Region:    cluster.Region,
 				ClusterID: cluster.ID,
 				Redacted:  new(redacted),
+				Endpoint:  k8s.GetClusterKubeConfigRequestEndpointPublic,
 			})
 		if err != nil {
 			return err

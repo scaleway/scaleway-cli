@@ -6,13 +6,14 @@ USAGE:
   scw config unset <key ...> [arg=value ...]
 
 ARGS:
-  key   the config config key name to unset (access-key | secret-key | api-url | insecure | default-organization-id | default-project-id | default-region | default-zone | send-telemetry)
+  key   the config config key name to unset (access-key | secret-key | api-url | s3-endpoint | s3-use-path-style | insecure | default-organization-id | default-project-id | default-region | default-zone | send-telemetry | user-agent)
 
 FLAGS:
   -h, --help                help for unset
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

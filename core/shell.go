@@ -119,7 +119,7 @@ func removeOptions(args []string) []string {
 // from additional-volumes.0=hello to additional-volumes.{index}
 // also with multiple indexes pools.0.kubelet-args. to pools.{index}.kubelet-args.{key}
 func OptionToArgSpecName(option string) string {
-	optionName := strings.Split(option, "=")[0]
+	optionName, _, _ := strings.Cut(option, "=")
 
 	if strings.Contains(optionName, ".") {
 		// If option is formatted like "additional-volumes.0"
@@ -270,15 +270,18 @@ func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
 	return prompt.FilterHasPrefix(suggestions, currentArg, true)
 }
 
-// shellAutoComplete is a wrapper for AutoComplete that uses stored commands instead of context
+// shellAutoComplete is a wrapper for AutoComplete that uses stored meta instead of context
 func (c *Completer) shellAutoComplete(
 	leftWords []string,
 	wordToComplete string,
 	rightWords []string,
 ) *AutocompleteResponse {
-	// Create a minimal context with just the commands
+	// Inject the full Meta (carries Client, CliConfig, Commands, ...) so that default
+	// value resolvers such as RegionArgSpec/ZoneArgSpec can access the SDK client.
+	// Using a stripped-down Meta here previously caused a nil pointer dereference in
+	// (*scw.Client).GetDefaultRegion during autocomplete.
 	ctx := context.Background()
-	ctx = InjectMeta(ctx, &Meta{Commands: c.commands})
+	ctx = InjectMeta(ctx, c.meta)
 
 	return AutoComplete(ctx, leftWords, wordToComplete, rightWords)
 }

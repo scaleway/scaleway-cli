@@ -10,12 +10,15 @@ USAGE:
 ARGS:
   [port]         The port number used to wait for browser's response
   [expires-at]   Expiration date of the API key (ISO 8601 or relative like +1y, +90d). Required when your organization enforces max-api-key-expiration-duration.
+  [project-id]   Project ID to use for this login session for the API key created during login
+  [print-url]    Print the login url instead of trying to open the browser automatically
 
 FLAGS:
   -h, --help                help for login
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

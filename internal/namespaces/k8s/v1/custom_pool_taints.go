@@ -35,7 +35,7 @@ func k8sPoolSetTaintCommand() *core.Command {
 		Resource:  "pool",
 		Verb:      "set-taint",
 		Groups:    []string{"taint"},
-		ArgsType:  reflect.TypeOf(k8sPoolSetTaintRequest{}),
+		ArgsType:  reflect.TypeFor[k8sPoolSetTaintRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			request := argsI.(*k8sPoolSetTaintRequest)
 
@@ -125,7 +125,7 @@ func k8sPoolRemoveTaintCommand() *core.Command {
 		Resource:  "pool",
 		Verb:      "remove-taint",
 		Groups:    []string{"taint"},
-		ArgsType:  reflect.TypeOf(k8sPoolRemoveTaintRequest{}),
+		ArgsType:  reflect.TypeFor[k8sPoolRemoveTaintRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			request := argsI.(*k8sPoolRemoveTaintRequest)
 
@@ -197,7 +197,7 @@ func k8sPoolSetStartupTaintCommand() *core.Command {
 		Resource:  "pool",
 		Verb:      "set-startup-taint",
 		Groups:    []string{"taint"},
-		ArgsType:  reflect.TypeOf(k8sPoolSetStartupTaintRequest{}),
+		ArgsType:  reflect.TypeFor[k8sPoolSetStartupTaintRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			request := argsI.(*k8sPoolSetStartupTaintRequest)
 
@@ -287,7 +287,7 @@ func k8sPoolRemoveStartupTaintCommand() *core.Command {
 		Resource:  "pool",
 		Verb:      "remove-startup-taint",
 		Groups:    []string{"taint"},
-		ArgsType:  reflect.TypeOf(k8sPoolRemoveStartupTaintRequest{}),
+		ArgsType:  reflect.TypeFor[k8sPoolRemoveStartupTaintRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			request := argsI.(*k8sPoolRemoveStartupTaintRequest)
 

@@ -150,6 +150,10 @@ func (ct *CommandTool) Execute(
 			rawArgs = append(rawArgs, originalName+"="+valueStr)
 		}
 
+		// Apply default values for missing args (e.g. zone, region).
+		// This mirrors the normal CLI execution path in cobra_utils.go.
+		rawArgs = core.ApplyDefaultValues(ctx, ct.Command.ArgSpecs, args.RawArgs(rawArgs))
+
 		// Unmarshal the args into the struct
 		if unmarshalErr := args.UnmarshalStruct(rawArgs, cmdArgs); unmarshalErr != nil {
 			return &mcp.CallToolResult{
@@ -219,6 +223,13 @@ func (ct *CommandTool) Execute(
 	// Format the result
 	var resultStr string
 	if result != nil {
+		// JSON marshals nil slices as "null". Convert them to empty slices
+		// so list commands return "[]" instead of "null" when there are no results.
+		v := reflect.ValueOf(result)
+		if v.Kind() == reflect.Slice && v.IsNil() {
+			result = reflect.MakeSlice(v.Type(), 0, 0).Interface()
+		}
+
 		if data, err := json.MarshalIndent(result, "", "  "); err == nil {
 			resultStr = string(data)
 		} else {
@@ -228,13 +239,21 @@ func (ct *CommandTool) Execute(
 		resultStr = "Command executed successfully (no output)"
 	}
 
-	return &mcp.CallToolResult{
+	callResult := &mcp.CallToolResult{
 		Content: []mcp.Content{
 			&mcp.TextContent{
 				Text: resultStr,
 			},
 		},
-	}, nil
+	}
+
+	// Set StructuredContent to the raw result value so clients receive
+	// proper JSON data instead of a JSON-encoded string.
+	if result != nil {
+		callResult.StructuredContent = result
+	}
+
+	return callResult, nil
 }
 
 // CommandNameToToolName converts a command to an MCP tool name

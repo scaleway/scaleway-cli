@@ -6,7 +6,7 @@ USAGE:
   scw baremetal server install <server-id ...> [arg=value ...]
 
 EXAMPLES:
-  Install an OS on a  server with a particular SSH key ID
+  Install an OS on a server with a particular SSH key ID
     scw baremetal server install 11111111-1111-1111-1111-111111111111 os-id=11111111-1111-1111-1111-111111111111 ssh-key-ids.0=11111111-1111-1111-1111-111111111111
 
 ARGS:
@@ -49,6 +49,7 @@ FLAGS:
   -w, --wait                wait until the server is ready
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

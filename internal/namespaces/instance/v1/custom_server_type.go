@@ -139,8 +139,24 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 		for _, pcuServerType := range listServersTypesResponse.Products {
 			name := pcuServerType.Properties.Instance.OfferID
 			serverType := &customServerType{
-				Name:        name,
-				HourlyPrice: pcuServerType.Price.RetailPrice,
+				Name: name,
+			}
+
+			if pcuServerType.Price != nil && pcuServerType.Price.RetailPrice != nil {
+				serverType.HourlyPrice = pcuServerType.Price.RetailPrice
+
+				// Some instances types (GPU) are priced per minute, so we convert to an hourly price.
+				// We don't need to handle other duration for now.
+				if pcuServerType.UnitOfMeasure != nil &&
+					pcuServerType.UnitOfMeasure.Unit == product_catalog.PublicCatalogProductUnitOfMeasureCountableUnitMinute &&
+					pcuServerType.UnitOfMeasure.Size == 1 {
+					nanos := moneyToNanos(serverType.HourlyPrice)
+					nanos *= 60
+					serverType.HourlyPrice = newMoneyFromNanos(
+						nanos,
+						serverType.HourlyPrice.CurrencyCode,
+					)
+				}
 			}
 
 			if availability, exists := availabilitiesResponse.Servers[name]; exists {
@@ -189,6 +205,20 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 	}
 
 	return c
+}
+
+// TODO: moneyToNanos() and newMoneyFromNanos() should be moved to the Go SDK.
+
+func moneyToNanos(m *scw.Money) int64 {
+	return m.Units*1e9 + int64(m.Nanos)
+}
+
+func newMoneyFromNanos(value int64, currencyCode string) *scw.Money {
+	return &scw.Money{
+		CurrencyCode: currencyCode,
+		Units:        value / 1e9,
+		Nanos:        int32(value % 1e9),
+	}
 }
 
 func getCompatibleTypesBuilder(c *core.Command) *core.Command {

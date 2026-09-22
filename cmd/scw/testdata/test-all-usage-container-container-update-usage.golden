@@ -28,16 +28,19 @@ ARGS:
   [liveness-probe.failure-threshold]               Number of consecutive failures before considering the container as unhealthy
   [liveness-probe.interval]                        Time interval between checks.
   [liveness-probe.timeout]                         Duration before the check times out.
+  [liveness-probe.tcp]                             Perform TCP check on the container.
   [liveness-probe.http.path]                       HTTP path to perform the check on.
   [startup-probe.failure-threshold]                
   [startup-probe.interval]                         
   [startup-probe.timeout]                          
   [startup-probe.http.path]                        
+  [startup-probe.tcp]                              
   [tags.{index}]                                   Tags of the Serverless Container.
   [private-network-id]                             ID of the Private Network the container is connected to.
   [command.{index}]                                Container command
   [args.{index}]                                   Container arguments
-  [region=fr-par]                                  Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [enable-default-public-endpoint]                 Whether default public endpoint is enabled or not.
+  [region=fr-par]                                  Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
 FLAGS:
   -h, --help                help for update
@@ -45,6 +48,7 @@ FLAGS:
   -w, --wait                wait until the container is ready
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

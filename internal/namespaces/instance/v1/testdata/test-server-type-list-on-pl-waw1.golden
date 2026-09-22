@@ -3,28 +3,28 @@
 NAME              HOURLY PRICE   SUPPORTED STORAGE  CPU  GPU  RAM      ARCH  BANDWIDTH  AVAILABILITY  MAX FILE SYSTEMS
 POP2-2C-8G        € 0.0735       Block              2    0    8.0 GiB  x64   400 MB     available     1
 POP2-4C-16G       € 0.147        Block              4    0    16 GiB   x64   800 MB     available     1
-POP2-48C-192G     € 1.77         Block              48   0    192 GiB  x64   9.6 GB     available     12
 POP2-8C-32G       € 0.29         Block              8    0    32 GiB   x64   1.6 GB     available     2
 POP2-16C-64G      € 0.59         Block              16   0    64 GiB   x64   3.2 GB     available     4
 POP2-32C-128G     € 1.18         Block              32   0    128 GiB  x64   6.4 GB     available     8
+POP2-48C-192G     € 1.77         Block              48   0    192 GiB  x64   9.6 GB     available     12
 POP2-64C-256G     € 2.35         Block              64   0    256 GiB  x64   13 GB      available     16
-PRO2-XXS          € 0.055        Block              2    0    8.0 GiB  x64   350 MB     available     0
-PRO2-XS           € 0.11         Block              4    0    16 GiB   x64   700 MB     available     0
-PRO2-S            € 0.219        Block              8    0    32 GiB   x64   1.5 GB     available     0
-PRO2-M            € 0.438        Block              16   0    64 GiB   x64   3.0 GB     available     0
-PRO2-L            € 0.877        Block              32   0    128 GiB  x64   6.0 GB     available     0
-GP1-XS            € 0.091        Local, Block       4    0    16 GiB   x64   500 MB     available     0
-GP1-S             € 0.187        Local, Block       8    0    32 GiB   x64   800 MB     available     0
-GP1-M             € 0.376        Local, Block       16   0    64 GiB   x64   1.5 GB     available     0
-GP1-L             € 0.759        Local, Block       32   0    128 GiB  x64   5.0 GB     available     0
-GP1-XL            € 1.641        Local, Block       48   0    256 GiB  x64   10 GB      available     0
-PLAY2-PICO        € 0.014        Block              1    0    2.0 GiB  x64   100 MB     available     0
-PLAY2-NANO        € 0.027        Block              2    0    4.0 GiB  x64   200 MB     available     0
-PLAY2-MICRO       € 0.054        Block              4    0    8.0 GiB  x64   400 MB     available     0
-DEV1-S            € 0.0088       Local, Block       2    0    2.0 GiB  x64   200 MB     available     0
-DEV1-M            € 0.0198       Local, Block       3    0    4.0 GiB  x64   300 MB     available     0
-DEV1-L            € 0.042        Local, Block       4    0    8.0 GiB  x64   400 MB     available     0
-DEV1-XL           € 0.063799999  Local, Block       4    0    12 GiB   x64   500 MB     available     0
+PRO2-XXS          € 0.0561       Block              2    0    8.0 GiB  x64   350 MB     available     0
+PRO2-XS           € 0.1122       Block              4    0    16 GiB   x64   700 MB     available     0
+PRO2-S            € 0.22338      Block              8    0    32 GiB   x64   1.5 GB     available     0
+PRO2-M            € 0.44676      Block              16   0    64 GiB   x64   3.0 GB     available     0
+PRO2-L            € 0.89454      Block              32   0    128 GiB  x64   6.0 GB     available     0
+GP1-XS            € 0.09282      Local, Block       4    0    16 GiB   x64   500 MB     available     0
+GP1-S             € 0.19074      Local, Block       8    0    32 GiB   x64   800 MB     available     0
+GP1-M             € 0.38352      Local, Block       16   0    64 GiB   x64   1.5 GB     available     0
+GP1-L             € 0.77418      Local, Block       32   0    128 GiB  x64   5.0 GB     available     0
+GP1-XL            € 1.67382      Local, Block       48   0    256 GiB  x64   10 GB      available     0
+PLAY2-PICO        € 0.01428      Block              1    0    2.0 GiB  x64   100 MB     available     0
+PLAY2-NANO        € 0.02754      Block              2    0    4.0 GiB  x64   200 MB     available     0
+PLAY2-MICRO       € 0.05508      Block              4    0    8.0 GiB  x64   400 MB     available     0
+DEV1-S            € 0.008976     Local, Block       2    0    2.0 GiB  x64   200 MB     available     0
+DEV1-M            € 0.020196     Local, Block       3    0    4.0 GiB  x64   300 MB     available     0
+DEV1-L            € 0.04284      Local, Block       4    0    8.0 GiB  x64   400 MB     available     0
+DEV1-XL           € 0.065075999  Local, Block       4    0    12 GiB   x64   500 MB     available     0
 POP2-HC-2C-4G     € 0.0532       Block              2    0    4.0 GiB  x64   400 MB     available     1
 POP2-HC-4C-8G     € 0.1064       Block              4    0    8.0 GiB  x64   800 MB     available     1
 POP2-HC-8C-16G    € 0.2128       Block              8    0    16 GiB   x64   1.6 GB     available     2
@@ -70,23 +70,6 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "bandwidth": 800000000,
     "availability": "available",
     "max_file_systems": 1
-  },
-  {
-    "name": "POP2-48C-192G",
-    "hourly_price": {
-      "currency_code": "EUR",
-      "units": 1,
-      "nanos": 770000000
-    },
-    "local_volume_max_size": 0,
-    "supported_storage": "Block",
-    "cpu": 48,
-    "gpu": 0,
-    "ram": 206158430208,
-    "arch": "x64",
-    "bandwidth": 9600000000,
-    "availability": "available",
-    "max_file_systems": 12
   },
   {
     "name": "POP2-8C-32G",
@@ -140,6 +123,23 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "max_file_systems": 8
   },
   {
+    "name": "POP2-48C-192G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 1,
+      "nanos": 770000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 48,
+    "gpu": 0,
+    "ram": 206158430208,
+    "arch": "x64",
+    "bandwidth": 9600000000,
+    "availability": "available",
+    "max_file_systems": 12
+  },
+  {
     "name": "POP2-64C-256G",
     "hourly_price": {
       "currency_code": "EUR",
@@ -161,7 +161,7 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 55000000
+      "nanos": 56100000
     },
     "local_volume_max_size": 0,
     "supported_storage": "Block",
@@ -178,7 +178,7 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 110000000
+      "nanos": 112200000
     },
     "local_volume_max_size": 0,
     "supported_storage": "Block",
@@ -195,7 +195,7 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 219000000
+      "nanos": 223380000
     },
     "local_volume_max_size": 0,
     "supported_storage": "Block",
@@ -212,7 +212,7 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 438000000
+      "nanos": 446760000
     },
     "local_volume_max_size": 0,
     "supported_storage": "Block",
@@ -229,7 +229,7 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 877000000
+      "nanos": 894540000
     },
     "local_volume_max_size": 0,
     "supported_storage": "Block",
@@ -246,7 +246,7 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 91000000
+      "nanos": 92820000
     },
     "local_volume_max_size": 150000000000,
     "supported_storage": "Local, Block",
@@ -263,7 +263,7 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 187000000
+      "nanos": 190740000
     },
     "local_volume_max_size": 300000000000,
     "supported_storage": "Local, Block",
@@ -280,7 +280,7 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 376000000
+      "nanos": 383520000
     },
     "local_volume_max_size": 600000000000,
     "supported_storage": "Local, Block",
@@ -297,7 +297,7 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 759000000
+      "nanos": 774180000
     },
     "local_volume_max_size": 600000000000,
     "supported_storage": "Local, Block",
@@ -314,7 +314,7 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "hourly_price": {
       "currency_code": "EUR",
       "units": 1,
-      "nanos": 641000000
+      "nanos": 673820000
     },
     "local_volume_max_size": 600000000000,
     "supported_storage": "Local, Block",
@@ -331,7 +331,7 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 14000000
+      "nanos": 14280000
     },
     "local_volume_max_size": 0,
     "supported_storage": "Block",
@@ -348,7 +348,7 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 27000000
+      "nanos": 27540000
     },
     "local_volume_max_size": 0,
     "supported_storage": "Block",
@@ -365,7 +365,7 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 54000000
+      "nanos": 55080000
     },
     "local_volume_max_size": 0,
     "supported_storage": "Block",
@@ -382,7 +382,7 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 8800000
+      "nanos": 8976000
     },
     "local_volume_max_size": 20000000000,
     "supported_storage": "Local, Block",
@@ -399,7 +399,7 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 19800000
+      "nanos": 20196000
     },
     "local_volume_max_size": 40000000000,
     "supported_storage": "Local, Block",
@@ -416,7 +416,7 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 42000000
+      "nanos": 42840000
     },
     "local_volume_max_size": 80000000000,
     "supported_storage": "Local, Block",
@@ -433,7 +433,7 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 63799999
+      "nanos": 65075999
     },
     "local_volume_max_size": 120000000000,
     "supported_storage": "Local, Block",

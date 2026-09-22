@@ -6,10 +6,13 @@ USAGE:
   scw ipam ip <command>
 
 AVAILABLE COMMANDS:
+  attach      Attach private IP to custom resource
   create      Reserve a new IP
   delete      Release an IP
+  detach      Detach private IP from a custom resource
   get         Get an IP
   list        List existing IPs
+  move        Move private IP to a custom resource
   update      Update an IP
 
 FLAGS:
@@ -17,6 +20,7 @@ FLAGS:
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

@@ -17,7 +17,7 @@ func jobsRunWait() *core.Command {
 		Resource:  "run",
 		Verb:      "wait",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.WaitForJobRunRequest{}),
+		ArgsType: reflect.TypeFor[jobs.WaitForJobRunRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-run-id",

@@ -1,16 +1,19 @@
 package commands
 
 import (
-	"os"
+	"context"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	accountv3 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v3"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/alias"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/annotations/v1"
 	applesilicon "github.com/scaleway/scaleway-cli/v2/internal/namespaces/applesilicon/v1alpha1"
 	audit_trail "github.com/scaleway/scaleway-cli/v2/internal/namespaces/audit_trail/v1alpha1"
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
+	autoscaling "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autoscaling/v1alpha2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
-	billing "github.com/scaleway/scaleway-cli/v2/internal/namespaces/billing/v2beta1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/billing/v2"
+	billingV2beta1 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/billing/v2beta1"
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1"
 	configNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/config"
@@ -28,20 +31,23 @@ import (
 	function "github.com/scaleway/scaleway-cli/v2/internal/namespaces/function/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/help"
 	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
-	inference "github.com/scaleway/scaleway-cli/v2/internal/namespaces/inference/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/inference/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/info"
 	initNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	instanceV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v2alpha1"
 	interlink "github.com/scaleway/scaleway-cli/v2/internal/namespaces/interlink/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/iot/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipam/v1"
 	jobs "github.com/scaleway/scaleway-cli/v2/internal/namespaces/jobs/v1alpha2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
+	kafka "github.com/scaleway/scaleway-cli/v2/internal/namespaces/kafka/v1alpha1"
 	keymanager "github.com/scaleway/scaleway-cli/v2/internal/namespaces/key_manager/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/login"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v2"
-	mcp "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp"
+	messageq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/messageq/v1alpha1"
 	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
 	mongodb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mongodb/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
@@ -61,21 +67,18 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
-
-// Enable beta in the code when products are in beta
-var beta = os.Getenv(scw.ScwEnableBeta) == "true"
 
 // GetCommands returns a list of all commands in the CLI.
 // It is used by both scw and scw-qa.
 // We can not put it in `core` package as it would result in a import cycle `core` -> `namespaces/autocomplete` -> `core`.
-func GetCommands() *core.Commands {
+func GetCommands(ctx context.Context) *core.Commands {
 	// Import all commands available in CLI from various packages.
 	// NB: Merge order impacts scw usage sort.
 	commands := core.NewCommandsMerge(
 		iam.GetCommands(),
 		instance.GetCommands(),
+		instanceV2.GetCommands(),
 		baremetal.GetCommands(),
 		cockpit.GetCommands(),
 		k8s.GetCommands(),
@@ -83,6 +86,7 @@ func GetCommands() *core.Commands {
 		initNamespace.GetCommands(),
 		configNamespace.GetCommands(),
 		accountv3.GetCommands(),
+		annotations.GetCommands(),
 		autocompleteNamespace.GetCommands(),
 		object.GetCommands(),
 		versionNamespace.GetCommands(),
@@ -110,7 +114,7 @@ func GetCommands() *core.Commands {
 		tem.GetCommands(),
 		alias.GetCommands(),
 		webhosting.GetCommands(),
-		billing.GetCommands(),
+		billingV2beta1.GetCommands(),
 		mnq.GetCommands(),
 		block.GetCommands(),
 		ipam.GetCommands(),
@@ -130,9 +134,13 @@ func GetCommands() *core.Commands {
 		product_catalog.GetCommands(),
 		mcp.GetCommands(),
 		search.GetCommands(),
+		billing.GetCommands(),
+		kafka.GetCommands(),
+		autoscaling.GetCommands(),
+		messageq.GetCommands(),
 	)
 
-	if beta {
+	if core.ExtractBetaMode(ctx) {
 		commands.Merge(
 			dedibox.GetCommands(),
 		)

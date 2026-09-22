@@ -5,8 +5,7 @@
 <p align="center"><img width="50%" src="cli-artwork.png" /></p>
 
 <p align="center">
-  <a href="https://circleci.com/gh/scaleway/scaleway-cli/tree/v2"><img src="https://circleci.com/gh/scaleway/scaleway-cli/tree/v2.svg?style=shield" alt="CircleCI" /></a>
-  <a href="https://goreportcard.com/report/github.com/scaleway/scaleway-cli"><img src="https://goreportcard.com/badge/scaleway/scaleway-cli" alt="GoReportCard" /></a> <!-- GoReportCard do not support branches. -->
+  <a href="https://github.com/scaleway/scaleway-cli/actions/workflows/ci.yaml"><img src="https://github.com/scaleway/scaleway-cli/actions/workflows/ci.yaml/badge.svg?branch=main" alt="CI" /></a>
 </p>
 
 Scaleway CLI is a tool to help you pilot your Scaleway infrastructure directly from your terminal.
@@ -53,7 +52,7 @@ You just have to download the binary compatible with your platform to a director
 ##### Linux
 
 ```bash
-curl -s https://raw.githubusercontent.com/scaleway/scaleway-cli/master/scripts/get.sh | sh
+curl -s https://raw.githubusercontent.com/scaleway/scaleway-cli/main/scripts/get.sh | sh
 ```
 
 ##### Windows
@@ -69,7 +68,7 @@ You can use the CLI as you would run any Docker image:
 docker run -i --rm scaleway/cli:latest
 ```
 
-See more in-depth information about running the CLI in Docker [here](https://github.com/scaleway/scaleway-cli/blob/master/docs/docker.md).
+See more in-depth information about running the CLI in Docker [here](https://github.com/scaleway/scaleway-cli/blob/main/docs/docker.md).
 
 # Getting Started
 
@@ -85,7 +84,7 @@ It will set up your profile, the authentication, and the auto-completion.
 
 ## Basic commands
 
-```
+```shell
 # Create an instance server
 scw instance server create type=DEV1-S image=ubuntu_focal zone=fr-par-1 tags.0="scw-cli"
 
@@ -107,7 +106,7 @@ To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 
 ### Build Locally
 
-If you have a >= Go 1.13 environment, you can install the `HEAD` version to test the latest features or to [contribute](https://github.com/scaleway/scaleway-cli/blob/master/.github/CONTRIBUTING.md).
+If you have a >= Go 1.27 environment, you can install the `HEAD` version to test the latest features or to [contribute](https://github.com/scaleway/scaleway-cli/blob/main/.github/CONTRIBUTING.md).
 Note that this development version could include bugs, use [tagged releases](https://github.com/scaleway/scaleway-cli/releases/latest) if you need stability.
 
 ```bash
@@ -130,12 +129,12 @@ Once built, you can then use the CLI as you would run any image:
 docker run -i --rm scaleway/cli
 ```
 
-See more in-depth information about running the CLI in Docker [here](https://github.com/scaleway/scaleway-cli/blob/master/docs/docker.md)
+See more in-depth information about running the CLI in Docker [here](https://github.com/scaleway/scaleway-cli/blob/main/docs/docker.md)
 
 # Development
 
 This repository is at its early stage and is still in active development.
-If you are looking for a way to contribute please read [CONTRIBUTING.md](https://github.com/scaleway/scaleway-cli/blob/master/.github/CONTRIBUTING.md).
+If you are looking for a way to contribute please read [CONTRIBUTING.md](https://github.com/scaleway/scaleway-cli/blob/main/.github/CONTRIBUTING.md).
 
 # Reach Us
 

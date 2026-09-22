@@ -6,14 +6,18 @@ USAGE:
   scw object <command>
 
 AVAILABLE COMMANDS:
-  bucket      Manage S3 buckets
-  config      Manage configuration files for popular S3 tools
+  bucket           Manage S3 buckets
+  bucket-cors      Manage S3 bucket CORS
+  bucket-lifecycle Manage S3 buckets' lifecycle configuration
+  bucket-policy    Manage S3 bucket policies
+  config           Manage configuration files for popular S3 tools
 
 FLAGS:
   -h, --help                help for object
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

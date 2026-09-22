@@ -20,7 +20,7 @@ func shellCommand() *core.Command {
 		Short:                "Start shell mode",
 		Namespace:            "shell",
 		AllowAnonymousClient: false,
-		ArgsType:             reflect.TypeOf(args.RawArgs{}),
+		ArgsType:             reflect.TypeFor[args.RawArgs](),
 		Run: func(_ context.Context, _ any) (any, error) {
 			return nil, nil
 		},

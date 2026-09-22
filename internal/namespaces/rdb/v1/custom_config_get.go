@@ -47,7 +47,7 @@ Use private-network=true when the instance has no public endpoint and is reachab
 from resources attached to its Private Network.
 Replace YOUR_PASSWORD with your database user password, or use environment variables
 where suggested in the snippet.`,
-		ArgsType: reflect.TypeOf(rdbConfigGetRequest{}),
+		ArgsType: reflect.TypeFor[rdbConfigGetRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",

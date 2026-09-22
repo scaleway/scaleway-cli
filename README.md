@@ -1,8 +1,7 @@
 <p align="center"><img width="50%" src="docs/static_files/cli-artwork.png" /></p>
 
 <p align="center">
-  <a href="https://circleci.com/gh/scaleway/scaleway-cli/tree/v2"><img src="https://circleci.com/gh/scaleway/scaleway-cli/tree/v2.svg?style=shield" alt="CircleCI" /></a>
-  <a href="https://goreportcard.com/report/github.com/scaleway/scaleway-cli"><img src="https://goreportcard.com/badge/scaleway/scaleway-cli" alt="GoReportCard" /></a> <!-- GoReportCard do not support branches. -->
+  <a href="https://github.com/scaleway/scaleway-cli/actions/workflows/ci.yaml"><img src="https://github.com/scaleway/scaleway-cli/actions/workflows/ci.yaml/badge.svg?branch=main" alt="CI" /></a>
 </p>
 
 # Scaleway CLI (v2)
@@ -53,7 +52,7 @@ You just have to download the binary compatible with your platform to a director
 #### Linux
 
 ```bash
-curl -s https://raw.githubusercontent.com/scaleway/scaleway-cli/master/scripts/get.sh | sh
+curl -s https://raw.githubusercontent.com/scaleway/scaleway-cli/main/scripts/get.sh | sh
 ```
 
 #### Windows
@@ -86,7 +85,7 @@ NB: you'll need to have an **API-key** (access-key + access-secret), so be sure 
 
 ## Basic commands
 
-```
+```shell
 # Create an instance server
 scw instance server create type=DEV1-S image=ubuntu_noble zone=fr-par-1 tags.0="scw-cli"
 
@@ -134,7 +133,7 @@ To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 | `mongodb`      | Managed db Mongodb API                  | [CLI](./docs/commands/mongodb.md) / [API](https://www.scaleway.com/en/developers/api/managed-database-mongodb/)   |
 | `object`       | Object-storage utils                    | [CLI](./docs/commands/object.md) / [API](https://www.scaleway.com/en/docs/object-storage-feature/)                |
 | `rdb`          | Database RDB API                        | [CLI](./docs/commands/rdb.md) / [API](https://www.scaleway.com/en/developers/api/managed-database-postgre-mysql/) |
-| `redis`        | Redis API                               | [CLI](./docs/commands/redis.md) / [API](https://www.scaleway.com/en/developers/api/managed-database-redis// )     |
+| `redis`        | Redis API                               | [CLI](./docs/commands/redis.md) / [API](https://www.scaleway.com/en/developers/api/managed-database-redis/)       |
 | `registry`     | Container registry API                  | [CLI](./docs/commands/registry.md) / [API](https://www.scaleway.com/en/developers/api/registry/)                  |
 | `secret`       | Secret manager API                      | [CLI](./docs/commands/secret.md) / [API](https://www.scaleway.com/en/developers/api/secret-manager/)              |
 | `shell`        | Start Shell mode                        | [CLI](./docs/commands/shell.md)                                                                                   |
@@ -146,14 +145,23 @@ To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 
 ### Build Locally
 
-If you have a >= Go 1.13 environment, you can install the `HEAD` version to test the latest features or to [contribute](./.github/CONTRIBUTING.md).
+The recommended way to build and develop the CLI is with [mise](https://mise.jdx.dev/).
+Install mise, then run `mise install` to fetch the required tools (Go, golangci-lint, gotestsum, etc.).
+
+```bash
+mise install               # install required tools
+mise run build:cli         # build the CLI binary
+```
+
+Run `mise tasks ls` to list all available tasks, and `mise run <task> --help` to see the flags for a specific task.
+See [AGENTS.md](AGENTS.md) for a complete overview of build, test, and lint commands.
+
+Alternatively, if you have a >= Go 1.27 environment, you can install the `HEAD` version to test the latest features or to [contribute](./.github/CONTRIBUTING.md).
 Note that this development version could include bugs, use [tagged releases](https://github.com/scaleway/scaleway-cli/releases/latest) if you need stability.
 
 ```bash
 go install github.com/scaleway/scaleway-cli/v2/cmd/scw@latest
 ```
-
-Dependencies: We only use go [Modules](https://github.com/golang/go/wiki/Modules) with vendoring.
 
 ### Build with Docker
 

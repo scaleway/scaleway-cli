@@ -109,7 +109,9 @@ func renderConfigTemplate(configType rdbConfigType, info *ConnectionInfo) (core.
 	templateName := configTemplateName(configType, engineSuffix)
 
 	var buf bytes.Buffer
-	if err := configTemplates.ExecuteTemplate(&buf, templateName, info.configTemplateData()); err != nil {
+
+	err = configTemplates.ExecuteTemplate(&buf, templateName, info.configTemplateData())
+	if err != nil {
 		return core.RawResult(""), fmt.Errorf("failed to render template %q: %w", templateName, err)
 	}
 

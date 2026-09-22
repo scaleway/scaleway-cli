@@ -100,7 +100,7 @@ func logDownloadCommand() *core.Command {
 		Namespace: "rdb",
 		Resource:  "log",
 		Verb:      "download",
-		ArgsType:  reflect.TypeOf(logDownloadArgs{}),
+		ArgsType:  reflect.TypeFor[logDownloadArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",

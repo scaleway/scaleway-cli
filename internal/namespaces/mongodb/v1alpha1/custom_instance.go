@@ -138,7 +138,7 @@ func instanceWaitCommand() *core.Command {
 		Resource:  "instance",
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
+		ArgsType:  reflect.TypeFor[serverWaitRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := mongodb.NewAPI(core.ExtractClient(ctx))
 

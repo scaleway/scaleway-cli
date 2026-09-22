@@ -101,8 +101,8 @@ var testRenderHelpers = map[string]any{
 type TestMetadata map[string]any
 
 // Render renders a go template using where content of Meta can be used
-func (meta TestMetadata) Render(strTpl string) string {
-	t := meta["t"].(*testing.T)
+func (meta *TestMetadata) Render(strTpl string) string {
+	t := (*meta)["t"].(*testing.T)
 	buf := &bytes.Buffer{}
 	require.NoError(
 		t,
@@ -308,6 +308,7 @@ func createTestClient(
 var DefaultRetryInterval *time.Duration
 
 var foldersUsingVCRv4 = []string{
+	"container",
 	"instance",
 	"k8s",
 	"marketplace",
@@ -777,7 +778,11 @@ func TestCheckGolden() TestCheck {
 
 		expected, err := os.ReadFile(goldenPath)
 		require.NoError(t, err, "expected to find golden file %s", goldenPath)
-		assert.Equal(t, string(expected), actual)
+		assert.Equal(
+			t,
+			uniformTimestampsWithOffSet(string(expected)),
+			uniformTimestampsWithOffSet(actual),
+		)
 	}
 }
 
@@ -834,6 +839,14 @@ func TestCheckStdout(stdout string) TestCheck {
 	}
 }
 
+// TestCheckStderrContains asserts stderr using string
+func TestCheckStderrContains(stderr string) TestCheck {
+	return func(t *testing.T, ctx *CheckFuncCtx) {
+		t.Helper()
+		assert.Contains(t, string(ctx.Stderr), stderr, "Invalid stderr")
+	}
+}
+
 func OverrideExecSimple(cmdStr string, exitCode int) OverrideExecTestFunc {
 	return func(ctx *ExecFuncCtx, cmd *exec.Cmd) (int, error) {
 		assert.Equal(ctx.T, ctx.Meta.Render(cmdStr), strings.Join(cmd.Args, " "))
@@ -842,11 +855,23 @@ func OverrideExecSimple(cmdStr string, exitCode int) OverrideExecTestFunc {
 	}
 }
 
-var regTimestamp = regexp.MustCompile(`(\d+-\d+-\d+T\d+:\d+:\d+\.\d+Z)`)
+var (
+	regTimestamp = regexp.MustCompile(
+		`(\d+-\d+-\d+T\d+:\d+:\d+\.\d+Z)`,
+	) // 1970-01-01T00:00:00.0Z
+	regTimestampWithOffset = regexp.MustCompile(
+		`(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+[+-]\d{2}:\d{2})`,
+	) // 1970-01-01T00:00:00.000000000+00:00
+)
 
 // uniformTimestamps replaces all timestamp to the date "1970-01-01T00:00:00.0Z"
 func uniformTimestamps(input string) string {
 	return regTimestamp.ReplaceAllString(input, "1970-01-01T00:00:00.0Z")
+}
+
+// uniformTimestampsOffSet replaces all timestamps of the form "2026-06-22T12:40:57.180528946+02:00" to the date "1970-01-01T00:00:00.000000000+00:00"
+func uniformTimestampsWithOffSet(input string) string {
+	return regTimestampWithOffset.ReplaceAllString(input, "1970-01-01T00:00:00.0Z")
 }
 
 func validateJSONGolden(t *testing.T, jsonStdout, jsonStderr *bytes.Buffer) {

@@ -30,73 +30,83 @@ func sampleMySQLConnectionInfo() *rdb.ConnectionInfo {
 
 func Test_RenderPHPConfig(t *testing.T) {
 	t.Run("postgresql", func(t *testing.T) {
-		got := string(rdb.RenderPHPConfig(samplePostgresConnectionInfo()))
+		got, err := rdb.RenderPHPConfig(samplePostgresConnectionInfo())
+		require.NoError(t, err)
 		assert.Contains(
 			t,
-			got,
+			string(got),
 			`pg_connect("host=163.172.166.66 port=21441 dbname=mydb user=myuser password=YOUR_PASSWORD")`,
 		)
 	})
 
 	t.Run("mysql", func(t *testing.T) {
-		got := string(rdb.RenderPHPConfig(sampleMySQLConnectionInfo()))
-		assert.Contains(t, got, `mysql:host=163.172.166.66;port=3306;dbname=mydb`)
-		assert.Contains(t, got, `new PDO($dsn, "myuser", "YOUR_PASSWORD")`)
+		got, err := rdb.RenderPHPConfig(sampleMySQLConnectionInfo())
+		require.NoError(t, err)
+		assert.Contains(t, string(got), `mysql:host=163.172.166.66;port=3306;dbname=mydb`)
+		assert.Contains(t, string(got), `new PDO($dsn, "myuser", "YOUR_PASSWORD")`)
 	})
 
 	t.Run("private network comment", func(t *testing.T) {
 		info := samplePostgresConnectionInfo()
 		info.PrivateNetworkID = "11111111-1111-1111-1111-111111111111"
-		got := string(rdb.RenderPHPConfig(info))
-		assert.Contains(t, got, "private network 11111111-1111-1111-1111-111111111111")
+		got, err := rdb.RenderPHPConfig(info)
+		require.NoError(t, err)
+		assert.Contains(t, string(got), "private network 11111111-1111-1111-1111-111111111111")
 	})
 }
 
 func Test_RenderNodeConfig(t *testing.T) {
-	got := string(rdb.RenderNodeConfig(samplePostgresConnectionInfo()))
-	assert.Contains(t, got, `require("pg")`)
-	assert.Contains(t, got, `host: "163.172.166.66"`)
-	assert.Contains(t, got, `password: process.env.RDB_PASSWORD`)
+	got, err := rdb.RenderNodeConfig(samplePostgresConnectionInfo())
+	require.NoError(t, err)
+	assert.Contains(t, string(got), `require("pg")`)
+	assert.Contains(t, string(got), `host: "163.172.166.66"`)
+	assert.Contains(t, string(got), `password: process.env.RDB_PASSWORD`)
 }
 
 func Test_RenderTypeScriptConfig(t *testing.T) {
-	got := string(rdb.RenderTypeScriptConfig(samplePostgresConnectionInfo()))
-	assert.Contains(t, got, `import { Pool } from "pg"`)
-	assert.Contains(t, got, `database: "mydb"`)
+	got, err := rdb.RenderTypeScriptConfig(samplePostgresConnectionInfo())
+	require.NoError(t, err)
+	assert.Contains(t, string(got), `import { Pool } from "pg"`)
+	assert.Contains(t, string(got), `database: "mydb"`)
 }
 
 func Test_RenderPythonConfig(t *testing.T) {
 	t.Run("postgresql", func(t *testing.T) {
-		got := string(rdb.RenderPythonConfig(samplePostgresConnectionInfo()))
-		assert.Contains(t, got, "import psycopg2")
-		assert.Contains(t, got, `sslmode="require"`)
+		got, err := rdb.RenderPythonConfig(samplePostgresConnectionInfo())
+		require.NoError(t, err)
+		assert.Contains(t, string(got), "import psycopg2")
+		assert.Contains(t, string(got), `sslmode="require"`)
 	})
 
 	t.Run("mysql", func(t *testing.T) {
-		got := string(rdb.RenderPythonConfig(sampleMySQLConnectionInfo()))
-		assert.Contains(t, got, "import mysql.connector")
+		got, err := rdb.RenderPythonConfig(sampleMySQLConnectionInfo())
+		require.NoError(t, err)
+		assert.Contains(t, string(got), "import mysql.connector")
 	})
 }
 
 func Test_RenderGoConfig(t *testing.T) {
 	t.Run("postgresql", func(t *testing.T) {
-		got := string(rdb.RenderGoConfig(samplePostgresConnectionInfo()))
-		assert.Contains(t, got, `github.com/jackc/pgx/v5/stdlib`)
-		assert.Contains(t, got, "sslmode=require")
+		got, err := rdb.RenderGoConfig(samplePostgresConnectionInfo())
+		require.NoError(t, err)
+		assert.Contains(t, string(got), `github.com/jackc/pgx/v5/stdlib`)
+		assert.Contains(t, string(got), "sslmode=require")
 	})
 
 	t.Run("mysql", func(t *testing.T) {
-		got := string(rdb.RenderGoConfig(sampleMySQLConnectionInfo()))
-		assert.Contains(t, got, `github.com/go-sql-driver/mysql`)
+		got, err := rdb.RenderGoConfig(sampleMySQLConnectionInfo())
+		require.NoError(t, err)
+		assert.Contains(t, string(got), `github.com/go-sql-driver/mysql`)
 	})
 }
 
 func Test_RenderRustConfig(t *testing.T) {
-	got := string(rdb.RenderRustConfig(samplePostgresConnectionInfo()))
-	assert.Contains(t, got, "sqlx::postgres::PgPoolOptions")
+	got, err := rdb.RenderRustConfig(samplePostgresConnectionInfo())
+	require.NoError(t, err)
+	assert.Contains(t, string(got), "sqlx::postgres::PgPoolOptions")
 	require.Contains(
 		t,
-		got,
+		string(got),
 		"postgres://myuser:YOUR_PASSWORD@163.172.166.66:21441/mydb?sslmode=require",
 	)
 }

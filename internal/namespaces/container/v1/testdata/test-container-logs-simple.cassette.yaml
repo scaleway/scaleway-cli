@@ -1,0 +1,985 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 161
+        host: api.scaleway.com
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"cli-ns-tender-hellman","environment_variables":null,"secret_environment_variables":null,"tags":null}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 408
+        body: '{"id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "name":"cli-ns-tender-hellman", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "description":"", "status":"creating", "environment_variables":{}, "secret_environment_variables":{}, "tags":[], "created_at":"2026-08-07T16:32:25.702518Z", "updated_at":"2026-08-07T16:32:25.702518Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "408"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:32:26 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 285de6b0-3d07-447c-bef9-45a7587178b8
+        status: 200 OK
+        code: 200
+        duration: 1.387097856s
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/47002ad0-6b74-4d41-bb3e-63499bdb638d
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 408
+        body: '{"id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "name":"cli-ns-tender-hellman", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "description":"", "status":"creating", "environment_variables":{}, "secret_environment_variables":{}, "tags":[], "created_at":"2026-08-07T16:32:25.702518Z", "updated_at":"2026-08-07T16:32:25.702518Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "408"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:32:26 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 5fb71b5b-4f44-4d68-92b3-03a181ec9c2d
+        status: 200 OK
+        code: 200
+        duration: 38.283327ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/47002ad0-6b74-4d41-bb3e-63499bdb638d
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 405
+        body: '{"id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "name":"cli-ns-tender-hellman", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "description":"", "status":"ready", "environment_variables":{}, "secret_environment_variables":{}, "tags":[], "created_at":"2026-08-07T16:32:25.702518Z", "updated_at":"2026-08-07T16:32:25.702518Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "405"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:32:41 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - c2b1ebea-cc27-460b-9fbd-78bb14b8370f
+        status: 200 OK
+        code: 200
+        duration: 42.192381ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 325
+        host: api.scaleway.com
+        body: '{"namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d","name":"cli-test-logs-relaxed-engelbart","environment_variables":null,"secret_environment_variables":null,"privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","tags":null,"command":null,"args":null}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:32:41 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 154ee6f8-13e0-4746-a0fc-647b6ce7e398
+        status: 200 OK
+        code: 200
+        duration: 207.596761ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:32:41 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - f94e91dd-3ed7-4597-85e6-e3b76eb39cbf
+        status: 200 OK
+        code: 200
+        duration: 37.960058ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:32:56 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 5a1faca0-ec4f-42a6-9aab-4b10ad36e4b2
+        status: 200 OK
+        code: 200
+        duration: 53.519708ms
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:33:11 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 669273a9-7298-40c6-a702-4bc3dec886ad
+        status: 200 OK
+        code: 200
+        duration: 38.925655ms
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:33:26 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 0115a59f-3427-4343-ad0a-88ea19b5b58b
+        status: 200 OK
+        code: 200
+        duration: 58.291935ms
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:33:41 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 2bdbe10a-14c6-4221-80ed-4359376e7a43
+        status: 200 OK
+        code: 200
+        duration: 41.244836ms
+    - id: 9
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:33:56 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - da0551bc-d129-42e6-9e62-f77f460dd3d5
+        status: 200 OK
+        code: 200
+        duration: 48.540338ms
+    - id: 10
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:34:12 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 641e654c-0958-465a-beaa-37f628d0eaaf
+        status: 200 OK
+        code: 200
+        duration: 60.444451ms
+    - id: 11
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:34:27 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - e90fa8b2-f69c-44ed-821f-556475b0989d
+        status: 200 OK
+        code: 200
+        duration: 36.411774ms
+    - id: 12
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:34:42 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 4025bdba-628e-4301-98c2-62ffe4361a6d
+        status: 200 OK
+        code: 200
+        duration: 41.774861ms
+    - id: 13
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:34:57 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 968ac4c6-5fd0-4be5-bc59-18878b2a05de
+        status: 200 OK
+        code: 200
+        duration: 52.123587ms
+    - id: 14
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:35:12 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 8df8053e-ad1c-46b7-9fd0-e49711a90b8d
+        status: 200 OK
+        code: 200
+        duration: 50.66381ms
+    - id: 15
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:35:27 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 8b220f4c-01c4-49bf-990d-b2ddd7e84315
+        status: 200 OK
+        code: 200
+        duration: 42.564696ms
+    - id: 16
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:35:42 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 7a4fea1b-87a5-4aa8-87d8-81ab19c6a748
+        status: 200 OK
+        code: 200
+        duration: 45.46486ms
+    - id: 17
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:35:57 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 14d24856-746d-4377-a9e1-1ab7d5bb2d23
+        status: 200 OK
+        code: 200
+        duration: 44.296022ms
+    - id: 18
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:36:12 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - e2930e28-475e-4354-9a3b-798d25529d03
+        status: 200 OK
+        code: 200
+        duration: 132.520192ms
+    - id: 19
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:36:27 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 199093c2-bfe5-4e27-b351-6d505a3d7f45
+        status: 200 OK
+        code: 200
+        duration: 39.736685ms
+    - id: 20
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:36:42 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 8994b20f-bda1-4be5-9995-12a6588656dd
+        status: 200 OK
+        code: 200
+        duration: 206.978155ms
+    - id: 21
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:36:57 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 00deed02-8756-406f-8cb3-62d3cc30e635
+        status: 200 OK
+        code: 200
+        duration: 43.642843ms
+    - id: 22
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:37:12 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 93f85c94-161e-4d87-9f1b-4b48536cab2c
+        status: 200 OK
+        code: 200
+        duration: 30.071073ms
+    - id: 23
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 942
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"creating", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:32:41.447197Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "942"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:37:28 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 1334fd16-007e-469b-947d-851326fe41f0
+        status: 200 OK
+        code: 200
+        duration: 66.728004ms
+    - id: 24
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ec41deb3-5024-4f27-8588-721ec26b6faa
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 1013
+        body: '{"id":"ec41deb3-5024-4f27-8588-721ec26b6faa", "name":"cli-test-logs-relaxed-engelbart", "namespace_id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "description":"", "status":"error", "error_message":"Container is unable to start OR is not listening on port 8080", "created_at":"2026-08-07T16:32:41.447197Z", "updated_at":"2026-08-07T16:37:42Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"hello-world:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1013"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:37:43 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 70ad6902-ba0e-4b2e-903e-edd22a25692a
+        status: 200 OK
+        code: 200
+        duration: 51.110617ms
+    - id: 25
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        form:
+            order_by:
+                - created_at_asc
+            origin:
+                - scaleway
+            page:
+                - "1"
+            project_id:
+                - fa1e3217-dc80-42ac-85c3-3f034b78b552
+            types:
+                - logs
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/cockpit/v1/regions/fr-par/data-sources?order_by=created_at_asc&origin=scaleway&page=1&project_id=fa1e3217-dc80-42ac-85c3-3f034b78b552&types=logs
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 470
+        body: '{"total_count":1, "data_sources":[{"id":"70f266df-eee2-4689-9c46-3284861909c9", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"Scaleway Logs", "url":"https://70f266df-eee2-4689-9c46-3284861909c9.logs.cockpit.fr-par.scw.cloud", "type":"logs", "origin":"scaleway", "created_at":"2024-04-17T14:54:47.534704Z", "updated_at":"2024-04-17T14:54:47.534704Z", "synchronized_with_grafana":true, "retention_days":7, "current_month_usage":4874094, "region":"fr-par"}]}'
+        headers:
+            Content-Length:
+                - "470"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:37:43 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - a7cf99b7-33c0-44a0-b124-8f145e16566c
+        status: 200 OK
+        code: 200
+        duration: 49.150461ms
+    - id: 26
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 129
+        host: api.scaleway.com
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"cli-generated-for-container-logs","token_scopes":["read_only_logs"]}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/cockpit/v1/regions/fr-par/tokens
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 358
+        body: '{"id":"ad9a3fde-9860-40ea-bb55-3521ec13289e", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-generated-for-container-logs", "created_at":"2026-08-07T16:37:43.168927Z", "updated_at":"2026-08-07T16:37:43.168927Z", "scopes":["read_only_logs"], "secret_key":"3tKMQ_QK2kPZpihZ1KF0a4KOqkj1sCfYCWO95j6yVrOWCy1NFFwwxQeLZ9fEUFzN", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "358"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:37:43 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - d7e7d882-1d19-41b4-b9d2-5db6e8e34c8c
+        status: 200 OK
+        code: 200
+        duration: 66.703727ms
+    - id: 27
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: 70f266df-eee2-4689-9c46-3284861909c9.logs.cockpit.fr-par.scw.cloud
+        form:
+            end:
+                - "2026-08-07T18:37:43+02:00"
+            query:
+                - '{resource_type="serverless_container", resource_id="ec41deb3-5024-4f27-8588-721ec26b6faa"}'
+            start:
+                - "2026-08-07T16:37:43+02:00"
+        headers:
+            X-Token:
+                - 3tKMQ_QK2kPZpihZ1KF0a4KOqkj1sCfYCWO95j6yVrOWCy1NFFwwxQeLZ9fEUFzN
+        url: https://70f266df-eee2-4689-9c46-3284861909c9.logs.cockpit.fr-par.scw.cloud/loki/api/v1/query_range?end=2026-08-07T18%3A37%3A43%2B02%3A00&query=%7Bresource_type%3D%22serverless_container%22%2C+resource_id%3D%22ec41deb3-5024-4f27-8588-721ec26b6faa%22%7D&start=2026-08-07T16%3A37%3A43%2B02%3A00
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: -1
+        body: |
+            {"status":"success","data":{"resultType":"streams","result":[{"stream":{"detected_level":"unknown","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_name":"default","region":"fr-par","resource_id":"ec41deb3-5024-4f27-8588-721ec26b6faa","resource_name":"clinstenderhellman47002ad0-cli-test-logs-relaxed-engelbart","resource_type":"serverless_container","service_name":"serverless_container"},"values":[["1786120531317474182","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120531317472459","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" https://docs.docker.com/get-started/\"}"],["1786120531317470586","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"For more examples and ideas, visit:\"}"],["1786120531317467489","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120531317465796","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" https://hub.docker.com/\"}"],["1786120531317463952","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"Share images, automate workflows, and more with a free Docker ID:\"}"],["1786120531317462129","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120531317460385","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" $ docker run -it ubuntu bash\"}"],["1786120531317457831","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"To try something more ambitious, you can run an Ubuntu container with:\"}"],["1786120531317455907","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120531317454184","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"    to your terminal.\"}"],["1786120531317452360","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" 4. The Docker daemon streamed that output to the Docker client, which sent it\"}"],["1786120531317450567","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"    executable that produces the output you are currently reading.\"}"],["1786120531317448613","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" 3. The Docker daemon created a new container from that image which runs the\"}"],["1786120531317446479","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"    (amd64)\"}"],["1786120531317444626","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" 2. The Docker daemon pulled the \\\"hello-world\\\" image from the Docker Hub.\"}"],["1786120531317442672","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" 1. The Docker client contacted the Docker daemon.\"}"],["1786120531317440789","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"To generate this message, Docker took the following steps:\"}"],["1786120531317438775","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120531317435629","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"This message shows that your installation appears to be working correctly.\"}"],["1786120531317432042","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"Hello from Docker!\"}"],["1786120531317395363","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120450213219824","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120450213218101","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" https://docs.docker.com/get-started/\"}"],["1786120450213216167","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"For more examples and ideas, visit:\"}"],["1786120450213209934","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120450213191830","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" https://hub.docker.com/\"}"],["1786120450213189466","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"Share images, automate workflows, and more with a free Docker ID:\"}"],["1786120450213187111","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120450213184847","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" $ docker run -it ubuntu bash\"}"],["1786120450213182373","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"To try something more ambitious, you can run an Ubuntu container with:\"}"],["1786120450213179677","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120450213177283","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"    to your terminal.\"}"],["1786120450213174498","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" 4. The Docker daemon streamed that output to the Docker client, which sent it\"}"],["1786120450213171853","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"    executable that produces the output you are currently reading.\"}"],["1786120450213169198","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" 3. The Docker daemon created a new container from that image which runs the\"}"],["1786120450213166743","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"    (amd64)\"}"],["1786120450213164349","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" 2. The Docker daemon pulled the \\\"hello-world\\\" image from the Docker Hub.\"}"],["1786120450213161543","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" 1. The Docker client contacted the Docker daemon.\"}"],["1786120450213159109","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"To generate this message, Docker took the following steps:\"}"],["1786120450213156664","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120450213153458","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"This message shows that your installation appears to be working correctly.\"}"],["1786120450213149992","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"Hello from Docker!\"}"],["1786120450213115286","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120409347034348","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120409347032615","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" https://docs.docker.com/get-started/\"}"],["1786120409347030731","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"For more examples and ideas, visit:\"}"],["1786120409347028587","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120409347026864","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" https://hub.docker.com/\"}"],["1786120409347025031","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"Share images, automate workflows, and more with a free Docker ID:\"}"],["1786120409347023247","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120409347021504","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" $ docker run -it ubuntu bash\"}"],["1786120409347019160","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"To try something more ambitious, you can run an Ubuntu container with:\"}"],["1786120409347017225","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120409347015442","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"    to your terminal.\"}"],["1786120409347013308","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" 4. The Docker daemon streamed that output to the Docker client, which sent it\"}"],["1786120409347010913","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"    executable that produces the output you are currently reading.\"}"],["1786120409347009080","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" 3. The Docker daemon created a new container from that image which runs the\"}"],["1786120409347007126","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"    (amd64)\"}"],["1786120409347005273","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" 2. The Docker daemon pulled the \\\"hello-world\\\" image from the Docker Hub.\"}"],["1786120409347003299","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" 1. The Docker client contacted the Docker daemon.\"}"],["1786120409347001005","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"To generate this message, Docker took the following steps:\"}"],["1786120409346999061","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120409346996065","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"This message shows that your installation appears to be working correctly.\"}"],["1786120409346992779","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"Hello from Docker!\"}"],["1786120409346967432","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120381216044656","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120381216042482","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" https://docs.docker.com/get-started/\"}"],["1786120381216039887","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"For more examples and ideas, visit:\"}"],["1786120381216036951","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120381216034837","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" https://hub.docker.com/\"}"],["1786120381216032393","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"Share images, automate workflows, and more with a free Docker ID:\"}"],["1786120381216029708","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120381216027233","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" $ docker run -it ubuntu bash\"}"],["1786120381216024328","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"To try something more ambitious, you can run an Ubuntu container with:\"}"],["1786120381216021643","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120381216019248","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"    to your terminal.\"}"],["1786120381216016633","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" 4. The Docker daemon streamed that output to the Docker client, which sent it\"}"],["1786120381216013748","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"    executable that produces the output you are currently reading.\"}"],["1786120381216011083","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" 3. The Docker daemon created a new container from that image which runs the\"}"],["1786120381216008508","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"    (amd64)\"}"],["1786120381216005973","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" 2. The Docker daemon pulled the \\\"hello-world\\\" image from the Docker Hub.\"}"],["1786120381216003388","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" 1. The Docker client contacted the Docker daemon.\"}"],["1786120381216000844","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"To generate this message, Docker took the following steps:\"}"],["1786120381215997557","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120381215993450","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"This message shows that your installation appears to be working correctly.\"}"],["1786120381215989643","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"Hello from Docker!\"}"],["1786120381215953364","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120364966992860","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120364966991116","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" https://docs.docker.com/get-started/\"}"],["1786120364966989223","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"For more examples and ideas, visit:\"}"],["1786120364966986538","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120364966984805","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" https://hub.docker.com/\"}"],["1786120364966982871","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"Share images, automate workflows, and more with a free Docker ID:\"}"],["1786120364966980977","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120364966979184","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" $ docker run -it ubuntu bash\"}"],["1786120364966976569","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"To try something more ambitious, you can run an Ubuntu container with:\"}"],["1786120364966974676","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"\"}"],["1786120364966972912","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\"    to your terminal.\"}"],["1786120364966970347","{\"stream\":\"stdout\",\"resource_instance\":\"clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp\",\"message\":\" 4. The Docker daemon streamed that output to the Docker client, which sent it\"}"]]}],"stats":{"summary":{"bytesProcessedPerSecond":277793,"linesProcessedPerSecond":1717,"totalBytesProcessed":35590,"totalLinesProcessed":220,"execTime":0.128117,"queueTime":0.000221,"subqueries":0,"totalEntriesReturned":100,"splits":1,"shards":1,"totalPostFilterLines":220,"totalStructuredMetadataBytesProcessed":1760},"querier":{"store":{"totalChunksRef":0,"totalChunksDownloaded":0,"chunksDownloadTime":0,"queryReferencedStructuredMetadata":false,"queryUsedV2Engine":false,"chunk":{"headChunkBytes":0,"headChunkLines":0,"decompressedBytes":0,"decompressedLines":0,"compressedBytes":0,"totalDuplicates":100,"postFilterLines":0,"headChunkStructuredMetadataBytes":0,"decompressedStructuredMetadataBytes":0},"chunkRefsFetchTime":58681783,"congestionControlLatency":0,"pipelineWrapperFilteredLines":0,"dataobj":{"prePredicateDecompressedRows":0,"prePredicateDecompressedBytes":0,"prePredicateDecompressedStructuredMetadataBytes":0,"postPredicateRows":0,"postPredicateDecompressedBytes":0,"postPredicateStructuredMetadataBytes":0,"postFilterRows":0,"pagesScanned":0,"pagesDownloaded":0,"pagesDownloadedBytes":0,"pageBatches":0,"totalRowsAvailable":0,"totalPageDownloadTime":0}},"querierExecTime":0.132361},"ingester":{"totalReached":30,"totalChunksMatched":2,"totalBatches":20,"totalLinesSent":200,"store":{"totalChunksRef":0,"totalChunksDownloaded":0,"chunksDownloadTime":0,"queryReferencedStructuredMetadata":false,"queryUsedV2Engine":false,"chunk":{"headChunkBytes":35590,"headChunkLines":220,"decompressedBytes":0,"decompressedLines":0,"compressedBytes":0,"totalDuplicates":0,"postFilterLines":220,"headChunkStructuredMetadataBytes":1760,"decompressedStructuredMetadataBytes":0},"chunkRefsFetchTime":0,"congestionControlLatency":0,"pipelineWrapperFilteredLines":0,"dataobj":{"prePredicateDecompressedRows":0,"prePredicateDecompressedBytes":0,"prePredicateDecompressedStructuredMetadataBytes":0,"postPredicateRows":0,"postPredicateDecompressedBytes":0,"postPredicateStructuredMetadataBytes":0,"postFilterRows":0,"pagesScanned":0,"pagesDownloaded":0,"pagesDownloadedBytes":0,"pageBatches":0,"totalRowsAvailable":0,"totalPageDownloadTime":0}},"recvWaitTime":0.000517},"cache":{"chunk":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"index":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"result":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"statsResult":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"volumeResult":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"seriesResult":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"labelResult":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"instantMetricResult":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0}},"index":{"totalChunks":0,"postFilterChunks":0,"shardsDuration":0,"usedBloomFilters":false,"totalStreams":0,"chunkRefsLookupTime":0.053998,"bloomFilterTime":0}}}}
+        headers:
+            Content-Type:
+                - application/json; charset=UTF-8
+            Date:
+                - Fri, 07 Aug 2026 16:37:43 GMT
+            Via:
+                - 1.1 Caddy
+        status: 200 OK
+        code: 200
+        duration: 215.564501ms
+    - id: 28
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/cockpit/v1/regions/fr-par/tokens/ad9a3fde-9860-40ea-bb55-3521ec13289e
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:37:43 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 12a5790f-64c3-4a11-a8a4-8ed8062065b6
+        status: 204 No Content
+        code: 204
+        duration: 58.261277ms
+    - id: 29
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/47002ad0-6b74-4d41-bb3e-63499bdb638d
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 408
+        body: '{"id":"47002ad0-6b74-4d41-bb3e-63499bdb638d", "name":"cli-ns-tender-hellman", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "description":"", "status":"deleting", "environment_variables":{}, "secret_environment_variables":{}, "tags":[], "created_at":"2026-08-07T16:32:25.702518Z", "updated_at":"2026-08-07T16:37:43.536503Z", "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "408"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 07 Aug 2026 16:37:43 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            X-Request-Id:
+                - 477a3901-170c-47a3-923c-02aee0407d19
+        status: 200 OK
+        code: 200
+        duration: 97.915506ms

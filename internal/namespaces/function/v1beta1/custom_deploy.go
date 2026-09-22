@@ -33,7 +33,7 @@ func functionDeploy() *core.Command {
 		Namespace: "function",
 		Resource:  "deploy",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(functionDeployRequest{}),
+		ArgsType:  reflect.TypeFor[functionDeployRequest](),
 		ArgSpecs: []*core.ArgSpec{
 			{
 				Name:  "namespace-id",

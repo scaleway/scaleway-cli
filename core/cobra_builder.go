@@ -150,8 +150,7 @@ func (b *cobraBuilder) hydrateCobra(
 
 	// Use a custom function to print usage
 	// This function will build usage to avoid building it for each commands
-	cobraCmd.SetUsageFunc(usageFuncBuilder(cobraCmd, func() {
-		ctx := cobraCmd.Context()
+	cobraCmd.SetUsageFunc(usageFuncBuilder(cobraCmd, func(ctx context.Context) {
 		if cobraCmd.Annotations == nil {
 			cobraCmd.Annotations = make(map[string]string)
 		}
@@ -180,7 +179,7 @@ func (b *cobraBuilder) hydrateCobra(
 	}))
 
 	if cmd.Run != nil {
-		cobraCmd.RunE = cobraRun(context.TODO(), cmd)
+		cobraCmd.RunE = cobraRun(cmd)
 	} else {
 		// If command is not runnable we create a default run function that
 		// will print usage of the parent command and exit with code 1

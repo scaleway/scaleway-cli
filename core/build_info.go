@@ -72,7 +72,7 @@ func (b *BuildInfo) checkVersion(ctx context.Context) {
 	}
 
 	// pull latest version
-	latestVersion, err := getLatestVersion(ExtractHTTPClient(ctx))
+	latestVersion, err := getLatestVersion(ctx)
 	if err != nil {
 		ExtractLogger(ctx).Debugf("failed to retrieve latest version: %s\n", err)
 
@@ -89,15 +89,15 @@ func (b *BuildInfo) checkVersion(ctx context.Context) {
 }
 
 // getLatestVersion attempt to read the latest version of the remote file at latestVersionFileURL.
-func getLatestVersion(client *http.Client) (*version.Version, error) {
-	ctx, cancelTimeout := context.WithTimeout(context.Background(), latestVersionRequestTimeout)
+func getLatestVersion(ctx context.Context) (*version.Version, error) {
+	ctx, cancelTimeout := context.WithTimeout(ctx, latestVersionRequestTimeout)
 	defer cancelTimeout()
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, latestGithubReleaseURL, nil)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.Do(req)
+	resp, err := ExtractHTTPClient(ctx).Do(req)
 	if resp != nil {
 		defer resp.Body.Close()
 	}
