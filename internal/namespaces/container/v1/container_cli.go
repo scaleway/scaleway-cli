@@ -630,6 +630,13 @@ func containerContainerCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "enable-private-endpoint",
+				Short:      `Whether to allow incoming traffic from the Private Network the container is connected to.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "enable-default-public-endpoint",
 				Short:      `Whether default public endpoint is enabled or not.`,
 				Required:   false,
@@ -1012,6 +1019,13 @@ func containerContainerUpdate() *core.Command {
 			{
 				Name:       "args.{index}",
 				Short:      `Container arguments`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "enable-private-endpoint",
+				Short:      `Whether to allow incoming traffic from the Private Network the container is connected to.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
