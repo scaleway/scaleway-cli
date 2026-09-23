@@ -243,5 +243,6 @@ PrivateBandwidth(Mbit/s):
   "tags": [],
   "gpus": [],
   "monthly_offer_id": "3b36516b-34e5-4ab1-8b05-0cda2adbc84c",
-  "zone": ""
+  "zone": "",
+  "dual_attach": null
 }

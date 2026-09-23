@@ -39,6 +39,7 @@ ARGS:
   [private-network-id]                             ID of the Private Network the container is connected to.
   [command.{index}]                                Container command
   [args.{index}]                                   Container arguments
+  [enable-private-endpoint]                        Whether to allow incoming traffic from the Private Network the container is connected to.
   [enable-default-public-endpoint]                 Whether default public endpoint is enabled or not.
   [region=fr-par]                                  Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
