@@ -1,6 +1,7 @@
 package account_test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/commands"
@@ -222,7 +223,7 @@ func getNamespaceToProductMap() map[string]string {
 // 3. Maps namespace/resource to ProductFetchers keys
 // 4. Adds extra products that share namespaces (e.g., instance-ips, block-snapshots)
 func computeExpectedProductsFromCommands() map[string]struct{} {
-	allCommands := commands.GetCommands()
+	allCommands := commands.GetCommands(context.Background())
 	expectedProducts := make(map[string]struct{})
 	namespaceToProduct := getNamespaceToProductMap()
 
