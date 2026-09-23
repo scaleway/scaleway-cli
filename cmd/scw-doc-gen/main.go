@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"os"
@@ -11,7 +12,7 @@ import (
 
 // This command is used to generate markdown documentation for each commands (custom or generated) of the CLI
 func main() {
-	cmds := commands.GetCommands()
+	cmds := commands.GetCommands(context.Background())
 
 	outDir := flag.String("outdir", "./docs/commands", "Directory where markdown will be created")
 	flag.Parse()

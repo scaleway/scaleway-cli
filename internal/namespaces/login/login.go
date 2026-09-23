@@ -24,13 +24,10 @@ func GetCommands() *core.Commands {
 }
 
 type loginArgs struct {
-	Port int `json:"port"`
-	// PrintURL will print the account url instead of trying to open it with a browser
-	PrintURL bool `json:"print_url"`
-	// ExpiresAt is the expiration date of the API key created during login
-	ExpiresAt *time.Time `json:"expires_at"`
-	// ProjectID allows specifying a project ID to use instead of the default one for the API key created during login
-	ProjectID string `json:"project_id"`
+	Port      int
+	PrintURL  bool
+	ExpiresAt *time.Time
+	ProjectID string
 }
 
 func loginCommand() *core.Command {
@@ -56,6 +53,10 @@ Once you connected to Scaleway, the profile should be configured.
 			{
 				Name:  "project-id",
 				Short: "Project ID to use for this login session for the API key created during login",
+			},
+			{
+				Name:  "print-url",
+				Short: "Print the login url instead of trying to open the browser automatically",
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -94,7 +95,7 @@ Once you connected to Scaleway, the profile should be configured.
 					logger.Warningf(
 						"Failed to open web url, you may not have a default browser configured",
 					)
-					logger.Warningf("You can open it: " + accountURL)
+					logger.Warningf("You can open it: %v", accountURL)
 				}
 			}
 

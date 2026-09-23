@@ -1,6 +1,7 @@
 package server_test
 
 import (
+	"context"
 	"fmt"
 	"testing"
 
@@ -19,7 +20,7 @@ import (
 
 func TestInventoryNilAnnotations(t *testing.T) {
 	// Get all commands and create a real MCP server instance
-	allCommands := commands.GetCommands().GetAll()
+	allCommands := commands.GetCommands(context.Background()).GetAll()
 
 	filteredCommands := server.FilterCommands(allCommands, server.CommandFilterConfig{})
 	mcpServer := server.NewMCPServer(filteredCommands, core.BuildInfo{})
@@ -120,7 +121,7 @@ func TestInventoryNilAnnotations(t *testing.T) {
 
 func TestAllRegisteredCommandsHaveAnnotations(t *testing.T) {
 	// Get all commands and create a real MCP server instance
-	allCommands := commands.GetCommands().GetAll()
+	allCommands := commands.GetCommands(context.Background()).GetAll()
 
 	filteredCommands := server.FilterCommands(allCommands, server.CommandFilterConfig{})
 	mcpServer := server.NewMCPServer(filteredCommands, core.BuildInfo{})
@@ -175,7 +176,7 @@ func TestAllRegisteredCommandsHaveAnnotations(t *testing.T) {
 
 func TestAllToolsHaveCommandMetadata(t *testing.T) {
 	// Get all commands and create a real MCP server instance
-	allCommands := commands.GetCommands().GetAll()
+	allCommands := commands.GetCommands(context.Background()).GetAll()
 
 	filteredCommands := server.FilterCommands(allCommands, server.CommandFilterConfig{})
 	mcpServer := server.NewMCPServer(filteredCommands, core.BuildInfo{})

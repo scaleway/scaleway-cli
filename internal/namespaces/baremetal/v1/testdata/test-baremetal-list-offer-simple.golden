@@ -162,6 +162,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "7b3dae29-0658-4351-b8a7-7b97aef6efc2",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": 0.012026648,
     "m3_water_usage": 6.0455966e-7,
     "cloud_init_supported": true
@@ -412,6 +413,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "60bfff09-7b6e-4004-9b74-1957f26bf070",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -596,6 +598,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "1b067ec1-e383-4756-bbc2-d2ba5a76aa08",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": 0.014617178,
     "m3_water_usage": 7.5082414e-7,
     "cloud_init_supported": false
@@ -716,6 +719,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "6b91e989-5251-4d89-b366-0f5565339fdc",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": 0.014521583,
     "m3_water_usage": 7.89828e-7,
     "cloud_init_supported": false
@@ -926,6 +930,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "7adc4a66-da70-40e3-856b-7b952b77fbf9",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": 0.014118563,
     "m3_water_usage": 6.8256736e-7,
     "cloud_init_supported": false
@@ -1118,6 +1123,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "3b36516b-34e5-4ab1-8b05-0cda2adbc84c",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": 0.015972422,
     "m3_water_usage": 7.80077e-7,
     "cloud_init_supported": false
@@ -1284,6 +1290,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": null,
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": 0.02089106,
     "m3_water_usage": 0.0000011408627,
     "cloud_init_supported": false
@@ -1512,6 +1519,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "3032af6b-d3ad-424c-b986-58b9dce1f6ee",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": 0.021461837,
     "m3_water_usage": 0.0000011408627,
     "cloud_init_supported": false
@@ -1733,6 +1741,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "3cd02255-ec70-4890-9ea4-680a383bb066",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": 0.02286581,
     "m3_water_usage": 0.0000010726059,
     "cloud_init_supported": false
@@ -1954,6 +1963,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "36c45e64-aaec-4823-9182-a9a05c497c01",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": 0.024861198,
     "m3_water_usage": 0.0000012676252,
     "cloud_init_supported": false
@@ -2265,6 +2275,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "8852ff25-c867-4d58-a1f8-40b9968119b7",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -2630,6 +2641,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "5e226c64-3ceb-470e-a9bb-d01aff3dc335",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -2822,6 +2834,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "0ca85e34-d35a-494b-9077-70589cf7a6c8",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": 0.015972422,
     "m3_water_usage": 7.80077e-7,
     "cloud_init_supported": false
@@ -3133,6 +3146,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "ffbd2be3-076a-4940-b77d-d8b333f9723e",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -3444,6 +3458,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "8511a555-b488-458d-bdf2-b74716b8c1cb",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -3755,6 +3770,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "2cc8ffd7-c25d-4c02-aa8b-b695bebe6213",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -4120,6 +4136,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "293cc6d1-0ac8-4bc4-a5a1-8ed2096b045c",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -4417,6 +4434,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "f46f16bd-ce65-4a6c-9e15-1d35b52e9e5e",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": false
@@ -4722,6 +4740,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "da1aff24-a8c5-445d-ae61-a1165e8dd636",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -5087,6 +5106,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "db96a346-53e8-41ab-838b-b0a349abbb66",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -5403,6 +5423,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "44890f67-212b-4610-9170-4c199644525e",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -5708,6 +5729,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "d6cc24a7-b7a3-4dbf-808c-0e92be840f11",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -6073,6 +6095,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "1d6a7465-696d-408b-91d1-ccf1f90fd887",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -6438,6 +6461,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "5d7ced21-ce80-4bf8-ba7a-57195d56e2e8",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -6803,6 +6827,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "cda8bdd6-40bc-4352-a1c4-e78941d9243f",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -7176,6 +7201,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "fc10fde7-336e-430a-aa58-0f70669e9fab",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -7486,6 +7512,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
     "gpus": [],
     "monthly_offer_id": "246278a1-9a6a-46e6-80ee-bc54c15faaca",
     "zone": "fr-par-1",
+    "dual_attach": null,
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
