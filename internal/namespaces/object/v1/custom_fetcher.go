@@ -40,16 +40,12 @@ func (f *FetchBuckets) Fetch(
 	projectID string,
 ) ([]fetch.ResourceResult, error) {
 	client := core.ExtractClient(ctx)
-
-	// Create S3 client for use in the resources command.
 	s3Client := newS3ClientForResources(client, region)
 	if s3Client == nil {
 		return nil, nil
 	}
 
-	// Note: S3 API doesn't support project filtering, so we fetch all buckets
-	_ = projectID // mark as intentionally unused
-
+	// S3 API has no project filter, so all buckets are listed.
 	resp, err := s3Client.ListBuckets(ctx, &s3.ListBucketsInput{})
 	if err != nil {
 		if fetch.ShouldIgnoreError(err) {
@@ -72,7 +68,6 @@ func (f *FetchBuckets) Fetch(
 	return results, nil
 }
 
-// newS3ClientForResources creates an S3 client for use in the resources command.
 func newS3ClientForResources(scwClient *scw.Client, region scw.Region) *s3.Client {
 	accessKey, ok := scwClient.GetAccessKey()
 	if !ok {

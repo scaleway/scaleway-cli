@@ -38,19 +38,12 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-// ListRequest defines the input parameters for listing all resources.
 type ListRequest struct {
 	ProjectID *string  `arg:"project-id" json:"project_id"`
 	Zones     []string `arg:"zones"      json:"zones"`
 	Products  []string `arg:"products"   json:"products"`
 }
 
-// registerFetchers registers all product fetcher factories in the central
-// registry. The product key of each fetcher is deduced from its Namespace()
-// and Resource() (i.e. Namespace() + "-" + Resource()), so there is no string
-// literal to keep in sync. Fetchers are built lazily by the registry when the
-// user requests a given product.
-// Registration runs at most once via sync.Once.
 var registerOnce sync.Once
 
 func registerFetchers() {
@@ -113,7 +106,6 @@ func registerFetchers() {
 	})
 }
 
-// listResources returns the command for listing all resources.
 func listResources() *core.Command {
 	registerFetchers()
 
@@ -183,34 +175,27 @@ func listResources() *core.Command {
 func runListResources(ctx context.Context, argsI any) (any, error) {
 	request := argsI.(*ListRequest)
 
-	// Determine zones to query
 	zones := ResolveZones(request.Zones)
 	if len(zones) == 0 {
 		return []fetch.ResourceResult{}, nil
 	}
 
-	// Determine products to query
 	products := ResolveProducts(request.Products)
 	if len(products) == 0 {
 		return []fetch.ResourceResult{}, nil
 	}
 
-	// Result aggregation
 	var allResults []fetch.ResourceResult
 	var resultsMu sync.Mutex
 
-	// Error aggregation
 	var fetchErrors []string
 	var errorsMu sync.Mutex
 
-	// WaitGroup for parallel execution
 	var wg sync.WaitGroup
 
-	// Semaphore to limit concurrency (50 concurrent requests max)
-	// Chosen to balance API rate limits with throughput
+	// Bound concurrency to be gentle on API rate limits
 	sem := make(chan struct{}, 50)
 
-	// Track which localities have been queried per product to avoid duplicates
 	queried := make(map[string]bool)
 	var mu sync.Mutex
 
@@ -227,20 +212,17 @@ func runListResources(ctx context.Context, argsI any) (any, error) {
 					return
 				}
 
-				// Build the query key based on the fetcher's locality type
 				queryKey := BuildQueryKey(fetcher, zone, product)
 
-				// Check if we already queried this locality for this product
 				mu.Lock()
 				if queried[queryKey] {
 					mu.Unlock()
 
-					return // Already queried this locality for this product
+					return
 				}
 				queried[queryKey] = true
 				mu.Unlock()
 
-				// Call Fetch method on the fetcher interface with project filter
 				resources, err := fetcher.FetchAny(ctx, zone, *request.ProjectID)
 				if err != nil {
 					errorsMu.Lock()
@@ -255,7 +237,6 @@ func runListResources(ctx context.Context, argsI any) (any, error) {
 					return
 				}
 
-				// Populate Product and Resource fields from the fetcher
 				productName := fetcher.Namespace()
 				resourceName := fetcher.Resource()
 				for i := range resources {
@@ -273,18 +254,16 @@ func runListResources(ctx context.Context, argsI any) (any, error) {
 
 	wg.Wait()
 
-	// Surface aggregated errors as warnings (non-fatal)
 	for _, e := range fetchErrors {
 		core.ExtractLogger(ctx).Warningf("%s\n", e)
 	}
 
-	// Sort results for consistent output
 	SortResults(allResults)
 
 	return allResults, nil
 }
 
-// SortResults sorts results by locality, then product, then resource, then ID for consistent output
+// SortResults sorts results by locality, product, resource and ID.
 func SortResults(results []fetch.ResourceResult) {
 	sort.Slice(results, func(i, j int) bool {
 		if results[i].Locality != results[j].Locality {
@@ -301,9 +280,8 @@ func SortResults(results []fetch.ResourceResult) {
 	})
 }
 
-// BuildQueryKey builds a unique key for deduplication based on the fetcher's locality type.
-// For zone-based fetchers: "product:zone" (e.g., "instance:fr-par-1")
-// For region-based fetchers: "product:region" (e.g., "vpc:fr-par")
+// BuildQueryKey builds a deduplication key: "product:zone" for zone fetchers,
+// "product:region" for region fetchers.
 func BuildQueryKey(fetcher fetch.FetcherAny, zone scw.Zone, product string) string {
 	switch fetcher.LocalityType() {
 	case fetch.LocalityTypeRegion:
@@ -318,7 +296,6 @@ func BuildQueryKey(fetcher fetch.FetcherAny, zone scw.Zone, product string) stri
 	}
 }
 
-// ResolveZones returns the list of zones to query.
 func ResolveZones(requested []string) []scw.Zone {
 	if len(requested) > 0 {
 		zones := make([]scw.Zone, 0, len(requested))
@@ -329,11 +306,9 @@ func ResolveZones(requested []string) []scw.Zone {
 		return zones
 	}
 
-	// Return all known zones
 	return scw.AllZones
 }
 
-// ResolveProducts returns the list of products to query.
 func ResolveProducts(requested []string) []string {
 	registerFetchers()
 
@@ -341,6 +316,5 @@ func ResolveProducts(requested []string) []string {
 		return requested
 	}
 
-	// Return all known products
 	return fetch.AllProductKeys()
 }

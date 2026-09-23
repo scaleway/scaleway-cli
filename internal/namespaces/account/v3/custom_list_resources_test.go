@@ -129,11 +129,7 @@ func TestSortResults(t *testing.T) {
 	assert.Equal(t, expected, input)
 }
 
-// ExceptionProducts lists the namespaces that do not have fetchers
-// and therefore must NOT be in ProductFetchers.
-//
-// These are typically utility namespaces that provide CLI functionality
-// but do not manage actual cloud resources.
+// ExceptionProducts are namespaces without fetchers (utility commands, no cloud resources).
 var ExceptionProducts = map[string]struct{}{
 	"account":                 {},
 	"alias":                   {},
@@ -170,11 +166,7 @@ var ExceptionProducts = map[string]struct{}{
 	"dedibox": {},
 }
 
-// getNamespaceToProductMap returns the mapping between CLI namespaces/resources
-// and product names in ProductFetchers.
-//
-// Product keys are now deduced as Namespace()+"-"+Resource(), so they match
-// the fetcher's CLI namespace and resource names directly.
+// getNamespaceToProductMap maps CLI namespace/resource pairs to product keys.
 func getNamespaceToProductMap() map[string]string {
 	return map[string]string{
 		"baremetal":                "baremetal-server",
@@ -213,33 +205,22 @@ func getNamespaceToProductMap() map[string]string {
 	}
 }
 
-// computeExpectedProductsFromCommands dynamically computes the expected products
-// by iterating through all registered commands and mapping them to ProductFetchers.
-//
-// This eliminates the need to maintain a static list of expected products.
-// The function:
-// 1. Iterates through all registered commands
-// 2. Skips hidden commands and exceptions
-// 3. Maps namespace/resource to ProductFetchers keys
-// 4. Adds extra products that share namespaces (e.g., instance-ips, block-snapshots)
+// computeExpectedProductsFromCommands derives expected products from registered commands.
 func computeExpectedProductsFromCommands() map[string]struct{} {
 	allCommands := commands.GetCommands(context.Background())
 	expectedProducts := make(map[string]struct{})
 	namespaceToProduct := getNamespaceToProductMap()
 
-	// Iterate through all commands to find available namespaces/resources
 	seen := make(map[string]struct{})
 	for _, cmd := range allCommands.GetAll() {
 		if cmd.Namespace == "" || cmd.Hidden {
 			continue
 		}
 
-		// Check if this namespace is an exception
 		if _, isException := ExceptionProducts[cmd.Namespace]; isException {
 			continue
 		}
 
-		// Build a namespace or namespace/resource key
 		key := cmd.Namespace
 		if cmd.Resource != "" {
 			key = cmd.Namespace + "-" + cmd.Resource
@@ -250,15 +231,12 @@ func computeExpectedProductsFromCommands() map[string]struct{} {
 		}
 		seen[key] = struct{}{}
 
-		// Check if this namespace/resource has a corresponding product
 		if product, ok := namespaceToProduct[key]; ok {
 			expectedProducts[product] = struct{}{}
 		}
 	}
 
-	// Manually add products that are not separate resources
-	// but have dedicated fetchers (e.g., instance-ips, block-snapshots, etc.)
-	// These products share the same namespace as other resources.
+	// Products with dedicated fetchers that share their namespace with other resources.
 	extraProducts := []string{
 		"instance-ip",
 		"instance-volume",
