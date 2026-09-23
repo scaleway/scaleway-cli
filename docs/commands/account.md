@@ -88,6 +88,27 @@ scw account project list [arg=value ...]
 
 
 
+### List all resources across all zones
+
+List all resources across all zones and products. Results are grouped by locality and product. Errors are aggregated and not fail-fast.
+
+**Usage:**
+
+```shell
+scw account project list-resources <project-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id | Default: `` | Filter by project ID. If none is passed the default project ID will be used |
+| zones |  | Filter by zones (comma-separated, e.g. fr-par-1,nl-ams-1). If empty, all zones are queried |
+| products |  | Filter by products (comma-separated, e.g. apple-silicon-server,baremetal-server,block-snapshot,block-volume,cockpit-data-source,cockpit-token,container-namespace,file-filesystem,fip-ip,function-namespace,inference-deployment,instance-ip,instance-security-group,instance-server,instance-snapshot,instance-volume,ipam-ip,k8s-cluster,keymanager-key,lb-lb,mongodb-instance,mongodb-snapshot,object-bucket,rdb-instance,redis-cluster,registry-namespace,s2s-vpn-vpn-gateway,searchdb-deployment,secret-secret,vpc-gw-gateway,vpc-gw-ip,vpc-vpc,webhosting-hosting). If empty, all products are queried |
+
+
+
 ### Update Project
 
 Update the parameters of an existing Project, specified by its Project ID. These parameters include the name and description.
