@@ -119,9 +119,9 @@ For a full zone file replacement at once, prefer "scw dns zone import".
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
-			{Command: "dns zone import", Short: "Import a full raw DNS zone"},
-			{Command: "dns record bulk-update", Short: "Low-level record changes"},
-			{Command: "dns record clear", Short: "Delete all records in a zone"},
+			{Command: "scw dns zone import", Short: "Import a full raw DNS zone"},
+			{Command: "scw dns record bulk-update", Short: "Low-level record changes"},
+			{Command: "scw dns record clear", Short: "Delete all records in a zone"},
 		},
 	}
 }
