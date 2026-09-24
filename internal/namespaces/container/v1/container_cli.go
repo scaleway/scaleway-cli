@@ -34,6 +34,7 @@ func GetGeneratedCommands() *core.Commands {
 		containerContainerList(),
 		containerContainerUpdate(),
 		containerContainerDelete(),
+		containerContainerGetPrivateEndpointCa(),
 		containerDomainCreate(),
 		containerDomainGet(),
 		containerDomainList(),
@@ -1088,6 +1089,34 @@ This action **cannot** be undone.`,
 			api := container.NewAPI(client)
 
 			return api.DeleteContainer(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func containerContainerGetPrivateEndpointCa() *core.Command {
+	return &core.Command{
+		Short:     `Get the private endpoint certificate authority.`,
+		Long:      `When enabling private endpoints for your containers, you need to trust this CA to establish HTTPS connections to them.`,
+		Namespace: "container",
+		Resource:  "container",
+		Verb:      "get-private-endpoint-ca",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[container.GetPrivateEndpointCertificateAuthorityRequest](),
+		ArgSpecs: core.ArgSpecs{
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.RegionItMil,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*container.GetPrivateEndpointCertificateAuthorityRequest)
+
+			client := core.ExtractClient(ctx)
+			api := container.NewAPI(client)
+
+			return api.GetPrivateEndpointCertificateAuthority(request, scw.WithContext(ctx))
 		},
 	}
 }
