@@ -106,6 +106,13 @@ func partnerOrganizationCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "comment",
+				Short:      `A comment about the organization`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*partner.CreateOrganizationRequest)
