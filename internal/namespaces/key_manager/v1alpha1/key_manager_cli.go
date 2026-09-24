@@ -513,7 +513,7 @@ func keymanagerKeyDisable() *core.Command {
 func keymanagerKeyList() *core.Command {
 	return &core.Command{
 		Short: `List keys`,
-		Long: `Retrieve a list of keys across all Projects in an Organization or within a specific Project. 
+		Long: `Retrieve a list of keys across all Projects in an Organization or within a specific Project.
 If the user has permissions for all current and future projects: Either organization_id or project_id is required.
 If the user has permissions for all current projects or only specific projects: The project_id is required.
 The ` + "`" + `region` + "`" + ` parameter in path is needed in both case.`,
@@ -569,6 +569,7 @@ The ` + "`" + `region` + "`" + ` parameter in path is needed in both case.`,
 					"symmetric_encryption",
 					"asymmetric_encryption",
 					"asymmetric_signing",
+					"key_encapsulation",
 				},
 			},
 			{
