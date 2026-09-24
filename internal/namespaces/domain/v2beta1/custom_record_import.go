@@ -148,9 +148,9 @@ func dnsRecordImportRun(ctx context.Context, argsI any) (any, error) {
 	)
 	switch format {
 	case "bind":
-		records, err = parseImportBind(content, zone)
+		records, err = ParseImportBind(content, zone)
 	case "json":
-		records, err = parseImportJSON(content)
+		records, err = ParseImportJSON(content)
 	default:
 		return nil, fmt.Errorf("unsupported format %q (use bind or json)", format)
 	}

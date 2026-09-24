@@ -48,10 +48,10 @@ GLOBAL FLAGS:
 
 SEE ALSO:
   # Import a full raw DNS zone
-  dns zone import
+  scw dns zone import
 
   # Low-level record changes
-  dns record bulk-update
+  scw dns record bulk-update
 
   # Delete all records in a zone
-  dns record clear
+  scw dns record clear
