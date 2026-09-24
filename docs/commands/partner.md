@@ -29,6 +29,7 @@ scw partner organization create [arg=value ...]
 | owner-lastname    | The last name of the new organization owner                               | Required                |
 | phone-number      | The phone number of the new organization owner                            |                         |
 | customer-id       | A custom ID for the customer in your own infrastructure                   | Required                |
+| comment           | A comment about the organization                                          |                         |
 
 
 
