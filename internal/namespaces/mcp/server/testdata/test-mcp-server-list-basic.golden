@@ -34,7 +34,9 @@ k8s        pool          add-external-node        k8s_pool_add-external-node    
 k8s        pool          create                   k8s_pool_create                      Create a new Pool in a Cluster
 k8s        pool          delete                   k8s_pool_delete                      Delete a Pool in a Cluster
 k8s        pool          get                      k8s_pool_get                         Get a Pool in a Cluster
+k8s        pool          get-userdata             k8s_pool_get-userdata                Get a pool related user data
 k8s        pool          list                     k8s_pool_list                        List Pools in a Cluster
+k8s        pool          list-userdata            k8s_pool_list-userdata               List all user data related to a given pool.
 k8s        pool          remove-label             k8s_pool_remove-label                Remove a label from a Pool
 k8s        pool          remove-startup-taint     k8s_pool_remove-startup-taint        Remove a startup taint from a Pool
 k8s        pool          remove-taint             k8s_pool_remove-taint                Remove a taint from a Pool
@@ -44,8 +46,6 @@ k8s        pool          set-taint                k8s_pool_set-taint            
 k8s        pool          update                   k8s_pool_update                      Update a Pool in a Cluster
 k8s        pool          upgrade                  k8s_pool_upgrade                     Upgrade a Pool in a Cluster
 k8s        pool          wait                     k8s_pool_wait                        Wait for a pool to reach a stable state
-k8s        userdata      get                      k8s_userdata_get                     Get a pool related user data
-k8s        userdata      list                     k8s_userdata_list                    List all user data related to a given pool.
 k8s        version       get                      k8s_version_get                      Get a Version
 k8s        version       list                     k8s_version_list                     List all available Versions
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
@@ -284,9 +284,23 @@ k8s        version       list                     k8s_version_list              
   {
     "namespace": "k8s",
     "resource": "pool",
+    "verb": "get-userdata",
+    "tool_name": "k8s_pool_get-userdata",
+    "short": "Get a pool related user data"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
     "verb": "list",
     "tool_name": "k8s_pool_list",
     "short": "List Pools in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
+    "verb": "list-userdata",
+    "tool_name": "k8s_pool_list-userdata",
+    "short": "List all user data related to a given pool."
   },
   {
     "namespace": "k8s",
@@ -350,20 +364,6 @@ k8s        version       list                     k8s_version_list              
     "verb": "wait",
     "tool_name": "k8s_pool_wait",
     "short": "Wait for a pool to reach a stable state"
-  },
-  {
-    "namespace": "k8s",
-    "resource": "userdata",
-    "verb": "get",
-    "tool_name": "k8s_userdata_get",
-    "short": "Get a pool related user data"
-  },
-  {
-    "namespace": "k8s",
-    "resource": "userdata",
-    "verb": "list",
-    "tool_name": "k8s_userdata_list",
-    "short": "List all user data related to a given pool."
   },
   {
     "namespace": "k8s",
