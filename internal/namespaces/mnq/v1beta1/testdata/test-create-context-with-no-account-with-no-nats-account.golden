@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Failed to list nats account: failed to create NATS context: Multiple NATS accounts found. Please provide an account ID explicitly as the command is not running in interactive mode
+Failed to list nats account: no nats account found, please create a NATS account with 'scw mnq nats create-account'
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "error": "failed to list nats account: failed to create NATS context: Multiple NATS accounts found. Please provide an account ID explicitly as the command is not running in interactive mode"
+  "error": "failed to list nats account: no nats account found, please create a NATS account with 'scw mnq nats create-account'"
 }

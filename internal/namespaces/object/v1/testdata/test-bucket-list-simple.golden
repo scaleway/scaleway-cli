@@ -1,20 +1,41 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Name                                      Creation Date
-cli-test-bucket-list-8501647004036398711  few seconds ago
-cli-test-bucket-list-9206072663127448888  few seconds ago
+Name                                                 Creation Date
+cli-test-bucket-create-6014551530147921547           few seconds ago
+cli-test-bucket-lifecycle-empty-8292551222386182666  few seconds ago
+cli-test-bucket-list-4196214434925472698             few seconds ago
+cli-test-bucket-list-476036529707990095              few seconds ago
+cli-test-bucket-update-2329028910527706709           few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
     "BucketArn": null,
     "BucketRegion": null,
-    "CreationDate": "2024-04-30T16:43:46Z",
-    "Name": "cli-test-bucket-list-8501647004036398711"
+    "CreationDate": "2026-09-24T08:58:07Z",
+    "Name": "cli-test-bucket-create-6014551530147921547"
   },
   {
     "BucketArn": null,
     "BucketRegion": null,
-    "CreationDate": "2024-04-30T16:43:46Z",
-    "Name": "cli-test-bucket-list-9206072663127448888"
+    "CreationDate": "2026-09-24T08:56:53Z",
+    "Name": "cli-test-bucket-lifecycle-empty-8292551222386182666"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-09-25T08:04:26Z",
+    "Name": "cli-test-bucket-list-4196214434925472698"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-09-25T08:04:31Z",
+    "Name": "cli-test-bucket-list-476036529707990095"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-09-24T07:35:36Z",
+    "Name": "cli-test-bucket-update-2329028910527706709"
   }
 ]

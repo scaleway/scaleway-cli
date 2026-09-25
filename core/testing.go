@@ -13,7 +13,6 @@ import (
 	"path"
 	"path/filepath"
 	"regexp"
-	"slices"
 	"strconv"
 	"strings"
 	"testing"
@@ -31,6 +30,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"golang.org/x/sync/errgroup"
 )
 
 const TestBucketNamePrefix = "cli-test-bucket"
@@ -307,21 +307,6 @@ func createTestClient(
 // because they will be executed without waiting.
 var DefaultRetryInterval *time.Duration
 
-var foldersUsingVCRv4 = []string{
-	"container",
-	"instance",
-	"k8s",
-	"marketplace",
-}
-
-func folderUsesVCRv4(fullFolderPath string) bool {
-	fullPathSplit := strings.Split(fullFolderPath, string(os.PathSeparator))
-
-	folder := fullPathSplit[len(fullPathSplit)-2]
-
-	return slices.Contains(foldersUsingVCRv4, folder)
-}
-
 // Run a CLI integration test. See TestConfig for configuration option
 func Test(config *TestConfig) func(t *testing.T) {
 	return func(t *testing.T) {
@@ -366,17 +351,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		}
 
 		// Create an HTTP client with recording capabilities
-		var (
-			httpClient *http.Client
-			cleanup    func()
-		)
-
-		if folderUsesVCRv4(folder) {
-			httpClient, cleanup, err = newHTTPRecorder(t, folder, *UpdateCassettes)
-		} else {
-			httpClient, cleanup, err = getHTTPRecoder(t, *UpdateCassettes)
-		}
-
+		httpClient, cleanup, err := newHTTPRecorder(t, folder, *UpdateCassettes)
 		require.NoError(t, err)
 		defer cleanup()
 
@@ -570,6 +545,21 @@ func BeforeFuncCombine(beforeFuncs ...BeforeFunc) BeforeFunc {
 	}
 }
 
+// BeforeFuncCombineP execute multiple BeforeFunc in parallel and wait for them
+// to finish before returning.
+func BeforeFuncCombineP(beforeFuncs ...BeforeFunc) BeforeFunc {
+	return func(ctx *BeforeFuncCtx) error {
+		var g errgroup.Group
+		for _, f := range beforeFuncs {
+			g.Go(func() error {
+				return f(ctx)
+			})
+		}
+
+		return g.Wait()
+	}
+}
+
 func BeforeFuncWhenUpdatingCassette(beforeFunc BeforeFunc) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
 		if *UpdateCassettes {
@@ -591,6 +581,21 @@ func AfterFuncCombine(afterFuncs ...AfterFunc) AfterFunc {
 		}
 
 		return nil
+	}
+}
+
+// AfterFuncCombineP execute multiple AfterFunc in parallel and wait for them
+// to finish before returning.
+func AfterFuncCombineP(afterFuncs ...AfterFunc) AfterFunc {
+	return func(ctx *AfterFuncCtx) error {
+		var g errgroup.Group
+		for _, f := range afterFuncs {
+			g.Go(func() error {
+				return f(ctx)
+			})
+		}
+
+		return g.Wait()
 	}
 }
 

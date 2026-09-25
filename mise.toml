@@ -26,6 +26,9 @@ rumdl = "0.2"
 typos = "1.50"
 zizmor = "1.30"
 
+[env]
+_.file = '.env'
+
 [tasks.'deps:pnpm']
 description = "download the dependencies for the wasm wrapper"
 dir = "wasm"
@@ -63,12 +66,21 @@ flag "--verbose" {
 '''
 depends = ["deps:go"]
 run = '''
-args=(build -ldflags "${usage_ldflags?}" -tags "${usage_tags?}" -o "${usage_output?}")
+args=(build)
 if [ "${usage_race:-false}" = "true" ]; then
   args+=(-race)
 fi
 if [ "${usage_verbose:-false}" = "true" ]; then
   args+=(-v)
+fi
+if [ -n "${usage_ldflags:-}" ]; then
+  args+=(-ldflags "${usage_ldflags?}")
+fi
+if [ -n "${usage_tags:-}" ]; then
+  args+=(-tags "${usage_tags?}")
+fi
+if [ -n "${usage_output:-}" ]; then
+  args+=(-o "${usage_output?}")
 fi
 args+=(./cmd/scw)
 go "${args[@]}"
@@ -229,6 +241,7 @@ flag "--race" {
 flag "--format <fmt>" {
   help "gotestsum output format"
   default "pkgname"
+  choices  "dots" "dots-v2" "pkgname" "pkgname-and-test-fails" "testname" "testdox" "github-actions" "standard-quiet" "standard-verbose"
 }
 flag "--rerun-fails <n>" {
   help "rerun failed tests up to n times"
@@ -244,6 +257,12 @@ flag "--jsonfile <file>" {
 }
 flag "--coverprofile <file>" {
   help "write a coverage profile to the file"
+}
+flag "--parallel <n>" {
+  help "execute n tests in parallel when allowed"
+}
+flag "--failfast" {
+  help "don't start new tests after the first failed test"
 }
 '''
 run = '''
@@ -274,6 +293,12 @@ if [ -n "${usage_timeout:-}" ]; then
 fi
 if [ -n "${usage_coverprofile:-}" ]; then
   test_args+=(-coverprofile "${usage_coverprofile?}")
+fi
+if [ -n "${usage_parallel:-}" ]; then
+  test_args+=(-parallel "${usage_parallel?}")
+fi
+if [ "${usage_failfast:-false}" = "true" ]; then
+  test_args+=(-failfast)
 fi
 test_args+=("${usage_packages?}")
 

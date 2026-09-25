@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID           019fd720-7a09-7381-a969-32e9a7ef383b
-ProjectID    fa1e3217-dc80-42ac-85c3-3f034b78b552
-Name         cli-asg-adoring-heisenberg
+ID           01a0d2c4-e73c-7a1d-a360-426733a5a143
+ProjectID    de2b260d-2c2e-4be9-baa0-99d8ed17f1da
+Name         cli-asg-lucid-lederberg
 CreatedAt    few seconds ago
 UpdatedAt    few seconds ago
 Status       active
 CurrentSize  0
 TargetSize   0
-TemplateID   5ab3e2a8-9624-4711-bfe2-a5706945f171
+TemplateID   38a42ee9-1773-407f-80a1-1a24a556d3e6
 
 Tags:
 [tags were updated]
@@ -26,9 +26,9 @@ Open Alerts:
 TYPE  OPENED AT  CLOSED AT  GROUP ID  FAILING QUOTAS
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "019fd720-7a09-7381-a969-32e9a7ef383b",
-  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "name": "cli-asg-adoring-heisenberg",
+  "id": "01a0d2c4-e73c-7a1d-a360-426733a5a143",
+  "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
+  "name": "cli-asg-lucid-lederberg",
   "tags": [
     "tags",
     "were",
@@ -42,7 +42,7 @@ TYPE  OPENED AT  CLOSED AT  GROUP ID  FAILING QUOTAS
   "target_size": 0,
   "last_scale_out_at": null,
   "last_scale_in_at": null,
-  "template_id": "5ab3e2a8-9624-4711-bfe2-a5706945f171",
+  "template_id": "38a42ee9-1773-407f-80a1-1a24a556d3e6",
   "scaling_policy": {
     "minimum_size": 0,
     "maximum_size": 25,

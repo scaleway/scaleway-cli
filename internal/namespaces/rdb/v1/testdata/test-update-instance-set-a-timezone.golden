@@ -2,26 +2,26 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                   few seconds ago
 Region                      fr-par
-ID                          9c8f59ad-b566-4734-a47e-f7877dbb6f58
+ID                          7ae327c7-3b56-43de-9954-5cbbd2907d83
 Name                        cli-test
-OrganizationID              5ebc0159-7cb7-406c-9521-9347d1987fb2
-ProjectID                   5ebc0159-7cb7-406c-9521-9347d1987fb2
+OrganizationID              de2b260d-2c2e-4be9-baa0-99d8ed17f1da
+ProjectID                   de2b260d-2c2e-4be9-baa0-99d8ed17f1da
 Status                      ready
-Engine                      PostgreSQL-15
+Engine                      PostgreSQL-17
 IsHaCluster                 false
-HighAvailabilityMode        unknown_high_availability_mode
+HighAvailabilityMode        disabled
 NodeType                    db-dev-s
-Endpoints.0.ID              65012218-d264-479f-9bbc-c2974b7bd257
-Endpoints.0.IP              51.159.8.181
-Endpoints.0.Port            19874
+Endpoints.0.ID              438ab178-b978-4e88-a39c-dcca29dbb4e3
+Endpoints.0.IP              195.154.69.209
+Endpoints.0.Port            6096
 LogsPolicy.MaxAgeRetention  30
 BackupSameRegion            false
 Encryption.Enabled          false
 
 Endpoint:
-ID    65012218-d264-479f-9bbc-c2974b7bd257
-IP    51.159.8.181
-Port  19874
+ID    438ab178-b978-4e88-a39c-dcca29dbb4e3
+IP    195.154.69.209
+Port  6096
 
 Volume:
 Type   lssd
@@ -52,17 +52,17 @@ work_mem                         4
     "class": "lssd"
   },
   "region": "fr-par",
-  "id": "9c8f59ad-b566-4734-a47e-f7877dbb6f58",
+  "id": "7ae327c7-3b56-43de-9954-5cbbd2907d83",
   "name": "cli-test",
-  "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-  "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+  "organization_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
+  "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
   "status": "ready",
-  "engine": "PostgreSQL-15",
+  "engine": "PostgreSQL-17",
   "upgradable_version": [],
   "endpoint": {
-    "id": "65012218-d264-479f-9bbc-c2974b7bd257",
-    "ip": "51.159.8.181",
-    "port": 19874,
+    "id": "438ab178-b978-4e88-a39c-dcca29dbb4e3",
+    "ip": "195.154.69.209",
+    "port": 6096,
     "name": null,
     "load_balancer": {}
   },
@@ -104,15 +104,15 @@ work_mem                         4
     "next_run_at": "1970-01-01T00:00:00.0Z"
   },
   "is_ha_cluster": false,
-  "high_availability_mode": "unknown_high_availability_mode",
+  "high_availability_mode": "disabled",
   "read_replicas": [],
   "node_type": "db-dev-s",
   "init_settings": [],
   "endpoints": [
     {
-      "id": "65012218-d264-479f-9bbc-c2974b7bd257",
-      "ip": "51.159.8.181",
-      "port": 19874,
+      "id": "438ab178-b978-4e88-a39c-dcca29dbb4e3",
+      "ip": "195.154.69.209",
+      "port": 6096,
       "name": null,
       "load_balancer": {}
     }

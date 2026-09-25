@@ -2,10 +2,10 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ 3 ACL rules successfully added.
 IP          PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
-0.0.0.0/0   tcp       inbound    allow   Allow All    29257
-1.1.1.1/32  tcp       inbound    allow   first        29257
-2.2.2.2/32  tcp       inbound    allow   second       29257
-3.3.3.3/32  tcp       inbound    allow   default      29257
+0.0.0.0/0   tcp       inbound    allow   Allow All    29100
+1.1.1.1/32  tcp       inbound    allow   first        29100
+2.2.2.2/32  tcp       inbound    allow   second       29100
+3.3.3.3/32  tcp       inbound    allow   default      29100
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "Rules": [
@@ -15,7 +15,7 @@ IP          PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
       "direction": "inbound",
       "action": "allow",
       "description": "Allow All",
-      "port": 29257
+      "port": 29100
     },
     {
       "ip": "1.1.1.1/32",
@@ -23,7 +23,7 @@ IP          PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
       "direction": "inbound",
       "action": "allow",
       "description": "first",
-      "port": 29257
+      "port": 29100
     },
     {
       "ip": "2.2.2.2/32",
@@ -31,7 +31,7 @@ IP          PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
       "direction": "inbound",
       "action": "allow",
       "description": "second",
-      "port": 29257
+      "port": 29100
     },
     {
       "ip": "3.3.3.3/32",
@@ -39,7 +39,7 @@ IP          PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
       "direction": "inbound",
       "action": "allow",
       "description": "default",
-      "port": 29257
+      "port": 29100
     }
   ],
   "Success": {

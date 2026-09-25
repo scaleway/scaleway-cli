@@ -1,31 +1,31 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              c82767ea-29be-451a-971b-840730e9c4ab
-OrganizationID  d3520a52-2c75-4ba0-bda8-82dd087f07f2
-ProjectID       d3520a52-2c75-4ba0-bda8-82dd087f07f2
+ID              c8f80c8a-3d17-4d0d-85dd-6272da8a289e
+OrganizationID  de2b260d-2c2e-4be9-baa0-99d8ed17f1da
+ProjectID       de2b260d-2c2e-4be9-baa0-99d8ed17f1da
 Description     -
 UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
 Status          attached
-IPAddress       62.210.101.135/32
-ServerID        e45cd42e-e423-4b39-b077-6454e57e985b
-Reverse         62-210-101-135.rev.poneytelecom.eu.
+IPAddress       62.210.102.67/32
+ServerID        51e683a9-7a32-4444-8139-90526869d576
+Reverse         62-210-102-67.rev.poneytelecom.eu.
 Zone            fr-par-2
-Srn             -
+Srn             srn://flexible-ip.scw.eu/zones/fr-par-2/flexible-ips/c8f80c8a-3d17-4d0d-85dd-6272da8a289e
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "c82767ea-29be-451a-971b-840730e9c4ab",
-  "organization_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
-  "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+  "id": "c8f80c8a-3d17-4d0d-85dd-6272da8a289e",
+  "organization_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
+  "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
   "description": "",
   "tags": [],
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
   "status": "attached",
-  "ip_address": "62.210.101.135/32",
+  "ip_address": "62.210.102.67/32",
   "mac_address": null,
-  "server_id": "e45cd42e-e423-4b39-b077-6454e57e985b",
-  "reverse": "62-210-101-135.rev.poneytelecom.eu.",
+  "server_id": "51e683a9-7a32-4444-8139-90526869d576",
+  "reverse": "62-210-102-67.rev.poneytelecom.eu.",
   "zone": "fr-par-2",
-  "srn": ""
+  "srn": "srn://flexible-ip.scw.eu/zones/fr-par-2/flexible-ips/c8f80c8a-3d17-4d0d-85dd-6272da8a289e"
 }

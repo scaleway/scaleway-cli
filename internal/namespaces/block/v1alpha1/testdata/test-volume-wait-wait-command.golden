@@ -1,10 +1,10 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              e09f17d5-7486-4750-b91a-3be27feab133
-Name            cli-vol-optimistic-northcutt
+ID              0ef810d8-5998-4e04-bd4f-004b026af8bf
+Name            cli-vol-happy-albattani
 Type            sbs_5k
 Size            20 GB
-ProjectID       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ProjectID       de2b260d-2c2e-4be9-baa0-99d8ed17f1da
 CreatedAt       few seconds ago
 UpdatedAt       few seconds ago
 Status          available
@@ -13,11 +13,11 @@ Specs.PerfIops  5000
 Specs.Class     sbs
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "e09f17d5-7486-4750-b91a-3be27feab133",
-  "name": "cli-vol-optimistic-northcutt",
+  "id": "0ef810d8-5998-4e04-bd4f-004b026af8bf",
+  "name": "cli-vol-happy-albattani",
   "type": "sbs_5k",
   "size": 20000000000,
-  "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "references": [],

@@ -1,19 +1,19 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID         9ce53a10-cf67-4bab-90c3-a49a7af67dda
+ID         06b01a0d-d0a2-4f71-afc8-1efef96b09c7
 Name       latest
-ImageID    de12f99f-3ef0-48e6-b30d-c097f75e349f
+ImageID    c1e53919-91df-43e0-bc83-8cc49cbb7d9c
 Status     deleting
-Digest     sha256:19459a6bbefb63f83f137f08c1df645f8846e2cd1f44fe209294ebc505e6495e
+Digest     sha256:d1a8d0a4eeb63aff09f5f34d4d80505e0ba81905f36158cc3970d8e07179e59e
 CreatedAt  few seconds ago
 UpdatedAt  few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "9ce53a10-cf67-4bab-90c3-a49a7af67dda",
+  "id": "06b01a0d-d0a2-4f71-afc8-1efef96b09c7",
   "name": "latest",
-  "image_id": "de12f99f-3ef0-48e6-b30d-c097f75e349f",
+  "image_id": "c1e53919-91df-43e0-bc83-8cc49cbb7d9c",
   "status": "deleting",
-  "digest": "sha256:19459a6bbefb63f83f137f08c1df645f8846e2cd1f44fe209294ebc505e6495e",
+  "digest": "sha256:d1a8d0a4eeb63aff09f5f34d4d80505e0ba81905f36158cc3970d8e07179e59e",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z"
 }

@@ -2,7 +2,7 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ 1 ACL rules successfully deleted (2 were not set).
 IP         PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
-0.0.0.0/0  tcp       inbound    allow   Allow All    5849
+0.0.0.0/0  tcp       inbound    allow   Allow All    2427
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "Rules": [
@@ -12,7 +12,7 @@ IP         PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
       "direction": "inbound",
       "action": "allow",
       "description": "Allow All",
-      "port": 5849
+      "port": 2427
     }
   ],
   "Success": {

@@ -1,18 +1,83 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Name  CPU                  Memory  Disk    Stock       Minimum Lease Duration  CO2 (kg/hour)  Water (m³/hour)
-M4-S  Apple M4 (10 cores)  16 GB   256 GB  high stock  1 days                  0.014205732    1.3491717e-06
-M4-M  Apple M4 (10 cores)  32 GB   1.0 TB  high stock  1 days                  0.015271181    1.3491717e-06
-M2-M  Apple M2 (8 cores)   16 GB   256 GB  high stock  1 days                  0.013547652    1.2453893e-06
+Name   CPU                  Memory  Disk    Stock     Minimum Lease Duration  CO2 (kg/hour)  Water (m³/hour)
+M1-M   Apple M1 (8 cores)   8.0 GB  256 GB  no stock  1 days                  0.029725239    3.6352264e-07
+M4-S   Apple M4 (10 cores)  16 GB   256 GB  no stock  1 days                  0.03721964     6.058711e-07
+M2-M   Apple M2 (8 cores)   16 GB   256 GB  no stock  1 days                  0.036906056    5.592656e-07
+M4-SP  Apple M4 (10 cores)  16 GB   512 GB  no stock  1 days                  0.037428923    6.058711e-07
+M4-M   Apple M4 (10 cores)  32 GB   1.0 TB  no stock  1 days                  0.038380217    6.058711e-07
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
+  {
+    "cpu": {
+      "name": "Apple M1",
+      "core_count": 8,
+      "frequency": 3200000000,
+      "sockets": 1,
+      "threads_per_core": 1
+    },
+    "disk": {
+      "capacity": 256000000000,
+      "type": "SSD"
+    },
+    "name": "M1-M",
+    "memory": {
+      "capacity": 8000000000,
+      "type": "LPDDR4"
+    },
+    "stock": "no_stock",
+    "minimum_lease_duration": "86400.000000000s",
+    "gpu": {
+      "count": 8
+    },
+    "network": {
+      "public_bandwidth_bps": 1000000000,
+      "supported_bandwidth": [
+        1000000000
+      ],
+      "default_public_bandwidth": 1000000000
+    },
+    "default_os": {
+      "id": "d2b54766-cbeb-436f-b8d7-1902a8d74300",
+      "name": "macos-tahoe-26.6.2",
+      "label": "macOS Tahoe 26.6.2",
+      "image_url": "https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-tahoe.png",
+      "family": "Tahoe",
+      "is_beta": false,
+      "version": "26.6.2",
+      "xcode_version": "26",
+      "compatible_server_types": [
+        "M2-M",
+        "M4-M",
+        "M4-S",
+        "M4-XL",
+        "M2-L",
+        "M4-L",
+        "M4-SP",
+        "M1-M"
+      ],
+      "release_notes_url": "",
+      "description": "",
+      "tags": [
+        "macos",
+        "apple",
+        "apple-license"
+      ],
+      "supported_server_types": []
+    },
+    "npu": {
+      "count": 16
+    },
+    "kg_co2_equivalent": 0.029725239,
+    "m3_water_usage": 3.6352264e-7
+  },
   {
     "cpu": {
       "name": "Apple M4",
       "core_count": 10,
       "frequency": 4400000000,
-      "sockets": 0,
-      "threads_per_core": 0
+      "sockets": 1,
+      "threads_per_core": 1
     },
     "disk": {
       "capacity": 256000000000,
@@ -23,7 +88,7 @@ M2-M  Apple M2 (8 cores)   16 GB   256 GB  high stock  1 days                  0
       "capacity": 16000000000,
       "type": "LPDDR5X"
     },
-    "stock": "high_stock",
+    "stock": "no_stock",
     "minimum_lease_duration": "86400.000000000s",
     "gpu": {
       "count": 10
@@ -33,42 +98,175 @@ M2-M  Apple M2 (8 cores)   16 GB   256 GB  high stock  1 days                  0
       "supported_bandwidth": [
         1000000000
       ],
-      "default_public_bandwidth": 0
+      "default_public_bandwidth": 1000000000
     },
     "default_os": {
-      "id": "87135053-e968-4a38-8735-86901accc6f5",
-      "name": "macos-sequoia-15.3.1",
-      "label": "macOS Sequoia 15.3.1",
-      "image_url": "https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png",
-      "family": "Sequoia",
+      "id": "8c51501f-239b-4ed4-8cad-78816e11b970",
+      "name": "macos-tahoe-26.6.1",
+      "label": "macOS Tahoe 26.6.1",
+      "image_url": "https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-tahoe.png",
+      "family": "Tahoe",
       "is_beta": false,
-      "version": "15.3.1",
-      "xcode_version": "16",
+      "version": "26.6.1",
+      "xcode_version": "26",
       "compatible_server_types": [
-        "M1-M",
         "M2-M",
-        "M2-L",
         "M4-L",
-        "M4-XL",
         "M4-M",
-        "M4-S"
+        "M4-S",
+        "M4-SP",
+        "M4-XL",
+        "M2-L",
+        "M1-M"
       ],
       "release_notes_url": "",
       "description": "",
-      "tags": null,
-      "supported_server_types": null
+      "tags": [
+        "macos",
+        "apple",
+        "apple-license"
+      ],
+      "supported_server_types": []
     },
-    "npu": null,
-    "kg_co2_equivalent": 0.014205732,
-    "m3_water_usage": 0.0000013491717
+    "npu": {
+      "count": 16
+    },
+    "kg_co2_equivalent": 0.03721964,
+    "m3_water_usage": 6.058711e-7
+  },
+  {
+    "cpu": {
+      "name": "Apple M2",
+      "core_count": 8,
+      "frequency": 3500000000,
+      "sockets": 1,
+      "threads_per_core": 1
+    },
+    "disk": {
+      "capacity": 256000000000,
+      "type": "SSD"
+    },
+    "name": "M2-M",
+    "memory": {
+      "capacity": 16000000000,
+      "type": "LPDDR5"
+    },
+    "stock": "no_stock",
+    "minimum_lease_duration": "86400.000000000s",
+    "gpu": {
+      "count": 10
+    },
+    "network": {
+      "public_bandwidth_bps": 1000000000,
+      "supported_bandwidth": [
+        1000000000
+      ],
+      "default_public_bandwidth": 1000000000
+    },
+    "default_os": {
+      "id": "8c51501f-239b-4ed4-8cad-78816e11b970",
+      "name": "macos-tahoe-26.6.1",
+      "label": "macOS Tahoe 26.6.1",
+      "image_url": "https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-tahoe.png",
+      "family": "Tahoe",
+      "is_beta": false,
+      "version": "26.6.1",
+      "xcode_version": "26",
+      "compatible_server_types": [
+        "M2-M",
+        "M4-L",
+        "M4-M",
+        "M4-S",
+        "M4-SP",
+        "M4-XL",
+        "M2-L",
+        "M1-M"
+      ],
+      "release_notes_url": "",
+      "description": "",
+      "tags": [
+        "macos",
+        "apple",
+        "apple-license"
+      ],
+      "supported_server_types": []
+    },
+    "npu": {
+      "count": 16
+    },
+    "kg_co2_equivalent": 0.036906056,
+    "m3_water_usage": 5.592656e-7
   },
   {
     "cpu": {
       "name": "Apple M4",
       "core_count": 10,
       "frequency": 4400000000,
-      "sockets": 0,
-      "threads_per_core": 0
+      "sockets": 1,
+      "threads_per_core": 1
+    },
+    "disk": {
+      "capacity": 512000000000,
+      "type": "SSD"
+    },
+    "name": "M4-SP",
+    "memory": {
+      "capacity": 16000000000,
+      "type": "LPDDR5X"
+    },
+    "stock": "no_stock",
+    "minimum_lease_duration": "86400.000000000s",
+    "gpu": {
+      "count": 10
+    },
+    "network": {
+      "public_bandwidth_bps": 1000000000,
+      "supported_bandwidth": [
+        1000000000
+      ],
+      "default_public_bandwidth": 1000000000
+    },
+    "default_os": {
+      "id": "8c51501f-239b-4ed4-8cad-78816e11b970",
+      "name": "macos-tahoe-26.6.1",
+      "label": "macOS Tahoe 26.6.1",
+      "image_url": "https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-tahoe.png",
+      "family": "Tahoe",
+      "is_beta": false,
+      "version": "26.6.1",
+      "xcode_version": "26",
+      "compatible_server_types": [
+        "M2-M",
+        "M4-L",
+        "M4-M",
+        "M4-S",
+        "M4-SP",
+        "M4-XL",
+        "M2-L",
+        "M1-M"
+      ],
+      "release_notes_url": "",
+      "description": "",
+      "tags": [
+        "macos",
+        "apple",
+        "apple-license"
+      ],
+      "supported_server_types": []
+    },
+    "npu": {
+      "count": 16
+    },
+    "kg_co2_equivalent": 0.037428923,
+    "m3_water_usage": 6.058711e-7
+  },
+  {
+    "cpu": {
+      "name": "Apple M4",
+      "core_count": 10,
+      "frequency": 4400000000,
+      "sockets": 1,
+      "threads_per_core": 1
     },
     "disk": {
       "capacity": 1024000000000,
@@ -79,7 +277,7 @@ M2-M  Apple M2 (8 cores)   16 GB   256 GB  high stock  1 days                  0
       "capacity": 32000000000,
       "type": "LPDDR5X"
     },
-    "stock": "high_stock",
+    "stock": "no_stock",
     "minimum_lease_duration": "86400.000000000s",
     "gpu": {
       "count": 10
@@ -98,86 +296,40 @@ M2-M  Apple M2 (8 cores)   16 GB   256 GB  high stock  1 days                  0
         9000000000,
         10000000000
       ],
-      "default_public_bandwidth": 0
+      "default_public_bandwidth": 1000000000
     },
     "default_os": {
-      "id": "87135053-e968-4a38-8735-86901accc6f5",
-      "name": "macos-sequoia-15.3.1",
-      "label": "macOS Sequoia 15.3.1",
-      "image_url": "https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png",
-      "family": "Sequoia",
+      "id": "8c51501f-239b-4ed4-8cad-78816e11b970",
+      "name": "macos-tahoe-26.6.1",
+      "label": "macOS Tahoe 26.6.1",
+      "image_url": "https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-tahoe.png",
+      "family": "Tahoe",
       "is_beta": false,
-      "version": "15.3.1",
-      "xcode_version": "16",
+      "version": "26.6.1",
+      "xcode_version": "26",
       "compatible_server_types": [
-        "M1-M",
         "M2-M",
-        "M2-L",
         "M4-L",
-        "M4-XL",
         "M4-M",
-        "M4-S"
-      ],
-      "release_notes_url": "",
-      "description": "",
-      "tags": null,
-      "supported_server_types": null
-    },
-    "npu": null,
-    "kg_co2_equivalent": 0.015271181,
-    "m3_water_usage": 0.0000013491717
-  },
-  {
-    "cpu": {
-      "name": "Apple M2",
-      "core_count": 8,
-      "frequency": 3500000000,
-      "sockets": 0,
-      "threads_per_core": 0
-    },
-    "disk": {
-      "capacity": 256000000000,
-      "type": "SSD"
-    },
-    "name": "M2-M",
-    "memory": {
-      "capacity": 16000000000,
-      "type": "LPDDR5"
-    },
-    "stock": "high_stock",
-    "minimum_lease_duration": "86400.000000000s",
-    "gpu": {
-      "count": 10
-    },
-    "network": {
-      "public_bandwidth_bps": 1000000000,
-      "supported_bandwidth": [
-        1000000000
-      ],
-      "default_public_bandwidth": 0
-    },
-    "default_os": {
-      "id": "367b9c18-d57f-4c9a-bcea-9e1fda66fc70",
-      "name": "macos-sequoia-15.2",
-      "label": "macOS Sequoia 15.2",
-      "image_url": "https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png",
-      "family": "Sequoia",
-      "is_beta": false,
-      "version": "15.2",
-      "xcode_version": "16",
-      "compatible_server_types": [
-        "M1-M",
-        "M2-M",
+        "M4-S",
+        "M4-SP",
+        "M4-XL",
         "M2-L",
-        "M4-S"
+        "M1-M"
       ],
       "release_notes_url": "",
       "description": "",
-      "tags": null,
-      "supported_server_types": null
+      "tags": [
+        "macos",
+        "apple",
+        "apple-license"
+      ],
+      "supported_server_types": []
     },
-    "npu": null,
-    "kg_co2_equivalent": 0.013547652,
-    "m3_water_usage": 0.0000012453893
+    "npu": {
+      "count": 16
+    },
+    "kg_co2_equivalent": 0.038380217,
+    "m3_water_usage": 6.058711e-7
   }
 ]

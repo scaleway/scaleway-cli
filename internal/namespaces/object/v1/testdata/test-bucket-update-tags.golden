@@ -6,7 +6,7 @@ Region            fr-par
 APIEndpoint       https://s3.fr-par.scw.cloud
 BucketEndpoint    https://cli-test-bucket-update-.s3.fr-par.scw.cloud
 EnableVersioning  false
-Owner             105bdce1-64c0-48ab-899d-868455867ecf
+Owner             de2b260d-2c2e-4be9-baa0-99d8ed17f1da
 
 Tags:
 KEY   VALUE
@@ -14,7 +14,7 @@ key1  value1
 
 Acl:
 GRANTEE                               PERMISSION
-105bdce1-64c0-48ab-899d-868455867ecf  FULL_CONTROL
+de2b260d-2c2e-4be9-baa0-99d8ed17f1da  FULL_CONTROL
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "SuccessResult": {
@@ -35,10 +35,10 @@ GRANTEE                               PERMISSION
     ],
     "ACL": [
       {
-        "Grantee": "105bdce1-64c0-48ab-899d-868455867ecf",
+        "Grantee": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
         "Permission": "FULL_CONTROL"
       }
     ],
-    "Owner": "105bdce1-64c0-48ab-899d-868455867ecf"
+    "Owner": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da"
   }
 }

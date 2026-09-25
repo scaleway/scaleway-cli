@@ -1,10 +1,10 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              105004b5-6b18-4f2a-957c-653d42391e00
-Name            cli-vol-practical-shirley
+ID              a6037cf3-fce5-459c-80ff-7698b6b2b0ba
+Name            cli-vol-agitated-chaplygin
 Type            sbs_5k
 Size            20 GB
-ProjectID       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ProjectID       de2b260d-2c2e-4be9-baa0-99d8ed17f1da
 CreatedAt       few seconds ago
 UpdatedAt       few seconds ago
 Status          available
@@ -13,11 +13,11 @@ Specs.PerfIops  5000
 Specs.Class     sbs
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "105004b5-6b18-4f2a-957c-653d42391e00",
-  "name": "cli-vol-practical-shirley",
+  "id": "a6037cf3-fce5-459c-80ff-7698b6b2b0ba",
+  "name": "cli-vol-agitated-chaplygin",
   "type": "sbs_5k",
   "size": 20000000000,
-  "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "references": [],

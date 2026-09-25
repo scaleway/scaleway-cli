@@ -1,25 +1,25 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              db68aaf1-853b-47f9-a511-405c84411b9c
-OrganizationID  fa1e3217-dc80-42ac-85c3-3f034b78b552
-ProjectID       fa1e3217-dc80-42ac-85c3-3f034b78b552
-Name            cli-bm-infallible-lewin
+ID              799ed787-4323-4c0a-8650-66acc6f97047
+OrganizationID  de2b260d-2c2e-4be9-baa0-99d8ed17f1da
+ProjectID       de2b260d-2c2e-4be9-baa0-99d8ed17f1da
+Name            cli-bm-eager-fermi
 Description     -
 UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
 Status          ready
 OfferID         ddb09834-8680-4339-b5e3-19ca5205fa1f
 OfferName       EM-I215E-NVME
-Domain          db68aaf1-853b-47f9-a511-405c84411b9c.fr-par-2.baremetal.scw.cloud
+Domain          799ed787-4323-4c0a-8650-66acc6f97047.fr-par-2.baremetal.scw.cloud
 BootType        normal
 Zone            fr-par-2
 PingStatus      unknown
 Protected       false
 
 IPs:
-ID                                    ADDRESS                                REVERSE                                                            VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
-09b54f1e-4b6a-4b94-b096-7163846c12b7  195.154.100.198                        db68aaf1-853b-47f9-a511-405c84411b9c.fr-par-2.baremetal.scw.cloud  IPv4     active          -
-f9c31c6e-6b3a-46e3-ab62-1f3f0de770d4  2001:bc8:1201:a22:b683:51ff:fe0f:60fc  db68aaf1-853b-47f9-a511-405c84411b9c.fr-par-2.baremetal.scw.cloud  IPv6     active          -
+ID                                    ADDRESS                                REVERSE  VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
+0cb0f543-8162-4502-bbd8-d6bf4e34826a  51.159.203.111                         -        IPv4     unknown         -
+419d9b5a-a280-4dc8-8aee-61180a4ad8a3  2001:bc8:1201:749:b683:51ff:fe0f:63a4  -        IPv6     unknown         -
 
 Options:
 ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
@@ -27,12 +27,51 @@ ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
 Install:
 OsID                                                          03b7f4ba-a6a1-4305-984e-b54fafbf1681
 Hostname                                                      test-install-server
-SSHKeyIDs.0                                                   3ab0be8a-e59d-4c0b-a079-abb9672aff40
-SSHKeyIDs.1                                                   348ed8cb-6181-4234-a6c9-0593426492aa
-SSHKeyIDs.2                                                   162ae3fb-a711-48a1-8a5c-620fcc8df4b4
-SSHKeyIDs.3                                                   b2d28dc5-4189-4a1b-bb7c-bdfaafc2481b
-SSHKeyIDs.4                                                   75339543-ccc9-4cda-b750-dd5eead444e2
-SSHKeyIDs.5                                                   516cdd3c-1462-460a-927f-e5eeee1da2b8
+SSHKeyIDs.0                                                   b3473d47-6a1c-489c-8f9b-56665129162e
+SSHKeyIDs.1                                                   a648a00b-70a1-4ee3-b8a8-3be0132fcb43
+SSHKeyIDs.2                                                   b988cd85-abb6-4196-95be-990fd31ca1c3
+SSHKeyIDs.3                                                   22c6f9fb-e834-4af4-88e3-56dbd9799618
+SSHKeyIDs.4                                                   0f0cd6c3-4e59-40dc-b88e-10772bf2eb9b
+SSHKeyIDs.5                                                   fe13817b-0780-4364-9ef3-ef4762a64052
+SSHKeyIDs.6                                                   d9838a12-4540-41ec-a187-5c2ee92f8e8c
+SSHKeyIDs.7                                                   e5e44be7-b01f-4e6b-b65c-6e31f6811d98
+SSHKeyIDs.8                                                   38d5afd4-194e-4739-8860-e236d8452135
+SSHKeyIDs.9                                                   ecd63efd-86e2-402f-bae4-0c08408c64d1
+SSHKeyIDs.10                                                  99429d88-e6fc-4082-9bff-4100309b9a50
+SSHKeyIDs.11                                                  345547c0-9b67-4365-ae71-9271e289c5d5
+SSHKeyIDs.12                                                  580a3a2e-82c4-4979-a52e-937bc3f5a33a
+SSHKeyIDs.13                                                  06bdc17d-893c-4f31-b5bc-796868737811
+SSHKeyIDs.14                                                  fce78500-8240-48a3-a891-d5805ac4aa4d
+SSHKeyIDs.15                                                  62ed40b8-f522-49ad-83f7-64844bdb9301
+SSHKeyIDs.16                                                  87bc4977-9177-409e-805f-c470cabec650
+SSHKeyIDs.17                                                  d5dc48c0-5115-4b49-afb2-c08a786f22aa
+SSHKeyIDs.18                                                  3c65b865-5200-4362-88c1-0022e083864f
+SSHKeyIDs.19                                                  45958373-766f-485e-86cf-4c8b2fb15d84
+SSHKeyIDs.20                                                  f65c7e98-e17c-4b72-96e5-68757bd568b5
+SSHKeyIDs.21                                                  bc34e991-67e2-40f1-b941-efb566e6c2da
+SSHKeyIDs.22                                                  565499f1-ec4d-432e-99fb-09dcc633a02b
+SSHKeyIDs.23                                                  52406bf0-b3b6-43d6-8ba5-209f639e34d9
+SSHKeyIDs.24                                                  bf0e1687-de5e-4f78-8c7f-3831a1663049
+SSHKeyIDs.25                                                  62a1bb19-6ecc-4ee2-9c38-8f9bfdc114e2
+SSHKeyIDs.26                                                  406562d7-1b68-4bce-b414-df6676103d7e
+SSHKeyIDs.27                                                  90d0e745-a8b6-43f3-8fad-f39634518992
+SSHKeyIDs.28                                                  0132fe32-c6e5-46d9-8c1a-57059d0a92cf
+SSHKeyIDs.29                                                  84f8c23f-13d0-4db1-ba9b-a95a8bae6a76
+SSHKeyIDs.30                                                  24c231cc-8fad-4587-93eb-510a72cc22cb
+SSHKeyIDs.31                                                  2f2661b3-9614-4dc3-a1fe-954e53806b58
+SSHKeyIDs.32                                                  f214da86-2d87-4c98-b03a-223612d3969c
+SSHKeyIDs.33                                                  00f081fd-c04a-4603-8413-68ea3b7260a3
+SSHKeyIDs.34                                                  441c2031-92fc-4265-a399-94581a87b6a7
+SSHKeyIDs.35                                                  0ba48edf-8220-4059-88ce-cbad55c8f71d
+SSHKeyIDs.36                                                  238f62e8-3048-42a3-aa23-304ad8f52a1e
+SSHKeyIDs.37                                                  acc01bf7-9c88-4f0a-add9-efa79ff75b06
+SSHKeyIDs.38                                                  0caddaf6-ee0f-47e4-ab1c-67ba05946eb2
+SSHKeyIDs.39                                                  c03519ba-efd8-4e7c-9edb-0cfb4b3f6289
+SSHKeyIDs.40                                                  3ecce91f-19bd-411c-ae16-c014d2182b8e
+SSHKeyIDs.41                                                  aae277f4-7c95-491a-9a64-15a616c44979
+SSHKeyIDs.42                                                  00858cb3-2f27-4daa-8b54-50629fc586c6
+SSHKeyIDs.43                                                  fc85ea3c-bc15-4c8c-9f30-9887c3abd12b
+SSHKeyIDs.44                                                  3dcf783b-c2e3-4abd-961e-ed880a941a03
 Status                                                        completed
 User                                                          ubuntu
 ServiceUser                                                   -
@@ -86,10 +125,10 @@ PartitioningSchema.Filesystems.2.Format                       ext4
 PartitioningSchema.Filesystems.2.Mountpoint                   /
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "db68aaf1-853b-47f9-a511-405c84411b9c",
-  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "name": "cli-bm-infallible-lewin",
+  "id": "799ed787-4323-4c0a-8650-66acc6f97047",
+  "organization_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
+  "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
+  "name": "cli-bm-eager-fermi",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
@@ -99,35 +138,74 @@ PartitioningSchema.Filesystems.2.Mountpoint                   /
   "tags": [],
   "ips": [
     {
-      "id": "09b54f1e-4b6a-4b94-b096-7163846c12b7",
-      "address": "195.154.100.198",
-      "reverse": "db68aaf1-853b-47f9-a511-405c84411b9c.fr-par-2.baremetal.scw.cloud",
+      "id": "0cb0f543-8162-4502-bbd8-d6bf4e34826a",
+      "address": "51.159.203.111",
+      "reverse": "",
       "version": "IPv4",
-      "reverse_status": "active",
+      "reverse_status": "unknown",
       "reverse_status_message": ""
     },
     {
-      "id": "f9c31c6e-6b3a-46e3-ab62-1f3f0de770d4",
-      "address": "2001:bc8:1201:a22:b683:51ff:fe0f:60fc",
-      "reverse": "db68aaf1-853b-47f9-a511-405c84411b9c.fr-par-2.baremetal.scw.cloud",
+      "id": "419d9b5a-a280-4dc8-8aee-61180a4ad8a3",
+      "address": "2001:bc8:1201:749:b683:51ff:fe0f:63a4",
+      "reverse": "",
       "version": "IPv6",
-      "reverse_status": "active",
+      "reverse_status": "unknown",
       "reverse_status_message": ""
     }
   ],
-  "domain": "db68aaf1-853b-47f9-a511-405c84411b9c.fr-par-2.baremetal.scw.cloud",
+  "domain": "799ed787-4323-4c0a-8650-66acc6f97047.fr-par-2.baremetal.scw.cloud",
   "boot_type": "normal",
   "zone": "fr-par-2",
   "install": {
     "os_id": "03b7f4ba-a6a1-4305-984e-b54fafbf1681",
     "hostname": "test-install-server",
     "ssh_key_ids": [
-      "3ab0be8a-e59d-4c0b-a079-abb9672aff40",
-      "348ed8cb-6181-4234-a6c9-0593426492aa",
-      "162ae3fb-a711-48a1-8a5c-620fcc8df4b4",
-      "b2d28dc5-4189-4a1b-bb7c-bdfaafc2481b",
-      "75339543-ccc9-4cda-b750-dd5eead444e2",
-      "516cdd3c-1462-460a-927f-e5eeee1da2b8"
+      "b3473d47-6a1c-489c-8f9b-56665129162e",
+      "a648a00b-70a1-4ee3-b8a8-3be0132fcb43",
+      "b988cd85-abb6-4196-95be-990fd31ca1c3",
+      "22c6f9fb-e834-4af4-88e3-56dbd9799618",
+      "0f0cd6c3-4e59-40dc-b88e-10772bf2eb9b",
+      "fe13817b-0780-4364-9ef3-ef4762a64052",
+      "d9838a12-4540-41ec-a187-5c2ee92f8e8c",
+      "e5e44be7-b01f-4e6b-b65c-6e31f6811d98",
+      "38d5afd4-194e-4739-8860-e236d8452135",
+      "ecd63efd-86e2-402f-bae4-0c08408c64d1",
+      "99429d88-e6fc-4082-9bff-4100309b9a50",
+      "345547c0-9b67-4365-ae71-9271e289c5d5",
+      "580a3a2e-82c4-4979-a52e-937bc3f5a33a",
+      "06bdc17d-893c-4f31-b5bc-796868737811",
+      "fce78500-8240-48a3-a891-d5805ac4aa4d",
+      "62ed40b8-f522-49ad-83f7-64844bdb9301",
+      "87bc4977-9177-409e-805f-c470cabec650",
+      "d5dc48c0-5115-4b49-afb2-c08a786f22aa",
+      "3c65b865-5200-4362-88c1-0022e083864f",
+      "45958373-766f-485e-86cf-4c8b2fb15d84",
+      "f65c7e98-e17c-4b72-96e5-68757bd568b5",
+      "bc34e991-67e2-40f1-b941-efb566e6c2da",
+      "565499f1-ec4d-432e-99fb-09dcc633a02b",
+      "52406bf0-b3b6-43d6-8ba5-209f639e34d9",
+      "bf0e1687-de5e-4f78-8c7f-3831a1663049",
+      "62a1bb19-6ecc-4ee2-9c38-8f9bfdc114e2",
+      "406562d7-1b68-4bce-b414-df6676103d7e",
+      "90d0e745-a8b6-43f3-8fad-f39634518992",
+      "0132fe32-c6e5-46d9-8c1a-57059d0a92cf",
+      "84f8c23f-13d0-4db1-ba9b-a95a8bae6a76",
+      "24c231cc-8fad-4587-93eb-510a72cc22cb",
+      "2f2661b3-9614-4dc3-a1fe-954e53806b58",
+      "f214da86-2d87-4c98-b03a-223612d3969c",
+      "00f081fd-c04a-4603-8413-68ea3b7260a3",
+      "441c2031-92fc-4265-a399-94581a87b6a7",
+      "0ba48edf-8220-4059-88ce-cbad55c8f71d",
+      "238f62e8-3048-42a3-aa23-304ad8f52a1e",
+      "acc01bf7-9c88-4f0a-add9-efa79ff75b06",
+      "0caddaf6-ee0f-47e4-ab1c-67ba05946eb2",
+      "c03519ba-efd8-4e7c-9edb-0cfb4b3f6289",
+      "3ecce91f-19bd-411c-ae16-c014d2182b8e",
+      "aae277f4-7c95-491a-9a64-15a616c44979",
+      "00858cb3-2f27-4daa-8b54-50629fc586c6",
+      "fc85ea3c-bc15-4c8c-9f30-9887c3abd12b",
+      "3dcf783b-c2e3-4abd-961e-ed880a941a03"
     ],
     "status": "completed",
     "user": "ubuntu",

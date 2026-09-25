@@ -2,96 +2,82 @@
 version: 1
 interactions:
 - request:
-    body: '{"id":"956f2366-8cf5-439a-9dbc-5a0ee3036465", "name":"cli-inference-cranky-antonelli",
-      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"creating", "tags":[],
-      "node_type_name":"H100-2", "endpoints":[{"id":"79319256-5e07-4b5a-8c08-b81f1c585b26",
-      "url":"https://956f2366-8cf5-439a-9dbc-5a0ee3036465.ifr.fr-par.scaleway.com",
-      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
-      "created_at":"2025-11-21T09:09:19.102950Z", "updated_at":null, "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46",
-      "quantization":{"bits":4}, "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq",
-      "region":"fr-par"}'
+    body: '{"name":"cli-inference-clever-kare","project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da","model_id":"623a4d27-40c1-4764-a6e2-6ea84d18fd2b","node_type_name":"L40S","tags":null,"endpoints":[{"public_network":{},"disable_auth":false}]}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/inference/v1/regions/fr-par/deployments
+      - scaleway-sdk-go/v1.0.0-beta.37.0.20260917153350-2de72c5cf6d2 (go1.27.1; linux;
+        amd64) cli-e2e-test
+    url: http://localhost:8080/inference/v1/regions/fr-par/deployments
     method: POST
   response:
-    body: '{"id":"956f2366-8cf5-439a-9dbc-5a0ee3036465", "name":"cli-inference-cranky-antonelli",
-      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"creating", "tags":[],
-      "node_type_name":"H100-2", "endpoints":[{"id":"79319256-5e07-4b5a-8c08-b81f1c585b26",
-      "url":"https://956f2366-8cf5-439a-9dbc-5a0ee3036465.ifr.fr-par.scaleway.com",
-      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
-      "created_at":"2025-11-21T09:09:19.102950Z", "updated_at":null, "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46",
-      "quantization":{"bits":4}, "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq",
-      "region":"fr-par"}'
+    body: '{"id":"94c1274f-d2bc-4161-8847-aa05da8c07ce","name":"cli-inference-clever-kare","project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da","status":"creating","tags":[],"node_type_name":"L40S","endpoints":[{"id":"47e019b6-1c57-445a-9330-e837fccf5396","url":"https://94c1274f-d2bc-4161-8847-aa05da8c07ce.ifr.fr-par.scaleway.com","public_network":{},"disable_auth":false}],"size":0,"min_size":1,"max_size":1,"created_at":"2026-09-25T09:20:05.871075Z","updated_at":null,"model_id":"623a4d27-40c1-4764-a6e2-6ea84d18fd2b","quantization":{"bits":8},"model_name":"qwen/qwen3-coder-30b-a3b-instruct:fp8","region":"fr-par"}'
     headers:
       Content-Length:
-      - "633"
+      - "607"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 21 Nov 2025 09:09:19 GMT
+      - Fri, 25 Sep 2026 09:20:06 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
       - DENY
+      X-Ratelimit-Limit:
+      - 50, 50;w=1
+      X-Ratelimit-Remaining:
+      - "49"
+      X-Ratelimit-Reset:
+      - "1"
       X-Request-Id:
-      - f0106441-06b9-4823-81b4-7c37ee980386
+      - a242fc18-5697-4235-af21-76cac8270212
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"956f2366-8cf5-439a-9dbc-5a0ee3036465", "name":"cli-inference-cranky-antonelli",
-      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"deleting", "tags":[],
-      "node_type_name":"H100-2", "endpoints":[{"id":"79319256-5e07-4b5a-8c08-b81f1c585b26",
-      "url":"https://956f2366-8cf5-439a-9dbc-5a0ee3036465.ifr.fr-par.scaleway.com",
-      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
-      "created_at":"2025-11-21T09:09:19.102950Z", "updated_at":null, "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46",
-      "quantization":{"bits":4}, "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq",
-      "region":"fr-par"}'
+    body: ""
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/inference/v1/regions/fr-par/deployments/956f2366-8cf5-439a-9dbc-5a0ee3036465
+      - scaleway-sdk-go/v1.0.0-beta.37.0.20260917153350-2de72c5cf6d2 (go1.27.1; linux;
+        amd64) cli-e2e-test
+    url: http://localhost:8080/inference/v1/regions/fr-par/deployments/94c1274f-d2bc-4161-8847-aa05da8c07ce
     method: DELETE
   response:
-    body: '{"id":"956f2366-8cf5-439a-9dbc-5a0ee3036465", "name":"cli-inference-cranky-antonelli",
-      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"deleting", "tags":[],
-      "node_type_name":"H100-2", "endpoints":[{"id":"79319256-5e07-4b5a-8c08-b81f1c585b26",
-      "url":"https://956f2366-8cf5-439a-9dbc-5a0ee3036465.ifr.fr-par.scaleway.com",
-      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
-      "created_at":"2025-11-21T09:09:19.102950Z", "updated_at":null, "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46",
-      "quantization":{"bits":4}, "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq",
-      "region":"fr-par"}'
+    body: '{"id":"94c1274f-d2bc-4161-8847-aa05da8c07ce","name":"cli-inference-clever-kare","project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da","status":"deleting","tags":[],"node_type_name":"L40S","endpoints":[{"id":"47e019b6-1c57-445a-9330-e837fccf5396","url":"https://94c1274f-d2bc-4161-8847-aa05da8c07ce.ifr.fr-par.scaleway.com","public_network":{},"disable_auth":false}],"size":0,"min_size":1,"max_size":1,"created_at":"2026-09-25T09:20:05.871075Z","updated_at":null,"model_id":"623a4d27-40c1-4764-a6e2-6ea84d18fd2b","quantization":{"bits":8},"model_name":"qwen/qwen3-coder-30b-a3b-instruct:fp8","region":"fr-par"}'
     headers:
       Content-Length:
-      - "633"
+      - "607"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 21 Nov 2025 09:09:19 GMT
+      - Fri, 25 Sep 2026 09:20:06 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
       - DENY
+      X-Ratelimit-Limit:
+      - 50, 50;w=1
+      X-Ratelimit-Remaining:
+      - "49"
+      X-Ratelimit-Reset:
+      - "1"
       X-Request-Id:
-      - ba264636-62c4-4e7f-8246-97c02bbf99d8
+      - e97d04b9-c982-4a15-a914-9664accabcd4
     status: 200 OK
     code: 200
     duration: ""
