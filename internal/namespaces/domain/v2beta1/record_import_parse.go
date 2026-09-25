@@ -8,8 +8,7 @@ import (
 	"slices"
 	"strings"
 
-	"codeberg.org/miekg/dns"
-	"codeberg.org/miekg/dns/dnsutil"
+	"github.com/miekg/dns"
 	domain "github.com/scaleway/scaleway-sdk-go/api/domain/v2beta1"
 )
 
@@ -107,12 +106,12 @@ func jsonRecordToDomain(r jsonImportRecord, index int) (*domain.Record, error) {
 	if err := validateRecordOwnerName(name); err != nil {
 		return nil, fmt.Errorf("records[%d]: %w", index, err)
 	}
-
+	rt := domain.RecordType(typ)
 	rec := &domain.Record{
 		Data:     data,
 		Name:     name,
 		TTL:      ttl,
-		Type:     domain.RecordType(typ),
+		Type:     rt,
 		Priority: 0,
 	}
 	if r.Priority != nil {
@@ -133,7 +132,7 @@ func validateRecordOwnerName(name string) error {
 		return fmt.Errorf("invalid owner name %q", name)
 	}
 	// Reject absolute FQDNs: we expect short names relative to the zone (like the rest of scw dns record).
-	if dnsutil.IsFqdn(name) {
+	if dns.IsFqdn(name) {
 		return fmt.Errorf(
 			"owner name %q looks like an FQDN; use a relative name (e.g. www) or @ for apex",
 			name,
@@ -152,11 +151,8 @@ func ParseImportBind(content, dnsZone string) ([]*domain.Record, error) {
 	if err := validateZoneDirectives(content); err != nil {
 		return nil, err
 	}
-	origin := dnsutil.Fqdn(dnsZone)
+	origin := dns.Fqdn(dnsZone)
 	zp := dns.NewZoneParser(strings.NewReader(content), origin, "")
-	// Reject $INCLUDE at the parser level as well (we also reject it in validateZoneDirectives).
-	zp.IncludeAllowFunc = func(_, _ string) bool { return false }
-
 	var records []*domain.Record
 	for rr, ok := zp.Next(); ok; rr, ok = zp.Next() {
 		recs, err := dnsRRToRecords(rr, dnsZone)
@@ -173,11 +169,10 @@ func ParseImportBind(content, dnsZone string) ([]*domain.Record, error) {
 }
 
 func dnsRRToRecords(rr dns.RR, dnsZone string) ([]*domain.Record, error) {
-	switch dns.RRToType(rr) {
+	switch hdr := rr.Header(); hdr.Rrtype {
 	case dns.TypeSOA:
 		return nil, nil
 	case dns.TypeNS:
-		hdr := rr.Header()
 		name, err := RelativeOwnerName(hdr.Name, dnsZone)
 		if err != nil {
 			return nil, err
@@ -194,7 +189,7 @@ func dnsRRToRecords(rr dns.RR, dnsZone string) ([]*domain.Record, error) {
 		return []*domain.Record{{
 			Data:     targetToData(ns.Ns),
 			Name:     name,
-			TTL:      ttlOrDefault(hdr.TTL),
+			TTL:      ttlOrDefault(hdr.Ttl),
 			Type:     domain.RecordTypeNS,
 			Priority: 0,
 		}}, nil
@@ -214,17 +209,17 @@ func dnsRRToRecord(rr dns.RR, dnsZone string) (*domain.Record, error) {
 	if err != nil {
 		return nil, err
 	}
-	ttl := ttlOrDefault(hdr.TTL)
+	ttl := ttlOrDefault(hdr.Ttl)
 
 	switch v := rr.(type) {
 	case *dns.A:
 		return &domain.Record{
-			Data: v.Addr.String(),
+			Data: v.A.String(),
 			Name: name, TTL: ttl, Type: domain.RecordTypeA,
 		}, nil
 	case *dns.AAAA:
 		return &domain.Record{
-			Data: v.Addr.String(),
+			Data: v.AAAA.String(),
 			Name: name, TTL: ttl, Type: domain.RecordTypeAAAA,
 		}, nil
 	case *dns.CNAME:
@@ -265,7 +260,10 @@ func dnsRRToRecord(rr dns.RR, dnsZone string) (*domain.Record, error) {
 			Name: name, TTL: ttl, Type: domain.RecordTypeCAA,
 		}, nil
 	default:
-		typeName := dnsutil.TypeToString(dns.RRToType(rr))
+		typeName := dns.TypeToString[hdr.Rrtype]
+		if typeName == "" {
+			typeName = fmt.Sprintf("TYPE%d", hdr.Rrtype)
+		}
 
 		return nil, fmt.Errorf(
 			"unsupported record type %s for %s in BIND format; "+
@@ -290,7 +288,7 @@ func targetToData(target string) string {
 // RelativeOwnerName returns the owner name relative to zone (empty string for apex).
 func RelativeOwnerName(ownerFQN, zone string) (string, error) {
 	owner := strings.TrimSuffix(ownerFQN, ".")
-	z := strings.TrimSuffix(dnsutil.Fqdn(zone), ".")
+	z := strings.TrimSuffix(dns.Fqdn(zone), ".")
 	// DNS names are case-insensitive.
 	if strings.EqualFold(owner, z) {
 		return "", nil
