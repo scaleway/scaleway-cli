@@ -104,6 +104,25 @@ scw container container get <container-id ...> [arg=value ...]
 
 
 
+### Get the private endpoint certificate authority.
+
+When enabling private endpoints for your containers, you need to trust this CA to establish HTTPS connections to them.
+
+**Usage:**
+
+```shell
+scw container container get-private-endpoint-ca [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name   | Description                                                                 | Argument Specifications                                               |
+|--------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
+
+
+
 ### List all containers the caller can access (read permission).
 
 By default, the containers listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.

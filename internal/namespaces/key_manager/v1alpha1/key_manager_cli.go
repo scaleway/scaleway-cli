@@ -569,6 +569,7 @@ The ` + "`" + `region` + "`" + ` parameter in path is needed in both case.`,
 					"symmetric_encryption",
 					"asymmetric_encryption",
 					"asymmetric_signing",
+					"key_encapsulation",
 				},
 			},
 			{
