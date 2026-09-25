@@ -9,7 +9,9 @@ import (
 	"strings"
 	"text/tabwriter"
 
+	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/spf13/cobra"
 )
@@ -105,7 +107,7 @@ func _buildUsageArgs(ctx context.Context, w io.Writer, argSpecs ArgSpecs) error 
 			argSpecUsageLeftPart = "  " + argSpecUsageLeftPart
 		}
 
-		_, err := fmt.Fprintf(w, "  %s\t%s\n", argSpecUsageLeftPart, argSpecUsageRightPart)
+		_, err := fmt.Fprintf(w, "  %s\t%s\n", terminal.Style(argSpecUsageLeftPart, color.FgBlue), argSpecUsageRightPart)
 		if err != nil {
 			return err
 		}
