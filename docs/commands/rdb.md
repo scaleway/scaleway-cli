@@ -335,6 +335,78 @@ scw rdb backup wait 11111111-1111-1111-1111-111111111111
 
 
 
+## Database client configuration snippets
+
+Generate ready-to-use database client configuration snippets.
+
+
+### Generate a database client configuration snippet
+
+Generate a ready-to-use database client configuration snippet for a Database Instance.
+
+Supported languages:
+  - php: PHP connection snippet (pg_connect for PostgreSQL, PDO for MySQL).
+  - node: Node.js connection snippet (pg or mysql2).
+  - typescript: TypeScript connection snippet (pg or mysql2).
+  - python: Python connection snippet (psycopg2 or mysql.connector).
+  - go: Go connection snippet (database/sql with pgx or go-sql-driver/mysql).
+  - rust: Rust connection snippet (sqlx).
+
+Use private-network=true when the instance has no public endpoint and is reachable only
+from resources attached to its Private Network.
+Replace YOUR_PASSWORD with your database user password, or use environment variables
+where suggested in the snippet.
+
+**Usage:**
+
+```shell
+scw rdb config get <instance-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name            | Description                                                                 | Argument Specifications                                                   |
+|-----------------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| instance-id     | ID of the Database Instance                                                 | Required                                                                  |
+| type            | Configuration template type                                                 | Required<br />One of: `php`, `node`, `typescript`, `python`, `go`, `rust` |
+| user            | Database user to connect as                                                 |                                                                           |
+| db              | Database name to connect to (defaults to rdb)                               |                                                                           |
+| private-network | Use the Private Network endpoint instead of the public one                  |                                                                           |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`               |
+
+
+**Examples:**
+
+
+Generate a PHP connection snippet
+```shell
+scw rdb config get 11111111-1111-1111-1111-111111111111 type=php
+```
+
+Generate a Node.js connection snippet for a custom user and database
+```shell
+scw rdb config get 11111111-1111-1111-1111-111111111111 type=node user=myuser db=mydb
+```
+
+Generate a Python connection snippet using the Private Network endpoint
+```shell
+scw rdb config get 11111111-1111-1111-1111-111111111111 type=python private-network=true
+```
+
+Generate a Go connection snippet
+```shell
+scw rdb config get 11111111-1111-1111-1111-111111111111 type=go
+```
+
+Generate a Rust connection snippet
+```shell
+scw rdb config get 11111111-1111-1111-1111-111111111111 type=rust
+```
+
+
+
+
 ## Database management commands
 
 Databases can be used to store and manage sets of structured information, or data. The interaction between the user and a database is done using a Database Engine, which provides a structured query language to add, modify or delete information from the database.

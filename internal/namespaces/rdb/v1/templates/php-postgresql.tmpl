@@ -1,0 +1,10 @@
+{{- if .PrivateNetworkID }}// Connect from a resource attached to private network {{ .PrivateNetworkID }}
+{{ end -}}
+<?php
+
+$connection = pg_connect("host={{ .Host }} port={{ .Port }} dbname={{ .Database }} user={{ .User }} password={{ .Password }}");
+if (!$connection) {
+    echo "Connection failed\n";
+    exit(1);
+}
+

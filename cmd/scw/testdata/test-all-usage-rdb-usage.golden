@@ -8,6 +8,7 @@ USAGE:
 AVAILABLE COMMANDS:
   acl          Access Control List (ACL) management commands
   backup       Backup management commands
+  config       Database client configuration snippets
   database     Database management commands
   endpoint     Endpoint management
   engine       Database engines commands
