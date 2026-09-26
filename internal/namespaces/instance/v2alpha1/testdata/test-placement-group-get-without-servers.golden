@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID          eb4da5a2-b999-4750-9022-a457103081fa
+ProjectID   fa1e3217-dc80-42ac-85c3-3f034b78b552
+Name        cli-pg-hopeful-spence
+PolicyType  max_availability
+CreatedAt   few seconds ago
+UpdatedAt   few seconds ago
+Zone        fr-par-1
+Srn         srn://instance.scw.eu/zones/fr-par-1/placement-groups/eb4da5a2-b999-4750-9022-a457103081fa
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "eb4da5a2-b999-4750-9022-a457103081fa",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "name": "cli-pg-hopeful-spence",
+  "policy_type": "max_availability",
+  "tags": [],
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "zone": "fr-par-1",
+  "srn": "srn://instance.scw.eu/zones/fr-par-1/placement-groups/eb4da5a2-b999-4750-9022-a457103081fa"
+}

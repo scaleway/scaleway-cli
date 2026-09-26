@@ -3,7 +3,7 @@
 Placement groups allow the user to express a preference regarding
 the physical position of a group of Instances. The feature lets the user
 choose to either group Instances on the same physical hardware for
-best network throughput and low latency or to spread Instances across
+best network throughput and low latency, or spread Instances across
 physically distanced hardware to reduce the risk of physical failure.
 
 The operating mode is selected by a `policy_type`. Two policy
@@ -13,25 +13,19 @@ types are available:
 
 The `policy_type` is set to `max_availability` by default.
 
-For each policy types, one of the two `policy_mode` may be selected:
-  - `optional` will start your Instances even if the constraint is not respected
-  - `enforced` guarantees that if the Instance starts, the constraint is respected
-
-The `policy_mode` is set by default to `optional`.
-
 USAGE:
   scw instance placement-group <command>
 
 AVAILABLE COMMANDS:
   create         Create a placement group
-  delete         Delete the specified placement group
+  delete         Delete a placement group
   get            Get a placement group
-  get-servers    Get placement group servers
   list           List placement groups
-  set            Set placement group
-  set-servers    Set placement group servers
   update         Update a placement group
-  update-servers Update placement group servers
+  get-servers    Get placement group servers (Deprecated)
+  set            Set placement group (Deprecated)
+  set-servers    Set placement group servers (Deprecated)
+  update-servers Update placement group servers (Deprecated)
 
 FLAGS:
   -h, --help                help for placement-group
