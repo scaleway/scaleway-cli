@@ -354,6 +354,39 @@ then
 fi
 '''
 
+[tasks.bench]
+description = "run the cli benchmarks"
+depends = ["deps:go"]
+usage = '''
+arg "[packages]" {
+  help "target packages to benchmark"
+  default "./commands"
+}
+flag "--bench <regex>" {
+  help "run only benchmarks matching the given regex"
+  default "."
+}
+flag "--benchtime <duration>" {
+  help "duration or iteration count per benchmark (e.g. 1s, 100x)"
+  default "1s"
+}
+flag "--count <n>" {
+  help "number of runs per benchmark, benchstat needs at least 6"
+  default "6"
+}
+flag "-o --output <path>" {
+  help "write the raw benchmark output to a file"
+}
+'''
+run = '''
+args=(test -run "^$" -bench "${usage_bench?}" -benchtime "${usage_benchtime?}" -count "${usage_count?}" -benchmem "${usage_packages?}")
+if [ -n "${usage_output:-}" ]; then
+  go "${args[@]}" | tee "${usage_output?}"
+else
+  go "${args[@]}"
+fi
+'''
+
 [tasks.release]
 description = "create a new release of the repository"
 usage = '''

@@ -74,6 +74,34 @@ So let's suppose you would like to run the test `Test_InstallServer` in the bare
 Keep in mind that running a single file is NOT equivalent to run the test for a package.
 Always run the test on the whole package (here the "baremetal" package stored in the folder "./internal/namespaces/baremetal/v1") and use the `--run` to target specific tests.
 
+## Benchmarks
+
+`commands/bench_test.go` measures how long the CLI takes to get ready, before any API call:
+building the command catalog, bootstrapping cobra, and registering the commands as MCP tools.
+
+A namespace can also benchmark one of its commands with `core.Benchmark`, which replays a
+cassette already recorded by the test suite instead of calling the API. It therefore measures
+what the CLI costs, argument parsing, SDK marshaling and output rendering, and leaves out the
+API latency. See `internal/namespaces/rdb/v1/custom_benchmark_test.go`.
+
+Benchmarks run offline, so they need no credentials and create no resource.
+
+```sh
+mise run bench                                  # the CLI engine
+mise run bench ./internal/namespaces/rdb/v1     # the RDB commands
+```
+
+To look for a regression, produce one file per revision and compare them with
+[benchstat](https://pkg.go.dev/golang.org/x/perf/cmd/benchstat):
+
+```sh
+git switch main && mise run bench -o /tmp/main.bench
+git switch my-branch && mise run bench -o /tmp/branch.bench
+benchstat /tmp/main.bench /tmp/branch.bench
+```
+
+Run both revisions on the same machine, otherwise the comparison is meaningless.
+
 ## Adding new tests
 
 We welcome contributions!
