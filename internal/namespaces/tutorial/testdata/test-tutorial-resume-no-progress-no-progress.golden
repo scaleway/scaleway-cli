@@ -1,0 +1,12 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+No tutorial in progress
+
+Hint:
+Run "scw tutorial" to start one.
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "message": "No tutorial in progress",
+  "error": {},
+  "hint": "Run \"scw tutorial\" to start one."
+}
