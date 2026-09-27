@@ -22,6 +22,13 @@ func Test_ListLBPrivateNetwork(t *testing.T) {
 			createPN(),
 			createIPAMIP(),
 			attachPN(),
+			core.BeforeFuncWhenUpdatingCassette(
+				func(_ *core.BeforeFuncCtx) error {
+					time.Sleep(5 * time.Second)
+
+					return nil
+				},
+			),
 		),
 		Cmd:   "scw lb private-network list {{ .LB.ID }}",
 		Check: core.TestCheckGolden(),
