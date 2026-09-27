@@ -1,136 +1,13 @@
 package core
 
 import (
-	"bytes"
-	"io"
-	"log"
 	"net/http"
-	"net/url"
-	"regexp"
-	"strings"
 	"testing"
 
-	"github.com/dnaeon/go-vcr/cassette"
-	"github.com/dnaeon/go-vcr/recorder"
 	"github.com/scaleway/scaleway-sdk-go/vcr"
 	"github.com/stretchr/testify/assert"
 )
 
-func cassetteRequestFilter(i *cassette.Interaction) error {
-	delete(i.Request.Headers, "x-auth-token")
-	delete(i.Request.Headers, "X-Auth-Token")
-	orgIDRegex := regexp.MustCompile(`(.+)organization_id=[0-9a-f-]{36}(.+)`)
-	tokenRegex := regexp.MustCompile(`^https://api\.scaleway\.com/account/v1/tokens/[0-9a-f-]{36}$`)
-
-	i.URL = orgIDRegex.ReplaceAllString(
-		i.URL,
-		"${1}organization_id=11111111-1111-1111-1111-111111111111${2}")
-	i.URL = tokenRegex.ReplaceAllString(
-		i.URL,
-		"api.scaleway.com/account/v1/tokens/11111111-1111-1111-1111-111111111111")
-
-	return nil
-}
-
-func cassetteResponseFilter(i *cassette.Interaction) error {
-	i.Response.Body = regexp.MustCompile(`"secret_key":"[0-9a-f-]{36}"`).
-		ReplaceAllString(i.Response.Body, `"secret_key":"11111111-1111-1111-1111-111111111111"`)
-
-	return nil
-}
-
-func cassetteMatcher(r *http.Request, i cassette.Request) bool {
-	// Read body
-	if r.Body != nil && r.Body != http.NoBody {
-		reqBody, err := io.ReadAll(r.Body)
-		if err != nil {
-			log.Fatal("failed to read request body")
-		}
-		r.Body.Close()
-		r.Body = io.NopCloser(bytes.NewBuffer(reqBody))
-	}
-
-	// Specific handling of s3 URLs
-	// Url format is https://test-acc-scaleway-object-bucket-lifecycle-8445817190507446251.s3.fr-par.scw.cloud/?lifecycle=
-	match, err := regexp.MatchString(".s3.[a-z]{2}-[a-z]{3}.scw.cloud", r.URL.Host)
-	if err == nil && match {
-		return customS3Matcher(r, i)
-	}
-
-	return cassette.DefaultMatcher(r, i)
-}
-
-func customS3Matcher(r *http.Request, i cassette.Request) bool {
-	expectedURL, _ := url.Parse(i.URL)
-	actualURL := r.URL
-	if !strings.HasSuffix(expectedURL.Host, "scw.cloud") {
-		return false
-	}
-
-	actualS3Host := strings.Split(actualURL.Host, ".")
-	expectedS3Host := strings.Split(expectedURL.Host, ".")
-	if len(actualS3Host) < 1 || len(expectedS3Host) < 1 {
-		return false
-	}
-	actualBucket := actualS3Host[0]
-	expectedBucket := expectedS3Host[0]
-
-	// Compare bucket names without the random number at the end
-	if strings.Contains(actualBucket, "-") {
-		actualBucket = actualBucket[:strings.LastIndex(actualBucket, "-")]
-	}
-	if strings.Contains(expectedBucket, "-") {
-		expectedBucket = expectedBucket[:strings.LastIndex(expectedBucket, "-")]
-	}
-	if actualBucket != expectedBucket {
-		return false
-	}
-
-	// Compare queries
-	expectedURLValues := expectedURL.Query()
-	actualURLValues := actualURL.Query()
-	expectedURL.RawQuery = expectedURLValues.Encode()
-	actualURL.RawQuery = actualURLValues.Encode()
-
-	return r.Method == i.Method && r.URL.Path == expectedURL.Path &&
-		actualURL.RawQuery == expectedURL.RawQuery
-}
-
-// getHTTPRecoder creates a new httpClient that records all HTTP requests in a cassette.
-// This cassette is then replayed whenever tests are executed again. This means that once the
-// requests are recorded in the cassette, no more real HTTP request must be made to run the tests.
-//
-// It is important to call add a `defer cleanup()` so the given cassette files are correctly
-// closed and saved after the requests.
-func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup func(), err error) {
-	t.Helper()
-	recorderMode := recorder.ModeReplaying
-	if update {
-		recorderMode = recorder.ModeRecording
-	}
-
-	// Setup recorder and scw client
-	r, err := recorder.NewAsMode(
-		getTestFilePath(t, ".cassette"),
-		recorderMode,
-		&SocketPassthroughTransport{},
-	)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	// Add a filter which removes Authorization headers from all requests:
-	r.AddFilter(cassetteRequestFilter)
-
-	// Remove secrets from response
-	r.AddSaveFilter(cassetteResponseFilter)
-
-	r.SetMatcher(cassetteMatcher)
-
-	return &http.Client{Transport: &retryableHTTPTransport{transport: r}}, func() {
-		assert.NoError(t, r.Stop()) // Make sure recorder is stopped once done with it
-	}, nil
-}
 
 func newHTTPRecorder(t *testing.T, folder string, update bool) (*http.Client, func(), error) {
 	t.Helper()

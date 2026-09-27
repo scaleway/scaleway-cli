@@ -12,7 +12,6 @@ require (
 	github.com/chzyer/readline v1.5.1
 	github.com/containerd/console v1.0.5
 	github.com/containerd/platforms v1.0.0-rc.5
-	github.com/dnaeon/go-vcr v1.2.0
 	github.com/dustin/go-humanize v1.1.0
 	github.com/fatih/color v1.19.0
 	github.com/getsentry/sentry-go v0.49.0

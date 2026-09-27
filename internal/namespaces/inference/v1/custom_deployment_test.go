@@ -10,8 +10,8 @@ import (
 )
 
 const (
-	ModelID      = "739d51ae-4f1e-4193-a4bf-f7380c090d46"
-	NodeTypeName = "H100-2"
+	ModelID      = "623a4d27-40c1-4764-a6e2-6ea84d18fd2b"
+	NodeTypeName = "L40S"
 )
 
 func Test_DeploymentCreate(t *testing.T) {
