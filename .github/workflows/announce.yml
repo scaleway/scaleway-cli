@@ -25,7 +25,7 @@ jobs:
                   "type": "section",
                   "text": {
                       "type": "mrkdwn",
-                      "text": "New CLI release $tag_name ! :tada: :rocket:\nCheck changelog on <$html_url|release page>"
+                      "text": "New CLI release \($tag_name) ! :tada: :rocket:\nCheck changelog on <\($html_url)|release page>"
                     }
                 }
               ]
