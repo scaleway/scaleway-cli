@@ -1,0 +1,10 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Available tutorials:
+
+* Getting Started - Learn the basics of the Scaleway CLI: configuration, commands, and output formats. (beginner, ~5 minutes)
+
+* = recommended for new users
+Run 'scw tutorial <id>' to start a tutorial.
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+"Available tutorials:\n\n* Getting Started - Learn the basics of the Scaleway CLI: configuration, commands, and output formats. (beginner, ~5 minutes)\n\n* = recommended for new users\nRun 'scw tutorial \u003cid\u003e' to start a tutorial."
