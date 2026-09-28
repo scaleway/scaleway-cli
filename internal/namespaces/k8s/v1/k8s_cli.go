@@ -47,8 +47,8 @@ func GetGeneratedCommands() *core.Commands {
 		k8sPoolUpgrade(),
 		k8sPoolUpdate(),
 		k8sPoolDelete(),
-		k8sUserdataGet(),
-		k8sUserdataList(),
+		k8sPoolGetUserdata(),
+		k8sPoolListUserdata(),
 		k8sNodeList(),
 		k8sNodeGet(),
 		k8sNodeReplace(),
@@ -2334,14 +2334,14 @@ func k8sPoolDelete() *core.Command {
 	}
 }
 
-func k8sUserdataGet() *core.Command {
+func k8sPoolGetUserdata() *core.Command {
 	return &core.Command{
 		Short: `Get a pool related user data`,
 		Long: `Retrieve specific user data content for a given pool.
 Tip: add ` + "`" + `?dl=1` + "`" + ` at the end of the URL to directly retrieve the base64 decoded content of your user data.`,
 		Namespace: "k8s",
-		Resource:  "userdata",
-		Verb:      "get",
+		Resource:  "pool",
+		Verb:      "get-userdata",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeFor[k8s.GetUserDataRequest](),
 		ArgSpecs: core.ArgSpecs{
@@ -2350,7 +2350,7 @@ Tip: add ` + "`" + `?dl=1` + "`" + ` at the end of the URL to directly retrieve 
 				Short:      `Pool the user data are associated to`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "key",
@@ -2377,19 +2377,19 @@ Tip: add ` + "`" + `?dl=1` + "`" + ` at the end of the URL to directly retrieve 
 		Examples: []*core.Example{
 			{
 				Short: "Get a pool user data by name",
-				Raw:   `scw k8s user-data get cloud-init pool-id=11111111-1111-1111-1111-111111111111`,
+				Raw:   `scw k8s pool get-userdata 11111111-1111-1111-1111-111111111111 key=cloud-init`,
 			},
 		},
 	}
 }
 
-func k8sUserdataList() *core.Command {
+func k8sPoolListUserdata() *core.Command {
 	return &core.Command{
 		Short:     `List all user data related to a given pool.`,
 		Long:      `This list only the user data key and not the content.`,
 		Namespace: "k8s",
-		Resource:  "userdata",
-		Verb:      "list",
+		Resource:  "pool",
+		Verb:      "list-userdata",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeFor[k8s.ListUserDataRequest](),
 		ArgSpecs: core.ArgSpecs{
@@ -2398,7 +2398,7 @@ func k8sUserdataList() *core.Command {
 				Short:      `Pool the user data are associated to`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -2418,7 +2418,7 @@ func k8sUserdataList() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "List all user data for a given pool",
-				Raw:   `scw k8s user-data list pool-id=11111111-1111-1111-1111-111111111111`,
+				Raw:   `scw k8s pool list-userdata 11111111-1111-1111-1111-111111111111`,
 			},
 		},
 	}
