@@ -1071,6 +1071,38 @@ scw k8s pool get 11111111-1111-1111-1111-111111111111
 
 
 
+### Get a pool related user data
+
+Retrieve specific user data content for a given pool.
+Tip: add `?dl=1` at the end of the URL to directly retrieve the base64 decoded content of your user data.
+
+**Usage:**
+
+```shell
+scw k8s pool get-userdata <pool-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name    | Description                                                                 | Argument Specifications                                               |
+|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| pool-id | Pool the user data are associated to                                        | Required                                                              |
+| key     | User data key to retrieved                                                  | Required                                                              |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
+
+
+**Examples:**
+
+
+Get a pool user data by name
+```shell
+scw k8s pool get-userdata 11111111-1111-1111-1111-111111111111 key=cloud-init
+```
+
+
+
+
 ### List Pools in a Cluster
 
 List all the existing pools for a specific Kubernetes cluster.
@@ -1114,6 +1146,36 @@ scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111 name=foo
 List all pools for a cluster and order them by ascending creation date
 ```shell
 scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111 order-by=created_at_asc
+```
+
+
+
+
+### List all user data related to a given pool.
+
+This list only the user data key and not the content.
+
+**Usage:**
+
+```shell
+scw k8s pool list-userdata <pool-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name    | Description                                                                 | Argument Specifications                                               |
+|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| pool-id | Pool the user data are associated to                                        | Required                                                              |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
+
+
+**Examples:**
+
+
+List all user data for a given pool
+```shell
+scw k8s pool list-userdata 11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -1449,66 +1511,14 @@ scw k8s pool wait 11111111-1111-1111-1111-111111111111
 User data allow to attach user complementary content to a pool.
 A special use case of these data are cloud-init configuration.
 
-
-### Get a pool related user data
-
-Retrieve specific user data content for a given pool.
-Tip: add `?dl=1` at the end of the URL to directly retrieve the base64 decoded content of your user data.
+User data allow to attach user complementary content to a pool.
+A special use case of these data are cloud-init configuration.
 
 **Usage:**
 
 ```shell
-scw k8s userdata get [arg=value ...]
+scw k8s userdata
 ```
-
-
-**Arguments:**
-
-| Name    | Description                                                                 | Argument Specifications                                               |
-|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| pool-id | Pool the user data are associated to                                        | Required                                                              |
-| key     | User data key to retrieved                                                  | Required                                                              |
-| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
-
-
-**Examples:**
-
-
-Get a pool user data by name
-```shell
-scw k8s user-data get cloud-init pool-id=11111111-1111-1111-1111-111111111111
-```
-
-
-
-
-### List all user data related to a given pool.
-
-This list only the user data key and not the content.
-
-**Usage:**
-
-```shell
-scw k8s userdata list [arg=value ...]
-```
-
-
-**Arguments:**
-
-| Name    | Description                                                                 | Argument Specifications                                               |
-|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| pool-id | Pool the user data are associated to                                        | Required                                                              |
-| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
-
-
-**Examples:**
-
-
-List all user data for a given pool
-```shell
-scw k8s user-data list pool-id=11111111-1111-1111-1111-111111111111
-```
-
 
 
 

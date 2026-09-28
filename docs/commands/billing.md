@@ -22,7 +22,7 @@ scw billing budget create [arg=value ...]
 
 | Name              | Description                                                                        | Argument Specifications |
 |-------------------|------------------------------------------------------------------------------------|-------------------------|
-| consumption-limit | Cost limit for the budget                                                          |                         |
+| consumption-limit | Cost limit for the budget expressed in the invoiced currency (no cents allowed)    |                         |
 | enabled           | Whether the budget is enabled or not                                               |                         |
 | organization-id   | Organization ID to use. If none is passed the default organization ID will be used |                         |
 
@@ -98,11 +98,11 @@ scw billing budget update [arg=value ...]
 
 **Arguments:**
 
-| Name              | Description                               | Argument Specifications |
-|-------------------|-------------------------------------------|-------------------------|
-| budget-id         | The ID of the budget to update            | Required                |
-| consumption-limit | Cost limit for the budget                 |                         |
-| enabled           | Whether the budget will be enabled or not |                         |
+| Name              | Description                                                                     | Argument Specifications |
+|-------------------|---------------------------------------------------------------------------------|-------------------------|
+| budget-id         | The ID of the budget to update                                                  | Required                |
+| consumption-limit | Cost limit for the budget expressed in the invoiced currency (no cents allowed) |                         |
+| enabled           | Whether the budget will be enabled or not                                       |                         |
 
 
 
