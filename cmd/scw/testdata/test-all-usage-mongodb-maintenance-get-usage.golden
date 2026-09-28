@@ -1,18 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Create an user on a Database Instance. You must define the `name`, `password` of the user and `instance_id` parameters in the request.
+Get a maintenance of a MongoDB® Database Instance.
 
 USAGE:
-  scw mongodb user create [arg=value ...]
+  scw mongodb maintenance get <maintenance-id ...> [arg=value ...]
 
 ARGS:
-  instance-id       UUID of the Database Instance the user belongs to
-  [name]            Name of the database user
-  [password]        Password of the database user
+  maintenance-id    ID of the maintenance
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
-  -h, --help                help for create
+  -h, --help                help for get
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:

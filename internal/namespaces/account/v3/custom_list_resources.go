@@ -24,7 +24,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	key_manager "github.com/scaleway/scaleway-cli/v2/internal/namespaces/key_manager/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
-	mongodb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mongodb/v1alpha1"
+	mongodb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mongodb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"

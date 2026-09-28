@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Delete the endpoint of a Database Instance. You must specify the `endpoint_id` parameter of the endpoint you want to delete. Note that you might need to update any environment configurations that point to the deleted endpoint.
+Delete the endpoint of a Database Instance. You must specify the endpoint_id parameter of the endpoint you want to delete. Note that you might need to update any environment configurations that point to the deleted endpoint.
 
 USAGE:
   scw mongodb endpoint delete <endpoint-id ...> [arg=value ...]

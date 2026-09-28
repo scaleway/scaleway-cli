@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Create a new endpoint for a MongoDB® Database Instance. You can add `public_network` or `private_network` specifications to the body of the request.
+Create a new endpoint for a MongoDB® Database Instance. You can add public_network or private_network specifications to the body of the request.
 
 USAGE:
   scw mongodb endpoint create <instance-id ...> [arg=value ...]
 
 ARGS:
   instance-id                                     UUID of the Database Instance
-  [endpoint.public]                               
+  [endpoint.public-network]                       
   [endpoint.private-network.private-network-id]   UUID of the Private Network
   [region=fr-par]                                 Region to target. If none is passed will use default region from the config (fr-par)
 

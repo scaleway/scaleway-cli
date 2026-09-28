@@ -8,7 +8,7 @@ interactions:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.36.0.20260728072515-06ce6827839d (go1.26.5; darwin;
         arm64) cli-e2e-test
-    url: https://api.scaleway.com/mongodb/v1alpha1/regions/fr-par/versions
+    url: https://api.scaleway.com/mongodb/v1/regions/fr-par/versions
     method: GET
   response:
     body: '{"versions":[{"version":"8.0.26","end_of_life_at":"2029-10-31T00:00:00Z","available_settings":[]},{"version":"7.0.37","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.34","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.30","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.28","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.21","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.12","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]}],"total_count":7}'
