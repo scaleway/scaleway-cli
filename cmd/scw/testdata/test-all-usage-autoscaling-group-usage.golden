@@ -11,6 +11,7 @@ AVAILABLE COMMANDS:
   delete      Delete an autoscaling group
   get         Get an autoscaling group
   list        List autoscaling groups
+  refresh     Refresh an autoscaling group
   update      Update an autoscaling group
 
 FLAGS:
