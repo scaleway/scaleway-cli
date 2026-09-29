@@ -63,18 +63,27 @@ func Test_InstallCreatesTarget(t *testing.T) {
 
 	count, err := manpage.Install(ctx, cmds, target)
 	require.NoError(t, err)
-	assert.Equal(t, 3, count, "expected 3 pages: scw, scw-demo, scw-demo-widget-create")
+	assert.Equal(
+		t,
+		4,
+		count,
+		"expected 4 pages: scw, scw-demo, scw-demo-widget, scw-demo-widget-create",
+	)
 
 	sectionDir := filepath.Join(target, manpage.SectionDir)
 	entries, err := os.ReadDir(sectionDir)
 	require.NoError(t, err)
-	require.Len(t, entries, 3)
+	require.Len(t, entries, 4)
 
 	names := make([]string, 0, len(entries))
 	for _, entry := range entries {
 		names = append(names, entry.Name())
 	}
-	assert.ElementsMatch(t, []string{"scw.1", "scw-demo.1", "scw-demo-widget-create.1"}, names)
+	assert.ElementsMatch(
+		t,
+		[]string{"scw.1", "scw-demo.1", "scw-demo-widget.1", "scw-demo-widget-create.1"},
+		names,
+	)
 }
 
 func Test_InstallTargetIsFile(t *testing.T) {

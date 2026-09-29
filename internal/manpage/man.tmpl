@@ -1,7 +1,7 @@
 {{- define "command" -}}
 .TH {{ .PageName }} 1 "{{ .Version }}" "scw" "scw Manual"
 .SH NAME
-{{ .PageName }} \- {{ .Short }}
+{{ .PageName }}, {{ .UsageCommand }} \- {{ .Short }}
 {{ if .Deprecated -}}
 .SH DEPRECATED
 This command is deprecated and may be removed in a future release.
@@ -10,6 +10,14 @@ This command is deprecated and may be removed in a future release.
 \fB{{ .UsageCommand }}\fP{{ .UsageArgs }}
 .SH DESCRIPTION
 {{ .Description }}
+{{ if .Subcommands -}}
+.SH SUBCOMMANDS
+{{- range .Subcommands }}
+.TP
+\fB{{ .Term }}\fP
+{{ .Description }}
+{{- end }}
+{{ end -}}
 {{ if .Options -}}
 .SH OPTIONS
 {{- range .Options }}

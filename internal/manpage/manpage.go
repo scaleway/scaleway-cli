@@ -56,6 +56,15 @@ type SeeAlso struct {
 	Line string
 }
 
+// Subcommand is a direct subcommand listed in the SUBCOMMANDS section.
+type Subcommand struct {
+	// Term is the subcommand command line (e.g. "scw instance server").
+	Term string
+
+	// Description is the subcommand short description.
+	Description string
+}
+
 // EnvVar is a documented environment variable.
 type EnvVar struct {
 	// Name is the environment variable name (e.g. SCW_ACCESS_KEY).
@@ -90,6 +99,10 @@ type ManPage struct {
 
 	// Options are the command arguments and flags.
 	Options []Option
+
+	// Subcommands are the direct subcommands, listed in the SUBCOMMANDS
+	// section. Empty for leaf commands.
+	Subcommands []Subcommand
 
 	// Examples are the rendered usage examples.
 	Examples []Example
@@ -247,9 +260,23 @@ func BuildPages(ctx context.Context, commands *core.Commands) ([]*ManPage, *Root
 		return nil, nil, err
 	}
 
-	pages := make([]*ManPage, 0, len(uniqueVisibleCommands(commands)))
-	for _, cmd := range uniqueVisibleCommands(commands) {
-		pages = append(pages, buildPage(ctx, commands, cmd, version))
+	visible := uniqueVisibleCommands(commands)
+
+	// children maps a command path (joined with ".") to its direct
+	// subcommands, for the SUBCOMMANDS section.
+	children := map[string][]*core.Command{}
+	for _, cmd := range visible {
+		path := commandPath(cmd)
+		if len(path) > 1 {
+			parent := strings.Join(path[:len(path)-1], ".")
+			children[parent] = append(children[parent], cmd)
+		}
+	}
+
+	pages := make([]*ManPage, 0, len(visible))
+	for _, cmd := range visible {
+		path := strings.Join(commandPath(cmd), ".")
+		pages = append(pages, buildPage(ctx, commands, cmd, version, children[path]))
 	}
 
 	root := buildRootPage(commands, version)
@@ -262,12 +289,21 @@ func buildPage(
 	commands *core.Commands,
 	cmd *core.Command,
 	version string,
+	subcommands []*core.Command,
 ) *ManPage {
 	path := commandPath(cmd)
 
 	options := make([]Option, 0, len(cmd.ArgSpecs))
 	for _, arg := range cmd.ArgSpecs {
 		options = append(options, buildOption(ctx, arg))
+	}
+
+	subcommandEntries := make([]Subcommand, 0, len(subcommands))
+	for _, child := range subcommands {
+		subcommandEntries = append(subcommandEntries, Subcommand{
+			Term:        child.GetCommandLine(BinaryName),
+			Description: roffEscape(child.Short),
+		})
 	}
 
 	examples := make([]Example, 0, len(cmd.Examples))
@@ -296,6 +332,7 @@ func buildPage(
 		UsageArgs:    usageArgs,
 		Description:  roffEscape(longDescription(cmd)),
 		Options:      options,
+		Subcommands:  subcommandEntries,
 		Examples:     examples,
 		SeeAlsos:     seeAlsos,
 		EnvVars:      EnvVariables(),

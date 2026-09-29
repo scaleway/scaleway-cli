@@ -26,6 +26,14 @@ func syntheticCommands() *core.Commands {
 		&core.Command{
 			Namespace: "demo",
 			Resource:  "widget",
+			Short:     "Widget management commands",
+			Long:      "Manage the demo widgets.",
+			ArgsType:  reflect.TypeOf(struct{}{}),
+			ArgSpecs:  core.ArgSpecs{},
+		},
+		&core.Command{
+			Namespace: "demo",
+			Resource:  "widget",
 			Verb:      "create",
 			Short:     "Create a widget",
 			Long:      "Create a new widget\nin the demo namespace.",
@@ -103,7 +111,11 @@ func Test_RenderCommandPage(t *testing.T) {
 	// Structural assertions on the roff output.
 	assert.Contains(t, rendered, `.TH scw-demo-widget-create 1`)
 	assert.Contains(t, rendered, ".SH NAME")
-	assert.Contains(t, rendered, "scw-demo-widget-create \\- Create a widget")
+	assert.Contains(
+		t,
+		rendered,
+		"scw-demo-widget-create, scw demo widget create \\- Create a widget",
+	)
 	assert.Contains(t, rendered, ".SH SYNOPSIS")
 	assert.Contains(t, rendered, "\\fBscw demo widget create\\fP")
 	assert.Contains(t, rendered, ".SH DESCRIPTION")
@@ -127,6 +139,35 @@ func Test_RenderCommandPage(t *testing.T) {
 	assert.Contains(t, rendered, "scw-demo-widget-list")
 	assert.Contains(t, rendered, "https://docs.scaleway.com/widget")
 	assert.Contains(t, rendered, ".SH ENVIRONMENT")
+	// A leaf command has no SUBCOMMANDS section.
+	assert.NotContains(t, rendered, ".SH SUBCOMMANDS")
+}
+
+func Test_RenderNamespacePage(t *testing.T) {
+	cmds := syntheticCommands()
+
+	pages, _, err := manpage.BuildPages(core.GetDocGenContext(), cmds)
+	require.NoError(t, err)
+
+	var page *manpage.ManPage
+	for _, p := range pages {
+		if p.PageName == "scw-demo" {
+			page = p
+		}
+	}
+	require.NotNil(t, page, "page scw-demo not found")
+
+	rendered, err := manpage.Render(page)
+	require.NoError(t, err)
+
+	writeGolden(t, "render-namespace-page.golden", rendered)
+
+	// The namespace page lists its direct subcommands as command lines.
+	assert.Contains(t, rendered, ".SH SUBCOMMANDS")
+	assert.Contains(t, rendered, "\\fBscw demo widget\\fP")
+	assert.Contains(t, rendered, "Widget management commands")
+	// Verbs two levels down are not listed on the namespace page.
+	assert.NotContains(t, rendered, "scw demo widget create")
 }
 
 func Test_RenderRootPage(t *testing.T) {

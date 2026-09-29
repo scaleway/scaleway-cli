@@ -91,6 +91,48 @@ func Test_Parity(t *testing.T) {
 	}
 }
 
+// Test_SubcommandsListed checks that non-leaf command pages list their direct
+// subcommands in the SUBCOMMANDS section, and leaf pages do not.
+func Test_SubcommandsListed(t *testing.T) {
+	ctx := core.GetDocGenContext()
+	cmds := commands.GetCommands(ctx)
+
+	pages, _, err := manpage.BuildPages(ctx, cmds)
+	require.NoError(t, err)
+
+	pagesByName := map[string]*manpage.ManPage{}
+	for _, page := range pages {
+		pagesByName[page.PageName] = page
+	}
+
+	render := func(name string) string {
+		t.Helper()
+		page := pagesByName[name]
+		require.NotNil(t, page, "no page %s", name)
+
+		content, err := manpage.Render(page)
+		require.NoError(t, err)
+
+		return content
+	}
+
+	// A namespace page lists its resource subcommands.
+	instance := render("scw-instance")
+	assert.Contains(t, instance, ".SH SUBCOMMANDS")
+	assert.Contains(t, instance, "\\fBscw instance server\\fP")
+	assert.Contains(t, instance, "\\fBscw instance volume\\fP")
+
+	// A resource page lists its verb subcommands.
+	server := render("scw-instance-server")
+	assert.Contains(t, server, ".SH SUBCOMMANDS")
+	assert.Contains(t, server, "\\fBscw instance server create\\fP")
+	assert.Contains(t, server, "\\fBscw instance server list\\fP")
+
+	// A leaf command has no SUBCOMMANDS section.
+	create := render("scw-instance-server-create")
+	assert.NotContains(t, create, ".SH SUBCOMMANDS")
+}
+
 // Test_DeprecatedAnnotation checks that deprecated commands and arguments are
 // explicitly flagged in the rendered page.
 func Test_DeprecatedAnnotation(t *testing.T) {
