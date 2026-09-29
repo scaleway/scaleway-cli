@@ -1,42 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Name          1.35.3
-Srn           srn://k8s.scw.eu/regions/fr-par/versions/1.35.3
-Label         Kubernetes 1.35.3
-Region        fr-par
-DeprecatedAt  few seconds ago
-EndOfLifeAt   few seconds ago
-ReleasedAt    few seconds ago
-
-Available Kubelet Arguments:
-containerLogMaxFiles         uint16
-containerLogMaxSize          quantity
-cpuCFSQuota                  bool
-cpuCFSQuotaPeriod            duration
-cpuManagerPolicy             enum:none|static
-cpuManagerPolicyOptions      map[string]string
-enableDebuggingHandlers      bool
-evictionHard                 map[string]string
-evictionMinimumReclaim       map[string]string
-imageGCHighThresholdPercent  uint32
-imageGCLowThresholdPercent   uint32
-maxParallelImagePulls        int32
-maxPods                      uint16
-registryBurst                int32
-registryPullQPS              int32
-serializeImagePulls          bool
-
-Available CNIs:
-[cilium cilium_native calico kilo none]
-
-Available Container Runtimes:
-[containerd]
-
-Available Feature Gates:
-[HPAScaleToZero CPUManagerPolicyAlphaOptions ImageVolume MutatingAdmissionPolicy]
-
-Available Admission Plugins:
-[AlwaysPullImages PodNodeSelector PodTolerationRestriction]
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+field AvailableContainerRuntimes does not exist in $
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "name": "1.35.3",
@@ -49,9 +13,6 @@ Available Admission Plugins:
     "calico",
     "kilo",
     "none"
-  ],
-  "available_container_runtimes": [
-    "containerd"
   ],
   "available_feature_gates": [
     "HPAScaleToZero",

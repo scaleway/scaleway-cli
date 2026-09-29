@@ -11,7 +11,9 @@ AVAILABLE COMMANDS:
   create               Create a new Pool in a Cluster
   delete               Delete a Pool in a Cluster
   get                  Get a Pool in a Cluster
+  get-userdata         Get a pool related user data
   list                 List Pools in a Cluster
+  list-userdata        List all user data related to a given pool.
   update               Update a Pool in a Cluster
   upgrade              Upgrade a Pool in a Cluster
 
