@@ -1,0 +1,71 @@
+{{- define "command" -}}
+.TH {{ .PageName }} 1 "{{ .Version }}" "scw" "scw Manual"
+.SH NAME
+{{ .PageName }} \- {{ .Short }}
+{{ if .Deprecated -}}
+.SH DEPRECATED
+This command is deprecated and may be removed in a future release.
+{{ end -}}
+.SH SYNOPSIS
+\fB{{ .UsageCommand }}\fP{{ .UsageArgs }}
+.SH DESCRIPTION
+{{ .Description }}
+{{ if .Options -}}
+.SH OPTIONS
+{{- range .Options }}
+.TP
+\fB{{ .Term }}\fP
+{{ .Description }}
+{{- end }}
+{{ end -}}
+{{ if .Examples -}}
+.SH EXAMPLES
+{{- range .Examples }}
+.P
+.B
+{{ .Short }}
+.EX
+{{ .CmdLine }}
+.EE
+{{- end }}
+{{ end -}}
+{{ if .SeeAlsos -}}
+.SH SEE ALSO
+{{- range .SeeAlsos }}
+{{ .Line }}
+{{- end }}
+{{ end -}}
+.SH ENVIRONMENT
+{{- range .EnvVars }}
+.TP
+\fI{{ .Name }}\fR
+{{ .Description }}
+{{- end }}
+{{- end }}
+{{- define "root" -}}
+.TH {{ .SynopsisCommand }} 1 "{{ .Version }}" "scw" "scw Manual"
+.SH NAME
+scw \- Scaleway command line tool
+.SH SYNOPSIS
+\fB{{ .SynopsisCommand }}\fP{{ .SynopsisArgs }}
+.SH DESCRIPTION
+{{ .Description }}
+.SH OPTIONS
+{{- range .GlobalOptions }}
+.TP
+\fB{{ .Term }}\fP
+{{ .Description }}
+{{- end }}
+.SH NAMESPACES
+{{- range .Namespaces }}
+.TP
+\fB{{ .Name }}\fP
+{{ .Short }}
+{{- end }}
+.SH ENVIRONMENT
+{{- range .EnvVars }}
+.TP
+\fI{{ .Name }}\fR
+{{ .Description }}
+{{- end }}
+{{- end }}
