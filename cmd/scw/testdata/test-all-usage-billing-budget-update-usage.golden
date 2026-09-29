@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   budget-id             The ID of the budget to update
-  [consumption-limit]   Cost limit for the budget
+  [consumption-limit]   Cost limit for the budget expressed in the invoiced currency (no cents allowed)
   [enabled]             Whether the budget will be enabled or not
 
 FLAGS:
