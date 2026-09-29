@@ -85,3 +85,54 @@ If you want to contribute new tests you should have the following:
     - Install your credentials, preferably in a configuration file (run `scw init`)
         - Keep in mind that if you record interaction, the resource you will instantiate will be delivered and billed.
         - Clean up the resource you don't use once the recording is over.
+
+## Recording IAM API keys test cassettes (`Test_iamAPIKeyGet`)
+
+`Test_iamAPIKeyGet` in `internal/namespaces/iam/v1alpha1/custom_iam_test.go` checks the output of `scw iam
+api-key get` for three kinds of principals: the organization owner, an IAM member user, and an IAM application.
+
+- **`GetOwnerAPIKey`**: no setup needed, it resolves the owner and one of its API keys at recording time.
+- **`GetApplicationAPIKey`**: fully automated. The application and its API key are created via the CLI in the
+  `BeforeFunc` and deleted in the `AfterFunc` (only when recording cassettes), so nothing to prepare manually.
+- **`GetMemberAPIKey`**: requires a one-time manual setup (see below). The test picks any member of your
+  organization (with an API key) at recording time. If no suitable member is present, the subtest is **skipped**
+  and a message points to this section.
+
+### Why the member cannot be automated
+
+Recording the member scenario needs an *activated* member user with an API key in your organization. This cannot
+be created and cleaned up from the CLI or the API:
+
+- IAM users can only be **invited** to an organization; activation (accepting the invitation, setting a password)
+  happens in the Scaleway console and cannot be scripted.
+- The organization owner cannot create an API key for another member (no impersonation).
+- Members **cannot be deleted** through the IAM API (only guest users can).
+
+There is therefore no dynamic (create/activate/delete) member bootstrap, regardless of e-mail delivery. The
+member is a one-time setup, shared across all future cassette recordings of this test. The test does not rely on
+a specific member ID: it uses the first member returned by `scw iam user list type=member` and skips when none
+is present.
+
+### One-time member setup
+
+1. In the [Scaleway console](https://console.scaleway.com/iam), go to **IAM → Users** and invite a user with an
+   e-mail address you control (e.g. `testiam@testiam.testiam`). Nothing is sent to that mailbox: activation is
+   done from the console of the invited account.
+2. Open the invitation and complete the activation so the user becomes an *activated* member (`status: activated`
+   in `scw iam user list`).
+3. Log in with the member account and create an API key for it (or create it from the console under **IAM →
+   API keys** while connected as the member):
+   `scw iam api-key create user-id=<member-user-id> description=test-cli-iam-membership-api-key`
+4. (Optional) Attach a policy to the member so it is displayed in the `api-key get` output:
+   `scw iam policy create name=test-cli-iam-member user-id=<member-user-id> rules.0.permission-set-names.0=IAMManager`
+
+### Recording the cassettes
+
+```shell
+mise run test:cli --cassettes --run Test_iamAPIKeyGet ./internal/namespaces/iam/v1alpha1
+mise run test:cli --goldens --run Test_iamAPIKeyGet ./internal/namespaces/iam/v1alpha1
+```
+
+The `GetApplicationAPIKey` subtest creates and removes its own resources during the recording; only the member
+setup above is manual. Remember to clean up the member's API key and any attached policy once you are done
+recording, as members themselves cannot be removed through the API.
