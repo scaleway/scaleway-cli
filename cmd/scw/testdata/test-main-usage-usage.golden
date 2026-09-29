@@ -92,6 +92,7 @@ UTILITY COMMANDS:
   autocomplete            Autocomplete related commands
   feedback                Send feedback to the Scaleway CLI Team!
   help                    Get help about how specific topics inside the CLI work
+  man                     Man pages related commands
   mcp                     MCP (Model Context Protocol) server management
   search                  Search API
   shell                   Start shell mode
