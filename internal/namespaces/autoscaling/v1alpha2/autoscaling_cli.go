@@ -27,6 +27,7 @@ func GetGeneratedCommands() *core.Commands {
 		autoscalingGroupList(),
 		autoscalingGroupGet(),
 		autoscalingGroupCreate(),
+		autoscalingGroupRefresh(),
 		autoscalingGroupUpdate(),
 		autoscalingGroupDelete(),
 		autoscalingLogsList(),
@@ -380,6 +381,52 @@ settings.`,
 			{
 				Short: "Create an autoscaling group with a fixed size",
 				Raw:   `scw autoscaling group create scaling-policy-spec.fixed-size.size=3 scaling-policy-spec.maximum-size=5 scaling-policy-spec.minimum-size=1 name=my-autoscaling-group template-id=11111111-1111-1111-1111-111111111111 project-id=11111111-1111-1111-1111-111111111111`,
+			},
+		},
+	}
+}
+
+func autoscalingGroupRefresh() *core.Command {
+	return &core.Command{
+		Short: `Refresh an autoscaling group`,
+		Long: `This will replace all the instances of the group.
+Its main use case is applying changes if the instance template has been updated.`,
+		Namespace: "autoscaling",
+		Resource:  "group",
+		Verb:      "refresh",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[autoscaling.RefreshGroupRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "group-id",
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*autoscaling.RefreshGroupRequest)
+
+			client := core.ExtractClient(ctx)
+			api := autoscaling.NewAPI(client)
+
+			return api.RefreshGroup(request, scw.WithContext(ctx))
+		},
+		Examples: []*core.Example{
+			{
+				Short: "Replace all the instances of an autoscaling group",
+				Raw:   `scw autoscaling group refresh group-id=11111111-1111-1111-1111-111111111111`,
 			},
 		},
 	}

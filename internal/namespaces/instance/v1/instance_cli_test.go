@@ -21,6 +21,17 @@ func Test_ListServer(t *testing.T) {
 			core.TestCheckExitCode(0),
 		),
 	}))
+
+	t.Run("State with space", core.Test(&core.TestConfig{
+		Commands: instance.GetCommands(),
+		// The "stopped in place" state value must be converted to the
+		// snake_case "stopped_in_place" value accepted by the API.
+		Args: []string{"scw", "instance", "server", "list", `state=stopped in place`},
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+	}))
 }
 
 func Test_GetServer(t *testing.T) {

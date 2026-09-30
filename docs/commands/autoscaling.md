@@ -203,6 +203,37 @@ scw autoscaling group list load-balancer-id=11111111-1111-1111-1111-111111111111
 
 
 
+### Refresh an autoscaling group
+
+This will replace all the instances of the group.
+Its main use case is applying changes if the instance template has been updated.
+
+**Usage:**
+
+```shell
+scw autoscaling group refresh [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name     | Description                                                             | Argument Specifications                                                                                                                     |
+|----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| group-id |                                                                         | Required                                                                                                                                    |
+| zone     | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
+
+
+**Examples:**
+
+
+Replace all the instances of an autoscaling group
+```shell
+scw autoscaling group refresh group-id=11111111-1111-1111-1111-111111111111
+```
+
+
+
+
 ### Update an autoscaling group
 
 Update the configuration of a specified autoscaling group including
