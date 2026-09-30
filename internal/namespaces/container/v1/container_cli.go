@@ -632,7 +632,7 @@ func containerContainerCreate() *core.Command {
 			},
 			{
 				Name:       "enable-private-endpoint",
-				Short:      `Whether to allow incoming traffic from the Private Network the container is connected to.`,
+				Short:      `Whether to allow incoming traffic from the Private Networks within the VPC.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1026,7 +1026,7 @@ func containerContainerUpdate() *core.Command {
 			},
 			{
 				Name:       "enable-private-endpoint",
-				Short:      `Whether to allow incoming traffic from the Private Network the container is connected to.`,
+				Short:      `Whether to allow incoming traffic from the Private Networks within the VPC.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
