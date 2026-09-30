@@ -29,9 +29,6 @@ serializeImagePulls          bool
 Available CNIs:
 [cilium cilium_native calico kilo none]
 
-Available Container Runtimes:
-[containerd]
-
 Available Feature Gates:
 [HPAScaleToZero CPUManagerPolicyAlphaOptions ImageVolume MutatingAdmissionPolicy]
 
@@ -49,9 +46,6 @@ Available Admission Plugins:
     "calico",
     "kilo",
     "none"
-  ],
-  "available_container_runtimes": [
-    "containerd"
   ],
   "available_feature_gates": [
     "HPAScaleToZero",

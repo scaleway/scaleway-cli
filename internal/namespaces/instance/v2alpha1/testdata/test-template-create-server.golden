@@ -67,5 +67,6 @@ Zone                                             fr-par-1
     ],
     "dns": "366c0ab6-a341-42e6-8379-933b2e9e8161.pub.instances.scw.cloud"
   },
-  "zone": "fr-par-1"
+  "zone": "fr-par-1",
+  "runtime_info": null
 }

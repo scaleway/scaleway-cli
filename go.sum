@@ -89,8 +89,8 @@ github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.14.3 h1:bON1rJf67
 github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.14.3/go.mod h1:c5BBpjJcQXpfeq9iASyVKA3T6vX6B6LEXY4mL/gklDY=
 github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.20.3 h1:L8vIOxylma91TcR96NFTEC07G3JDwSl+CvK2b+IODms=
 github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.20.3/go.mod h1:fmPIZQzTExYuBNWFyi1P7IoDjvskgphXqK1yObMzusM=
-github.com/aws/aws-sdk-go-v2/service/s3 v1.113.1 h1:cFHmwLxZPvtoAlo79MboURL2+7b0TMHycnrcf5VZNXk=
-github.com/aws/aws-sdk-go-v2/service/s3 v1.113.1/go.mod h1:/uA+2Qj4jd5qBWagVC1AyzzDFXVK997E7U04w7Kw0wI=
+github.com/aws/aws-sdk-go-v2/service/s3 v1.113.2 h1:2qsrxKfGgJrHBp4udIsZZVJGTX5lySaY9cJbZRB4J2Y=
+github.com/aws/aws-sdk-go-v2/service/s3 v1.113.2/go.mod h1:/uA+2Qj4jd5qBWagVC1AyzzDFXVK997E7U04w7Kw0wI=
 github.com/aws/aws-sdk-go-v2/service/signin v1.5.8 h1:bghrxelVQpGurGI1X94BT68h6p+hWQnlsu8nSmiSll4=
 github.com/aws/aws-sdk-go-v2/service/signin v1.5.8/go.mod h1:gkwdIl9w+6LFKlGRLz3+Dw+cudc9dD1ViMDhHGmzOgk=
 github.com/aws/aws-sdk-go-v2/service/sso v1.33.8 h1:/DbiPZ8maO03uFnXa6yEhFdWOTA5xObmGNfaEzt9Cac=
@@ -152,8 +152,8 @@ github.com/containerd/console v1.0.5 h1:R0ymNeydRqH2DmakFNdmjR2k0t7UPuiOV/N/27/q
 github.com/containerd/console v1.0.5/go.mod h1:YynlIjWYF8myEu6sdkwKIvGQq+cOckRm6So2avqoYAk=
 github.com/containerd/containerd/api v1.11.1 h1:h8nfoDW9+fNsC/9TwiAHj8B1GzXKtR4eFtkhi/X5RLU=
 github.com/containerd/containerd/api v1.11.1/go.mod h1:CaQFRu+N1MtbgL6JDOJLUB1hCKESU1lD6MuTJhgtdlw=
-github.com/containerd/containerd/v2 v2.3.5 h1:9MYlI81gUcOZ0WsCkSMtvOU7rTR3hqAoa2eCzhoLlkA=
-github.com/containerd/containerd/v2 v2.3.5/go.mod h1:RXDyLPaI3zoO7dFdAW9/54W4cix+z3A6larieufC9mg=
+github.com/containerd/containerd/v2 v2.3.6 h1:huoqZXaDW1x1kgPvFC4rMwxv92vUJnqgq7I5b1rSddM=
+github.com/containerd/containerd/v2 v2.3.6/go.mod h1:qaUSWKk9EchqbudSbhv1MxI8dXKGYHLpZtMQdkEkVZ4=
 github.com/containerd/continuity v0.5.0 h1:7a85HZpCSs+1Zps0Ee3DPSuAWY+0SJM1JNM51nlEVDg=
 github.com/containerd/continuity v0.5.0/go.mod h1:/lNJvtJKUQStBzpVQ1+rasXO1LAWtUQssk28EZvJ3nE=
 github.com/containerd/errdefs v1.0.0 h1:tg5yIfIlQIrxYtu9ajqY42W3lpS19XqdxRQeEwYG8PI=
@@ -465,8 +465,8 @@ github.com/rogpeppe/go-internal v1.14.1/go.mod h1:MaRKkUm5W0goXpeCfT7UZI6fk/L7L7
 github.com/russross/blackfriday/v2 v2.1.0/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQDYRxCVz55jmeOWTM=
 github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06 h1:OkMGxebDjyw0ULyrTYWeN0UNCCkmCWfjPnIA2W6oviI=
 github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06/go.mod h1:+ePHsJ1keEjQtpvf9HHw0f4ZeJ0TLRsxhunSI2hYJSs=
-github.com/scaleway/scaleway-sdk-go v1.0.0-beta.37.0.20260924130232-31671f8e3484 h1:jSaKnkn6H+kQAieM1Frjzs0znXiHvyVu5HnuJ7Vx7qU=
-github.com/scaleway/scaleway-sdk-go v1.0.0-beta.37.0.20260924130232-31671f8e3484/go.mod h1:ly2TNjJyW0SouDBZcQb2aNgqJYqI5t3BZF/UzBKFZ8o=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.37.0.20260929084911-227bf36d9dca h1:YNWGGHJtjwua/GPopA/EzybXv8d63JS2Xg7tDwlPocg=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.37.0.20260929084911-227bf36d9dca/go.mod h1:ly2TNjJyW0SouDBZcQb2aNgqJYqI5t3BZF/UzBKFZ8o=
 github.com/sclevine/spec v1.4.0 h1:z/Q9idDcay5m5irkZ28M7PtQM4aOISzOpj4bUPkDee8=
 github.com/sclevine/spec v1.4.0/go.mod h1:LvpgJaFyvQzRvc1kaDs0bulYwzC70PbiYjC4QnFHkOM=
 github.com/secure-systems-lab/go-securesystemslib v0.11.0 h1:iuCR9kcMFD4QurdKrGvPLoKZLv9YvwPYVr0473BdtFs=
