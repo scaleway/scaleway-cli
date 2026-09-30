@@ -24,6 +24,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	args "github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/pkg/shlex"
 	"github.com/scaleway/scaleway-cli/v2/internal/platform/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/test/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -295,7 +296,8 @@ func createTestClient(
 		require.NoError(t, err)
 
 		client, err = scw.NewClient(
-			append(clientOpts, scw.WithAuth(res.AccessKey, res.SecretKey))...)
+			append(clientOpts, scw.WithAuth(res.AccessKey, res.SecretKey))...,
+		)
 		require.NoError(t, err)
 	}
 
@@ -553,7 +555,12 @@ func Test(config *TestConfig) func(t *testing.T) {
 }
 
 func cmdToArgs(meta TestMetadata, s string) []string {
-	return strings.Split(meta.Render(s), " ")
+	args, err := shlex.Split(meta.Render(s))
+	if err != nil {
+		panic("malformed command: " + err.Error())
+	}
+
+	return args
 }
 
 // BeforeFuncCombine combines multiple before functions into one.

@@ -1506,22 +1506,6 @@ scw k8s pool wait 11111111-1111-1111-1111-111111111111
 
 
 
-## User Data management commands
-
-User data allow to attach user complementary content to a pool.
-A special use case of these data are cloud-init configuration.
-
-User data allow to attach user complementary content to a pool.
-A special use case of these data are cloud-init configuration.
-
-**Usage:**
-
-```shell
-scw k8s userdata
-```
-
-
-
 ## Available Kubernetes versions commands
 
 A version is a vanilla Kubernetes version like `x.y.z`

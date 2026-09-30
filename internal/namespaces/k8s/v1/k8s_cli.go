@@ -26,7 +26,6 @@ func GetGeneratedCommands() *core.Commands {
 		k8sVersion(),
 		k8sClusterType(),
 		k8sACL(),
-		k8sUserdata(),
 		k8sClusterList(),
 		k8sClusterCreate(),
 		k8sClusterGet(),
@@ -124,16 +123,6 @@ func k8sACL() *core.Command {
 		Long:      `Network Access Control Lists (ACLs) allow you to manage inbound network traffic by setting up ACL rules.`,
 		Namespace: "k8s",
 		Resource:  "acl",
-	}
-}
-
-func k8sUserdata() *core.Command {
-	return &core.Command{
-		Short: `User Data management commands`,
-		Long: `User data allow to attach user complementary content to a pool.
-A special use case of these data are cloud-init configuration.`,
-		Namespace: "k8s",
-		Resource:  "userdata",
 	}
 }
 
