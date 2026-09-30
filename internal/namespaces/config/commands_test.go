@@ -302,6 +302,17 @@ func Test_ConfigInfoCommand(t *testing.T) {
 		TmpHomeDir: true,
 	}))
 
+	t.Run("Show secret", core.Test(&core.TestConfig{
+		Commands:   config.GetCommands(),
+		BeforeFunc: beforeFuncCreateFullConfig(),
+		Cmd:        "scw config info show-secret=true",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGoldenAndReplacePatterns(configPathReplacements...),
+		),
+		TmpHomeDir: true,
+	}))
+
 	t.Run("Unknown Profile", core.Test(&core.TestConfig{
 		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
