@@ -44,6 +44,7 @@ func GetGeneratedCommands() *core.Commands {
 		mongodbSnapshotList(),
 		mongodbSnapshotDelete(),
 		mongodbUserList(),
+		mongodbUserCreate(),
 		mongodbUserUpdate(),
 		mongodbUserDelete(),
 		mongodbUserSetRole(),
@@ -955,6 +956,50 @@ func mongodbUserList() *core.Command {
 			}
 
 			return resp.Users, nil
+		},
+	}
+}
+
+func mongodbUserCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create an user on a Database Instance`,
+		Long:      `Create an user on a Database Instance. You must define the ` + "`" + `name` + "`" + `, ` + "`" + `password` + "`" + ` of the user and ` + "`" + `instance_id` + "`" + ` parameters in the request.`,
+		Namespace: "mongodb",
+		Resource:  "user",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[mongodb.CreateUserRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance the user belongs to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the database user`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "password",
+				Short:      `Password of the database user`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*mongodb.CreateUserRequest)
+
+			client := core.ExtractClient(ctx)
+			api := mongodb.NewAPI(client)
+
+			return api.CreateUser(request, scw.WithContext(ctx))
 		},
 	}
 }

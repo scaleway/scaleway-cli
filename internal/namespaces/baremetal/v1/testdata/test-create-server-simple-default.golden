@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              d362d0be-744e-4550-a4ce-45ef438bc1ba
-OrganizationID  fa1e3217-dc80-42ac-85c3-3f034b78b552
-ProjectID       fa1e3217-dc80-42ac-85c3-3f034b78b552
-Name            cli-bm-jovial-fermi
+ID              63a25a21-e7b6-469a-ab63-e38eb28e29c5
+OrganizationID  de2b260d-2c2e-4be9-baa0-99d8ed17f1da
+ProjectID       de2b260d-2c2e-4be9-baa0-99d8ed17f1da
+Name            cli-bm-friendly-sanderson
 Description     -
 UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
 Status          ready
-OfferID         ddb09834-8680-4339-b5e3-19ca5205fa1f
-OfferName       EM-I215E-NVME
-Domain          -
+OfferID         8779d2c1-cd10-4a34-a006-cb5b1fb5cbc7
+OfferName       EM-A116X-SSD
+Domain          63a25a21-e7b6-469a-ab63-e38eb28e29c5.fr-par-2.baremetal.scw.cloud
 BootType        normal
 Zone            fr-par-2
 PingStatus      unknown
@@ -18,43 +18,43 @@ Protected       false
 
 IPs:
 ID                                    ADDRESS                                REVERSE  VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
-df5477be-5c6c-4182-86cd-97604b3ddc0c  2001:bc8:1201:a17:b683:51ff:fe0f:60e4  -        IPv6     unknown         -
-e04103af-07c1-457b-98af-39814fea648d  195.154.100.41                         -        IPv4     unknown         -
+581f3bc7-9469-4754-af80-27d9226d912b  2001:bc8:1201:60a:fabc:12ff:fe48:f810  -        IPv6     unknown         -
+8d27fba7-405d-485e-90cf-4328007410a9  51.159.211.149                         -        IPv4     unknown         -
 
 Options:
 ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "d362d0be-744e-4550-a4ce-45ef438bc1ba",
-  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "name": "cli-bm-jovial-fermi",
+  "id": "63a25a21-e7b6-469a-ab63-e38eb28e29c5",
+  "organization_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
+  "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
+  "name": "cli-bm-friendly-sanderson",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
   "status": "ready",
-  "offer_id": "ddb09834-8680-4339-b5e3-19ca5205fa1f",
-  "offer_name": "EM-I215E-NVME",
+  "offer_id": "8779d2c1-cd10-4a34-a006-cb5b1fb5cbc7",
+  "offer_name": "EM-A116X-SSD",
   "tags": [],
   "ips": [
     {
-      "id": "df5477be-5c6c-4182-86cd-97604b3ddc0c",
-      "address": "2001:bc8:1201:a17:b683:51ff:fe0f:60e4",
+      "id": "581f3bc7-9469-4754-af80-27d9226d912b",
+      "address": "2001:bc8:1201:60a:fabc:12ff:fe48:f810",
       "reverse": "",
       "version": "IPv6",
       "reverse_status": "unknown",
       "reverse_status_message": ""
     },
     {
-      "id": "e04103af-07c1-457b-98af-39814fea648d",
-      "address": "195.154.100.41",
+      "id": "8d27fba7-405d-485e-90cf-4328007410a9",
+      "address": "51.159.211.149",
       "reverse": "",
       "version": "IPv4",
       "reverse_status": "unknown",
       "reverse_status_message": ""
     }
   ],
-  "domain": "",
+  "domain": "63a25a21-e7b6-469a-ab63-e38eb28e29c5.fr-par-2.baremetal.scw.cloud",
   "boot_type": "normal",
   "zone": "fr-par-2",
   "install": null,
