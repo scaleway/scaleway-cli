@@ -129,6 +129,8 @@ func searchResourceSearch() *core.Command {
 					"kafk_cluster",
 					"sedb_cluster",
 					"autoscaling_group",
+					"wofl_definition",
+					"wofl_run",
 				},
 			},
 			{
