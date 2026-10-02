@@ -1,5 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Command "update-servers" is deprecated, it is not available in v2 of the API and will be removed when v1 reaches end of support.
 Update all Instances belonging to the specified placement group.
 
 USAGE:
