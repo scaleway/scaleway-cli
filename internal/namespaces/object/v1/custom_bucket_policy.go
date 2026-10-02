@@ -17,10 +17,12 @@ import (
 )
 
 type bucketPolicyCreateArgs struct {
-	Bucket    string
-	Policy    string
-	Region    scw.Region
-	ProjectID string
+	Bucket         string
+	Policy         string
+	Region         scw.Region
+	ProjectID      string
+	S3Endpoint     string
+	S3UsePathStyle string
 }
 
 func bucketPolicyCreateCommand() *core.Command {
@@ -43,6 +45,18 @@ func bucketPolicyCreateCommand() *core.Command {
 				Positional: false,
 				Required:   true,
 				Short:      "The path to the local JSON file containing the bucket policy.",
+			},
+			{
+				Name:       "s3-endpoint",
+				Positional: false,
+				Required:   false,
+				Short:      "Custom S3 endpoint to use instead of the default",
+			},
+			{
+				Name:       "s3-use-path-style",
+				Positional: false,
+				Required:   false,
+				Short:      "Whether to use path style addressing for S3 API calls or not",
 			},
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
@@ -67,7 +81,20 @@ func bucketPolicyCreateCommand() *core.Command {
 
 			policy := string(policyBytes)
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
+			s3UsePathStyle, err := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
+			}
+
+			s3Endpoint, _, err := getS3Endpoints(
+				ctx, args.Region.String(), args.S3Endpoint, "", s3UsePathStyle,
+			)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 endpoints: %w", err)
+			}
+
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
+
 			params := s3.PutBucketPolicyInput{
 				Bucket: &args.Bucket,
 				Policy: &policy,
@@ -78,7 +105,14 @@ func bucketPolicyCreateCommand() *core.Command {
 				return nil, fmt.Errorf("could not create bucket policy: %w", err)
 			}
 
-			bucket, err := getBucketInfo(ctx, args.Region, args.Bucket, args.ProjectID)
+			bucket, err := getBucketInfo(
+				ctx,
+				args.Region,
+				args.Bucket,
+				args.ProjectID,
+				s3UsePathStyle,
+				s3Endpoint,
+			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
 			}
@@ -95,9 +129,11 @@ func bucketPolicyCreateCommand() *core.Command {
 }
 
 type bucketPolicyDeleteArgs struct {
-	Bucket    string
-	Region    scw.Region
-	ProjectID string
+	Bucket         string
+	Region         scw.Region
+	ProjectID      string
+	S3Endpoint     string
+	S3UsePathStyle string
 }
 
 func bucketPolicyDeleteCommand() *core.Command {
@@ -116,6 +152,18 @@ func bucketPolicyDeleteCommand() *core.Command {
 				Short:            "The unique name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			{
+				Name:       "s3-endpoint",
+				Positional: false,
+				Required:   false,
+				Short:      "Custom S3 endpoint to use instead of the default",
+			},
+			{
+				Name:       "s3-use-path-style",
+				Positional: false,
+				Required:   false,
+				Short:      "Whether to use path style addressing for S3 API calls or not",
+			},
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -125,12 +173,24 @@ func bucketPolicyDeleteCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
+			s3UsePathStyle, err := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
+			}
+
+			s3Endpoint, _, err := getS3Endpoints(
+				ctx, args.Region.String(), args.S3Endpoint, "", s3UsePathStyle,
+			)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 endpoints: %w", err)
+			}
+
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 			params := s3.DeleteBucketPolicyInput{
 				Bucket: &args.Bucket,
 			}
 
-			_, err := client.DeleteBucketPolicy(ctx, &params)
+			_, err = client.DeleteBucketPolicy(ctx, &params)
 			if err != nil {
 				return nil, fmt.Errorf("could not delete bucket policy: %w", err)
 			}
@@ -144,9 +204,11 @@ func bucketPolicyDeleteCommand() *core.Command {
 }
 
 type bucketPolicyGetArgs struct {
-	Bucket    string
-	Region    scw.Region
-	ProjectID string
+	Bucket         string
+	Region         scw.Region
+	ProjectID      string
+	S3Endpoint     string
+	S3UsePathStyle string
 }
 
 func bucketPolicyGetCommand() *core.Command {
@@ -165,6 +227,18 @@ func bucketPolicyGetCommand() *core.Command {
 				Short:            "The unique name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			{
+				Name:       "s3-endpoint",
+				Positional: false,
+				Required:   false,
+				Short:      "Custom S3 endpoint to use instead of the default",
+			},
+			{
+				Name:       "s3-use-path-style",
+				Positional: false,
+				Required:   false,
+				Short:      "Whether to use path style addressing for S3 API calls or not",
+			},
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -174,7 +248,20 @@ func bucketPolicyGetCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
+			s3UsePathStyle, err := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
+			}
+
+			s3Endpoint, _, err := getS3Endpoints(
+				ctx, args.Region.String(), args.S3Endpoint, "", s3UsePathStyle,
+			)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 endpoints: %w", err)
+			}
+
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
+
 			params := s3.GetBucketPolicyInput{
 				Bucket: &args.Bucket,
 			}

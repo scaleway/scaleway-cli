@@ -102,10 +102,12 @@ func bucketGetResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) 
 }
 
 type bucketGetArgs struct {
-	Region    scw.Region
-	Name      string
-	WithSize  bool `json:"with-size"`
-	ProjectID string
+	Region         scw.Region
+	Name           string
+	WithSize       bool `json:"with-size"`
+	ProjectID      string
+	S3Endpoint     string `json:"s3-endpoint"`
+	S3UsePathStyle string `json:"s3-use-path-style"`
 }
 
 func bucketMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
