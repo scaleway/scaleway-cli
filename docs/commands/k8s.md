@@ -1008,6 +1008,11 @@ Create a tagged pool named 'turtle' with 1 GP1-S which is using the already crea
 scw k8s pool create cluster-id=11111111-1111-1111-1111-111111111111 name=turtle node-type=GP1-S size=1 placement-group-id=22222222-2222-2222-2222-222222222222 tags.0=turtle-uses-placement-group
 ```
 
+Create a pool with user data loaded from a local file
+```shell
+scw k8s pool create cluster-id=11111111-1111-1111-1111-111111111111 name=bar node-type=DEV1-XL size=2 user-data.cloud-init=@cloud-init.yml
+```
+
 
 
 
