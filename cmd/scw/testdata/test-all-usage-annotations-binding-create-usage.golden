@@ -6,8 +6,8 @@ USAGE:
   scw annotations binding create [arg=value ...]
 
 ARGS:
-  [srn]        Scaleway Resource Name to associate.
-  [value-id]   ID of the value to associate.
+  [target-srn]   SRN of the resource to attach the value to.
+  [value-id]     ID of the value to associate.
 
 FLAGS:
   -h, --help                help for create
