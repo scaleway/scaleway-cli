@@ -462,5 +462,20 @@ depends = ["*:cli"]
 
 [tasks.ci]
 description = "meta-task for the ci"
-depends = ["build:*", "gen:*", "lint:*", "test:*", "check:*"]
+usage = '''
+flag "--coverprofile <file>" {
+  help "write a coverage profile to the file"
+}
+'''
+depends = [
+  "build:*",
+  "gen:*",
+  "lint:*",
+  { task = "test:cli", args = [
+    "{% if usage.coverprofile %}--coverprofile{% endif %}",
+    "{{ usage.coverprofile }}",
+  ] },
+  "test:wasm",
+  "check:*"
+]
 
