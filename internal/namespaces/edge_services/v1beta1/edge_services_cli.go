@@ -2394,6 +2394,7 @@ func edgeServicesPlanList() *core.Command {
 		// Deprecated:    false,
 		ArgSpecs: core.ArgSpecs{},
 		Run: func(ctx context.Context, args any) (i any, e error) {
+
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
