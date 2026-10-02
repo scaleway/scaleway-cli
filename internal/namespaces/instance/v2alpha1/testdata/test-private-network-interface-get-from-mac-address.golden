@@ -1,0 +1,34 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                6f87a568-354c-4e37-ba5e-ee19dfc2a327
+Srn               srn://instance.scw.eu/zones/fr-par-1/private-network-interfaces/6f87a568-354c-4e37-ba5e-ee19dfc2a327
+PrivateNetworkID  93b46ee0-c4d9-4a59-9c9d-77c501600d02
+ProjectID         fa1e3217-dc80-42ac-85c3-3f034b78b552
+ServerID          7c5a89ca-cf38-49e5-a2fe-d5c7869d9e01
+SecurityGroupID   -
+MacAddress        02:00:00:17:7d:ec
+Status            available
+IPIDs.0           fe8a3fdb-803f-400c-9a1a-831c2c9c662e
+IPIDs.1           099c54ff-bdbb-401e-b443-e47b0ac312ce
+CreatedAt         few seconds ago
+UpdatedAt         few seconds ago
+Zone              fr-par-1
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "6f87a568-354c-4e37-ba5e-ee19dfc2a327",
+  "srn": "srn://instance.scw.eu/zones/fr-par-1/private-network-interfaces/6f87a568-354c-4e37-ba5e-ee19dfc2a327",
+  "private_network_id": "93b46ee0-c4d9-4a59-9c9d-77c501600d02",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "server_id": "7c5a89ca-cf38-49e5-a2fe-d5c7869d9e01",
+  "security_group_id": "",
+  "mac_address": "02:00:00:17:7d:ec",
+  "status": "available",
+  "ip_ids": [
+    "fe8a3fdb-803f-400c-9a1a-831c2c9c662e",
+    "099c54ff-bdbb-401e-b443-e47b0ac312ce"
+  ],
+  "tags": [],
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "zone": "fr-par-1"
+}
