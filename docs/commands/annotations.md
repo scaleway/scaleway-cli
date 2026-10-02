@@ -20,10 +20,10 @@ scw annotations binding create [arg=value ...]
 
 **Arguments:**
 
-| Name     | Description                          | Argument Specifications |
-|----------|--------------------------------------|-------------------------|
-| srn      | Scaleway Resource Name to associate. |                         |
-| value-id | ID of the value to associate.        |                         |
+| Name       | Description                                 | Argument Specifications |
+|------------|---------------------------------------------|-------------------------|
+| target-srn | SRN of the resource to attach the value to. |                         |
+| value-id   | ID of the value to associate.               |                         |
 
 
 
@@ -61,7 +61,7 @@ scw annotations binding delete-all-matching-srn [arg=value ...]
 
 | Name            | Description                                                                        | Argument Specifications |
 |-----------------|------------------------------------------------------------------------------------|-------------------------|
-| srn             | Scaleway Resource Name for which all bindings should be deleted.                   |                         |
+| target-srn      | SRN of the resource for which all bindings should be deleted.                      |                         |
 | organization-id | Organization ID to use. If none is passed the default organization ID will be used |                         |
 
 
@@ -100,7 +100,7 @@ scw annotations binding list [arg=value ...]
 
 | Name            | Description                                                                        | Argument Specifications |
 |-----------------|------------------------------------------------------------------------------------|-------------------------|
-| srn             | Scaleway Resource Name for which to list all bindings.                             |                         |
+| target-srn      | SRN of the resource for which to list all bindings.                                |                         |
 | value-id        | Value ID for which to list all bindings.                                           |                         |
 | organization-id | Organization ID to use. If none is passed the default organization ID will be used |                         |
 
