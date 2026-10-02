@@ -1,0 +1,132 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                    SERVER ID                             PRIVATE NETWORK ID                    MAC ADDRESS        TAGS  STATUS     IP IDS                                                                       PROJECT ID                            CREATED AT       UPDATED AT
+df5f6c49-d1f3-4139-99f5-76835844e2a9  5f823d52-5142-4deb-9f4d-4936ca2221bb  1e9a19e2-6430-4534-a55b-d20d7d10261a  02:00:00:19:86:c0  []    available  [4734de62-7e5b-4f88-a468-b3ac1479e2de de1ed047-0b48-433c-add4-a91f2b5be42b]  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+9097a297-3068-4e6d-ab34-d4c73af59ea1  -                                     6121bd62-1136-4836-9129-f85120b831c4  02:00:00:1f:cf:15  []    available  [857e72a2-b60e-4e10-b89c-6ca0809a6f4c 29782613-77fb-4f32-83bd-c416fdc78e8c]  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+2d570dc7-6ddd-4a7d-a722-950225fd1c59  04821513-2df6-4a07-bf4e-6b26b67b0922  43b4a96b-5200-4f9c-a20a-98105e041eb6  02:00:00:1c:3e:94  []    available  [d49d889c-aff6-4c70-9bdb-6217bf89a671 38aff84e-a3fe-43f1-9a7c-69fb5b60d81a]  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+b2a0127c-f178-4e9c-aeb1-40ed55b75e6d  6d991054-6350-4184-9ff6-04cfaabce98d  ef69ae9f-c0b9-4266-bcfd-b11d00434931  02:00:00:1a:77:9e  []    available  [53d44438-8e51-492f-84f7-3ecbf0241d65 6abcf3c9-3dee-4806-96c3-45a4dd349a3b]  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+de55672f-4c0b-4908-873e-dd0e355eab37  -                                     7fcb5484-aaf8-4507-af0b-fdf527446b30  02:00:00:1e:21:b8  []    available  [7e57569e-1c23-4ef3-885b-4a4a60e2203e 93147160-d13c-452a-bcab-c5c516e3c1da]  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+2834fe64-e1c9-4d9a-8be6-66488526684a  -                                     aa0b0c39-d1ff-4471-9e6b-66f15d1b50ba  02:00:00:1d:bb:05  []    available  [58689ca4-9e7b-45dd-83a3-b19c5a3be7f4 7629db96-c331-49fa-8b85-a5b17236865b]  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+e8392a2e-ef29-4a4a-a048-8ea4c72df435  -                                     97653e67-5bcf-4bdf-aabd-fcfa2fe10713  02:00:00:1e:33:54  []    available  [d9e97cec-297b-4355-a6fa-c178dcc2b925 6050619f-5956-4b99-8984-164572b64339]  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "id": "df5f6c49-d1f3-4139-99f5-76835844e2a9",
+    "srn": "",
+    "private_network_id": "1e9a19e2-6430-4534-a55b-d20d7d10261a",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "server_id": "5f823d52-5142-4deb-9f4d-4936ca2221bb",
+    "mac_address": "02:00:00:19:86:c0",
+    "status": "available",
+    "ip_ids": [
+      "4734de62-7e5b-4f88-a468-b3ac1479e2de",
+      "de1ed047-0b48-433c-add4-a91f2b5be42b"
+    ],
+    "tags": [],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "zone": ""
+  },
+  {
+    "id": "9097a297-3068-4e6d-ab34-d4c73af59ea1",
+    "srn": "",
+    "private_network_id": "6121bd62-1136-4836-9129-f85120b831c4",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "server_id": "",
+    "mac_address": "02:00:00:1f:cf:15",
+    "status": "available",
+    "ip_ids": [
+      "857e72a2-b60e-4e10-b89c-6ca0809a6f4c",
+      "29782613-77fb-4f32-83bd-c416fdc78e8c"
+    ],
+    "tags": [],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "zone": ""
+  },
+  {
+    "id": "2d570dc7-6ddd-4a7d-a722-950225fd1c59",
+    "srn": "",
+    "private_network_id": "43b4a96b-5200-4f9c-a20a-98105e041eb6",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "server_id": "04821513-2df6-4a07-bf4e-6b26b67b0922",
+    "mac_address": "02:00:00:1c:3e:94",
+    "status": "available",
+    "ip_ids": [
+      "d49d889c-aff6-4c70-9bdb-6217bf89a671",
+      "38aff84e-a3fe-43f1-9a7c-69fb5b60d81a"
+    ],
+    "tags": [],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "zone": ""
+  },
+  {
+    "id": "b2a0127c-f178-4e9c-aeb1-40ed55b75e6d",
+    "srn": "",
+    "private_network_id": "ef69ae9f-c0b9-4266-bcfd-b11d00434931",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "server_id": "6d991054-6350-4184-9ff6-04cfaabce98d",
+    "mac_address": "02:00:00:1a:77:9e",
+    "status": "available",
+    "ip_ids": [
+      "53d44438-8e51-492f-84f7-3ecbf0241d65",
+      "6abcf3c9-3dee-4806-96c3-45a4dd349a3b"
+    ],
+    "tags": [],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "zone": ""
+  },
+  {
+    "id": "de55672f-4c0b-4908-873e-dd0e355eab37",
+    "srn": "",
+    "private_network_id": "7fcb5484-aaf8-4507-af0b-fdf527446b30",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "server_id": "",
+    "mac_address": "02:00:00:1e:21:b8",
+    "status": "available",
+    "ip_ids": [
+      "7e57569e-1c23-4ef3-885b-4a4a60e2203e",
+      "93147160-d13c-452a-bcab-c5c516e3c1da"
+    ],
+    "tags": [],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "zone": ""
+  },
+  {
+    "id": "2834fe64-e1c9-4d9a-8be6-66488526684a",
+    "srn": "",
+    "private_network_id": "aa0b0c39-d1ff-4471-9e6b-66f15d1b50ba",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "server_id": "",
+    "mac_address": "02:00:00:1d:bb:05",
+    "status": "available",
+    "ip_ids": [
+      "58689ca4-9e7b-45dd-83a3-b19c5a3be7f4",
+      "7629db96-c331-49fa-8b85-a5b17236865b"
+    ],
+    "tags": [],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "zone": ""
+  },
+  {
+    "id": "e8392a2e-ef29-4a4a-a048-8ea4c72df435",
+    "srn": "",
+    "private_network_id": "97653e67-5bcf-4bdf-aabd-fcfa2fe10713",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "server_id": "",
+    "mac_address": "02:00:00:1e:33:54",
+    "status": "available",
+    "ip_ids": [
+      "d9e97cec-297b-4355-a6fa-c178dcc2b925",
+      "6050619f-5956-4b99-8984-164572b64339"
+    ],
+    "tags": [],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "zone": ""
+  }
+]
