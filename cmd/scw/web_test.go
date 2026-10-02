@@ -58,6 +58,7 @@ func Test_WebValidateTemplatesVariables(t *testing.T) {
 		var args any
 		if cmd.ArgsType != nil {
 			args = reflect.New(cmd.ArgsType).Interface()
+			args = populateSliceFields(args)
 		}
 
 		err = tmpl.Execute(bytes.NewBuffer(nil), args)
@@ -71,4 +72,28 @@ func Test_WebValidateTemplatesVariables(t *testing.T) {
 	if len(errs) > 0 {
 		t.Fatal(errs...)
 	}
+}
+
+// populateSliceFields initializes slice fields with a single zero-value element
+// to allow template execution with index access (e.g., {{ index .ServerIDs 0 }})
+func populateSliceFields(args any) any {
+	v := reflect.ValueOf(args)
+	if v.Kind() == reflect.Ptr {
+		v = v.Elem()
+	}
+	if v.Kind() != reflect.Struct {
+		return args
+	}
+
+	for i := 0; i < v.NumField(); i++ {
+		field := v.Field(i)
+		if field.Kind() == reflect.Slice && field.CanSet() {
+			elemType := field.Type().Elem()
+			// Create a new element (zero value)
+			newElem := reflect.New(elemType).Elem()
+			// Set the slice to contain one element
+			field.Set(reflect.Append(field, newElem))
+		}
+	}
+	return args
 }
