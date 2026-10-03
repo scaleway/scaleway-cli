@@ -44,6 +44,7 @@ func GetCommands() *core.Commands {
 		dnsRecordAddCommand(),
 		dnsRecordSetCommand(),
 		dnsRecordDeleteCommand(),
+		dnsRecordImportCommand(),
 	))
 
 	cmds.MustFind("dns", "zone", "import").ArgSpecs.GetByName("bind-source.content").CanLoadFile = true
