@@ -3,7 +3,7 @@ package mongodb
 import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
-	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1alpha1"
+	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
 )
 
 func GetCommands() *core.Commands {
@@ -28,6 +28,8 @@ func GetCommands() *core.Commands {
 
 	cmds.Merge(core.NewCommands(
 		instanceWaitCommand(),
+		endpointCreateCommand(),
+		endpointDeleteCommand(),
 	))
 
 	return cmds

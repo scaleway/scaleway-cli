@@ -1,13 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-List available node types.
+List all the maintenances of a MongoDB® Database Instance.
 
 USAGE:
-  scw mongodb node-type list [arg=value ...]
+  scw mongodb maintenance list [arg=value ...]
 
 ARGS:
-  [include-disabled]   Defines whether or not to include disabled types
-  [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | all)
+  [instance-id]     ID of the instance
+  [order-by]        Criteria to use when requesting user listing (created_at_asc | created_at_desc | starts_at_asc | starts_at_desc | stops_at_asc | stops_at_desc)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | all)
 
 FLAGS:
   -h, --help                help for list
