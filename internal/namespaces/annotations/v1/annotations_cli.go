@@ -510,8 +510,8 @@ func annotationsBindingCreate() *core.Command {
 		ArgsType: reflect.TypeFor[annotations.CreateBindingRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "srn",
-				Short:      `Scaleway Resource Name to associate.`,
+				Name:       "target-srn",
+				Short:      `SRN of the resource to attach the value to.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -546,8 +546,8 @@ func annotationsBindingList() *core.Command {
 		ArgsType: reflect.TypeFor[annotations.ListBindingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "srn",
-				Short:      `Scaleway Resource Name for which to list all bindings.`,
+				Name:       "target-srn",
+				Short:      `SRN of the resource for which to list all bindings.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -653,8 +653,8 @@ func annotationsBindingDeleteAllMatchingSrn() *core.Command {
 		ArgsType: reflect.TypeFor[annotations.DeleteAllBindingsMatchingSRNRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "srn",
-				Short:      `Scaleway Resource Name for which all bindings should be deleted.`,
+				Name:       "target-srn",
+				Short:      `SRN of the resource for which all bindings should be deleted.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
