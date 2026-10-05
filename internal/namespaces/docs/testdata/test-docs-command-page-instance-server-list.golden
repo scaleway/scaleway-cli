@@ -1,0 +1,47 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+List all Instances
+
+List all Instances in a specified Availability Zone, e.g. `fr-par-1`.
+
+Usage:
+  scw instance server list [arg=value ...]
+
+Arguments:
+  [project-id]                List only Instances of this Project ID
+  [name]                      Filter Instances by name (eg. "server1" will return "server100" and "server1" but not "foo")
+  [without-ip]                List Instances that are not attached to a public IP
+  [with-ip]                   List Instances by IP (both private_ip and public_ip are supported)
+  [commercial-type]           List Instances of this commercial type
+  [state]                     List Instances in this state (running | stopped | stopped in place | starting | stopping | locked)
+  [tags]                      List Instances with these exact tags (to filter with several tags, use commas to separate them)
+  [private-network]           List Instances in this Private Network
+  [order]                     Define the order of the returned servers (creation_date_desc | creation_date_asc | modification_date_desc | modification_date_asc)
+  [private-networks]          List Instances from the given Private Networks (use commas to separate them)
+  [private-nic-mac-address]   List Instances associated with the given private NIC MAC address
+  [servers]                   List Instances from these server ids (use commas to separate them)
+  [organization-id]           List only Instances of this Organization ID
+  [zone=fr-par-1]             Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3 | it-mil-1 | all)
+
+Examples:
+  List all Instances on your default zone
+    scw instance server list
+
+  List Instances of this commercial type
+    scw instance server list commercial-type=DEV1-S
+
+  List Instances that are not attached to a public IP
+    scw instance server list without-ip=true
+
+  List Instances that match the specified name ('server1' will return 'server100' and 'server1' but not 'foo')
+    scw instance server list name=server1
+
+Tips:
+  - Use -o json to pipe output to jq for filtering.
+  - Use --organization-id to filter by organization.
+
+Common Pitfalls:
+  - By default, only servers in the default zone are listed. Use --zone=all to list across all zones.
+
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+"List all Instances\n\nList all Instances in a specified Availability Zone, e.g. `fr-par-1`.\n\nUsage:\n  scw instance server list [arg=value ...]\n\nArguments:\n  [project-id]                List only Instances of this Project ID\n  [name]                      Filter Instances by name (eg. \"server1\" will return \"server100\" and \"server1\" but not \"foo\")\n  [without-ip]                List Instances that are not attached to a public IP\n  [with-ip]                   List Instances by IP (both private_ip and public_ip are supported)\n  [commercial-type]           List Instances of this commercial type\n  [state]                     List Instances in this state (running | stopped | stopped in place | starting | stopping | locked)\n  [tags]                      List Instances with these exact tags (to filter with several tags, use commas to separate them)\n  [private-network]           List Instances in this Private Network\n  [order]                     Define the order of the returned servers (creation_date_desc | creation_date_asc | modification_date_desc | modification_date_asc)\n  [private-networks]          List Instances from the given Private Networks (use commas to separate them)\n  [private-nic-mac-address]   List Instances associated with the given private NIC MAC address\n  [servers]                   List Instances from these server ids (use commas to separate them)\n  [organization-id]           List only Instances of this Organization ID\n  [zone=fr-par-1]             Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3 | it-mil-1 | all)\n\nExamples:\n  List all Instances on your default zone\n    scw instance server list\n\n  List Instances of this commercial type\n    scw instance server list commercial-type=DEV1-S\n\n  List Instances that are not attached to a public IP\n    scw instance server list without-ip=true\n\n  List Instances that match the specified name ('server1' will return 'server100' and 'server1' but not 'foo')\n    scw instance server list name=server1\n\nTips:\n  - Use -o json to pipe output to jq for filtering.\n  - Use --organization-id to filter by organization.\n\nCommon Pitfalls:\n  - By default, only servers in the default zone are listed. Use --zone=all to list across all zones.\n"
