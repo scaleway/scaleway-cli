@@ -34,6 +34,8 @@ func GetGeneratedCommands() *core.Commands {
 		kafkaClusterDelete(),
 		kafkaClusterGetCa(),
 		kafkaClusterRenewCa(),
+		kafkaEndpointDelete(),
+		kafkaEndpointCreate(),
 		kafkaUsersList(),
 		kafkaUsersUpdate(),
 	)
@@ -551,6 +553,86 @@ func kafkaClusterRenewCa() *core.Command {
 				Resource: "cluster",
 				Verb:     "renew-ca",
 			}, nil
+		},
+	}
+}
+
+func kafkaEndpointDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a Kafka cluster endpoint`,
+		Long:      `Delete the endpoint of a Kafka cluster. You must specify the ` + "`" + `endpoint_id` + "`" + ` parameter of the endpoint you want to delete. Note that you might need to update any environment configurations that point to the deleted endpoint.`,
+		Namespace: "kafka",
+		Resource:  "endpoint",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[kafka.DeleteEndpointRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "endpoint-id",
+				Short:      `UUID of the endpoint to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*kafka.DeleteEndpointRequest)
+
+			client := core.ExtractClient(ctx)
+			api := kafka.NewAPI(client)
+			e = api.DeleteEndpoint(request, scw.WithContext(ctx))
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "endpoint",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func kafkaEndpointCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a new Kafka cluster endpoint`,
+		Long:      `Create a new endpoint for a Kafka cluster. You can add ` + "`" + `public_network` + "`" + ` or ` + "`" + `private_network` + "`" + ` specifications to the body of the request. Note that currently only ` + "`" + `private_network` + "`" + ` is supported.`,
+		Namespace: "kafka",
+		Resource:  "endpoint",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[kafka.CreateEndpointRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "cluster-id",
+				Short:      `UUID of the Kafka Cluster`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "endpoint.public-network",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "endpoint.private-network.private-network-id",
+				Short:      `UUID of the Private Network`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*kafka.CreateEndpointRequest)
+
+			client := core.ExtractClient(ctx)
+			api := kafka.NewAPI(client)
+
+			return api.CreateEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }
