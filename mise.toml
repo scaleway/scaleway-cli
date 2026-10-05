@@ -467,3 +467,7 @@ depends = [
   "check:*"
 ]
 
+[tasks.sweep]
+run = '''
+go run ./cmd/scw-sweeper
+'''
