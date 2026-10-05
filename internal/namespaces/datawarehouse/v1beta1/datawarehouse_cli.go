@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	datawarehouse "github.com/scaleway/scaleway-sdk-go/api/datawarehouse/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/datawarehouse/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 

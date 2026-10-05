@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	search "github.com/scaleway/scaleway-sdk-go/api/search/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/search/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -99,6 +99,9 @@ func searchResourceSearch() *core.Command {
 					"lb_server",
 					"serverless_functions_function",
 					"serverless_containers_container",
+					"serverless_containers_namespace",
+					"serverless_containers_domain",
+					"serverless_containers_trigger",
 					"wbh_hosting",
 					"redis_cluster",
 					"sm_secret",
@@ -126,6 +129,8 @@ func searchResourceSearch() *core.Command {
 					"kafk_cluster",
 					"sedb_cluster",
 					"autoscaling_group",
+					"wofl_definition",
+					"wofl_run",
 				},
 			},
 			{

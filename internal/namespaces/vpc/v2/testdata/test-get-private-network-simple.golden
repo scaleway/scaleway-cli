@@ -1,6 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                              213a94c0-c3e3-450f-9f71-2a1c9bbe27dd
+Srn                             srn://vpc.scw.eu/regions/fr-par/private-networks/213a94c0-c3e3-450f-9f71-2a1c9bbe27dd
 Name                            cli-pn-vigorous-hamilton
 OrganizationID                  4d333544-41be-4b0b-8907-0b9036859747
 ProjectID                       4d333544-41be-4b0b-8907-0b9036859747
@@ -11,12 +12,11 @@ VpcID                           3a436539-0369-429e-95b4-c38683bcac76
 DHCPEnabled                     true
 DefaultRoutePropagationEnabled  false
 HasObjectStoragePrivateAccess   false
-Srn                             srn://vpc.scw.eu/regions/fr-par/private-networks/213a94c0-c3e3-450f-9f71-2a1c9bbe27dd
 
 Subnets:
-ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID                                REGION  SRN
-79c51d80-4411-41a1-bae3-793324998a13  few seconds ago  few seconds ago  172.16.16.0/22            4d333544-41be-4b0b-8907-0b9036859747  213a94c0-c3e3-450f-9f71-2a1c9bbe27dd  3a436539-0369-429e-95b4-c38683bcac76  fr-par  -
-bf07aee5-13fb-4779-8169-2386e4bb667e  few seconds ago  few seconds ago  fd6d:9b51:d4ce:4bce::/64  4d333544-41be-4b0b-8907-0b9036859747  213a94c0-c3e3-450f-9f71-2a1c9bbe27dd  3a436539-0369-429e-95b4-c38683bcac76  fr-par  -
+ID                                    SRN  CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID                                REGION
+79c51d80-4411-41a1-bae3-793324998a13  -    few seconds ago  few seconds ago  172.16.16.0/22            4d333544-41be-4b0b-8907-0b9036859747  213a94c0-c3e3-450f-9f71-2a1c9bbe27dd  3a436539-0369-429e-95b4-c38683bcac76  fr-par
+bf07aee5-13fb-4779-8169-2386e4bb667e  -    few seconds ago  few seconds ago  fd6d:9b51:d4ce:4bce::/64  4d333544-41be-4b0b-8907-0b9036859747  213a94c0-c3e3-450f-9f71-2a1c9bbe27dd  3a436539-0369-429e-95b4-c38683bcac76  fr-par
 
 Instance Servers:
 ID                                    NAME                    STATE     NIC ID                                MAC ADDRESS
@@ -29,6 +29,7 @@ aafa2ba2-8333-4073-a978-bdfd510aa542  172.16.16.2/22
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "213a94c0-c3e3-450f-9f71-2a1c9bbe27dd",
+  "srn": "srn://vpc.scw.eu/regions/fr-par/private-networks/213a94c0-c3e3-450f-9f71-2a1c9bbe27dd",
   "name": "cli-pn-vigorous-hamilton",
   "organization_id": "4d333544-41be-4b0b-8907-0b9036859747",
   "project_id": "4d333544-41be-4b0b-8907-0b9036859747",
@@ -39,6 +40,7 @@ aafa2ba2-8333-4073-a978-bdfd510aa542  172.16.16.2/22
   "subnets": [
     {
       "id": "79c51d80-4411-41a1-bae3-793324998a13",
+      "srn": "",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
       "subnet": "172.16.16.0/22",
@@ -49,6 +51,7 @@ aafa2ba2-8333-4073-a978-bdfd510aa542  172.16.16.2/22
     },
     {
       "id": "bf07aee5-13fb-4779-8169-2386e4bb667e",
+      "srn": "",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
       "subnet": "fd6d:9b51:d4ce:4bce::/64",
@@ -62,7 +65,6 @@ aafa2ba2-8333-4073-a978-bdfd510aa542  172.16.16.2/22
   "dhcp_enabled": true,
   "default_route_propagation_enabled": false,
   "has_object_storage_private_access": false,
-  "srn": "srn://vpc.scw.eu/regions/fr-par/private-networks/213a94c0-c3e3-450f-9f71-2a1c9bbe27dd",
   "instance_servers": [
     {
       "id": "99d8b617-f9b7-4348-bcd9-65a6d8187943",

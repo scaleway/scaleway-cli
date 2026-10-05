@@ -14,6 +14,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/platform/terminal"
 	"github.com/scaleway/scaleway-cli/v2/internal/sentry"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/spf13/pflag"
 )
 
 var (
@@ -84,14 +85,28 @@ func mainNoExit() int {
 	}
 	defer cleanup(buildInfo)
 
-	exitCode, _, _ := core.Bootstrap(context.Background(), &core.BootstrapConfig{
+	// Beta mode must be known before GetCommands is called, as it controls which
+	// command namespaces (e.g. dedibox) are registered. Bootstrap will re-parse
+	// the same flags later; this early read only resolves --beta/-B so that
+	// GetCommands can pick it up via core.ExtractBetaMode.
+	betaMode := BetaMode
+	preFlags := pflag.NewFlagSet("scw", pflag.ContinueOnError)
+	preFlags.BoolVarP(&betaMode, "beta", "B", betaMode, "Enable beta mode")
+	preFlags.ParseErrorsWhitelist.UnknownFlags = true
+	preFlags.Usage = func() {}
+	_ = preFlags.Parse(os.Args[1:])
+
+	ctx := context.Background()
+	ctx = core.InjectMeta(ctx, &core.Meta{BetaMode: betaMode})
+
+	exitCode, _, _ := core.Bootstrap(ctx, &core.BootstrapConfig{
 		Args:      os.Args,
-		Commands:  commands.GetCommands(),
+		Commands:  commands.GetCommands(ctx),
 		BuildInfo: buildInfo,
 		Stdout:    colorable.NewColorableStdout(),
 		Stderr:    colorable.NewColorableStderr(),
 		Stdin:     os.Stdin,
-		BetaMode:  BetaMode,
+		BetaMode:  betaMode,
 		Platform:  terminal.NewPlatform(buildInfo.GetUserAgent()),
 	})
 

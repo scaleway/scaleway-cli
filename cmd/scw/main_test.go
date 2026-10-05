@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"strings"
 	"testing"
 
@@ -10,7 +11,7 @@ import (
 
 func Test_MainUsage(t *testing.T) {
 	t.Run("usage", core.Test(&core.TestConfig{
-		Commands: commands.GetCommands(),
+		Commands: commands.GetCommands(context.Background()),
 		Cmd:      "scw -h",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
@@ -27,7 +28,7 @@ func Test_AllUsage(t *testing.T) {
 		"autocomplete script": true,
 	}
 
-	for _, cmd := range commands.GetCommands().GetAll() {
+	for _, cmd := range commands.GetCommands(context.Background()).GetAll() {
 		commandLine := cmd.GetCommandLine("scw")
 		commandLine = strings.TrimPrefix(commandLine, "scw ")
 		if _, exists := excludedCommands[commandLine]; exists || cmd.Hidden {
@@ -35,7 +36,7 @@ func Test_AllUsage(t *testing.T) {
 		}
 
 		t.Run(commandLine+" usage", core.Test(&core.TestConfig{
-			Commands: commands.GetCommands(),
+			Commands: commands.GetCommands(context.Background()),
 			Cmd:      "scw " + commandLine + " -h",
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),

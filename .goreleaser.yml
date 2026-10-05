@@ -40,6 +40,10 @@ builds:
 archives:
   - formats: [binary]
 
+nfpms:
+  - formats: [deb, rpm]
+    maintainer: Scaleway Devtools <opensource@scaleway.com>
+
 checksum:
   name_template: 'SHA256SUMS'
   algorithm: sha256

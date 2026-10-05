@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	kafka "github.com/scaleway/scaleway-sdk-go/api/kafka/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/kafka/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
