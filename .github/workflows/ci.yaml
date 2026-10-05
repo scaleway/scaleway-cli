@@ -62,10 +62,9 @@ jobs:
             pnpm-${{ runner.os }}
           path: |
             ${{ steps.cache-vars.outputs.pnpmcache }}
-      - run: mise run ci
+      - run: mise run ci --coverprofile cover.out
       - name: Generate coverage report
         run: |
-          mise run test:cli --coverprofile cover.out
           gocover-cobertura < cover.out > cover.xml
       - name: Upload coverage report
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
