@@ -25,6 +25,9 @@ jobs:
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
         with:
           version: 2026.9.3
+          cache: true
+          cache_save: false
+          experimental: true
       - name: Run Sweepers
         run: mise run sweep
         env:
