@@ -69,7 +69,7 @@ jobs:
         with:
           version: 2026.9.3
       - name: Run Acceptance Tests
-        run: mise run test:cli --format github-actions --timeout 4h --cassettes --goldens --debug ./internal/namespaces/${{ matrix.products }}/...
+        run: mise run test:cli --format github-actions --timeout 4h --cassettes --goldens ./internal/namespaces/${{ matrix.products }}/...
         env:
           SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
           SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
