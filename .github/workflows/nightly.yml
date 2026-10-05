@@ -105,7 +105,7 @@ jobs:
         with:
           version: 2026.9.3
       - name: Run Sweepers
-        run: go run -v ./cmd/scw-sweeper
+        run: mise run sweep
         env:
           SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
           SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
