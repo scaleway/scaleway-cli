@@ -32,6 +32,9 @@ install_autocomplete: {{ .InstallAutocomplete }}
 # install_autocomplete: true
 {{- end }}
 
+# Color theme for CLI output (run 'scw theme list' to see available themes)
+{{ if .Theme }}theme: {{ .Theme }}{{ else }}# theme: scaleway{{ end }}
+
 # Alias creates custom aliases for your Scaleway CLI commands
 {{- if .Alias }}
 alias:
@@ -57,6 +60,7 @@ type Config struct {
 	Alias               *alias.Config `json:"alias"                          yaml:"alias"`
 	Output              string        `json:"output"                         yaml:"output"`
 	InstallAutocomplete *bool         `json:"install_autocomplete,omitempty" yaml:"install_autocomplete,omitempty"`
+	Theme               string        `json:"theme"                          yaml:"theme"`
 
 	path string
 }

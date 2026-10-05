@@ -44,7 +44,7 @@ func Marshal(data any, opt *MarshalOpt) (string, error) {
 		subOpt.Title = ""
 		body, err := Marshal(data, &subOpt)
 
-		return terminal.Style(opt.Title+":", color.Bold) + "\n" + body, err
+		return terminal.Style(opt.Title+":", color.Bold, color.FgMagenta) + "\n" + body, err
 	}
 
 	rValue := reflect.ValueOf(data)
@@ -140,12 +140,12 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 		case marshalerFunc != nil:
 			str, err := marshalerFunc(value.Interface(), subOpts)
 
-			return [][]string{{strings.Join(keys, "."), str}}, err
+			return [][]string{{terminal.Style(strings.Join(keys, "."), color.FgCyan), str}}, err
 
 		// If data is a stringers
 		case rType.Implements(reflect.TypeFor[fmt.Stringer]()):
 			return [][]string{
-				{strings.Join(keys, "."), value.Interface().(fmt.Stringer).String()},
+				{terminal.Style(strings.Join(keys, "."), color.FgCyan), value.Interface().(fmt.Stringer).String()},
 			}, nil
 
 		case rType.Kind() == reflect.Pointer:
@@ -215,7 +215,7 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 				return nil, err
 			}
 
-			return [][]string{{strings.Join(keys, "."), str}}, nil
+			return [][]string{{terminal.Style(strings.Join(keys, "."), color.FgCyan), str}}, nil
 		}
 	}
 
@@ -330,7 +330,7 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 	// Generate header row
 	headerRow := []string(nil)
 	for _, fieldSpec := range opt.Fields {
-		headerRow = append(headerRow, fieldSpec.getLabel())
+		headerRow = append(headerRow, terminal.Style(fieldSpec.getLabel(), color.Bold, color.FgYellow))
 	}
 	grid = append(grid, headerRow)
 
