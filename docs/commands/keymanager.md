@@ -231,7 +231,7 @@ scw keymanager key import-key-material <key-id ...> [arg=value ...]
 
 ### List keys
 
-Retrieve a list of keys across all Projects in an Organization or within a specific Project. 
+Retrieve a list of keys across all Projects in an Organization or within a specific Project.
 If the user has permissions for all current and future projects: Either organization_id or project_id is required.
 If the user has permissions for all current projects or only specific projects: The project_id is required.
 The `region` parameter in path is needed in both case.
@@ -245,16 +245,16 @@ scw keymanager key list [arg=value ...]
 
 **Arguments:**
 
-| Name                   | Description                                                                                                              | Argument Specifications                                                                                   |
-|------------------------|--------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| project-id             | (Optional) Filter by Project ID                                                                                          |                                                                                                           |
-| order-by               |                                                                                                                          | One of: `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` |
-| tags.{index}           | (Optional) List of tags to filter on                                                                                     |                                                                                                           |
-| name                   | (Optional) Filter by key name                                                                                            |                                                                                                           |
-| usage                  | (Optional) Filter keys by usage.                                                                                         | One of: `unknown_usage`, `symmetric_encryption`, `asymmetric_encryption`, `asymmetric_signing`            |
-| scheduled-for-deletion | Filter keys based on their deletion status. By default, only keys not scheduled for deletion are returned in the output. |                                                                                                           |
-| organization-id        | (Optional) Filter by Organization ID                                                                                     |                                                                                                           |
-| region                 | Region to target. If none is passed will use default region from the config                                              | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`                                        |
+| Name                   | Description                                                                                                              | Argument Specifications                                                                                             |
+|------------------------|--------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+| project-id             | (Optional) Filter by Project ID                                                                                          |                                                                                                                     |
+| order-by               |                                                                                                                          | One of: `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`           |
+| tags.{index}           | (Optional) List of tags to filter on                                                                                     |                                                                                                                     |
+| name                   | (Optional) Filter by key name                                                                                            |                                                                                                                     |
+| usage                  | (Optional) Filter keys by usage.                                                                                         | One of: `unknown_usage`, `symmetric_encryption`, `asymmetric_encryption`, `asymmetric_signing`, `key_encapsulation` |
+| scheduled-for-deletion | Filter keys based on their deletion status. By default, only keys not scheduled for deletion are returned in the output. |                                                                                                                     |
+| organization-id        | (Optional) Filter by Organization ID                                                                                     |                                                                                                                     |
+| region                 | Region to target. If none is passed will use default region from the config                                              | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`                                                  |
 
 
 

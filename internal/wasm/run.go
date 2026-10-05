@@ -15,9 +15,9 @@ import (
 
 var commands *core.Commands
 
-func getCommands() *core.Commands {
+func getCommands(ctx context.Context) *core.Commands {
 	if commands == nil {
-		commands = cmds.GetCommands()
+		commands = cmds.GetCommands(ctx)
 	}
 	return commands
 }
@@ -42,9 +42,10 @@ func runCommand(
 	stdout io.Writer,
 	stderr io.Writer,
 ) int {
-	exitCode, _, _ := core.Bootstrap(context.Background(), &core.BootstrapConfig{
+	ctx := context.Background()
+	exitCode, _, _ := core.Bootstrap(ctx, &core.BootstrapConfig{
 		Args:      args,
-		Commands:  getCommands(),
+		Commands:  getCommands(ctx),
 		BuildInfo: buildInfo,
 		Stdout:    stdout,
 		Stderr:    stderr,

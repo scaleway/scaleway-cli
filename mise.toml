@@ -7,9 +7,9 @@ lockfile = true
 shell = "bash -c"
 
 [tools]
-actionlint = "1.7"
 devcontainer-cli = "0.89"
 go = "1.27"
+"go:github.com/boumenot/gocover-cobertura" = "1.5"
 "go:github.com/go-delve/delve/cmd/dlv" = "1.27"
 "go:gotest.tools/gotestsum" = "1.13"
 golangci-lint = "2.13"
@@ -23,21 +23,18 @@ node = "26.8"
 pnpm = "11.25"
 prettier = "3.9"
 rumdl = "0.2"
-shellcheck = "0.11"
 typos = "1.50"
+zizmor = "1.30"
 
-[tasks.'deps:pnpm']
-description = "download the dependencies for the wasm wrapper"
-dir = "wasm"
-run = '''
-pnpm install
-'''
+[env]
+_.file = '.env'
 
-[tasks.'deps:go']
-description = "download the dependencies for the golang code"
-run = '''
-go mod download
-'''
+[deps.pnpm]
+auto = true
+dir = "wasm/"
+
+[deps.go]
+auto = true
 
 [tasks.'build:cli']
 description = "build the cli"
@@ -61,14 +58,22 @@ flag "--verbose" {
   help "print the commands as they are run"
 }
 '''
-depends = ["deps:go"]
 run = '''
-args=(build -ldflags "${usage_ldflags?}" -tags "${usage_tags?}" -o "${usage_output?}")
+args=(build)
 if [ "${usage_race:-false}" = "true" ]; then
   args+=(-race)
 fi
 if [ "${usage_verbose:-false}" = "true" ]; then
   args+=(-v)
+fi
+if [ -n "${usage_ldflags:-}" ]; then
+  args+=(-ldflags "${usage_ldflags?}")
+fi
+if [ -n "${usage_tags:-}" ]; then
+  args+=(-tags "${usage_tags?}")
+fi
+if [ -n "${usage_output:-}" ]; then
+  args+=(-o "${usage_output?}")
 fi
 args+=(./cmd/scw)
 go "${args[@]}"
@@ -76,21 +81,18 @@ go "${args[@]}"
 
 [tasks.'build:wasm']
 description = "build the wasm wrapper"
-depends = ["deps:pnpm", "deps:go"]
 run = '''
 GOOS=js GOARCH=wasm go build -o wasm/cli.wasm ./cmd/scw-wasm 
 '''
 
 [tasks.'build:wasm-tester']
 description = "build the wasm wrapper tester"
-depends = ["deps:pnpm", "deps:go"]
 run = '''
 GOOS=js GOARCH=wasm go build  -o wasm/cliTester.wasm ./cmd/scw-wasm-tester
 '''
 
 [tasks.'gen:doc']
 description = "generate the documentation"
-depends = ["deps:go"]
 depends_post = ["fmt:doc"]
 env = { SHELL="/bin/bash" }
 usage = '''
@@ -173,7 +175,6 @@ hadolint ${usage_dockerfile?}
 
 [tasks.'lint:wasm']
 description = "lint the wasm wrapper"
-depends = ["deps:pnpm"]
 dir = "wasm"
 usage = '''
 flag "--write" {
@@ -192,7 +193,6 @@ prettier "${args[@]}"
 
 [tasks.'lint:doc']
 description = "lint the documentation"
-depends = ["gen:doc"]
 run = '''
 rumdl check ./docs
 typos ./docs
@@ -201,18 +201,11 @@ typos ./docs
 [tasks.'lint:actions']
 description = "lint the workflows"
 run = '''
-# ensure that shellcheck is installed, which is guaranteed with mise but ensures
-# actionlint won't silently do nothing in case the command is run outside of it.
-shellcheck_path="$(command -v shellcheck)" || {
-  echo "error: shellcheck not found in PATH; actionlint needs it to check scripts"
-  exit 1
-}
-actionlint -shellcheck "$shellcheck_path"
+zizmor .
 '''
 
 [tasks.'test:cli']
 description = "test the cli"
-depends = ["build:cli"]
 usage = '''
 arg "[packages]" {
   help "target packages to test"
@@ -236,6 +229,7 @@ flag "--race" {
 flag "--format <fmt>" {
   help "gotestsum output format"
   default "pkgname"
+  choices  "dots" "dots-v2" "pkgname" "pkgname-and-test-fails" "testname" "testdox" "github-actions" "standard-quiet" "standard-verbose"
 }
 flag "--rerun-fails <n>" {
   help "rerun failed tests up to n times"
@@ -245,6 +239,21 @@ flag "--timeout <duration>" {
 }
 flag "--max-fails <n>" {
   help "stop after n failures"
+}
+flag "--jsonfile <file>" {
+  help "write all test2json input to a file"
+}
+flag "--coverprofile <file>" {
+  help "write a coverage profile to the file"
+}
+flag "--parallel <n>" {
+  help "execute n tests in parallel when allowed"
+}
+flag "--parallel-pkg <n>" {
+  help "build and execute n test binaries in concurrence"
+}
+flag "--failfast" {
+  help "don't start new tests after the first failed test"
 }
 '''
 run = '''
@@ -259,6 +268,9 @@ fi
 if [ -n "${usage_max_fails:-}" ]; then
   gotestsum_args+=(--max-fails "${usage_max_fails?}")
 fi
+if [ -n "${usage_jsonfile:-}" ]; then
+  gotestsum_args+=(--jsonfile "${usage_jsonfile?}")
+fi
 
 test_args=()
 if [ -n "${usage_run:-}" ]; then
@@ -269,6 +281,18 @@ if [ "${usage_race:-false}" = "true" ]; then
 fi
 if [ -n "${usage_timeout:-}" ]; then
   test_args+=(-timeout "${usage_timeout?}")
+fi
+if [ -n "${usage_coverprofile:-}" ]; then
+  test_args+=(-coverprofile "${usage_coverprofile?}")
+fi
+if [ -n "${usage_parallel_pkg:-}" ]; then
+  test_args+=(-p "${usage_parallel_pkg?}")
+fi
+if [ -n "${usage_parallel:-}" ]; then
+  test_args+=(-parallel "${usage_parallel?}")
+fi
+if [ "${usage_failfast:-false}" = "true" ]; then
+  test_args+=(-failfast)
 fi
 test_args+=("${usage_packages?}")
 
@@ -426,5 +450,20 @@ depends = ["*:cli"]
 
 [tasks.ci]
 description = "meta-task for the ci"
-depends = ["build:*", "gen:*", "lint:*", "test:*", "check:*"]
+usage = '''
+flag "--coverprofile <file>" {
+  help "write a coverage profile to the file"
+}
+'''
+depends = [
+  "build:*",
+  "gen:*",
+  "lint:*",
+  { task = "test:cli", args = [
+    "{% if usage.coverprofile %}--coverprofile{% endif %}",
+    "{{ usage.coverprofile }}",
+  ] },
+  "test:wasm",
+  "check:*"
+]
 

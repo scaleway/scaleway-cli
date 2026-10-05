@@ -56,6 +56,8 @@ scw container container create [arg=value ...]
 | private-network-id                           | ID of the Private Network the container is connected to.                                                                                                                                           |                                                                       |
 | command.{index}                              | Container command                                                                                                                                                                                  |                                                                       |
 | args.{index}                                 | Container arguments                                                                                                                                                                                |                                                                       |
+| enable-private-endpoint                      | Whether to allow incoming traffic from the Private Networks within the VPC.                                                                                                                        |                                                                       |
+| enable-default-public-endpoint               | Whether default public endpoint is enabled or not.                                                                                                                                                 |                                                                       |
 | region                                       | Region to target. If none is passed will use default region from the config                                                                                                                        | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
@@ -99,6 +101,25 @@ scw container container get <container-id ...> [arg=value ...]
 |--------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
 | container-id | UUID of the container to get                                                | Required                                                              |
 | region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
+
+
+
+### Get the private endpoint certificate authority.
+
+When enabling private endpoints for your containers, you need to trust this CA to establish HTTPS connections to them.
+
+**Usage:**
+
+```shell
+scw container container get-private-endpoint-ca [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name   | Description                                                                 | Argument Specifications                                               |
+|--------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -220,6 +241,8 @@ scw container container update <container-id ...> [arg=value ...]
 | private-network-id                           | ID of the Private Network the container is connected to.                                                                                                                                           |                                                                       |
 | command.{index}                              | Container command                                                                                                                                                                                  |                                                                       |
 | args.{index}                                 | Container arguments                                                                                                                                                                                |                                                                       |
+| enable-private-endpoint                      | Whether to allow incoming traffic from the Private Networks within the VPC.                                                                                                                        |                                                                       |
+| enable-default-public-endpoint               | Whether default public endpoint is enabled or not.                                                                                                                                                 |                                                                       |
 | region                                       | Region to target. If none is passed will use default region from the config                                                                                                                        | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 

@@ -25,6 +25,7 @@ LivenessProbe.Interval                     10 seconds
 LivenessProbe.Timeout                      1 seconds
 Tags.0                                     new_tag
 PublicEndpoint                             https://clinswonderfulchattebca677ed-cli-test-zen-lamarr.functions.fnc.fr-par.scw.cloud
+DefaultPublicEndpointEnabled               false
 Region                                     fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
@@ -68,5 +69,6 @@ Region                                     fr-par
   "args": [],
   "public_endpoint": "https://clinswonderfulchattebca677ed-cli-test-zen-lamarr.functions.fnc.fr-par.scw.cloud",
   "private_endpoint": null,
+  "default_public_endpoint_enabled": false,
   "region": "fr-par"
 }

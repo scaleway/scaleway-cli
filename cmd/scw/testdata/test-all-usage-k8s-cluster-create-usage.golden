@@ -45,7 +45,7 @@ ARGS:
   [pools.{index}.startup-taints.{index}.key]             The taint key to be applied to a node
   [pools.{index}.startup-taints.{index}.value]           The taint value corresponding to the taint key
   [pools.{index}.startup-taints.{index}.effect]          Effect defines the effects of Taint (NoSchedule | PreferNoSchedule | NoExecute)
-  [pools.{index}.max-termination-grace-period]           Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
+  [pools.{index}.max-termination-grace-period]           Maximum amount of time in seconds before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
   [pools.{index}.user-data.{key}]                        User data applied and reconciled with the pool
   [autoscaler-config.scale-down-disabled]                Forbid cluster autoscaler to scale down the cluster, defaults to false
   [autoscaler-config.scale-down-delay-after-add]         How long after scale up the scale down evaluation resumes
@@ -85,6 +85,7 @@ FLAGS:
   -w, --wait                wait until the cluster is ready
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

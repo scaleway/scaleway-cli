@@ -104,7 +104,7 @@ func validateRequiredArgs(cmd *Command, cmdArgs any, rawArgs args.RawArgs) error
 				err.Error(),
 			)
 			if !arg.Required {
-				logger.Infof(validationErr.Error())
+				logger.Infof("%v", validationErr.Error())
 
 				continue
 			}
@@ -179,7 +179,7 @@ func validateDeprecated(
 				err.Error(),
 			)
 			if !arg.Required {
-				logger.Infof(validationErr.Error())
+				logger.Infof("%v", validationErr.Error())
 
 				continue
 			}
@@ -349,7 +349,7 @@ func (m *OneOfGroupManager) ValidateUniqueOneOfGroups(
 					err.Error(),
 				)
 				if m.RequiredGroups[groupName] {
-					logger.Infof(validationErr.Error())
+					logger.Infof("%v", validationErr.Error())
 
 					continue
 				}

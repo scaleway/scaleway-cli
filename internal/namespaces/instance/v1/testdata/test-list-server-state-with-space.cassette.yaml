@@ -1,0 +1,90 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        form:
+            order:
+                - creation_date_desc
+            page:
+                - "1"
+            state:
+                - stopped_in_place
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.37.0.20260924130232-31671f8e3484 (go1.27.1; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers?order=creation_date_desc&page=1&state=stopped_in_place
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 15
+        body: '{"servers": []}'
+        headers:
+            Content-Length:
+                - "15"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 30 Sep 2026 12:47:17 GMT
+            Link:
+                - </servers?page=0&per_page=50&order=creation_date_desc&state=stopped_in_place>; rel="last"
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - da7ca513-ef32-48df-8875-ce826584c514
+            X-Total-Count:
+                - "0"
+        status: 200 OK
+        code: 200
+        duration: 212.722875ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.37.0.20260924130232-31671f8e3484 (go1.27.1; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/metadata
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 59
+        body: '{"platform":"external","partition":"scw","domain":"scw.eu"}'
+        headers:
+            Content-Length:
+                - "59"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 30 Sep 2026 12:47:17 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 847688e6-372c-48a3-93d3-c90a69d1a4a4
+        status: 200 OK
+        code: 200
+        duration: 11.062083ms

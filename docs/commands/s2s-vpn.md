@@ -196,7 +196,7 @@ scw s2s-vpn connection renew-psk <connection-id ...> [arg=value ...]
 | Name              | Description                                                                 | Argument Specifications                                               |
 |-------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
 | connection-id     | ID of the connection to renew the PSK                                       | Required                                                              |
-| generate-revision | Generate a new revision or update to the latest existing one                | Default: `true`                                                       |
+| generate-revision | Generate a new version or update to the latest existing one                 | Default: `true`                                                       |
 | region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
@@ -248,6 +248,8 @@ scw s2s-vpn connection update <connection-id ...> [arg=value ...]
 | esp-ciphers.{index}.encryption   |                                                                             | One of: `unknown_encryption`, `aes128`, `aes192`, `aes256`, `aes128gcm`, `aes192gcm`, `aes256gcm`, `aes128ccm`, `aes256ccm`, `chacha20poly1305` |
 | esp-ciphers.{index}.integrity    |                                                                             | One of: `unknown_integrity`, `sha256`, `sha384`, `sha512`                                                                                       |
 | esp-ciphers.{index}.dh-group     |                                                                             | One of: `unknown_dhgroup`, `modp2048`, `modp3072`, `modp4096`, `ecp256`, `ecp384`, `ecp521`, `curve25519`                                       |
+| secret-id                        | Secret ID in the client's project containing the PSK                        |                                                                                                                                                 |
+| secret-revision                  | Secret version in the client's project containing the PSK.                  |                                                                                                                                                 |
 | region                           | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`                                                                           |
 
 

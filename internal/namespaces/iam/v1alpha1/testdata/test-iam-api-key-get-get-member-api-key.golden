@@ -31,7 +31,8 @@ Policies:
     "editable": true,
     "deletable": true,
     "managed": false,
-    "creation_ip": "51.159.73.9"
+    "creation_ip": "51.159.73.9",
+    "srn": ""
   },
   "entity_type": "member",
   "policies": {}

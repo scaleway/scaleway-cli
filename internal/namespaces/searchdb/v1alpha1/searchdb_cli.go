@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	searchdb "github.com/scaleway/scaleway-sdk-go/api/searchdb/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/searchdb/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 

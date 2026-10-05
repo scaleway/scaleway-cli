@@ -91,8 +91,12 @@ type Command struct {
 
 	// Groups contains a list of groups IDs
 	Groups []string
-	//
+
+	// Deprecation
+	// Whether the command is deprecated
 	Deprecated bool
+	// The deprecation message to be displayed. Cobra will write it after 'Command "x" is deprecated, '
+	DeprecationMessage string
 
 	// ExcludeFromMCP will exclude the command from the MCP server (scw mcp server)
 	ExcludeFromMCP bool
