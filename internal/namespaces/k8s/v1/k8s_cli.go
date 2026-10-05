@@ -554,7 +554,7 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "pools.{index}.max-termination-grace-period",
-				Short:      `Maximum amount of time in seconds before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node. It overrides pods ` + "`" + `PodDisruptionBudget` + "`" + ` and ` + "`" + `terminationGracePeriodSeconds` + "`" + `. Defaults to 15 minutes, up to 1 hour.`,
+				Short:      `Maximum amount of time before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node. It overrides pods ` + "`" + `PodDisruptionBudget` + "`" + ` and ` + "`" + `terminationGracePeriodSeconds` + "`" + `. Defaults to 15 minutes, up to 1 hour.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2025,7 +2025,7 @@ func k8sPoolCreate() *core.Command {
 			},
 			{
 				Name:       "max-termination-grace-period",
-				Short:      `Maximum amount of time in seconds before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node. It overrides pods ` + "`" + `PodDisruptionBudget` + "`" + ` and ` + "`" + `terminationGracePeriodSeconds` + "`" + `. Defaults to 15 minutes, up to 1 hour.`,
+				Short:      `Maximum amount of time before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node. It overrides pods ` + "`" + `PodDisruptionBudget` + "`" + ` and ` + "`" + `terminationGracePeriodSeconds` + "`" + `. Defaults to 15 minutes, up to 1 hour.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2241,7 +2241,7 @@ func k8sPoolUpdate() *core.Command {
 			},
 			{
 				Name:       "max-termination-grace-period",
-				Short:      `New maximum amount of time in seconds before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node.`,
+				Short:      `New maximum amount of time before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
