@@ -68,8 +68,11 @@ jobs:
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
         with:
           version: 2026.9.3
+          cache: true
+          cache_save: false
+          experimental: true
       - name: Run Acceptance Tests
-        run: mise run test:cli --format github-actions --timeout 4h --cassettes --goldens --debug ./internal/namespaces/${{ matrix.products }}/...
+        run: mise run test:cli --format github-actions --timeout 4h --cassettes --goldens ./internal/namespaces/${{ matrix.products }}/...
         env:
           SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
           SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
@@ -86,7 +89,7 @@ jobs:
               - type: "section"
                 text:
                   type: "mrkdwn"
-                  text: "Scaleway CLI Nightly workflow failed: <https://github.com/scaleway/scaleway-cli/actions/runs/${{ env.GITHUB_RUN_ID }}|${{ matrix.products }}>"
+                  text: "${{ github.repository }} nightly workflow failed: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ matrix.products }}>"
 
   sweepers:
     runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
@@ -104,8 +107,11 @@ jobs:
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
         with:
           version: 2026.9.3
+          cache: true
+          cache_save: false
+          experimental: true
       - name: Run Sweepers
-        run: go run -v ./cmd/scw-sweeper
+        run: mise run sweep
         env:
           SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
           SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
@@ -122,4 +128,4 @@ jobs:
               - type: "section"
                 text:
                   type: "mrkdwn"
-                  text: "Scaleway CLI sweepers in Nightly workflow failed: <https://github.com/scaleway/scaleway-cli/actions/runs/${{ env.GITHUB_RUN_ID }}>"
+                  text: "${{ github.repository }} nightly workflow failed: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|sweeper>"
