@@ -7,7 +7,7 @@ USAGE:
 
 EXAMPLES:
   Delete a volume with the specified ID
-    scw instance volume delete af136619-bc59-4b48-a0ed-ed7dceaad9a6
+    scw instance volume delete 11111111-1111-1111-1111-111111111111
 
 ARGS:
   volume-id         UUID of the volume you want to delete
