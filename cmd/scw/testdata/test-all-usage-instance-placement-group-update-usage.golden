@@ -7,13 +7,13 @@ USAGE:
 
 EXAMPLES:
   Update the name of a placement group
-    scw instance placement-group update 95053f33-cd3c-4cdc-b2b0-57d2dda97b13 name=foobar
+    scw instance placement-group update 11111111-1111-1111-1111-111111111111 name=foobar
 
   Update the policy type of a placement group (all Instances in your placement group MUST be shutdown)
-    scw instance placement-group update 0954ec26-9917-47b6-8c5c-7bc81d7bb9d2 policy-type=low_latency
+    scw instance placement-group update 11111111-1111-1111-1111-111111111111 policy-type=low_latency
 
   Update the tags of a placement group
-    scw instance placement-group update 1f883434-8c2d-40f0-b686-d0754b3a7bc0 tags.0=update-tag
+    scw instance placement-group update 11111111-1111-1111-1111-111111111111 tags.0=update-tag
 
 ARGS:
   placement-group-id   UUID of the placement group

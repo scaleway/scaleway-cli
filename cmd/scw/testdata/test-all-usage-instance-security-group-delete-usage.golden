@@ -7,7 +7,7 @@ USAGE:
 
 EXAMPLES:
   Delete the security group with the specified ID
-    scw instance security-group delete 69e17c83-9945-47ac-8b29-8c1ad050ee83
+    scw instance security-group delete 11111111-1111-1111-1111-111111111111
 
 ARGS:
   security-group-id   UUID of the security group you want to delete
