@@ -89,7 +89,7 @@ jobs:
               - type: "section"
                 text:
                   type: "mrkdwn"
-                  text: "${{ github.repo_name }} nightly workflow failed: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ matrix.products }}>"
+                  text: "${{ github.repository }} nightly workflow failed: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ matrix.products }}>"
 
   sweepers:
     runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
@@ -128,4 +128,4 @@ jobs:
               - type: "section"
                 text:
                   type: "mrkdwn"
-                  text: "${{ github.repo_name }} nightly workflow failed: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|sweeper>"
+                  text: "${{ github.repository }} nightly workflow failed: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|sweeper>"
