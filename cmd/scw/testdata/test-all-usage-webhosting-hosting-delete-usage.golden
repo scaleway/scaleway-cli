@@ -7,7 +7,7 @@ USAGE:
 
 EXAMPLES:
   Delete a Hosting with the given ID
-    scw webhosting hosting delete hosting-id=a3244331-5d32-4e36-9bf9-b60233e201c7
+    scw webhosting hosting delete hosting-id=11111111-1111-1111-1111-111111111111
 
 ARGS:
   hosting-id        Hosting ID

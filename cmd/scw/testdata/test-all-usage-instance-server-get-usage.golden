@@ -7,7 +7,7 @@ USAGE:
 
 EXAMPLES:
   Get the Instance with its specified ID
-    scw instance server get 94ededdf-358d-4019-9886-d754f8a2e78d
+    scw instance server get 11111111-1111-1111-1111-111111111111
 
 ARGS:
   server-id         UUID of the Instance you want to get
