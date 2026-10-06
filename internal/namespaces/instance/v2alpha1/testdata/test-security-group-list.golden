@@ -1,0 +1,64 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                    NAME                   DESCRIPTION        TAGS       INBOUND DEF. ACT.  OUTBOUND DEF. ACT.  STATELESS  PROJECT DEFAULT  PROJECT ID                            ZONE  CREATED AT       UPDATED AT
+dd3177ea-c8aa-49ec-b49f-328f1a9c66ce  cli-sg-laughing-nobel  Descriptive text.  [foo bar]  drop               accept              false      false            fa1e3217-dc80-42ac-85c3-3f034b78b552        few seconds ago  few seconds ago
+438b82cd-988a-4ed4-988a-e4549355d9a1  Named SG               -                  [foo]      drop               drop                true       false            fa1e3217-dc80-42ac-85c3-3f034b78b552        few seconds ago  few seconds ago
+1b65ee6b-cff9-41c6-9ff2-d5e3952226b9  cli-sg-dreamy-hellman  -                  [foo]      accept             accept              false      false            fa1e3217-dc80-42ac-85c3-3f034b78b552        few seconds ago  few seconds ago
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "id": "dd3177ea-c8aa-49ec-b49f-328f1a9c66ce",
+    "srn": "",
+    "name": "cli-sg-laughing-nobel",
+    "description": "Descriptive text.",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [
+      "foo",
+      "bar"
+    ],
+    "disable_default_rules": false,
+    "project_default": false,
+    "inbound_default_action": "drop",
+    "outbound_default_action": "accept",
+    "stateless": false,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "zone": ""
+  },
+  {
+    "id": "438b82cd-988a-4ed4-988a-e4549355d9a1",
+    "srn": "",
+    "name": "Named SG",
+    "description": "",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [
+      "foo"
+    ],
+    "disable_default_rules": false,
+    "project_default": false,
+    "inbound_default_action": "drop",
+    "outbound_default_action": "drop",
+    "stateless": true,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "zone": ""
+  },
+  {
+    "id": "1b65ee6b-cff9-41c6-9ff2-d5e3952226b9",
+    "srn": "",
+    "name": "cli-sg-dreamy-hellman",
+    "description": "",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [
+      "foo"
+    ],
+    "disable_default_rules": false,
+    "project_default": false,
+    "inbound_default_action": "accept",
+    "outbound_default_action": "accept",
+    "stateless": false,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "zone": ""
+  }
+]

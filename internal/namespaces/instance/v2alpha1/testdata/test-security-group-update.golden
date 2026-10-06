@@ -1,0 +1,156 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                     9771b0cb-e852-4b5e-9736-f4c00ebb33ff
+Srn                    srn://instance.scw.eu/zones/fr-par-1/security-groups/9771b0cb-e852-4b5e-9736-f4c00ebb33ff
+Name                   cli-test-sg-update
+Description            updated
+ProjectID              fa1e3217-dc80-42ac-85c3-3f034b78b552
+DisableDefaultRules    false
+ProjectDefault         false
+InboundDefaultAction   drop
+OutboundDefaultAction  accept
+Stateless              true
+CreatedAt              few seconds ago
+UpdatedAt              few seconds ago
+Zone                   fr-par-1
+
+Tags:
+[cli-test instance-sg update]
+
+Rules:
+ID   PROTOCOL  DIRECTION  ACTION  SOURCE IP RANGE  DESTINATION IP RANGE  POSITION
+
+Default Rules:
+ID                                    PROTOCOL  DIRECTION  ACTION  SOURCE IP RANGE  DESTINATION IP RANGE  POSITION
+11111111-2222-4333-8444-000000000001  tcp       outbound   drop    0.0.0.0/0        -                     1
+11111111-2222-4333-8444-000000000002  tcp       outbound   drop    0.0.0.0/0        -                     2
+11111111-2222-4333-8444-000000000003  tcp       outbound   drop    0.0.0.0/0        -                     3
+11111111-2222-4333-8444-000000000004  tcp       outbound   drop    ::/0             -                     4
+11111111-2222-4333-8444-000000000005  tcp       outbound   drop    ::/0             -                     5
+11111111-2222-4333-8444-000000000006  tcp       outbound   drop    ::/0             -                     6
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "9771b0cb-e852-4b5e-9736-f4c00ebb33ff",
+  "srn": "srn://instance.scw.eu/zones/fr-par-1/security-groups/9771b0cb-e852-4b5e-9736-f4c00ebb33ff",
+  "name": "cli-test-sg-update",
+  "description": "updated",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "tags": [
+    "cli-test",
+    "instance-sg",
+    "update"
+  ],
+  "disable_default_rules": false,
+  "project_default": false,
+  "inbound_default_action": "drop",
+  "outbound_default_action": "accept",
+  "stateless": true,
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "default_rules": [
+    {
+      "id": "11111111-2222-4333-8444-000000000001",
+      "protocol": "tcp",
+      "direction": "outbound",
+      "action": "drop",
+      "source_ip_range": "0.0.0.0/0",
+      "destination_ip_range": "",
+      "source_ports": {
+        "start": 1,
+        "end": 65536
+      },
+      "destination_ports": {
+        "start": 25,
+        "end": 25
+      },
+      "position": 1
+    },
+    {
+      "id": "11111111-2222-4333-8444-000000000002",
+      "protocol": "tcp",
+      "direction": "outbound",
+      "action": "drop",
+      "source_ip_range": "0.0.0.0/0",
+      "destination_ip_range": "",
+      "source_ports": {
+        "start": 1,
+        "end": 65536
+      },
+      "destination_ports": {
+        "start": 465,
+        "end": 465
+      },
+      "position": 2
+    },
+    {
+      "id": "11111111-2222-4333-8444-000000000003",
+      "protocol": "tcp",
+      "direction": "outbound",
+      "action": "drop",
+      "source_ip_range": "0.0.0.0/0",
+      "destination_ip_range": "",
+      "source_ports": {
+        "start": 1,
+        "end": 65536
+      },
+      "destination_ports": {
+        "start": 587,
+        "end": 587
+      },
+      "position": 3
+    },
+    {
+      "id": "11111111-2222-4333-8444-000000000004",
+      "protocol": "tcp",
+      "direction": "outbound",
+      "action": "drop",
+      "source_ip_range": "::/0",
+      "destination_ip_range": "",
+      "source_ports": {
+        "start": 1,
+        "end": 65536
+      },
+      "destination_ports": {
+        "start": 25,
+        "end": 25
+      },
+      "position": 4
+    },
+    {
+      "id": "11111111-2222-4333-8444-000000000005",
+      "protocol": "tcp",
+      "direction": "outbound",
+      "action": "drop",
+      "source_ip_range": "::/0",
+      "destination_ip_range": "",
+      "source_ports": {
+        "start": 1,
+        "end": 65536
+      },
+      "destination_ports": {
+        "start": 465,
+        "end": 465
+      },
+      "position": 5
+    },
+    {
+      "id": "11111111-2222-4333-8444-000000000006",
+      "protocol": "tcp",
+      "direction": "outbound",
+      "action": "drop",
+      "source_ip_range": "::/0",
+      "destination_ip_range": "",
+      "source_ports": {
+        "start": 1,
+        "end": 65536
+      },
+      "destination_ports": {
+        "start": 587,
+        "end": 587
+      },
+      "position": 6
+    }
+  ],
+  "rules": [],
+  "zone": "fr-par-1"
+}
