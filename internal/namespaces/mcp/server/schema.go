@@ -7,16 +7,6 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
 
-const (
-	dynamicArrayPlaceholder = ".{index}"
-	dynamicMapPlaceholder   = ".{key}"
-	dynamicArgSeparator     = "."
-	disallowAdditionalProps = false
-	jsonSchemaTypeArray     = "array"
-	jsonSchemaTypeObject    = "object"
-	jsonSchemaTypeString    = "string"
-)
-
 // JSONSchema represents a JSON Schema object
 type JSONSchema struct {
 	Type                 string                 `json:"type,omitempty"`
@@ -32,19 +22,13 @@ type JSONSchema struct {
 // ArgSpecToJSONSchema converts a core.ArgSpec to JSON Schema
 func ArgSpecToJSONSchema(argSpec *core.ArgSpec) *JSONSchema {
 	schema := &JSONSchema{
+		Type:        "string",
 		Description: argSpec.Short,
 	}
 
-	// Handle enum values
 	if len(argSpec.EnumValues) > 0 {
 		schema.Enum = argSpec.EnumValues
-		schema.Type = jsonSchemaTypeString
-
-		return schema
 	}
-
-	// Default to string for most args
-	schema.Type = jsonSchemaTypeString
 
 	return schema
 }
@@ -52,10 +36,10 @@ func ArgSpecToJSONSchema(argSpec *core.ArgSpec) *JSONSchema {
 // CommandToFlatArgsSchema creates a flat schema for commands that accept all args as strings
 func CommandToFlatArgsSchema(cmd *core.Command) *JSONSchema {
 	schema := &JSONSchema{
-		Type:                 jsonSchemaTypeObject,
+		Type:                 "object",
 		Properties:           make(map[string]*JSONSchema),
 		Required:             []string{},
-		AdditionalProperties: disallowAdditionalProps,
+		AdditionalProperties: false,
 	}
 
 	for _, argSpec := range cmd.ArgSpecs {
@@ -71,38 +55,41 @@ func CommandToFlatArgsSchema(cmd *core.Command) *JSONSchema {
 	return schema
 }
 
-func argSpecToPropertySchema(argSpec *core.ArgSpec) (string, *JSONSchema) {
-	if strings.Count(argSpec.Name, dynamicArrayPlaceholder) == 1 &&
-		strings.Count(argSpec.Name, dynamicMapPlaceholder) == 0 &&
-		strings.HasSuffix(argSpec.Name, dynamicArrayPlaceholder) {
-		propName := strings.TrimSuffix(argSpec.Name, dynamicArrayPlaceholder)
-
-		return strcase.ToKebab(propName), &JSONSchema{
-			Type:        jsonSchemaTypeArray,
-			Description: argSpec.Short,
-			Items: &JSONSchema{
-				Type: jsonSchemaTypeString,
-			},
-		}
+// dynamicPrefix reports whether argName ends with a single dynamic placeholder
+// ("tags.{index}", "environment-variables.{key}") and returns its prefix.
+// Nested placeholders ("pools.{index}.tags.{index}") do not match.
+func dynamicPrefix(argName string) (prefix string, isMap bool) {
+	if p, ok := strings.CutSuffix(argName, ".{index}"); ok && !strings.Contains(p, ".{") {
+		return p, false
 	}
 
-	if strings.Count(argSpec.Name, dynamicMapPlaceholder) == 1 &&
-		strings.Count(argSpec.Name, dynamicArrayPlaceholder) == 0 &&
-		strings.HasSuffix(argSpec.Name, dynamicMapPlaceholder) {
-		propName := strings.TrimSuffix(argSpec.Name, dynamicMapPlaceholder)
+	if p, ok := strings.CutSuffix(argName, ".{key}"); ok && !strings.Contains(p, ".{") {
+		return p, true
+	}
 
-		return strcase.ToKebab(propName), &JSONSchema{
-			Type:        jsonSchemaTypeObject,
+	return "", false
+}
+
+func argSpecToPropertySchema(argSpec *core.ArgSpec) (string, *JSONSchema) {
+	if prefix, isMap := dynamicPrefix(argSpec.Name); prefix != "" {
+		if isMap {
+			return strcase.ToKebab(prefix), &JSONSchema{
+				Type:                 "object",
+				Description:          argSpec.Short,
+				AdditionalProperties: &JSONSchema{Type: "string"},
+			}
+		}
+
+		return strcase.ToKebab(prefix), &JSONSchema{
+			Type:        "array",
 			Description: argSpec.Short,
-			AdditionalProperties: &JSONSchema{
-				Type: jsonSchemaTypeString,
-			},
+			Items:       &JSONSchema{Type: "string"},
 		}
 	}
 
 	propName := strcase.ToKebab(argSpec.Name)
 	propSchema := &JSONSchema{
-		Type:        jsonSchemaTypeString,
+		Type:        "string",
 		Description: argSpec.Short,
 	}
 

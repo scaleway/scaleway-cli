@@ -9,17 +9,10 @@ import (
 )
 
 const (
-	arrayArgName          = "tags.{index}"
-	arrayPropertyName     = "tags"
-	mapArgName            = "environment-variables.{key}"
-	mapPropertyName       = "environment-variables"
-	schemaTypeArray       = "array"
-	schemaTypeObject      = "object"
-	schemaTypeString      = "string"
-	schemaPropertiesKey   = "properties"
-	schemaTypeKey         = "type"
-	schemaItemsKey        = "items"
-	schemaAdditionalProps = "additionalProperties"
+	arrayArgName      = "tags.{index}"
+	arrayPropertyName = "tags"
+	mapArgName        = "environment-variables.{key}"
+	mapPropertyName   = "environment-variables"
 )
 
 func TestCommandToFlatArgsSchema(t *testing.T) {
@@ -104,8 +97,10 @@ func TestCommandToFlatArgsSchemaDynamicArgs(t *testing.T) {
 		},
 	}
 
-	schema := server.CommandToFlatArgsSchema(cmd)
-	rawSchema, err := json.Marshal(schema)
+	// Roundtrip through JSON to pin the wire format: top-level
+	// additionalProperties must serialize as false, and map args as an
+	// object schema with a string-valued additionalProperties.
+	rawSchema, err := json.Marshal(server.CommandToFlatArgsSchema(cmd))
 	if err != nil {
 		t.Fatalf("Failed to marshal schema: %v", err)
 	}
@@ -115,7 +110,11 @@ func TestCommandToFlatArgsSchemaDynamicArgs(t *testing.T) {
 		t.Fatalf("Failed to unmarshal schema: %v", err)
 	}
 
-	properties := decoded[schemaPropertiesKey].(map[string]any)
+	if decoded["additionalProperties"] != false {
+		t.Fatalf("Expected additionalProperties to be false, got %v", decoded["additionalProperties"])
+	}
+
+	properties := decoded["properties"].(map[string]any)
 	if _, ok := properties[arrayArgName]; ok {
 		t.Fatalf("Schema should not expose literal placeholder property %q", arrayArgName)
 	}
@@ -124,46 +123,26 @@ func TestCommandToFlatArgsSchemaDynamicArgs(t *testing.T) {
 	}
 
 	tags := properties[arrayPropertyName].(map[string]any)
-	if tags[schemaTypeKey] != schemaTypeArray {
-		t.Fatalf(
-			"Expected %q to be an array schema, got %v",
-			arrayPropertyName,
-			tags[schemaTypeKey],
-		)
+	if tags["type"] != "array" {
+		t.Fatalf("Expected %q to be an array schema, got %v", arrayPropertyName, tags["type"])
 	}
-	tagItems := tags[schemaItemsKey].(map[string]any)
-	if tagItems[schemaTypeKey] != schemaTypeString {
-		t.Fatalf(
-			"Expected %q items to be strings, got %v",
-			arrayPropertyName,
-			tagItems[schemaTypeKey],
-		)
+	if tagItems := tags["items"].(map[string]any); tagItems["type"] != "string" {
+		t.Fatalf("Expected %q items to be strings, got %v", arrayPropertyName, tagItems["type"])
 	}
 
 	environmentVariables := properties[mapPropertyName].(map[string]any)
-	if environmentVariables[schemaTypeKey] != schemaTypeObject {
-		t.Fatalf(
-			"Expected %q to be an object schema, got %v",
-			mapPropertyName,
-			environmentVariables[schemaTypeKey],
-		)
+	if environmentVariables["type"] != "object" {
+		t.Fatalf("Expected %q to be an object schema, got %v", mapPropertyName, environmentVariables["type"])
 	}
-	additionalProperties := environmentVariables[schemaAdditionalProps].(map[string]any)
-	if additionalProperties[schemaTypeKey] != schemaTypeString {
-		t.Fatalf(
-			"Expected %q values to be strings, got %v",
-			mapPropertyName,
-			additionalProperties[schemaTypeKey],
-		)
+	if additionalProperties := environmentVariables["additionalProperties"].(map[string]any); additionalProperties["type"] != "string" {
+		t.Fatalf("Expected %q values to be strings, got %v", mapPropertyName, additionalProperties["type"])
 	}
 }
 
 func TestCommandToFlatArgsSchemaNestedDynamicArgs(t *testing.T) {
 	// Arg specs with nested placeholders (e.g., "pools.{index}.kubelet-args.{key}")
-	// should NOT be treated as simple maps or arrays. They must fall through to the
-	// default string case so that the literal placeholder name is exposed as the
-	// property name, matching pre-existing behavior.
-	// See https://github.com/scaleway/scaleway-cli for the original bug report.
+	// must not be treated as simple maps or arrays. They fall through to the
+	// default string case, exposing the literal placeholder name as the property.
 	nestedMapArgName := "pools.{index}.kubelet-args.{key}"
 	nestedArrayArgName := "pools.{index}.tags.{index}"
 
@@ -184,66 +163,20 @@ func TestCommandToFlatArgsSchemaNestedDynamicArgs(t *testing.T) {
 	}
 
 	schema := server.CommandToFlatArgsSchema(cmd)
-	rawSchema, err := json.Marshal(schema)
-	if err != nil {
-		t.Fatalf("Failed to marshal schema: %v", err)
-	}
 
-	var decoded map[string]any
-	if err := json.Unmarshal(rawSchema, &decoded); err != nil {
-		t.Fatalf("Failed to unmarshal schema: %v", err)
-	}
-
-	properties := decoded[schemaPropertiesKey].(map[string]any)
-
-	// The literal placeholder name should be the property key (kebab-cased),
-	// and it should be a plain string, NOT an object/array schema.
-	nestedMapPropName := "pools.{index}.kubelet-args.{key}"
-	nestedArrayPropName := "pools.{index}.tags.{index}"
-
-	mapProp, ok := properties[nestedMapPropName].(map[string]any)
-	if !ok {
-		t.Fatalf(
-			"Expected nested map arg %q to be exposed as a string property, got %v",
-			nestedMapArgName,
-			properties[nestedMapPropName],
-		)
-	}
-	if mapProp[schemaTypeKey] != schemaTypeString {
-		t.Fatalf(
-			"Expected nested map arg %q to be a string, got %v",
-			nestedMapArgName,
-			mapProp[schemaTypeKey],
-		)
-	}
-	if _, hasAdditionalProps := mapProp[schemaAdditionalProps]; hasAdditionalProps {
-		t.Fatalf(
-			"Expected nested map arg %q to NOT have additionalProperties, got %v",
-			nestedMapArgName,
-			mapProp,
-		)
-	}
-
-	arrayProp, ok := properties[nestedArrayPropName].(map[string]any)
-	if !ok {
-		t.Fatalf(
-			"Expected nested array arg %q to be exposed as a string property, got %v",
-			nestedArrayArgName,
-			properties[nestedArrayPropName],
-		)
-	}
-	if arrayProp[schemaTypeKey] != schemaTypeString {
-		t.Fatalf(
-			"Expected nested array arg %q to be a string, got %v",
-			nestedArrayArgName,
-			arrayProp[schemaTypeKey],
-		)
-	}
-	if _, hasItems := arrayProp[schemaItemsKey]; hasItems {
-		t.Fatalf(
-			"Expected nested array arg %q to NOT have items, got %v",
-			nestedArrayArgName,
-			arrayProp,
-		)
+	for _, argName := range []string{nestedMapArgName, nestedArrayArgName} {
+		prop, ok := schema.Properties[argName]
+		if !ok {
+			t.Fatalf("Expected nested arg %q to be exposed as a property", argName)
+		}
+		if prop.Type != "string" {
+			t.Fatalf("Expected nested arg %q to be a string, got %v", argName, prop.Type)
+		}
+		if prop.AdditionalProperties != nil {
+			t.Fatalf("Expected nested arg %q to NOT have additionalProperties, got %v", argName, prop.AdditionalProperties)
+		}
+		if prop.Items != nil {
+			t.Fatalf("Expected nested arg %q to NOT have items, got %v", argName, prop.Items)
+		}
 	}
 }

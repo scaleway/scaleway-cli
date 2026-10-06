@@ -373,37 +373,50 @@ func TestCommandToolExecuteWithDynamicArrayAndMapArgs(t *testing.T) {
 
 func TestCommandToolExecuteWithDynamicNilArgsDoesNotPanic(t *testing.T) {
 	type testArgs struct {
-		Tags []string `json:"tags"`
+		Tags                 []string          `json:"tags"`
+		EnvironmentVariables map[string]string `json:"environment_variables"`
 	}
 
-	cmd := &core.Command{
-		Namespace: "test",
-		Resource:  "resource",
-		Verb:      "create",
-		ArgsType:  reflect.TypeOf(testArgs{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:  dynamicArrayArgName,
-				Short: "Tags",
-			},
-		},
-		Run: func(ctx context.Context, args any) (i any, e error) {
-			return map[string]string{"status": "ok"}, nil
-		},
+	tests := []struct {
+		argSpecName string
+		inputName   string
+	}{
+		{argSpecName: dynamicArrayArgName, inputName: dynamicArrayInputName},
+		{argSpecName: dynamicMapArgName, inputName: dynamicMapInputName},
 	}
 
-	tool := server.NewCommandTool(cmd)
-	ctx := createTestContextWithMeta(t)
+	for _, test := range tests {
+		t.Run(test.inputName, func(t *testing.T) {
+			cmd := &core.Command{
+				Namespace: "test",
+				Resource:  "resource",
+				Verb:      "create",
+				ArgsType:  reflect.TypeOf(testArgs{}),
+				ArgSpecs: core.ArgSpecs{
+					{
+						Name:  test.argSpecName,
+						Short: "Arg",
+					},
+				},
+				Run: func(ctx context.Context, args any) (i any, e error) {
+					return map[string]string{"status": "ok"}, nil
+				},
+			}
 
-	var result *mcp.CallToolResult
-	var err error
-	require.NotPanics(t, func() {
-		result, err = tool.Execute(ctx, map[string]any{dynamicArrayInputName: nil})
-	})
+			tool := server.NewCommandTool(cmd)
+			ctx := createTestContextWithMeta(t)
 
-	require.Error(t, err)
-	require.True(t, result.IsError)
-	require.Contains(t, result.Content[0].(*mcp.TextContent).Text, parseArgumentError)
+			var result *mcp.CallToolResult
+			var err error
+			require.NotPanics(t, func() {
+				result, err = tool.Execute(ctx, map[string]any{test.inputName: nil})
+			})
+
+			require.Error(t, err)
+			require.True(t, result.IsError)
+			require.Contains(t, result.Content[0].(*mcp.TextContent).Text, parseArgumentError)
+		})
+	}
 }
 
 func TestCommandToolExecuteWithBoolAndIntArgs(t *testing.T) {
@@ -494,41 +507,6 @@ func TestCommandToolExecuteWithDynamicMapMismatchFallsBack(t *testing.T) {
 	tool := server.NewCommandTool(cmd)
 	ctx := createTestContextWithMeta(t)
 	result, err := tool.Execute(ctx, map[string]any{mismatchInputName: "value"})
-	require.Error(t, err)
-	require.True(t, result.IsError)
-	require.Contains(t, result.Content[0].(*mcp.TextContent).Text, parseArgumentError)
-}
-
-func TestCommandToolExecuteWithDynamicNilMapArgsDoesNotPanic(t *testing.T) {
-	type testArgs struct {
-		EnvironmentVariables map[string]string `json:"environment_variables"`
-	}
-
-	cmd := &core.Command{
-		Namespace: "test",
-		Resource:  "resource",
-		Verb:      "create",
-		ArgsType:  reflect.TypeOf(testArgs{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:  dynamicMapArgName,
-				Short: "Environment variables",
-			},
-		},
-		Run: func(ctx context.Context, args any) (i any, e error) {
-			return map[string]string{"status": "ok"}, nil
-		},
-	}
-
-	tool := server.NewCommandTool(cmd)
-	ctx := createTestContextWithMeta(t)
-
-	var result *mcp.CallToolResult
-	var err error
-	require.NotPanics(t, func() {
-		result, err = tool.Execute(ctx, map[string]any{dynamicMapInputName: nil})
-	})
-
 	require.Error(t, err)
 	require.True(t, result.IsError)
 	require.Contains(t, result.Content[0].(*mcp.TextContent).Text, parseArgumentError)

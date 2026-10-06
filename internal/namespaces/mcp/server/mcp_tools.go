@@ -228,53 +228,21 @@ func (ct *CommandTool) Execute(
 }
 
 func inputArgToRawArgs(argSpecs core.ArgSpecs, argName string, argValue any) []string {
-	if originalName, ok := exactArgSpecName(argSpecs, argName); ok {
-		return []string{rawArg(originalName, argValue)}
-	}
-
 	for _, spec := range argSpecs {
-		if rawArgs, ok := dynamicArgToRawArgs(spec.Name, argName, argValue); ok {
-			return rawArgs
+		if strcase.ToKebab(spec.Name) == argName {
+			return []string{rawArg(spec.Name, argValue)}
+		}
+
+		if prefix, isMap := dynamicPrefix(spec.Name); prefix != "" && strcase.ToKebab(prefix) == argName {
+			if isMap {
+				return mapArgToRawArgs(prefix, argValue)
+			}
+
+			return arrayArgToRawArgs(prefix, argValue)
 		}
 	}
 
 	return []string{rawArg(argName, argValue)}
-}
-
-func exactArgSpecName(argSpecs core.ArgSpecs, argName string) (string, bool) {
-	for _, spec := range argSpecs {
-		if strcase.ToKebab(spec.Name) == argName {
-			return spec.Name, true
-		}
-	}
-
-	return "", false
-}
-
-func dynamicArgToRawArgs(specName string, argName string, argValue any) ([]string, bool) {
-	switch {
-	case strings.Count(specName, dynamicArrayPlaceholder) == 1 &&
-		strings.Count(specName, dynamicMapPlaceholder) == 0 &&
-		strings.HasSuffix(specName, dynamicArrayPlaceholder):
-		prefix := strings.TrimSuffix(specName, dynamicArrayPlaceholder)
-		if strcase.ToKebab(prefix) != argName {
-			return nil, false
-		}
-
-		return arrayArgToRawArgs(prefix, argValue), true
-
-	case strings.Count(specName, dynamicMapPlaceholder) == 1 &&
-		strings.Count(specName, dynamicArrayPlaceholder) == 0 &&
-		strings.HasSuffix(specName, dynamicMapPlaceholder):
-		prefix := strings.TrimSuffix(specName, dynamicMapPlaceholder)
-		if strcase.ToKebab(prefix) != argName {
-			return nil, false
-		}
-
-		return mapArgToRawArgs(prefix, argValue), true
-	}
-
-	return nil, false
 }
 
 func arrayArgToRawArgs(prefix string, argValue any) []string {
@@ -285,8 +253,7 @@ func arrayArgToRawArgs(prefix string, argValue any) []string {
 
 	rawArgs := make([]string, 0, value.Len())
 	for i := range value.Len() {
-		rawArgName := prefix + dynamicArgSeparator + strconv.Itoa(i)
-		rawArgs = append(rawArgs, rawArg(rawArgName, value.Index(i).Interface()))
+		rawArgs = append(rawArgs, rawArg(prefix+"."+strconv.Itoa(i), value.Index(i).Interface()))
 	}
 
 	return rawArgs
@@ -309,10 +276,9 @@ func mapArgToRawArgs(prefix string, argValue any) []string {
 
 	rawArgs := make([]string, 0, len(keys))
 	for _, key := range keys {
-		rawArgName := prefix + dynamicArgSeparator + key
 		rawArgs = append(
 			rawArgs,
-			rawArg(rawArgName, value.MapIndex(reflect.ValueOf(key)).Interface()),
+			rawArg(prefix+"."+key, value.MapIndex(reflect.ValueOf(key)).Interface()),
 		)
 	}
 
@@ -327,14 +293,9 @@ func argValueToString(argValue any) string {
 	switch v := argValue.(type) {
 	case string:
 		return v
-	case bool:
-		return strconv.FormatBool(v)
-	case float64:
-		return fmt.Sprintf("%v", v)
-	case int:
-		return strconv.Itoa(v)
 	default:
-		// For complex types, marshal to JSON.
+		// bool, int and float64 serialize identically via json.Marshal,
+		// so complex types simply fall through to the JSON fallback.
 		if b, marshalErr := json.Marshal(v); marshalErr == nil {
 			return string(b)
 		}
