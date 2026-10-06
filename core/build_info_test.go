@@ -11,7 +11,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-sdk-go/scw"
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -31,17 +30,8 @@ func Test_CheckVersion(t *testing.T) {
 		BuildInfo: &core.BuildInfo{
 			Version: version.Must(version.NewSemver("v1.20")),
 		},
-		Cmd: "scw plop",
-		Check: core.TestCheckCombine(
-			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				t.Helper()
-				assert.Equal(
-					t,
-					"A new version of scw is available (2.5.4), beware that you are currently running 1.20.0\n",
-					ctx.LogBuffer,
-				)
-			},
-		),
+		Cmd:        "scw plop",
+		Check:      core.TestCheckGolden(),
 		TmpHomeDir: true,
 	}))
 
@@ -50,13 +40,8 @@ func Test_CheckVersion(t *testing.T) {
 		BuildInfo: &core.BuildInfo{
 			Version: version.Must(version.NewSemver("v99.99")),
 		},
-		Cmd: "scw plop -D",
-		Check: core.TestCheckCombine(
-			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				t.Helper()
-				assert.Contains(t, ctx.LogBuffer, "version is up to date (99.99.0)\n")
-			},
-		),
+		Cmd:        "scw plop -D",
+		Check:      core.TestCheckGolden(),
 		TmpHomeDir: true,
 	}))
 
@@ -70,17 +55,8 @@ func Test_CheckVersion(t *testing.T) {
 				core.GetLatestVersionUpdateFilePath(ctx.OverrideEnv[scw.ScwCacheDirEnv]),
 			)
 		},
-		Cmd: "scw plop -D",
-		Check: core.TestCheckCombine(
-			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				t.Helper()
-				assert.Contains(
-					t,
-					ctx.LogBuffer,
-					"version was already checked during past 24 hours\n",
-				)
-			},
-		),
+		Cmd:        "scw plop -D",
+		Check:      core.TestCheckGolden(),
 		TmpHomeDir: true,
 	}))
 
@@ -97,17 +73,8 @@ func Test_CheckVersion(t *testing.T) {
 
 			return os.Chtimes(filePath, twoDaysAgo, twoDaysAgo)
 		},
-		Cmd: "scw plop",
-		Check: core.TestCheckCombine(
-			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				t.Helper()
-				assert.Contains(
-					t,
-					ctx.LogBuffer,
-					"A new version of scw is available (2.5.4), beware that you are currently running 1.0.0\n",
-				)
-			},
-		),
+		Cmd:        "scw plop",
+		Check:      core.TestCheckGolden(),
 		TmpHomeDir: true,
 	}))
 }
