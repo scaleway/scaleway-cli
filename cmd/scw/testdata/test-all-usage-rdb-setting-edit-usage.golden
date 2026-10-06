@@ -8,10 +8,10 @@ USAGE:
 
 EXAMPLES:
   Edit instance settings in YAML
-    scw rdb setting edit 12345678-1234-1234-1234-123456789abc --region=fr-par --mode=yaml
+    scw rdb setting edit 11111111-1111-1111-1111-111111111111 --region=fr-par --mode=yaml
 
   Edit instance settings in JSON
-    scw rdb setting edit 12345678-1234-1234-1234-123456789abc --region=fr-par --mode=json
+    scw rdb setting edit 11111111-1111-1111-1111-111111111111 --region=fr-par --mode=json
 
 ARGS:
   instance-id       ID of the instance
