@@ -3,11 +3,11 @@
 Remove all rules of a security group
 
 USAGE:
-  scw instance security-group clear [arg=value ...]
+  scw instance security-group clear <security-group-id ...> [arg=value ...]
 
 EXAMPLES:
   Remove all rules of the given security group
-    scw instance security-group clear security-group-id=11111111-1111-1111-1111-111111111111
+    scw instance security-group clear 11111111-1111-1111-1111-111111111111
 
 ARGS:
   security-group-id   ID of the security group to reset.

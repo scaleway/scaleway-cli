@@ -6,16 +6,18 @@ USAGE:
   scw instance security-group update-rule [arg=value ...]
 
 ARGS:
-  security-group-id        UUID of the security group
-  security-group-rule-id   UUID of the rule
-  [protocol]               Protocol family this rule applies to (unknown_protocol | TCP | UDP | ICMP | ANY)
-  [direction]              Direction the rule applies to (unknown_direction | inbound | outbound)
-  [action]                 Action to apply when the rule matches a packet (unknown_action | accept | drop)
-  [ip-range]               Range of IP addresses these rules apply to
-  [dest-port-from]         Beginning of the range of ports this rule applies to (inclusive). If 0 is provided, unset the parameter.
-  [dest-port-to]           End of the range of ports this rule applies to (inclusive). If 0 is provided, unset the parameter.
-  [position]               Position of this rule in the security group rules list
-  [zone=fr-par-1]          Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3 | it-mil-1)
+  security-group-rule-id      ID of the rule to update
+  [protocol]                  New protocol for the rule (unknown_protocol | tcp | udp | icmp | any)
+  [direction]                 New direction for the rule (unknown_direction | inbound | outbound | both)
+  [action]                    New action for the rule (unknown_action | accept | drop)
+  [source-ip-range]           New source IP range for the rule
+  [destination-ip-range]      New destination IP range for the rule
+  [source-ports.start]        Start of the port range
+  [source-ports.end]          End of the port range
+  [destination-ports.start]   Start of the port range
+  [destination-ports.end]     End of the port range
+  [position]                  New position for the rule
+  [zone=fr-par-1]             Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3 | it-mil-1)
 
 FLAGS:
   -h, --help                help for update-rule

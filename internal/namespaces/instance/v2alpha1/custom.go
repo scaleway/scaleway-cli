@@ -17,6 +17,7 @@ func GetCommands() *core.Commands {
 	cmds := core.NewCommands(
 		instancePlacementGroup(),
 		instancePrivateNetworkInterface(),
+		instanceSecurityGroup(),
 		instanceServerType(),
 		instanceTemplate(),
 		instancePlacementGroupList(),
@@ -29,6 +30,15 @@ func GetCommands() *core.Commands {
 		instancePrivateNetworkInterfaceGet(),
 		instancePrivateNetworkInterfaceUpdate(),
 		instancePrivateNetworkInterfaceDelete(),
+		instanceSecurityGroupList(),
+		instanceSecurityGroupCreate(),
+		instanceSecurityGroupGet(),
+		instanceSecurityGroupUpdate(),
+		instanceSecurityGroupDelete(),
+		instanceSecurityGroupAddRules(),
+		instanceSecurityGroupSetRules(),
+		instanceSecurityGroupUpdateRule(),
+		instanceSecurityGroupDeleteRules(),
 		instanceServerGetCompatibleTypes(),
 		instanceServerTypeList(),
 		instanceTemplateList(),
@@ -72,6 +82,37 @@ func GetCommands() *core.Commands {
 		Override(privateNetworkInterfaceUpdateBuilder)
 	cmds.MustFind("instance", "private-network-interface", "delete").
 		Override(privateNetworkInterfaceDeleteBuilder)
+
+	//
+	// Security Group
+	//
+	human.RegisterMarshalerFunc(instanceSDK.SecurityGroup{}, securityGroupMarshalerFunc)
+	human.RegisterMarshalerFunc([]*instanceSDK.SecurityGroupRule{}, securityGroupRulesMarshalerFunc)
+	human.RegisterMarshalerFunc(
+		instanceSDK.SecurityGroupRulePortRange{},
+		securityGroupRulePortRangeMarshalerFunc,
+	)
+	human.RegisterMarshalerFunc(
+		instanceSDK.SecurityGroupAction(""),
+		human.EnumMarshalFunc(securityGroupActionMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		instanceSDK.SecurityGroupRuleAction(""),
+		human.EnumMarshalFunc(securityGroupRuleActionMarshalSpecs),
+	)
+
+	cmds.MustFind("instance", "security-group", "create").Override(securityGroupCreateBuilder)
+	cmds.MustFind("instance", "security-group", "get").Override(securityGroupGetBuilder)
+	cmds.MustFind("instance", "security-group", "list").Override(securityGroupListBuilder)
+	cmds.MustFind("instance", "security-group", "update").Override(securityGroupUpdateBuilder)
+	cmds.MustFind("instance", "security-group", "delete").Override(securityGroupDeleteBuilder)
+	cmds.MustFind("instance", "security-group", "add-rules").Override(securityGroupAddRulesBuilder)
+	cmds.MustFind("instance", "security-group", "set-rules").Override(securityGroupSetRulesBuilder)
+
+	cmds.Merge(core.NewCommands(
+		securityGroupClearCommand(),
+		securityGroupEditCommand(),
+	))
 
 	//
 	// Server-Type

@@ -1,0 +1,42 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                    PROTOCOL  DIRECTION  ACTION  SOURCE IP RANGE  SOURCE PORTS  DEST IP RANGE  DEST PORTS
+3258f7cf-28ca-4aa2-bb3d-9660e8516190  tcp       inbound    accept  1.1.1.1/32       ALL           -              1-81
+33614d8f-cb21-44c5-a1c0-0ba49fbe2362  udp       inbound    drop    3.3.3.3/32       8080          -              ALL
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "id": "3258f7cf-28ca-4aa2-bb3d-9660e8516190",
+    "protocol": "tcp",
+    "direction": "inbound",
+    "action": "accept",
+    "source_ip_range": "1.1.1.1/32",
+    "destination_ip_range": "",
+    "source_ports": {
+      "start": 1,
+      "end": 65536
+    },
+    "destination_ports": {
+      "start": 1,
+      "end": 81
+    },
+    "position": 1
+  },
+  {
+    "id": "33614d8f-cb21-44c5-a1c0-0ba49fbe2362",
+    "protocol": "udp",
+    "direction": "inbound",
+    "action": "drop",
+    "source_ip_range": "3.3.3.3/32",
+    "destination_ip_range": "",
+    "source_ports": {
+      "start": 8080,
+      "end": 8080
+    },
+    "destination_ports": {
+      "start": 1,
+      "end": 65536
+    },
+    "position": 2
+  }
+]
