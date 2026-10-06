@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"regexp"
 	"strings"
 	"testing"
 
@@ -40,7 +41,11 @@ func Test_AllUsage(t *testing.T) {
 			Cmd:      "scw " + commandLine + " -h",
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
-				core.TestCheckGolden(),
+				core.TestCheckGoldenAndReplacePatterns(core.GoldenReplacement{
+					Pattern:       regexp.MustCompile("[0-9a-f-]{36}"),
+					Replacement:   "11111111-1111-1111-1111-111111111111",
+					OptionalMatch: true,
+				}),
 			),
 		}))
 	}

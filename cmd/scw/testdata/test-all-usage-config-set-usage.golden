@@ -8,7 +8,7 @@ USAGE:
 
 EXAMPLES:
   Update the default organization ID
-    scw config set default_organization_id=12903058-d0e8-4366-89c3-6e666abe1f6f
+    scw config set default_organization_id=11111111-1111-1111-1111-111111111111
 
   Update the default region of the profile 'prod'
     scw -p prod config set default_region=nl-ams
