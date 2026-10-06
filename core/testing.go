@@ -327,6 +327,8 @@ func init() {
 var foldersUsingVCRv4 = []string{
 	"cmd/scw",
 	"core",
+	"internal/e2e",
+	"internal/namespaces/alias",
 	"internal/namespaces/container/v1",
 	"internal/namespaces/instance/v1",
 	"internal/namespaces/instance/v2alpha1",
