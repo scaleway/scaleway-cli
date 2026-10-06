@@ -1,0 +1,64 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                    NAME                    DESCRIPTION        TAGS       INBOUND DEF. ACT.  OUTBOUND DEF. ACT.  STATELESS  PROJECT DEFAULT  PROJECT ID                            ZONE      CREATED AT       UPDATED AT
+27059e57-2834-4b0a-bfef-66f378bb1430  cli-sg-modest-jackson   Descriptive text.  [foo bar]  drop               accept              false      false            fa1e3217-dc80-42ac-85c3-3f034b78b552  fr-par-1  few seconds ago  few seconds ago
+63975a9e-1b88-4c2b-939f-df1b97bb32c0  named-sg                -                  [foo]      drop               drop                true       false            fa1e3217-dc80-42ac-85c3-3f034b78b552  fr-par-1  few seconds ago  few seconds ago
+03c20b93-6635-4c0b-8fd1-b3d8b7c71a32  cli-sg-beautiful-kalam  -                  [foo]      accept             accept              false      false            fa1e3217-dc80-42ac-85c3-3f034b78b552  fr-par-1  few seconds ago  few seconds ago
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "id": "27059e57-2834-4b0a-bfef-66f378bb1430",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/security-groups/27059e57-2834-4b0a-bfef-66f378bb1430",
+    "name": "cli-sg-modest-jackson",
+    "description": "Descriptive text.",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [
+      "foo",
+      "bar"
+    ],
+    "disable_default_rules": false,
+    "project_default": false,
+    "inbound_default_action": "drop",
+    "outbound_default_action": "accept",
+    "stateless": false,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "63975a9e-1b88-4c2b-939f-df1b97bb32c0",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/security-groups/63975a9e-1b88-4c2b-939f-df1b97bb32c0",
+    "name": "named-sg",
+    "description": "",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [
+      "foo"
+    ],
+    "disable_default_rules": false,
+    "project_default": false,
+    "inbound_default_action": "drop",
+    "outbound_default_action": "drop",
+    "stateless": true,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "03c20b93-6635-4c0b-8fd1-b3d8b7c71a32",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/security-groups/03c20b93-6635-4c0b-8fd1-b3d8b7c71a32",
+    "name": "cli-sg-beautiful-kalam",
+    "description": "",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [
+      "foo"
+    ],
+    "disable_default_rules": false,
+    "project_default": false,
+    "inbound_default_action": "accept",
+    "outbound_default_action": "accept",
+    "stateless": false,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "zone": "fr-par-1"
+  }
+]

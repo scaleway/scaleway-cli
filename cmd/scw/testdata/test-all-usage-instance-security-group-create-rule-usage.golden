@@ -1,5 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Command "create-rule" is deprecated, it is not available in v2 of the API and will be removed when v1 reaches end of support. Rules can be created using "scw instance security-group add-rules <security-group-id ...> [arg=value ...]".
 Create a rule in the specified security group ID.
 
 USAGE:
