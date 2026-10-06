@@ -49,6 +49,8 @@ func GetGeneratedCommands() *core.Commands {
 		mongodbUserDelete(),
 		mongodbUserSetRole(),
 		mongodbDatabaseList(),
+		mongodbEndpointDelete(),
+		mongodbEndpointCreate(),
 		mongodbMaintenanceList(),
 		mongodbMaintenanceGet(),
 		mongodbMaintenanceApply(),
@@ -1206,6 +1208,86 @@ func mongodbDatabaseList() *core.Command {
 			}
 
 			return resp.Databases, nil
+		},
+	}
+}
+
+func mongodbEndpointDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a Database Instance endpoint`,
+		Long:      `Delete the endpoint of a Database Instance. You must specify the ` + "`" + `endpoint_id` + "`" + ` parameter of the endpoint you want to delete. Note that you might need to update any environment configurations that point to the deleted endpoint.`,
+		Namespace: "mongodb",
+		Resource:  "endpoint",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[mongodb.DeleteEndpointRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "endpoint-id",
+				Short:      `UUID of the Endpoint to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*mongodb.DeleteEndpointRequest)
+
+			client := core.ExtractClient(ctx)
+			api := mongodb.NewAPI(client)
+			e = api.DeleteEndpoint(request, scw.WithContext(ctx))
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "endpoint",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func mongodbEndpointCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a new Instance endpoint`,
+		Long:      `Create a new endpoint for a MongoDB® Database Instance. You can add ` + "`" + `public_network` + "`" + ` or ` + "`" + `private_network` + "`" + ` specifications to the body of the request.`,
+		Namespace: "mongodb",
+		Resource:  "endpoint",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[mongodb.CreateEndpointRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "endpoint.public-network",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "endpoint.private-network.private-network-id",
+				Short:      `UUID of the Private Network`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*mongodb.CreateEndpointRequest)
+
+			client := core.ExtractClient(ctx)
+			api := mongodb.NewAPI(client)
+
+			return api.CreateEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }

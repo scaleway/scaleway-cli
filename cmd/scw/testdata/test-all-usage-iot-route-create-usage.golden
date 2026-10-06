@@ -9,7 +9,7 @@ Multiple kinds of routes can be created, such as:
 - Amazon S3 Routes.
   Create a route that will put subscribed MQTT messages into an Object Storage bucket.
   You need to create the bucket yourself and grant write access.
-  Granting can be done with s3cmd (`s3cmd setacl s3://<my-bucket> --acl-grant=write:555c69c3-87d0-4bf8-80f1-99a2f757d031:555c69c3-87d0-4bf8-80f1-99a2f757d031`).
+  Granting can be done with s3cmd (`s3cmd setacl s3://<my-bucket> --acl-grant=write:11111111-1111-1111-1111-111111111111:11111111-1111-1111-1111-111111111111`).
 
 USAGE:
   scw iot route create [arg=value ...]

@@ -8,7 +8,7 @@ USAGE:
 
 EXAMPLES:
   Update the complete set of Instances in a specified placement group (all Instances must be shut down)
-    scw instance placement-group set-servers placement-group-id=ced0fd4d-bcf0-4479-85b6-7027e54456e6 servers.0=5a250608-24ec-4c31-9631-b3ded8c861cb servers.1=e54fd249-0787-4794-ab14-af6ee74df274
+    scw instance placement-group set-servers placement-group-id=11111111-1111-1111-1111-111111111111 servers.0=11111111-1111-1111-1111-111111111111 servers.1=11111111-1111-1111-1111-111111111111
 
 ARGS:
   placement-group-id   UUID of the placement group you want to set

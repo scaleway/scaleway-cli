@@ -7,7 +7,7 @@ USAGE:
 
 EXAMPLES:
   Delete a security group rule with the specified ID
-    scw instance security-group delete-rule security-group-id=a01a36e5-5c0c-42c1-ae06-167e587b7ac4 security-group-rule-id=b8c773ef-a6ea-4b50-a7c1-737864290a3f
+    scw instance security-group delete-rule security-group-id=11111111-1111-1111-1111-111111111111 security-group-rule-id=11111111-1111-1111-1111-111111111111
 
 ARGS:
   security-group-id        
