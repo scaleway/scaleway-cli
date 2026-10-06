@@ -14,11 +14,9 @@ func Test_PlacementGroup_Get(t *testing.T) {
 	cmds := instance.GetCommands()
 
 	t.Run("Without servers", core.Test(&core.TestConfig{
-		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd(
-				"PlacementGroup",
-				"scw instance placement-group create",
-			),
+		BeforeFunc: core.ExecStoreBeforeCmd(
+			"PlacementGroup",
+			"scw instance placement-group create",
 		),
 		Commands: cmds,
 		Cmd:      "scw instance placement-group get {{ .PlacementGroup.ID }}",
@@ -26,10 +24,8 @@ func Test_PlacementGroup_Get(t *testing.T) {
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 		),
-		AfterFunc: core.AfterFuncCombine(
-			core.ExecAfterCmd(
-				"scw instance placement-group delete {{ .PlacementGroup.ID }}",
-			),
+		AfterFunc: core.ExecAfterCmd(
+			"scw instance placement-group delete {{ .PlacementGroup.ID }}",
 		),
 	}))
 
@@ -87,11 +83,9 @@ func Test_PlacementGroup_List(t *testing.T) {
 
 func Test_PlacementGroup_Update(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
-		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd(
-				"PlacementGroup",
-				"scw instance placement-group create policy-type=max_availability tags.0=test",
-			),
+		BeforeFunc: core.ExecStoreBeforeCmd(
+			"PlacementGroup",
+			"scw instance placement-group create policy-type=max_availability tags.0=test",
 		),
 		Commands: instance.GetCommands(),
 		Cmd: "scw instance placement-group update {{ .PlacementGroup.ID }} name=cli-test-pg-update" +
@@ -109,10 +103,8 @@ func Test_PlacementGroup_Update(t *testing.T) {
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 		),
-		AfterFunc: core.AfterFuncCombine(
-			core.ExecAfterCmd(
-				"scw instance placement-group delete {{ .PlacementGroup.ID }}",
-			),
+		AfterFunc: core.ExecAfterCmd(
+			"scw instance placement-group delete {{ .PlacementGroup.ID }}",
 		),
 	}))
 }
