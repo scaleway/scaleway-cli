@@ -16,10 +16,10 @@ import (
 //go:embed main.md.tmpl
 var mainTemplate string
 
-// escapeTableCell escapes the characters that would end a Markdown table cell
+// EscapeTableCell escapes the characters that would end a Markdown table cell
 // early. A "|" in an argument description, such as "(new | ipv4 | ipv6)",
 // otherwise splits the cell and pushes the rest of the row into extra columns.
-func escapeTableCell(s string) string {
+func EscapeTableCell(s string) string {
 	return strings.ReplaceAll(s, "|", `\|`)
 }
 
@@ -152,7 +152,7 @@ func newTemplate() *template.Template {
 
 			return re.ReplaceAllString(s, "")
 		},
-		"escape_table_cell": escapeTableCell,
+		"escape_table_cell": EscapeTableCell,
 		"arg_spec_flag": func(arg *core.ArgSpec) string {
 			parts := []string(nil)
 			if arg.Deprecated {
