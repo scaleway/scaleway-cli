@@ -50,11 +50,11 @@ func Test_FormatAccessKey(t *testing.T) {
 		},
 
 		{
-			testName:         "access key with project id, should be replaced with default",
+			testName:         "access key with project id, should not change",
 			accessKey:        "SCW00000000000000000@33333333-3333-3333-3333-333333333333",
 			argProjectID:     "",
 			defaultProjectID: "22222222-2222-2222-2222-222222222222",
-			expectedFormat:   "SCW00000000000000000@22222222-2222-2222-2222-222222222222",
+			expectedFormat:   "SCW00000000000000000@33333333-3333-3333-3333-333333333333",
 		},
 	}
 

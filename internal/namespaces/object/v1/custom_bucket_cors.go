@@ -21,6 +21,8 @@ type bucketCorsCreateArgs struct {
 	CorsConfiguration string
 	Region            scw.Region
 	ProjectID         string
+	S3Endpoint        string
+	S3UsePathStyle    string
 }
 
 func bucketCorsCreateCommand() *core.Command {
@@ -44,6 +46,18 @@ func bucketCorsCreateCommand() *core.Command {
 				Positional: false,
 				Required:   true,
 				Short:      "The path to the local JSON file containing the CORS configuration.",
+			},
+			{
+				Name:       "s3-endpoint",
+				Positional: false,
+				Required:   false,
+				Short:      "Custom S3 endpoint to use instead of the default",
+			},
+			{
+				Name:       "s3-use-path-style",
+				Positional: false,
+				Required:   false,
+				Short:      "Whether to use path style addressing for S3 API calls or not",
 			},
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
@@ -77,18 +91,33 @@ func bucketCorsCreateCommand() *core.Command {
 				)
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
 			params := s3.PutBucketCorsInput{
 				Bucket:            &args.Bucket,
 				CORSConfiguration: &config,
 			}
+
+			s3UsePathStyle, err := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
+			}
+
+			s3Endpoint, _, err := getS3Endpoints(
+				ctx, args.Region.String(), args.S3Endpoint, "", s3UsePathStyle,
+			)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 endpoints: %w", err)
+			}
+
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 
 			_, err = client.PutBucketCors(ctx, &params)
 			if err != nil {
 				return nil, fmt.Errorf("could not create bucket CORS configuration: %w", err)
 			}
 
-			bucket, err := getBucketInfo(ctx, args.Region, args.Bucket, args.ProjectID)
+			bucket, err := getBucketInfo(
+				ctx, args.Region, args.Bucket, args.ProjectID, s3UsePathStyle, s3Endpoint,
+			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
 			}
@@ -105,9 +134,11 @@ func bucketCorsCreateCommand() *core.Command {
 }
 
 type bucketCorsDeleteArgs struct {
-	Bucket    string
-	Region    scw.Region
-	ProjectID string
+	Bucket         string
+	Region         scw.Region
+	ProjectID      string
+	S3UsePathStyle string
+	S3Endpoint     string
 }
 
 func bucketCorsDeleteCommand() *core.Command {
@@ -126,6 +157,18 @@ func bucketCorsDeleteCommand() *core.Command {
 				Short:            "The name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			{
+				Name:       "s3-endpoint",
+				Positional: false,
+				Required:   false,
+				Short:      "Custom S3 endpoint to use instead of the default",
+			},
+			{
+				Name:       "s3-use-path-style",
+				Positional: false,
+				Required:   false,
+				Short:      "Whether to use path style addressing for S3 API calls or not",
+			},
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -135,12 +178,25 @@ func bucketCorsDeleteCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
 			params := s3.DeleteBucketCorsInput{
 				Bucket: &args.Bucket,
 			}
 
-			_, err := client.DeleteBucketCors(ctx, &params)
+			s3UsePathStyle, err := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
+			}
+
+			s3Endpoint, _, err := getS3Endpoints(
+				ctx, args.Region.String(), args.S3Endpoint, "", s3UsePathStyle,
+			)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 endpoints: %w", err)
+			}
+
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
+
+			_, err = client.DeleteBucketCors(ctx, &params)
 			if err != nil {
 				return nil, fmt.Errorf("could not delete bucket CORS: %w", err)
 			}
@@ -154,9 +210,11 @@ func bucketCorsDeleteCommand() *core.Command {
 }
 
 type bucketCorsGetArgs struct {
-	Bucket    string
-	Region    scw.Region
-	ProjectID string
+	Bucket         string
+	Region         scw.Region
+	ProjectID      string
+	S3Endpoint     string
+	S3UsePathStyle string
 }
 
 func bucketCorsGetCommand() *core.Command {
@@ -175,6 +233,18 @@ func bucketCorsGetCommand() *core.Command {
 				Short:            "The name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			{
+				Name:       "s3-endpoint",
+				Positional: false,
+				Required:   false,
+				Short:      "Custom S3 endpoint to use instead of the default",
+			},
+			{
+				Name:       "s3-use-path-style",
+				Positional: false,
+				Required:   false,
+				Short:      "Whether to use path style addressing for S3 API calls or not",
+			},
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -184,10 +254,23 @@ func bucketCorsGetCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
 			params := s3.GetBucketCorsInput{
 				Bucket: &args.Bucket,
 			}
+
+			s3UsePathStyle, err := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
+			}
+
+			s3Endpoint, _, err := getS3Endpoints(
+				ctx, args.Region.String(), args.S3Endpoint, "", s3UsePathStyle,
+			)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 endpoints: %w", err)
+			}
+
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 
 			conf, err := client.GetBucketCors(ctx, &params)
 			if err != nil {

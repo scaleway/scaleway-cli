@@ -3,12 +3,9 @@
 ID                cli-test-bucket-get-
 Region            fr-par
 APIEndpoint       https://s3.fr-par.scw.cloud
-BucketEndpoint    https://cli-test-bucket-get-.s3.fr-par.scw.cloud
+BucketEndpoint    https://s3.fr-par.scw.cloud/cli-test-bucket-get-
 EnableVersioning  false
 Owner             4d333544-41be-4b0b-8907-0b9036859747
-Size              0 B
-NbObjects         0
-NbParts           0
 
 Acl:
 GRANTEE                               PERMISSION
@@ -18,7 +15,7 @@ GRANTEE                               PERMISSION
   "ID": "cli-test-bucket-get-",
   "Region": "fr-par",
   "APIEndpoint": "https://s3.fr-par.scw.cloud",
-  "BucketEndpoint": "https://cli-test-bucket-get-.s3.fr-par.scw.cloud",
+  "BucketEndpoint": "https://s3.fr-par.scw.cloud/cli-test-bucket-get-",
   "EnableVersioning": false,
   "Tags": null,
   "ACL": [
@@ -28,7 +25,7 @@ GRANTEE                               PERMISSION
     }
   ],
   "Owner": "4d333544-41be-4b0b-8907-0b9036859747",
-  "Size": 0,
-  "NbObjects": 0,
-  "NbParts": 0
+  "Size": null,
+  "NbObjects": null,
+  "NbParts": null
 }
