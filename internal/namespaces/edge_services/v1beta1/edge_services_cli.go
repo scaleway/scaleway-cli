@@ -1687,6 +1687,12 @@ func edgeServicesWafStageCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "exclusion-rules.rules.{index}.rule-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "backend-stage-id",
 				Short:      `ID of the backend stage to forward requests to after the WAF stage`,
 				Required:   false,
@@ -1767,6 +1773,12 @@ func edgeServicesWafStageUpdate() *core.Command {
 			{
 				Name:       "paranoia-level",
 				Short:      `Sensitivity level (` + "`" + `1` + "`" + `,` + "`" + `2` + "`" + `,` + "`" + `3` + "`" + `,` + "`" + `4` + "`" + `) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "exclusion-rules.rules.{index}.rule-id",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
