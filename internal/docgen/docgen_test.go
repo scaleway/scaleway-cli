@@ -1,12 +1,13 @@
-package docgen
+package docgen_test
 
 import (
 	"testing"
 
+	"github.com/scaleway/scaleway-cli/v2/internal/docgen"
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_escapeTableCell(t *testing.T) {
+func TestEscapeTableCell(t *testing.T) {
 	tests := []struct {
 		name string
 		in   string
@@ -35,7 +36,7 @@ func Test_escapeTableCell(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			assert.Equal(t, tt.want, escapeTableCell(tt.in))
+			assert.Equal(t, tt.want, docgen.EscapeTableCell(tt.in))
 		})
 	}
 }
