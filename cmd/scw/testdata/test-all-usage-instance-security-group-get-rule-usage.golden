@@ -1,5 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Command "get-rule" is deprecated, it is not available in v2 of the API and will be removed when v1 reaches end of support. Rules can be listed using "scw instance security-group get <security-group-id>".
 Get details of a security group rule with the specified ID.
 
 USAGE:

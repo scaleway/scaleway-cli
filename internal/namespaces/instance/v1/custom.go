@@ -37,7 +37,6 @@ func GetCommands() *core.Commands {
 		instanceRoot(),
 		instanceImage(),
 		instanceIP(),
-		instanceSecurityGroup(),
 		instanceServer(),
 		instanceServerType(),
 		instanceVolumeType(),
@@ -77,18 +76,6 @@ func GetCommands() *core.Commands {
 		instanceVolumeGet(),
 		instanceVolumeUpdate(),
 		instanceVolumeDelete(),
-		instanceSecurityGroupList(),
-		instanceSecurityGroupCreate(),
-		instanceSecurityGroupGet(),
-		instanceSecurityGroupDelete(),
-		instanceSecurityGroupUpdate(),
-		instanceSecurityGroupListDefaultRules(),
-		instanceSecurityGroupListRules(),
-		instanceSecurityGroupCreateRule(),
-		instanceSecurityGroupSetRules(),
-		instanceSecurityGroupDeleteRule(),
-		instanceSecurityGroupGetRule(),
-		instanceSecurityGroupUpdateRule(),
 		instanceIPList(),
 		instanceIPCreate(),
 		instanceIPGet(),
@@ -106,6 +93,12 @@ func GetCommands() *core.Commands {
 		instancePlacementGroupGetServers(),
 		instancePlacementGroupSetServers(),
 		instancePlacementGroupUpdateServers(),
+		// SecurityGroup commands exclusive to v1
+		instanceSecurityGroupListDefaultRules(),
+		instanceSecurityGroupListRules(),
+		instanceSecurityGroupCreateRule(),
+		instanceSecurityGroupDeleteRule(),
+		instanceSecurityGroupGetRule(),
 	)
 
 	//
@@ -231,32 +224,6 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "volume-type", "list").Override(volumeTypeListBuilder)
 
 	//
-	// Security Group
-	//
-	human.RegisterMarshalerFunc(
-		instance.CreateSecurityGroupResponse{},
-		marshallNestedField("SecurityGroup"),
-	)
-	human.RegisterMarshalerFunc(
-		instance.SecurityGroupPolicy(""),
-		human.EnumMarshalFunc(securityGroupPolicyMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		instance.SecurityGroupState(""),
-		human.EnumMarshalFunc(securityGroupStateMarshalSpecs),
-	)
-
-	cmds.MustFind("instance", "security-group", "create").Override(securityGroupCreateBuilder)
-	cmds.MustFind("instance", "security-group", "get").Override(securityGroupGetBuilder)
-	cmds.MustFind("instance", "security-group", "list").Override(securityGroupListBuilder)
-	cmds.MustFind("instance", "security-group", "delete").Override(securityGroupDeleteBuilder)
-
-	cmds.Merge(core.NewCommands(
-		securityGroupClearCommand(),
-		securityGroupEditCommand(),
-	))
-
-	//
 	// Security Group Rule
 	//
 	human.RegisterMarshalerFunc(
@@ -268,6 +235,17 @@ func GetCommands() *core.Commands {
 		human.EnumMarshalFunc(securityGroupRuleActionMarshalSpecs),
 	)
 	human.RegisterMarshalerFunc([]*instance.SecurityGroupRule{}, marshalSecurityGroupRules)
+
+	cmds.MustFind("instance", "security-group", "list-default-rules").
+		Override(securityGroupListDefaultRulesBuilder)
+	cmds.MustFind("instance", "security-group", "list-rules").
+		Override(securityGroupListRulesBuilder)
+	cmds.MustFind("instance", "security-group", "create-rule").
+		Override(securityGroupCreateRuleBuilder)
+	cmds.MustFind("instance", "security-group", "delete-rule").
+		Override(securityGroupDeleteRuleBuilder)
+	cmds.MustFind("instance", "security-group", "get-rule").
+		Override(securityGroupGetRuleBuilder)
 
 	//
 	// Placement Group
