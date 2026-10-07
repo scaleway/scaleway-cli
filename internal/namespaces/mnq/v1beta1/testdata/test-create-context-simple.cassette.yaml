@@ -1,161 +1,235 @@
 ---
-version: 1
+version: 2
 interactions:
-- request:
-    body: '{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "region":"fr-par",
-      "created_at":"2024-02-19T15:12:39.555584178Z", "updated_at":"2024-02-19T15:12:39.555584178Z",
-      "id":"ABHCIYUYTV7ZUPD476XBC43TFHBAQLQXC3GOG3SGONWJDCCGQ3DHJSKF", "name":"cli-mnq-quizzical-cohen",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.5; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts
-    method: POST
-  response:
-    body: '{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "region":"fr-par",
-      "created_at":"2024-02-19T15:12:39.555584178Z", "updated_at":"2024-02-19T15:12:39.555584178Z",
-      "id":"ABHCIYUYTV7ZUPD476XBC43TFHBAQLQXC3GOG3SGONWJDCCGQ3DHJSKF", "name":"cli-mnq-quizzical-cohen",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}'
-    headers:
-      Content-Length:
-      - "320"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 19 Feb 2024 15:12:39 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 02726b14-abc1-40f9-8a7e-eaea69798acd
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "region":"fr-par",
-      "created_at":"2024-02-19T15:12:39.555584Z", "updated_at":"2024-02-19T15:12:39.555584Z",
-      "id":"ABHCIYUYTV7ZUPD476XBC43TFHBAQLQXC3GOG3SGONWJDCCGQ3DHJSKF", "name":"cli-mnq-quizzical-cohen",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.5; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts/ABHCIYUYTV7ZUPD476XBC43TFHBAQLQXC3GOG3SGONWJDCCGQ3DHJSKF
-    method: GET
-  response:
-    body: '{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "region":"fr-par",
-      "created_at":"2024-02-19T15:12:39.555584Z", "updated_at":"2024-02-19T15:12:39.555584Z",
-      "id":"ABHCIYUYTV7ZUPD476XBC43TFHBAQLQXC3GOG3SGONWJDCCGQ3DHJSKF", "name":"cli-mnq-quizzical-cohen",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}'
-    headers:
-      Content-Length:
-      - "314"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 19 Feb 2024 15:12:39 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - a7ace7ab-46cb-44ca-a938-61ad1aba8b45
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"nats_account_id":"ABHCIYUYTV7ZUPD476XBC43TFHBAQLQXC3GOG3SGONWJDCCGQ3DHJSKF",
-      "created_at":"2024-02-19T15:12:39.696556593Z", "updated_at":null, "id":"37c3611f-59cd-486d-a8c9-38b4f7209fe4",
-      "name":"cli-mnq-quizzical-cohencli-creds-epic-brattain", "credentials":{"name":"user.creds",
-      "content":"-----BEGIN NATS USER JWT-----\neyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiIzQkJGSENVSzQzWDJIWUlMNjVYWEZXMkxXQlU1Tk9JRFc3TktUVEpVTldFU0NJWDZIMkRRIiwiaWF0IjoxNzA4MzU1NTU5LCJpc3MiOiJBRFhMUlY3N1lTUUVaMlZUTFBVTVFYVkhENktDNFVYSVJWTFE2RTZDN0dVVFBVRlBTQVFZU05OTCIsIm5hbWUiOiJjbGktbW5xLXF1aXp6aWNhbC1jb2hlbmNsaS1jcmVkcy1lcGljLWJyYXR0YWluIiwic3ViIjoiVURMRFJRWUdFQldQNjJLNE5FWEJTWVNINFA2TlFNSFlUTUtOTUpWUUFRSVRVTlpWS0ZIWElKVlIiLCJuYXRzIjp7InB1YiI6e30sInN1YiI6e30sInN1YnMiOi0xLCJkYXRhIjotMSwicGF5bG9hZCI6LTEsImlzc3Vlcl9hY2NvdW50IjoiQUJIQ0lZVVlUVjdaVVBENDc2WEJDNDNURkhCQVFMUVhDM0dPRzNTR09OV0pEQ0NHUTNESEpTS0YiLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.443N3kVkp5YAyZfNCqEgUVhQTlhgjybAkeCz63wYD3p9TzSUojH9pEKgNm_wMVB3RZOjlPZnoKvAsvrlOgGvCw\n------END
-      NATS USER JWT------\n\n************************* IMPORTANT *************************\nNKEY
-      Seed printed below can be used to sign and prove identity.\nNKEYs are sensitive
-      and should be treated as secrets.\n\n-----BEGIN USER NKEY SEED-----\nSUAPLJ5ZIVQTS5HW5PKHHBCDZVGDHGN7CZSA25VGINAGBJCGKGJB2NMTEM\n------END
-      USER NKEY SEED------\n\n*************************************************************\n"},
-      "checksum":"9270fbc1dad1e000a96a2dc0b805f2c4ae1a0871"}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.5; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-credentials
-    method: POST
-  response:
-    body: '{"nats_account_id":"ABHCIYUYTV7ZUPD476XBC43TFHBAQLQXC3GOG3SGONWJDCCGQ3DHJSKF",
-      "created_at":"2024-02-19T15:12:39.696556593Z", "updated_at":null, "id":"37c3611f-59cd-486d-a8c9-38b4f7209fe4",
-      "name":"cli-mnq-quizzical-cohencli-creds-epic-brattain", "credentials":{"name":"user.creds",
-      "content":"-----BEGIN NATS USER JWT-----\neyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiIzQkJGSENVSzQzWDJIWUlMNjVYWEZXMkxXQlU1Tk9JRFc3TktUVEpVTldFU0NJWDZIMkRRIiwiaWF0IjoxNzA4MzU1NTU5LCJpc3MiOiJBRFhMUlY3N1lTUUVaMlZUTFBVTVFYVkhENktDNFVYSVJWTFE2RTZDN0dVVFBVRlBTQVFZU05OTCIsIm5hbWUiOiJjbGktbW5xLXF1aXp6aWNhbC1jb2hlbmNsaS1jcmVkcy1lcGljLWJyYXR0YWluIiwic3ViIjoiVURMRFJRWUdFQldQNjJLNE5FWEJTWVNINFA2TlFNSFlUTUtOTUpWUUFRSVRVTlpWS0ZIWElKVlIiLCJuYXRzIjp7InB1YiI6e30sInN1YiI6e30sInN1YnMiOi0xLCJkYXRhIjotMSwicGF5bG9hZCI6LTEsImlzc3Vlcl9hY2NvdW50IjoiQUJIQ0lZVVlUVjdaVVBENDc2WEJDNDNURkhCQVFMUVhDM0dPRzNTR09OV0pEQ0NHUTNESEpTS0YiLCJ0eXBlIjoidXNlciIsInZlcnNpb24iOjJ9fQ.443N3kVkp5YAyZfNCqEgUVhQTlhgjybAkeCz63wYD3p9TzSUojH9pEKgNm_wMVB3RZOjlPZnoKvAsvrlOgGvCw\n------END
-      NATS USER JWT------\n\n************************* IMPORTANT *************************\nNKEY
-      Seed printed below can be used to sign and prove identity.\nNKEYs are sensitive
-      and should be treated as secrets.\n\n-----BEGIN USER NKEY SEED-----\nSUAPLJ5ZIVQTS5HW5PKHHBCDZVGDHGN7CZSA25VGINAGBJCGKGJB2NMTEM\n------END
-      USER NKEY SEED------\n\n*************************************************************\n"},
-      "checksum":"9270fbc1dad1e000a96a2dc0b805f2c4ae1a0871"}'
-    headers:
-      Content-Length:
-      - "1496"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 19 Feb 2024 15:12:39 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - da6fa7b2-8e75-434c-b68e-445ab2cb4118
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.5; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts/ABHCIYUYTV7ZUPD476XBC43TFHBAQLQXC3GOG3SGONWJDCCGQ3DHJSKF
-    method: DELETE
-  response:
-    body: ""
-    headers:
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 19 Feb 2024 15:12:39 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - b6d8fe4b-60d7-4cca-8402-fad6b4e9f8c1
-    status: 204 No Content
-    code: 204
-    duration: ""
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 85
+        host: api.scaleway.com
+        body: '{"name":"cli-mnq-serene-khorana","project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da"}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 319
+        body: '{"project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "region":"fr-par", "created_at":"2026-10-07T17:01:21.286996646Z", "updated_at":"2026-10-07T17:01:21.286996646Z", "id":"AB3D4I7LUJX3QMCDW27SBQ4HIBSYZ7W4DZSFBMTUWG2M7J3OUX6BUOBS", "name":"cli-mnq-serene-khorana", "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}'
+        headers:
+            Content-Length:
+                - "319"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 07 Oct 2026 17:01:21 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 22e45cec-9475-4a6d-8d22-ac9630d1e228
+        status: 200 OK
+        code: 200
+        duration: 213.594727ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 487
+        body: '{"srn":"srn://iam.scw.eu/api-keys/SCW34JXNB73TWW45XC21", "access_key":"SCWXXXXXXXXXXXXXXXXX", "secret_key":null, "description":"Generated by the Scaleway CLI", "created_at":"2026-09-21T08:59:40.180590Z", "updated_at":"2026-09-21T08:59:40.180590Z", "expires_at":"2026-12-20T08:59:35.980374Z", "default_project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "editable":true, "deletable":true, "managed":false, "creation_ip":"130.180.219.188", "user_id":"c54eef01-c4c6-48fa-9a1e-36e8998b9776"}'
+        headers:
+            Content-Length:
+                - "487"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 07 Oct 2026 17:01:21 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 27edabb0-b879-4d71-bed9-74c25ba52ef3
+        status: 200 OK
+        code: 200
+        duration: 34.974071ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/metadata
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 59
+        body: '{"platform":"external","partition":"scw","domain":"scw.eu"}'
+        headers:
+            Content-Length:
+                - "59"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 07 Oct 2026 17:01:21 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - f8aeb6f7-febe-460c-ac3d-d367b59186eb
+        status: 200 OK
+        code: 200
+        duration: 7.431243ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts/AB3D4I7LUJX3QMCDW27SBQ4HIBSYZ7W4DZSFBMTUWG2M7J3OUX6BUOBS
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 313
+        body: '{"project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "region":"fr-par", "created_at":"2026-10-07T17:01:21.286996Z", "updated_at":"2026-10-07T17:01:21.286996Z", "id":"AB3D4I7LUJX3QMCDW27SBQ4HIBSYZ7W4DZSFBMTUWG2M7J3OUX6BUOBS", "name":"cli-mnq-serene-khorana", "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}'
+        headers:
+            Content-Length:
+                - "313"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 07 Oct 2026 17:01:21 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 9b4e796d-d5a7-4794-95f3-4848201b07fd
+        status: 200 OK
+        code: 200
+        duration: 37.387897ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 133
+        host: api.scaleway.com
+        body: '{"nats_account_id":"AB3D4I7LUJX3QMCDW27SBQ4HIBSYZ7W4DZSFBMTUWG2M7J3OUX6BUOBS","name":"cli-mnq-serene-khoranacli-creds-goofy-kapitsa"}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-credentials
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 1540
+        body: '{"nats_account_id":"AB3D4I7LUJX3QMCDW27SBQ4HIBSYZ7W4DZSFBMTUWG2M7J3OUX6BUOBS", "region":"fr-par", "created_at":"2026-10-07T17:01:21.489280893Z", "updated_at":"2026-10-07T17:01:21.489281050Z", "id":"3a5476ad-5b6a-4124-aaba-b3ab8ac89b45", "name":"cli-mnq-serene-khoranacli-creds-goofy-kapitsa", "credentials":{"name":"user.creds", "content":"-----BEGIN NATS USER JWT-----\neyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJGNFVEVEdFVTVJTkpZUEJGWFNWN0dKTUpYVlZNS0ZENDVQSUJSTjJCNzRBRUs1NktYNU9BIiwiaWF0IjoxNzkxMzkyNDgxLCJpc3MiOiJBREJXUEpQVkZTTjI3Q1JURVVNTlA3U05SWFBJSE5UWU5TQVU1MzMzSFVPUUsyRkZBWEVZUk5ZViIsIm5hbWUiOiJjbGktbW5xLXNlcmVuZS1raG9yYW5hY2xpLWNyZWRzLWdvb2Z5LWthcGl0c2EiLCJzdWIiOiJVQ01JSlBTUVBMNUpCVzJVMlNCNVhDSUNDSDJZMjVIREtQVjNQRVJSSjU3TlBFRk1QQ0xIR01TWiIsIm5hdHMiOnsicHViIjp7fSwic3ViIjp7fSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwiaXNzdWVyX2FjY291bnQiOiJBQjNENEk3TFVKWDNRTUNEVzI3U0JRNEhJQlNZWjdXNERaU0ZCTVRVV0cyTTdKM09VWDZCVU9CUyIsInR5cGUiOiJ1c2VyIiwidmVyc2lvbiI6Mn19.64GvnOKXfehTKChrC9hqXLBXGG6f8izKBiDvtcSndXu_QkpNrGwsIjBsY6sUNHoSXfaV41IquKGQ094wQZhpBA\n------END NATS USER JWT------\n\n************************* IMPORTANT *************************\nNKEY Seed printed below can be used to sign and prove identity.\nNKEYs are sensitive and should be treated as secrets.\n\n-----BEGIN USER NKEY SEED-----\nSUAPFVZ6WYQGVI5IJ2RGAYC5RT72Q2LS2FBK6ZDITSVUWXK7O6674D2WXU\n------END USER NKEY SEED------\n\n*************************************************************\n"}, "checksum":"53b1ef24db460652d3a06c17aa107109c2e7ff5f"}'
+        headers:
+            Content-Length:
+                - "1540"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 07 Oct 2026 17:01:21 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "48"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 7449b680-bc5f-47c6-bc2d-4c67dcc64d94
+        status: 200 OK
+        code: 200
+        duration: 55.161016ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts/AB3D4I7LUJX3QMCDW27SBQ4HIBSYZ7W4DZSFBMTUWG2M7J3OUX6BUOBS
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 07 Oct 2026 17:01:21 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "47"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 2a0adf58-38d3-4d32-853b-9aad1e3a5260
+        status: 204 No Content
+        code: 204
+        duration: 159.065584ms
