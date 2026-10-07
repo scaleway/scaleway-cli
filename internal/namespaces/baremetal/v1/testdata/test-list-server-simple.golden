@@ -1,12 +1,10 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    Name                       Offer Name     Status      Tags  Ping
-9a32aa2b-4e34-43b9-a36d-39325e5b9b6b  cli-bm-sleepy-mcclintock   EM-T220E-L40S  delivering  []    unknown
-39f895cc-a5d9-4da4-a27b-2ae827930381  cli-bm-cranky-kalam        EM-T220E-L40S  delivering  []    unknown
-3be7de92-ba3e-42fc-99ee-96c76d847563  cli-bm-peaceful-shannon    EM-T220E-L40S  delivering  []    unknown
-1ea7df84-3db7-4803-a48b-576d5a391caf  cli-bm-upbeat-bell         EM-A116X-SSD   ready       []    unknown
-087867b4-d6d5-446e-88dd-ba9cdb8b8ce5  cli-bm-distracted-shirley  EM-I215E-NVME  ready       []    up
-1b8b6beb-fb15-4401-a43f-7cc9db53b668  cli-bm-vibrant-margulis    EM-I215E-NVME  ready       []    up
+ID                                    Name                      Offer Name     Status  Tags  Ping
+9a32aa2b-4e34-43b9-a36d-39325e5b9b6b  cli-bm-sleepy-mcclintock  EM-T220E-L40S  error   []    unknown
+39f895cc-a5d9-4da4-a27b-2ae827930381  cli-bm-cranky-kalam       EM-T220E-L40S  error   []    unknown
+3be7de92-ba3e-42fc-99ee-96c76d847563  cli-bm-peaceful-shannon   EM-T220E-L40S  error   []    unknown
+5bafe6ea-d820-4683-9afe-ba49721d9c7b  cli-bm-clever-ptolemy     EM-I210E-NVME  ready   []    up
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
@@ -17,7 +15,7 @@ ID                                    Name                       Offer Name     
     "description": "",
     "updated_at": "1970-01-01T00:00:00.0Z",
     "created_at": "1970-01-01T00:00:00.0Z",
-    "status": "delivering",
+    "status": "error",
     "offer_id": "4b5882ea-7453-4505-b601-37cc181eff2c",
     "tags": [],
     "ips": [],
@@ -40,7 +38,7 @@ ID                                    Name                       Offer Name     
     "description": "",
     "updated_at": "1970-01-01T00:00:00.0Z",
     "created_at": "1970-01-01T00:00:00.0Z",
-    "status": "delivering",
+    "status": "error",
     "offer_id": "4b5882ea-7453-4505-b601-37cc181eff2c",
     "tags": [],
     "ips": [],
@@ -63,7 +61,7 @@ ID                                    Name                       Offer Name     
     "description": "",
     "updated_at": "1970-01-01T00:00:00.0Z",
     "created_at": "1970-01-01T00:00:00.0Z",
-    "status": "delivering",
+    "status": "error",
     "offer_id": "4b5882ea-7453-4505-b601-37cc181eff2c",
     "tags": [],
     "ips": [],
@@ -79,223 +77,44 @@ ID                                    Name                       Offer Name     
     "offer_name": "EM-T220E-L40S"
   },
   {
-    "id": "1ea7df84-3db7-4803-a48b-576d5a391caf",
+    "id": "5bafe6ea-d820-4683-9afe-ba49721d9c7b",
     "organization_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
-    "project_id": "ba107a93-46e6-4ea6-a043-126c904301a8",
-    "name": "cli-bm-upbeat-bell",
+    "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
+    "name": "cli-bm-clever-ptolemy",
     "description": "",
     "updated_at": "1970-01-01T00:00:00.0Z",
     "created_at": "1970-01-01T00:00:00.0Z",
     "status": "ready",
-    "offer_id": "8779d2c1-cd10-4a34-a006-cb5b1fb5cbc7",
+    "offer_id": "7e81d4d4-a84b-4dd0-9f44-f0ac34a09e3a",
     "tags": [],
     "ips": [
       {
-        "id": "3c0bb7c1-b260-46c9-9bf7-00ba3c94e1c6",
-        "address": "2001:bc8:1201:60a:569f:35ff:fe0c:bcda",
+        "id": "b4cad951-99be-437e-833d-ebe15bef0ea8",
+        "address": "2001:bc8:1201:51c:b683:51ff:fe06:753c",
         "reverse": "",
         "version": "IPv6",
         "reverse_status": "unknown",
         "reverse_status_message": ""
       },
       {
-        "id": "ec88fd1b-52d4-4237-9bcd-f60a1f153e83",
-        "address": "51.159.211.152",
+        "id": "d538d9f3-7409-403d-9141-f58ac07f3e9d",
+        "address": "51.158.55.148",
         "reverse": "",
         "version": "IPv4",
         "reverse_status": "unknown",
         "reverse_status_message": ""
       }
     ],
-    "domain": "1ea7df84-3db7-4803-a48b-576d5a391caf.fr-par-2.baremetal.scw.cloud",
+    "domain": "5bafe6ea-d820-4683-9afe-ba49721d9c7b.fr-par-2.baremetal.scw.cloud",
     "boot_type": "normal",
     "zone": "fr-par-2",
     "install": {
-      "os_id": "03b7f4ba-a6a1-4305-984e-b54fafbf1681",
+      "os_id": "b9a016fc-947f-4bbc-bf95-343c8524535a",
       "hostname": "test-install-server",
       "ssh_key_ids": [
-        "dc4b4779-eb79-42d2-9dbf-5ff82b304902"
+        "f191a0b4-9b78-4eec-84c9-c465ba1fae9d"
       ],
-      "status": "completed",
-      "user": "ubuntu",
-      "service_user": "",
-      "service_url": "",
-      "partitioning_schema": {
-        "disks": [
-          {
-            "device": "/dev/sda",
-            "partitions": [
-              {
-                "label": "legacy",
-                "number": 1,
-                "size": 536870912,
-                "use_all_available_space": false
-              },
-              {
-                "label": "swap",
-                "number": 2,
-                "size": 4294967296,
-                "use_all_available_space": false
-              },
-              {
-                "label": "boot",
-                "number": 3,
-                "size": 536870912,
-                "use_all_available_space": false
-              },
-              {
-                "label": "root",
-                "number": 4,
-                "size": 994630959104,
-                "use_all_available_space": false
-              }
-            ]
-          },
-          {
-            "device": "/dev/sdb",
-            "partitions": [
-              {
-                "label": "swap",
-                "number": 1,
-                "size": 4294967296,
-                "use_all_available_space": false
-              },
-              {
-                "label": "boot",
-                "number": 2,
-                "size": 536870912,
-                "use_all_available_space": false
-              },
-              {
-                "label": "root",
-                "number": 3,
-                "size": 994630959104,
-                "use_all_available_space": false
-              }
-            ]
-          }
-        ],
-        "raids": [
-          {
-            "name": "/dev/md0",
-            "level": "raid_level_1",
-            "devices": [
-              "/dev/sda3",
-              "/dev/sdb2"
-            ]
-          },
-          {
-            "name": "/dev/md1",
-            "level": "raid_level_1",
-            "devices": [
-              "/dev/sda4",
-              "/dev/sdb3"
-            ]
-          }
-        ],
-        "filesystems": [
-          {
-            "device": "/dev/md0",
-            "format": "ext4",
-            "mountpoint": "/boot"
-          },
-          {
-            "device": "/dev/md1",
-            "format": "ext4",
-            "mountpoint": "/"
-          }
-        ],
-        "zfs": {
-          "pools": []
-        }
-      }
-    },
-    "ping_status": "ping_status_unknown",
-    "options": [],
-    "rescue_server": null,
-    "protected": false,
-    "user_data": null,
-    "offer_name": "EM-A116X-SSD"
-  },
-  {
-    "id": "087867b4-d6d5-446e-88dd-ba9cdb8b8ce5",
-    "organization_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
-    "project_id": "ba107a93-46e6-4ea6-a043-126c904301a8",
-    "name": "cli-bm-distracted-shirley",
-    "description": "",
-    "updated_at": "1970-01-01T00:00:00.0Z",
-    "created_at": "1970-01-01T00:00:00.0Z",
-    "status": "ready",
-    "offer_id": "ddb09834-8680-4339-b5e3-19ca5205fa1f",
-    "tags": [],
-    "ips": [
-      {
-        "id": "cb05cc9e-0202-4a91-b1a2-cfa9b4418fde",
-        "address": "195.154.100.10",
-        "reverse": "",
-        "version": "IPv4",
-        "reverse_status": "unknown",
-        "reverse_status_message": ""
-      },
-      {
-        "id": "2b6c0ef5-6d9e-4817-9684-a665979950a6",
-        "address": "2001:bc8:1201:a17:b683:51ff:fe0f:6328",
-        "reverse": "",
-        "version": "IPv6",
-        "reverse_status": "unknown",
-        "reverse_status_message": ""
-      }
-    ],
-    "domain": "087867b4-d6d5-446e-88dd-ba9cdb8b8ce5.fr-par-2.baremetal.scw.cloud",
-    "boot_type": "normal",
-    "zone": "fr-par-2",
-    "install": null,
-    "ping_status": "ping_status_up",
-    "options": [],
-    "rescue_server": null,
-    "protected": false,
-    "user_data": null,
-    "offer_name": "EM-I215E-NVME"
-  },
-  {
-    "id": "1b8b6beb-fb15-4401-a43f-7cc9db53b668",
-    "organization_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
-    "project_id": "ba107a93-46e6-4ea6-a043-126c904301a8",
-    "name": "cli-bm-vibrant-margulis",
-    "description": "",
-    "updated_at": "1970-01-01T00:00:00.0Z",
-    "created_at": "1970-01-01T00:00:00.0Z",
-    "status": "ready",
-    "offer_id": "ddb09834-8680-4339-b5e3-19ca5205fa1f",
-    "tags": [],
-    "ips": [
-      {
-        "id": "472cca59-474d-403c-9540-d3ada183f0c5",
-        "address": "195.154.91.253",
-        "reverse": "",
-        "version": "IPv4",
-        "reverse_status": "unknown",
-        "reverse_status_message": ""
-      },
-      {
-        "id": "73073045-8c9d-4679-9cb8-e37a8db1b2d8",
-        "address": "2001:bc8:1201:a16:b683:51ff:fe0f:6e74",
-        "reverse": "",
-        "version": "IPv6",
-        "reverse_status": "unknown",
-        "reverse_status_message": ""
-      }
-    ],
-    "domain": "1b8b6beb-fb15-4401-a43f-7cc9db53b668.fr-par-2.baremetal.scw.cloud",
-    "boot_type": "normal",
-    "zone": "fr-par-2",
-    "install": {
-      "os_id": "03b7f4ba-a6a1-4305-984e-b54fafbf1681",
-      "hostname": "test-install-server",
-      "ssh_key_ids": [
-        "fd8e412d-b048-4f5f-9c2d-bd2bcf88f485"
-      ],
-      "status": "completed",
+      "status": "installing",
       "user": "ubuntu",
       "service_user": "",
       "service_url": "",
@@ -399,6 +218,6 @@ ID                                    Name                       Offer Name     
     "rescue_server": null,
     "protected": false,
     "user_data": null,
-    "offer_name": "EM-I215E-NVME"
+    "offer_name": "EM-I210E-NVME"
   }
 ]

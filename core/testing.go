@@ -327,6 +327,13 @@ func init() {
 var foldersUsingVCRv4 = []string{
 	"cmd/scw",
 	"core",
+	"internal/e2e",
+	"internal/namespaces/alias",
+	"internal/namespaces/applesilicon/v1alpha1",
+	"internal/namespaces/autoscaling/v1alpha2",
+	"internal/namespaces/baremetal/v1",
+	"internal/namesapces/block/v1alpha1",
+	"internal/namesapces/config",
 	"internal/namespaces/container/v1",
 	"internal/namespaces/instance/v1",
 	"internal/namespaces/instance/v2alpha1",
