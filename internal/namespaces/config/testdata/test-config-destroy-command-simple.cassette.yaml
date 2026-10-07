@@ -21,7 +21,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 07 Oct 2026 07:33:34 GMT
+      - Wed, 07 Oct 2026 07:33:35 GMT
       Server:
       - Scaleway API Gateway (fr-par-3;edge01)
       Strict-Transport-Security:
@@ -33,11 +33,11 @@ interactions:
       X-Ratelimit-Limit:
       - 50, 50;w=1
       X-Ratelimit-Remaining:
-      - "49"
+      - "39"
       X-Ratelimit-Reset:
       - "1"
       X-Request-Id:
-      - 5239c7d7-2493-4099-b54a-ba67877a2aa8
+      - 2bfe482f-9ec7-4eaf-a4e5-afdde0a8e8d8
     status: 200 OK
     code: 200
     duration: ""
@@ -60,7 +60,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 07 Oct 2026 07:33:34 GMT
+      - Wed, 07 Oct 2026 07:33:35 GMT
       Server:
       - Scaleway API Gateway (fr-par-3;edge01)
       Strict-Transport-Security:
@@ -72,11 +72,11 @@ interactions:
       X-Ratelimit-Limit:
       - 50, 50;w=1
       X-Ratelimit-Remaining:
-      - "48"
+      - "38"
       X-Ratelimit-Reset:
       - "1"
       X-Request-Id:
-      - 2ed84cbb-9f65-49e8-970b-b1f2fabcda42
+      - da031954-0ae6-45d6-a8bb-4c7b48dff953
     status: 200 OK
     code: 200
     duration: ""
