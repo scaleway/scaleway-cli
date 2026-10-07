@@ -12,7 +12,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/ipam/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
-	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1alpha1"
+	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
