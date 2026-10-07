@@ -327,6 +327,7 @@ var foldersUsingVCRv4 = []string{
 	"internal/namespaces/init",
 	"internal/namespaces/instance/v1",
 	"internal/namespaces/instance/v2alpha1",
+	"internal/namespaces/iot/v1",
 	"internal/namespaces/k8s/v1",
 	"internal/namespaces/marketplace/v2",
 }
