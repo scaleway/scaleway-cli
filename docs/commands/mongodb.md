@@ -2,6 +2,32 @@
 # Documentation for `scw mongodb`
 This API allows you to manage your Managed Databases for MongoDB®.
 
+## Database management commands
+
+Databases can be used to store and manage sets of information, or data. The interaction between the user and a database is done using a database engine, which provides a query language to add, modify, or delete information from the database.
+
+
+### List databases in a Database Instance
+
+List all databases of a given Database Instance.
+
+**Usage:**
+
+```shell
+scw mongodb database list [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name        | Description                                                                 | Argument Specifications                        |
+|-------------|-----------------------------------------------------------------------------|------------------------------------------------|
+| instance-id | UUID of the Database Instance                                               | Required                                       |
+| order-by    | Criteria to use when requesting user listing                                | One of: `name_asc`, `name_desc`                |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
+
+
+
 ## Endpoint management commands
 
 Instance endpoints enable connection to your instance.
@@ -9,7 +35,7 @@ Instance endpoints enable connection to your instance.
 
 ### Create a new Instance endpoint
 
-Create a new endpoint for a MongoDB® Database Instance. You can add `public_network` or `private_network` specifications to the body of the request.
+Create a new endpoint for a MongoDB® Database Instance. You can add public_network or private_network specifications to the body of the request.
 
 **Usage:**
 
@@ -23,7 +49,7 @@ scw mongodb endpoint create <instance-id ...> [arg=value ...]
 | Name                                        | Description                                                                 | Argument Specifications                 |
 |---------------------------------------------|-----------------------------------------------------------------------------|-----------------------------------------|
 | instance-id                                 | UUID of the Database Instance                                               | Required                                |
-| endpoint.public                             |                                                                             |                                         |
+| endpoint.public-network                     |                                                                             |                                         |
 | endpoint.private-network.private-network-id | UUID of the Private Network                                                 |                                         |
 | region                                      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
@@ -31,7 +57,7 @@ scw mongodb endpoint create <instance-id ...> [arg=value ...]
 
 ### Delete a Database Instance endpoint
 
-Delete the endpoint of a Database Instance. You must specify the `endpoint_id` parameter of the endpoint you want to delete. Note that you might need to update any environment configurations that point to the deleted endpoint.
+Delete the endpoint of a Database Instance. You must specify the endpoint_id parameter of the endpoint you want to delete. Note that you might need to update any environment configurations that point to the deleted endpoint.
 
 **Usage:**
 
@@ -71,15 +97,15 @@ scw mongodb instance create [arg=value ...]
 |------------------------------------------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
 | project-id                                           | Project ID to use. If none is passed the default project ID will be used    |                                                                    |
 | name                                                 | Name of the Database Instance                                               | Default: `<generated>`                                             |
-| version                                              | Version of the MongoDB® engine                                              | Required<br />Default: ``                                          |
+| version                                              | Major version of the MongoDB® engine                                        | Required<br />Default: ``                                          |
 | tags.{index}                                         | Tags to apply to the Database Instance                                      |                                                                    |
-| node-number                                          | Number of node to use for the Database Instance                             | Required<br />Default: `1`                                         |
+| node-amount                                          | Number of node to use for the Database Instance                             | Required<br />Default: `1`                                         |
 | node-type                                            | Type of node to use for the Database Instance                               | Required                                                           |
 | user-name                                            | Username created when the Database Instance is created                      | Required                                                           |
 | password                                             | Password of the initial user                                                | Required                                                           |
-| volume.volume-size                                   | Volume size                                                                 | Default: `5GB`                                                     |
-| volume.volume-type                                   | Type of volume where data is stored                                         | Default: `sbs_5k`<br />One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
-| endpoints.{index}.public                             |                                                                             |                                                                    |
+| volume.type                                          | Type of volume where data is stored                                         | Default: `sbs_5k`<br />One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
+| volume.size-bytes                                    | Volume size                                                                 | Default: `5GB`                                                     |
+| endpoints.{index}.public-network                     |                                                                             |                                                                    |
 | endpoints.{index}.private-network.private-network-id | UUID of the Private Network                                                 |                                                                    |
 | region                                               | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`                            |
 
@@ -163,7 +189,8 @@ scw mongodb instance list [arg=value ...]
 | tags.{index}    | List Database Instances that have a given tag                               |                                                                                                   |
 | name            | Lists Database Instances that match a name pattern                          |                                                                                                   |
 | order-by        | Criteria to use when ordering Database Instance listings                    | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc` |
-| project-id      | Project ID                                                                  |                                                                                                   |
+| project-id      | Project ID to list the instances of                                         |                                                                                                   |
+| has-maintenance | Retrieve pending maintenances for the database instances if given           |                                                                                                   |
 | organization-id | Organization ID of the Database Instance                                    |                                                                                                   |
 | region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all`                                                    |
 
@@ -182,12 +209,15 @@ scw mongodb instance update <instance-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                                 | Argument Specifications                 |
-|--------------|-----------------------------------------------------------------------------|-----------------------------------------|
-| instance-id  | UUID of the Database Instance to update                                     | Required                                |
-| name         | Name of the Database Instance                                               |                                         |
-| tags.{index} | Tags of a Database Instance                                                 |                                         |
-| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+| Name                              | Description                                                                 | Argument Specifications                 |
+|-----------------------------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| instance-id                       | UUID of the Database Instance to update                                     | Required                                |
+| name                              | Name of the Database Instance                                               |                                         |
+| tags.{index}                      | Tags of a Database Instance                                                 |                                         |
+| snapshot-schedule-frequency-hours | In hours                                                                    |                                         |
+| snapshot-schedule-retention-days  | In days                                                                     |                                         |
+| is-snapshot-schedule-enabled      | Defines whether or not the snapshot schedule is enabled                     |                                         |
+| region                            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -204,11 +234,12 @@ scw mongodb instance upgrade <instance-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                                 | Argument Specifications                 |
-|-------------|-----------------------------------------------------------------------------|-----------------------------------------|
-| instance-id | UUID of the Database Instance you want to upgrade                           | Required                                |
-| volume-size | Increase your Block Storage volume size                                     |                                         |
-| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+| Name              | Description                                                                 | Argument Specifications                 |
+|-------------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| instance-id       | UUID of the Database Instance you want to upgrade                           | Required                                |
+| volume-size-bytes | Increase your Block Storage volume size                                     |                                         |
+| version           | MongoDB version to upgrade to (e.g., `8.0`, `7.0`, `8.2`)                   |                                         |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -225,11 +256,11 @@ scw mongodb instance wait <instance-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                                 | Argument Specifications                           |
-|-------------|-----------------------------------------------------------------------------|---------------------------------------------------|
-| instance-id | ID of the instance you want to wait for.                                    | Required                                          |
-| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
-| timeout     | Timeout of the wait                                                         | Default: `20m0s`                                  |
+| Name        | Description                                                                 | Argument Specifications                 |
+|-------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| instance-id | ID of the instance you want to wait for.                                    | Required                                |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+| timeout     | Timeout of the wait                                                         | Default: `20m0s`                        |
 
 
 **Examples:**
@@ -243,12 +274,78 @@ scw mongodb instance wait 11111111-1111-1111-1111-111111111111
 
 
 
+## Maintenance management commands
+
+Maintenance operations for managing scheduled updates to your Database Instance.
+
+
+### Apply a maintenance of a MongoDB® Database Instance.
+
+Apply a maintenance of a MongoDB® Database Instance.
+
+**Usage:**
+
+```shell
+scw mongodb maintenance apply <maintenance-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name           | Description                                                                 | Argument Specifications                 |
+|----------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| maintenance-id | ID of the maintenance                                                       | Required                                |
+| region         | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+
+
+
+### Get a maintenance of a MongoDB® Database Instance.
+
+Get a maintenance of a MongoDB® Database Instance.
+
+**Usage:**
+
+```shell
+scw mongodb maintenance get <maintenance-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name           | Description                                                                 | Argument Specifications                 |
+|----------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| maintenance-id | ID of the maintenance                                                       | Required                                |
+| region         | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+
+
+
+### List all the maintenances of a MongoDB® Database Instance.
+
+List all the maintenances of a MongoDB® Database Instance.
+
+**Usage:**
+
+```shell
+scw mongodb maintenance list [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name        | Description                                                                 | Argument Specifications                                                                                         |
+|-------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| instance-id | ID of the instance                                                          |                                                                                                                 |
+| order-by    | Criteria to use when requesting user listing                                | One of: `created_at_asc`, `created_at_desc`, `starts_at_asc`, `starts_at_desc`, `stops_at_asc`, `stops_at_desc` |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all`                                                                  |
+
+
+
 ## Node types management commands
 
 Two node type ranges are available:
 
-* **Cost-Optimized:** a complete and highly reliable node range with shared resources that is made for scaling from development to production needs, at affordable prices.
-* **Production-Optimized:** database nodes with dedicated vCPU for the most demanding workloads and mission-critical applications.
+* **Shared vCPU:** a complete and highly reliable node range with shared resources that is made for scaling from development to production needs, at affordable prices.
+* **Dedicated vCPU:** database nodes with dedicated vCPU for the most demanding workloads and mission-critical applications.
 
 
 ### List available node types
@@ -264,10 +361,10 @@ scw mongodb node-type list [arg=value ...]
 
 **Arguments:**
 
-| Name                   | Description                                                                 | Argument Specifications                        |
-|------------------------|-----------------------------------------------------------------------------|------------------------------------------------|
-| include-disabled-types | Defines whether or not to include disabled types                            |                                                |
-| region                 | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
+| Name             | Description                                                                 | Argument Specifications                        |
+|------------------|-----------------------------------------------------------------------------|------------------------------------------------|
+| include-disabled | Defines whether or not to include disabled types                            |                                                |
+| region           | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
 
 
 
@@ -364,7 +461,7 @@ scw mongodb snapshot list [arg=value ...]
 
 ### Restore a Database Instance snapshot
 
-Restore a given snapshot of a Database Instance. You must specify, in the endpoint, the `snapshot_id` parameter of the snapshot you want to restore, the `instance_name` of the new Database Instance, `node_type` of the new Database Instance and `node_number` of the new Database Instance.
+Restore a given snapshot of a Database Instance. You must specify, in the endpoint, the `snapshot_id` parameter of the snapshot you want to restore, the `instance_name` of the new Database Instance, `node_type` of the new Database Instance and `node_amount` of the new Database Instance.
 
 **Usage:**
 
@@ -375,14 +472,14 @@ scw mongodb snapshot restore <snapshot-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name               | Description                                                                 | Argument Specifications                     |
-|--------------------|-----------------------------------------------------------------------------|---------------------------------------------|
-| snapshot-id        | UUID of the snapshot                                                        | Required                                    |
-| instance-name      | Name of the new Database Instance                                           | Required                                    |
-| node-type          | Node type to use for the new Database Instance                              | Required                                    |
-| node-number        | Number of nodes to use for the new Database Instance                        | Required                                    |
-| volume.volume-type | Type of volume where data is stored                                         | One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
-| region             | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`     |
+| Name          | Description                                                                 | Argument Specifications                                   |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------------------------|
+| snapshot-id   | UUID of the snapshot                                                        | Required                                                  |
+| instance-name | Name of the new Database Instance                                           | Required                                                  |
+| node-type     | Node type to use for the new Database Instance                              | Required                                                  |
+| node-amount   | Number of nodes to use for the new Database Instance                        | Required                                                  |
+| volume-type   | Instance volume type                                                        | Required<br />One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`                   |
 
 
 
@@ -411,28 +508,6 @@ scw mongodb snapshot update <snapshot-id ...> [arg=value ...]
 ## User management commands
 
 Users are profiles to which you can attribute database-level permissions. They allow you to define permissions specific to each type of database usage.
-
-
-### Create an user on a Database Instance
-
-Create an user on a Database Instance. You must define the `name`, `password` of the user and `instance_id` parameters in the request.
-
-**Usage:**
-
-```shell
-scw mongodb user create [arg=value ...]
-```
-
-
-**Arguments:**
-
-| Name        | Description                                                                 | Argument Specifications                 |
-|-------------|-----------------------------------------------------------------------------|-----------------------------------------|
-| instance-id | UUID of the Database Instance the user belongs to                           | Required                                |
-| name        | Name of the database user                                                   |                                         |
-| password    | Password of the database user                                               |                                         |
-| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
-
 
 
 ### Delete a user on a Database Instance
@@ -491,14 +566,14 @@ scw mongodb user set-role [arg=value ...]
 
 **Arguments:**
 
-| Name                       | Description                                                                 | Argument Specifications                                          |
-|----------------------------|-----------------------------------------------------------------------------|------------------------------------------------------------------|
-| instance-id                | UUID of the Database Instance the user belongs to                           | Required                                                         |
-| user-name                  | Name of the database user                                                   |                                                                  |
-| roles.{index}.role         | Name of the preset role                                                     | One of: `unknown_role`, `read`, `read_write`, `db_admin`, `sync` |
-| roles.{index}.database     | Name of the database on which the preset role will be used                  |                                                                  |
-| roles.{index}.any-database | Flag to enable the preset role in all databases                             |                                                                  |
-| region                     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`                          |
+| Name                        | Description                                                                 | Argument Specifications                                          |
+|-----------------------------|-----------------------------------------------------------------------------|------------------------------------------------------------------|
+| instance-id                 | UUID of the Database Instance the user belongs to                           | Required                                                         |
+| user-name                   | Name of the database user                                                   |                                                                  |
+| roles.{index}.role          | Name of the preset role                                                     | One of: `unknown_role`, `read`, `read_write`, `db_admin`, `sync` |
+| roles.{index}.database-name | Name of the database on which the preset role will be used                  |                                                                  |
+| roles.{index}.any-database  | Flag to enable the preset role in all databases                             |                                                                  |
+| region                      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`                          |
 
 
 
@@ -524,14 +599,14 @@ scw mongodb user update [arg=value ...]
 
 
 
-## MongoDB® version management commands
+## MongoDB® major version management commands
 
 A database engine is the core software that handles the storage, retrieval, and management of data in your Database Instance.
 
 
-### List available MongoDB® versions
+### List available MongoDB® major versions
 
-List available MongoDB® versions.
+List available MongoDB® major versions.
 
 **Usage:**
 
