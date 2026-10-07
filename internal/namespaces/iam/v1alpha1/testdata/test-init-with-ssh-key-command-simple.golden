@@ -1,3 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
--
+✅ Key ~/.ssh/id_ed25519.pub successfully added.
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "message": "Key ~/.ssh/id_ed25519.pub successfully added",
+  "details": ""
+}

@@ -49,7 +49,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp"
 	messageq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/messageq/v1alpha1"
 	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
-	mongodb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mongodb/v1alpha1"
+	mongodb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mongodb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/partner/v1"
 	product_catalog "github.com/scaleway/scaleway-cli/v2/internal/namespaces/product_catalog/v2alpha1"
