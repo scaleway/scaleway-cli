@@ -2,8 +2,8 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Two node type ranges are available:
 
-* **Cost-Optimized:** a complete and highly reliable node range with shared resources that is made for scaling from development to production needs, at affordable prices.
-* **Production-Optimized:** database nodes with dedicated vCPU for the most demanding workloads and mission-critical applications.
+* **Shared vCPU:** a complete and highly reliable node range with shared resources that is made for scaling from development to production needs, at affordable prices.
+* **Dedicated vCPU:** database nodes with dedicated vCPU for the most demanding workloads and mission-critical applications.
 
 USAGE:
   scw mongodb node-type <command>

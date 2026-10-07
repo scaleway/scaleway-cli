@@ -9,7 +9,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
-	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1alpha1"
+	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -53,10 +53,10 @@ var instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
 }
 
 func instanceCreateBuilder(c *core.Command) *core.Command {
-	c.ArgSpecs.GetByName("node-number").Default = core.DefaultValueSetter("1")
+	c.ArgSpecs.GetByName("node-amount").Default = core.DefaultValueSetter("1")
 	c.ArgSpecs.GetByName("version").Default = fetchLatestEngine
-	c.ArgSpecs.GetByName("volume.volume-size").Default = core.DefaultValueSetter("5GB")
-	c.ArgSpecs.GetByName("volume.volume-type").Default = core.DefaultValueSetter("sbs_5k")
+	c.ArgSpecs.GetByName("volume.size-bytes").Default = core.DefaultValueSetter("5GB")
+	c.ArgSpecs.GetByName("volume.type").Default = core.DefaultValueSetter("sbs_5k")
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
@@ -156,7 +156,7 @@ func instanceWaitCommand() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
+			core.RegionArgSpec(scw.RegionFrPar),
 			core.WaitTimeoutArgSpec(instanceActionTimeout),
 		},
 		Examples: []*core.Example{

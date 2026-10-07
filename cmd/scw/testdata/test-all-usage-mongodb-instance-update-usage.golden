@@ -6,10 +6,13 @@ USAGE:
   scw mongodb instance update <instance-id ...> [arg=value ...]
 
 ARGS:
-  instance-id       UUID of the Database Instance to update
-  [name]            Name of the Database Instance
-  [tags.{index}]    Tags of a Database Instance
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  instance-id                           UUID of the Database Instance to update
+  [name]                                Name of the Database Instance
+  [tags.{index}]                        Tags of a Database Instance
+  [snapshot-schedule-frequency-hours]   In hours
+  [snapshot-schedule-retention-days]    In days
+  [is-snapshot-schedule-enabled]        Defines whether or not the snapshot schedule is enabled
+  [region=fr-par]                       Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help                help for update
