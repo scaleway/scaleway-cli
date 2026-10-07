@@ -1,9 +1,11 @@
-package config
+package config_test
 
 import (
 	"os"
 	"path/filepath"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/config"
 )
 
 // TestTuiConfigRoundTrip verifies the tui section of cli.yaml is loaded
@@ -21,7 +23,7 @@ tui:
 	if err := os.WriteFile(path, []byte(content), 0o644); err != nil {
 		t.Fatal(err)
 	}
-	cfg, err := LoadConfig(path)
+	cfg, err := config.LoadConfig(path)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -38,7 +40,7 @@ tui:
 	if err := cfg.Save(); err != nil {
 		t.Fatal(err)
 	}
-	saved, err := LoadConfig(path)
+	saved, err := config.LoadConfig(path)
 	if err != nil {
 		t.Fatal(err)
 	}

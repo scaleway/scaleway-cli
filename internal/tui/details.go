@@ -64,9 +64,10 @@ func (d *Details) Hints() []string {
 	}
 }
 
-// Size implements Screen.
+// Size implements Screen. One line is reserved for the title
+// (the browsed object name).
 func (d *Details) Size(width, height int) {
-	d.width, d.height = width, height
+	d.width, d.height = width, max(1, height-1)
 }
 
 // Init implements Screen.
@@ -133,15 +134,17 @@ func (d *Details) SearchAndCopy(query string) tea.Cmd {
 	return d.copyMatch()
 }
 
-// View implements Screen.
+// View implements Screen. The first line is the browsed object name
+// (k9s title bar), above the attributes.
 func (d *Details) View() string {
 	if d.width <= 0 {
 		return ""
 	}
+	title := titleStyle.Render(truncate(d.title, d.width))
 
 	if len(d.lines) == 0 {
-		lines := []string{dimStyle.Render("no data")}
-		for len(lines) < d.height {
+		lines := []string{title, dimStyle.Render("no data")}
+		for len(lines) < d.height+1 {
 			lines = append(lines, "")
 		}
 
@@ -158,7 +161,9 @@ func (d *Details) View() string {
 			keyW = len(k)
 		}
 	}
-	keyW = min(keyW, 32)
+	// Show the full attribute name as long as there is space, keeping
+	// a minimum width for the value column.
+	keyW = min(keyW, max(20, d.width-cursorGutter-2-10))
 	valueW := d.width - cursorGutter - keyW - 2
 	out := make([]string, 0, d.height)
 	for i, l := range visible {
@@ -180,7 +185,7 @@ func (d *Details) View() string {
 		out = append(out, "")
 	}
 
-	return strings.Join(out, "\n")
+	return title + "\n" + strings.Join(out, "\n")
 }
 
 // copyMatch selects the current match and returns a cmd copying its

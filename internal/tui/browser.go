@@ -67,10 +67,11 @@ func (b *Browser) Hints() []string {
 	}
 }
 
-// Size implements Screen. The browser reserves one line for its status.
+// Size implements Screen. The browser reserves one line each for its
+// title (the resource name) and its status line.
 func (b *Browser) Size(width, height int) {
 	b.table.Width = width
-	b.table.Height = max(1, height-1)
+	b.table.Height = max(1, height-2)
 }
 
 // Table returns the underlying table (used by the app to apply filters).
@@ -123,9 +124,12 @@ func (b *Browser) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return b, nil
 }
 
-// View implements Screen.
+// View implements Screen. The first line is the browsed resource name
+// (k9s title bar), above the table columns.
 func (b *Browser) View() string {
-	return b.table.View() + "\n" + b.statusLine()
+	return titleStyle.Render(
+		truncate(b.res.Title, b.table.Width),
+	) + "\n" + b.table.View() + "\n" + b.statusLine()
 }
 
 // ponytail: no in-flight guard (k9s has an atomic one); a double fetch

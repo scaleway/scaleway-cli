@@ -119,6 +119,44 @@ func TestDetailsLines(t *testing.T) {
 	}
 }
 
+// TestDetailsViewTitle verifies the details view leads with the
+// browsed object name (title line) and sizes the body below it.
+func TestDetailsViewTitle(t *testing.T) {
+	d := NewDetails("instance server:abcd1234", struct {
+		Name string
+	}{Name: "foo"}, nil)
+	d.Size(80, 10)
+	if d.height != 9 { // 10 - title line
+		t.Fatalf("height = %d, want 9", d.height)
+	}
+	plain := ansiRe.ReplaceAllString(d.View(), "")
+	if !strings.HasPrefix(plain, "instance server:abcd1234") {
+		t.Fatalf("view should lead with the object title, got:\n%s", plain)
+	}
+}
+
+// TestDetailsLongKeyFits verifies a long attribute name is shown in
+// full when the view is wide enough, and truncated when it is not.
+func TestDetailsLongKeyFits(t *testing.T) {
+	longKey := "container_spec.container_image.reference.digest" // 46 chars
+	d := NewDetails("t", struct {
+		A int
+	}{A: 1}, nil)
+	d.lines = append(d.lines, longKey+"\tsome-value")
+
+	d.Size(120, 10)
+	plain := ansiRe.ReplaceAllString(d.View(), "")
+	if !strings.Contains(plain, longKey) {
+		t.Fatalf("long key should fit in full, got:\n%s", plain)
+	}
+
+	d.Size(40, 10)
+	plain = ansiRe.ReplaceAllString(d.View(), "")
+	if strings.Contains(plain, longKey) {
+		t.Fatalf("long key must be truncated without space, got:\n%s", plain)
+	}
+}
+
 // TestDetailsSearchAndCopy verifies the / attribute search: it selects
 // the matching attribute and yields a copyMsg with its value.
 func TestDetailsSearchAndCopy(t *testing.T) {
@@ -365,6 +403,21 @@ func TestAppMenuCapturesShortcutKeys(t *testing.T) {
 	}
 	if len(a.stack) != 1 {
 		t.Fatalf("stack len = %d, want 1", len(a.stack))
+	}
+}
+
+// TestBrowserViewTitle verifies the browser leads with the browsed
+// resource name (title line) and sizes the table below it.
+func TestBrowserViewTitle(t *testing.T) {
+	res := &Resource{Name: "instance server", Title: "instance server"}
+	b := NewBrowser(res, nil)
+	b.Size(80, 10)
+	if b.table.Height != 8 { // 10 - title line - status line
+		t.Fatalf("table height = %d, want 8", b.table.Height)
+	}
+	plain := ansiRe.ReplaceAllString(b.View(), "")
+	if !strings.HasPrefix(plain, "instance server") {
+		t.Fatalf("view should lead with the resource title, got:\n%s", plain)
 	}
 }
 

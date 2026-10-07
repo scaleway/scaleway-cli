@@ -163,7 +163,11 @@ func TestResourcesFromCommands(t *testing.T) {
 		Namespace: "tui", Resource: "server", Verb: "get",
 		Run: func(ctx context.Context, argsI any) (any, error) { return nil, nil },
 	}
-	res := ResourcesFromCommands([]*core.Command{first, second, other}, nil, NewLocality("fr-par-1"))
+	res := ResourcesFromCommands(
+		[]*core.Command{first, second, other},
+		nil,
+		NewLocality("fr-par-1"),
+	)
 	if len(res) != 1 {
 		t.Fatalf("resources = %d, want 1", len(res))
 	}
