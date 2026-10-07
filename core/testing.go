@@ -329,6 +329,7 @@ var foldersUsingVCRv4 = []string{
 	"core",
 	"internal/e2e",
 	"internal/namespaces/alias",
+	"internal/namespaces/applesilicon/v1alpha1",
 	"internal/namespaces/container/v1",
 	"internal/namespaces/instance/v1",
 	"internal/namespaces/instance/v2alpha1",
