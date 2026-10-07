@@ -4,22 +4,12 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"os/exec"
 	"reflect"
-	"strconv"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/ssh"
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
-
-type serverSSHConnectRequest struct {
-	Zone     scw.Zone
-	ServerID string
-	Username string
-	Port     uint
-	Command  string
-}
 
 func serverSSHCommand() *core.Command {
 	return &core.Command{
@@ -29,7 +19,7 @@ func serverSSHCommand() *core.Command {
 		Verb:      "ssh",
 		Resource:  "server",
 		Groups:    []string{"utility"},
-		ArgsType:  reflect.TypeFor[serverSSHConnectRequest](),
+		ArgsType:  reflect.TypeFor[ssh.Request](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -59,7 +49,7 @@ func serverSSHCommand() *core.Command {
 }
 
 func serverSSHRun(ctx context.Context, argsI any) (i any, e error) {
-	args := argsI.(*serverSSHConnectRequest)
+	args := argsI.(*ssh.Request)
 
 	client := core.ExtractClient(ctx)
 	asAPI := applesilicon.NewAPI(client)
@@ -78,25 +68,5 @@ func serverSSHRun(ctx context.Context, argsI any) (i any, e error) {
 		}
 	}
 
-	sshArgs := []string{
-		serverResp.IP.String(),
-		"-p", strconv.FormatUint(uint64(args.Port), 10),
-		"-l", args.Username,
-		"-t",
-	}
-	if args.Command != "" {
-		sshArgs = append(sshArgs, args.Command)
-	}
-
-	sshCmd := exec.Command("ssh", sshArgs...)
-
-	exitCode, err := core.ExecCmd(ctx, sshCmd)
-	if err != nil {
-		return nil, err
-	}
-	if exitCode != 0 {
-		return nil, &core.CliError{Empty: true, Code: exitCode}
-	}
-
-	return &core.SuccessResult{Empty: true}, nil
+	return ssh.Connect(ctx, *args, serverResp.IP.String())
 }
