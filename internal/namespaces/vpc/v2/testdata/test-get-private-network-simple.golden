@@ -1,87 +1,87 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                              213a94c0-c3e3-450f-9f71-2a1c9bbe27dd
-Srn                             srn://vpc.scw.eu/regions/fr-par/private-networks/213a94c0-c3e3-450f-9f71-2a1c9bbe27dd
-Name                            cli-pn-vigorous-hamilton
-OrganizationID                  4d333544-41be-4b0b-8907-0b9036859747
-ProjectID                       4d333544-41be-4b0b-8907-0b9036859747
+ID                              b63506e3-eece-4d83-a17e-1357ec47eb28
+Srn                             srn://vpc.scw.eu/regions/fr-par/private-networks/b63506e3-eece-4d83-a17e-1357ec47eb28
+Name                            cli-pn-affectionate-hermann
+OrganizationID                  5ebc0159-7cb7-406c-9521-9347d1987fb2
+ProjectID                       5ebc0159-7cb7-406c-9521-9347d1987fb2
 Region                          fr-par
 CreatedAt                       few seconds ago
 UpdatedAt                       few seconds ago
-VpcID                           3a436539-0369-429e-95b4-c38683bcac76
+VpcID                           23270651-dde6-4327-97d2-555da5222ae3
 DHCPEnabled                     true
 DefaultRoutePropagationEnabled  false
 HasObjectStoragePrivateAccess   false
 
 Subnets:
-ID                                    SRN  CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID                                REGION
-79c51d80-4411-41a1-bae3-793324998a13  -    few seconds ago  few seconds ago  172.16.16.0/22            4d333544-41be-4b0b-8907-0b9036859747  213a94c0-c3e3-450f-9f71-2a1c9bbe27dd  3a436539-0369-429e-95b4-c38683bcac76  fr-par
-bf07aee5-13fb-4779-8169-2386e4bb667e  -    few seconds ago  few seconds ago  fd6d:9b51:d4ce:4bce::/64  4d333544-41be-4b0b-8907-0b9036859747  213a94c0-c3e3-450f-9f71-2a1c9bbe27dd  3a436539-0369-429e-95b4-c38683bcac76  fr-par
+ID                                    SRN                                                                           CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID                                REGION
+131d631c-9a35-4c59-8851-34b3a1ea6b59  srn://vpc.scw.eu/regions/fr-par/subnets/131d631c-9a35-4c59-8851-34b3a1ea6b59  few seconds ago  few seconds ago  172.16.20.0/22            5ebc0159-7cb7-406c-9521-9347d1987fb2  b63506e3-eece-4d83-a17e-1357ec47eb28  23270651-dde6-4327-97d2-555da5222ae3  fr-par
+817fcfb9-1a00-4b6d-ba4f-1597172def7b  srn://vpc.scw.eu/regions/fr-par/subnets/817fcfb9-1a00-4b6d-ba4f-1597172def7b  few seconds ago  few seconds ago  fdcd:e4f1:8712:2254::/64  5ebc0159-7cb7-406c-9521-9347d1987fb2  b63506e3-eece-4d83-a17e-1357ec47eb28  23270651-dde6-4327-97d2-555da5222ae3  fr-par
 
 Instance Servers:
-ID                                    NAME                    STATE     NIC ID                                MAC ADDRESS
-99d8b617-f9b7-4348-bcd9-65a6d8187943  cli-srv-cranky-davinci  archived  753bfe83-e937-42e8-8997-c809c44a4a6e  02:00:00:1a:6d:be
+ID                                    NAME                     STATE     NIC ID                                MAC ADDRESS
+a884b4b8-cc62-4f59-88e8-8ee786fd03d8  cli-srv-vibrant-lumiere  archived  e41374a5-d381-4fa4-8aaa-2a4c072e1e63  02:00:00:1f:77:87
 
 IPAM IPs:
 ID                                    ADDRESS
-83db52f1-bfe0-4bcb-87bd-f8990bbb96d1  fd6d:9b51:d4ce:4bce:f925:dbff:1d36:75f8/64
-aafa2ba2-8333-4073-a978-bdfd510aa542  172.16.16.2/22
+bbf74999-fe26-4140-8b13-d90539c041cd  fdcd:e4f1:8712:2254:aef6:deb0:9ecd:53a4/64
+cf0853f2-9732-4975-a881-dce99b268a2b  172.16.20.2/22
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "213a94c0-c3e3-450f-9f71-2a1c9bbe27dd",
-  "srn": "srn://vpc.scw.eu/regions/fr-par/private-networks/213a94c0-c3e3-450f-9f71-2a1c9bbe27dd",
-  "name": "cli-pn-vigorous-hamilton",
-  "organization_id": "4d333544-41be-4b0b-8907-0b9036859747",
-  "project_id": "4d333544-41be-4b0b-8907-0b9036859747",
+  "id": "b63506e3-eece-4d83-a17e-1357ec47eb28",
+  "srn": "srn://vpc.scw.eu/regions/fr-par/private-networks/b63506e3-eece-4d83-a17e-1357ec47eb28",
+  "name": "cli-pn-affectionate-hermann",
+  "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+  "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
   "region": "fr-par",
   "tags": [],
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "79c51d80-4411-41a1-bae3-793324998a13",
-      "srn": "",
+      "id": "131d631c-9a35-4c59-8851-34b3a1ea6b59",
+      "srn": "srn://vpc.scw.eu/regions/fr-par/subnets/131d631c-9a35-4c59-8851-34b3a1ea6b59",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.16.0/22",
-      "project_id": "4d333544-41be-4b0b-8907-0b9036859747",
-      "private_network_id": "213a94c0-c3e3-450f-9f71-2a1c9bbe27dd",
-      "vpc_id": "3a436539-0369-429e-95b4-c38683bcac76",
+      "subnet": "172.16.20.0/22",
+      "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+      "private_network_id": "b63506e3-eece-4d83-a17e-1357ec47eb28",
+      "vpc_id": "23270651-dde6-4327-97d2-555da5222ae3",
       "region": "fr-par"
     },
     {
-      "id": "bf07aee5-13fb-4779-8169-2386e4bb667e",
-      "srn": "",
+      "id": "817fcfb9-1a00-4b6d-ba4f-1597172def7b",
+      "srn": "srn://vpc.scw.eu/regions/fr-par/subnets/817fcfb9-1a00-4b6d-ba4f-1597172def7b",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd6d:9b51:d4ce:4bce::/64",
-      "project_id": "4d333544-41be-4b0b-8907-0b9036859747",
-      "private_network_id": "213a94c0-c3e3-450f-9f71-2a1c9bbe27dd",
-      "vpc_id": "3a436539-0369-429e-95b4-c38683bcac76",
+      "subnet": "fdcd:e4f1:8712:2254::/64",
+      "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+      "private_network_id": "b63506e3-eece-4d83-a17e-1357ec47eb28",
+      "vpc_id": "23270651-dde6-4327-97d2-555da5222ae3",
       "region": "fr-par"
     }
   ],
-  "vpc_id": "3a436539-0369-429e-95b4-c38683bcac76",
+  "vpc_id": "23270651-dde6-4327-97d2-555da5222ae3",
   "dhcp_enabled": true,
   "default_route_propagation_enabled": false,
   "has_object_storage_private_access": false,
   "instance_servers": [
     {
-      "id": "99d8b617-f9b7-4348-bcd9-65a6d8187943",
-      "name": "cli-srv-cranky-davinci",
+      "id": "a884b4b8-cc62-4f59-88e8-8ee786fd03d8",
+      "name": "cli-srv-vibrant-lumiere",
       "state": "stopped",
-      "nic_id": "753bfe83-e937-42e8-8997-c809c44a4a6e",
-      "mac": "02:00:00:1a:6d:be"
+      "nic_id": "e41374a5-d381-4fa4-8aaa-2a4c072e1e63",
+      "mac": "02:00:00:1f:77:87"
     }
   ],
   "ipam_ips": [
     {
-      "id": "83db52f1-bfe0-4bcb-87bd-f8990bbb96d1",
-      "address": "fd6d:9b51:d4ce:4bce:f925:dbff:1d36:75f8/64"
+      "id": "bbf74999-fe26-4140-8b13-d90539c041cd",
+      "address": "fdcd:e4f1:8712:2254:aef6:deb0:9ecd:53a4/64"
     },
     {
-      "id": "aafa2ba2-8333-4073-a978-bdfd510aa542",
-      "address": "172.16.16.2/22"
+      "id": "cf0853f2-9732-4975-a881-dce99b268a2b",
+      "address": "172.16.20.2/22"
     }
   ]
 }

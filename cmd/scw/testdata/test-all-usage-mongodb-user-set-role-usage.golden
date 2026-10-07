@@ -6,12 +6,12 @@ USAGE:
   scw mongodb user set-role [arg=value ...]
 
 ARGS:
-  instance-id                    UUID of the Database Instance the user belongs to
-  [user-name]                    Name of the database user
-  [roles.{index}.role]           Name of the preset role (unknown_role | read | read_write | db_admin | sync)
-  [roles.{index}.database]       Name of the database on which the preset role will be used
-  [roles.{index}.any-database]   Flag to enable the preset role in all databases
-  [region=fr-par]                Region to target. If none is passed will use default region from the config (fr-par)
+  instance-id                     UUID of the Database Instance the user belongs to
+  [user-name]                     Name of the database user
+  [roles.{index}.role]            Name of the preset role (unknown_role | read | read_write | db_admin | sync)
+  [roles.{index}.database-name]   Name of the database on which the preset role will be used
+  [roles.{index}.any-database]    Flag to enable the preset role in all databases
+  [region=fr-par]                 Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help                help for set-role

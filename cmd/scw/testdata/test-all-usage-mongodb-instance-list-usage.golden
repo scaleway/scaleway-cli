@@ -9,7 +9,8 @@ ARGS:
   [tags.{index}]      List Database Instances that have a given tag
   [name]              Lists Database Instances that match a name pattern
   [order-by]          Criteria to use when ordering Database Instance listings (created_at_asc | created_at_desc | name_asc | name_desc | status_asc | status_desc)
-  [project-id]        Project ID
+  [project-id]        Project ID to list the instances of
+  [has-maintenance]   Retrieve pending maintenances for the database instances if given
   [organization-id]   Organization ID of the Database Instance
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | all)
 
