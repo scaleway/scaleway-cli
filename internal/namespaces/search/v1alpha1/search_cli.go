@@ -113,7 +113,7 @@ func searchResourceSearch() *core.Command {
 					"serverless_job_definition",
 					"serverless_sqldb_database",
 					"serverless_sqldb_backup",
-					"ddl_datalab",
+					"datalab",
 					"mgdb_instance",
 					"mgdb_snapshot",
 					"ifr_deployment",
