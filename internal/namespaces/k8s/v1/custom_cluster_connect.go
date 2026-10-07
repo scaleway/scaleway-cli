@@ -56,10 +56,7 @@ The command checks that k9s is installed, downloads the cluster kubeconfig to a 
 				return nil, err
 			}
 
-			kubeconfig, ok := kubeconfigRes.(string)
-			if !ok {
-				return nil, errors.New("unexpected kubeconfig result")
-			}
+			kubeconfig := kubeconfigRes.(string)
 
 			// The kubeconfig contains secrets, keep it 0600 and clean it up on exit
 			kubeconfigFile, err := os.CreateTemp("", "scw-k9s-kubeconfig-*.yaml")
