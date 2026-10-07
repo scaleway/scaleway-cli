@@ -63,6 +63,7 @@ import (
 	serverless_sqldb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/serverless_sqldb/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/shell"
 	tem "github.com/scaleway/scaleway-cli/v2/internal/namespaces/tem/v1alpha1"
+	tuiNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/tui"
 	versionNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/version"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v2"
@@ -111,6 +112,7 @@ func GetCommands(ctx context.Context) *core.Commands {
 		secret.GetCommands(),
 		keymanager.GetCommands(),
 		shell.GetCommands(),
+		tuiNamespace.GetCommands(),
 		tem.GetCommands(),
 		alias.GetCommands(),
 		webhosting.GetCommands(),

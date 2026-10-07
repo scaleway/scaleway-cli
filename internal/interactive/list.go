@@ -31,21 +31,27 @@ func (m *ListPrompt) Init() tea.Cmd {
 func (m *ListPrompt) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	if msg, ok := msg.(tea.KeyMsg); ok {
 		// Key is pressed
-		switch msg.String() {
-		case "ctrl+c", "q":
+		switch msg.Type {
+		case tea.KeyCtrlC:
 			m.cancelled = true
 
 			return m, tea.Quit
-		case "up", "k":
+		case tea.KeyUp:
 			if m.cursor > 0 {
 				m.cursor--
 			}
-		case "down", "j":
+		case tea.KeyDown:
 			if m.cursor < len(m.Choices)-1 {
 				m.cursor++
 			}
-		case "enter", " ":
+		case tea.KeyEnter, tea.KeySpace:
 			return m, tea.Quit
+		case tea.KeyRunes:
+			if string(msg.Runes) == "q" {
+				m.cancelled = true
+
+				return m, tea.Quit
+			}
 		}
 	}
 

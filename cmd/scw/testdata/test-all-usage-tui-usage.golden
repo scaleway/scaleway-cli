@@ -1,0 +1,35 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Launch the interactive TUI to browse and monitor Scaleway resources.
+
+Change the session zone, region, profile or project at any time:
+    ctrl+z  pick the zone
+    ctrl+r  pick the region
+    ctrl+p  pick the profile
+    ctrl+e  pick the project
+The choice applies to the current session only (not persisted).
+
+Keybindings and the : commands can be customized in the tui section of the CLI config file (cli.yaml):
+
+    tui:
+        keybindings:
+            refresh: R
+        commands:
+            mydb: rdb instance
+
+USAGE:
+  scw tui [arg=value ...]
+
+ARGS:
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
+
+FLAGS:
+  -h, --help                help for tui
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
