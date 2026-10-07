@@ -336,6 +336,7 @@ var foldersUsingVCRv4 = []string{
 	"internal/namesapces/config",
 	"internal/namespaces/container/v1",
 	"internal/namespaces/feedback",
+	"internal/namespaces/flexibleip/v1alpha1",
 	"internal/namespaces/instance/v1",
 	"internal/namespaces/instance/v2alpha1",
 	"internal/namespaces/k8s/v1",
