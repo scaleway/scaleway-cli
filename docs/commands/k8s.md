@@ -99,6 +99,42 @@ A cluster is a fully managed Kubernetes cluster
 It is composed of different pools, each pool containing the same kind of nodes.
 
 
+### Connect to a cluster using k9s
+
+Connect to a Kubernetes Kapsule cluster using the locally installed k9s.
+The command checks that k9s is installed, downloads the cluster kubeconfig to a temporary file and opens k9s against it.
+
+**Usage:**
+
+```shell
+scw k8s cluster connect <cluster-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| cluster-id | Cluster ID to connect to                                                    | Required                |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+**Examples:**
+
+
+Connect to a cluster with k9s
+```shell
+scw k8s cluster connect 11111111-1111-1111-1111-111111111111
+```
+
+Connect to a cluster in a specific region with k9s
+```shell
+scw k8s cluster connect 11111111-1111-1111-1111-111111111111 region=fr-par
+```
+
+
+
+
 ### Create a new Cluster
 
 Create a new Kubernetes cluster in a Scaleway region.
