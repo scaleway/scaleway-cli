@@ -1,37 +1,34 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              bbdfbe8e-7891-4c87-b743-c4a78b1c6909
+ID              34a239b0-1191-4ffd-9666-973f5e07a224
 OrganizationID  de2b260d-2c2e-4be9-baa0-99d8ed17f1da
 ProjectID       de2b260d-2c2e-4be9-baa0-99d8ed17f1da
-Name            cli-bm-amazing-allen
+Name            cli-bm-busy-euler
 Description     -
 UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
 Status          ready
-OfferID         ddb09834-8680-4339-b5e3-19ca5205fa1f
-OfferName       EM-I215E-NVME
-Domain          bbdfbe8e-7891-4c87-b743-c4a78b1c6909.fr-par-2.baremetal.scw.cloud
+OfferID         7e81d4d4-a84b-4dd0-9f44-f0ac34a09e3a
+OfferName       EM-I210E-NVME
+Domain          34a239b0-1191-4ffd-9666-973f5e07a224.fr-par-2.baremetal.scw.cloud
 BootType        normal
 Zone            fr-par-2
-PingStatus      unknown
+PingStatus      up
 Protected       false
 
 IPs:
 ID                                    ADDRESS                                REVERSE  VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
-46e5a550-6831-467c-a89d-ac3d02f5b4c5  195.154.100.3                          -        IPv4     unknown         -
-e569ea92-b2ec-4ba4-89bd-539b23f4e407  2001:bc8:1201:a17:b683:51ff:fe0f:6b60  -        IPv6     unknown         -
+43d3e95f-37de-497c-9da4-91508da4f7cb  2001:bc8:1201:51c:b683:51ff:fe06:71c4  -        IPv6     unknown         -
+fdfd7dbf-9020-4433-8545-f41f631e69c4  51.158.55.166                          -        IPv4     unknown         -
 
 Options:
 ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
 
 Install:
-OsID                                                          03b7f4ba-a6a1-4305-984e-b54fafbf1681
+OsID                                                          b9a016fc-947f-4bbc-bf95-343c8524535a
 Hostname                                                      test-install-server
-SSHKeyIDs.0                                                   dc4b4779-eb79-42d2-9dbf-5ff82b304902
-SSHKeyIDs.1                                                   af9c5571-17c3-42be-856e-dcd1bccfe3fe
-SSHKeyIDs.2                                                   fd8e412d-b048-4f5f-9c2d-bd2bcf88f485
-SSHKeyIDs.3                                                   bfa9ba43-9980-4140-8728-9ff47dcd039b
-SSHKeyIDs.4                                                   5154b21a-5581-4acd-84bc-60815e86da9c
+SSHKeyIDs.0                                                   f191a0b4-9b78-4eec-84c9-c465ba1fae9d
+SSHKeyIDs.1                                                   ff078044-5e26-4b7b-a3d9-98bfea5b6568
 Status                                                        completed
 User                                                          ubuntu
 ServiceUser                                                   -
@@ -85,47 +82,44 @@ PartitioningSchema.Filesystems.2.Format                       ext4
 PartitioningSchema.Filesystems.2.Mountpoint                   /
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "bbdfbe8e-7891-4c87-b743-c4a78b1c6909",
+  "id": "34a239b0-1191-4ffd-9666-973f5e07a224",
   "organization_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
   "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
-  "name": "cli-bm-amazing-allen",
+  "name": "cli-bm-busy-euler",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
   "status": "ready",
-  "offer_id": "ddb09834-8680-4339-b5e3-19ca5205fa1f",
-  "offer_name": "EM-I215E-NVME",
+  "offer_id": "7e81d4d4-a84b-4dd0-9f44-f0ac34a09e3a",
+  "offer_name": "EM-I210E-NVME",
   "tags": [],
   "ips": [
     {
-      "id": "46e5a550-6831-467c-a89d-ac3d02f5b4c5",
-      "address": "195.154.100.3",
-      "reverse": "",
-      "version": "IPv4",
-      "reverse_status": "unknown",
-      "reverse_status_message": ""
-    },
-    {
-      "id": "e569ea92-b2ec-4ba4-89bd-539b23f4e407",
-      "address": "2001:bc8:1201:a17:b683:51ff:fe0f:6b60",
+      "id": "43d3e95f-37de-497c-9da4-91508da4f7cb",
+      "address": "2001:bc8:1201:51c:b683:51ff:fe06:71c4",
       "reverse": "",
       "version": "IPv6",
       "reverse_status": "unknown",
       "reverse_status_message": ""
+    },
+    {
+      "id": "fdfd7dbf-9020-4433-8545-f41f631e69c4",
+      "address": "51.158.55.166",
+      "reverse": "",
+      "version": "IPv4",
+      "reverse_status": "unknown",
+      "reverse_status_message": ""
     }
   ],
-  "domain": "bbdfbe8e-7891-4c87-b743-c4a78b1c6909.fr-par-2.baremetal.scw.cloud",
+  "domain": "34a239b0-1191-4ffd-9666-973f5e07a224.fr-par-2.baremetal.scw.cloud",
   "boot_type": "normal",
   "zone": "fr-par-2",
   "install": {
-    "os_id": "03b7f4ba-a6a1-4305-984e-b54fafbf1681",
+    "os_id": "b9a016fc-947f-4bbc-bf95-343c8524535a",
     "hostname": "test-install-server",
     "ssh_key_ids": [
-      "dc4b4779-eb79-42d2-9dbf-5ff82b304902",
-      "af9c5571-17c3-42be-856e-dcd1bccfe3fe",
-      "fd8e412d-b048-4f5f-9c2d-bd2bcf88f485",
-      "bfa9ba43-9980-4140-8728-9ff47dcd039b",
-      "5154b21a-5581-4acd-84bc-60815e86da9c"
+      "f191a0b4-9b78-4eec-84c9-c465ba1fae9d",
+      "ff078044-5e26-4b7b-a3d9-98bfea5b6568"
     ],
     "status": "completed",
     "user": "ubuntu",
@@ -226,7 +220,7 @@ PartitioningSchema.Filesystems.2.Mountpoint                   /
       }
     }
   },
-  "ping_status": "ping_status_unknown",
+  "ping_status": "ping_status_up",
   "options": [],
   "rescue_server": null,
   "protected": false,
