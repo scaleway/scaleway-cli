@@ -320,6 +320,16 @@ func autoCompleteNodeType(
 	return completeNodeTypes(ctx, req.Zone, prefix)
 }
 
+func createRequestZone(req *redisCreateClusterRequestCustom) scw.Zone {
+	// The embedded *redis.CreateClusterRequest is nil during shell completion
+	// (reflect.New leaves it unallocated), so guard before promoting .Zone.
+	if req.CreateClusterRequest == nil {
+		return ""
+	}
+
+	return req.CreateClusterRequest.Zone
+}
+
 func autoCompleteCreateNodeType(
 	ctx context.Context,
 	prefix string,
@@ -327,7 +337,7 @@ func autoCompleteCreateNodeType(
 ) core.AutocompleteSuggestions {
 	req := request.(*redisCreateClusterRequestCustom)
 
-	return completeNodeTypes(ctx, req.Zone, prefix)
+	return completeNodeTypes(ctx, createRequestZone(req), prefix)
 }
 
 func completeNodeTypes(
@@ -338,20 +348,19 @@ func completeNodeTypes(
 	suggestions := core.AutocompleteSuggestions(nil)
 	client := core.ExtractClient(ctx)
 	api := redis.NewAPI(client)
-	if zone != "" {
-		if completeRedisNoteTypeCache == nil {
-			res, err := api.ListNodeTypes(&redis.ListNodeTypesRequest{
-				Zone: zone,
-			})
-			if err != nil {
-				return nil
-			}
-			completeRedisNoteTypeCache = res
+
+	if completeRedisNoteTypeCache == nil {
+		res, err := api.ListNodeTypes(&redis.ListNodeTypesRequest{
+			Zone: zone,
+		})
+		if err != nil {
+			return nil
 		}
-		for _, nodeType := range completeRedisNoteTypeCache.NodeTypes {
-			if strings.HasPrefix(nodeType.Name, prefix) {
-				suggestions = append(suggestions, nodeType.Name)
-			}
+		completeRedisNoteTypeCache = res
+	}
+	for _, nodeType := range completeRedisNoteTypeCache.NodeTypes {
+		if strings.HasPrefix(nodeType.Name, prefix) {
+			suggestions = append(suggestions, nodeType.Name)
 		}
 	}
 
@@ -366,15 +375,15 @@ func autoCompleteRedisVersion(
 	prefix string,
 	request any,
 ) core.AutocompleteSuggestions {
-	req := request.(*redisCreateClusterRequestCustom)
 	suggestions := core.AutocompleteSuggestions(nil)
+	zone := createRequestZone(request.(*redisCreateClusterRequestCustom))
 
 	client := core.ExtractClient(ctx)
 	api := redis.NewAPI(client)
 
 	if completeRedisVersionCache == nil {
 		res, err := api.ListClusterVersions(&redis.ListClusterVersionsRequest{
-			Zone: req.Zone,
+			Zone: zone,
 		})
 		if err != nil {
 			return nil
