@@ -54,6 +54,46 @@ scw mongodb endpoint delete <endpoint-id ...> [arg=value ...]
 A Managed MongoDB® Database Instance is composed of one or multiple dedicated compute nodes running a single database engine.
 
 
+### Connect to an instance using locally installed mongosh
+
+Connect to an instance using locally installed mongosh. The command verifies mongosh is installed, downloads the CA certificate for TLS, and lets mongosh prompt for the password.
+
+**Usage:**
+
+```shell
+scw mongodb instance connect <instance-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name            | Description                                                                 | Argument Specifications                 |
+|-----------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| private-network | Connect by the private network endpoint attached.                           | Default: `false`                        |
+| instance-id     | UUID of the instance                                                        | Required                                |
+| username        | Name of the user to connect with to the database                            | Required                                |
+| database        | Name of the database to connect to                                          | Default: `admin`                        |
+| cli-mongo       | Command line tool to use, defaults to mongosh                               |                                         |
+| cli-args        | Additional arguments to pass to mongosh                                     |                                         |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+
+
+**Examples:**
+
+
+Connect to an instance
+```shell
+scw mongodb instance connect 11111111-1111-1111-1111-111111111111 --username=admin
+```
+
+Connect to an instance via private network
+```shell
+scw mongodb instance connect 11111111-1111-1111-1111-111111111111 --username=admin --private-network=true --database=mydb
+```
+
+
+
+
 ### Create a MongoDB® Database Instance
 
 Create a new MongoDB® Database Instance.

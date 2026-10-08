@@ -28,6 +28,7 @@ func GetCommands() *core.Commands {
 
 	cmds.Merge(core.NewCommands(
 		instanceWaitCommand(),
+		instanceConnectCommand(),
 	))
 
 	return cmds
