@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID           79e54364-9013-427d-9e56-8085da929b70
+ID           945a253e-55de-4c30-b389-cc8747cdb430
 Name         1-ipam-1-static-priv-endpoints
-ProjectID    fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID    de2b260d-2c2e-4be9-baa0-99d8ed17f1da
 Status       ready
 Version      8.6.6
 NodeType     RED1-micro
@@ -12,27 +12,42 @@ TLSEnabled   false
 ClusterSize  1
 Zone         fr-par-1
 UserName     admin
-Srn          -
+Srn          srn://redis.scw.eu/zones/fr-par-1/clusters/945a253e-55de-4c30-b389-cc8747cdb430
 
 Endpoints:
 ID                                    Port  IPs
-0b9e8061-e10c-4fb8-815d-1dfd94bf2745  6379  [10.16.4.1]
-c0be2bbb-d4d6-4043-9aaa-f8a96e1685dc  6379  [172.16.228.2]
+595bc3a9-da3d-46ea-8f40-f8915e6ea907  6379  [172.16.16.2]
+bf610fa0-80a4-47d0-af4d-4220d73104c7  6379  [10.16.4.1]
 
 ACLRules:
 ID   IP CIDR  DESCRIPTION
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "79e54364-9013-427d-9e56-8085da929b70",
+  "id": "945a253e-55de-4c30-b389-cc8747cdb430",
   "name": "1-ipam-1-static-priv-endpoints",
-  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
   "status": "ready",
   "version": "8.6.6",
   "endpoints": [
     {
       "port": 6379,
       "private_network": {
-        "id": "72e054f3-77b4-4e65-b89d-7c955fe92d58",
+        "id": "57b5e2fc-394a-4d88-88f2-9f966bdf429e",
+        "service_ips": [
+          "172.16.16.2/22"
+        ],
+        "zone": "fr-par-1",
+        "provisioning_mode": "ipam"
+      },
+      "ips": [
+        "172.16.16.2"
+      ],
+      "id": "595bc3a9-da3d-46ea-8f40-f8915e6ea907"
+    },
+    {
+      "port": 6379,
+      "private_network": {
+        "id": "8882267f-c8f2-419d-a9b7-42a0d0bb49fa",
         "service_ips": [
           "10.16.4.1/22"
         ],
@@ -42,22 +57,7 @@ ID   IP CIDR  DESCRIPTION
       "ips": [
         "10.16.4.1"
       ],
-      "id": "0b9e8061-e10c-4fb8-815d-1dfd94bf2745"
-    },
-    {
-      "port": 6379,
-      "private_network": {
-        "id": "eacb55ae-6fce-4205-bce7-7dd55f710b11",
-        "service_ips": [
-          "172.16.228.2/22"
-        ],
-        "zone": "fr-par-1",
-        "provisioning_mode": "ipam"
-      },
-      "ips": [
-        "172.16.228.2"
-      ],
-      "id": "c0be2bbb-d4d6-4043-9aaa-f8a96e1685dc"
+      "id": "bf610fa0-80a4-47d0-af4d-4220d73104c7"
     }
   ],
   "tags": [],
@@ -71,5 +71,5 @@ ID   IP CIDR  DESCRIPTION
   "zone": "fr-par-1",
   "user_name": "admin",
   "upgradable_versions": [],
-  "srn": ""
+  "srn": "srn://redis.scw.eu/zones/fr-par-1/clusters/945a253e-55de-4c30-b389-cc8747cdb430"
 }
