@@ -329,7 +329,10 @@ var foldersUsingVCRv4 = []string{
 	"internal/namespaces/instance/v2alpha1",
 	"internal/namespaces/iot/v1",
 	"internal/namespaces/k8s/v1",
+	"internal/namespaces/lb/v1",
 	"internal/namespaces/marketplace/v2",
+	"internal/namespaces/mcp/server",
+	"internal/namespaces/mnq/v1beta1",
 }
 
 func folderUsesVCRv4(path string) bool {
