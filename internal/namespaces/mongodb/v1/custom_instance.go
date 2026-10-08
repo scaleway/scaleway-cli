@@ -2,6 +2,7 @@ package mongodb
 
 import (
 	"context"
+	"fmt"
 	"reflect"
 	"strings"
 	"time"
@@ -9,6 +10,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -58,6 +60,22 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("volume.size-bytes").Default = core.DefaultValueSetter("5GB")
 	c.ArgSpecs.GetByName("volume.type").Default = core.DefaultValueSetter("sbs_5k")
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
+	c.ArgSpecs.GetByName("password").Required = false
+
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
+		request := argsI.(*mongodb.CreateInstanceRequest)
+		if request.Password == "" {
+			password, err := passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
+			if err != nil {
+				return nil, err
+			}
+			request.Password = password
+			fmt.Printf("Your generated password is %s \n", password)
+			fmt.Printf("\n")
+		}
+
+		return runner(ctx, argsI)
+	}
 
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		getResp := respI.(*mongodb.Instance)

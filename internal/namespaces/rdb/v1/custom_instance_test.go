@@ -2,7 +2,6 @@ package rdb_test
 
 import (
 	"fmt"
-	"strings"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -67,8 +66,9 @@ func Test_CreateInstance(t *testing.T) {
 
 	t.Run("With password generator", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
+		// no password provided: one is generated
 		Cmd: fmt.Sprintf(
-			strings.Replace(baseCommand, "password=%s", "generate-password=true", 1),
+			"scw rdb instance create node-type=DB-DEV-S is-ha-cluster=false name=%s engine=%s user-name=%s --wait",
 			name,
 			engine,
 			user,
