@@ -17,6 +17,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -51,6 +52,8 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		Default:  core.DefaultValueSetter("false"),
 	})
 
+	c.ArgSpecs.GetByName("password").Required = false
+
 	c.ArgsType = reflect.TypeFor[redisCreateClusterRequestCustom]()
 
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
@@ -74,6 +77,16 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 
 		customRequest := argsI.(*redisCreateClusterRequestCustom)
 		createClusterRequest := customRequest.CreateClusterRequest
+
+		if createClusterRequest.Password == "" {
+			password, err := passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
+			if err != nil {
+				return nil, err
+			}
+			createClusterRequest.Password = password
+			fmt.Printf("Your generated password is %s \n", password)
+			fmt.Printf("\n")
+		}
 
 		if len(customRequest.Endpoints) == 0 {
 			createClusterRequest.Endpoints = append(
