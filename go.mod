@@ -22,6 +22,7 @@ require (
 	github.com/karrick/tparse/v2 v2.8.2
 	github.com/mattn/go-colorable v0.1.15
 	github.com/mattn/go-isatty v0.0.24
+	github.com/miekg/dns v1.1.73
 	github.com/moby/buildkit v0.33.0
 	github.com/moby/go-archive v0.3.3
 	github.com/moby/moby/api v1.56.0

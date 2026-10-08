@@ -10,6 +10,7 @@ AVAILABLE COMMANDS:
   bulk-update        Update records within a DNS zone
   clear              Clear records within a DNS zone
   delete             Delete a DNS record
+  import             Import many DNS records from a file
   list               List records within a DNS zone
   list-nameservers   List name servers within a DNS zone
   set                Update a DNS record
