@@ -17,6 +17,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/semver"
 	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -29,21 +30,21 @@ func redisClusterMigrateBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+type redisEndpointSpecPrivateNetworkSpecCustom struct {
+	*redis.EndpointSpecPrivateNetworkSpec
+	EnableIpam bool `json:"enable-ipam"`
+}
+
+type redisEndpointSpecCustom struct {
+	PrivateNetwork *redisEndpointSpecPrivateNetworkSpecCustom `json:"private-network"`
+}
+
+type redisCreateClusterRequestCustom struct {
+	*redis.CreateClusterRequest
+	Endpoints []*redisEndpointSpecCustom `json:"endpoints"`
+}
+
 func clusterCreateBuilder(c *core.Command) *core.Command {
-	type redisEndpointSpecPrivateNetworkSpecCustom struct {
-		*redis.EndpointSpecPrivateNetworkSpec
-		EnableIpam bool `json:"enable-ipam"`
-	}
-
-	type redisEndpointSpecCustom struct {
-		PrivateNetwork *redisEndpointSpecPrivateNetworkSpecCustom `json:"private-network"`
-	}
-
-	type redisCreateClusterRequestCustom struct {
-		*redis.CreateClusterRequest
-		Endpoints []*redisEndpointSpecCustom `json:"endpoints"`
-	}
-
 	c.ArgSpecs.AddBefore("endpoints.{index}.private-network.id", &core.ArgSpec{
 		Name:     "endpoints.{index}.private-network.enable-ipam",
 		Short:    "Will configure your Private Network endpoint with Scaleway IPAM service if true",
@@ -52,6 +53,10 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 	})
 
 	c.ArgsType = reflect.TypeFor[redisCreateClusterRequestCustom]()
+
+	c.ArgSpecs.GetByName("version").Default = core.DefaultValueSetter("latest")
+	c.ArgSpecs.GetByName("version").AutoCompleteFunc = autoCompleteRedisVersion
+	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteCreateNodeType
 
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := redis.NewAPI(core.ExtractClient(ctx))
@@ -74,6 +79,15 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 
 		customRequest := argsI.(*redisCreateClusterRequestCustom)
 		createClusterRequest := customRequest.CreateClusterRequest
+
+		// Handle default latest version for redis cluster
+		if createClusterRequest.Version == "latest" {
+			latestVersion, err := getLatestRedisVersion(client, createClusterRequest.Zone)
+			if err != nil {
+				return nil, err
+			}
+			createClusterRequest.Version = latestVersion
+		}
 
 		if len(customRequest.Endpoints) == 0 {
 			createClusterRequest.Endpoints = append(
@@ -301,28 +315,107 @@ func autoCompleteNodeType(
 	prefix string,
 	request any,
 ) core.AutocompleteSuggestions {
-	suggestions := core.AutocompleteSuggestions(nil)
 	req := request.(*redis.MigrateClusterRequest)
+
+	return completeNodeTypes(ctx, req.Zone, prefix)
+}
+
+func createRequestZone(req *redisCreateClusterRequestCustom) scw.Zone {
+	// The embedded *redis.CreateClusterRequest is nil during shell completion
+	// (reflect.New leaves it unallocated), so guard before promoting .Zone.
+	if req.CreateClusterRequest == nil {
+		return ""
+	}
+
+	return req.CreateClusterRequest.Zone
+}
+
+func autoCompleteCreateNodeType(
+	ctx context.Context,
+	prefix string,
+	request any,
+) core.AutocompleteSuggestions {
+	req := request.(*redisCreateClusterRequestCustom)
+
+	return completeNodeTypes(ctx, createRequestZone(req), prefix)
+}
+
+func completeNodeTypes(
+	ctx context.Context,
+	zone scw.Zone,
+	prefix string,
+) core.AutocompleteSuggestions {
+	suggestions := core.AutocompleteSuggestions(nil)
 	client := core.ExtractClient(ctx)
 	api := redis.NewAPI(client)
-	if req.Zone != "" {
-		if completeRedisNoteTypeCache == nil {
-			res, err := api.ListNodeTypes(&redis.ListNodeTypesRequest{
-				Zone: req.Zone,
-			})
-			if err != nil {
-				return nil
-			}
-			completeRedisNoteTypeCache = res
+
+	if completeRedisNoteTypeCache == nil {
+		res, err := api.ListNodeTypes(&redis.ListNodeTypesRequest{
+			Zone: zone,
+		})
+		if err != nil {
+			return nil
 		}
-		for _, nodeType := range completeRedisNoteTypeCache.NodeTypes {
-			if strings.HasPrefix(nodeType.Name, prefix) {
-				suggestions = append(suggestions, nodeType.Name)
-			}
+		completeRedisNoteTypeCache = res
+	}
+	for _, nodeType := range completeRedisNoteTypeCache.NodeTypes {
+		if strings.HasPrefix(nodeType.Name, prefix) {
+			suggestions = append(suggestions, nodeType.Name)
 		}
 	}
 
 	return suggestions
+}
+
+// Caching ListClusterVersions response for shell completion
+var completeRedisVersionCache *redis.ListClusterVersionsResponse
+
+func autoCompleteRedisVersion(
+	ctx context.Context,
+	prefix string,
+	request any,
+) core.AutocompleteSuggestions {
+	suggestions := core.AutocompleteSuggestions(nil)
+	zone := createRequestZone(request.(*redisCreateClusterRequestCustom))
+
+	client := core.ExtractClient(ctx)
+	api := redis.NewAPI(client)
+
+	if completeRedisVersionCache == nil {
+		res, err := api.ListClusterVersions(&redis.ListClusterVersionsRequest{
+			Zone: zone,
+		})
+		if err != nil {
+			return nil
+		}
+		completeRedisVersionCache = res
+	}
+
+	for _, v := range completeRedisVersionCache.Versions {
+		if strings.HasPrefix(v.Version, prefix) {
+			suggestions = append(suggestions, v.Version)
+		}
+	}
+
+	return suggestions
+}
+
+func getLatestRedisVersion(client *scw.Client, zone scw.Zone) (string, error) {
+	api := redis.NewAPI(client)
+	resp, err := api.ListClusterVersions(
+		&redis.ListClusterVersionsRequest{Zone: zone},
+		scw.WithAllPages(),
+	)
+	if err != nil {
+		return "", fmt.Errorf("could not get latest Redis version: %s", err)
+	}
+
+	versions := make([]string, 0, len(resp.Versions))
+	for _, v := range resp.Versions {
+		versions = append(versions, v.Version)
+	}
+
+	return semver.LatestVersion(versions)
 }
 
 type clusterConnectArgs struct {
