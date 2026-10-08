@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/hashicorp/go-version"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/semver"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -67,13 +67,10 @@ func getLatestK8SVersion(scwClient *scw.Client) (string, error) {
 		return "", fmt.Errorf("could not get latest K8S version: %s", err)
 	}
 
-	latestVersion, _ := version.NewVersion("0.0.0")
+	names := make([]string, 0, len(versions.Versions))
 	for _, v := range versions.Versions {
-		newVersion, _ := version.NewVersion(v.Name)
-		if newVersion.GreaterThan(latestVersion) {
-			latestVersion = newVersion
-		}
+		names = append(names, v.Name)
 	}
 
-	return latestVersion.String(), nil
+	return semver.LatestVersion(names)
 }

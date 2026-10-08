@@ -14,10 +14,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/go-version"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/semver"
 	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -410,27 +410,12 @@ func getLatestRedisVersion(client *scw.Client, zone scw.Zone) (string, error) {
 		return "", fmt.Errorf("could not get latest Redis version: %s", err)
 	}
 
-	return latestRedisVersion(resp.Versions)
-}
-
-func latestRedisVersion(versions []*redis.ClusterVersion) (string, error) {
-	latest, _ := version.NewVersion("0.0.0")
-	latestVersion := ""
-	for _, v := range versions {
-		parsed, err := version.NewVersion(v.Version)
-		if err != nil {
-			continue
-		}
-		if parsed.GreaterThan(latest) {
-			latest = parsed
-			latestVersion = v.Version
-		}
-	}
-	if latestVersion == "" {
-		return "", errors.New("no available Redis version found")
+	versions := make([]string, 0, len(resp.Versions))
+	for _, v := range resp.Versions {
+		versions = append(versions, v.Version)
 	}
 
-	return latestVersion, nil
+	return semver.LatestVersion(versions)
 }
 
 type clusterConnectArgs struct {
