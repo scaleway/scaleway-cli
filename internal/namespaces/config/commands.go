@@ -626,7 +626,9 @@ func configDestroyCommand() *core.Command {
 
 // configInfoCommand values from the scaleway config for the current profile
 func configInfoCommand() *core.Command {
-	type configInfoArgs struct{}
+	type configInfoArgs struct {
+		ShowSecret bool
+	}
 
 	return &core.Command{
 		Groups:               []string{"config"},
@@ -635,7 +637,14 @@ func configInfoCommand() *core.Command {
 		Resource:             "info",
 		AllowAnonymousClient: true,
 		ArgsType:             reflect.TypeFor[configInfoArgs](),
-		ArgSpecs:             core.ArgSpecs{},
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "show-secret",
+				Short:    `Reveal secret key`,
+				Required: false,
+				Default:  core.DefaultValueSetter("false"),
+			},
+		},
 		Examples: []*core.Example{
 			{
 				Short: "Get the default config values",
@@ -645,6 +654,10 @@ func configInfoCommand() *core.Command {
 				Short: "Get the config values of the profile 'prod'",
 				Raw:   "scw -p prod config info",
 			},
+			{
+				Short: "Get the config values, revealing the secret key",
+				Raw:   "scw config info show-secret=true",
+			},
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
@@ -652,7 +665,8 @@ func configInfoCommand() *core.Command {
 				Command: "scw config",
 			},
 		},
-		Run: func(ctx context.Context, _ any) (i any, e error) {
+		Run: func(ctx context.Context, argsI any) (i any, e error) {
+			args := argsI.(*configInfoArgs)
 			config, err := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
 			if err != nil {
 				return nil, err
@@ -687,6 +701,13 @@ func configInfoCommand() *core.Command {
 				}
 			}
 
+			if !args.ShowSecret {
+				if secretKey, ok := values["secret-key"].(*string); ok && secretKey != nil {
+					masked := hideSecretKey(*secretKey)
+					values["secret-key"] = &masked
+				}
+			}
+
 			if len(overriddenVariables) > 0 {
 				msg := "Some variables are overridden by the environment: " + strings.Join(
 					overriddenVariables,
@@ -705,6 +726,19 @@ func configInfoCommand() *core.Command {
 				Profile:     values,
 			}, nil
 		},
+	}
+}
+
+// hideSecretKey masks a secret key, keeping only the first 8 characters.
+// It mirrors the masking used by `scw info` and the config file printer.
+func hideSecretKey(k string) string {
+	switch {
+	case len(k) == 0:
+		return ""
+	case len(k) > 8:
+		return k[0:8] + "-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+	default:
+		return "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 	}
 }
 
