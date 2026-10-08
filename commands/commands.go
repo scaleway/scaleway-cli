@@ -45,6 +45,7 @@ import (
 	keymanager "github.com/scaleway/scaleway-cli/v2/internal/namespaces/key_manager/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/login"
+	manNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/man"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp"
 	messageq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/messageq/v1alpha1"
@@ -122,6 +123,7 @@ func GetCommands(ctx context.Context) *core.Commands {
 		serverless_sqldb.GetCommands(),
 		edgeservices.GetCommands(),
 		login.GetCommands(),
+		manNamespace.GetCommands(),
 		mongodb.GetCommands(),
 		audit_trail.GetCommands(),
 		interlink.GetCommands(),
