@@ -26,6 +26,13 @@ func Test_ListLBPrivateNetwork(t *testing.T) {
 		Cmd:   "scw lb private-network list {{ .LB.ID }}",
 		Check: core.TestCheckGolden(),
 		AfterFunc: core.AfterFuncCombine(
+			core.AfterFuncWhenUpdatingCassette(
+				func(_ *core.AfterFuncCtx) error {
+					time.Sleep(10 * time.Second)
+
+					return nil
+				},
+			),
 			detachPN(),
 			deleteLB(),
 			core.AfterFuncWhenUpdatingCassette(
