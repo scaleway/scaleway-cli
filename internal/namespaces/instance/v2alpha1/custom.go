@@ -16,12 +16,20 @@ import (
 func GetCommands() *core.Commands {
 	cmds := core.NewCommands(
 		instancePlacementGroup(),
+		instanceSecurityGroup(),
 		instanceTemplate(),
 		instancePlacementGroupList(),
 		instancePlacementGroupCreate(),
 		instancePlacementGroupGet(),
 		instancePlacementGroupUpdate(),
 		instancePlacementGroupDelete(),
+		instanceSecurityGroupList(),
+		instanceSecurityGroupCreate(),
+		instanceSecurityGroupGet(),
+		instanceSecurityGroupDelete(),
+		instanceSecurityGroupUpdate(),
+		instanceSecurityGroupSetRules(),
+		instanceSecurityGroupUpdateRule(),
 		instanceTemplateList(),
 		instanceTemplateCreate(),
 		instanceTemplateGet(),
@@ -44,6 +52,25 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "placement-group", "create").Override(placementGroupCreateBuilder)
 	cmds.MustFind("instance", "placement-group", "get").Override(placementGroupGetBuilder)
 	cmds.MustFind("instance", "placement-group", "list").Override(placementGroupListBuilder)
+
+	//
+	// Security Group
+	//
+	human.RegisterMarshalerFunc(instanceSDK.SecurityGroup{}, securityGroupMarshalerFunc)
+	human.RegisterMarshalerFunc(
+		instanceSDK.SecurityGroupAction(""),
+		human.EnumMarshalFunc(securityGroupActionMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		instanceSDK.SecurityGroupRuleAction(""),
+		human.EnumMarshalFunc(securityGroupRuleActionMarshalSpecs),
+	)
+
+	cmds.MustFind("instance", "security-group", "create").Override(securityGroupCreateBuilder)
+	cmds.MustFind("instance", "security-group", "get").Override(securityGroupGetBuilder)
+	cmds.MustFind("instance", "security-group", "list").Override(securityGroupListBuilder)
+	cmds.MustFind("instance", "security-group", "update").Override(securityGroupUpdateBuilder)
+	cmds.MustFind("instance", "security-group", "delete").Override(securityGroupDeleteBuilder)
 
 	//
 	// Templates

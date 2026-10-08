@@ -1,24 +1,21 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Update the properties of security group.
+Update the properties of a security group.
 
 USAGE:
-  scw instance security-group update <security-group-id ...> [arg=value ...]
+  scw instance security-group update [arg=value ...]
 
 ARGS:
-  security-group-id           UUID of the security group
-  [name]                      Name of the security group
-  [description]               Description of the security group
-  [enable-default-security]   True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable
-  [inbound-default-policy]    Default inbound policy (unknown_policy | accept | drop)
-  [tags.{index}]              Tags of the security group
-  [project-default]           True use this security group for future Instances created in this project
-  [outbound-default-policy]   Default outbound policy (unknown_policy | accept | drop)
-  [stateful]                  True to set the security group as stateful
+  security-group-id           ID of the security group to update
+  [name]                      New name for the security group
+  [description]               New description for the security group
+  [disable-default-rules]     Whether to disable default rules
+  [tags.{index}]              New tags for the security group
+  [project-default]           Whether this should be the default security group for the project
+  [inbound-default-action]    New default action for inbound rules (unknown_action | accept | drop)
+  [outbound-default-action]   New default action for outbound rules (unknown_action | accept | drop)
+  [stateless]                 Whether the security group should be stateless
   [zone=fr-par-1]             Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3 | it-mil-1)
-
-DEPRECATED ARGS:
-  [organization-default]   Please use project_default instead
 
 FLAGS:
   -h, --help                help for update

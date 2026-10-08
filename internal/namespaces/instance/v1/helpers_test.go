@@ -203,28 +203,6 @@ func deletePlacementGroup(metaKey string) core.AfterFunc {
 }
 
 //
-// Security Group
-//
-
-// createSecurityGroup creates a security group and
-// register it in the context Meta at metaKey.
-func createSecurityGroup(metaKey string) core.BeforeFunc {
-	return func(ctx *core.BeforeFuncCtx) error {
-		res := ctx.ExecuteCmd([]string{"scw", "instance", "security-group", "create"})
-		createSecurityGroupResponse := res.(*instanceSDK.CreateSecurityGroupResponse)
-		ctx.Meta[metaKey] = createSecurityGroupResponse.SecurityGroup
-
-		return nil
-	}
-}
-
-// deleteSecurityGroup deletes a security group
-// previously registered in the context Meta at metaKey.
-func deleteSecurityGroup(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw instance security-group delete {{ ." + metaKey + ".ID }}")
-}
-
-//
 // Snapshot
 //
 
