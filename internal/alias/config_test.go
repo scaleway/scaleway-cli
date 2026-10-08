@@ -8,6 +8,13 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestConfig_AddAlias_NilMap(t *testing.T) {
+	config := &alias.Config{}
+	replaced := config.AddAlias("s", []string{"search", "resource", "search"})
+	assert.False(t, replaced)
+	assert.Equal(t, []string{"search", "resource", "search"}, config.Aliases["s"])
+}
+
 func TestConfig_ResolveAliases(t *testing.T) {
 	tests := []struct {
 		Aliases  map[string][]string
