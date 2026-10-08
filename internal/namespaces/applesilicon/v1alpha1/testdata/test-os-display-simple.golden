@@ -10,7 +10,6 @@ Version          14.4
 XcodeVersion     15
 ReleaseNotesURL  -
 Description      -
-Zone             
 
 CompatibleServerTypes:
 [M1-M M2-M M2-L]
@@ -32,6 +31,5 @@ CompatibleServerTypes:
   "release_notes_url": "",
   "description": "",
   "tags": [],
-  "supported_server_types": [],
-  "zone": ""
+  "supported_server_types": []
 }

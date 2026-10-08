@@ -1,7 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                         0a1826ab-6f6e-4e77-9ed3-dd6db801e176
-Srn                                        -
 Name                                       cli-test-eager-curran
 NamespaceID                                aa7e929d-6282-460b-8f85-ce815640d1ca
 Description                                -
@@ -30,7 +29,6 @@ Region                                     fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "0a1826ab-6f6e-4e77-9ed3-dd6db801e176",
-  "srn": "",
   "name": "cli-test-eager-curran",
   "namespace_id": "aa7e929d-6282-460b-8f85-ce815640d1ca",
   "description": "",

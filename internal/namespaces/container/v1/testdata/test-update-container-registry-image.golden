@@ -1,7 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                         86e4aaa2-0fa9-4ea6-8e64-2571bde9133e
-Srn                                        -
 Name                                       cli-test-blissful-jennings
 NamespaceID                                bd210c2f-1af8-4091-b228-033566363282
 Description                                -
@@ -31,7 +30,6 @@ Region                                     fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "86e4aaa2-0fa9-4ea6-8e64-2571bde9133e",
-  "srn": "",
   "name": "cli-test-blissful-jennings",
   "namespace_id": "bd210c2f-1af8-4091-b228-033566363282",
   "description": "",
