@@ -1,0 +1,75 @@
+# Single-purpose config for the "chocolatey" CI job (windows runner).
+#
+# The main release (.goreleaser.yml) simply cannot go through the chocolatey
+# pipe: GoReleaser shells out to the Windows-only `choco` binary. This config
+# describes only what that one job needs. Everything not defined here is
+# skipped by GoReleaser, so new pipes added to .goreleaser.yml can never leak
+# into this job, and no --skip list has to be maintained here.
+#
+# Keep the contents in sync with .goreleaser.yml (build flags, ldflags, ...).
+version: 2
+
+# Must match .goreleaser.yml (goreleaser guesses the project name from the
+# working directory, which is not stable across machines/CI).
+project_name: scaleway-cli
+
+# Do NOT create or update a GitHub release from this job. Note: the chocolatey
+# push lives inside GoReleaser's "publish" step, so publish must NOT be
+# skipped -- hence disabling the release pipe instead.
+release:
+  disable: true
+
+builds:
+  - id: binaries
+    env:
+      - CGO_ENABLED=0
+    main: ./cmd/scw/main.go
+    binary: scaleway-cli
+    goos:
+      - windows
+    goarch:
+      - 386
+      - amd64
+    flags:
+      - -tags=timetzdata
+      - -trimpath
+    ldflags:
+      - -s
+      - -w
+      - -extldflags "-static"
+      - -X main.Version={{ .Version }}
+      - -X main.BuildDate={{ .Date }}
+      - -X main.GitBranch={{ .Branch }}
+      - -X main.GitCommit={{ .ShortCommit }}
+
+archives:
+  - id: binaries
+    formats:
+      - zip
+
+chocolateys:
+  - name: scaleway-cli
+    ids:
+      - binaries
+    # Where Chocolatey downloads the tool bytes from at install time; points at
+    # the windows zip uploaded to the release by the main (.goreleaser.yml) job.
+    url_template: https://github.com/scaleway/scaleway-cli/releases/download/v{{ .Version }}/{{ .ArtifactName }}
+    package_source_url: https://scaleway.com/cli
+    owners: Scaleway
+    authors: DevTools Team
+    project_url: https://github.com/scaleway/scaleway-cli
+    icon_url: "https://github.com/scaleway/scaleway-cli/blob/main/docs/static_files/cli-artwork.png"
+    copyright: 2019 Scaleway
+    license_url: https://github.com/scaleway/scaleway-cli/blob/main/LICENSE
+    require_license_acceptance: false
+    project_source_url: https://github.com/scaleway/scaleway-cli
+    docs_url: https://cli.scaleway.com
+    bug_tracker_url: https://github.com/scaleway/scaleway-cli/issues
+    tags: "scaleway-cli scaleway scw"
+    summary: Scaleway CLI is a tool to help you pilot your Scaleway infrastructure directly from your terminal.
+    description: |
+      The Scaleway CLI allows you to interact with Scaleway APIs using a command line interface.
+      You can create, update, delete, list or get information about all types of resources.
+    release_notes: "https://github.com/scaleway/scaleway-cli/releases/tag/v{{ .Version }}"
+    api_key: "{{ .Env.CHOCOLATEY_API_KEY }}"
+    source_repo: "https://push.chocolatey.org/"
