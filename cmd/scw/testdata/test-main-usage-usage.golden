@@ -15,6 +15,7 @@ AVAILABLE COMMANDS:
   kafka                   This API allows you to manage your Clusters for Apache Kafka®.
   messageq                MessageQ API
   product-catalog         Product Catalog API
+  tui                     Launch the interactive TUI
 
 BAREMETAL COMMANDS:
   apple-silicon           Apple silicon API
