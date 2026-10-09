@@ -16,7 +16,7 @@ ARGS:
   password                                                 Password of the initial user
   [volume.type=sbs_5k]                                     Type of volume where data is stored (unknown_type | sbs_5k | sbs_15k)
   [volume.size-bytes=5GB]                                  Volume size
-  [endpoints.{index}.public-network]                       
+  [endpoints.{index}.public-network]                       Expose the Database Instance publicly (empty object)
   [endpoints.{index}.private-network.private-network-id]   UUID of the Private Network
   [region=fr-par]                                          Region to target. If none is passed will use default region from the config (fr-par)
 
