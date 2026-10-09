@@ -2,6 +2,7 @@ package rdb_test
 
 import (
 	"fmt"
+	"os/exec"
 	"strings"
 	"testing"
 
@@ -83,6 +84,19 @@ func Test_CreateInstance(t *testing.T) {
 			},
 		),
 		AfterFunc: core.ExecAfterCmd("scw rdb instance delete {{ .CmdResult.ID }}"),
+	}))
+}
+
+func Test_CreateInstanceFastConnect(t *testing.T) {
+	cmd := strings.Replace(baseCommand, "--wait", "fast-connect=true --wait", 1)
+
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: rdb.GetCommands(),
+		Cmd:      fmt.Sprintf(cmd, name, engine, user, password),
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
 	}))
 }
 
@@ -387,6 +401,30 @@ func Test_Connect(t *testing.T) {
 		),
 		AfterFunc: deleteInstance(),
 	}))
+	t.Run("psql with secret", core.Test(&core.TestConfig{
+		Commands: rdb.GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd(
+			"Instance",
+			fmt.Sprintf(
+				strings.Replace(baseCommand, "--wait", "fast-connect=true --wait", 1),
+				name, engine, user, password,
+			),
+		),
+		Cmd: "scw rdb instance connect {{ .Instance.ID }}",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		OverrideExec: func(ctx *core.ExecFuncCtx, cmd *exec.Cmd) (int, error) {
+			expected := "psql --host 195.154.71.12 --port 6467 --username foobar --dbname rdb"
+			assert.Equal(ctx.T, expected, strings.Join(cmd.Args, " "))
+			require.Contains(ctx.T, cmd.Env, "PGPASSWORD="+password)
+
+			return 0, nil
+		},
+		AfterFunc: deleteInstance(),
+	}))
+
 	t.Run("psql", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(

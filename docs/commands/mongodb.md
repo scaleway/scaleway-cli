@@ -93,21 +93,22 @@ scw mongodb instance create [arg=value ...]
 
 **Arguments:**
 
-| Name                                                 | Description                                                                 | Argument Specifications                                            |
-|------------------------------------------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
-| project-id                                           | Project ID to use. If none is passed the default project ID will be used    |                                                                    |
-| name                                                 | Name of the Database Instance                                               | Default: `<generated>`                                             |
-| version                                              | Major version of the MongoDB® engine                                        | Required<br />Default: ``                                          |
-| tags.{index}                                         | Tags to apply to the Database Instance                                      |                                                                    |
-| node-amount                                          | Number of node to use for the Database Instance                             | Required<br />Default: `1`                                         |
-| node-type                                            | Type of node to use for the Database Instance                               | Required                                                           |
-| user-name                                            | Username created when the Database Instance is created                      | Required                                                           |
-| password                                             | Password of the initial user                                                | Required                                                           |
-| volume.type                                          | Type of volume where data is stored                                         | Default: `sbs_5k`<br />One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
-| volume.size-bytes                                    | Volume size                                                                 | Default: `5GB`                                                     |
-| endpoints.{index}.public-network                     |                                                                             |                                                                    |
-| endpoints.{index}.private-network.private-network-id | UUID of the Private Network                                                 |                                                                    |
-| region                                               | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`                            |
+| Name                                                 | Description                                                                                                        | Argument Specifications                                            |
+|------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------|
+| project-id                                           | Project ID to use. If none is passed the default project ID will be used                                           |                                                                    |
+| name                                                 | Name of the Database Instance                                                                                      | Default: `<generated>`                                             |
+| version                                              | Major version of the MongoDB® engine                                                                               | Required<br />Default: ``                                          |
+| tags.{index}                                         | Tags to apply to the Database Instance                                                                             |                                                                    |
+| node-amount                                          | Number of node to use for the Database Instance                                                                    | Required<br />Default: `1`                                         |
+| node-type                                            | Type of node to use for the Database Instance                                                                      | Required                                                           |
+| fast-connect                                         | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting | Default: `false`                                                   |
+| user-name                                            | Username created when the Database Instance is created                                                             | Required                                                           |
+| password                                             | Password of the initial user                                                                                       | Required                                                           |
+| volume.type                                          | Type of volume where data is stored                                                                                | Default: `sbs_5k`<br />One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
+| volume.size-bytes                                    | Volume size                                                                                                        | Default: `5GB`                                                     |
+| endpoints.{index}.public-network                     |                                                                                                                    |                                                                    |
+| endpoints.{index}.private-network.private-network-id | UUID of the Private Network                                                                                        |                                                                    |
+| region                                               | Region to target. If none is passed will use default region from the config                                        | Default: `fr-par`<br />One of: `fr-par`                            |
 
 
 

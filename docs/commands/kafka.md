@@ -20,23 +20,24 @@ scw kafka cluster create [arg=value ...]
 
 **Arguments:**
 
-| Name                                                 | Description                                                                        | Argument Specifications                     |
-|------------------------------------------------------|------------------------------------------------------------------------------------|---------------------------------------------|
-| project-id                                           | Project ID to use. If none is passed the default project ID will be used           |                                             |
-| name                                                 | Name of the Kafka cluster                                                          | Default: `<generated>`                      |
-| version                                              | Version of Kafka                                                                   | Required                                    |
-| tags.{index}                                         | Tags to apply to the Kafka cluster                                                 |                                             |
-| node-amount                                          | Number of nodes to use for the Kafka cluster                                       | Required                                    |
-| node-type                                            | Type of node to use for the Kafka cluster                                          | Required                                    |
-| volume.size-bytes                                    | Volume size                                                                        |                                             |
-| volume.type                                          | Type of volume where data is stored                                                | One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
-| endpoints.{index}.public-network                     |                                                                                    |                                             |
-| endpoints.{index}.private-network.private-network-id | UUID of the Private Network                                                        |                                             |
-| user-name                                            | Username for the kafka user                                                        |                                             |
-| password                                             | Password for the kafka user                                                        |                                             |
-| multi-az                                             | MultiAZ tell the cluster is deployed on multiple availability zones in the region. |                                             |
-| mono-az.zone                                         | Zone is the zone on which the cluster nodes are deployed.                          |                                             |
-| region                                               | Region to target. If none is passed will use default region from the config        | Default: `fr-par`<br />One of: `fr-par`     |
+| Name                                                 | Description                                                                                                        | Argument Specifications                     |
+|------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
+| project-id                                           | Project ID to use. If none is passed the default project ID will be used                                           |                                             |
+| name                                                 | Name of the Kafka cluster                                                                                          | Default: `<generated>`                      |
+| version                                              | Version of Kafka                                                                                                   | Required                                    |
+| tags.{index}                                         | Tags to apply to the Kafka cluster                                                                                 |                                             |
+| node-amount                                          | Number of nodes to use for the Kafka cluster                                                                       | Required                                    |
+| node-type                                            | Type of node to use for the Kafka cluster                                                                          | Required                                    |
+| volume.size-bytes                                    | Volume size                                                                                                        |                                             |
+| volume.type                                          | Type of volume where data is stored                                                                                | One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
+| endpoints.{index}.public-network                     |                                                                                                                    |                                             |
+| endpoints.{index}.private-network.private-network-id | UUID of the Private Network                                                                                        |                                             |
+| fast-connect                                         | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting | Default: `false`                            |
+| user-name                                            | Username for the kafka user                                                                                        |                                             |
+| password                                             | Password for the kafka user                                                                                        |                                             |
+| multi-az                                             | MultiAZ tell the cluster is deployed on multiple availability zones in the region.                                 |                                             |
+| mono-az.zone                                         | Zone is the zone on which the cluster nodes are deployed.                                                          |                                             |
+| region                                               | Region to target. If none is passed will use default region from the config                                        | Default: `fr-par`<br />One of: `fr-par`     |
 
 
 

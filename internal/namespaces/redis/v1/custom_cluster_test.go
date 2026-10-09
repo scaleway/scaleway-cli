@@ -356,3 +356,21 @@ func Test_CreateRequestZone(t *testing.T) {
 		assert.Equal(t, scw.ZoneFrPar1, redis.CreateRequestZone(req))
 	})
 }
+
+func Test_CreateClusterFastConnect(t *testing.T) {
+	cmd := strings.Replace(
+		fmt.Sprintf(strings.TrimSpace(baseCommand), "cli-persist"),
+		"--wait",
+		"fast-connect=true",
+		1,
+	)
+
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: redis.GetCommands(),
+		Cmd:      cmd,
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+	}))
+}
