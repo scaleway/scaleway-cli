@@ -154,6 +154,48 @@ scw -p prod config info
 
 
 
+## Print the JSON schema of the config file
+
+Print the JSON schema of the Scaleway CLI config file (cli.yaml).
+It can be used to enable validation in editors. Example with the Red Hat YAML extension for VS Code:
+
+  scw config jsonschema > scw-cli-config-schema.json
+
+  {
+    "yaml.schemas": {
+      "file:///absolute/path/to/scw-cli-config-schema.json": ["~/.config/scw/cli.yaml"]
+    }
+  }
+
+Print the JSON schema of the Scaleway CLI config file (cli.yaml).
+It can be used to enable validation in editors. Example with the Red Hat YAML extension for VS Code:
+
+  scw config jsonschema > scw-cli-config-schema.json
+
+  {
+    "yaml.schemas": {
+      "file:///absolute/path/to/scw-cli-config-schema.json": ["~/.config/scw/cli.yaml"]
+    }
+  }
+
+**Usage:**
+
+```shell
+scw config jsonschema
+```
+
+
+**Examples:**
+
+
+Save the JSON schema of the config file
+```shell
+scw config jsonschema > scw-cli-config-schema.json
+```
+
+
+
+
 ## Allows the activation and deletion of a profile from the config file
 
 

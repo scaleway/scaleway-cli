@@ -1,0 +1,87 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/scaleway/scaleway-cli/v2/internal/config/config",
+  "properties": {
+    "alias": {
+      "properties": {
+        "aliases": {
+          "additionalProperties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "type": "object",
+          "description": "Mapping of alias names to the list of command words they expand to"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "description": "Custom aliases that expand a short name into a full command (e.g. isl into instance server list)"
+    },
+    "output": {
+      "type": "string",
+      "enum": [
+        "human",
+        "wide",
+        "json",
+        "yaml",
+        "template"
+      ],
+      "description": "Default output format for all commands"
+    },
+    "install_autocomplete": {
+      "type": "boolean",
+      "description": "Whether autocomplete installation was proposed during init"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "title": "Scaleway CLI config file",
+  "description": "Configuration file for the Scaleway CLI (cli.yaml)"
+}
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/scaleway/scaleway-cli/v2/internal/config/config",
+  "properties": {
+    "alias": {
+      "properties": {
+        "aliases": {
+          "additionalProperties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "type": "object",
+          "description": "Mapping of alias names to the list of command words they expand to"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "description": "Custom aliases that expand a short name into a full command (e.g. isl into instance server list)"
+    },
+    "output": {
+      "type": "string",
+      "enum": [
+        "human",
+        "wide",
+        "json",
+        "yaml",
+        "template"
+      ],
+      "description": "Default output format for all commands"
+    },
+    "install_autocomplete": {
+      "type": "boolean",
+      "description": "Whether autocomplete installation was proposed during init"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "title": "Scaleway CLI config file",
+  "description": "Configuration file for the Scaleway CLI (cli.yaml)"
+}
