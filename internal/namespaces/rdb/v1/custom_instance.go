@@ -20,6 +20,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
+	"github.com/scaleway/scaleway-cli/v2/internal/secrets"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	rdbSDK "github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -94,6 +95,7 @@ type rdbCreateInstanceRequestCustom struct {
 	*rdbSDK.CreateInstanceRequest
 	InitEndpoints    []*rdbEndpointSpecCustom `json:"init-endpoints"`
 	GeneratePassword bool
+	FastConnect      bool
 }
 
 func createInstanceResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
@@ -305,6 +307,14 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		Positional: false,
 		Default:    core.DefaultValueSetter("true"),
 	})
+	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
+		Name:       "fast-connect",
+		Short:      secrets.FastConnectArgSpecShort,
+		Required:   false,
+		Deprecated: false,
+		Positional: false,
+		Default:    core.DefaultValueSetter("false"),
+	})
 	c.ArgSpecs.GetByName("password").Required = false
 	c.ArgSpecs.GetByName("node-type").Default = core.DefaultValueSetter("DB-DEV-S")
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
@@ -360,6 +370,22 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		instance, err := api.CreateInstance(createInstanceRequest)
 		if err != nil {
 			return nil, err
+		}
+
+		if customRequest.FastConnect {
+			userName := createInstanceRequest.UserName
+			path := secrets.Path("rdb", string(instance.Region), instance.ID, userName)
+			creds := secrets.Credentials{
+				Username: userName,
+				Password: createInstanceRequest.Password,
+			}
+			if err := secrets.Persist(ctx, instance.Region, path, creds); err != nil {
+				return nil, fmt.Errorf(
+					"instance %s was created but its credentials could not be persisted: %w",
+					instance.ID,
+					err,
+				)
+			}
 		}
 
 		result := CreateInstanceResult{
@@ -929,8 +955,10 @@ func instanceConnectCommand() *core.Command {
 		Resource:  "instance",
 		Verb:      "connect",
 		Short:     "Connect to an instance using locally installed CLI",
-		Long:      "Connect to an instance using locally installed CLI such as psql or mysql.",
-		ArgsType:  reflect.TypeFor[instanceConnectArgs](),
+		Long: `Connect to an instance using locally installed CLI such as psql or mysql.
+When no username is given, the admin user is used and credentials are fetched from the secret
+created by "rdb instance create fast-connect=true" when available.`,
+		ArgsType: reflect.TypeFor[instanceConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:     "private-network",
@@ -946,8 +974,8 @@ func instanceConnectCommand() *core.Command {
 			},
 			{
 				Name:     "username",
-				Short:    "Name of the user to connect with to the database",
-				Required: true,
+				Short:    "Name of the user to connect with to the database (defaults to the admin user)",
+				Required: false,
 			},
 			{
 				Name:    "database",
@@ -996,17 +1024,59 @@ func instanceConnectCommand() *core.Command {
 				}
 			}
 
+			username := args.Username
+			if username == "" {
+				users, err := api.ListUsers(&rdbSDK.ListUsersRequest{
+					Region:     args.Region,
+					InstanceID: args.InstanceID,
+				})
+				if err != nil {
+					return nil, err
+				}
+				for _, user := range users.Users {
+					if user.IsAdmin {
+						username = user.Name
+
+						break
+					}
+				}
+				if username == "" {
+					return nil, fmt.Errorf("no admin user found on instance %s", args.InstanceID)
+				}
+			}
+
+			creds, found := secrets.Fetch(
+				ctx,
+				instance.Region,
+				secrets.Path("rdb", string(instance.Region), instance.ID, username),
+			)
+			password := ""
+			if found {
+				if creds.Username != "" {
+					username = creds.Username
+				}
+				password = creds.Password
+			}
+			args.Username = username
+
 			cmdArgs, err := createConnectCommandLineArgs(endpoint, engineFamily, args)
 			if err != nil {
 				return nil, err
 			}
 
-			if !passwordFileExist(ctx, engineFamily) {
+			if !found && !passwordFileExist(ctx, engineFamily) {
 				interactive.Println(passwordFileHint(engineFamily))
 			}
 
 			// Run command
 			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
+			if found {
+				envVar := "PGPASSWORD"
+				if engineFamily == MySQL {
+					envVar = "MYSQL_PWD"
+				}
+				cmd.Env = append(os.Environ(), envVar+"="+password)
+			}
 			// cmd.Stdin = os.Stdin
 			core.ExtractLogger(ctx).Debugf("executing: %s\n", cmd.Args)
 			exitCode, err := core.ExecCmd(ctx, cmd)

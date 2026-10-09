@@ -2,6 +2,7 @@ package mongodb
 
 import (
 	"context"
+	"fmt"
 	"reflect"
 	"strings"
 	"time"
@@ -9,6 +10,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/secrets"
 	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -16,6 +18,11 @@ import (
 const (
 	instanceActionTimeout = 20 * time.Minute
 )
+
+type createInstanceRequestCustom struct {
+	*mongodb.CreateInstanceRequest
+	FastConnect bool
+}
 
 var instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
 	mongodb.InstanceStatusConfiguring: &human.EnumMarshalSpec{
@@ -58,6 +65,45 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("volume.size-bytes").Default = core.DefaultValueSetter("5GB")
 	c.ArgSpecs.GetByName("volume.type").Default = core.DefaultValueSetter("sbs_5k")
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
+
+	c.ArgsType = reflect.TypeFor[createInstanceRequestCustom]()
+	c.ArgSpecs.AddBefore("user-name", &core.ArgSpec{
+		Name:       "fast-connect",
+		Short:      secrets.FastConnectArgSpecShort,
+		Required:   false,
+		Deprecated: false,
+		Positional: false,
+		Default:    core.DefaultValueSetter("false"),
+	})
+
+	c.Run = func(ctx context.Context, args any) (any, error) {
+		customRequest := args.(*createInstanceRequestCustom)
+		request := customRequest.CreateInstanceRequest
+
+		client := core.ExtractClient(ctx)
+		api := mongodb.NewAPI(client)
+
+		instance, err := api.CreateInstance(request, scw.WithContext(ctx))
+		if err != nil {
+			return nil, err
+		}
+
+		if customRequest.FastConnect {
+			path := secrets.Path("mongodb", string(instance.Region), instance.ID, request.UserName)
+			if err := secrets.Persist(ctx, instance.Region, path, secrets.Credentials{
+				Username: request.UserName,
+				Password: request.Password,
+			}); err != nil {
+				return nil, fmt.Errorf(
+					"instance %s was created but its credentials could not be persisted: %w",
+					instance.ID,
+					err,
+				)
+			}
+		}
+
+		return instance, nil
+	}
 
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		getResp := respI.(*mongodb.Instance)

@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net"
 	"net/http"
 	"os"
 	"os/exec"
@@ -17,6 +18,8 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
+	"github.com/scaleway/scaleway-cli/v2/internal/secrets"
 	"github.com/scaleway/scaleway-cli/v2/internal/semver"
 	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -41,7 +44,9 @@ type redisEndpointSpecCustom struct {
 
 type CreateClusterRequestCustom struct {
 	*redis.CreateClusterRequest
-	Endpoints []*redisEndpointSpecCustom `json:"endpoints"`
+	Endpoints        []*redisEndpointSpecCustom `json:"endpoints"`
+	FastConnect      bool
+	GeneratePassword bool
 }
 
 func clusterCreateBuilder(c *core.Command) *core.Command {
@@ -57,6 +62,24 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("version").Default = core.DefaultValueSetter("latest")
 	c.ArgSpecs.GetByName("version").AutoCompleteFunc = autoCompleteRedisVersion
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteCreateNodeType
+
+	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
+		Name:       "generate-password",
+		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
+		Required:   false,
+		Deprecated: false,
+		Positional: false,
+		Default:    core.DefaultValueSetter("true"),
+	})
+	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
+		Name:       "fast-connect",
+		Short:      secrets.FastConnectArgSpecShort,
+		Required:   false,
+		Deprecated: false,
+		Positional: false,
+		Default:    core.DefaultValueSetter("false"),
+	})
+	c.ArgSpecs.GetByName("password").Required = false
 
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := redis.NewAPI(core.ExtractClient(ctx))
@@ -79,6 +102,16 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 
 		customRequest := argsI.(*CreateClusterRequestCustom)
 		createClusterRequest := customRequest.CreateClusterRequest
+
+		if customRequest.GeneratePassword && createClusterRequest.Password == "" {
+			generatedPassword, err := passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
+			if err != nil {
+				return nil, err
+			}
+			createClusterRequest.Password = generatedPassword
+			fmt.Printf("Your generated password is %s \n", createClusterRequest.Password)
+			fmt.Printf("\n")
+		}
 
 		// Handle default latest version for redis cluster
 		if createClusterRequest.Version == "latest" {
@@ -121,6 +154,27 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		cluster, err := api.CreateCluster(createClusterRequest)
 		if err != nil {
 			return nil, err
+		}
+
+		if customRequest.FastConnect {
+			region, err := cluster.Zone.Region()
+			if err != nil {
+				return nil, err
+			}
+
+			userName := createClusterRequest.UserName
+			path := secrets.Path("redis", string(cluster.Zone), cluster.ID, userName)
+			creds := secrets.Credentials{
+				Username: userName,
+				Password: createClusterRequest.Password,
+			}
+			if err := secrets.Persist(ctx, region, path, creds); err != nil {
+				return nil, fmt.Errorf(
+					"cluster %s was created but its credentials could not be persisted: %w",
+					cluster.ID,
+					err,
+				)
+			}
 		}
 
 		return cluster, nil
@@ -577,22 +631,55 @@ func clusterConnectCommand() *core.Command {
 				}()
 			}
 
-			password, err := interactive.PromptPasswordWithConfig(
-				ctx,
-				&interactive.PromptPasswordConfig{
-					Prompt: "Password",
-				},
-			)
+			region, err := cluster.Zone.Region()
 			if err != nil {
-				return nil, fmt.Errorf("failed to get password: %w", err)
+				return nil, err
+			}
+
+			creds, found := secrets.Fetch(
+				ctx,
+				region,
+				secrets.Path("redis", string(cluster.Zone), cluster.ID, cluster.UserName),
+			)
+
+			var password string
+			if found && creds.Password != "" {
+				password = creds.Password
+			} else {
+				password, err = interactive.PromptPasswordWithConfig(
+					ctx,
+					&interactive.PromptPasswordConfig{
+						Prompt: "Password",
+					},
+				)
+				if err != nil {
+					return nil, fmt.Errorf("failed to get password: %w", err)
+				}
 			}
 
 			hostStr := endpoint.IPs[0].String()
+
+			// Fail fast on an unreachable endpoint instead of letting redis-cli hang on the dial
+			conn, dialErr := (&net.Dialer{Timeout: 5 * time.Second}).Dial(
+				"tcp",
+				net.JoinHostPort(hostStr, strconv.FormatUint(uint64(port), 10)),
+			)
+			if dialErr != nil {
+				return nil, fmt.Errorf(
+					"cannot reach %s:%d from this machine (%v); check your network/firewall, "+
+						"or use --private-network if a private endpoint is attached",
+					hostStr,
+					port,
+					dialErr,
+				)
+			}
+			conn.Close()
+
 			cmdArgs := []string{
 				cliRedis,
 				"-h", hostStr,
 				"-p", strconv.FormatUint(uint64(port), 10),
-				"-a", password,
+				"--pass", password,
 			}
 
 			if cluster.TLSEnabled {

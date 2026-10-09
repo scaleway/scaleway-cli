@@ -707,6 +707,8 @@ scw rdb instance clone <instance-id ...> [arg=value ...]
 ### Connect to an instance using locally installed CLI
 
 Connect to an instance using locally installed CLI such as psql or mysql.
+When no username is given, the admin user is used and credentials are fetched from the secret
+created by "rdb instance create fast-connect=true" when available.
 
 **Usage:**
 
@@ -717,14 +719,14 @@ scw rdb instance connect <instance-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                 | Argument Specifications                           |
-|-----------------|-----------------------------------------------------------------------------|---------------------------------------------------|
-| private-network | Connect by the private network endpoint attached.                           | Default: `false`                                  |
-| instance-id     | UUID of the instance                                                        | Required                                          |
-| username        | Name of the user to connect with to the database                            | Required                                          |
-| database        | Name of the database                                                        | Default: `rdb`                                    |
-| cli-db          | Command line tool to use, default to psql/mysql                             |                                                   |
-| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
+| Name            | Description                                                                   | Argument Specifications                           |
+|-----------------|-------------------------------------------------------------------------------|---------------------------------------------------|
+| private-network | Connect by the private network endpoint attached.                             | Default: `false`                                  |
+| instance-id     | UUID of the instance                                                          | Required                                          |
+| username        | Name of the user to connect with to the database (defaults to the admin user) |                                                   |
+| database        | Name of the database                                                          | Default: `rdb`                                    |
+| cli-db          | Command line tool to use, default to psql/mysql                               |                                                   |
+| region          | Region to target. If none is passed will use default region from the config   | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -748,6 +750,7 @@ scw rdb instance create [arg=value ...]
 | engine                                                    | Database engine of the Database Instance (PostgreSQL, MySQL, ...)                                                                                                                                                                                                              | Required                                                                             |
 | user-name                                                 | Username created when the Database Instance is created                                                                                                                                                                                                                         | Required                                                                             |
 | generate-password                                         | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols                                                                                                                                                      | Default: `true`                                                                      |
+| fast-connect                                              | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting                                                                                                                                                             | Default: `false`                                                                     |
 | password                                                  | Password of the user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character                                                                                                                        |                                                                                      |
 | node-type                                                 | Type of node to use for the Database Instance                                                                                                                                                                                                                                  | Required<br />Default: `DB-DEV-S`                                                    |
 | ~~is-ha-cluster~~                                         | Defines whether or not High-Availability is enabled                                                                                                                                                                                                                            | Deprecated                                                                           |
