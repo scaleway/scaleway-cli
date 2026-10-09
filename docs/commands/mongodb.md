@@ -49,7 +49,7 @@ scw mongodb endpoint create <instance-id ...> [arg=value ...]
 | Name                                        | Description                                                                 | Argument Specifications                 |
 |---------------------------------------------|-----------------------------------------------------------------------------|-----------------------------------------|
 | instance-id                                 | UUID of the Database Instance                                               | Required                                |
-| endpoint.public-network                     |                                                                             |                                         |
+| endpoint.public-network                     | Expose the Database Instance publicly (empty object)                        |                                         |
 | endpoint.private-network.private-network-id | UUID of the Private Network                                                 |                                         |
 | region                                      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
@@ -105,7 +105,7 @@ scw mongodb instance create [arg=value ...]
 | password                                             | Password of the initial user                                                | Required                                                           |
 | volume.type                                          | Type of volume where data is stored                                         | Default: `sbs_5k`<br />One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
 | volume.size-bytes                                    | Volume size                                                                 | Default: `5GB`                                                     |
-| endpoints.{index}.public-network                     |                                                                             |                                                                    |
+| endpoints.{index}.public-network                     | Expose the Database Instance publicly (empty object)                        |                                                                    |
 | endpoints.{index}.private-network.private-network-id | UUID of the Private Network                                                 |                                                                    |
 | region                                               | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`                            |
 
@@ -364,6 +364,7 @@ scw mongodb node-type list [arg=value ...]
 | Name             | Description                                                                 | Argument Specifications                        |
 |------------------|-----------------------------------------------------------------------------|------------------------------------------------|
 | include-disabled | Defines whether or not to include disabled types                            |                                                |
+| project-id       | ID of a project to get a personalized view of the stock                     |                                                |
 | region           | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
 
 
