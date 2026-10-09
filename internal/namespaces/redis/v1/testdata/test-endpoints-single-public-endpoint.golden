@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID           9bd9070c-1571-4631-a8d8-33e87d104beb
+ID           047ff1eb-5215-4bdf-bec3-26c11766bea9
 Name         1-pub-endpoint
-ProjectID    46fd79d8-1a35-4548-bfb8-03df51a0ebae
+ProjectID    de2b260d-2c2e-4be9-baa0-99d8ed17f1da
 Status       ready
 Version      8.6.6
 NodeType     RED1-micro
@@ -12,19 +12,19 @@ TLSEnabled   false
 ClusterSize  1
 Zone         fr-par-1
 UserName     admin
-Srn          -
+Srn          srn://redis.scw.eu/zones/fr-par-1/clusters/047ff1eb-5215-4bdf-bec3-26c11766bea9
 
 Endpoints:
 ID                                    Port  IPs
-72c32043-69f4-41e7-a6fd-d3b5e239e017  6379  [51.158.111.88]
+94cdd5cc-141b-450f-b1e5-8e787865aa00  6379  [78.232.49.55]
 
 ACLRules:
 ID   IP CIDR  DESCRIPTION
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "9bd9070c-1571-4631-a8d8-33e87d104beb",
+  "id": "047ff1eb-5215-4bdf-bec3-26c11766bea9",
   "name": "1-pub-endpoint",
-  "project_id": "46fd79d8-1a35-4548-bfb8-03df51a0ebae",
+  "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
   "status": "ready",
   "version": "8.6.6",
   "endpoints": [
@@ -32,9 +32,9 @@ ID   IP CIDR  DESCRIPTION
       "port": 6379,
       "public_network": {},
       "ips": [
-        "51.158.111.88"
+        "78.232.49.55"
       ],
-      "id": "72c32043-69f4-41e7-a6fd-d3b5e239e017"
+      "id": "94cdd5cc-141b-450f-b1e5-8e787865aa00"
     }
   ],
   "tags": [],
@@ -48,5 +48,5 @@ ID   IP CIDR  DESCRIPTION
   "zone": "fr-par-1",
   "user_name": "admin",
   "upgradable_versions": [],
-  "srn": ""
+  "srn": "srn://redis.scw.eu/zones/fr-par-1/clusters/047ff1eb-5215-4bdf-bec3-26c11766bea9"
 }
