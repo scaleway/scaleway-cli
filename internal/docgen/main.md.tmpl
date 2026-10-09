@@ -37,7 +37,7 @@
 | Name | Description | Argument Specifications |
 |------|-------------|-------------------------|
 {{ range $arg := .Cmd.ArgSpecs -}}
-| {{ arg_spec_name $arg }} | {{ $arg.Short }} | {{ arg_spec_flag $arg }}  |
+| {{ arg_spec_name $arg }} | {{ escape_table_cell $arg.Short }} | {{ arg_spec_flag $arg }}  |
 {{ end -}}
 {{- end -}}
 {{- if .Cmd.Examples }}
