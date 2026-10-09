@@ -54,9 +54,9 @@ alias:
 )
 
 type Config struct {
-	Alias               *alias.Config `json:"alias"                          yaml:"alias"`
-	Output              string        `json:"output"                         yaml:"output"`
-	InstallAutocomplete *bool         `json:"install_autocomplete,omitempty" yaml:"install_autocomplete,omitempty"`
+	Alias               *alias.Config `json:"alias"                          jsonschema:"description=Custom aliases that expand a short name into a full command (e.g. isl into instance server list)" yaml:"alias"`
+	Output              string        `json:"output"                         jsonschema:"description=Default output format for all commands,enum=human,enum=wide,enum=json,enum=yaml,enum=template"    yaml:"output"`
+	InstallAutocomplete *bool         `json:"install_autocomplete,omitempty" jsonschema:"description=Whether autocomplete installation was proposed during init"                                       yaml:"install_autocomplete,omitempty"`
 
 	path string
 }
