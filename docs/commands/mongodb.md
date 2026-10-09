@@ -35,7 +35,7 @@ Instance endpoints enable connection to your instance.
 
 ### Create a new Instance endpoint
 
-Create a new endpoint for a MongoDB® Database Instance. You can add public_network or private_network specifications to the body of the request.
+Create a new endpoint for a MongoDB® Database Instance. You can add `public_network` or `private_network` specifications to the body of the request.
 
 **Usage:**
 
@@ -49,7 +49,7 @@ scw mongodb endpoint create <instance-id ...> [arg=value ...]
 | Name                                        | Description                                                                 | Argument Specifications                 |
 |---------------------------------------------|-----------------------------------------------------------------------------|-----------------------------------------|
 | instance-id                                 | UUID of the Database Instance                                               | Required                                |
-| endpoint.public-network                     |                                                                             |                                         |
+| endpoint.public-network                     | Expose the Database Instance publicly (empty object)                        |                                         |
 | endpoint.private-network.private-network-id | UUID of the Private Network                                                 |                                         |
 | region                                      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
@@ -57,7 +57,7 @@ scw mongodb endpoint create <instance-id ...> [arg=value ...]
 
 ### Delete a Database Instance endpoint
 
-Delete the endpoint of a Database Instance. You must specify the endpoint_id parameter of the endpoint you want to delete. Note that you might need to update any environment configurations that point to the deleted endpoint.
+Delete the endpoint of a Database Instance. You must specify the `endpoint_id` parameter of the endpoint you want to delete. Note that you might need to update any environment configurations that point to the deleted endpoint.
 
 **Usage:**
 
@@ -105,7 +105,7 @@ scw mongodb instance create [arg=value ...]
 | password                                             | Password of the initial user                                                | Required                                                           |
 | volume.type                                          | Type of volume where data is stored                                         | Default: `sbs_5k`<br />One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
 | volume.size-bytes                                    | Volume size                                                                 | Default: `5GB`                                                     |
-| endpoints.{index}.public-network                     |                                                                             |                                                                    |
+| endpoints.{index}.public-network                     | Expose the Database Instance publicly (empty object)                        |                                                                    |
 | endpoints.{index}.private-network.private-network-id | UUID of the Private Network                                                 |                                                                    |
 | region                                               | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`                            |
 
@@ -364,6 +364,7 @@ scw mongodb node-type list [arg=value ...]
 | Name             | Description                                                                 | Argument Specifications                        |
 |------------------|-----------------------------------------------------------------------------|------------------------------------------------|
 | include-disabled | Defines whether or not to include disabled types                            |                                                |
+| project-id       | ID of a project to get a personalized view of the stock                     |                                                |
 | region           | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
 
 
@@ -508,6 +509,28 @@ scw mongodb snapshot update <snapshot-id ...> [arg=value ...]
 ## User management commands
 
 Users are profiles to which you can attribute database-level permissions. They allow you to define permissions specific to each type of database usage.
+
+
+### Create an user on a Database Instance
+
+Create an user on a Database Instance. You must define the `name`, `password` of the user and `instance_id` parameters in the request.
+
+**Usage:**
+
+```shell
+scw mongodb user create [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name        | Description                                                                 | Argument Specifications                 |
+|-------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| instance-id | UUID of the Database Instance the user belongs to                           | Required                                |
+| name        | Name of the database user                                                   |                                         |
+| password    | Password of the database user                                               |                                         |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+
 
 
 ### Delete a user on a Database Instance

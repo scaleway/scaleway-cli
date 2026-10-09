@@ -63,11 +63,13 @@ M4-M   Apple M4 (10 cores)  32 GB   1.0 TB  no stock  1 days                  0.
         "apple",
         "apple-license"
       ],
-      "supported_server_types": []
+      "supported_server_types": [],
+      "zone": ""
     },
     "npu": {
       "count": 16
     },
+    "zone": "",
     "kg_co2_equivalent": 0.03006371,
     "m3_water_usage": 3.635257e-7
   },
@@ -126,11 +128,13 @@ M4-M   Apple M4 (10 cores)  32 GB   1.0 TB  no stock  1 days                  0.
         "apple",
         "apple-license"
       ],
-      "supported_server_types": []
+      "supported_server_types": [],
+      "zone": ""
     },
     "npu": {
       "count": 16
     },
+    "zone": "",
     "kg_co2_equivalent": 0.037783757,
     "m3_water_usage": 6.0587615e-7
   },
@@ -189,11 +193,13 @@ M4-M   Apple M4 (10 cores)  32 GB   1.0 TB  no stock  1 days                  0.
         "apple",
         "apple-license"
       ],
-      "supported_server_types": []
+      "supported_server_types": [],
+      "zone": ""
     },
     "npu": {
       "count": 16
     },
+    "zone": "",
     "kg_co2_equivalent": 0.03742678,
     "m3_water_usage": 5.592703e-7
   },
@@ -252,11 +258,13 @@ M4-M   Apple M4 (10 cores)  32 GB   1.0 TB  no stock  1 days                  0.
         "apple",
         "apple-license"
       ],
-      "supported_server_types": []
+      "supported_server_types": [],
+      "zone": ""
     },
     "npu": {
       "count": 16
     },
+    "zone": "",
     "kg_co2_equivalent": 0.03799304,
     "m3_water_usage": 6.0587615e-7
   },
@@ -324,11 +332,13 @@ M4-M   Apple M4 (10 cores)  32 GB   1.0 TB  no stock  1 days                  0.
         "apple",
         "apple-license"
       ],
-      "supported_server_types": []
+      "supported_server_types": [],
+      "zone": ""
     },
     "npu": {
       "count": 16
     },
+    "zone": "",
     "kg_co2_equivalent": 0.038944334,
     "m3_water_usage": 6.0587615e-7
   }
