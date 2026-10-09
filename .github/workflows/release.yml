@@ -1,7 +1,6 @@
 name: release
 permissions:
   contents: write
-  id-token: write # Required for OIDC (MCP and scaleway-cli-wasm)
 
 on:
   push:
@@ -29,11 +28,10 @@ jobs:
           version: 2026.9.3
           cache: false
           experimental: true
-      - name: Login to DockerHub Registry
-        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-      - name: Release the version
-        run: mise run release --no-snapshot
+      - name: Create the draft release
+        # Builds everything and uploads binaries to a draft GitHub release. The
+        # package feeds (docker, mcp, winget, chocolatey) are only touched by
+        # publish.yml once the draft has been manually reviewed and published.
+        run: mise run release --no-snapshot --skip docker,mcp,winget
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WINGET_TOKEN: ${{ secrets.WINGET_TOKEN }}
-
