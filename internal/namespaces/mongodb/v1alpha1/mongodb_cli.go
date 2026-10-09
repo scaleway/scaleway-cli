@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/mongodb/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -26,8 +26,6 @@ func GetGeneratedCommands() *core.Commands {
 		mongodbSnapshot(),
 		mongodbUser(),
 		mongodbEndpoint(),
-		mongodbDatabase(),
-		mongodbMaintenance(),
 		mongodbNodeTypeList(),
 		mongodbVersionList(),
 		mongodbInstanceList(),
@@ -48,12 +46,8 @@ func GetGeneratedCommands() *core.Commands {
 		mongodbUserUpdate(),
 		mongodbUserDelete(),
 		mongodbUserSetRole(),
-		mongodbDatabaseList(),
 		mongodbEndpointDelete(),
 		mongodbEndpointCreate(),
-		mongodbMaintenanceList(),
-		mongodbMaintenanceGet(),
-		mongodbMaintenanceApply(),
 	)
 }
 
@@ -70,8 +64,8 @@ func mongodbNodeType() *core.Command {
 		Short: `Node types management commands`,
 		Long: `Two node type ranges are available:
 
-* **Shared vCPU:** a complete and highly reliable node range with shared resources that is made for scaling from development to production needs, at affordable prices.
-* **Dedicated vCPU:** database nodes with dedicated vCPU for the most demanding workloads and mission-critical applications.`,
+* **Cost-Optimized:** a complete and highly reliable node range with shared resources that is made for scaling from development to production needs, at affordable prices.
+* **Production-Optimized:** database nodes with dedicated vCPU for the most demanding workloads and mission-critical applications.`,
 		Namespace: "mongodb",
 		Resource:  "node-type",
 	}
@@ -79,7 +73,7 @@ func mongodbNodeType() *core.Command {
 
 func mongodbVersion() *core.Command {
 	return &core.Command{
-		Short:     `MongoDB® major version management commands`,
+		Short:     `MongoDB® version management commands`,
 		Long:      `A database engine is the core software that handles the storage, retrieval, and management of data in your Database Instance.`,
 		Namespace: "mongodb",
 		Resource:  "version",
@@ -122,24 +116,6 @@ func mongodbEndpoint() *core.Command {
 	}
 }
 
-func mongodbDatabase() *core.Command {
-	return &core.Command{
-		Short:     `Database management commands`,
-		Long:      `Databases can be used to store and manage sets of information, or data. The interaction between the user and a database is done using a database engine, which provides a query language to add, modify, or delete information from the database.`,
-		Namespace: "mongodb",
-		Resource:  "database",
-	}
-}
-
-func mongodbMaintenance() *core.Command {
-	return &core.Command{
-		Short:     `Maintenance management commands`,
-		Long:      `Maintenance operations for managing scheduled updates to your Database Instance.`,
-		Namespace: "mongodb",
-		Resource:  "maintenance",
-	}
-}
-
 func mongodbNodeTypeList() *core.Command {
 	return &core.Command{
 		Short:     `List available node types`,
@@ -151,7 +127,7 @@ func mongodbNodeTypeList() *core.Command {
 		ArgsType: reflect.TypeFor[mongodb.ListNodeTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "include-disabled",
+				Name:       "include-disabled-types",
 				Short:      `Defines whether or not to include disabled types`,
 				Required:   false,
 				Deprecated: false,
@@ -184,8 +160,8 @@ func mongodbNodeTypeList() *core.Command {
 
 func mongodbVersionList() *core.Command {
 	return &core.Command{
-		Short:     `List available MongoDB® major versions`,
-		Long:      `List available MongoDB® major versions.`,
+		Short:     `List available MongoDB® versions`,
+		Long:      `List available MongoDB® versions.`,
 		Namespace: "mongodb",
 		Resource:  "version",
 		Verb:      "list",
@@ -264,14 +240,7 @@ func mongodbInstanceList() *core.Command {
 			},
 			{
 				Name:       "project-id",
-				Short:      `Project ID to list the instances of`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "has-maintenance",
-				Short:      `Retrieve pending maintenances for the database instances if given`,
+				Short:      `Project ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -359,7 +328,7 @@ func mongodbInstanceCreate() *core.Command {
 			},
 			{
 				Name:       "version",
-				Short:      `Major version of the MongoDB® engine`,
+				Short:      `Version of the MongoDB® engine`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -372,7 +341,7 @@ func mongodbInstanceCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "node-amount",
+				Name:       "node-number",
 				Short:      `Number of node to use for the Database Instance`,
 				Required:   true,
 				Deprecated: false,
@@ -400,7 +369,14 @@ func mongodbInstanceCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "volume.type",
+				Name:       "volume.volume-size",
+				Short:      `Volume size`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "volume.volume-type",
 				Short:      `Type of volume where data is stored`,
 				Required:   false,
 				Deprecated: false,
@@ -412,15 +388,7 @@ func mongodbInstanceCreate() *core.Command {
 				},
 			},
 			{
-				Name:       "volume.size-bytes",
-				Short:      `Volume size`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "endpoints.{index}.public-network",
-				Short:      `Expose the Database Instance publicly (empty object)`,
+				Name:       "endpoints.{index}.public",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -472,27 +440,6 @@ func mongodbInstanceUpdate() *core.Command {
 			{
 				Name:       "tags.{index}",
 				Short:      `Tags of a Database Instance`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "snapshot-schedule-frequency-hours",
-				Short:      `In hours`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "snapshot-schedule-retention-days",
-				Short:      `In days`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "is-snapshot-schedule-enabled",
-				Short:      `Defines whether or not the snapshot schedule is enabled`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -558,15 +505,8 @@ func mongodbInstanceUpgrade() *core.Command {
 				Positional: true,
 			},
 			{
-				Name:       "volume-size-bytes",
+				Name:       "volume-size",
 				Short:      `Increase your Block Storage volume size`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "version",
-				Short:      `MongoDB version to upgrade to (e.g., ` + "`" + `8.0` + "`" + `, ` + "`" + `7.0` + "`" + `, ` + "`" + `8.2` + "`" + `)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -735,7 +675,7 @@ func mongodbSnapshotUpdate() *core.Command {
 func mongodbSnapshotRestore() *core.Command {
 	return &core.Command{
 		Short:     `Restore a Database Instance snapshot`,
-		Long:      `Restore a given snapshot of a Database Instance. You must specify, in the endpoint, the ` + "`" + `snapshot_id` + "`" + ` parameter of the snapshot you want to restore, the ` + "`" + `instance_name` + "`" + ` of the new Database Instance, ` + "`" + `node_type` + "`" + ` of the new Database Instance and ` + "`" + `node_amount` + "`" + ` of the new Database Instance.`,
+		Long:      `Restore a given snapshot of a Database Instance. You must specify, in the endpoint, the ` + "`" + `snapshot_id` + "`" + ` parameter of the snapshot you want to restore, the ` + "`" + `instance_name` + "`" + ` of the new Database Instance, ` + "`" + `node_type` + "`" + ` of the new Database Instance and ` + "`" + `node_number` + "`" + ` of the new Database Instance.`,
 		Namespace: "mongodb",
 		Resource:  "snapshot",
 		Verb:      "restore",
@@ -764,16 +704,16 @@ func mongodbSnapshotRestore() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "node-amount",
+				Name:       "node-number",
 				Short:      `Number of nodes to use for the new Database Instance`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
-				Name:       "volume-type",
-				Short:      `Instance volume type`,
-				Required:   true,
+				Name:       "volume.volume-type",
+				Short:      `Type of volume where data is stored`,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{
@@ -1134,7 +1074,7 @@ func mongodbUserSetRole() *core.Command {
 				},
 			},
 			{
-				Name:       "roles.{index}.database-name",
+				Name:       "roles.{index}.database",
 				Short:      `Name of the database on which the preset role will be used`,
 				Required:   false,
 				Deprecated: false,
@@ -1156,59 +1096,6 @@ func mongodbUserSetRole() *core.Command {
 			api := mongodb.NewAPI(client)
 
 			return api.SetUserRole(request, scw.WithContext(ctx))
-		},
-	}
-}
-
-func mongodbDatabaseList() *core.Command {
-	return &core.Command{
-		Short:     `List databases in a Database Instance`,
-		Long:      `List all databases of a given Database Instance.`,
-		Namespace: "mongodb",
-		Resource:  "database",
-		Verb:      "list",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeFor[mongodb.ListDatabasesRequest](),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "instance-id",
-				Short:      `UUID of the Database Instance`,
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "order-by",
-				Short:      `Criteria to use when requesting user listing`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{
-					"name_asc",
-					"name_desc",
-				},
-			},
-			core.RegionArgSpec(
-				scw.RegionFrPar,
-				scw.Region(core.AllLocalities),
-			),
-		},
-		Run: func(ctx context.Context, args any) (i any, e error) {
-			request := args.(*mongodb.ListDatabasesRequest)
-
-			client := core.ExtractClient(ctx)
-			api := mongodb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
-			if request.Region == scw.Region(core.AllLocalities) {
-				opts = append(opts, scw.WithRegions(api.Regions()...))
-				request.Region = ""
-			}
-			resp, err := api.ListDatabases(request, opts...)
-			if err != nil {
-				return nil, err
-			}
-
-			return resp.Databases, nil
 		},
 	}
 }
@@ -1268,8 +1155,7 @@ func mongodbEndpointCreate() *core.Command {
 				Positional: true,
 			},
 			{
-				Name:       "endpoint.public-network",
-				Short:      `Expose the Database Instance publicly (empty object)`,
+				Name:       "endpoint.public",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1290,123 +1176,6 @@ func mongodbEndpointCreate() *core.Command {
 			api := mongodb.NewAPI(client)
 
 			return api.CreateEndpoint(request, scw.WithContext(ctx))
-		},
-	}
-}
-
-func mongodbMaintenanceList() *core.Command {
-	return &core.Command{
-		Short:     `List all the maintenances of a MongoDB® Database Instance.`,
-		Long:      `List all the maintenances of a MongoDB® Database Instance.`,
-		Namespace: "mongodb",
-		Resource:  "maintenance",
-		Verb:      "list",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeFor[mongodb.ListMaintenancesRequest](),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "instance-id",
-				Short:      `ID of the instance`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "order-by",
-				Short:      `Criteria to use when requesting user listing`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{
-					"created_at_asc",
-					"created_at_desc",
-					"starts_at_asc",
-					"starts_at_desc",
-					"stops_at_asc",
-					"stops_at_desc",
-				},
-			},
-			core.RegionArgSpec(
-				scw.RegionFrPar,
-				scw.Region(core.AllLocalities),
-			),
-		},
-		Run: func(ctx context.Context, args any) (i any, e error) {
-			request := args.(*mongodb.ListMaintenancesRequest)
-
-			client := core.ExtractClient(ctx)
-			api := mongodb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
-			if request.Region == scw.Region(core.AllLocalities) {
-				opts = append(opts, scw.WithRegions(api.Regions()...))
-				request.Region = ""
-			}
-			resp, err := api.ListMaintenances(request, opts...)
-			if err != nil {
-				return nil, err
-			}
-
-			return resp.Maintenances, nil
-		},
-	}
-}
-
-func mongodbMaintenanceGet() *core.Command {
-	return &core.Command{
-		Short:     `Get a maintenance of a MongoDB® Database Instance.`,
-		Long:      `Get a maintenance of a MongoDB® Database Instance.`,
-		Namespace: "mongodb",
-		Resource:  "maintenance",
-		Verb:      "get",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeFor[mongodb.GetMaintenanceRequest](),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "maintenance-id",
-				Short:      `ID of the maintenance`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			core.RegionArgSpec(scw.RegionFrPar),
-		},
-		Run: func(ctx context.Context, args any) (i any, e error) {
-			request := args.(*mongodb.GetMaintenanceRequest)
-
-			client := core.ExtractClient(ctx)
-			api := mongodb.NewAPI(client)
-
-			return api.GetMaintenance(request, scw.WithContext(ctx))
-		},
-	}
-}
-
-func mongodbMaintenanceApply() *core.Command {
-	return &core.Command{
-		Short:     `Apply a maintenance of a MongoDB® Database Instance.`,
-		Long:      `Apply a maintenance of a MongoDB® Database Instance.`,
-		Namespace: "mongodb",
-		Resource:  "maintenance",
-		Verb:      "apply",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeFor[mongodb.ApplyMaintenanceRequest](),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "maintenance-id",
-				Short:      `ID of the maintenance`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			core.RegionArgSpec(scw.RegionFrPar),
-		},
-		Run: func(ctx context.Context, args any) (i any, e error) {
-			request := args.(*mongodb.ApplyMaintenanceRequest)
-
-			client := core.ExtractClient(ctx)
-			api := mongodb.NewAPI(client)
-
-			return api.ApplyMaintenance(request, scw.WithContext(ctx))
 		},
 	}
 }
