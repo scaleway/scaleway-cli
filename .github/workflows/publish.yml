@@ -1,0 +1,94 @@
+name: publish
+permissions:
+  contents: write
+  id-token: write # Required for OIDC (MCP)
+
+on:
+  release:
+    types: [published]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ${{ vars.RUNS_ON || 'ubuntu-latest' }}
+    timeout-minutes: 20
+    steps:
+      - name: Set git to use LF to avoid problem with goldens on windows
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+        with:
+          version: 2026.9.3
+          cache: false
+          experimental: true
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      - name: Push the packages (docker, mcp, winget)
+        # Runs once the draft release is manually published. DISABLE_RELEASE
+        # makes GoReleaser skip the now-immutable GitHub release: this run only
+        # pushes docker, mcp and winget.
+        run: mise run release --no-snapshot
+        env:
+          DISABLE_RELEASE: "true"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WINGET_TOKEN: ${{ secrets.WINGET_TOKEN }}
+
+  chocolatey:
+    # GoReleaser shells out to the Windows-only `choco` binary, so the
+    # chocolatey package is built and pushed on a windows runner, using its own
+    # config (.goreleaser.chocolatey.yml) instead of the main one.
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - name: Set git to use LF to avoid problem with goldens on windows
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+        with:
+          version: 2026.9.3
+          cache: false
+          experimental: true
+      - name: Publish the Chocolatey packages
+        # mise cannot install chocolatey (a multi-file app distributed as an
+        # MSI), so rely on the choco preinstalled on the windows runner.
+        run: goreleaser release -f .goreleaser.chocolatey.yml --clean
+        env:
+          CHOCOLATEY_API_KEY: ${{ secrets.CHOCOLATEY_API_KEY }}
+
+  slack:
+    permissions:
+      contents: read
+    runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
+    steps:
+      - name: Announce on slack
+        env:
+          TAG_NAME: "${{ github.event.release.tag_name }}"
+          HTML_URL: "${{ github.event.release.html_url }}"
+          WEBHOOKS: "${{ secrets.SLACK_WEBHOOKS }}"
+        run: |
+          for webhook in $WEBHOOKS; do
+            jq -n --arg tag_name "$TAG_NAME" --arg html_url "$HTML_URL" '{
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                      "type": "mrkdwn",
+                      "text": "New CLI release \($tag_name) ! :tada: :rocket:\nCheck changelog on <\($html_url)|release page>"
+                    }
+                }
+              ]
+            }' | curl -X POST -H 'Content-type: application/json' -d @- "$webhook"
+          done
