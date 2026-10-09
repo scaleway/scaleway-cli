@@ -12,6 +12,7 @@ import (
 	redisSDK "github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 const (
@@ -341,17 +342,17 @@ func checkEndpoints(
 	}
 }
 
-func Test_createRequestZone(t *testing.T) {
+func Test_CreateRequestZone(t *testing.T) {
 	// During shell completion the embedded *redis.CreateClusterRequest is
 	// nil (reflect.New leaves it unallocated); this must not panic.
 	t.Run("Nil embedded request does not panic", func(t *testing.T) {
-		require.Equal(t, scw.Zone(""), createRequestZone(&redisCreateClusterRequestCustom{}))
+		require.Equal(t, scw.Zone(""), redis.CreateRequestZone(&redis.CreateClusterRequestCustom{}))
 	})
 
 	t.Run("Returns zone when embedded request is set", func(t *testing.T) {
-		req := &redisCreateClusterRequestCustom{
-			CreateClusterRequest: &redis.CreateClusterRequest{Zone: scw.ZoneFrPar1},
+		req := &redis.CreateClusterRequestCustom{
+			CreateClusterRequest: &redisSDK.CreateClusterRequest{Zone: scw.ZoneFrPar1},
 		}
-		assert.Equal(t, scw.ZoneFrPar1, createRequestZone(req))
+		assert.Equal(t, scw.ZoneFrPar1, redis.CreateRequestZone(req))
 	})
 }
