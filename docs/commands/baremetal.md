@@ -826,6 +826,29 @@ scw baremetal server reboot 11111111-1111-1111-1111-111111111111 boot-type=rescu
 
 
 
+### SSH into a server
+
+Connect to distant server via the SSH protocol.
+
+**Usage:**
+
+```shell
+scw baremetal server ssh <server-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name      | Description                                                                                                        | Argument Specifications |
+|-----------|--------------------------------------------------------------------------------------------------------------------|-------------------------|
+| server-id | Server ID to SSH into                                                                                              | Required                |
+| username  | Username used for the SSH connection (defaults to the server install user, or root if the server is not installed) |                         |
+| port      | Port used for the SSH connection                                                                                   | Default: `22`           |
+| command   | Command to execute on the remote server                                                                            |                         |
+| zone      | Zone to target. If none is passed will use default zone from the config                                            | Default: `fr-par-1`     |
+
+
+
 ### Start an Elastic Metal server
 
 Start the server associated with the ID.
