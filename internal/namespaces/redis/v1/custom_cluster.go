@@ -39,7 +39,7 @@ type redisEndpointSpecCustom struct {
 	PrivateNetwork *redisEndpointSpecPrivateNetworkSpecCustom `json:"private-network"`
 }
 
-type redisCreateClusterRequestCustom struct {
+type CreateClusterRequestCustom struct {
 	*redis.CreateClusterRequest
 	Endpoints []*redisEndpointSpecCustom `json:"endpoints"`
 }
@@ -52,7 +52,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		Default:  core.DefaultValueSetter("false"),
 	})
 
-	c.ArgsType = reflect.TypeFor[redisCreateClusterRequestCustom]()
+	c.ArgsType = reflect.TypeFor[CreateClusterRequestCustom]()
 
 	c.ArgSpecs.GetByName("version").Default = core.DefaultValueSetter("latest")
 	c.ArgSpecs.GetByName("version").AutoCompleteFunc = autoCompleteRedisVersion
@@ -77,7 +77,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		client := core.ExtractClient(ctx)
 		api := redis.NewAPI(client)
 
-		customRequest := argsI.(*redisCreateClusterRequestCustom)
+		customRequest := argsI.(*CreateClusterRequestCustom)
 		createClusterRequest := customRequest.CreateClusterRequest
 
 		// Handle default latest version for redis cluster
@@ -320,7 +320,7 @@ func autoCompleteNodeType(
 	return completeNodeTypes(ctx, req.Zone, prefix)
 }
 
-func createRequestZone(req *redisCreateClusterRequestCustom) scw.Zone {
+func CreateRequestZone(req *CreateClusterRequestCustom) scw.Zone {
 	// The embedded *redis.CreateClusterRequest is nil during shell completion
 	// (reflect.New leaves it unallocated), so guard before promoting .Zone.
 	if req.CreateClusterRequest == nil {
@@ -335,9 +335,9 @@ func autoCompleteCreateNodeType(
 	prefix string,
 	request any,
 ) core.AutocompleteSuggestions {
-	req := request.(*redisCreateClusterRequestCustom)
+	req := request.(*CreateClusterRequestCustom)
 
-	return completeNodeTypes(ctx, createRequestZone(req), prefix)
+	return completeNodeTypes(ctx, CreateRequestZone(req), prefix)
 }
 
 func completeNodeTypes(
@@ -376,7 +376,7 @@ func autoCompleteRedisVersion(
 	request any,
 ) core.AutocompleteSuggestions {
 	suggestions := core.AutocompleteSuggestions(nil)
-	zone := createRequestZone(request.(*redisCreateClusterRequestCustom))
+	zone := CreateRequestZone(request.(*CreateClusterRequestCustom))
 
 	client := core.ExtractClient(ctx)
 	api := redis.NewAPI(client)
