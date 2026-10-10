@@ -1,5 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Srn          -
 ID           01a1150f-68d4-73c1-b349-95b75f72506b
 ProjectID    de2b260d-2c2e-4be9-baa0-99d8ed17f1da
 Name         cli-asg-happy-black
@@ -9,6 +10,7 @@ Status       active
 CurrentSize  0
 TargetSize   0
 TemplateID   cca81e91-dce9-43fd-bf35-81572e1f4554
+Zone         
 
 Tags:
 [cli-test-asg]
@@ -26,6 +28,7 @@ Open Alerts:
 TYPE  OPENED AT  CLOSED AT  GROUP ID  FAILING QUOTAS
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
+  "srn": "",
   "id": "01a1150f-68d4-73c1-b349-95b75f72506b",
   "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
   "name": "cli-asg-happy-black",
@@ -52,5 +55,6 @@ TYPE  OPENED AT  CLOSED AT  GROUP ID  FAILING QUOTAS
       "target_avg_percent": 80
     }
   },
-  "load_balancer_configuration": null
+  "load_balancer_configuration": null,
+  "zone": ""
 }
