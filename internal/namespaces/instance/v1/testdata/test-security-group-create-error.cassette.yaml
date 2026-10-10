@@ -1,0 +1,38 @@
+---
+version: 2
+interactions:
+- id: 0
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 166
+    host: api.scaleway.com
+    body: "{\"name\":\"cli-sg-charming-rubin\",\"project\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\",\"stateful\":true,\"inbound_default_policy\":\"accept\",\"outbound_default_policy\":\"accept\"}"
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/security_groups
+    method: POST
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 71
+    body: "{\"message\": \"insufficient permissions\", \"type\": \"permissions_denied\"}"
+    headers:
+      Content-Length:
+      - "71"
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 04 Nov 2025 10:12:59 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      X-Request-Id:
+      - db548b67-958f-4e26-94c7-b9e6f25f3cb0
+    status: 403 Forbidden
+    code: 403
+    duration: 12.14533ms
