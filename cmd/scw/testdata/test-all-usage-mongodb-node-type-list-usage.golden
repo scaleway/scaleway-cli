@@ -7,6 +7,7 @@ USAGE:
 
 ARGS:
   [include-disabled]   Defines whether or not to include disabled types
+  [project-id]         ID of a project to get a personalized view of the stock
   [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | all)
 
 FLAGS:
