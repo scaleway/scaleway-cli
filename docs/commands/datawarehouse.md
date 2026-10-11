@@ -409,13 +409,14 @@ scw datawarehouse user update [arg=value ...]
 
 **Arguments:**
 
-| Name          | Description                                                                 | Argument Specifications                 |
-|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
-| deployment-id | UUID of the deployment                                                      | Required                                |
-| name          | Name of the user                                                            | Required                                |
-| password      | New password for the user                                                   |                                         |
-| is-admin      | Updates the user administrator permissions                                  |                                         |
-| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+| Name          | Description                                                                                                        | Argument Specifications                 |
+|---------------|--------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id | UUID of the deployment                                                                                             | Required                                |
+| name          | Name of the user                                                                                                   | Required                                |
+| fast-connect  | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting | Default: `false`                        |
+| password      | New password for the user                                                                                          |                                         |
+| is-admin      | Updates the user administrator permissions                                                                         |                                         |
+| region        | Region to target. If none is passed will use default region from the config                                        | Default: `fr-par`<br />One of: `fr-par` |
 
 
 

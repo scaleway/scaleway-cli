@@ -308,6 +308,13 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeFor[rdbCreateInstanceRequestCustom]()
 
+	c.SeeAlsos = []*core.SeeAlso{
+		{
+			Command: "scw rdb instance connect",
+			Short:   "Connect to an instance using locally installed CLI",
+		},
+	}
+
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 		instance, err := api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
@@ -398,6 +405,13 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 }
 
 func instanceGetBuilder(c *core.Command) *core.Command {
+	c.SeeAlsos = []*core.SeeAlso{
+		{
+			Command: "scw rdb instance connect",
+			Short:   "Connect to an instance using locally installed CLI",
+		},
+	}
+
 	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		res, err := runner(ctx, argsI)
 		if err != nil {

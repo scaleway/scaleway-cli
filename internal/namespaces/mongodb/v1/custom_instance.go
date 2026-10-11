@@ -73,6 +73,13 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.AddBefore("user-name", secrets.FastConnectArgSpec())
 	c.ArgSpecs.GetByName("password").Required = false
 
+	c.SeeAlsos = []*core.SeeAlso{
+		{
+			Command: "scw mongodb instance connect",
+			Short:   "Connect to a MongoDB® Database Instance using locally installed mongosh",
+		},
+	}
+
 	c.Run = func(ctx context.Context, args any) (any, error) {
 		customRequest := args.(*createInstanceRequestCustom)
 		request := customRequest.CreateInstanceRequest
@@ -128,6 +135,17 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
+	}
+
+	return c
+}
+
+func instanceGetBuilder(c *core.Command) *core.Command {
+	c.SeeAlsos = []*core.SeeAlso{
+		{
+			Command: "scw mongodb instance connect",
+			Short:   "Connect to a MongoDB® Database Instance using locally installed mongosh",
+		},
 	}
 
 	return c

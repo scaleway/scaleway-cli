@@ -65,6 +65,13 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.AddBefore("password", secrets.FastConnectArgSpec())
 	c.ArgSpecs.GetByName("password").Required = false
 
+	c.SeeAlsos = []*core.SeeAlso{
+		{
+			Command: "scw redis cluster connect",
+			Short:   "Connect to a Redis cluster using locally installed redis-cli",
+		},
+	}
+
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := redis.NewAPI(core.ExtractClient(ctx))
 		cluster, err := api.WaitForCluster(&redis.WaitForClusterRequest{
@@ -166,6 +173,17 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		return cluster, nil
+	}
+
+	return c
+}
+
+func clusterGetBuilder(c *core.Command) *core.Command {
+	c.SeeAlsos = []*core.SeeAlso{
+		{
+			Command: "scw redis cluster connect",
+			Short:   "Connect to a Redis cluster using locally installed redis-cli",
+		},
 	}
 
 	return c

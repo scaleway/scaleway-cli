@@ -29,6 +29,13 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.AddBefore("password", passwordgenerator.GeneratePasswordArgSpec())
 	c.ArgSpecs.AddBefore("password", secrets.FastConnectArgSpec())
 
+	c.SeeAlsos = []*core.SeeAlso{
+		{
+			Command: "scw datawarehouse deployment connect",
+			Short:   "Connect to a Data Warehouse deployment using locally installed clickhousectl",
+		},
+	}
+
 	c.Run = func(ctx context.Context, args any) (any, error) {
 		customRequest := args.(*createDeploymentRequestCustom)
 		request := customRequest.CreateDeploymentRequest
@@ -72,6 +79,17 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		return deployment, nil
+	}
+
+	return c
+}
+
+func deploymentGetBuilder(c *core.Command) *core.Command {
+	c.SeeAlsos = []*core.SeeAlso{
+		{
+			Command: "scw datawarehouse deployment connect",
+			Short:   "Connect to a Data Warehouse deployment using locally installed clickhousectl",
+		},
 	}
 
 	return c

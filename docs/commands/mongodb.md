@@ -649,12 +649,13 @@ scw mongodb user update [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                                 | Argument Specifications                 |
-|-------------|-----------------------------------------------------------------------------|-----------------------------------------|
-| instance-id | UUID of the Database Instance the user belongs to                           | Required                                |
-| name        | Name of the database user                                                   | Required                                |
-| password    | Password of the database user                                               |                                         |
-| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+| Name         | Description                                                                                                        | Argument Specifications                 |
+|--------------|--------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| instance-id  | UUID of the Database Instance the user belongs to                                                                  | Required                                |
+| name         | Name of the database user                                                                                          | Required                                |
+| fast-connect | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting | Default: `false`                        |
+| password     | Password of the database user                                                                                      |                                         |
+| region       | Region to target. If none is passed will use default region from the config                                        | Default: `fr-par`<br />One of: `fr-par` |
 
 
 

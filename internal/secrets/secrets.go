@@ -49,8 +49,9 @@ func Path(product, location, id, username string) string {
 }
 
 // Persist stores the credentials in a secret named SecretName at the given path.
-// ponytail: a second resource with the same name+path in the same project will
-// fail with a "secret already exists" error; upgrade to Get+update if that matters.
+// When a secret already exists at that path (e.g. the password of a user is
+// updated after the credentials were persisted at resource creation) a new
+// version is created on the existing secret instead.
 func Persist(ctx context.Context, region scw.Region, path string, creds Credentials) error {
 	client := core.ExtractClient(ctx)
 	api := secretSDK.NewAPI(client)
@@ -62,7 +63,16 @@ func Persist(ctx context.Context, region scw.Region, path string, creds Credenti
 		Description: &description,
 	})
 	if err != nil {
-		return fmt.Errorf("failed to create secret %q: %w", path, err)
+		secretName := SecretName
+		existing, listErr := api.ListSecrets(&secretSDK.ListSecretsRequest{
+			Region: region,
+			Name:   &secretName,
+			Path:   &path,
+		}, scw.WithAllPages())
+		if listErr != nil || len(existing.Secrets) == 0 {
+			return fmt.Errorf("failed to create secret %q: %w", path, err)
+		}
+		secret = existing.Secrets[0]
 	}
 
 	data, err := json.Marshal(creds)
@@ -150,12 +160,23 @@ func FetchOrPrompt(ctx context.Context, region scw.Region, path string) (Credent
 		return creds, nil
 	}
 
+	password, err := PromptPassword(ctx)
+	if err != nil {
+		return Credentials{}, err
+	}
+
+	return Credentials{Password: password}, nil
+}
+
+// PromptPassword asks the user for a password interactively so that it does
+// not end up in the shell history.
+func PromptPassword(ctx context.Context) (string, error) {
 	password, err := interactive.PromptPasswordWithConfig(ctx, &interactive.PromptPasswordConfig{
 		Prompt: "Password",
 	})
 	if err != nil {
-		return Credentials{}, fmt.Errorf("failed to get password: %w", err)
+		return "", fmt.Errorf("failed to get password: %w", err)
 	}
 
-	return Credentials{Password: password}, nil
+	return password, nil
 }
