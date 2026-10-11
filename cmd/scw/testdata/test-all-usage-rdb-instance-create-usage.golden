@@ -11,6 +11,7 @@ ARGS:
   engine                                         Database engine of the Database Instance (PostgreSQL, MySQL, ...)
   user-name                                      Username created when the Database Instance is created
   [generate-password=true]                       Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols
+  [cli-connect=false]                            Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting
   [password]                                     Password of the user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character
   node-type=DB-DEV-S                             Type of node to use for the Database Instance
   [high-availability-mode]                       Defines the High-Availability mode of the instance (unknown_high_availability_mode | disabled | single_zone | multiple_zone)
@@ -46,3 +47,7 @@ GLOBAL FLAGS:
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
+
+SEE ALSO:
+  # Connect to an instance using locally installed CLI
+  scw rdb instance connect

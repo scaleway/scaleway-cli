@@ -6,11 +6,12 @@ USAGE:
   scw datawarehouse user update [arg=value ...]
 
 ARGS:
-  deployment-id     UUID of the deployment
-  name              Name of the user
-  [password]        New password for the user
-  [is-admin]        Updates the user administrator permissions
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  deployment-id         UUID of the deployment
+  name                  Name of the user
+  [cli-connect=false]   Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting
+  [password]            New password for the user
+  [is-admin]            Updates the user administrator permissions
+  [region=fr-par]       Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help                help for update

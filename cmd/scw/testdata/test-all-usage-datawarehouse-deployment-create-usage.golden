@@ -12,6 +12,8 @@ ARGS:
   [version]                                                ClickHouse® version to use for the deployment
   [replica-count]                                          Number of replicas for the deployment
   [shard-count]                                            Number of shard for the deployment
+  [generate-password=true]                                 Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols
+  [cli-connect=false]                                      Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting
   [password]                                               Password for the initial user
   [cpu-min]                                                Minimum CPU count for the deployment
   [cpu-max]                                                Maximum CPU count for the deployment
@@ -31,3 +33,7 @@ GLOBAL FLAGS:
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
+
+SEE ALSO:
+  # Connect to a Data Warehouse deployment using locally installed clickhousectl
+  scw datawarehouse deployment connect

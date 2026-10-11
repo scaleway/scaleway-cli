@@ -6,10 +6,11 @@ USAGE:
   scw mongodb user update [arg=value ...]
 
 ARGS:
-  instance-id       UUID of the Database Instance the user belongs to
-  name              Name of the database user
-  [password]        Password of the database user
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  instance-id           UUID of the Database Instance the user belongs to
+  name                  Name of the database user
+  [cli-connect=false]   Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting
+  [password]            Password of the database user
+  [region=fr-par]       Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help                help for update

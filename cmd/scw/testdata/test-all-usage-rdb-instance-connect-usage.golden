@@ -1,6 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Connect to an instance using locally installed CLI such as psql or mysql.
+When no username is given, the admin user is used and credentials are fetched from the secret
+created by "rdb instance create cli-connect=true" when available.
 
 USAGE:
   scw rdb instance connect <instance-id ...> [arg=value ...]
@@ -8,7 +10,7 @@ USAGE:
 ARGS:
   [private-network=false]   Connect by the private network endpoint attached.
   instance-id               UUID of the instance
-  username                  Name of the user to connect with to the database
+  [username]                Name of the user to connect with to the database (defaults to the admin user)
   [database=rdb]            Name of the database
   [cli-db]                  Command line tool to use, default to psql/mysql
   [region=fr-par]           Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
