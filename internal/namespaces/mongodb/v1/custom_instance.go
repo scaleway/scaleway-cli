@@ -2,7 +2,6 @@ package mongodb
 
 import (
 	"context"
-	"fmt"
 	"reflect"
 	"strings"
 	"time"
@@ -10,8 +9,9 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
-	"github.com/scaleway/scaleway-cli/v2/internal/secrets"
 	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -22,7 +22,7 @@ const (
 
 type createInstanceRequestCustom struct {
 	*mongodb.CreateInstanceRequest
-	FastConnect      bool
+	CliConnect       bool
 	GeneratePassword bool
 }
 
@@ -70,7 +70,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeFor[createInstanceRequestCustom]()
 	c.ArgSpecs.AddBefore("user-name", passwordgenerator.GeneratePasswordArgSpec())
-	c.ArgSpecs.AddBefore("user-name", secrets.FastConnectArgSpec())
+	c.ArgSpecs.AddBefore("user-name", connect.CliConnectArgSpec())
 	c.ArgSpecs.GetByName("password").Required = false
 
 	c.SeeAlsos = []*core.SeeAlso{
@@ -104,11 +104,11 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		if generatedPassword != "" {
-			fmt.Printf("Your generated password is %s \n\n", generatedPassword)
+			interactive.Printf("Your generated password is %s \n\n", generatedPassword)
 		}
 
-		if customRequest.FastConnect {
-			if err := secrets.PersistCredentials(
+		if customRequest.CliConnect {
+			if err := connect.PersistCredentials(
 				ctx,
 				instance.Region,
 				"mongodb",

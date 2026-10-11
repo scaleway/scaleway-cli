@@ -87,8 +87,8 @@ func Test_CreateInstance(t *testing.T) {
 	}))
 }
 
-func Test_CreateInstanceFastConnect(t *testing.T) {
-	cmd := strings.Replace(baseCommand, "--wait", "fast-connect=true --wait", 1)
+func Test_CreateInstanceCliConnect(t *testing.T) {
+	cmd := strings.Replace(baseCommand, "--wait", "cli-connect=true --wait", 1)
 
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
@@ -406,7 +406,7 @@ func Test_Connect(t *testing.T) {
 		BeforeFunc: core.ExecStoreBeforeCmd(
 			"Instance",
 			fmt.Sprintf(
-				strings.Replace(baseCommand, "--wait", "fast-connect=true --wait", 1),
+				strings.Replace(baseCommand, "--wait", "cli-connect=true --wait", 1),
 				name, engine, user, password,
 			),
 		),

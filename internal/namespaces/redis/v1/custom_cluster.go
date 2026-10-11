@@ -16,8 +16,9 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
-	"github.com/scaleway/scaleway-cli/v2/internal/secrets"
 	"github.com/scaleway/scaleway-cli/v2/internal/semver"
 	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -43,7 +44,7 @@ type redisEndpointSpecCustom struct {
 type CreateClusterRequestCustom struct {
 	*redis.CreateClusterRequest
 	Endpoints        []*redisEndpointSpecCustom `json:"endpoints"`
-	FastConnect      bool
+	CliConnect       bool
 	GeneratePassword bool
 }
 
@@ -62,7 +63,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteCreateNodeType
 
 	c.ArgSpecs.AddBefore("password", passwordgenerator.GeneratePasswordArgSpec())
-	c.ArgSpecs.AddBefore("password", secrets.FastConnectArgSpec())
+	c.ArgSpecs.AddBefore("password", connect.CliConnectArgSpec())
 	c.ArgSpecs.GetByName("password").Required = false
 
 	c.SeeAlsos = []*core.SeeAlso{
@@ -149,16 +150,16 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		if generatedPassword != "" {
-			fmt.Printf("Your generated password is %s \n\n", generatedPassword)
+			interactive.Printf("Your generated password is %s \n\n", generatedPassword)
 		}
 
-		if customRequest.FastConnect {
+		if customRequest.CliConnect {
 			region, err := cluster.Zone.Region()
 			if err != nil {
 				return nil, err
 			}
 
-			if err := secrets.PersistCredentials(
+			if err := connect.PersistCredentials(
 				ctx,
 				region,
 				"redis",
@@ -642,10 +643,10 @@ func clusterConnectCommand() *core.Command {
 				return nil, err
 			}
 
-			creds, err := secrets.FetchOrPrompt(
+			creds, err := connect.FetchOrPrompt(
 				ctx,
 				region,
-				secrets.Path("redis", string(cluster.Zone), cluster.ID, cluster.UserName),
+				connect.Path("redis", string(cluster.Zone), cluster.ID, cluster.UserName),
 			)
 			if err != nil {
 				return nil, err

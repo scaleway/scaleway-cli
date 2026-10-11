@@ -8,8 +8,9 @@ import (
 	"strconv"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
-	"github.com/scaleway/scaleway-cli/v2/internal/secrets"
 	datawarehouse "github.com/scaleway/scaleway-sdk-go/api/datawarehouse/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -20,14 +21,14 @@ const dwAdminUsername = "scwadmin"
 type createDeploymentRequestCustom struct {
 	*datawarehouse.CreateDeploymentRequest
 	GeneratePassword bool
-	FastConnect      bool
+	CliConnect       bool
 }
 
 func deploymentCreateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeFor[createDeploymentRequestCustom]()
 
 	c.ArgSpecs.AddBefore("password", passwordgenerator.GeneratePasswordArgSpec())
-	c.ArgSpecs.AddBefore("password", secrets.FastConnectArgSpec())
+	c.ArgSpecs.AddBefore("password", connect.CliConnectArgSpec())
 
 	c.SeeAlsos = []*core.SeeAlso{
 		{
@@ -60,11 +61,11 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		if generatedPassword != "" {
-			fmt.Printf("Your generated password is %s \n\n", generatedPassword)
+			interactive.Printf("Your generated password is %s \n\n", generatedPassword)
 		}
 
-		if customRequest.FastConnect {
-			if err := secrets.PersistCredentials(
+		if customRequest.CliConnect {
+			if err := connect.PersistCredentials(
 				ctx,
 				deployment.Region,
 				"datawarehouse",
@@ -157,7 +158,7 @@ func deploymentConnectCommand() *core.Command {
 		Short:     "Connect to a Data Warehouse deployment using locally installed clickhousectl",
 		Long: `Connect to a Data Warehouse deployment using locally installed clickhousectl.
 The scwadmin user is used and credentials are fetched from the secret created by
-"datawarehouse deployment create fast-connect=true" when available.`,
+"datawarehouse deployment create cli-connect=true" when available.`,
 		ArgsType: reflect.TypeFor[deploymentConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -222,10 +223,10 @@ The scwadmin user is used and credentials are fetched from the secret created by
 			}
 
 			// The Data Warehouse admin user is always "scwadmin"
-			creds, err := secrets.FetchOrPrompt(
+			creds, err := connect.FetchOrPrompt(
 				ctx,
 				deployment.Region,
-				secrets.Path(
+				connect.Path(
 					"datawarehouse",
 					string(deployment.Region),
 					deployment.ID,

@@ -17,10 +17,10 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
-	"github.com/scaleway/scaleway-cli/v2/internal/secrets"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	rdbSDK "github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -95,7 +95,7 @@ type rdbCreateInstanceRequestCustom struct {
 	*rdbSDK.CreateInstanceRequest
 	InitEndpoints    []*rdbEndpointSpecCustom `json:"init-endpoints"`
 	GeneratePassword bool
-	FastConnect      bool
+	CliConnect       bool
 }
 
 func createInstanceResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
@@ -300,7 +300,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		OneOfGroup: "config",
 	})
 	c.ArgSpecs.AddBefore("password", passwordgenerator.GeneratePasswordArgSpec())
-	c.ArgSpecs.AddBefore("password", secrets.FastConnectArgSpec())
+	c.ArgSpecs.AddBefore("password", connect.CliConnectArgSpec())
 	c.ArgSpecs.GetByName("password").Required = false
 	c.ArgSpecs.GetByName("node-type").Default = core.DefaultValueSetter("DB-DEV-S")
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
@@ -367,11 +367,11 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		if generatedPassword != "" {
-			fmt.Printf("Your generated password is %s \n\n", generatedPassword)
+			interactive.Printf("Your generated password is %s \n\n", generatedPassword)
 		}
 
-		if customRequest.FastConnect {
-			if err := secrets.PersistCredentials(
+		if customRequest.CliConnect {
+			if err := connect.PersistCredentials(
 				ctx,
 				instance.Region,
 				"rdb",
@@ -961,7 +961,7 @@ func instanceConnectCommand() *core.Command {
 		Short:     "Connect to an instance using locally installed CLI",
 		Long: `Connect to an instance using locally installed CLI such as psql or mysql.
 When no username is given, the admin user is used and credentials are fetched from the secret
-created by "rdb instance create fast-connect=true" when available.`,
+created by "rdb instance create cli-connect=true" when available.`,
 		ArgsType: reflect.TypeFor[instanceConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -1049,10 +1049,10 @@ created by "rdb instance create fast-connect=true" when available.`,
 				}
 			}
 
-			creds, found := secrets.Fetch(
+			creds, found := connect.Fetch(
 				ctx,
 				instance.Region,
-				secrets.Path("rdb", string(instance.Region), instance.ID, username),
+				connect.Path("rdb", string(instance.Region), instance.ID, username),
 			)
 			password := ""
 			if found {

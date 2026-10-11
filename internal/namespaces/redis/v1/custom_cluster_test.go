@@ -357,11 +357,11 @@ func Test_CreateRequestZone(t *testing.T) {
 	})
 }
 
-func Test_CreateClusterFastConnect(t *testing.T) {
+func Test_CreateClusterCliConnect(t *testing.T) {
 	cmd := strings.Replace(
 		fmt.Sprintf(strings.TrimSpace(baseCommand), "cli-persist"),
 		"--wait",
-		"fast-connect=true",
+		"cli-connect=true",
 		1,
 	)
 

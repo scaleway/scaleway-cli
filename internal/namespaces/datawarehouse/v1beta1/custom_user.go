@@ -5,7 +5,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/secrets"
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
 	datawarehouse "github.com/scaleway/scaleway-sdk-go/api/datawarehouse/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -13,18 +13,18 @@ import (
 func userUpdateBuilder(c *core.Command) *core.Command {
 	type datawarehouseUpdateUserRequestCustom struct {
 		*datawarehouse.UpdateUserRequest
-		FastConnect bool
+		CliConnect bool
 	}
 
-	c.ArgSpecs.AddBefore("password", secrets.FastConnectArgSpec())
+	c.ArgSpecs.AddBefore("password", connect.CliConnectArgSpec())
 	c.ArgsType = reflect.TypeFor[datawarehouseUpdateUserRequestCustom]()
 
 	c.Run = func(ctx context.Context, args any) (any, error) {
 		customRequest := args.(*datawarehouseUpdateUserRequestCustom)
 		request := customRequest.UpdateUserRequest
 
-		if customRequest.FastConnect && request.Password == nil {
-			password, err := secrets.PromptPassword(ctx)
+		if customRequest.CliConnect && request.Password == nil {
+			password, err := connect.PromptPassword(ctx)
 			if err != nil {
 				return nil, err
 			}
@@ -37,8 +37,8 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		if customRequest.FastConnect {
-			if err := secrets.PersistCredentials(
+		if customRequest.CliConnect {
+			if err := connect.PersistCredentials(
 				ctx,
 				request.Region,
 				"datawarehouse",

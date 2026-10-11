@@ -84,7 +84,7 @@ A Managed MongoDB® Database Instance is composed of one or multiple dedicated c
 
 Connect to a MongoDB® Database Instance using locally installed mongosh.
 When no username is given, the admin user is used and credentials are fetched from the secret
-created by "mongodb instance create fast-connect=true" when available.
+created by "mongodb instance create cli-connect=true" when available.
 
 **Usage:**
 
@@ -137,7 +137,7 @@ scw mongodb instance create [arg=value ...]
 | node-amount                                          | Number of node to use for the Database Instance                                                                           | Required<br />Default: `1`                                         |
 | node-type                                            | Type of node to use for the Database Instance                                                                             | Required                                                           |
 | generate-password                                    | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols | Default: `true`                                                    |
-| fast-connect                                         | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting        | Default: `false`                                                   |
+| cli-connect                                          | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting        | Default: `false`                                                   |
 | user-name                                            | Username created when the Database Instance is created                                                                    | Required                                                           |
 | password                                             | Password of the initial user                                                                                              |                                                                    |
 | volume.type                                          | Type of volume where data is stored                                                                                       | Default: `sbs_5k`<br />One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
@@ -649,13 +649,13 @@ scw mongodb user update [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                                                                        | Argument Specifications                 |
-|--------------|--------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
-| instance-id  | UUID of the Database Instance the user belongs to                                                                  | Required                                |
-| name         | Name of the database user                                                                                          | Required                                |
-| fast-connect | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting | Default: `false`                        |
-| password     | Password of the database user                                                                                      |                                         |
-| region       | Region to target. If none is passed will use default region from the config                                        | Default: `fr-par`<br />One of: `fr-par` |
+| Name        | Description                                                                                                        | Argument Specifications                 |
+|-------------|--------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| instance-id | UUID of the Database Instance the user belongs to                                                                  | Required                                |
+| name        | Name of the database user                                                                                          | Required                                |
+| cli-connect | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting | Default: `false`                        |
+| password    | Password of the database user                                                                                      |                                         |
+| region      | Region to target. If none is passed will use default region from the config                                        | Default: `fr-par`<br />One of: `fr-par` |
 
 
 

@@ -80,7 +80,7 @@ A deployment is composed of one or multiple replicas.
 
 Connect to a Data Warehouse deployment using locally installed clickhousectl.
 The scwadmin user is used and credentials are fetched from the secret created by
-"datawarehouse deployment create fast-connect=true" when available.
+"datawarehouse deployment create cli-connect=true" when available.
 
 **Usage:**
 
@@ -132,7 +132,7 @@ scw datawarehouse deployment create [arg=value ...]
 | replica-count                                        | Number of replicas for the deployment                                                                                                                                                                                                                                                                                     |                                         |
 | shard-count                                          | Number of shard for the deployment                                                                                                                                                                                                                                                                                        |                                         |
 | generate-password                                    | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols                                                                                                                                                                                                 | Default: `true`                         |
-| fast-connect                                         | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting                                                                                                                                                                                                        | Default: `false`                        |
+| cli-connect                                          | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting                                                                                                                                                                                                        | Default: `false`                        |
 | password                                             | Password for the initial user                                                                                                                                                                                                                                                                                             |                                         |
 | cpu-min                                              | Minimum CPU count for the deployment                                                                                                                                                                                                                                                                                      |                                         |
 | cpu-max                                              | Maximum CPU count for the deployment                                                                                                                                                                                                                                                                                      |                                         |
@@ -413,7 +413,7 @@ scw datawarehouse user update [arg=value ...]
 |---------------|--------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
 | deployment-id | UUID of the deployment                                                                                             | Required                                |
 | name          | Name of the user                                                                                                   | Required                                |
-| fast-connect  | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting | Default: `false`                        |
+| cli-connect   | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting | Default: `false`                        |
 | password      | New password for the user                                                                                          |                                         |
 | is-admin      | Updates the user administrator permissions                                                                         |                                         |
 | region        | Region to target. If none is passed will use default region from the config                                        | Default: `fr-par`<br />One of: `fr-par` |

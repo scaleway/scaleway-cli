@@ -7,8 +7,8 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
-	"github.com/scaleway/scaleway-cli/v2/internal/secrets"
 	secretSDK "github.com/scaleway/scaleway-sdk-go/api/secret/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
@@ -104,10 +104,10 @@ func Test_UpdateUser(t *testing.T) {
 	}))
 }
 
-func Test_UpdateUserFastConnect(t *testing.T) {
-	// The instance is created with fast-connect so the credentials secret already
+func Test_UpdateUserCliConnect(t *testing.T) {
+	// The instance is created with cli-connect so the credentials secret already
 	// exists: the update must add a new version on the existing secret.
-	createCommand := strings.Replace(baseCommand, "--wait", "fast-connect=true --wait", 1)
+	createCommand := strings.Replace(baseCommand, "--wait", "cli-connect=true --wait", 1)
 
 	t.Run("With existing secret", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
@@ -119,7 +119,7 @@ func Test_UpdateUserFastConnect(t *testing.T) {
 			),
 		),
 		Cmd: fmt.Sprintf(
-			"scw rdb user update instance-id={{ .Instance.ID }} name=%s fast-connect=true password=Newp1ssw0rd!",
+			"scw rdb user update instance-id={{ .Instance.ID }} name=%s cli-connect=true password=Newp1ssw0rd!",
 			user,
 		),
 		Check: core.TestCheckCombine(
@@ -128,7 +128,7 @@ func Test_UpdateUserFastConnect(t *testing.T) {
 				t.Helper()
 				region, _ := ctx.Client.GetDefaultRegion()
 				secretAPI := secretSDK.NewAPI(ctx.Client)
-				secretName := secrets.SecretName
+				secretName := connect.SecretName
 				list, err := secretAPI.ListSecrets(&secretSDK.ListSecretsRequest{
 					Region: region,
 					Name:   &secretName,
@@ -144,7 +144,7 @@ func Test_UpdateUserFastConnect(t *testing.T) {
 						&secretSDK.AccessSecretVersionByPathRequest{
 							Region:     region,
 							Revision:   "latest",
-							SecretName: secrets.SecretName,
+							SecretName: connect.SecretName,
 							SecretPath: secret.Path,
 						},
 					)

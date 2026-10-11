@@ -6,9 +6,9 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
-	"github.com/scaleway/scaleway-cli/v2/internal/secrets"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -160,7 +160,7 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 	type rdbUpdateUserRequestCustom struct {
 		*rdb.UpdateUserRequest
 		GeneratePassword bool
-		FastConnect      bool
+		CliConnect       bool
 	}
 
 	type rdbUpdateUserResponseCustom struct {
@@ -176,7 +176,7 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 		Positional: false,
 		Default:    core.DefaultValueSetter("true"),
 	})
-	c.ArgSpecs.AddBefore("password", secrets.FastConnectArgSpec())
+	c.ArgSpecs.AddBefore("password", connect.CliConnectArgSpec())
 	c.ArgsType = reflect.TypeFor[rdbUpdateUserRequestCustom]()
 
 	c.Run = func(ctx context.Context, argsI any) (any, error) {
@@ -188,8 +188,8 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 
 		var err error
 
-		if customRequest.FastConnect && customRequest.Password == nil {
-			password, promptErr := secrets.PromptPassword(ctx)
+		if customRequest.CliConnect && customRequest.Password == nil {
+			password, promptErr := connect.PromptPassword(ctx)
 			if promptErr != nil {
 				return nil, promptErr
 			}
@@ -226,8 +226,8 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		if customRequest.FastConnect {
-			if err := secrets.PersistCredentials(
+		if customRequest.CliConnect {
+			if err := connect.PersistCredentials(
 				ctx,
 				updateUserRequest.Region,
 				"rdb",

@@ -12,7 +12,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/secrets"
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
 	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -102,7 +102,7 @@ func instanceConnectCommand() *core.Command {
 		Short:     "Connect to a MongoDB® Database Instance using locally installed mongosh",
 		Long: `Connect to a MongoDB® Database Instance using locally installed mongosh.
 When no username is given, the admin user is used and credentials are fetched from the secret
-created by "mongodb instance create fast-connect=true" when available.`,
+created by "mongodb instance create cli-connect=true" when available.`,
 		ArgsType: reflect.TypeFor[instanceConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -174,10 +174,10 @@ created by "mongodb instance create fast-connect=true" when available.`,
 				}
 			}
 
-			creds, err := secrets.FetchOrPrompt(
+			creds, err := connect.FetchOrPrompt(
 				ctx,
 				instance.Region,
-				secrets.Path("mongodb", string(instance.Region), instance.ID, username),
+				connect.Path("mongodb", string(instance.Region), instance.ID, username),
 			)
 			if err != nil {
 				return nil, err

@@ -1,6 +1,6 @@
-// Package secrets persists product credentials in Secret Manager secrets so
+// Package connect persists product credentials in Secret Manager connect so
 // that scw connect commands can retrieve them without prompting the user.
-package secrets
+package connect
 
 import (
 	"context"
@@ -14,18 +14,18 @@ import (
 )
 
 const (
-	// SecretName is the name of the secrets created by the CLI.
+	// SecretName is the name of the connect created by the CLI.
 	SecretName = "cli"
 
-	// FastConnectArgSpecShort is the shared --help text for the fast-connect flag.
-	FastConnectArgSpecShort = `Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting`
+	// CliConnectArgSpecShort is the shared --help text for the cli-connect flag.
+	CliConnectArgSpecShort = `Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting`
 )
 
-// FastConnectArgSpec is the shared --fast-connect flag spec.
-func FastConnectArgSpec() *core.ArgSpec {
+// CliConnectArgSpec is the shared --cli-connect flag spec.
+func CliConnectArgSpec() *core.ArgSpec {
 	return &core.ArgSpec{
-		Name:       "fast-connect",
-		Short:      FastConnectArgSpecShort,
+		Name:       "cli-connect",
+		Short:      CliConnectArgSpecShort,
 		Required:   false,
 		Deprecated: false,
 		Positional: false,
@@ -35,7 +35,7 @@ func FastConnectArgSpec() *core.ArgSpec {
 
 var description = "secret used by the cli to ease up connection"
 
-// Credentials are the username/password pair stored by fast-connect.
+// Credentials are the username/password pair stored by cli-connect.
 type Credentials struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
@@ -89,7 +89,7 @@ func Persist(ctx context.Context, region scw.Region, path string, creds Credenti
 		return fmt.Errorf("failed to create a version of secret %s: %w", secret.ID, err)
 	}
 
-	fmt.Printf(
+	interactive.Printf(
 		"Credentials persisted in secret %s (path: %s, id: %s)\n",
 		SecretName,
 		path,
