@@ -350,14 +350,14 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		createInstanceRequest := customRequest.CreateInstanceRequest
 
 		var err error
+		generatedPassword := ""
 		createInstanceRequest.NodeType = strings.ToLower(createInstanceRequest.NodeType)
-		if customRequest.GeneratePassword && customRequest.Password == "" {
-			createInstanceRequest.Password, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
+		if customRequest.GeneratePassword && createInstanceRequest.Password == "" {
+			generatedPassword, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
 			if err != nil {
 				return nil, err
 			}
-			fmt.Printf("Your generated password is %s \n", createInstanceRequest.Password)
-			fmt.Printf("\n")
+			createInstanceRequest.Password = generatedPassword
 		}
 
 		createInstanceRequest.InitEndpoints, err = endpointRequestFromCustom(
@@ -370,6 +370,11 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		instance, err := api.CreateInstance(createInstanceRequest)
 		if err != nil {
 			return nil, err
+		}
+
+		if generatedPassword != "" {
+			fmt.Printf("Your generated password is %s \n", generatedPassword)
+			fmt.Printf("\n")
 		}
 
 		if customRequest.FastConnect {

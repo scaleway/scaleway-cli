@@ -76,6 +76,40 @@ scw datawarehouse database list [arg=value ...]
 A deployment is composed of one or multiple replicas.
 
 
+### Connect to a Data Warehouse deployment using locally installed clickhousectl
+
+Connect to a Data Warehouse deployment using locally installed clickhousectl.
+The scwadmin user is used and credentials are fetched from the secret created by
+"datawarehouse deployment create fast-connect=true" when available.
+
+**Usage:**
+
+```shell
+scw datawarehouse deployment connect <deployment-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name            | Description                                                                 | Argument Specifications                 |
+|-----------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| private-network | Connect by the private network endpoint attached.                           | Default: `false`                        |
+| deployment-id   | UUID of the deployment                                                      | Required                                |
+| cli-clickhouse  | Command line tool to use, default to clickhousectl                          |                                         |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+
+
+**Examples:**
+
+
+Connect to a Data Warehouse deployment
+```shell
+scw datawarehouse deployment connect 11111111-1111-1111-1111-111111111111
+```
+
+
+
+
 ### Create a deployment
 
 Create a new deployment.
@@ -97,6 +131,8 @@ scw datawarehouse deployment create [arg=value ...]
 | version                                              | ClickHouse® version to use for the deployment                                                                                                                                                                                                                                                                             |                                         |
 | replica-count                                        | Number of replicas for the deployment                                                                                                                                                                                                                                                                                     |                                         |
 | shard-count                                          | Number of shard for the deployment                                                                                                                                                                                                                                                                                        |                                         |
+| generate-password                                    | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols                                                                                                                                                                                                 | Default: `true`                         |
+| fast-connect                                         | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting                                                                                                                                                                                                        | Default: `false`                        |
 | password                                             | Password for the initial user                                                                                                                                                                                                                                                                                             |                                         |
 | cpu-min                                              | Minimum CPU count for the deployment                                                                                                                                                                                                                                                                                      |                                         |
 | cpu-max                                              | Maximum CPU count for the deployment                                                                                                                                                                                                                                                                                      |                                         |

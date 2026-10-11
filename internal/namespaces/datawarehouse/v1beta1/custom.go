@@ -9,5 +9,11 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("datawarehouse").Groups = []string{"database"}
 
+	cmds.MustFind("datawarehouse", "deployment", "create").Override(deploymentCreateBuilder)
+
+	cmds.Merge(core.NewCommands(
+		deploymentConnectCommand(),
+	))
+
 	return cmds
 }

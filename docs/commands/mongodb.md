@@ -80,6 +80,41 @@ scw mongodb endpoint delete <endpoint-id ...> [arg=value ...]
 A Managed MongoDB® Database Instance is composed of one or multiple dedicated compute nodes running a single database engine.
 
 
+### Connect to a MongoDB® Database Instance using locally installed mongosh
+
+Connect to a MongoDB® Database Instance using locally installed mongosh.
+When no username is given, the admin user is used and credentials are fetched from the secret
+created by "mongodb instance create fast-connect=true" when available.
+
+**Usage:**
+
+```shell
+scw mongodb instance connect <instance-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name            | Description                                                                   | Argument Specifications                 |
+|-----------------|-------------------------------------------------------------------------------|-----------------------------------------|
+| private-network | Connect by the private network endpoint attached.                             | Default: `false`                        |
+| instance-id     | UUID of the instance                                                          | Required                                |
+| username        | Name of the user to connect with to the database (defaults to the admin user) |                                         |
+| cli-mongosh     | Command line tool to use, default to mongosh                                  |                                         |
+| region          | Region to target. If none is passed will use default region from the config   | Default: `fr-par`<br />One of: `fr-par` |
+
+
+**Examples:**
+
+
+Connect to a MongoDB instance
+```shell
+scw mongodb instance connect 11111111-1111-1111-1111-111111111111
+```
+
+
+
+
 ### Create a MongoDB® Database Instance
 
 Create a new MongoDB® Database Instance.
@@ -93,22 +128,23 @@ scw mongodb instance create [arg=value ...]
 
 **Arguments:**
 
-| Name                                                 | Description                                                                                                        | Argument Specifications                                            |
-|------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------|
-| project-id                                           | Project ID to use. If none is passed the default project ID will be used                                           |                                                                    |
-| name                                                 | Name of the Database Instance                                                                                      | Default: `<generated>`                                             |
-| version                                              | Major version of the MongoDB® engine                                                                               | Required<br />Default: ``                                          |
-| tags.{index}                                         | Tags to apply to the Database Instance                                                                             |                                                                    |
-| node-amount                                          | Number of node to use for the Database Instance                                                                    | Required<br />Default: `1`                                         |
-| node-type                                            | Type of node to use for the Database Instance                                                                      | Required                                                           |
-| fast-connect                                         | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting | Default: `false`                                                   |
-| user-name                                            | Username created when the Database Instance is created                                                             | Required                                                           |
-| password                                             | Password of the initial user                                                                                       | Required                                                           |
-| volume.type                                          | Type of volume where data is stored                                                                                | Default: `sbs_5k`<br />One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
-| volume.size-bytes                                    | Volume size                                                                                                        | Default: `5GB`                                                     |
-| endpoints.{index}.public-network                     |                                                                                                                    |                                                                    |
-| endpoints.{index}.private-network.private-network-id | UUID of the Private Network                                                                                        |                                                                    |
-| region                                               | Region to target. If none is passed will use default region from the config                                        | Default: `fr-par`<br />One of: `fr-par`                            |
+| Name                                                 | Description                                                                                                               | Argument Specifications                                            |
+|------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------|
+| project-id                                           | Project ID to use. If none is passed the default project ID will be used                                                  |                                                                    |
+| name                                                 | Name of the Database Instance                                                                                             | Default: `<generated>`                                             |
+| version                                              | Major version of the MongoDB® engine                                                                                      | Required<br />Default: ``                                          |
+| tags.{index}                                         | Tags to apply to the Database Instance                                                                                    |                                                                    |
+| node-amount                                          | Number of node to use for the Database Instance                                                                           | Required<br />Default: `1`                                         |
+| node-type                                            | Type of node to use for the Database Instance                                                                             | Required                                                           |
+| generate-password                                    | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols | Default: `true`                                                    |
+| fast-connect                                         | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting        | Default: `false`                                                   |
+| user-name                                            | Username created when the Database Instance is created                                                                    | Required                                                           |
+| password                                             | Password of the initial user                                                                                              |                                                                    |
+| volume.type                                          | Type of volume where data is stored                                                                                       | Default: `sbs_5k`<br />One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
+| volume.size-bytes                                    | Volume size                                                                                                               | Default: `5GB`                                                     |
+| endpoints.{index}.public-network                     |                                                                                                                           |                                                                    |
+| endpoints.{index}.private-network.private-network-id | UUID of the Private Network                                                                                               |                                                                    |
+| region                                               | Region to target. If none is passed will use default region from the config                                               | Default: `fr-par`<br />One of: `fr-par`                            |
 
 
 

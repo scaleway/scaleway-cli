@@ -103,14 +103,14 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*CreateClusterRequestCustom)
 		createClusterRequest := customRequest.CreateClusterRequest
 
+		generatedPassword := ""
 		if customRequest.GeneratePassword && createClusterRequest.Password == "" {
-			generatedPassword, err := passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
+			var err error
+			generatedPassword, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
 			if err != nil {
 				return nil, err
 			}
 			createClusterRequest.Password = generatedPassword
-			fmt.Printf("Your generated password is %s \n", createClusterRequest.Password)
-			fmt.Printf("\n")
 		}
 
 		// Handle default latest version for redis cluster
@@ -154,6 +154,11 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		cluster, err := api.CreateCluster(createClusterRequest)
 		if err != nil {
 			return nil, err
+		}
+
+		if generatedPassword != "" {
+			fmt.Printf("Your generated password is %s \n", generatedPassword)
+			fmt.Printf("\n")
 		}
 
 		if customRequest.FastConnect {

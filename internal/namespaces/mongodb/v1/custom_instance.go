@@ -10,6 +10,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	"github.com/scaleway/scaleway-cli/v2/internal/secrets"
 	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -21,7 +22,8 @@ const (
 
 type createInstanceRequestCustom struct {
 	*mongodb.CreateInstanceRequest
-	FastConnect bool
+	FastConnect      bool
+	GeneratePassword bool
 }
 
 var instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
@@ -68,6 +70,14 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeFor[createInstanceRequestCustom]()
 	c.ArgSpecs.AddBefore("user-name", &core.ArgSpec{
+		Name:       "generate-password",
+		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
+		Required:   false,
+		Deprecated: false,
+		Positional: false,
+		Default:    core.DefaultValueSetter("true"),
+	})
+	c.ArgSpecs.AddBefore("user-name", &core.ArgSpec{
 		Name:       "fast-connect",
 		Short:      secrets.FastConnectArgSpecShort,
 		Required:   false,
@@ -75,10 +85,21 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		Positional: false,
 		Default:    core.DefaultValueSetter("false"),
 	})
+	c.ArgSpecs.GetByName("password").Required = false
 
 	c.Run = func(ctx context.Context, args any) (any, error) {
 		customRequest := args.(*createInstanceRequestCustom)
 		request := customRequest.CreateInstanceRequest
+
+		generatedPassword := ""
+		if customRequest.GeneratePassword && request.Password == "" {
+			var err error
+			generatedPassword, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
+			if err != nil {
+				return nil, err
+			}
+			request.Password = generatedPassword
+		}
 
 		client := core.ExtractClient(ctx)
 		api := mongodb.NewAPI(client)
@@ -86,6 +107,11 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		instance, err := api.CreateInstance(request, scw.WithContext(ctx))
 		if err != nil {
 			return nil, err
+		}
+
+		if generatedPassword != "" {
+			fmt.Printf("Your generated password is %s \n", generatedPassword)
+			fmt.Printf("\n")
 		}
 
 		if customRequest.FastConnect {
