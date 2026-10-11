@@ -3,7 +3,6 @@ package kafka
 import (
 	"context"
 	"errors"
-	"fmt"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -20,14 +19,7 @@ type createClusterRequestCustom struct {
 func clusterCreateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeFor[createClusterRequestCustom]()
 
-	c.ArgSpecs.AddBefore("user-name", &core.ArgSpec{
-		Name:       "fast-connect",
-		Short:      secrets.FastConnectArgSpecShort,
-		Required:   false,
-		Deprecated: false,
-		Positional: false,
-		Default:    core.DefaultValueSetter("false"),
-	})
+	c.ArgSpecs.AddBefore("user-name", secrets.FastConnectArgSpec())
 
 	c.Run = func(ctx context.Context, args any) (any, error) {
 		customRequest := args.(*createClusterRequestCustom)
@@ -46,16 +38,17 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		if customRequest.FastConnect {
-			path := secrets.Path("kafka", string(cluster.Region), cluster.ID, *request.UserName)
-			if err := secrets.Persist(ctx, cluster.Region, path, secrets.Credentials{
-				Username: *request.UserName,
-				Password: *request.Password,
-			}); err != nil {
-				return nil, fmt.Errorf(
-					"cluster %s was created but its credentials could not be persisted: %w",
-					cluster.ID,
-					err,
-				)
+			if err := secrets.PersistCredentials(
+				ctx,
+				cluster.Region,
+				"kafka",
+				string(cluster.Region),
+				cluster.ID,
+				*request.UserName,
+				*request.Password,
+				"cluster",
+			); err != nil {
+				return nil, err
 			}
 		}
 

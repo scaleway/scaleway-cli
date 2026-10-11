@@ -69,35 +69,22 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 
 	c.ArgsType = reflect.TypeFor[createInstanceRequestCustom]()
-	c.ArgSpecs.AddBefore("user-name", &core.ArgSpec{
-		Name:       "generate-password",
-		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
-		Required:   false,
-		Deprecated: false,
-		Positional: false,
-		Default:    core.DefaultValueSetter("true"),
-	})
-	c.ArgSpecs.AddBefore("user-name", &core.ArgSpec{
-		Name:       "fast-connect",
-		Short:      secrets.FastConnectArgSpecShort,
-		Required:   false,
-		Deprecated: false,
-		Positional: false,
-		Default:    core.DefaultValueSetter("false"),
-	})
+	c.ArgSpecs.AddBefore("user-name", passwordgenerator.GeneratePasswordArgSpec())
+	c.ArgSpecs.AddBefore("user-name", secrets.FastConnectArgSpec())
 	c.ArgSpecs.GetByName("password").Required = false
 
 	c.Run = func(ctx context.Context, args any) (any, error) {
 		customRequest := args.(*createInstanceRequestCustom)
 		request := customRequest.CreateInstanceRequest
 
-		generatedPassword := ""
-		if customRequest.GeneratePassword && request.Password == "" {
-			var err error
-			generatedPassword, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
-			if err != nil {
-				return nil, err
-			}
+		generatedPassword, err := passwordgenerator.GenerateIfNeeded(
+			customRequest.GeneratePassword,
+			request.Password,
+		)
+		if err != nil {
+			return nil, err
+		}
+		if generatedPassword != "" {
 			request.Password = generatedPassword
 		}
 
@@ -110,21 +97,21 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		if generatedPassword != "" {
-			fmt.Printf("Your generated password is %s \n", generatedPassword)
-			fmt.Printf("\n")
+			fmt.Printf("Your generated password is %s \n\n", generatedPassword)
 		}
 
 		if customRequest.FastConnect {
-			path := secrets.Path("mongodb", string(instance.Region), instance.ID, request.UserName)
-			if err := secrets.Persist(ctx, instance.Region, path, secrets.Credentials{
-				Username: request.UserName,
-				Password: request.Password,
-			}); err != nil {
-				return nil, fmt.Errorf(
-					"instance %s was created but its credentials could not be persisted: %w",
-					instance.ID,
-					err,
-				)
+			if err := secrets.PersistCredentials(
+				ctx,
+				instance.Region,
+				"mongodb",
+				string(instance.Region),
+				instance.ID,
+				request.UserName,
+				request.Password,
+				"instance",
+			); err != nil {
+				return nil, err
 			}
 		}
 

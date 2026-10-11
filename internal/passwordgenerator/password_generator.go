@@ -5,6 +5,8 @@ import (
 	"errors"
 	"math/big"
 	"strings"
+
+	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
 const (
@@ -83,4 +85,26 @@ func randInt(length int) (int, error) {
 	}
 
 	return int(i.Int64()), nil
+}
+
+// GenerateIfNeeded returns a generated 21-character password when generate is
+// true and existing is empty, or "" otherwise.
+func GenerateIfNeeded(generate bool, existing string) (string, error) {
+	if !generate || existing != "" {
+		return "", nil
+	}
+
+	return GeneratePassword(21, 1, 1, 1, 1)
+}
+
+// GeneratePasswordArgSpec is the shared --generate-password flag spec.
+func GeneratePasswordArgSpec() *core.ArgSpec {
+	return &core.ArgSpec{
+		Name:       "generate-password",
+		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
+		Required:   false,
+		Deprecated: false,
+		Positional: false,
+		Default:    core.DefaultValueSetter("true"),
+	}
 }

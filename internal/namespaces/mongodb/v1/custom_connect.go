@@ -12,7 +12,6 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/secrets"
 	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -175,28 +174,18 @@ created by "mongodb instance create fast-connect=true" when available.`,
 				}
 			}
 
-			creds, found := secrets.Fetch(
+			creds, err := secrets.FetchOrPrompt(
 				ctx,
 				instance.Region,
 				secrets.Path("mongodb", string(instance.Region), instance.ID, username),
 			)
-			var password string
-			if found && creds.Password != "" {
-				if creds.Username != "" {
-					username = creds.Username
-				}
-				password = creds.Password
-			} else {
-				password, err = interactive.PromptPasswordWithConfig(
-					ctx,
-					&interactive.PromptPasswordConfig{
-						Prompt: "Password",
-					},
-				)
-				if err != nil {
-					return nil, fmt.Errorf("failed to get password: %w", err)
-				}
+			if err != nil {
+				return nil, err
 			}
+			if creds.Username != "" {
+				username = creds.Username
+			}
+			password := creds.Password
 
 			// TLS is mandatory: download the instance certificate and point mongosh at it
 			cert, err := api.GetInstanceCertificate(&mongodb.GetInstanceCertificateRequest{

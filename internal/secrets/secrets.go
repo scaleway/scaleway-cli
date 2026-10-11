@@ -8,6 +8,7 @@ import (
 	"fmt"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	secretSDK "github.com/scaleway/scaleway-sdk-go/api/secret/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -19,6 +20,18 @@ const (
 	// FastConnectArgSpecShort is the shared --help text for the fast-connect flag.
 	FastConnectArgSpecShort = `Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting`
 )
+
+// FastConnectArgSpec is the shared --fast-connect flag spec.
+func FastConnectArgSpec() *core.ArgSpec {
+	return &core.ArgSpec{
+		Name:       "fast-connect",
+		Short:      FastConnectArgSpecShort,
+		Required:   false,
+		Deprecated: false,
+		Positional: false,
+		Default:    core.DefaultValueSetter("false"),
+	}
+}
 
 var description = "secret used by the cli to ease up connection"
 
@@ -76,6 +89,28 @@ func Persist(ctx context.Context, region scw.Region, path string, creds Credenti
 	return nil
 }
 
+// PersistCredentials stores the credentials in a secret at
+// Path(product, location, id, username), naming the owning resource on failure.
+func PersistCredentials(
+	ctx context.Context,
+	region scw.Region,
+	product, location, resourceID, username, password, resourceType string,
+) error {
+	if err := Persist(ctx, region, Path(product, location, resourceID, username), Credentials{
+		Username: username,
+		Password: password,
+	}); err != nil {
+		return fmt.Errorf(
+			"%s %s was created but its credentials could not be persisted: %w",
+			resourceType,
+			resourceID,
+			err,
+		)
+	}
+
+	return nil
+}
+
 // Fetch returns the credentials stored at the given path. found is false when
 // the secret cannot be retrieved.
 // ponytail: any lookup error (not just 404) degrades to "not found" so a broken
@@ -105,4 +140,22 @@ func Fetch(ctx context.Context, region scw.Region, path string) (Credentials, bo
 	}
 
 	return creds, true
+}
+
+// FetchOrPrompt returns the credentials stored at path, or prompts for a
+// password when no usable secret exists.
+func FetchOrPrompt(ctx context.Context, region scw.Region, path string) (Credentials, error) {
+	creds, found := Fetch(ctx, region, path)
+	if found && creds.Password != "" {
+		return creds, nil
+	}
+
+	password, err := interactive.PromptPasswordWithConfig(ctx, &interactive.PromptPasswordConfig{
+		Prompt: "Password",
+	})
+	if err != nil {
+		return Credentials{}, fmt.Errorf("failed to get password: %w", err)
+	}
+
+	return Credentials{Password: password}, nil
 }

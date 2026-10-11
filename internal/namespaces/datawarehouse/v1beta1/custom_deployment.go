@@ -3,14 +3,11 @@ package datawarehouse
 import (
 	"context"
 	"fmt"
-	"net"
 	"os/exec"
 	"reflect"
 	"strconv"
-	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	"github.com/scaleway/scaleway-cli/v2/internal/secrets"
 	datawarehouse "github.com/scaleway/scaleway-sdk-go/api/datawarehouse/v1beta1"
@@ -29,34 +26,21 @@ type createDeploymentRequestCustom struct {
 func deploymentCreateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeFor[createDeploymentRequestCustom]()
 
-	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
-		Name:       "generate-password",
-		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
-		Required:   false,
-		Deprecated: false,
-		Positional: false,
-		Default:    core.DefaultValueSetter("true"),
-	})
-	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
-		Name:       "fast-connect",
-		Short:      secrets.FastConnectArgSpecShort,
-		Required:   false,
-		Deprecated: false,
-		Positional: false,
-		Default:    core.DefaultValueSetter("false"),
-	})
+	c.ArgSpecs.AddBefore("password", passwordgenerator.GeneratePasswordArgSpec())
+	c.ArgSpecs.AddBefore("password", secrets.FastConnectArgSpec())
 
 	c.Run = func(ctx context.Context, args any) (any, error) {
 		customRequest := args.(*createDeploymentRequestCustom)
 		request := customRequest.CreateDeploymentRequest
 
-		generatedPassword := ""
-		if customRequest.GeneratePassword && request.Password == "" {
-			var err error
-			generatedPassword, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
-			if err != nil {
-				return nil, err
-			}
+		generatedPassword, err := passwordgenerator.GenerateIfNeeded(
+			customRequest.GeneratePassword,
+			request.Password,
+		)
+		if err != nil {
+			return nil, err
+		}
+		if generatedPassword != "" {
 			request.Password = generatedPassword
 		}
 
@@ -69,22 +53,21 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		if generatedPassword != "" {
-			fmt.Printf("Your generated password is %s \n", generatedPassword)
-			fmt.Printf("\n")
+			fmt.Printf("Your generated password is %s \n\n", generatedPassword)
 		}
 
 		if customRequest.FastConnect {
-			region := string(deployment.Region)
-			path := secrets.Path("datawarehouse", region, deployment.ID, dwAdminUsername)
-			if err := secrets.Persist(ctx, deployment.Region, path, secrets.Credentials{
-				Username: dwAdminUsername,
-				Password: request.Password,
-			}); err != nil {
-				return nil, fmt.Errorf(
-					"deployment %s was created but its credentials could not be persisted: %w",
-					deployment.ID,
-					err,
-				)
+			if err := secrets.PersistCredentials(
+				ctx,
+				deployment.Region,
+				"datawarehouse",
+				string(deployment.Region),
+				deployment.ID,
+				dwAdminUsername,
+				request.Password,
+				"deployment",
+			); err != nil {
+				return nil, err
 			}
 		}
 
@@ -221,39 +204,25 @@ The scwadmin user is used and credentials are fetched from the secret created by
 			}
 
 			// The Data Warehouse admin user is always "scwadmin"
-			region := string(deployment.Region)
-			path := secrets.Path("datawarehouse", region, deployment.ID, dwAdminUsername)
-			creds, found := secrets.Fetch(ctx, deployment.Region, path)
-			var password string
-			if found && creds.Password != "" {
-				password = creds.Password
-			} else {
-				password, err = interactive.PromptPasswordWithConfig(
-					ctx,
-					&interactive.PromptPasswordConfig{
-						Prompt: "Password",
-					},
-				)
-				if err != nil {
-					return nil, fmt.Errorf("failed to get password: %w", err)
-				}
+			creds, err := secrets.FetchOrPrompt(
+				ctx,
+				deployment.Region,
+				secrets.Path(
+					"datawarehouse",
+					string(deployment.Region),
+					deployment.ID,
+					dwAdminUsername,
+				),
+			)
+			if err != nil {
+				return nil, err
 			}
+			password := creds.Password
 
 			// Fail fast on an unreachable endpoint instead of letting the client hang on the dial
-			conn, dialErr := (&net.Dialer{Timeout: 5 * time.Second}).Dial(
-				"tcp",
-				net.JoinHostPort(endpoint.DNSRecord, strconv.FormatUint(uint64(port), 10)),
-			)
-			if dialErr != nil {
-				return nil, fmt.Errorf(
-					"cannot reach %s:%d from this machine (%v); check your network/firewall, "+
-						"or use --private-network if a private endpoint is attached",
-					endpoint.DNSRecord,
-					port,
-					dialErr,
-				)
+			if err := core.CheckReachable(endpoint.DNSRecord, port); err != nil {
+				return nil, err
 			}
-			conn.Close()
 
 			// ponytail: the public endpoint presents a Let's Encrypt chain
 			// (CN=*.dtwh.<region>.scw.cloud) verified against the system trust store by

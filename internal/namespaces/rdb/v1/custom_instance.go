@@ -299,22 +299,8 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		Required:   false,
 		OneOfGroup: "config",
 	})
-	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
-		Name:       "generate-password",
-		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
-		Required:   false,
-		Deprecated: false,
-		Positional: false,
-		Default:    core.DefaultValueSetter("true"),
-	})
-	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
-		Name:       "fast-connect",
-		Short:      secrets.FastConnectArgSpecShort,
-		Required:   false,
-		Deprecated: false,
-		Positional: false,
-		Default:    core.DefaultValueSetter("false"),
-	})
+	c.ArgSpecs.AddBefore("password", passwordgenerator.GeneratePasswordArgSpec())
+	c.ArgSpecs.AddBefore("password", secrets.FastConnectArgSpec())
 	c.ArgSpecs.GetByName("password").Required = false
 	c.ArgSpecs.GetByName("node-type").Default = core.DefaultValueSetter("DB-DEV-S")
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
@@ -349,14 +335,15 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*rdbCreateInstanceRequestCustom)
 		createInstanceRequest := customRequest.CreateInstanceRequest
 
-		var err error
-		generatedPassword := ""
 		createInstanceRequest.NodeType = strings.ToLower(createInstanceRequest.NodeType)
-		if customRequest.GeneratePassword && createInstanceRequest.Password == "" {
-			generatedPassword, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
-			if err != nil {
-				return nil, err
-			}
+		generatedPassword, err := passwordgenerator.GenerateIfNeeded(
+			customRequest.GeneratePassword,
+			createInstanceRequest.Password,
+		)
+		if err != nil {
+			return nil, err
+		}
+		if generatedPassword != "" {
 			createInstanceRequest.Password = generatedPassword
 		}
 
@@ -373,23 +360,21 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		if generatedPassword != "" {
-			fmt.Printf("Your generated password is %s \n", generatedPassword)
-			fmt.Printf("\n")
+			fmt.Printf("Your generated password is %s \n\n", generatedPassword)
 		}
 
 		if customRequest.FastConnect {
-			userName := createInstanceRequest.UserName
-			path := secrets.Path("rdb", string(instance.Region), instance.ID, userName)
-			creds := secrets.Credentials{
-				Username: userName,
-				Password: createInstanceRequest.Password,
-			}
-			if err := secrets.Persist(ctx, instance.Region, path, creds); err != nil {
-				return nil, fmt.Errorf(
-					"instance %s was created but its credentials could not be persisted: %w",
-					instance.ID,
-					err,
-				)
+			if err := secrets.PersistCredentials(
+				ctx,
+				instance.Region,
+				"rdb",
+				string(instance.Region),
+				instance.ID,
+				createInstanceRequest.UserName,
+				createInstanceRequest.Password,
+				"instance",
+			); err != nil {
+				return nil, err
 			}
 		}
 
