@@ -1,6 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID              1eb1bff4-3ba6-4bef-a8de-6a6508c28a74
+Srn             -
 Name            cli-test-function-deploy
 NamespaceID     8b9efc3d-f37b-4fad-af1a-71f11ca8243a
 Status          ready
@@ -24,6 +25,7 @@ ReadyAt         few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "1eb1bff4-3ba6-4bef-a8de-6a6508c28a74",
+  "srn": "",
   "name": "cli-test-function-deploy",
   "namespace_id": "8b9efc3d-f37b-4fad-af1a-71f11ca8243a",
   "status": "ready",
