@@ -26,6 +26,13 @@ type createInstanceRequestCustom struct {
 	GeneratePassword bool
 }
 
+var connectSeeAlsos = []*core.SeeAlso{
+	{
+		Command: "scw mongodb instance connect",
+		Short:   "Connect to a MongoDB® Database Instance using locally installed mongosh",
+	},
+}
+
 var instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
 	mongodb.InstanceStatusConfiguring: &human.EnumMarshalSpec{
 		Attribute: color.FgBlue,
@@ -73,12 +80,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.AddBefore("user-name", connect.CliConnectArgSpec())
 	c.ArgSpecs.GetByName("password").Required = false
 
-	c.SeeAlsos = []*core.SeeAlso{
-		{
-			Command: "scw mongodb instance connect",
-			Short:   "Connect to a MongoDB® Database Instance using locally installed mongosh",
-		},
-	}
+	c.SeeAlsos = connectSeeAlsos
 
 	c.Run = func(ctx context.Context, args any) (any, error) {
 		customRequest := args.(*createInstanceRequestCustom)
@@ -135,17 +137,6 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
-	}
-
-	return c
-}
-
-func instanceGetBuilder(c *core.Command) *core.Command {
-	c.SeeAlsos = []*core.SeeAlso{
-		{
-			Command: "scw mongodb instance connect",
-			Short:   "Connect to a MongoDB® Database Instance using locally installed mongosh",
-		},
 	}
 
 	return c

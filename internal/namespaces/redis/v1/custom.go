@@ -15,7 +15,7 @@ func GetCommands() *core.Commands {
 
 	cmds.Merge(core.NewCommands(clusterWaitCommand(), clusterConnectCommand()))
 	cmds.MustFind("redis", "cluster", "create").Override(clusterCreateBuilder)
-	cmds.MustFind("redis", "cluster", "get").Override(clusterGetBuilder)
+	cmds.MustFind("redis", "cluster", "get").SeeAlsos = connectSeeAlsos
 	cmds.MustFind("redis", "cluster", "delete").Override(clusterDeleteBuilder)
 	cmds.MustFind("redis", "acl", "add").Override(ACLAddListBuilder)
 	cmds.MustFind("redis", "setting", "add").Override(redisSettingAddBuilder)

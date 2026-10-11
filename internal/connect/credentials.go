@@ -16,16 +16,13 @@ import (
 const (
 	// SecretName is the name of the connect created by the CLI.
 	SecretName = "cli"
-
-	// CliConnectArgSpecShort is the shared --help text for the cli-connect flag.
-	CliConnectArgSpecShort = `Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting`
 )
 
 // CliConnectArgSpec is the shared --cli-connect flag spec.
 func CliConnectArgSpec() *core.ArgSpec {
 	return &core.ArgSpec{
 		Name:       "cli-connect",
-		Short:      CliConnectArgSpecShort,
+		Short:      `Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting`,
 		Required:   false,
 		Deprecated: false,
 		Positional: false,

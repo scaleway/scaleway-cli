@@ -18,6 +18,13 @@ import (
 // dwAdminUsername is the fixed admin user of a Data Warehouse deployment.
 const dwAdminUsername = "scwadmin"
 
+var connectSeeAlsos = []*core.SeeAlso{
+	{
+		Command: "scw datawarehouse deployment connect",
+		Short:   "Connect to a Data Warehouse deployment using locally installed clickhousectl",
+	},
+}
+
 type createDeploymentRequestCustom struct {
 	*datawarehouse.CreateDeploymentRequest
 	GeneratePassword bool
@@ -30,12 +37,7 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.AddBefore("password", passwordgenerator.GeneratePasswordArgSpec())
 	c.ArgSpecs.AddBefore("password", connect.CliConnectArgSpec())
 
-	c.SeeAlsos = []*core.SeeAlso{
-		{
-			Command: "scw datawarehouse deployment connect",
-			Short:   "Connect to a Data Warehouse deployment using locally installed clickhousectl",
-		},
-	}
+	c.SeeAlsos = connectSeeAlsos
 
 	c.Run = func(ctx context.Context, args any) (any, error) {
 		customRequest := args.(*createDeploymentRequestCustom)
@@ -80,17 +82,6 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		return deployment, nil
-	}
-
-	return c
-}
-
-func deploymentGetBuilder(c *core.Command) *core.Command {
-	c.SeeAlsos = []*core.SeeAlso{
-		{
-			Command: "scw datawarehouse deployment connect",
-			Short:   "Connect to a Data Warehouse deployment using locally installed clickhousectl",
-		},
 	}
 
 	return c

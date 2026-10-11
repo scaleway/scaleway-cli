@@ -48,6 +48,13 @@ type CreateClusterRequestCustom struct {
 	GeneratePassword bool
 }
 
+var connectSeeAlsos = []*core.SeeAlso{
+	{
+		Command: "scw redis cluster connect",
+		Short:   "Connect to a Redis cluster using locally installed redis-cli",
+	},
+}
+
 func clusterCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.AddBefore("endpoints.{index}.private-network.id", &core.ArgSpec{
 		Name:     "endpoints.{index}.private-network.enable-ipam",
@@ -66,12 +73,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.AddBefore("password", connect.CliConnectArgSpec())
 	c.ArgSpecs.GetByName("password").Required = false
 
-	c.SeeAlsos = []*core.SeeAlso{
-		{
-			Command: "scw redis cluster connect",
-			Short:   "Connect to a Redis cluster using locally installed redis-cli",
-		},
-	}
+	c.SeeAlsos = connectSeeAlsos
 
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := redis.NewAPI(core.ExtractClient(ctx))
@@ -174,17 +176,6 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		return cluster, nil
-	}
-
-	return c
-}
-
-func clusterGetBuilder(c *core.Command) *core.Command {
-	c.SeeAlsos = []*core.SeeAlso{
-		{
-			Command: "scw redis cluster connect",
-			Short:   "Connect to a Redis cluster using locally installed redis-cli",
-		},
 	}
 
 	return c
