@@ -1,0 +1,252 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ACTION     KEYS      DEFAULT
+back       [esc]     [esc]
+command    [:]       [:]
+connect    [c]       [c]
+copy       [y]       [y]
+delete     [d]       [d]
+down       [j down]  [j down]
+drill      [s]       [s]
+edit       [e]       [e]
+end        [end]     [end]
+filter     [/]       [/]
+home       [home]    [home]
+menu       [m g]     [m g]
+next       [n]       [n]
+open       [enter]   [enter]
+page-down  [pgdown]  [pgdown]
+page-up    [pgup]    [pgup]
+prev       [p]       [p]
+profile    [ctrl+p]  [ctrl+p]
+project    [ctrl+e]  [ctrl+e]
+quit       [q]       [q]
+refresh    [r]       [r]
+region     [ctrl+r]  [ctrl+r]
+up         [k up]    [k up]
+zone       [ctrl+z]  [ctrl+z]
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "action": "back",
+    "keys": [
+      "esc"
+    ],
+    "default": [
+      "esc"
+    ]
+  },
+  {
+    "action": "command",
+    "keys": [
+      ":"
+    ],
+    "default": [
+      ":"
+    ]
+  },
+  {
+    "action": "connect",
+    "keys": [
+      "c"
+    ],
+    "default": [
+      "c"
+    ]
+  },
+  {
+    "action": "copy",
+    "keys": [
+      "y"
+    ],
+    "default": [
+      "y"
+    ]
+  },
+  {
+    "action": "delete",
+    "keys": [
+      "d"
+    ],
+    "default": [
+      "d"
+    ]
+  },
+  {
+    "action": "down",
+    "keys": [
+      "j",
+      "down"
+    ],
+    "default": [
+      "j",
+      "down"
+    ]
+  },
+  {
+    "action": "drill",
+    "keys": [
+      "s"
+    ],
+    "default": [
+      "s"
+    ]
+  },
+  {
+    "action": "edit",
+    "keys": [
+      "e"
+    ],
+    "default": [
+      "e"
+    ]
+  },
+  {
+    "action": "end",
+    "keys": [
+      "end"
+    ],
+    "default": [
+      "end"
+    ]
+  },
+  {
+    "action": "filter",
+    "keys": [
+      "/"
+    ],
+    "default": [
+      "/"
+    ]
+  },
+  {
+    "action": "home",
+    "keys": [
+      "home"
+    ],
+    "default": [
+      "home"
+    ]
+  },
+  {
+    "action": "menu",
+    "keys": [
+      "m",
+      "g"
+    ],
+    "default": [
+      "m",
+      "g"
+    ]
+  },
+  {
+    "action": "next",
+    "keys": [
+      "n"
+    ],
+    "default": [
+      "n"
+    ]
+  },
+  {
+    "action": "open",
+    "keys": [
+      "enter"
+    ],
+    "default": [
+      "enter"
+    ]
+  },
+  {
+    "action": "page-down",
+    "keys": [
+      "pgdown"
+    ],
+    "default": [
+      "pgdown"
+    ]
+  },
+  {
+    "action": "page-up",
+    "keys": [
+      "pgup"
+    ],
+    "default": [
+      "pgup"
+    ]
+  },
+  {
+    "action": "prev",
+    "keys": [
+      "p"
+    ],
+    "default": [
+      "p"
+    ]
+  },
+  {
+    "action": "profile",
+    "keys": [
+      "ctrl+p"
+    ],
+    "default": [
+      "ctrl+p"
+    ]
+  },
+  {
+    "action": "project",
+    "keys": [
+      "ctrl+e"
+    ],
+    "default": [
+      "ctrl+e"
+    ]
+  },
+  {
+    "action": "quit",
+    "keys": [
+      "q"
+    ],
+    "default": [
+      "q"
+    ]
+  },
+  {
+    "action": "refresh",
+    "keys": [
+      "r"
+    ],
+    "default": [
+      "r"
+    ]
+  },
+  {
+    "action": "region",
+    "keys": [
+      "ctrl+r"
+    ],
+    "default": [
+      "ctrl+r"
+    ]
+  },
+  {
+    "action": "up",
+    "keys": [
+      "k",
+      "up"
+    ],
+    "default": [
+      "k",
+      "up"
+    ]
+  },
+  {
+    "action": "zone",
+    "keys": [
+      "ctrl+z"
+    ],
+    "default": [
+      "ctrl+z"
+    ]
+  }
+]
