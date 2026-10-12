@@ -32,6 +32,49 @@ func CliConnectArgSpec() *core.ArgSpec {
 
 var description = "secret used by the cli to ease up connection"
 
+// Description returns the description persisted on the credentials secret:
+// a copy-pastable scw connect command for the resource, so a user reading the
+// secret in the console knows exactly how to reconnect.
+// ponytail: only the products with a hand-written connect command get a
+// copy-pastable command; add a case in connectCommand when a new product is
+// wired to cli-connect.
+func Description(product, location, resourceID, username string) string {
+	cmd := connectCommand(product, location, resourceID, username)
+	if cmd == "" {
+		return description
+	}
+
+	return "Secret used to enable cli-connect. Connect directly using: " + cmd
+}
+
+func connectCommand(product, location, resourceID, username string) string {
+	switch product {
+	case "rdb", "mongodb":
+		user := ""
+		if username != "" {
+			user = " username=" + username
+		}
+
+		return fmt.Sprintf(
+			"scw %s instance connect %s%s --region %s",
+			product,
+			resourceID,
+			user,
+			location,
+		)
+	case "redis":
+		return fmt.Sprintf("scw redis cluster connect %s --zone %s", resourceID, location)
+	case "datawarehouse":
+		return fmt.Sprintf(
+			"scw datawarehouse deployment connect %s --region %s",
+			resourceID,
+			location,
+		)
+	default:
+		return ""
+	}
+}
+
 // Credentials are the username/password pair stored by cli-connect.
 type Credentials struct {
 	Username string `json:"username"`
@@ -55,10 +98,16 @@ func PersistCredentials(
 	region scw.Region,
 	product, location, resourceID, username, password, resourceType string,
 ) error {
-	err := persist(ctx, region, Path(product, location, resourceID, username), Credentials{
-		Username: username,
-		Password: password,
-	})
+	err := persist(
+		ctx,
+		region,
+		Path(product, location, resourceID, username),
+		Description(product, location, resourceID, username),
+		Credentials{
+			Username: username,
+			Password: password,
+		},
+	)
 	if err != nil {
 		return fmt.Errorf(
 			"%s %s was created but its credentials could not be persisted: %w",
@@ -71,7 +120,7 @@ func PersistCredentials(
 	return nil
 }
 
-func persist(ctx context.Context, region scw.Region, path string, creds Credentials) error {
+func persist(ctx context.Context, region scw.Region, path, desc string, creds Credentials) error {
 	client := core.ExtractClient(ctx)
 	api := secretSDK.NewAPI(client)
 
@@ -79,7 +128,7 @@ func persist(ctx context.Context, region scw.Region, path string, creds Credenti
 		Region:      region,
 		Name:        SecretName,
 		Path:        &path,
-		Description: &description,
+		Description: &desc,
 	})
 	if err != nil {
 		secretName := SecretName
@@ -92,6 +141,22 @@ func persist(ctx context.Context, region scw.Region, path string, creds Credenti
 			return fmt.Errorf("failed to create secret %q: %w", path, err)
 		}
 		secret = existing.Secrets[0]
+		// The secret may have been created by an older version of the CLI with
+		// the generic description: refresh it so it always carries the
+		// copy-pastable connect command.
+		if secret.Description == nil || *secret.Description != desc {
+			if _, err := api.UpdateSecret(&secretSDK.UpdateSecretRequest{
+				Region:      region,
+				SecretID:    secret.ID,
+				Description: &desc,
+			}); err != nil {
+				return fmt.Errorf(
+					"failed to update the description of secret %s: %w",
+					secret.ID,
+					err,
+				)
+			}
+		}
 	}
 
 	data, err := json.Marshal(creds)
