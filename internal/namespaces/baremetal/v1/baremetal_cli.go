@@ -494,6 +494,20 @@ func baremetalServerCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "install.network-boot-url",
+				Short:      `URL of the network service to which the server should forward its boot request`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "install.network-boot-persistent",
+				Short:      `Defines whether the network boot forwarding should be applied at every reboot or only once`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "option-ids.{index}",
 				Short:      `IDs of options to enable on server`,
 				Required:   false,
@@ -762,6 +776,20 @@ func baremetalServerBatchCreate() *core.Command {
 			},
 			{
 				Name:       "common-configuration.install.partitioning-schema.zfs.pools.{index}.filesystem-options.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.network-boot-url",
+				Short:      `URL of the network service to which the server should forward its boot request`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.network-boot-persistent",
+				Short:      `Defines whether the network boot forwarding should be applied at every reboot or only once`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1123,6 +1151,20 @@ func baremetalServerInstall() *core.Command {
 				Name:       "user-data.content",
 				Required:   false,
 				Deprecated: true,
+				Positional: false,
+			},
+			{
+				Name:       "network-boot-url",
+				Short:      `URL of the network service to which the server should forward its boot request`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "network-boot-persistent",
+				Short:      `Defines whether the network boot forwarding should be applied at every reboot or only once`,
+				Required:   false,
+				Deprecated: false,
 				Positional: false,
 			},
 			core.ZoneArgSpec(
