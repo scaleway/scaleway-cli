@@ -473,6 +473,7 @@ type clusterConnectArgs struct {
 	ClusterID      string
 	CliRedis       *string
 	CliArgs        []string
+	Template       string
 }
 
 const (
@@ -527,8 +528,11 @@ func clusterConnectCommand() *core.Command {
 		Resource:  "cluster",
 		Verb:      "connect",
 		Short:     "Connect to a Redis cluster using locally installed redis-cli",
-		Long:      "Connect to a Redis cluster using locally installed redis-cli. The command will check if redis-cli is installed, download the certificate if TLS is enabled, and prompt for the password.",
-		ArgsType:  reflect.TypeFor[clusterConnectArgs](),
+		Long: `Connect to a Redis cluster using locally installed redis-cli. The command will check if redis-cli is installed, download the certificate if TLS is enabled, and prompt for the password.
+Use --template to run an arbitrary tool: the Go text/template is rendered with
+{{.Username}}, {{.Password}} (from the persisted secret), {{.Host}}, {{.Port}}, {{.CertPath}} and {{.TLS}},
+and the result is executed as the connect command.`,
+		ArgsType: reflect.TypeFor[clusterConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:     "private-network",
@@ -551,6 +555,7 @@ func clusterConnectCommand() *core.Command {
 				Short:    "Additional arguments to pass to redis-cli",
 				Required: false,
 			},
+			connect.TemplateArgSpec(),
 			core.ZoneArgSpec(getRedisZones()...),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
@@ -561,8 +566,10 @@ func clusterConnectCommand() *core.Command {
 				cliRedis = *args.CliRedis
 			}
 
-			if err := checkRedisCliInstalled(cliRedis); err != nil {
-				return nil, err
+			if args.Template == "" {
+				if err := checkRedisCliInstalled(cliRedis); err != nil {
+					return nil, err
+				}
 			}
 
 			client := core.ExtractClient(ctx)
@@ -644,8 +651,10 @@ func clusterConnectCommand() *core.Command {
 			hostStr := endpoint.IPs[0].String()
 
 			// Fail fast on an unreachable endpoint instead of letting redis-cli hang on the dial
-			if err := core.CheckReachable(hostStr, port); err != nil {
-				return nil, err
+			if args.Template == "" {
+				if err := core.CheckReachable(hostStr, port); err != nil {
+					return nil, err
+				}
 			}
 
 			cmdArgs := []string{
@@ -666,6 +675,21 @@ func clusterConnectCommand() *core.Command {
 			// Add any additional arguments passed by the user
 			if len(args.CliArgs) > 0 {
 				cmdArgs = append(cmdArgs, args.CliArgs...)
+			}
+
+			templateArgs, err := connect.RenderCommand(args.Template, map[string]any{
+				"Username": cluster.UserName,
+				"Password": password,
+				"Host":     hostStr,
+				"Port":     strconv.FormatUint(uint64(port), 10),
+				"CertPath": certPath,
+				"TLS":      cluster.TLSEnabled,
+			})
+			if err != nil {
+				return nil, err
+			}
+			if templateArgs != nil {
+				cmdArgs = templateArgs
 			}
 
 			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
@@ -694,6 +718,10 @@ func clusterConnectCommand() *core.Command {
 			{
 				Short: "Connect to a Redis cluster via private network",
 				Raw:   `scw redis cluster connect 11111111-1111-1111-1111-111111111111 private-network=true`,
+			},
+			{
+				Short: "Connect with a custom tool using a template",
+				Raw:   `scw redis cluster connect 11111111-1111-1111-1111-111111111111 --template "my-redis-tool -h {{.Host}} -p {{.Port}}"`,
 			},
 		},
 	}

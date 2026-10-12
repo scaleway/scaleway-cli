@@ -710,6 +710,10 @@ Connect to an instance using locally installed CLI such as psql or mysql.
 When no username is given, the admin user is used and credentials are fetched from the secret
 created by "rdb instance create cli-connect=true" when available.
 
+Use --template to run an arbitrary tool: the Go text/template is rendered with
+{{.Username}}, {{.Password}} (from the persisted secret), {{.Host}}, {{.Port}}, {{.Database}}
+and {{.Engine}}, and the result is executed as the connect command.
+
 **Usage:**
 
 ```shell
@@ -719,14 +723,15 @@ scw rdb instance connect <instance-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                   | Argument Specifications                           |
-|-----------------|-------------------------------------------------------------------------------|---------------------------------------------------|
-| private-network | Connect by the private network endpoint attached.                             | Default: `false`                                  |
-| instance-id     | UUID of the instance                                                          | Required                                          |
-| username        | Name of the user to connect with to the database (defaults to the admin user) |                                                   |
-| database        | Name of the database                                                          | Default: `rdb`                                    |
-| cli-db          | Command line tool to use, default to psql/mysql                               |                                                   |
-| region          | Region to target. If none is passed will use default region from the config   | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
+| Name            | Description                                                                             | Argument Specifications                           |
+|-----------------|-----------------------------------------------------------------------------------------|---------------------------------------------------|
+| private-network | Connect by the private network endpoint attached.                                       | Default: `false`                                  |
+| instance-id     | UUID of the instance                                                                    | Required                                          |
+| username        | Name of the user to connect with to the database (defaults to the admin user)           |                                                   |
+| database        | Name of the database                                                                    | Default: `rdb`                                    |
+| cli-db          | Command line tool to use, default to psql/mysql                                         |                                                   |
+| template        | Go text/template rendered into a command line that replaces the default connect command |                                                   |
+| region          | Region to target. If none is passed will use default region from the config             | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 

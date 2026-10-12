@@ -89,6 +89,7 @@ type deploymentConnectArgs struct {
 	PrivateNetwork bool
 	DeploymentID   string
 	CliClickhouse  *string
+	Template       string
 }
 
 func checkClickhousectlInstalled(cliClickhouse string) error {
@@ -140,7 +141,11 @@ func deploymentConnectCommand() *core.Command {
 		Short:     "Connect to a Data Warehouse deployment using locally installed clickhousectl",
 		Long: `Connect to a Data Warehouse deployment using locally installed clickhousectl.
 The scwadmin user is used and credentials are fetched from the secret created by
-"datawarehouse deployment create cli-connect=true" when available.`,
+"datawarehouse deployment create cli-connect=true" when available.
+
+Use --template to run an arbitrary tool: the Go text/template is rendered with
+{{.Username}}, {{.Password}} (from the persisted secret), {{.Host}}, {{.Port}} and {{.Database}},
+and the result is executed as the connect command.`,
 		ArgsType: reflect.TypeFor[deploymentConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -159,6 +164,7 @@ The scwadmin user is used and credentials are fetched from the secret created by
 				Name:  "cli-clickhouse",
 				Short: "Command line tool to use, default to clickhousectl",
 			},
+			connect.TemplateArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
@@ -169,8 +175,10 @@ The scwadmin user is used and credentials are fetched from the secret created by
 				cliClickhouse = *args.CliClickhouse
 			}
 
-			if err := checkClickhousectlInstalled(cliClickhouse); err != nil {
-				return nil, err
+			if args.Template == "" {
+				if err := checkClickhousectlInstalled(cliClickhouse); err != nil {
+					return nil, err
+				}
 			}
 
 			client := core.ExtractClient(ctx)
@@ -221,8 +229,10 @@ The scwadmin user is used and credentials are fetched from the secret created by
 			password := creds.Password
 
 			// Fail fast on an unreachable endpoint instead of letting the client hang on the dial
-			if err := core.CheckReachable(endpoint.DNSRecord, port); err != nil {
-				return nil, err
+			if args.Template == "" {
+				if err := core.CheckReachable(endpoint.DNSRecord, port); err != nil {
+					return nil, err
+				}
 			}
 
 			// ponytail: the public endpoint presents a Let's Encrypt chain
@@ -240,6 +250,20 @@ The scwadmin user is used and credentials are fetched from the secret created by
 				"--user", dwAdminUsername,
 				"--password", password,
 				"--database", "default",
+			}
+
+			templateArgs, err := connect.RenderCommand(args.Template, map[string]any{
+				"Username": dwAdminUsername,
+				"Password": password,
+				"Host":     endpoint.DNSRecord,
+				"Port":     strconv.FormatUint(uint64(port), 10),
+				"Database": "default",
+			})
+			if err != nil {
+				return nil, err
+			}
+			if templateArgs != nil {
+				cmdArgs = templateArgs
 			}
 
 			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
@@ -262,6 +286,10 @@ The scwadmin user is used and credentials are fetched from the secret created by
 			{
 				Short: "Connect to a Data Warehouse deployment",
 				Raw:   `scw datawarehouse deployment connect 11111111-1111-1111-1111-111111111111`,
+			},
+			{
+				Short: "Connect with a custom tool using a template",
+				Raw:   `scw datawarehouse deployment connect 11111111-1111-1111-1111-111111111111 --template "my-ch-tool --host {{.Host}} --port {{.Port}}"`,
 			},
 		},
 		ExcludeFromMCP: true,

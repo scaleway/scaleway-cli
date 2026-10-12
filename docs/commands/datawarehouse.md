@@ -82,6 +82,10 @@ Connect to a Data Warehouse deployment using locally installed clickhousectl.
 The scwadmin user is used and credentials are fetched from the secret created by
 "datawarehouse deployment create cli-connect=true" when available.
 
+Use --template to run an arbitrary tool: the Go text/template is rendered with
+{{.Username}}, {{.Password}} (from the persisted secret), {{.Host}}, {{.Port}} and {{.Database}},
+and the result is executed as the connect command.
+
 **Usage:**
 
 ```shell
@@ -91,12 +95,13 @@ scw datawarehouse deployment connect <deployment-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                 | Argument Specifications                 |
-|-----------------|-----------------------------------------------------------------------------|-----------------------------------------|
-| private-network | Connect by the private network endpoint attached.                           | Default: `false`                        |
-| deployment-id   | UUID of the deployment                                                      | Required                                |
-| cli-clickhouse  | Command line tool to use, default to clickhousectl                          |                                         |
-| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+| Name            | Description                                                                             | Argument Specifications                 |
+|-----------------|-----------------------------------------------------------------------------------------|-----------------------------------------|
+| private-network | Connect by the private network endpoint attached.                                       | Default: `false`                        |
+| deployment-id   | UUID of the deployment                                                                  | Required                                |
+| cli-clickhouse  | Command line tool to use, default to clickhousectl                                      |                                         |
+| template        | Go text/template rendered into a command line that replaces the default connect command |                                         |
+| region          | Region to target. If none is passed will use default region from the config             | Default: `fr-par`<br />One of: `fr-par` |
 
 
 **Examples:**
@@ -105,6 +110,11 @@ scw datawarehouse deployment connect <deployment-id ...> [arg=value ...]
 Connect to a Data Warehouse deployment
 ```shell
 scw datawarehouse deployment connect 11111111-1111-1111-1111-111111111111
+```
+
+Connect with a custom tool using a template
+```shell
+scw datawarehouse deployment connect 11111111-1111-1111-1111-111111111111 --template "my-ch-tool --host {{.Host}} --port {{.Port}}"
 ```
 
 

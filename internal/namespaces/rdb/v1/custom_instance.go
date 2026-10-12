@@ -813,6 +813,7 @@ type instanceConnectArgs struct {
 	Username       string
 	Database       *string
 	CliDB          *string
+	Template       string
 }
 
 type engineFamily string
@@ -958,7 +959,11 @@ func instanceConnectCommand() *core.Command {
 		Short:     "Connect to an instance using locally installed CLI",
 		Long: `Connect to an instance using locally installed CLI such as psql or mysql.
 When no username is given, the admin user is used and credentials are fetched from the secret
-created by "rdb instance create cli-connect=true" when available.`,
+created by "rdb instance create cli-connect=true" when available.
+
+Use --template to run an arbitrary tool: the Go text/template is rendered with
+{{.Username}}, {{.Password}} (from the persisted secret), {{.Host}}, {{.Port}}, {{.Database}}
+and {{.Engine}}, and the result is executed as the connect command.`,
 		ArgsType: reflect.TypeFor[instanceConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -987,6 +992,7 @@ created by "rdb instance create cli-connect=true" when available.`,
 				Name:  "cli-db",
 				Short: "Command line tool to use, default to psql/mysql",
 			},
+			connect.TemplateArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
@@ -1060,9 +1066,27 @@ created by "rdb instance create cli-connect=true" when available.`,
 			}
 			args.Username = username
 
-			cmdArgs, err := createConnectCommandLineArgs(endpoint, engineFamily, args)
+			database := "rdb"
+			if args.Database != nil {
+				database = *args.Database
+			}
+
+			cmdArgs, err := connect.RenderCommand(args.Template, map[string]any{
+				"Username": username,
+				"Password": password,
+				"Host":     endpoint.IP.String(),
+				"Port":     strconv.FormatUint(uint64(endpoint.Port), 10),
+				"Database": database,
+				"Engine":   string(engineFamily),
+			})
 			if err != nil {
 				return nil, err
+			}
+			if cmdArgs == nil {
+				cmdArgs, err = createConnectCommandLineArgs(endpoint, engineFamily, args)
+				if err != nil {
+					return nil, err
+				}
 			}
 
 			if !found && !passwordFileExist(ctx, engineFamily) {

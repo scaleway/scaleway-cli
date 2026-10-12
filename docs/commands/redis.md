@@ -122,6 +122,9 @@ A Redis™ Database Instance, also known as a Redis™ cluster, consists of eith
 ### Connect to a Redis cluster using locally installed redis-cli
 
 Connect to a Redis cluster using locally installed redis-cli. The command will check if redis-cli is installed, download the certificate if TLS is enabled, and prompt for the password.
+Use --template to run an arbitrary tool: the Go text/template is rendered with
+{{.Username}}, {{.Password}} (from the persisted secret), {{.Host}}, {{.Port}}, {{.CertPath}} and {{.TLS}},
+and the result is executed as the connect command.
 
 **Usage:**
 
@@ -132,13 +135,14 @@ scw redis cluster connect <cluster-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                             | Argument Specifications                                                                                 |
-|-----------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| private-network | Connect by the private network endpoint attached.                       | Default: `false`                                                                                        |
-| cluster-id      | UUID of the cluster                                                     | Required                                                                                                |
-| cli-redis       | Command line tool to use, default to redis-cli                          |                                                                                                         |
-| cli-args        | Additional arguments to pass to redis-cli                               |                                                                                                         |
-| zone            | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
+| Name            | Description                                                                             | Argument Specifications                                                                                 |
+|-----------------|-----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| private-network | Connect by the private network endpoint attached.                                       | Default: `false`                                                                                        |
+| cluster-id      | UUID of the cluster                                                                     | Required                                                                                                |
+| cli-redis       | Command line tool to use, default to redis-cli                                          |                                                                                                         |
+| cli-args        | Additional arguments to pass to redis-cli                                               |                                                                                                         |
+| template        | Go text/template rendered into a command line that replaces the default connect command |                                                                                                         |
+| zone            | Zone to target. If none is passed will use default zone from the config                 | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 **Examples:**
@@ -152,6 +156,11 @@ scw redis cluster connect 11111111-1111-1111-1111-111111111111
 Connect to a Redis cluster via private network
 ```shell
 scw redis cluster connect 11111111-1111-1111-1111-111111111111 private-network=true
+```
+
+Connect with a custom tool using a template
+```shell
+scw redis cluster connect 11111111-1111-1111-1111-111111111111 --template "my-redis-tool -h {{.Host}} -p {{.Port}}"
 ```
 
 

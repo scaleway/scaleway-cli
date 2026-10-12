@@ -24,6 +24,7 @@ type instanceConnectArgs struct {
 	InstanceID     string
 	Username       string
 	CliMongosh     *string
+	Template       string
 }
 
 func checkMongoshInstalled(cliMongosh string) error {
@@ -96,7 +97,11 @@ func instanceConnectCommand() *core.Command {
 		Short:     "Connect to a MongoDB® Database Instance using locally installed mongosh",
 		Long: `Connect to a MongoDB® Database Instance using locally installed mongosh.
 When no username is given, the admin user is used and credentials are fetched from the secret
-created by "mongodb instance create cli-connect=true" when available.`,
+created by "mongodb instance create cli-connect=true" when available.
+
+Use --template to run an arbitrary tool: the Go text/template is rendered with
+{{.Username}}, {{.Password}} (from the persisted secret), {{.ConnURL}}, {{.DNSRecord}} and
+{{.CertPath}}, and the result is executed as the connect command.`,
 		ArgsType: reflect.TypeFor[instanceConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -120,6 +125,7 @@ created by "mongodb instance create cli-connect=true" when available.`,
 				Name:  "cli-mongosh",
 				Short: "Command line tool to use, default to mongosh",
 			},
+			connect.TemplateArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
@@ -130,8 +136,10 @@ created by "mongodb instance create cli-connect=true" when available.`,
 				cliMongosh = *args.CliMongosh
 			}
 
-			if err := checkMongoshInstalled(cliMongosh); err != nil {
-				return nil, err
+			if args.Template == "" {
+				if err := checkMongoshInstalled(cliMongosh); err != nil {
+					return nil, err
+				}
 			}
 
 			client := core.ExtractClient(ctx)
@@ -207,18 +215,20 @@ created by "mongodb instance create cli-connect=true" when available.`,
 
 			// Fail fast when the +srv record is not (yet) resolvable, instead of letting
 			// mongosh time out on server selection.
-			if _, _, srvErr := net.DefaultResolver.LookupSRV(
-				ctx,
-				"mongodb",
-				"tcp",
-				endpoint.DNSRecord,
-			); srvErr != nil {
-				return nil, fmt.Errorf(
-					"cannot resolve the MongoDB endpoint %s from this machine (%v); "+
-						"check your network/DNS, or use --private-network if a private endpoint is attached",
+			if args.Template == "" {
+				if _, _, srvErr := net.DefaultResolver.LookupSRV(
+					ctx,
+					"mongodb",
+					"tcp",
 					endpoint.DNSRecord,
-					srvErr,
-				)
+				); srvErr != nil {
+					return nil, fmt.Errorf(
+						"cannot resolve the MongoDB endpoint %s from this machine (%v); "+
+							"check your network/DNS, or use --private-network if a private endpoint is attached",
+						endpoint.DNSRecord,
+						srvErr,
+					)
+				}
 			}
 
 			// mongodb+srv://{user}:{pass}@{dns-record}/ (credentials escaped by url.UserPassword)
@@ -228,10 +238,22 @@ created by "mongodb instance create cli-connect=true" when available.`,
 				User:   url.UserPassword(username, password),
 			}
 
-			cmdArgs := []string{
-				cliMongosh,
-				connURL.String(),
-				"--tlsCAFile", certPath,
+			cmdArgs, err := connect.RenderCommand(args.Template, map[string]any{
+				"Username":  username,
+				"Password":  password,
+				"ConnURL":   connURL.String(),
+				"DNSRecord": endpoint.DNSRecord,
+				"CertPath":  certPath,
+			})
+			if err != nil {
+				return nil, err
+			}
+			if cmdArgs == nil {
+				cmdArgs = []string{
+					cliMongosh,
+					connURL.String(),
+					"--tlsCAFile", certPath,
+				}
 			}
 
 			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
@@ -253,6 +275,10 @@ created by "mongodb instance create cli-connect=true" when available.`,
 			{
 				Short: "Connect to a MongoDB instance",
 				Raw:   `scw mongodb instance connect 11111111-1111-1111-1111-111111111111`,
+			},
+			{
+				Short: "Connect with a custom tool using a template",
+				Raw:   `scw mongodb instance connect 11111111-1111-1111-1111-111111111111 --template "my-mongo-tool --auth {{.Username}}:{{.Password}} {{.DNSRecord}}"`,
 			},
 		},
 		ExcludeFromMCP: true,
