@@ -193,10 +193,10 @@ func Test_getS3UsePathStyle(t *testing.T) {
 
 			got, err := getS3UsePathStyle(ctx, c.cliArg)
 			if err != nil {
-				t.Errorf("getS3UsePathStyle: expected no errors, got %s", err)
+				t.Errorf("getS3UsePathStyle (%s): expected no errors, got %s", c.name, err)
 			}
 			if got != c.expected {
-				t.Errorf("getS3UsePathStyle: expected %v, got %v", c.expected, got)
+				t.Errorf("getS3UsePathStyle (%s): expected %v, got %v", c.name, c.expected, got)
 			}
 		})
 	}

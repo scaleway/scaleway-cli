@@ -338,7 +338,7 @@ func getS3UsePathStyle(ctx context.Context, usePathStyle string) (bool, error) {
 	// CLI argument and SCW environment variable
 	for _, flag := range []string{usePathStyle, os.Getenv(scw.ScwS3UsePathStyleEnv)} {
 		if flag != "" {
-			parsed, err := strconv.ParseBool(usePathStyle)
+			parsed, err := strconv.ParseBool(flag)
 
 			return parsed, err
 		}
