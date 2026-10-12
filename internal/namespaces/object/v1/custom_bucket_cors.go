@@ -109,7 +109,12 @@ func bucketCorsCreateCommand() *core.Command {
 			}
 
 			bucket, err := getBucketInfo(
-				ctx, args.Region, args.Bucket, args.ProjectID, s3UsePathStyle, s3Endpoint,
+				ctx,
+				args.Region,
+				args.Bucket,
+				client,
+				s3UsePathStyle,
+				s3Endpoint,
 			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)

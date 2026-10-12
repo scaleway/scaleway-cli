@@ -202,12 +202,10 @@ func getBucketInfo(
 	ctx context.Context,
 	region scw.Region,
 	name string,
-	projectID string,
+	client *s3.Client,
 	s3UsePathStyle bool,
 	s3Endpoint string,
 ) (*bucketInfo, error) {
-	client := newS3Client(ctx, region, projectID, s3Endpoint, s3UsePathStyle)
-
 	bucket := &bucketInfo{
 		ID:     name,
 		Region: region,

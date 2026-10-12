@@ -124,7 +124,7 @@ func bucketCreateCommand() *core.Command {
 				ctx,
 				args.Region,
 				args.Name,
-				args.ProjectID,
+				client,
 				s3UsePathStyle,
 				s3Endpoint,
 			)
@@ -239,7 +239,7 @@ func bucketGetCommand() *core.Command {
 				ctx,
 				args.Region,
 				args.Name,
-				args.ProjectID,
+				client,
 				s3UsePathStyle,
 				s3Endpoint,
 			)
@@ -390,7 +390,7 @@ func bucketUpdateCommand() *core.Command {
 				ctx,
 				args.Region,
 				args.Name,
-				args.ProjectID,
+				client,
 				s3UsePathStyle,
 				s3Endpoint,
 			)

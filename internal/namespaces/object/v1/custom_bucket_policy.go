@@ -102,7 +102,7 @@ func bucketPolicyCreateCommand() *core.Command {
 				ctx,
 				args.Region,
 				args.Bucket,
-				args.ProjectID,
+				client,
 				s3UsePathStyle,
 				s3Endpoint,
 			)
