@@ -115,13 +115,11 @@ func extractS3BucketAndPath(hostParts []string, path string) (bucket, remainingP
 		// Virtual-hosted style: bucket is the first label of the host
 		return hostParts[0], path
 	}
-	// Path style: bucket is the first segment of the path
-	trimmed := strings.TrimPrefix(path, "/")
-	if idx := strings.Index(trimmed, "/"); idx >= 0 {
-		return trimmed[:idx], trimmed[idx:]
-	}
 
-	return trimmed, ""
+	// Path style: bucket is the first segment of the path
+	bucket, remainingPath, _ = strings.Cut(strings.TrimPrefix(path, "/"), "/")
+
+	return bucket, remainingPath
 }
 
 // getHTTPRecoder creates a new httpClient that records all HTTP requests in a cassette.
