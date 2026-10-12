@@ -295,14 +295,12 @@ func bucketListCommand() *core.Command {
 
 			// s3UsePathStyle is not relevant to this call, we arbitrarily set
 			// it to false
-			s3Endpoint, _, err := getS3Endpoints(
-				ctx, args.Region.String(), args.S3Endpoint, "", false,
+			client, _, _, err := newS3ClientFromArgs(
+				ctx, args.Region, args.ProjectID, args.S3Endpoint, "false",
 			)
 			if err != nil {
-				return nil, fmt.Errorf("could not get S3 endpoints: %w", err)
+				return nil, err
 			}
-
-			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, false)
 
 			buckets, err := client.ListBuckets(ctx, &s3.ListBucketsInput{})
 			if err != nil {
