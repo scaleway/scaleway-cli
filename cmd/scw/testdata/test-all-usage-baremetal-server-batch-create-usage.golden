@@ -34,6 +34,8 @@ ARGS:
   [common-configuration.install.partitioning-schema.zfs.pools.{index}.devices.{index}]                          
   [common-configuration.install.partitioning-schema.zfs.pools.{index}.options.{index}]                          
   [common-configuration.install.partitioning-schema.zfs.pools.{index}.filesystem-options.{index}]               
+  [common-configuration.install.network-boot-url]                                                               URL of the network service to which the server should forward its boot request
+  [common-configuration.install.network-boot-persistent]                                                        Defines whether the network boot forwarding should be applied at every reboot or only once
   [common-configuration.option-ids.{index}]                                                                     IDs of options to enable on server
   [common-configuration.protected]                                                                              If enabled, the server can not be deleted
   [common-configuration.user-data]                                                                              Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script
