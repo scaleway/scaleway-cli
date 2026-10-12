@@ -72,6 +72,11 @@ type App struct {
 	stack  []Screen
 	prompt *Prompt
 	flash  string
+	// confirm is the pending delete confirmation (d key); nil when
+	// no modal is open. confirmDelete toggles it (tui.delete_confirm
+	// in cli.yaml, default true).
+	confirm       *confirmState
+	confirmDelete bool
 
 	width  int
 	height int
@@ -233,6 +238,54 @@ func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		}
 
 		return a, nil
+	case connectRequestMsg:
+		conn, ok := ConnectorFor(m.resource)
+		if !ok {
+			a.flash = "no connector for " + m.resource
+
+			return a, nil
+		}
+		ctx := context.Background()
+		if a.meta != nil {
+			ctx = core.InjectMeta(ctx, a.meta)
+		}
+		client := a.client
+		loc := a.loc
+
+		// Build in a cmd: Connect may call the API (ssh state check,
+		// db endpoint, kubeconfig) and must not block the render loop.
+		return a, func() tea.Msg {
+			cmd, cleanup, err := conn.Connect(ctx, client, loc, m.row)
+
+			return connectReadyMsg{cmd: cmd, cleanup: cleanup, err: err}
+		}
+	case connectReadyMsg:
+		if m.err != nil {
+			a.flash = "connect: " + m.err.Error()
+
+			return a, nil
+		}
+		// Suspend the TUI and run the interactive client on the
+		// terminal; resume (and report) when it exits.
+		return a, tea.ExecProcess(m.cmd, func(err error) tea.Msg {
+			return connectDoneMsg{cleanup: m.cleanup, err: err}
+		})
+	case connectDoneMsg:
+		if m.cleanup != nil {
+			m.cleanup()
+		}
+		if m.err != nil {
+			a.flash = "connect: " + m.err.Error()
+		}
+		// The session may have changed the resource state: re-fetch.
+		mdl, cmd := a.current().Update(refreshMsg{})
+		a.replaceCurrent(mdl)
+
+		return a, cmd
+	case editRequestMsg, editReadyMsg, editDoneMsg, editUpdatedMsg:
+		return a, a.handleEdit(msg)
+	case deleteRequestMsg, deleteDoneMsg:
+		return a, a.handleDelete(msg)
 	case tea.KeyMsg:
 		return a.updateKey(msg, m)
 	}
@@ -250,6 +303,9 @@ func (a *App) View() string {
 	}
 
 	parts := []string{a.viewHeader(), a.current().View()}
+	if a.confirm != nil {
+		parts = append(parts, a.viewConfirm())
+	}
 	if a.prompt != nil && a.prompt.Active {
 		parts = append(parts, a.viewPrompt())
 	}
@@ -267,6 +323,9 @@ func (a *App) replaceCurrent(mdl tea.Model) {
 }
 
 func (a *App) updateKey(msg tea.Msg, k tea.KeyMsg) (tea.Model, tea.Cmd) {
+	if a.confirm != nil {
+		return a.updateConfirmKey(k)
+	}
 	if a.prompt != nil && a.prompt.Active {
 		return a.updatePromptKey(k)
 	}
@@ -432,6 +491,11 @@ func (a *App) execPrompt() tea.Cmd {
 
 		return nil
 	}
+	if res.Parent != "" {
+		a.flash = res.Name + ": open it from " + res.Parent
+
+		return nil
+	}
 
 	return a.gotoResource(res)
 }
@@ -546,7 +610,7 @@ func (a *App) sizeCurrent() {
 		return
 	}
 	chrome := len(scalewayLogo) + 1 // header (logo height) + status
-	if a.prompt != nil && a.prompt.Active {
+	if a.confirm != nil || (a.prompt != nil && a.prompt.Active) {
 		chrome++
 	}
 	h := max(a.height-chrome, 1)

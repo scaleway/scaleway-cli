@@ -11,7 +11,8 @@ func TestKeymapDefaults(t *testing.T) {
 	for key, action := range map[string]string{
 		"q": ActionQuit, "m": ActionMenu, "g": ActionMenu,
 		":": ActionCommand, "/": ActionFilter, "r": ActionRefresh,
-		"esc": ActionBack, "enter": ActionOpen, "y": ActionCopy,
+		"esc": ActionBack, "enter": ActionOpen, "y": ActionCopy, "e": ActionEdit,
+		"d": ActionDelete,
 		"n": ActionNext, "p": ActionPrev,
 		"k": ActionUp, "up": ActionUp,
 		"j": ActionDown, "down": ActionDown,

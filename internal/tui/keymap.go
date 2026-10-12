@@ -1,6 +1,8 @@
 package tui
 
 import (
+	"sort"
+
 	tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -15,7 +17,11 @@ const (
 	ActionRefresh  = "refresh"   // r: re-fetch the current screen
 	ActionBack     = "back"      // esc: back (pop the navigation stack)
 	ActionOpen     = "open"      // enter: open the selected row / menu item
+	ActionConnect  = "connect"   // c: connect to the selected resource (ssh, psql, k9s, ...)
 	ActionCopy     = "copy"      // y: copy the selected id / attribute
+	ActionEdit     = "edit"      // e: edit the selected resource in $EDITOR (YAML)
+	ActionDelete   = "delete"    // d: delete the selected resource (confirms)
+	ActionDrill    = "drill"     // s: drill into the selected row's subresource
 	ActionZone     = "zone"      // ctrl+z: pick the session zone
 	ActionRegion   = "region"    // ctrl+r: pick the session region
 	ActionProfile  = "profile"   // ctrl+p: pick the scw profile
@@ -40,7 +46,11 @@ var defaultKeys = map[string][]string{
 	ActionRefresh:  {"r"},
 	ActionBack:     {"esc"},
 	ActionOpen:     {"enter"},
+	ActionConnect:  {"c"},
 	ActionCopy:     {"y"},
+	ActionEdit:     {"e"},
+	ActionDelete:   {"d"},
+	ActionDrill:    {"s"},
 	ActionNext:     {"n"},
 	ActionPrev:     {"p"},
 	ActionUp:       {"k", "up"},
@@ -114,6 +124,29 @@ func (km *Keymap) Key(action string) string {
 	}
 
 	return "?"
+}
+
+// Binding is one TUI keybinding: the action, its effective key(s)
+// (default or cli.yaml override) and the default key(s).
+type Binding struct {
+	Action  string   `json:"action"`
+	Keys    []string `json:"keys"`
+	Default []string `json:"default"`
+}
+
+// Bindings lists the effective bindings of all actions, sorted by action
+// name.
+func (km *Keymap) Bindings() []Binding {
+	if km == nil {
+		km = defaultKeymap
+	}
+	out := make([]Binding, 0, len(km.actions))
+	for action, keys := range km.actions {
+		out = append(out, Binding{Action: action, Keys: keys, Default: defaultKeys[action]})
+	}
+	sort.Slice(out, func(i, j int) bool { return out[i].Action < out[j].Action })
+
+	return out
 }
 
 // keyOf normalizes a tea.KeyMsg to the key spelling of the keymap

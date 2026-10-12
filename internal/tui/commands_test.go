@@ -187,6 +187,69 @@ func TestResourcesFromCommands(t *testing.T) {
 	}
 }
 
+type fakePoolArgs struct {
+	ClusterID string
+	Region    scw.Region
+}
+
+type fakePool struct {
+	ID   string
+	Name string
+}
+
+func TestSubResources(t *testing.T) {
+	var gotClusterID string
+	clusterList := &core.Command{
+		Namespace: "k8s", Resource: "cluster", Verb: "list",
+		ArgsType: reflect.TypeFor[zoneArgs](),
+		Run: func(ctx context.Context, argsI any) (any, error) {
+			return []*fakeCluster{{ID: "c1", Name: "k8s", State: "ready"}}, nil
+		},
+	}
+	poolList := &core.Command{
+		Namespace: "k8s", Resource: "pool", Verb: "list",
+		ArgsType: reflect.TypeFor[fakePoolArgs](),
+		Run: func(ctx context.Context, argsI any) (any, error) {
+			gotClusterID = argsI.(*fakePoolArgs).ClusterID
+
+			return []*fakePool{{ID: "p1", Name: "pool-1"}}, nil
+		},
+	}
+	res := ResourcesFromCommands(
+		[]*core.Command{clusterList, poolList},
+		nil,
+		NewLocality("fr-par-1"),
+	)
+	pool, ok := res["k8s pool"]
+	if !ok {
+		t.Fatal("missing 'k8s pool'")
+	}
+	if pool.Parent != "k8s cluster" {
+		t.Fatalf("Parent = %q, want 'k8s cluster'", pool.Parent)
+	}
+	cluster := res["k8s cluster"]
+	if cluster.Sub == nil || cluster.Sub.Res != pool {
+		t.Fatal("cluster.Sub not linked to 'k8s pool'")
+	}
+	lr, err := cluster.Sub.Scoped("c1")(context.Background())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if gotClusterID != "c1" {
+		t.Fatalf("scoped fetch args.ClusterID = %q, want c1", gotClusterID)
+	}
+	if len(lr.rows) != 1 || lr.rows[0].ID != "p1" {
+		t.Fatalf("rows = %v", lr.rows)
+	}
+	// The goto menu keeps the parent, hides the subresource.
+	m := NewMenu(res, nil)
+	for _, item := range m.items {
+		if item.label == "k8s pool" {
+			t.Fatal("subresource 'k8s pool' must not be in the menu")
+		}
+	}
+}
+
 func TestFuzzyMatch(t *testing.T) {
 	if pos := fuzzyMatch("instance server", "srv"); len(pos) != 3 {
 		t.Fatalf("fuzzyMatch = %v, want 3 positions", pos)

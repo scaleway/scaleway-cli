@@ -28,13 +28,24 @@ Change the session zone, region, profile or project at any time:
     ctrl+e  pick the project
 The choice applies to the current session only (not persisted).
 
+Edit the selected resource from a list view:
+    e       open it in your $EDITOR as YAML (a comment documents each
+            field); save and quit to apply the update
+
+Delete the selected resource from a list view:
+    d       delete it (asks for confirmation; set
+            tui.delete_confirm: false in cli.yaml to skip it)
+
 Keybindings and the : commands can be customized in the tui section of the CLI config file (cli.yaml):
 
     tui:
         keybindings:
             refresh: R
         commands:
-            mydb: rdb instance`,
+            mydb: rdb instance
+        delete_confirm: false
+
+List every keybinding with its effective key: scw tui keybinding list`,
 		Namespace: "tui",
 		ArgsType:  reflect.TypeFor[args](),
 		ArgSpecs: core.ArgSpecs{
@@ -69,21 +80,25 @@ Keybindings and the : commands can be customized in the tui section of the CLI c
 				meta,
 				loc,
 			)
-			// Keybindings and `:` commands, overridable in the tui
-			// section of cli.yaml.
+			// Keybindings, `:` commands and the delete-confirmation
+			// toggle, overridable in the tui section of cli.yaml.
 			keys := tui.DefaultKeymap()
-			var commands map[string]string
+			commands := map[string]string{}
+			confirmDelete := true
 			if cfg := core.ExtractCliConfig(ctx); cfg != nil && cfg.Tui != nil {
 				keys = tui.NewKeymap(cfg.Tui.KeyBindings)
 				commands = cfg.Tui.Commands
+				if cfg.Tui.DeleteConfirm != nil {
+					confirmDelete = *cfg.Tui.DeleteConfirm
+				}
 			}
 
-			return nil, tui.Run(ctx, client, meta, resources, keys, commands, loc)
+			return nil, tui.Run(ctx, client, meta, resources, keys, commands, confirmDelete, loc)
 		},
 	}
 }
 
 // GetCommands returns the tui commands.
 func GetCommands() *core.Commands {
-	return core.NewCommands(NewTUICommand())
+	return core.NewCommands(NewTUICommand(), keybindingListCommand())
 }

@@ -2,6 +2,7 @@ package k8s
 
 import (
 	"context"
+	"errors"
 	"reflect"
 
 	"github.com/ghodss/yaml"
@@ -101,4 +102,24 @@ func k8sKubeconfigGetRun(ctx context.Context, argsI any) (i any, e error) {
 	}
 
 	return string(config), nil
+}
+
+// KubeconfigRaw returns the kubeconfig of the given cluster: the core of
+// the `scw k8s kubeconfig get` command with the default auth method,
+// reused by the TUI k9s connector.
+func KubeconfigRaw(ctx context.Context, region scw.Region, clusterID string) (string, error) {
+	out, err := k8sKubeconfigGetRun(ctx, &k8sKubeconfigGetRequest{
+		ClusterID:  clusterID,
+		Region:     region,
+		AuthMethod: authMethods(defaultAuthMethod),
+	})
+	if err != nil {
+		return "", err
+	}
+	raw, ok := out.(string)
+	if !ok {
+		return "", errors.New("unexpected kubeconfig response")
+	}
+
+	return raw, nil
 }

@@ -29,7 +29,22 @@ func ResourcesFromCommands(
 	meta *core.Meta,
 	loc *Locality,
 ) map[string]*Resource {
+	// Index every command by its "ns res verb" path (first wins, like
+	// the cobra builder) so a resource can find its get/update sibling.
+	byName := map[string]*core.Command{}
+	for _, cmd := range cmds {
+		if cmd.Run == nil {
+			continue
+		}
+		if name := commandName(cmd); name != "" {
+			if _, ok := byName[name]; !ok {
+				byName[name] = cmd
+			}
+		}
+	}
+
 	resources := map[string]*Resource{}
+	listCmds := map[string]*core.Command{}
 	for _, cmd := range cmds {
 		if cmd.Run == nil || !cmd.IsList() {
 			continue
@@ -41,14 +56,97 @@ func ResourcesFromCommands(
 		if _, ok := resources[name]; ok {
 			continue
 		}
-		resources[name] = &Resource{
+		res := &Resource{
 			Name:  name,
 			Title: name,
 			Fetch: commandFetch(cmd, meta, loc),
 		}
+		if get, ok := byName[name+" get"]; ok {
+			res.GetCmd = get
+		}
+		if update, ok := byName[name+" update"]; ok {
+			res.UpdateCmd = update
+		}
+		if del, ok := byName[name+" delete"]; ok {
+			res.DeleteCmd = del
+		}
+		resources[name] = res
+		listCmds[name] = cmd
 	}
+	linkSubResources(resources, listCmds, meta, loc)
 
 	return resources
+}
+
+// subResources maps a child list to its parent: the child's list
+// command requires the parent row's ID in the request field named here.
+// Children are hidden from the goto menu and the `:` prompt; the parent
+// browser gains the drill key ('s') to list the child for the selected
+// row.
+//
+// ponytail: by hand, one sub per parent (a second entry for the same
+// parent would overwrite the first); auto-detect from the list
+// commands' required *-id arg specs if the table stops scaling.
+var subResources = map[string]struct {
+	parent string
+	field  string
+}{
+	"k8s pool": {parent: "k8s cluster", field: "ClusterID"},
+}
+
+// linkSubResources wires the subResources table onto the built
+// resources: the child learns its parent (menu/prompt filtering), the
+// parent learns how to fetch the child list scoped to one row.
+func linkSubResources(
+	resources map[string]*Resource,
+	listCmds map[string]*core.Command,
+	meta *core.Meta,
+	loc *Locality,
+) {
+	for name, spec := range subResources {
+		child, ok := resources[name]
+		parent, ok2 := resources[spec.parent]
+		cmd, ok3 := listCmds[name]
+		if !ok || !ok2 || !ok3 {
+			continue
+		}
+		child.Parent = spec.parent
+		parent.Sub = &SubResource{
+			Res: child,
+			Scoped: func(parentID string) func(context.Context) (listResult, error) {
+				return fetchWith(cmd, meta, loc, func(args any) {
+					setStringField(args, spec.field, parentID)
+				})
+			},
+		}
+	}
+}
+
+// setStringField sets a string field on the (pointer to) request args.
+func setStringField(args any, field, value string) {
+	v := reflect.ValueOf(args)
+	for v.Kind() == reflect.Pointer {
+		if v.IsNil() {
+			return
+		}
+		v = v.Elem()
+	}
+	if f := v.FieldByName(field); f.IsValid() && f.CanSet() && f.Kind() == reflect.String {
+		f.SetString(value)
+	}
+}
+
+// commandName is the full command path "ns res verb" (empty parts
+// skipped), the way the cobra builder assembles command paths.
+func commandName(cmd *core.Command) string {
+	var parts []string
+	for _, p := range []string{cmd.Namespace, cmd.Resource, cmd.Verb} {
+		if p != "" {
+			parts = append(parts, p)
+		}
+	}
+
+	return strings.Join(parts, " ")
 }
 
 func commandFetch(
@@ -56,38 +154,66 @@ func commandFetch(
 	meta *core.Meta,
 	loc *Locality,
 ) func(context.Context) (listResult, error) {
+	return fetchWith(cmd, meta, loc, nil)
+}
+
+// fetchWith builds a list fetch for cmd; fill, if non-nil, adjusts the
+// request args after the localities are filled (the drill-down uses it
+// to pin the list to one parent row).
+func fetchWith(
+	cmd *core.Command,
+	meta *core.Meta,
+	loc *Locality,
+	fill func(any),
+) func(context.Context) (listResult, error) {
 	return func(ctx context.Context) (listResult, error) {
 		zone, region := loc.Get()
 		var args any
 		if cmd.ArgsType != nil {
 			args = reflect.New(cmd.ArgsType).Interface()
 			fillLocalities(args, zone, region)
+			if fill != nil {
+				fill(args)
+			}
 		}
 		if meta != nil {
 			ctx = core.InjectMeta(ctx, meta)
 		}
-		// Run through the command interceptor chain, exactly like the
-		// CLI does: interceptors may rewrite the args before Run sees
-		// them (e.g. instance server list passes its embedded SDK
-		// request). Localities are filled again on the final args.
-		runner := func(ctx context.Context, argsI any) (any, error) {
-			fillLocalities(argsI, zone, region)
-
-			return cmd.Run(ctx, argsI)
-		}
-		var resp any
-		var err error
-		if cmd.Interceptor != nil {
-			resp, err = cmd.Interceptor(ctx, args, runner)
-		} else {
-			resp, err = runner(ctx, args)
-		}
+		resp, err := runCommand(cmd, meta, loc, ctx, args)
 		if err != nil {
 			return listResult{}, err
 		}
 
 		return toRows(resp)
 	}
+}
+
+// runCommand runs a CLI command the TUI way: through the interceptor
+// chain (exactly like the CLI does: interceptors may rewrite the args
+// before Run sees them) with the session locality re-filled on the
+// final args. The caller fills the localities on args beforehand:
+// interceptors may read them before the runner re-fills them.
+func runCommand(
+	cmd *core.Command,
+	meta *core.Meta,
+	loc *Locality,
+	ctx context.Context,
+	args any,
+) (any, error) {
+	zone, region := loc.Get()
+	if meta != nil {
+		ctx = core.InjectMeta(ctx, meta)
+	}
+	runner := func(ctx context.Context, argsI any) (any, error) {
+		fillLocalities(argsI, zone, region)
+
+		return cmd.Run(ctx, argsI)
+	}
+	if cmd.Interceptor != nil {
+		return cmd.Interceptor(ctx, args, runner)
+	}
+
+	return runner(ctx, args)
 }
 
 // fillLocalities sets the default zone/region on the request args. The

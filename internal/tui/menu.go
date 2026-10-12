@@ -39,6 +39,9 @@ func NewMenu(resources map[string]*Resource, keys *Keymap) *Menu {
 
 	m := &Menu{keys: keys}
 	for _, name := range names {
+		if resources[name].Parent != "" {
+			continue // subresource: reachable from its parent with the drill key
+		}
 		m.items = append(m.items, menuItem{label: name, res: resources[name]})
 	}
 

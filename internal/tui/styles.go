@@ -40,6 +40,8 @@ var (
 	errorStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color(colorRed))
 	// flashStyle is the status-bar flash message (orange).
 	flashStyle = lipgloss.NewStyle().Foreground(lipgloss.Color(colorOrange))
+	// confirmStyle is the delete confirmation line (orange, bold).
+	confirmStyle = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color(colorOrange))
 	// menu styles (k9s menu: white label).
 	menuLabelStyle = lipgloss.NewStyle().Foreground(lipgloss.Color(colorWhite))
 	// detail styles (k9s yaml view: steelblue keys, papayawhip values).

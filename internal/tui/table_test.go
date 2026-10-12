@@ -450,12 +450,13 @@ func TestFetchMsgRoutesToBrowser(t *testing.T) {
 	a.sizeCurrent()
 
 	// A fetch result arrives at the root and must reach the browser.
+	b := a.current().(*Browser)
 	a.Update(fetchMsg{
+		from:    b,
 		columns: []string{"ID", "NAME"},
 		rows:    []Row{{ID: "x", Cells: []string{"x", "foo"}}},
 	})
 
-	b := a.current().(*Browser)
 	if got := len(b.Table().Rows); got != 1 {
 		t.Fatalf("table rows = %d, want 1 (fetchMsg not routed)", got)
 	}
@@ -467,6 +468,52 @@ func TestFetchMsgRoutesToBrowser(t *testing.T) {
 	}
 	if b.err != "" {
 		t.Fatalf("unexpected error: %s", b.err)
+	}
+}
+
+// TestStaleFetchMsgDropped verifies a fetch result still in flight when
+// the user navigates away (goto) is dropped by the new browser: without
+// the guard the old resource's rows would show under the new title and
+// pressing enter would open the old resource's details.
+func TestStaleFetchMsgDropped(t *testing.T) {
+	mk := func(name string) *Resource {
+		return &Resource{
+			Name:  name,
+			Title: name,
+			Fetch: func(ctx context.Context) (listResult, error) {
+				return listResult{columns: []string{"ID"}, rows: []Row{{ID: name}}}, nil
+			},
+		}
+	}
+	srv, vol := mk("instance server"), mk("instance volume")
+	old := NewBrowser(srv, nil)
+	a := &App{
+		loc:       NewLocality("fr-par-1"),
+		resources: map[string]*Resource{"instance server": srv, "instance volume": vol},
+		stack:     []Screen{old},
+	}
+	a.width, a.height = 80, 24
+	a.sizeCurrent()
+
+	// Goto instance volume: the stack is replaced by the new browser.
+	a.Update(gotoResourceMsg{res: vol})
+
+	// The server's fetch, still in flight, completes after the goto.
+	a.Update(fetchMsg{
+		from:    old,
+		columns: []string{"ID"},
+		rows:    []Row{{ID: "srv", Obj: "stale-server-obj"}},
+	})
+
+	b := a.current().(*Browser)
+	if b.res.Name != "instance volume" {
+		t.Fatalf("current resource = %s, want instance volume", b.res.Name)
+	}
+	if got := len(b.Table().Rows); got != 0 {
+		t.Fatalf("stale fetchMsg polluted the new browser: rows = %d, want 0", got)
+	}
+	if !b.loading {
+		t.Fatal("new browser must still be loading (its own fetch not done)")
 	}
 }
 

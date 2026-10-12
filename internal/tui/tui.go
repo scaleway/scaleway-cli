@@ -11,8 +11,9 @@ import (
 // Run starts the TUI and blocks until the user quits (q or ctrl+c).
 // meta owns the API client (profile switches reload it through it),
 // keys is the effective keymap (nil: defaults), commands the user
-// `:` commands from cli.yaml, loc the session zone/region (nil:
-// fr-par-1).
+// `:` commands from cli.yaml, confirmDelete toggles the delete
+// confirmation modal (tui.delete_confirm), loc the session zone/region
+// (nil: fr-par-1).
 func Run(
 	ctx context.Context,
 	client *scw.Client,
@@ -20,16 +21,15 @@ func Run(
 	resources map[string]*Resource,
 	keys *Keymap,
 	commands map[string]string,
+	confirmDelete bool,
 	loc *Locality,
 ) error {
 	if loc == nil {
 		loc = NewLocality(scw.ZoneFrPar1)
 	}
-	p := tea.NewProgram(
-		NewApp(ctx, client, meta, resources, keys, commands, loc),
-		tea.WithContext(ctx),
-		tea.WithAltScreen(),
-	)
+	app := NewApp(ctx, client, meta, resources, keys, commands, loc)
+	app.confirmDelete = confirmDelete
+	p := tea.NewProgram(app, tea.WithContext(ctx), tea.WithAltScreen())
 	_, err := p.Run()
 
 	return err
