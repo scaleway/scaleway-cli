@@ -335,18 +335,13 @@ func getS3Endpoints(
 // - SCW Environment variable
 // - Profile field value
 func getS3UsePathStyle(ctx context.Context, usePathStyle string) (bool, error) {
-	// CLI argument
-	if usePathStyle != "" {
-		parsed, err := strconv.ParseBool(usePathStyle)
+	// CLI argument and SCW environment variable
+	for _, flag := range []string{usePathStyle, os.Getenv(scw.ScwS3UsePathStyleEnv)} {
+		if flag != "" {
+			parsed, err := strconv.ParseBool(usePathStyle)
 
-		return parsed, err
-	}
-
-	// SCW environment variable
-	if flag := os.Getenv(scw.ScwS3UsePathStyleEnv); flag != "" {
-		parsed, err := strconv.ParseBool(flag)
-
-		return parsed, err
+			return parsed, err
+		}
 	}
 
 	// Profile field value
