@@ -69,6 +69,37 @@ func newS3Client(
 	})
 }
 
+// newS3ClientFromArgs builds an S3 client from the CLI s3-endpoint and
+// s3-use-path-style arguments, resolving them through the same configuration
+// priority as getS3Endpoints and getS3UsePathStyle. It also returns the
+// resolved endpoint and path-style flag so callers that need them (e.g. for
+// getBucketInfo) don't have to derive them again.
+func newS3ClientFromArgs(
+	ctx context.Context,
+	region scw.Region,
+	projectID string,
+	s3EndpointArg string,
+	s3UsePathStyleArg string,
+) (client *s3.Client, s3Endpoint string, s3UsePathStyle bool, err error) {
+	s3UsePathStyle, err = getS3UsePathStyle(ctx, s3UsePathStyleArg)
+	if err != nil {
+		return nil, "", false, fmt.Errorf("could not get S3 use path style flag: %w", err)
+	}
+
+	s3Endpoint, _, err = getS3Endpoints(ctx, region.String(), s3EndpointArg, "", s3UsePathStyle)
+	if err != nil {
+		return nil, "", false, fmt.Errorf("could not get S3 endpoints: %w", err)
+	}
+
+	return newS3Client(
+		ctx,
+		region,
+		projectID,
+		s3Endpoint,
+		s3UsePathStyle,
+	), s3Endpoint, s3UsePathStyle, nil
+}
+
 // FormatAccessKey formats the access key to the <KEY>@<PROJECT_ID> format,
 // overriding the already present project ID with the "project-id" argument
 // if present.
