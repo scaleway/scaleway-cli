@@ -2,6 +2,7 @@ package mongodb
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"net"
@@ -25,17 +26,10 @@ type instanceConnectArgs struct {
 	CliMongosh     *string
 }
 
-const (
-	connectErrorMessagePublicEndpointNotFound  = "public endpoint not found"
-	connectErrorMessagePrivateEndpointNotFound = "private endpoint not found"
-	connectErrorMessageEndpointNotFound        = "no endpoint is associated with your instance"
-	connectErrorMessageMongoshNotFound         = "mongosh is not installed. Please install mongosh to use this command"
-)
-
 func checkMongoshInstalled(cliMongosh string) error {
 	cmd := exec.Command(cliMongosh, "--version") //nolint:gosec
 	if err := cmd.Run(); err != nil {
-		return fmt.Errorf("%s", connectErrorMessageMongoshNotFound)
+		return errors.New("mongosh is not installed. Please install mongosh to use this command")
 	}
 
 	return nil
@@ -48,7 +42,7 @@ func getPublicEndpoint(endpoints []*mongodb.Endpoint) (*mongodb.Endpoint, error)
 		}
 	}
 
-	return nil, fmt.Errorf("%s", connectErrorMessagePublicEndpointNotFound)
+	return nil, errors.New("public endpoint not found")
 }
 
 func getPrivateEndpoint(endpoints []*mongodb.Endpoint) (*mongodb.Endpoint, error) {
@@ -58,7 +52,7 @@ func getPrivateEndpoint(endpoints []*mongodb.Endpoint) (*mongodb.Endpoint, error
 		}
 	}
 
-	return nil, fmt.Errorf("%s", connectErrorMessagePrivateEndpointNotFound)
+	return nil, errors.New("private endpoint not found")
 }
 
 // findAdminUser returns the name of the first user holding the db_admin role,
@@ -152,7 +146,7 @@ created by "mongodb instance create cli-connect=true" when available.`,
 			}
 
 			if len(instance.Endpoints) == 0 {
-				return nil, fmt.Errorf("%s", connectErrorMessageEndpointNotFound)
+				return nil, errors.New("no endpoint is associated with your instance")
 			}
 
 			var endpoint *mongodb.Endpoint

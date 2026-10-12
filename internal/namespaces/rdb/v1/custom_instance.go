@@ -345,13 +345,10 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		createInstanceRequest.NodeType = strings.ToLower(createInstanceRequest.NodeType)
 		generatedPassword, err := passwordgenerator.GenerateIfNeeded(
 			customRequest.GeneratePassword,
-			createInstanceRequest.Password,
+			&createInstanceRequest.Password,
 		)
 		if err != nil {
 			return nil, err
-		}
-		if generatedPassword != "" {
-			createInstanceRequest.Password = generatedPassword
 		}
 
 		createInstanceRequest.InitEndpoints, err = endpointRequestFromCustom(

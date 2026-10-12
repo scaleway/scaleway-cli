@@ -2,7 +2,7 @@ package datawarehouse
 
 import (
 	"context"
-	"fmt"
+	"errors"
 	"os/exec"
 	"reflect"
 	"strconv"
@@ -45,13 +45,10 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 
 		generatedPassword, err := passwordgenerator.GenerateIfNeeded(
 			customRequest.GeneratePassword,
-			request.Password,
+			&request.Password,
 		)
 		if err != nil {
 			return nil, err
-		}
-		if generatedPassword != "" {
-			request.Password = generatedPassword
 		}
 
 		client := core.ExtractClient(ctx)
@@ -94,18 +91,12 @@ type deploymentConnectArgs struct {
 	CliClickhouse  *string
 }
 
-const (
-	connectErrorMessagePublicEndpointNotFound  = "public endpoint not found"
-	connectErrorMessagePrivateEndpointNotFound = "private endpoint not found"
-	connectErrorMessageEndpointNotFound        = "no endpoint is associated with your deployment"
-	connectErrorMessageTCPServiceNotFound      = "no TCP service found on the endpoint"
-	connectErrorMessageCliNotFound             = "clickhousectl is not installed. Please install clickhousectl to use this command"
-)
-
 func checkClickhousectlInstalled(cliClickhouse string) error {
 	cmd := exec.Command(cliClickhouse, "--version") //nolint:gosec
 	if err := cmd.Run(); err != nil {
-		return fmt.Errorf("%s", connectErrorMessageCliNotFound)
+		return errors.New(
+			"clickhousectl is not installed. Please install clickhousectl to use this command",
+		)
 	}
 
 	return nil
@@ -118,7 +109,7 @@ func getPublicEndpoint(endpoints []*datawarehouse.Endpoint) (*datawarehouse.Endp
 		}
 	}
 
-	return nil, fmt.Errorf("%s", connectErrorMessagePublicEndpointNotFound)
+	return nil, errors.New("public endpoint not found")
 }
 
 func getPrivateEndpoint(endpoints []*datawarehouse.Endpoint) (*datawarehouse.Endpoint, error) {
@@ -128,7 +119,7 @@ func getPrivateEndpoint(endpoints []*datawarehouse.Endpoint) (*datawarehouse.End
 		}
 	}
 
-	return nil, fmt.Errorf("%s", connectErrorMessagePrivateEndpointNotFound)
+	return nil, errors.New("private endpoint not found")
 }
 
 func getTCPServicePort(endpoint *datawarehouse.Endpoint) (uint32, error) {
@@ -138,7 +129,7 @@ func getTCPServicePort(endpoint *datawarehouse.Endpoint) (uint32, error) {
 		}
 	}
 
-	return 0, fmt.Errorf("%s", connectErrorMessageTCPServiceNotFound)
+	return 0, errors.New("no TCP service found on the endpoint")
 }
 
 func deploymentConnectCommand() *core.Command {
@@ -194,7 +185,7 @@ The scwadmin user is used and credentials are fetched from the secret created by
 			}
 
 			if len(deployment.Endpoints) == 0 {
-				return nil, fmt.Errorf("%s", connectErrorMessageEndpointNotFound)
+				return nil, errors.New("no endpoint is associated with your deployment")
 			}
 
 			var endpoint *datawarehouse.Endpoint

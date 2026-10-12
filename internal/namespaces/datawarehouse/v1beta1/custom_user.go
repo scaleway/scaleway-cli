@@ -20,39 +20,22 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeFor[datawarehouseUpdateUserRequestCustom]()
 
 	c.Run = func(ctx context.Context, args any) (any, error) {
-		customRequest := args.(*datawarehouseUpdateUserRequestCustom)
-		request := customRequest.UpdateUserRequest
+		req := args.(*datawarehouseUpdateUserRequestCustom)
 
-		if customRequest.CliConnect && request.Password == nil {
-			password, err := connect.PromptPassword(ctx)
-			if err != nil {
-				return nil, err
-			}
-			request.Password = &password
-		}
-
-		api := datawarehouse.NewAPI(core.ExtractClient(ctx))
-		user, err := api.UpdateUser(request, scw.WithContext(ctx))
-		if err != nil {
-			return nil, err
-		}
-
-		if customRequest.CliConnect {
-			if err := connect.PersistCredentials(
-				ctx,
-				request.Region,
-				"datawarehouse",
-				string(request.Region),
-				request.DeploymentID,
-				request.Name,
-				*request.Password,
-				"deployment user",
-			); err != nil {
-				return nil, err
-			}
-		}
-
-		return user, nil
+		return connect.RunUserUpdate(
+			ctx,
+			req.CliConnect,
+			"datawarehouse",
+			"deployment user",
+			req.Region,
+			req.DeploymentID,
+			req.Name,
+			&req.Password,
+			func(ctx context.Context) (any, error) {
+				return datawarehouse.NewAPI(core.ExtractClient(ctx)).
+					UpdateUser(req.UpdateUserRequest, scw.WithContext(ctx))
+			},
+		)
 	}
 
 	return c

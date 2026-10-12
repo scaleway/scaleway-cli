@@ -99,13 +99,10 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 
 		generatedPassword, err := passwordgenerator.GenerateIfNeeded(
 			customRequest.GeneratePassword,
-			createClusterRequest.Password,
+			&createClusterRequest.Password,
 		)
 		if err != nil {
 			return nil, err
-		}
-		if generatedPassword != "" {
-			createClusterRequest.Password = generatedPassword
 		}
 
 		// Handle default latest version for redis cluster

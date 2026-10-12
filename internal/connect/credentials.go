@@ -45,11 +45,33 @@ func Path(product, location, id, username string) string {
 	return fmt.Sprintf("/%s/%s/%s/%s", product, location, id, username)
 }
 
-// Persist stores the credentials in a secret named SecretName at the given path.
-// When a secret already exists at that path (e.g. the password of a user is
-// updated after the credentials were persisted at resource creation) a new
-// version is created on the existing secret instead.
-func Persist(ctx context.Context, region scw.Region, path string, creds Credentials) error {
+// PersistCredentials stores the credentials in a secret named SecretName at
+// Path(product, location, resourceID, username), naming the owning resource on
+// failure. When a secret already exists at that path (e.g. the password of a
+// user is updated after the credentials were persisted at resource creation) a
+// new version is created on the existing secret instead.
+func PersistCredentials(
+	ctx context.Context,
+	region scw.Region,
+	product, location, resourceID, username, password, resourceType string,
+) error {
+	err := persist(ctx, region, Path(product, location, resourceID, username), Credentials{
+		Username: username,
+		Password: password,
+	})
+	if err != nil {
+		return fmt.Errorf(
+			"%s %s was created but its credentials could not be persisted: %w",
+			resourceType,
+			resourceID,
+			err,
+		)
+	}
+
+	return nil
+}
+
+func persist(ctx context.Context, region scw.Region, path string, creds Credentials) error {
 	client := core.ExtractClient(ctx)
 	api := secretSDK.NewAPI(client)
 
@@ -92,28 +114,6 @@ func Persist(ctx context.Context, region scw.Region, path string, creds Credenti
 		path,
 		secret.ID,
 	)
-
-	return nil
-}
-
-// PersistCredentials stores the credentials in a secret at
-// Path(product, location, id, username), naming the owning resource on failure.
-func PersistCredentials(
-	ctx context.Context,
-	region scw.Region,
-	product, location, resourceID, username, password, resourceType string,
-) error {
-	if err := Persist(ctx, region, Path(product, location, resourceID, username), Credentials{
-		Username: username,
-		Password: password,
-	}); err != nil {
-		return fmt.Errorf(
-			"%s %s was created but its credentials could not be persisted: %w",
-			resourceType,
-			resourceID,
-			err,
-		)
-	}
 
 	return nil
 }
@@ -163,6 +163,49 @@ func FetchOrPrompt(ctx context.Context, region scw.Region, path string) (Credent
 	}
 
 	return Credentials{Password: password}, nil
+}
+
+// RunUserUpdate runs the cli-connect flow around a user update: it prompts
+// for a password when none is given and persists the credentials after a
+// successful update.
+func RunUserUpdate(
+	ctx context.Context,
+	cliConnect bool,
+	product, resourceType string,
+	region scw.Region,
+	resourceID, name string,
+	password **string,
+	update func(ctx context.Context) (any, error),
+) (any, error) {
+	if cliConnect && *password == nil {
+		prompted, err := PromptPassword(ctx)
+		if err != nil {
+			return nil, err
+		}
+		*password = &prompted
+	}
+
+	res, err := update(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	if cliConnect {
+		if err := PersistCredentials(
+			ctx,
+			region,
+			product,
+			string(region),
+			resourceID,
+			name,
+			**password,
+			resourceType,
+		); err != nil {
+			return nil, err
+		}
+	}
+
+	return res, nil
 }
 
 // PromptPassword asks the user for a password interactively so that it does

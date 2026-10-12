@@ -87,14 +87,21 @@ func randInt(length int) (int, error) {
 	return int(i.Int64()), nil
 }
 
-// GenerateIfNeeded returns a generated 21-character password when generate is
-// true and existing is empty, or "" otherwise.
-func GenerateIfNeeded(generate bool, existing string) (string, error) {
-	if !generate || existing != "" {
+// GenerateIfNeeded stores a generated 21-character password in *password when
+// generate is true and *password is empty, returning the generated password
+// (or "" when none was generated).
+func GenerateIfNeeded(generate bool, password *string) (string, error) {
+	if !generate || *password != "" {
 		return "", nil
 	}
 
-	return GeneratePassword(21, 1, 1, 1, 1)
+	generated, err := GeneratePassword(21, 1, 1, 1, 1)
+	if err != nil {
+		return "", err
+	}
+	*password = generated
+
+	return generated, nil
 }
 
 // GeneratePasswordArgSpec is the shared --generate-password flag spec.

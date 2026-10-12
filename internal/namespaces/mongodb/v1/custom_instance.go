@@ -88,13 +88,10 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 
 		generatedPassword, err := passwordgenerator.GenerateIfNeeded(
 			customRequest.GeneratePassword,
-			request.Password,
+			&request.Password,
 		)
 		if err != nil {
 			return nil, err
-		}
-		if generatedPassword != "" {
-			request.Password = generatedPassword
 		}
 
 		client := core.ExtractClient(ctx)

@@ -140,20 +140,16 @@ func Test_UpdateUserCliConnect(t *testing.T) {
 					if !strings.HasSuffix(secret.Path, "/"+user) {
 						continue
 					}
-					version, err := secretAPI.AccessSecretVersionByPath(
-						&secretSDK.AccessSecretVersionByPathRequest{
-							Region:     region,
-							Revision:   "latest",
-							SecretName: connect.SecretName,
-							SecretPath: secret.Path,
+					version, err := secretAPI.AccessSecretVersion(
+						&secretSDK.AccessSecretVersionRequest{
+							Region:   region,
+							SecretID: secret.ID,
+							Revision: "latest",
 						},
 					)
 					require.NoError(t, err)
 
-					var creds struct {
-						Username string `json:"username"`
-						Password string `json:"password"`
-					}
+					var creds connect.Credentials
 					require.NoError(t, json.Unmarshal(version.Data, &creds))
 					if creds.Username == user && creds.Password == "Newp1ssw0rd!" {
 						found = true

@@ -20,39 +20,22 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeFor[mongodbUpdateUserRequestCustom]()
 
 	c.Run = func(ctx context.Context, args any) (any, error) {
-		customRequest := args.(*mongodbUpdateUserRequestCustom)
-		request := customRequest.UpdateUserRequest
+		req := args.(*mongodbUpdateUserRequestCustom)
 
-		if customRequest.CliConnect && request.Password == nil {
-			password, err := connect.PromptPassword(ctx)
-			if err != nil {
-				return nil, err
-			}
-			request.Password = &password
-		}
-
-		api := mongodb.NewAPI(core.ExtractClient(ctx))
-		user, err := api.UpdateUser(request, scw.WithContext(ctx))
-		if err != nil {
-			return nil, err
-		}
-
-		if customRequest.CliConnect {
-			if err := connect.PersistCredentials(
-				ctx,
-				request.Region,
-				"mongodb",
-				string(request.Region),
-				request.InstanceID,
-				request.Name,
-				*request.Password,
-				"instance user",
-			); err != nil {
-				return nil, err
-			}
-		}
-
-		return user, nil
+		return connect.RunUserUpdate(
+			ctx,
+			req.CliConnect,
+			"mongodb",
+			"instance user",
+			req.Region,
+			req.InstanceID,
+			req.Name,
+			&req.Password,
+			func(ctx context.Context) (any, error) {
+				return mongodb.NewAPI(core.ExtractClient(ctx)).
+					UpdateUser(req.UpdateUserRequest, scw.WithContext(ctx))
+			},
+		)
 	}
 
 	return c
