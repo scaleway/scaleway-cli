@@ -286,12 +286,7 @@ func bucketListCommand() *core.Command {
 		Long:      "List all existing S3 buckets in the specified region",
 		ArgsType:  reflect.TypeFor[bucketListArgs](),
 		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "s3-endpoint",
-				Positional: false,
-				Required:   false,
-				Short:      "Custom S3 endpoint to use instead of the default",
-			},
+			S3EndpointArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
