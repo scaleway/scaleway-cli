@@ -25,6 +25,35 @@ const (
 # Output sets the output format for all commands you run
 {{ if .Output }}output: {{ .Output }}{{ else }}# output: human{{ end }}
 
+# TUI (scw tui) configuration: keybindings overrides and : commands
+{{- if .Tui }}
+tui:
+    {{- if .Tui.KeyBindings }}
+    keybindings:
+        {{- range $action, $key := .Tui.KeyBindings }}
+        {{ $action }}: {{ $key }}
+        {{- end }}
+    {{- end }}
+    {{- if .Tui.Commands }}
+    commands:
+        {{- range $name, $target := .Tui.Commands }}
+        {{ $name }}: {{ $target }}
+        {{- end }}
+    {{- end }}
+    {{- if .Tui.DeleteConfirm }}
+    delete_confirm: {{ .Tui.DeleteConfirm }}
+    {{- end }}
+{{- else }}
+# tui:
+#     keybindings:
+#         quit: q
+#         menu: m
+#         refresh: r
+#     commands:
+#         mydb: rdb instance
+#     delete_confirm: true
+{{- end }}
+
 # Whether autocomplete was proposed during init
 {{- if .HasInstallAutocomplete }}
 install_autocomplete: {{ .InstallAutocomplete }}
@@ -57,8 +86,26 @@ type Config struct {
 	Alias               *alias.Config `json:"alias"                          yaml:"alias"`
 	Output              string        `json:"output"                         yaml:"output"`
 	InstallAutocomplete *bool         `json:"install_autocomplete,omitempty" yaml:"install_autocomplete,omitempty"`
+	Tui                 *TuiConfig    `json:"tui,omitempty"                  yaml:"tui"`
 
 	path string
+}
+
+// TuiConfig configures the interactive TUI (scw tui).
+type TuiConfig struct {
+	// KeyBindings overrides the default TUI keybindings: one key per
+	// action (e.g. refresh: R). The recognized actions are quit, menu,
+	// command, filter, refresh, back, open, copy, next, prev, up,
+	// down, page-up, page-down, home, end, connect (c), edit (e),
+	// delete (d), zone (ctrl+z), region (ctrl+r), profile (ctrl+p)
+	// and project (ctrl+e); unset actions keep their defaults.
+	KeyBindings map[string]string `json:"keybindings,omitempty" yaml:"keybindings"`
+	// Commands adds custom : commands: a word mapped to a resource
+	// name (e.g. mydb: rdb instance) or a built-in command (quit, help).
+	Commands map[string]string `json:"commands,omitempty" yaml:"commands"`
+	// DeleteConfirm toggles the delete confirmation modal (d key):
+	// set to false to delete without asking (default: true).
+	DeleteConfirm *bool `json:"delete_confirm,omitempty" yaml:"delete_confirm"`
 }
 
 // LoadConfig tries to load config file

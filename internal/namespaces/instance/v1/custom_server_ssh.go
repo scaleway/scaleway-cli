@@ -57,14 +57,23 @@ func serverSSHCommand() *core.Command {
 	}
 }
 
-func instanceServerSSHRun(ctx context.Context, argsI any) (i any, e error) {
-	args := argsI.(*instanceSSHServerRequest)
-
-	client := core.ExtractClient(ctx)
+// SSHServerCmd returns the command to SSH into the given server, reusing
+// the `scw instance server ssh` checks (server running, public IP). The
+// caller runs it on the terminal: the CLI via core.ExecCmd, the TUI
+// suspended via tea.ExecProcess.
+func SSHServerCmd(
+	ctx context.Context,
+	client *scw.Client,
+	zone scw.Zone,
+	serverID string,
+	username string,
+	port uint64,
+	command string,
+) (*exec.Cmd, error) {
 	apiInstance := instance.NewAPI(client)
 	serverResp, err := apiInstance.GetServer(&instance.GetServerRequest{
-		Zone:     args.Zone,
-		ServerID: args.ServerID,
+		Zone:     zone,
+		ServerID: serverID,
 	})
 	if err != nil {
 		return nil, err
@@ -94,15 +103,32 @@ func instanceServerSSHRun(ctx context.Context, argsI any) (i any, e error) {
 
 	sshArgs := []string{
 		serverResp.Server.PublicIP.Address.String(),
-		"-p", strconv.FormatUint(args.Port, 10),
-		"-l", args.Username,
+		"-p", strconv.FormatUint(port, 10),
+		"-l", username,
 		"-t",
 	}
-	if args.Command != "" {
-		sshArgs = append(sshArgs, args.Command)
+	if command != "" {
+		sshArgs = append(sshArgs, command)
 	}
 
-	sshCmd := exec.Command("ssh", sshArgs...)
+	return exec.Command("ssh", sshArgs...), nil
+}
+
+func instanceServerSSHRun(ctx context.Context, argsI any) (i any, e error) {
+	args := argsI.(*instanceSSHServerRequest)
+
+	sshCmd, err := SSHServerCmd(
+		ctx,
+		core.ExtractClient(ctx),
+		args.Zone,
+		args.ServerID,
+		args.Username,
+		args.Port,
+		args.Command,
+	)
+	if err != nil {
+		return nil, err
+	}
 
 	exitCode, err := core.ExecCmd(ctx, sshCmd)
 	if err != nil {

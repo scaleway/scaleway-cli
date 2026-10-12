@@ -89,7 +89,7 @@ func (info *ConnectionInfo) configTemplateData() configTemplateData {
 	return data
 }
 
-func engineTemplateSuffix(family engineFamily) (string, error) {
+func engineTemplateSuffix(family EngineFamily) (string, error) {
 	switch family {
 	case PostgreSQL:
 		return "postgresql", nil

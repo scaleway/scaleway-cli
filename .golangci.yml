@@ -102,6 +102,11 @@ linters:
         - stylecheck
         - gosec
 
+    # The tui tests exercise unexported App internals (routing, prompt).
+    - path: internal/tui/.*_test\.go
+      linters:
+        - testpackage
+
     # Organization ID is mark as deprecated in the SDK
     # This rule ignore this deprecation
     - path: internal/namespaces/instance

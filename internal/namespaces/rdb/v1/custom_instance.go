@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"os/exec"
 	"path"
 	"reflect"
 	"runtime"
@@ -788,12 +787,12 @@ type instanceConnectArgs struct {
 	CliDB          *string
 }
 
-type engineFamily string
+type EngineFamily string
 
 const (
-	Unknown        = engineFamily("Unknown")
-	PostgreSQL     = engineFamily("PostgreSQL")
-	MySQL          = engineFamily("MySQL")
+	Unknown        = EngineFamily("Unknown")
+	PostgreSQL     = EngineFamily("PostgreSQL")
+	MySQL          = EngineFamily("MySQL")
 	postgreSQLHint = `
 psql supports password file (.pgpass) to avoid typing your password manually.
 Create ~/.pgpass (Linux/macOS) or %APPDATA%\postgresql\pgpass.conf (Windows) with:
@@ -806,7 +805,7 @@ Or create ~/.mylogin.cnf with connection credentials.
 Learn more at: https://dev.mysql.com/doc/refman/8.0/en/mysql-config-editor.html`
 )
 
-func passwordFileExist(ctx context.Context, family engineFamily) bool {
+func passwordFileExist(ctx context.Context, family EngineFamily) bool {
 	var passwordFilePath string
 	switch family {
 	case PostgreSQL:
@@ -834,7 +833,7 @@ func passwordFileExist(ctx context.Context, family engineFamily) bool {
 	return err == nil
 }
 
-func passwordFileHint(family engineFamily) string {
+func passwordFileHint(family EngineFamily) string {
 	switch family {
 	case PostgreSQL:
 		return postgreSQLHint
@@ -845,7 +844,7 @@ func passwordFileHint(family engineFamily) string {
 	}
 }
 
-func detectEngineFamily(instance *rdbSDK.Instance) (engineFamily, error) {
+func detectEngineFamily(instance *rdbSDK.Instance) (EngineFamily, error) {
 	if instance == nil {
 		return Unknown, errors.New("instance engine is nil")
 	}
@@ -881,7 +880,7 @@ func getPrivateEndpoint(endpoints []*rdbSDK.Endpoint) (*rdbSDK.Endpoint, error) 
 
 func createConnectCommandLineArgs(
 	endpoint *rdbSDK.Endpoint,
-	family engineFamily,
+	family EngineFamily,
 	args *instanceConnectArgs,
 ) ([]string, error) {
 	database := "rdb"
@@ -963,51 +962,23 @@ func instanceConnectCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*instanceConnectArgs)
 
-			client := core.ExtractClient(ctx)
-			api := rdbSDK.NewAPI(client)
-			instance, err := api.GetInstance(&rdbSDK.GetInstanceRequest{
-				Region:     args.Region,
-				InstanceID: args.InstanceID,
-			})
+			cmd, family, err := ConnectCmd(
+				ctx,
+				core.ExtractClient(ctx),
+				args.Region,
+				args.InstanceID,
+				args.Username,
+				args.PrivateNetwork,
+			)
 			if err != nil {
 				return nil, err
 			}
 
-			engineFamily, err := detectEngineFamily(instance)
-			if err != nil {
-				return nil, err
-			}
-
-			if len(instance.Endpoints) == 0 {
-				return nil, fmt.Errorf("%s", errorMessageEndpointNotFound)
-			}
-
-			var endpoint *rdbSDK.Endpoint
-			switch {
-			case args.PrivateNetwork:
-				endpoint, err = getPrivateEndpoint(instance.Endpoints)
-				if err != nil {
-					return nil, err
-				}
-			default:
-				endpoint, err = getPublicEndpoint(instance.Endpoints)
-				if err != nil {
-					return nil, err
-				}
-			}
-
-			cmdArgs, err := createConnectCommandLineArgs(endpoint, engineFamily, args)
-			if err != nil {
-				return nil, err
-			}
-
-			if !passwordFileExist(ctx, engineFamily) {
-				interactive.Println(passwordFileHint(engineFamily))
+			if !passwordFileExist(ctx, family) {
+				interactive.Println(passwordFileHint(family))
 			}
 
 			// Run command
-			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
-			// cmd.Stdin = os.Stdin
 			core.ExtractLogger(ctx).Debugf("executing: %s\n", cmd.Args)
 			exitCode, err := core.ExecCmd(ctx, cmd)
 			if err != nil {

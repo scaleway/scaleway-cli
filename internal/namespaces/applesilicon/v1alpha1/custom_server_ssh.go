@@ -58,14 +58,22 @@ func serverSSHCommand() *core.Command {
 	}
 }
 
-func serverSSHRun(ctx context.Context, argsI any) (i any, e error) {
-	args := argsI.(*serverSSHConnectRequest)
-
-	client := core.ExtractClient(ctx)
+// SSHServerCmd returns the command to SSH into the given server, reusing
+// the `scw apple-silicon server ssh` checks (server ready). The caller
+// runs it on the terminal: the CLI via core.ExecCmd, the TUI suspended
+// via tea.ExecProcess.
+func SSHServerCmd(
+	client *scw.Client,
+	zone scw.Zone,
+	serverID string,
+	username string,
+	port uint,
+	command string,
+) (*exec.Cmd, error) {
 	asAPI := applesilicon.NewAPI(client)
 	serverResp, err := asAPI.GetServer(&applesilicon.GetServerRequest{
-		Zone:     args.Zone,
-		ServerID: args.ServerID,
+		Zone:     zone,
+		ServerID: serverID,
 	})
 	if err != nil {
 		return nil, err
@@ -80,15 +88,31 @@ func serverSSHRun(ctx context.Context, argsI any) (i any, e error) {
 
 	sshArgs := []string{
 		serverResp.IP.String(),
-		"-p", strconv.FormatUint(uint64(args.Port), 10),
-		"-l", args.Username,
+		"-p", strconv.FormatUint(uint64(port), 10),
+		"-l", username,
 		"-t",
 	}
-	if args.Command != "" {
-		sshArgs = append(sshArgs, args.Command)
+	if command != "" {
+		sshArgs = append(sshArgs, command)
 	}
 
-	sshCmd := exec.Command("ssh", sshArgs...)
+	return exec.Command("ssh", sshArgs...), nil
+}
+
+func serverSSHRun(ctx context.Context, argsI any) (i any, e error) {
+	args := argsI.(*serverSSHConnectRequest)
+
+	sshCmd, err := SSHServerCmd(
+		core.ExtractClient(ctx),
+		args.Zone,
+		args.ServerID,
+		args.Username,
+		args.Port,
+		args.Command,
+	)
+	if err != nil {
+		return nil, err
+	}
 
 	exitCode, err := core.ExecCmd(ctx, sshCmd)
 	if err != nil {

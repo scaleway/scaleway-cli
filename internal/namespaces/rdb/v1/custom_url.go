@@ -32,7 +32,7 @@ type rdbConnectionParams struct {
 
 // ConnectionInfo holds resolved connection parameters for an RDB instance.
 type ConnectionInfo struct {
-	EngineFamily     engineFamily
+	EngineFamily     EngineFamily
 	Host             string
 	Port             uint32
 	User             string
@@ -110,7 +110,7 @@ func resolveRDBConnectionInfo(
 		return nil, fmt.Errorf("failed to get instance %q: %w", params.InstanceID, err)
 	}
 
-	engineFamily, err := detectEngineFamily(instance)
+	EngineFamily, err := detectEngineFamily(instance)
 	if err != nil {
 		return nil, err
 	}
@@ -142,7 +142,7 @@ func resolveRDBConnectionInfo(
 	}
 
 	info := &ConnectionInfo{
-		EngineFamily: engineFamily,
+		EngineFamily: EngineFamily,
 		Host:         endpoint.IP.String(),
 		Port:         endpoint.Port,
 		User:         users.Users[0].Name,
