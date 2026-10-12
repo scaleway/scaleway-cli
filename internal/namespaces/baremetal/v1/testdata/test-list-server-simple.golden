@@ -211,7 +211,9 @@ ID                                    Name                      Offer Name     S
         "zfs": {
           "pools": []
         }
-      }
+      },
+      "network_boot_url": "",
+      "network_boot_persistent": false
     },
     "ping_status": "ping_status_up",
     "options": [],
