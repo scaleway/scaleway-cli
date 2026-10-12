@@ -8,18 +8,18 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - 3d74cff7-078b-4e46-bb6e-c99f16d68a1a
+      - 429b2600-7f95-4628-ae99-1bc042c7eb4f
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWPAXSFMY8TSNBBBDJV@4d333544-41be-4b0b-8907-0b9036859747/20260821/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWPAXSFMY8TSNBBBDJV@4d333544-41be-4b0b-8907-0b9036859747/20261012/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;content-length;content-type;host;x-amz-acl;x-amz-bucket-object-lock-enabled;x-amz-content-sha256;x-amz-date,
-        Signature=17ecd55fa2ab96c76a9a7ea27de2be511f8e1c27e95009b352b59e84aa32bbc9
+        Signature=34b2264a32d889748243eee65c6a3e323bf844ab00e85898aa9522d7e9ec60eb
       Content-Type:
       - application/xml
       User-Agent:
-      - aws-sdk-go-v2/1.43.6 ua/2.1 os/macos lang/go#1.26.7 md/GOOS#darwin md/GOARCH#arm64
-        api/s3#1.107.2 scaleway-cli/0.0.0+test m/E
+      - aws-sdk-go-v2/1.47.1 ua/2.1 os/macos lang/go#1.27.1 md/GOOS#darwin md/GOARCH#arm64
+        api/s3#1.114.0 scaleway-cli/0.0.0+test m/E
       X-Amz-Acl:
       - private
       X-Amz-Bucket-Object-Lock-Enabled:
@@ -27,8 +27,8 @@ interactions:
       X-Amz-Content-Sha256:
       - 2cb57fad7b7168921a4c94426cfcb9ee2953f126430595df844e22d50f029060
       X-Amz-Date:
-      - 20260821T145109Z
-    url: https://cli-test-bucket-get-5149732438729530710.s3.fr-par.scw.cloud/
+      - 20261012T123026Z
+    url: https://cli-test-bucket-get-7523199092556333427.s3.fr-par.scw.cloud/
     method: PUT
   response:
     body: ""
@@ -36,13 +36,13 @@ interactions:
       Content-Length:
       - "0"
       Date:
-      - Fri, 21 Aug 2026 14:51:09 GMT
+      - Mon, 12 Oct 2026 12:30:27 GMT
       Location:
-      - /cli-test-bucket-get-5149732438729530710
+      - /cli-test-bucket-get-7523199092556333427
       X-Amz-Id-2:
-      - txg141c1b5865104ef299b4-006a8865dd
+      - txg23924e74541c41c6bef2-006accd2e3
       X-Amz-Request-Id:
-      - txg141c1b5865104ef299b4-006a8865dd
+      - txg23924e74541c41c6bef2-006accd2e3
     status: 200 OK
     code: 200
     duration: ""
@@ -53,25 +53,25 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - f3da2c14-6e1a-4c20-a879-6dcf4d981ae3
+      - f6f2fadf-3605-4e48-98df-0496d138a9c1
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWPAXSFMY8TSNBBBDJV@4d333544-41be-4b0b-8907-0b9036859747/20260821/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWPAXSFMY8TSNBBBDJV@4d333544-41be-4b0b-8907-0b9036859747/20261012/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;content-length;content-type;host;x-amz-checksum-crc32;x-amz-content-sha256;x-amz-date,
-        Signature=587cfc7d308ad542fa622599d0cbe0545179533095d991bfc80b9db838c316ce
+        Signature=4a5e37924e567d71d542d3ac53fa4c5b6383fd34d2d510c1edbac5eef05dcfbf
       Content-Type:
       - application/xml
       User-Agent:
-      - aws-sdk-go-v2/1.43.6 ua/2.1 os/macos lang/go#1.26.7 md/GOOS#darwin md/GOARCH#arm64
-        api/s3#1.107.2 scaleway-cli/0.0.0+test m/E
+      - aws-sdk-go-v2/1.47.1 ua/2.1 os/macos lang/go#1.27.1 md/GOOS#darwin md/GOARCH#arm64
+        api/s3#1.114.0 scaleway-cli/0.0.0+test m/E
       X-Amz-Checksum-Crc32:
       - gZ/csg==
       X-Amz-Content-Sha256:
       - d7f1d7ed35d188f6a89d394cc2055f5910c14a3abccf41e808e7f7327d21e129
       X-Amz-Date:
-      - 20260821T145111Z
-    url: https://cli-test-bucket-get-5149732438729530710.s3.fr-par.scw.cloud/?versioning=
+      - 20261012T123029Z
+    url: https://cli-test-bucket-get-7523199092556333427.s3.fr-par.scw.cloud/?versioning=
     method: PUT
   response:
     body: ""
@@ -79,11 +79,11 @@ interactions:
       Content-Length:
       - "0"
       Date:
-      - Fri, 21 Aug 2026 14:51:14 GMT
+      - Mon, 12 Oct 2026 12:30:31 GMT
       X-Amz-Id-2:
-      - txg7a9358cc98944659ac21-006a8865e2
+      - txgf7c31db921264891ab71-006accd2e7
       X-Amz-Request-Id:
-      - txg7a9358cc98944659ac21-006a8865e2
+      - txgf7c31db921264891ab71-006accd2e7
     status: 200 OK
     code: 200
     duration: ""
@@ -94,21 +94,21 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - 3813117b-6f6f-4bbd-8803-a03bf1364dc2
+      - f97e0b01-7c08-43e2-bdf3-32ebf4335cff
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWPAXSFMY8TSNBBBDJV@4d333544-41be-4b0b-8907-0b9036859747/20260821/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWPAXSFMY8TSNBBBDJV@4d333544-41be-4b0b-8907-0b9036859747/20261012/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;host;x-amz-content-sha256;x-amz-date,
-        Signature=82dd7c206bebda3f207a030c397d61ce6d8639acac3964054071685511f026a4
+        Signature=fd520799faaf93f93babb83563bc230372d9a201c0a4483da7707ce25a3b45f4
       User-Agent:
-      - aws-sdk-go-v2/1.43.6 ua/2.1 os/macos lang/go#1.26.7 md/GOOS#darwin md/GOARCH#arm64
-        api/s3#1.107.2 scaleway-cli/0.0.0+test m/E
+      - aws-sdk-go-v2/1.47.1 ua/2.1 os/macos lang/go#1.27.1 md/GOOS#darwin md/GOARCH#arm64
+        api/s3#1.114.0 scaleway-cli/0.0.0+test m/E
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       X-Amz-Date:
-      - 20260821T145114Z
-    url: https://cli-test-bucket-get-5149732438729530710.s3.fr-par.scw.cloud/?versioning=
+      - 20261012T123031Z
+    url: https://cli-test-bucket-get-7523199092556333427.s3.fr-par.scw.cloud/?versioning=
     method: GET
   response:
     body: |-
@@ -120,11 +120,11 @@ interactions:
       Content-Type:
       - text/xml; charset=utf-8
       Date:
-      - Fri, 21 Aug 2026 14:51:14 GMT
+      - Mon, 12 Oct 2026 12:30:31 GMT
       X-Amz-Id-2:
-      - txg018a8854044e4cb1bcbd-006a8865e2
+      - txgdeacdb19b76449f6823f-006accd2e7
       X-Amz-Request-Id:
-      - txg018a8854044e4cb1bcbd-006a8865e2
+      - txgdeacdb19b76449f6823f-006accd2e7
     status: 200 OK
     code: 200
     duration: ""
@@ -135,35 +135,35 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - 788591f0-da8f-4a87-a349-8a9da22b9c88
+      - 9f588779-e8da-44b5-8ba1-a6bace82b61c
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWPAXSFMY8TSNBBBDJV@4d333544-41be-4b0b-8907-0b9036859747/20260821/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWPAXSFMY8TSNBBBDJV@4d333544-41be-4b0b-8907-0b9036859747/20261012/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;host;x-amz-content-sha256;x-amz-date,
-        Signature=b3b910711972ecb3f7ea7f526beb48b89966550017af63359e936ee5429cc988
+        Signature=703bf1b80aa387d816e9d2e640f4b3496d79f75b2896b6a857fa67b65bdd3e0c
       User-Agent:
-      - aws-sdk-go-v2/1.43.6 ua/2.1 os/macos lang/go#1.26.7 md/GOOS#darwin md/GOARCH#arm64
-        api/s3#1.107.2 scaleway-cli/0.0.0+test m/E
+      - aws-sdk-go-v2/1.47.1 ua/2.1 os/macos lang/go#1.27.1 md/GOOS#darwin md/GOARCH#arm64
+        api/s3#1.114.0 scaleway-cli/0.0.0+test m/E
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       X-Amz-Date:
-      - 20260821T145114Z
-    url: https://cli-test-bucket-get-5149732438729530710.s3.fr-par.scw.cloud/?tagging=
+      - 20261012T123031Z
+    url: https://cli-test-bucket-get-7523199092556333427.s3.fr-par.scw.cloud/?tagging=
     method: GET
   response:
-    body: <Error><Code>NoSuchTagSet</Code><Message>The TagSet does not exist</Message><RequestId>txge8cb971688c44e758a09-006a8865e2</RequestId><HostId>txge8cb971688c44e758a09-006a8865e2</HostId><Resource>/cli-test-bucket-get-5149732438729530710</Resource><BucketName>cli-test-bucket-get-5149732438729530710</BucketName></Error>
+    body: <Error><Code>NoSuchTagSet</Code><Message>The TagSet does not exist</Message><RequestId>txgeb8d2d8afbca45b883b1-006accd2e7</RequestId><HostId>txgeb8d2d8afbca45b883b1-006accd2e7</HostId><Resource>/cli-test-bucket-get-7523199092556333427</Resource><BucketName>cli-test-bucket-get-7523199092556333427</BucketName></Error>
     headers:
       Content-Length:
       - "317"
       Content-Type:
       - application/xml
       Date:
-      - Fri, 21 Aug 2026 14:51:14 GMT
+      - Mon, 12 Oct 2026 12:30:31 GMT
       X-Amz-Id-2:
-      - txge8cb971688c44e758a09-006a8865e2
+      - txgeb8d2d8afbca45b883b1-006accd2e7
       X-Amz-Request-Id:
-      - txge8cb971688c44e758a09-006a8865e2
+      - txgeb8d2d8afbca45b883b1-006accd2e7
     status: 404 Not Found
     code: 404
     duration: ""
@@ -174,21 +174,21 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - d544ba82-5957-4220-97b6-a96a92c68b6d
+      - 994da49b-4c86-4097-88aa-1e00a2867da8
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWPAXSFMY8TSNBBBDJV@4d333544-41be-4b0b-8907-0b9036859747/20260821/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWPAXSFMY8TSNBBBDJV@4d333544-41be-4b0b-8907-0b9036859747/20261012/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;host;x-amz-content-sha256;x-amz-date,
-        Signature=0a4946778449f1918ef47cc9154d654403dbceb3c005bb0e2738215d39177c9d
+        Signature=1ce1396393d54799dd65d7451d67e180566a056a5e0568eb5df684fbe32eb30d
       User-Agent:
-      - aws-sdk-go-v2/1.43.6 ua/2.1 os/macos lang/go#1.26.7 md/GOOS#darwin md/GOARCH#arm64
-        api/s3#1.107.2 scaleway-cli/0.0.0+test m/E
+      - aws-sdk-go-v2/1.47.1 ua/2.1 os/macos lang/go#1.27.1 md/GOOS#darwin md/GOARCH#arm64
+        api/s3#1.114.0 scaleway-cli/0.0.0+test m/E
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       X-Amz-Date:
-      - 20260821T145114Z
-    url: https://cli-test-bucket-get-5149732438729530710.s3.fr-par.scw.cloud/?acl=
+      - 20261012T123031Z
+    url: https://cli-test-bucket-get-7523199092556333427.s3.fr-par.scw.cloud/?acl=
     method: GET
   response:
     body: |-
@@ -200,11 +200,11 @@ interactions:
       Content-Type:
       - text/xml; charset=utf-8
       Date:
-      - Fri, 21 Aug 2026 14:51:14 GMT
+      - Mon, 12 Oct 2026 12:30:31 GMT
       X-Amz-Id-2:
-      - txge7e25a7b5ce24a5393fb-006a8865e2
+      - txg12166762346c405b9e1c-006accd2e7
       X-Amz-Request-Id:
-      - txge7e25a7b5ce24a5393fb-006a8865e2
+      - txg12166762346c405b9e1c-006accd2e7
     status: 200 OK
     code: 200
     duration: ""
@@ -215,21 +215,21 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - d0e104af-30ed-42a5-8b67-c5f55288c993
+      - a05f8a85-e548-455e-8570-9daf042e077c
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWPAXSFMY8TSNBBBDJV@4d333544-41be-4b0b-8907-0b9036859747/20260821/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWPAXSFMY8TSNBBBDJV@4d333544-41be-4b0b-8907-0b9036859747/20261012/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;host;x-amz-content-sha256;x-amz-date,
-        Signature=d3cb3d06f6415020ae3770329f006e4baf075ba27e479c8fb79d82ad018bbc4f
+        Signature=4d366f01e38b8b2b52c0f9ff70b60dbf04a836931cce28e47968cdc9893434fb
       User-Agent:
-      - aws-sdk-go-v2/1.43.6 ua/2.1 os/macos lang/go#1.26.7 md/GOOS#darwin md/GOARCH#arm64
-        api/s3#1.107.2 scaleway-cli/0.0.0+test m/E
+      - aws-sdk-go-v2/1.47.1 ua/2.1 os/macos lang/go#1.27.1 md/GOOS#darwin md/GOARCH#arm64
+        api/s3#1.114.0 scaleway-cli/0.0.0+test m/E
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       X-Amz-Date:
-      - 20260821T145114Z
-    url: https://cli-test-bucket-get-5149732438729530710.s3.fr-par.scw.cloud/?versioning=
+      - 20261012T123031Z
+    url: https://cli-test-bucket-get-7523199092556333427.s3.fr-par.scw.cloud/?versioning=
     method: GET
   response:
     body: |-
@@ -241,11 +241,11 @@ interactions:
       Content-Type:
       - text/xml; charset=utf-8
       Date:
-      - Fri, 21 Aug 2026 14:51:14 GMT
+      - Mon, 12 Oct 2026 12:30:31 GMT
       X-Amz-Id-2:
-      - txg3c7c924e7f204d24bb0a-006a8865e2
+      - txg35fba42eac144b2abbe7-006accd2e7
       X-Amz-Request-Id:
-      - txg3c7c924e7f204d24bb0a-006a8865e2
+      - txg35fba42eac144b2abbe7-006accd2e7
     status: 200 OK
     code: 200
     duration: ""
@@ -256,35 +256,35 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - ba73986c-2e4a-4e80-b4b1-55380660dcbf
+      - 23ea01ae-a83d-4f6e-8e54-27e3cabfcf47
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWPAXSFMY8TSNBBBDJV@4d333544-41be-4b0b-8907-0b9036859747/20260821/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWPAXSFMY8TSNBBBDJV@4d333544-41be-4b0b-8907-0b9036859747/20261012/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;host;x-amz-content-sha256;x-amz-date,
-        Signature=b9ab0069b8cd06d844602f18c475fbd732c9595f59c0f912c40d921e18e7284f
+        Signature=cb481f9b76fd8e63a59a34e70c32d858dcfbdf10204225a4933281668c62014f
       User-Agent:
-      - aws-sdk-go-v2/1.43.6 ua/2.1 os/macos lang/go#1.26.7 md/GOOS#darwin md/GOARCH#arm64
-        api/s3#1.107.2 scaleway-cli/0.0.0+test m/E
+      - aws-sdk-go-v2/1.47.1 ua/2.1 os/macos lang/go#1.27.1 md/GOOS#darwin md/GOARCH#arm64
+        api/s3#1.114.0 scaleway-cli/0.0.0+test m/E
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       X-Amz-Date:
-      - 20260821T145114Z
-    url: https://cli-test-bucket-get-5149732438729530710.s3.fr-par.scw.cloud/?tagging=
+      - 20261012T123031Z
+    url: https://cli-test-bucket-get-7523199092556333427.s3.fr-par.scw.cloud/?tagging=
     method: GET
   response:
-    body: <Error><Code>NoSuchTagSet</Code><Message>The TagSet does not exist</Message><RequestId>txgbc9c420dcdc5472cb4ec-006a8865e3</RequestId><HostId>txgbc9c420dcdc5472cb4ec-006a8865e3</HostId><Resource>/cli-test-bucket-get-5149732438729530710</Resource><BucketName>cli-test-bucket-get-5149732438729530710</BucketName></Error>
+    body: <Error><Code>NoSuchTagSet</Code><Message>The TagSet does not exist</Message><RequestId>txg7dfb69b9c3374e70a089-006accd2e7</RequestId><HostId>txg7dfb69b9c3374e70a089-006accd2e7</HostId><Resource>/cli-test-bucket-get-7523199092556333427</Resource><BucketName>cli-test-bucket-get-7523199092556333427</BucketName></Error>
     headers:
       Content-Length:
       - "317"
       Content-Type:
       - application/xml
       Date:
-      - Fri, 21 Aug 2026 14:51:15 GMT
+      - Mon, 12 Oct 2026 12:30:31 GMT
       X-Amz-Id-2:
-      - txgbc9c420dcdc5472cb4ec-006a8865e3
+      - txg7dfb69b9c3374e70a089-006accd2e7
       X-Amz-Request-Id:
-      - txgbc9c420dcdc5472cb4ec-006a8865e3
+      - txg7dfb69b9c3374e70a089-006accd2e7
     status: 404 Not Found
     code: 404
     duration: ""
@@ -295,21 +295,21 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - b005620f-99f7-4729-8a44-c929778d8e5c
+      - 4d37089d-e039-4cff-b600-278a01918b37
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWPAXSFMY8TSNBBBDJV@4d333544-41be-4b0b-8907-0b9036859747/20260821/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWPAXSFMY8TSNBBBDJV@4d333544-41be-4b0b-8907-0b9036859747/20261012/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;host;x-amz-content-sha256;x-amz-date,
-        Signature=7bf25a2ee36af36525cc9879fd038f3d6736e4fdde580975b108913a3dd7413b
+        Signature=a7646523c24a33e010d726b670188d2002329f7336524eebb41d2efccbfd46bf
       User-Agent:
-      - aws-sdk-go-v2/1.43.6 ua/2.1 os/macos lang/go#1.26.7 md/GOOS#darwin md/GOARCH#arm64
-        api/s3#1.107.2 scaleway-cli/0.0.0+test m/E
+      - aws-sdk-go-v2/1.47.1 ua/2.1 os/macos lang/go#1.27.1 md/GOOS#darwin md/GOARCH#arm64
+        api/s3#1.114.0 scaleway-cli/0.0.0+test m/E
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       X-Amz-Date:
-      - 20260821T145115Z
-    url: https://cli-test-bucket-get-5149732438729530710.s3.fr-par.scw.cloud/?acl=
+      - 20261012T123031Z
+    url: https://cli-test-bucket-get-7523199092556333427.s3.fr-par.scw.cloud/?acl=
     method: GET
   response:
     body: |-
@@ -321,11 +321,11 @@ interactions:
       Content-Type:
       - text/xml; charset=utf-8
       Date:
-      - Fri, 21 Aug 2026 14:51:15 GMT
+      - Mon, 12 Oct 2026 12:30:31 GMT
       X-Amz-Id-2:
-      - txg93a4f65f0b0e4b39a91e-006a8865e3
+      - txg52f45b6d408545b6abed-006accd2e7
       X-Amz-Request-Id:
-      - txg93a4f65f0b0e4b39a91e-006a8865e3
+      - txg52f45b6d408545b6abed-006accd2e7
     status: 200 OK
     code: 200
     duration: ""
@@ -336,31 +336,31 @@ interactions:
       Accept-Encoding:
       - identity
       Amz-Sdk-Invocation-Id:
-      - 05121ca1-0d26-4f17-be6e-c938add401f0
+      - 6e275396-f5f9-4c11-8d2d-edd99a58d24c
       Amz-Sdk-Request:
       - attempt=1; max=3
       Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWPAXSFMY8TSNBBBDJV@4d333544-41be-4b0b-8907-0b9036859747/20260821/fr-par/s3/aws4_request,
+      - AWS4-HMAC-SHA256 Credential=SCWPAXSFMY8TSNBBBDJV@4d333544-41be-4b0b-8907-0b9036859747/20261012/fr-par/s3/aws4_request,
         SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;host;x-amz-content-sha256;x-amz-date,
-        Signature=43efdd778a84a745c0df316a10ce79f8f64931df38fb562d1c6f1fb8bdbba60e
+        Signature=c2e109f73bc4165bf93edbb15bffa56b330361cbbde8528bc0b490e10286e36b
       User-Agent:
-      - aws-sdk-go-v2/1.43.6 ua/2.1 os/macos lang/go#1.26.7 md/GOOS#darwin md/GOARCH#arm64
-        api/s3#1.107.2 scaleway-cli/0.0.0+test m/E
+      - aws-sdk-go-v2/1.47.1 ua/2.1 os/macos lang/go#1.27.1 md/GOOS#darwin md/GOARCH#arm64
+        api/s3#1.114.0 scaleway-cli/0.0.0+test m/E
       X-Amz-Content-Sha256:
       - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
       X-Amz-Date:
-      - 20260821T145115Z
-    url: https://cli-test-bucket-get-5149732438729530710.s3.fr-par.scw.cloud/
+      - 20261012T123031Z
+    url: https://cli-test-bucket-get-7523199092556333427.s3.fr-par.scw.cloud/
     method: DELETE
   response:
     body: ""
     headers:
       Date:
-      - Fri, 21 Aug 2026 14:51:15 GMT
+      - Mon, 12 Oct 2026 12:30:31 GMT
       X-Amz-Id-2:
-      - txgff0b5ba3b5e9468083e9-006a8865e3
+      - txgbedbbb69927f454387a1-006accd2e7
       X-Amz-Request-Id:
-      - txgff0b5ba3b5e9468083e9-006a8865e3
+      - txgbedbbb69927f454387a1-006accd2e7
     status: 204 No Content
     code: 204
     duration: ""
