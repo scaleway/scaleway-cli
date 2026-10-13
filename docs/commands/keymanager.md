@@ -221,12 +221,14 @@ scw keymanager key import-key-material <key-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                                 | Argument Specifications                                     |
-|--------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| key-id       | ID of the key in which to import key material                               | Required                                                    |
-| key-material | The key material                                                            |                                                             |
-| salt         | (Optional) Salt value to pass the key derivation function                   |                                                             |
-| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name                                | Description                                                                      | Argument Specifications                                     |
+|-------------------------------------|----------------------------------------------------------------------------------|-------------------------------------------------------------|
+| key-id                              | ID of the key in which to import key material                                    | Required                                                    |
+| ~~key-material~~                    | The key material                                                                 | Deprecated                                                  |
+| salt                                | (Optional) Salt value to pass the key derivation function                        |                                                             |
+| encrypted-key-material.data         | The encrypted key material to import.                                            |                                                             |
+| encrypted-key-material.import-token | The secure import token returned by the `GetKeyMaterialImportParameters` method. |                                                             |
+| region                              | Region to target. If none is passed will use default region from the config      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
