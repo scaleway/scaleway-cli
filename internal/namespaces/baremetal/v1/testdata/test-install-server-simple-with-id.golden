@@ -79,6 +79,8 @@ PartitioningSchema.Filesystems.1.Mountpoint                   /boot
 PartitioningSchema.Filesystems.2.Device                       /dev/md1
 PartitioningSchema.Filesystems.2.Format                       ext4
 PartitioningSchema.Filesystems.2.Mountpoint                   /
+NetworkBootURL                                                -
+NetworkBootPersistent                                         false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "d30bfee5-8a2a-420a-8915-15bdb9eee4d0",
@@ -216,7 +218,9 @@ PartitioningSchema.Filesystems.2.Mountpoint                   /
       "zfs": {
         "pools": []
       }
-    }
+    },
+    "network_boot_url": "",
+    "network_boot_persistent": false
   },
   "ping_status": "ping_status_unknown",
   "options": [],
