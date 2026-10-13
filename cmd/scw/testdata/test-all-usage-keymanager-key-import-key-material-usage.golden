@@ -6,10 +6,14 @@ USAGE:
   scw keymanager key import-key-material <key-id ...> [arg=value ...]
 
 ARGS:
-  key-id            ID of the key in which to import key material
-  [key-material]    The key material
-  [salt]            (Optional) Salt value to pass the key derivation function
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  key-id                                  ID of the key in which to import key material
+  [salt]                                  (Optional) Salt value to pass the key derivation function
+  [encrypted-key-material.data]           The encrypted key material to import.
+  [encrypted-key-material.import-token]   The secure import token returned by the `GetKeyMaterialImportParameters` method.
+  [region=fr-par]                         Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+DEPRECATED ARGS:
+  [key-material]   The key material
 
 FLAGS:
   -h, --help                help for import-key-material
