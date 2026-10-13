@@ -14,14 +14,14 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-func S3EndpointArgSpec() *core.ArgSpec {
+func s3EndpointArgSpec() *core.ArgSpec {
 	return &core.ArgSpec{
 		Name:  "s3-endpoint",
 		Short: "Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint",
 	}
 }
 
-func S3UsePathStyleArgSpec() *core.ArgSpec {
+func s3UsePathStyleArgSpec() *core.ArgSpec {
 	return &core.ArgSpec{
 		Name:  "s3-use-path-style",
 		Short: "Whether to use path style addressing for S3 API calls or not",
@@ -76,8 +76,8 @@ func bucketCreateCommand() *core.Command {
 				Short:            "The permissions given to users (grantees) to read or write objects",
 				AutoCompleteFunc: autocompleteBucketACL,
 			},
-			S3EndpointArgSpec(),
-			S3UsePathStyleArgSpec(),
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -163,8 +163,8 @@ func bucketDeleteCommand() *core.Command {
 				Short:            "The unique name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
-			S3EndpointArgSpec(),
-			S3UsePathStyleArgSpec(),
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -216,8 +216,8 @@ func bucketGetCommand() *core.Command {
 				Default:    core.DefaultValueSetter("false"),
 				Short:      "Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets.",
 			},
-			S3EndpointArgSpec(),
-			S3UsePathStyleArgSpec(),
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -282,7 +282,7 @@ func bucketListCommand() *core.Command {
 		Long:      "List all existing S3 buckets in the specified region",
 		ArgsType:  reflect.TypeFor[bucketListArgs](),
 		ArgSpecs: core.ArgSpecs{
-			S3EndpointArgSpec(),
+			s3EndpointArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -345,8 +345,8 @@ func bucketUpdateCommand() *core.Command {
 				Short:            "The permissions given to users (grantees) to read or write objects",
 				AutoCompleteFunc: autocompleteBucketACL,
 			},
-			S3EndpointArgSpec(),
-			S3UsePathStyleArgSpec(),
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
