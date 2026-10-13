@@ -113,8 +113,7 @@ func newS3Config(
 
 	s3Endpoint := getS3Endpoint(ctx, region.String(), "")
 
-	s3EndpointNoScheme := strings.TrimPrefix(s3Endpoint, "https://")
-	s3EndpointNoScheme = strings.TrimPrefix(s3EndpointNoScheme, "http://")
+	s3EndpointNoScheme := strings.TrimPrefix(strings.TrimPrefix(s3Endpoint, "https://"), "http://")
 
 	config := s3config{
 		AccessKey:          accessKey,
