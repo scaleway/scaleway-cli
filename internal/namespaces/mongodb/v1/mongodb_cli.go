@@ -427,6 +427,7 @@ func mongodbInstanceCreate() *core.Command {
 			},
 			{
 				Name:       "endpoints.{index}.public-network",
+				Short:      `Expose the Database Instance publicly (empty object)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1275,6 +1276,7 @@ func mongodbEndpointCreate() *core.Command {
 			},
 			{
 				Name:       "endpoint.public-network",
+				Short:      `Expose the Database Instance publicly (empty object)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
