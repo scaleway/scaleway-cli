@@ -364,6 +364,7 @@ scw mongodb node-type list [arg=value ...]
 | Name             | Description                                                                 | Argument Specifications                        |
 |------------------|-----------------------------------------------------------------------------|------------------------------------------------|
 | include-disabled | Defines whether or not to include disabled types                            |                                                |
+| project-id       | ID of a project to get a personalized view of the stock                     |                                                |
 | region           | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
 
 
