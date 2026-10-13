@@ -101,10 +101,7 @@ func Test_getS3Endpoint(t *testing.T) {
 			client := newTestClient(t, opts...)
 			ctx := ctxWithClient(client)
 
-			got, _, err := getS3Endpoints(ctx, region, c.customEndpoint, "", false)
-			if err != nil {
-				t.Errorf("getS3Endpoint: expected no errors, got %s", err)
-			}
+			got := getS3Endpoint(ctx, region, c.customEndpoint)
 			if got != c.expected {
 				t.Errorf("getS3Endpoint: expected %q, got %q", c.expected, got)
 			}

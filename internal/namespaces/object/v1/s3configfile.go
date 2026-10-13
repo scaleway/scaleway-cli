@@ -111,10 +111,7 @@ func newS3Config(
 		accessKey += "@" + projectID
 	}
 
-	s3Endpoint, _, err := getS3Endpoints(ctx, region.String(), "", "", false)
-	if err != nil {
-		return s3config{}, err
-	}
+	s3Endpoint := getS3Endpoint(ctx, region.String(), "")
 
 	s3EndpointNoScheme := strings.TrimPrefix(s3Endpoint, "https://")
 	s3EndpointNoScheme = strings.TrimPrefix(s3EndpointNoScheme, "http://")
