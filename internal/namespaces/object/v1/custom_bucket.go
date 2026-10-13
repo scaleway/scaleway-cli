@@ -16,19 +16,15 @@ import (
 
 func S3EndpointArgSpec() *core.ArgSpec {
 	return &core.ArgSpec{
-		Name:       "s3-endpoint",
-		Positional: false,
-		Required:   false,
-		Short:      "Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint",
+		Name:  "s3-endpoint",
+		Short: "Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint",
 	}
 }
 
 func S3UsePathStyleArgSpec() *core.ArgSpec {
 	return &core.ArgSpec{
-		Name:       "s3-use-path-style",
-		Positional: false,
-		Required:   false,
-		Short:      "Whether to use path style addressing for S3 API calls or not",
+		Name:  "s3-use-path-style",
+		Short: "Whether to use path style addressing for S3 API calls or not",
 	}
 }
 
