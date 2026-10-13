@@ -244,9 +244,8 @@ func getBucketInfo(
 	bucket.ACL = awsACLToCustomGrants(acl)
 
 	// Get endpoints
-	bucket.APIEndpoint, bucket.BucketEndpoint, err = getS3Endpoints(
-		ctx, region.String(), s3Endpoint, name, s3UsePathStyle,
-	)
+	bucket.APIEndpoint = s3Endpoint
+	bucket.BucketEndpoint, err = buildBucketEndpoint(s3Endpoint, name, s3UsePathStyle)
 	if err != nil {
 		return nil, err
 	}
@@ -312,21 +311,31 @@ func getS3Endpoints(
 	// 2. Build bucket endpoint
 
 	if bucketName != "" {
-		u, err := url.Parse(s3Endpoint)
+		bucketEndpoint, err = buildBucketEndpoint(s3Endpoint, bucketName, pathStyle)
 		if err != nil {
-			return "", "", fmt.Errorf("could not parse custom endpoint %s: %w", s3Endpoint, err)
+			return "", "", err
 		}
-
-		if pathStyle {
-			u = u.JoinPath(bucketName)
-		} else {
-			u.Host = bucketName + "." + u.Host
-		}
-
-		bucketEndpoint = u.String()
 	}
 
 	return s3Endpoint, bucketEndpoint, nil
+}
+
+// buildBucketEndpoint constructs the bucket-specific URL from a resolved S3
+// API endpoint. For path-style addressing the bucket is a path segment; for
+// virtual-hosted style it is a host label.
+func buildBucketEndpoint(s3Endpoint, bucketName string, pathStyle bool) (string, error) {
+	u, err := url.Parse(s3Endpoint)
+	if err != nil {
+		return "", fmt.Errorf("could not parse custom endpoint %s: %w", s3Endpoint, err)
+	}
+
+	if pathStyle {
+		u = u.JoinPath(bucketName)
+	} else {
+		u.Host = bucketName + "." + u.Host
+	}
+
+	return u.String(), nil
 }
 
 // getS3UsePathStyle retrieves the S3UsePathStyle flag value from various
