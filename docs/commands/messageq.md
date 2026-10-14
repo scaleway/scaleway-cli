@@ -31,6 +31,7 @@ scw messageq deployment create [arg=value ...]
 | password                                             | Password for the deployment user                                            |                                             |
 | volume.type                                          | Type of the Volume                                                          | One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
 | volume.size-bytes                                    | Size of the Volume                                                          |                                             |
+| volume.deployment-id                                 | ID of the deployment                                                        |                                             |
 | endpoints.{index}.public                             |                                                                             |                                             |
 | endpoints.{index}.private-network.private-network-id |                                                                             |                                             |
 | version                                              | The MessageQ version to use                                                 |                                             |
