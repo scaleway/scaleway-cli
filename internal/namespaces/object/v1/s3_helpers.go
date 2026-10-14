@@ -71,7 +71,7 @@ func newS3Client(
 
 // newS3ClientFromArgs builds an S3 client from the CLI s3-endpoint and
 // s3-use-path-style arguments, resolving them through the same configuration
-// priority as getS3Endpoint and getS3UsePathStyle. It also returns the
+// priority as GetS3Endpoint and GetS3UsePathStyle. It also returns the
 // resolved endpoint and path-style flag so callers that need them (e.g. for
 // getBucketInfo) don't have to derive them again.
 func newS3ClientFromArgs(
@@ -81,12 +81,12 @@ func newS3ClientFromArgs(
 	s3EndpointArg string,
 	s3UsePathStyleArg string,
 ) (client *s3.Client, s3Endpoint string, s3UsePathStyle bool, err error) {
-	s3UsePathStyle, err = getS3UsePathStyle(ctx, s3UsePathStyleArg)
+	s3UsePathStyle, err = GetS3UsePathStyle(ctx, s3UsePathStyleArg)
 	if err != nil {
 		return nil, "", false, fmt.Errorf("could not get S3 use path style flag: %w", err)
 	}
 
-	s3Endpoint = getS3Endpoint(ctx, region.String(), s3EndpointArg)
+	s3Endpoint = GetS3Endpoint(ctx, region.String(), s3EndpointArg)
 
 	return newS3Client(
 		ctx,
@@ -250,14 +250,14 @@ func getBucketInfo(
 	return bucket, nil
 }
 
-// getS3Endpoint retrieves the S3 API URL according to various configuration
+// GetS3Endpoint retrieves the S3 API URL according to various configuration
 // variables. The priority is following this pattern:
 // - CLI arg (parameter of this function)
 // - SCW Environment variable
 // - AWS configuration
 // - Profile field value
 // - Default value, built with the provided region
-func getS3Endpoint(
+func GetS3Endpoint(
 	ctx context.Context, region, customEndpoint string,
 ) (s3Endpoint string) {
 	if customEndpoint != "" {
@@ -323,12 +323,12 @@ func buildBucketEndpoint(s3Endpoint, bucketName string, pathStyle bool) (string,
 	return u.String(), nil
 }
 
-// getS3UsePathStyle retrieves the S3UsePathStyle flag value from various
+// GetS3UsePathStyle retrieves the S3UsePathStyle flag value from various
 // configuration variables. The priority is following this pattern:
 // - CLI arg (parameter of this function)
 // - SCW Environment variable
 // - Profile field value
-func getS3UsePathStyle(ctx context.Context, usePathStyle string) (bool, error) {
+func GetS3UsePathStyle(ctx context.Context, usePathStyle string) (bool, error) {
 	// CLI argument
 	if usePathStyle != "" {
 		return strconv.ParseBool(usePathStyle)
