@@ -32,6 +32,7 @@ scw searchdb deployment create [arg=value ...]
 | password                                             | Password for the deployment user                                            |                                             |
 | volume.type                                          | Define the type of the Volume                                               | One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
 | volume.size-bytes                                    | Define the size of the Volume                                               |                                             |
+| volume.deployment-id                                 | ID of the Deployment                                                        |                                             |
 | endpoints.{index}.public                             |                                                                             |                                             |
 | endpoints.{index}.private-network.private-network-id |                                                                             |                                             |
 | version                                              | The Opensearch version to use                                               |                                             |
