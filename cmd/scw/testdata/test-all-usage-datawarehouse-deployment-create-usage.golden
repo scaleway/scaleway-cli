@@ -37,5 +37,5 @@ SEE ALSO:
   # Connect to a Data Warehouse deployment using locally installed clickhousectl
   scw datawarehouse deployment connect
 
-  # Change the admin password (scwadmin user) of the deployment
+  # Change the password of a user of the deployment
   scw datawarehouse user update

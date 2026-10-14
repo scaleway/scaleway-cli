@@ -77,6 +77,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeFor[createInstanceRequestCustom]()
 	c.ArgSpecs.AddBefore("user-name", connect.CliConnectArgSpec())
 	c.ArgSpecs.GetByName("password").Required = false
+	c.ArgSpecs.GetByName("user-name").Default = core.DefaultValueSetter("admin")
 
 	c.SeeAlsos = []*core.SeeAlso{
 		{
@@ -85,7 +86,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		},
 		{
 			Command: "scw mongodb user update",
-			Short:   "Change the admin password of the instance",
+			Short:   "Change the password of a user of the instance",
 		},
 	}
 

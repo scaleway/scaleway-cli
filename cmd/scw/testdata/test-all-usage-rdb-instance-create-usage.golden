@@ -9,7 +9,7 @@ ARGS:
   [project-id]                                   Project ID to use. If none is passed the default project ID will be used
   [name=<generated>]                             Name of the Database Instance
   engine                                         Database engine of the Database Instance (PostgreSQL, MySQL, ...)
-  user-name                                      Username created when the Database Instance is created
+  user-name=admin                                Username created when the Database Instance is created
   [cli-connect=false]                            Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting
   [password]                                     Password of the user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character
   node-type=DB-DEV-S                             Type of node to use for the Database Instance
@@ -51,5 +51,5 @@ SEE ALSO:
   # Connect to an instance using locally installed CLI
   scw rdb instance connect
 
-  # Change the admin password of the instance
+  # Change the password of a user of the instance
   scw rdb user update

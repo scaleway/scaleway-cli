@@ -114,13 +114,9 @@ func userCreateBuilder(c *core.Command) *core.Command {
 			}
 		}
 
-		if req.Password == "" {
-			password, err := passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
-			if err != nil {
-				return nil, err
-			}
-			req.Password = password
-			// password is returned in the command output; avoid logging it to stdout
+		// password is returned in the command output; avoid logging it to stdout
+		if _, err := passwordgenerator.GenerateIfNeeded(&req.Password); err != nil {
+			return nil, err
 		}
 
 		user, err := api.CreateUser(req)
@@ -152,6 +148,13 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 
 	c.ArgSpecs.AddBefore("password", connect.CliConnectArgSpec())
 	c.ArgsType = reflect.TypeFor[rdbUpdateUserRequestCustom]()
+
+	c.SeeAlsos = []*core.SeeAlso{
+		{
+			Command: "scw rdb instance connect",
+			Short:   "Connect to an instance using locally installed CLI",
+		},
+	}
 
 	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		client := core.ExtractClient(ctx)

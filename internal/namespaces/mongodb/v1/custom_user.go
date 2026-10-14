@@ -19,6 +19,8 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.AddBefore("password", connect.CliConnectArgSpec())
 	c.ArgsType = reflect.TypeFor[mongodbUpdateUserRequestCustom]()
 
+	c.SeeAlsos = connectSeeAlsos
+
 	c.Run = func(ctx context.Context, args any) (any, error) {
 		req := args.(*mongodbUpdateUserRequestCustom)
 

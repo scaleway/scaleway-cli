@@ -300,6 +300,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	})
 	c.ArgSpecs.AddBefore("password", connect.CliConnectArgSpec())
 	c.ArgSpecs.GetByName("password").Required = false
+	c.ArgSpecs.GetByName("user-name").Default = core.DefaultValueSetter("admin")
 	c.ArgSpecs.GetByName("node-type").Default = core.DefaultValueSetter("DB-DEV-S")
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 	c.ArgSpecs.GetByName("engine").AutoCompleteFunc = autoCompleteDatabaseEngines
@@ -313,7 +314,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		},
 		{
 			Command: "scw rdb user update",
-			Short:   "Change the admin password of the instance",
+			Short:   "Change the password of a user of the instance",
 		},
 	}
 

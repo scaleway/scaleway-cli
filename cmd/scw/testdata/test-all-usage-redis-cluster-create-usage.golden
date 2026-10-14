@@ -11,7 +11,7 @@ ARGS:
   version=latest                                            Redis™ engine version of the Database Instance
   [tags.{index}]                                            Tags to apply to the Database Instance
   node-type                                                 Type of node to use for the Database Instance
-  user-name                                                 Name of the user created upon Database Instance creation
+  user-name=admin                                           Name of the user created upon Database Instance creation
   [cli-connect=false]                                       Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting
   [password]                                                Password of the user
   [cluster-size]                                            Number of nodes in the Redis™ cluster
@@ -43,5 +43,5 @@ SEE ALSO:
   # Connect to a Redis cluster using locally installed redis-cli
   scw redis cluster connect
 
-  # Change the admin password of the cluster
+  # Change the password of a user of the cluster
   scw redis cluster update

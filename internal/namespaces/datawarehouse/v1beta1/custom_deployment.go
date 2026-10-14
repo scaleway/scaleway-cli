@@ -42,7 +42,7 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 		},
 		{
 			Command: "scw datawarehouse user update",
-			Short:   "Change the admin password (scwadmin user) of the deployment",
+			Short:   "Change the password of a user of the deployment",
 		},
 	}
 

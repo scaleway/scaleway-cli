@@ -13,7 +13,7 @@ ARGS:
   node-amount=1                                            Number of node to use for the Database Instance
   node-type                                                Type of node to use for the Database Instance
   [cli-connect=false]                                      Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting
-  user-name                                                Username created when the Database Instance is created
+  user-name=admin                                          Username created when the Database Instance is created
   [password]                                               Password of the initial user
   [volume.type=sbs_5k]                                     Type of volume where data is stored (unknown_type | sbs_5k | sbs_15k)
   [volume.size-bytes=5GB]                                  Volume size
@@ -37,5 +37,5 @@ SEE ALSO:
   # Connect to a MongoDB® Database Instance using locally installed mongosh
   scw mongodb instance connect
 
-  # Change the admin password of the instance
+  # Change the password of a user of the instance
   scw mongodb user update

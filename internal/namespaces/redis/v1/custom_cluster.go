@@ -70,6 +70,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgSpecs.AddBefore("password", connect.CliConnectArgSpec())
 	c.ArgSpecs.GetByName("password").Required = false
+	c.ArgSpecs.GetByName("user-name").Default = core.DefaultValueSetter("admin")
 
 	c.SeeAlsos = []*core.SeeAlso{
 		{
@@ -78,7 +79,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		},
 		{
 			Command: "scw redis cluster update",
-			Short:   "Change the admin password of the cluster",
+			Short:   "Change the password of a user of the cluster",
 		},
 	}
 

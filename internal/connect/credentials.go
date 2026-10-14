@@ -14,8 +14,8 @@ import (
 )
 
 const (
-	// SecretName is the name of the connect created by the CLI.
-	SecretName = "cli"
+	// SecretName is the name of the secret created by the CLI for cli-connect.
+	SecretName = "cli-connect"
 )
 
 // CliConnectArgSpec is the shared --cli-connect flag spec.
