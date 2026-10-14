@@ -530,6 +530,41 @@ func autocompleteBucketName(
 		projectID = t.ProjectID
 		s3Endpoint = t.S3Endpoint
 		s3UsePathStyleStr = t.S3UsePathStyle
+	case bucketCorsCreateArgs:
+		region = t.Region
+		projectID = t.ProjectID
+		s3Endpoint = t.S3Endpoint
+		s3UsePathStyleStr = t.S3UsePathStyle
+	case bucketCorsDeleteArgs:
+		region = t.Region
+		projectID = t.ProjectID
+		s3Endpoint = t.S3Endpoint
+		s3UsePathStyleStr = t.S3UsePathStyle
+	case bucketCorsGetArgs:
+		region = t.Region
+		projectID = t.ProjectID
+		s3Endpoint = t.S3Endpoint
+		s3UsePathStyleStr = t.S3UsePathStyle
+	case lifecycleDeleteArgs:
+		region = t.Region
+		projectID = t.ProjectID
+		s3Endpoint = t.S3Endpoint
+		s3UsePathStyleStr = t.S3UsePathStyle
+	case lifecycleGetArgs:
+		region = t.Region
+		projectID = t.ProjectID
+		s3Endpoint = t.S3Endpoint
+		s3UsePathStyleStr = t.S3UsePathStyle
+	case bucketPolicyDeleteArgs:
+		region = t.Region
+		projectID = t.ProjectID
+		s3Endpoint = t.S3Endpoint
+		s3UsePathStyleStr = t.S3UsePathStyle
+	case bucketPolicyGetArgs:
+		region = t.Region
+		projectID = t.ProjectID
+		s3Endpoint = t.S3Endpoint
+		s3UsePathStyleStr = t.S3UsePathStyle
 	}
 
 	suggestions := core.AutocompleteSuggestions(nil)
