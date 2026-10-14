@@ -22,8 +22,7 @@ const (
 
 type createInstanceRequestCustom struct {
 	*mongodb.CreateInstanceRequest
-	CliConnect       bool
-	GeneratePassword bool
+	CliConnect bool
 }
 
 var connectSeeAlsos = []*core.SeeAlso{
@@ -76,20 +75,25 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 
 	c.ArgsType = reflect.TypeFor[createInstanceRequestCustom]()
-	c.ArgSpecs.AddBefore("user-name", passwordgenerator.GeneratePasswordArgSpec())
 	c.ArgSpecs.AddBefore("user-name", connect.CliConnectArgSpec())
 	c.ArgSpecs.GetByName("password").Required = false
 
-	c.SeeAlsos = connectSeeAlsos
+	c.SeeAlsos = []*core.SeeAlso{
+		{
+			Command: "scw mongodb instance connect",
+			Short:   "Connect to a MongoDB® Database Instance using locally installed mongosh",
+		},
+		{
+			Command: "scw mongodb user update",
+			Short:   "Change the admin password of the instance",
+		},
+	}
 
 	c.Run = func(ctx context.Context, args any) (any, error) {
 		customRequest := args.(*createInstanceRequestCustom)
 		request := customRequest.CreateInstanceRequest
 
-		generatedPassword, err := passwordgenerator.GenerateIfNeeded(
-			customRequest.GeneratePassword,
-			&request.Password,
-		)
+		generatedPassword, err := passwordgenerator.GenerateIfNeeded(&request.Password)
 		if err != nil {
 			return nil, err
 		}

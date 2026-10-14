@@ -2,7 +2,6 @@ package rdb
 
 import (
 	"context"
-	"errors"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -92,30 +91,14 @@ func userListBuilder(c *core.Command) *core.Command {
 }
 
 func userCreateBuilder(c *core.Command) *core.Command {
-	type rdbCreateUserRequestCustom struct {
-		*rdb.CreateUserRequest
-		GeneratePassword bool
-	}
-
 	type rdbCreateUserResponseCustom struct {
 		*rdb.User
 		Password string `json:"password"`
 	}
 
-	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
-		Name:       "generate-password",
-		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
-		Required:   false,
-		Deprecated: false,
-		Positional: false,
-		Default:    core.DefaultValueSetter("true"),
-	})
-	c.ArgsType = reflect.TypeFor[rdbCreateUserRequestCustom]()
-
 	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
-		customRequest := argsI.(*rdbCreateUserRequestCustom)
-		req := customRequest.CreateUserRequest
+		req := argsI.(*rdb.CreateUserRequest)
 
 		if req.Name != "" {
 			users, err := api.ListUsers(&rdb.ListUsersRequest{
@@ -131,7 +114,7 @@ func userCreateBuilder(c *core.Command) *core.Command {
 			}
 		}
 
-		if customRequest.GeneratePassword && customRequest.Password == "" {
+		if req.Password == "" {
 			password, err := passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
 			if err != nil {
 				return nil, err
@@ -159,8 +142,7 @@ func userCreateBuilder(c *core.Command) *core.Command {
 func userUpdateBuilder(c *core.Command) *core.Command {
 	type rdbUpdateUserRequestCustom struct {
 		*rdb.UpdateUserRequest
-		GeneratePassword bool
-		CliConnect       bool
+		CliConnect bool
 	}
 
 	type rdbUpdateUserResponseCustom struct {
@@ -168,14 +150,6 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 		Password string `json:"password"`
 	}
 
-	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
-		Name:       "generate-password",
-		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
-		Required:   false,
-		Deprecated: false,
-		Positional: false,
-		Default:    core.DefaultValueSetter("true"),
-	})
 	c.ArgSpecs.AddBefore("password", connect.CliConnectArgSpec())
 	c.ArgsType = reflect.TypeFor[rdbUpdateUserRequestCustom]()
 
@@ -196,29 +170,19 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 			customRequest.Password = &password
 		}
 
-		if customRequest.GeneratePassword || customRequest.Password != nil {
-			switch {
-			case customRequest.GeneratePassword && customRequest.Password == nil:
-				updateUserRequest.Password = new(string)
-				pwd, err := passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
-				if err != nil {
-					return nil, err
-				}
-				*updateUserRequest.Password = pwd
-
-				_, err = interactive.Println("Your generated password is", pwd)
-				if err != nil {
-					return nil, err
-				}
-
-			case !customRequest.GeneratePassword && customRequest.Password == nil:
-				return nil, errors.New(
-					"you must provide a password when generate-password is set to false",
-				)
-
-			default:
-				updateUserRequest.Password = customRequest.Password
+		if customRequest.Password == nil {
+			pwd, pwdErr := passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
+			if pwdErr != nil {
+				return nil, pwdErr
 			}
+			updateUserRequest.Password = &pwd
+
+			_, err = interactive.Println("Your generated password is", pwd)
+			if err != nil {
+				return nil, err
+			}
+		} else {
+			updateUserRequest.Password = customRequest.Password
 		}
 
 		user, err := api.UpdateUser(updateUserRequest)

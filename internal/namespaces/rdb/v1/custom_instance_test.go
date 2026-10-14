@@ -69,7 +69,7 @@ func Test_CreateInstance(t *testing.T) {
 	t.Run("With password generator", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
 		Cmd: fmt.Sprintf(
-			strings.Replace(baseCommand, "password=%s", "generate-password=true", 1),
+			strings.Replace(baseCommand, " password=%s", "", 1),
 			name,
 			engine,
 			user,

@@ -23,12 +23,11 @@ type instanceConnectArgs struct {
 	PrivateNetwork bool
 	InstanceID     string
 	Username       string
-	CliMongosh     *string
 	Template       string
 }
 
-func checkMongoshInstalled(cliMongosh string) error {
-	cmd := exec.Command(cliMongosh, "--version") //nolint:gosec
+func checkMongoshInstalled() error {
+	cmd := exec.Command("mongosh", "--version") //nolint:gosec
 	if err := cmd.Run(); err != nil {
 		return errors.New("mongosh is not installed. Please install mongosh to use this command")
 	}
@@ -121,23 +120,14 @@ Use --template to run an arbitrary tool: the Go text/template is rendered with
 				Short:    "Name of the user to connect with to the database (defaults to the admin user)",
 				Required: false,
 			},
-			{
-				Name:  "cli-mongosh",
-				Short: "Command line tool to use, default to mongosh",
-			},
 			connect.TemplateArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*instanceConnectArgs)
 
-			cliMongosh := "mongosh"
-			if args.CliMongosh != nil {
-				cliMongosh = *args.CliMongosh
-			}
-
 			if args.Template == "" {
-				if err := checkMongoshInstalled(cliMongosh); err != nil {
+				if err := checkMongoshInstalled(); err != nil {
 					return nil, err
 				}
 			}
@@ -250,14 +240,14 @@ Use --template to run an arbitrary tool: the Go text/template is rendered with
 			}
 			if cmdArgs == nil {
 				cmdArgs = []string{
-					cliMongosh,
+					"mongosh",
 					connURL.String(),
 					"--tlsCAFile", certPath,
 				}
 			}
 
 			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
-			core.ExtractLogger(ctx).Debugf("executing %s\n", cliMongosh)
+			core.ExtractLogger(ctx).Debugf("executing %s\n", cmdArgs[0])
 
 			exitCode, err := core.ExecCmd(ctx, cmd)
 			if err != nil {

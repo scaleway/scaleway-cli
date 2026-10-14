@@ -27,26 +27,30 @@ var connectSeeAlsos = []*core.SeeAlso{
 
 type createDeploymentRequestCustom struct {
 	*datawarehouse.CreateDeploymentRequest
-	GeneratePassword bool
-	CliConnect       bool
+	CliConnect bool
 }
 
 func deploymentCreateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeFor[createDeploymentRequestCustom]()
 
-	c.ArgSpecs.AddBefore("password", passwordgenerator.GeneratePasswordArgSpec())
 	c.ArgSpecs.AddBefore("password", connect.CliConnectArgSpec())
 
-	c.SeeAlsos = connectSeeAlsos
+	c.SeeAlsos = []*core.SeeAlso{
+		{
+			Command: "scw datawarehouse deployment connect",
+			Short:   "Connect to a Data Warehouse deployment using locally installed clickhousectl",
+		},
+		{
+			Command: "scw datawarehouse user update",
+			Short:   "Change the admin password (scwadmin user) of the deployment",
+		},
+	}
 
 	c.Run = func(ctx context.Context, args any) (any, error) {
 		customRequest := args.(*createDeploymentRequestCustom)
 		request := customRequest.CreateDeploymentRequest
 
-		generatedPassword, err := passwordgenerator.GenerateIfNeeded(
-			customRequest.GeneratePassword,
-			&request.Password,
-		)
+		generatedPassword, err := passwordgenerator.GenerateIfNeeded(&request.Password)
 		if err != nil {
 			return nil, err
 		}
@@ -88,12 +92,11 @@ type deploymentConnectArgs struct {
 	Region         scw.Region
 	PrivateNetwork bool
 	DeploymentID   string
-	CliClickhouse  *string
 	Template       string
 }
 
-func checkClickhousectlInstalled(cliClickhouse string) error {
-	cmd := exec.Command(cliClickhouse, "--version") //nolint:gosec
+func checkClickhousectlInstalled() error {
+	cmd := exec.Command("clickhousectl", "--version") //nolint:gosec
 	if err := cmd.Run(); err != nil {
 		return errors.New(
 			"clickhousectl is not installed. Please install clickhousectl to use this command",
@@ -160,23 +163,14 @@ and the result is executed as the connect command.`,
 				Required:   true,
 				Positional: true,
 			},
-			{
-				Name:  "cli-clickhouse",
-				Short: "Command line tool to use, default to clickhousectl",
-			},
 			connect.TemplateArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*deploymentConnectArgs)
 
-			cliClickhouse := "clickhousectl"
-			if args.CliClickhouse != nil {
-				cliClickhouse = *args.CliClickhouse
-			}
-
 			if args.Template == "" {
-				if err := checkClickhousectlInstalled(cliClickhouse); err != nil {
+				if err := checkClickhousectlInstalled(); err != nil {
 					return nil, err
 				}
 			}
@@ -241,7 +235,7 @@ and the result is executed as the connect command.`,
 			// The GetDeploymentCertificate API returns a different self-signed cert for
 			// private-network endpoints; pin it there if a private endpoint ever needs it.
 			cmdArgs := []string{
-				cliClickhouse,
+				"clickhousectl",
 				"local", "client",
 				"--host", endpoint.DNSRecord,
 				"--port", strconv.FormatUint(uint64(port), 10),
@@ -268,7 +262,7 @@ and the result is executed as the connect command.`,
 
 			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
 			core.ExtractLogger(ctx).
-				Debugf("executing %s against %s\n", cliClickhouse, endpoint.DNSRecord)
+				Debugf("executing %s against %s\n", cmdArgs[0], endpoint.DNSRecord)
 
 			exitCode, err := core.ExecCmd(ctx, cmd)
 			if err != nil {

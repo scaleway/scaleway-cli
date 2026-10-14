@@ -21,7 +21,6 @@ EXAMPLES:
 ARGS:
   [private-network=false]   Connect by the private network endpoint attached.
   deployment-id             UUID of the deployment
-  [cli-clickhouse]          Command line tool to use, default to clickhousectl
   [template]                Go text/template rendered into a command line that replaces the default connect command
   [region=fr-par]           Region to target. If none is passed will use default region from the config (fr-par)
 

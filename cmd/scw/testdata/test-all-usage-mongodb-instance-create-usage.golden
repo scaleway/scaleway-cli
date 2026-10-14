@@ -12,7 +12,6 @@ ARGS:
   [tags.{index}]                                           Tags to apply to the Database Instance
   node-amount=1                                            Number of node to use for the Database Instance
   node-type                                                Type of node to use for the Database Instance
-  [generate-password=true]                                 Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols
   [cli-connect=false]                                      Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting
   user-name                                                Username created when the Database Instance is created
   [password]                                               Password of the initial user
@@ -37,3 +36,6 @@ GLOBAL FLAGS:
 SEE ALSO:
   # Connect to a MongoDB® Database Instance using locally installed mongosh
   scw mongodb instance connect
+
+  # Change the admin password of the instance
+  scw mongodb user update

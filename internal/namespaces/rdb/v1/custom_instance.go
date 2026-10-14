@@ -93,9 +93,8 @@ type CreateInstanceResult struct {
 
 type rdbCreateInstanceRequestCustom struct {
 	*rdbSDK.CreateInstanceRequest
-	InitEndpoints    []*rdbEndpointSpecCustom `json:"init-endpoints"`
-	GeneratePassword bool
-	CliConnect       bool
+	InitEndpoints []*rdbEndpointSpecCustom `json:"init-endpoints"`
+	CliConnect    bool
 }
 
 func createInstanceResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
@@ -299,7 +298,6 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		Required:   false,
 		OneOfGroup: "config",
 	})
-	c.ArgSpecs.AddBefore("password", passwordgenerator.GeneratePasswordArgSpec())
 	c.ArgSpecs.AddBefore("password", connect.CliConnectArgSpec())
 	c.ArgSpecs.GetByName("password").Required = false
 	c.ArgSpecs.GetByName("node-type").Default = core.DefaultValueSetter("DB-DEV-S")
@@ -312,6 +310,10 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		{
 			Command: "scw rdb instance connect",
 			Short:   "Connect to an instance using locally installed CLI",
+		},
+		{
+			Command: "scw rdb user update",
+			Short:   "Change the admin password of the instance",
 		},
 	}
 
@@ -344,7 +346,6 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 
 		createInstanceRequest.NodeType = strings.ToLower(createInstanceRequest.NodeType)
 		generatedPassword, err := passwordgenerator.GenerateIfNeeded(
-			customRequest.GeneratePassword,
 			&createInstanceRequest.Password,
 		)
 		if err != nil {
@@ -812,7 +813,6 @@ type instanceConnectArgs struct {
 	InstanceID     string
 	Username       string
 	Database       *string
-	CliDB          *string
 	Template       string
 }
 
@@ -919,28 +919,18 @@ func createConnectCommandLineArgs(
 
 	switch family {
 	case PostgreSQL:
-		clidb := "psql"
-		if args.CliDB != nil {
-			clidb = *args.CliDB
-		}
-
 		// psql -h 51.159.25.206 --port 13917 -d rdb -U username
 		return []string{
-			clidb,
+			"psql",
 			"--host", endpoint.IP.String(),
 			"--port", strconv.FormatUint(uint64(endpoint.Port), 10),
 			"--username", args.Username,
 			"--dbname", database,
 		}, nil
 	case MySQL:
-		clidb := "mysql"
-		if args.CliDB != nil {
-			clidb = *args.CliDB
-		}
-
 		// mysql -h 195.154.69.163 --port 12210 -p -u username
 		return []string{
-			clidb,
+			"mysql",
 			"--host", endpoint.IP.String(),
 			"--port", strconv.FormatUint(uint64(endpoint.Port), 10),
 			"--database", database,
@@ -987,10 +977,6 @@ and {{.Engine}}, and the result is executed as the connect command.`,
 				Name:    "database",
 				Short:   "Name of the database",
 				Default: core.DefaultValueSetter("rdb"),
-			},
-			{
-				Name:  "cli-db",
-				Short: "Command line tool to use, default to psql/mysql",
 			},
 			connect.TemplateArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),

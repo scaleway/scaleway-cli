@@ -49,10 +49,7 @@ func Test_CreateUser(t *testing.T) {
 			fetchLatestEngine("PostgreSQL"),
 			createInstance("{{.latestEngine}}"),
 		),
-		Cmd: fmt.Sprintf(
-			"scw rdb user create instance-id={{ $.Instance.Instance.ID }} name=%s generate-password=true",
-			name,
-		),
+		Cmd: "scw rdb user create instance-id={{ $.Instance.Instance.ID }} name=" + name,
 		// do not check the golden as the password generated locally and on CI will necessarily be different
 		Check:     core.TestCheckExitCode(0),
 		AfterFunc: deleteInstance(),
@@ -95,7 +92,7 @@ func Test_UpdateUser(t *testing.T) {
 			),
 		),
 		Cmd: fmt.Sprintf(
-			"scw rdb user update instance-id={{ $.Instance.Instance.ID }} name=%s generate-password=true is-admin=true",
+			"scw rdb user update instance-id={{ $.Instance.Instance.ID }} name=%s is-admin=true",
 			name,
 		),
 		// do not check the golden as the password generated locally and on CI will necessarily be different

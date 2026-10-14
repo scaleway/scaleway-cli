@@ -22,7 +22,6 @@ ARGS:
   [private-network=false]   Connect by the private network endpoint attached.
   instance-id               UUID of the instance
   [username]                Name of the user to connect with to the database (defaults to the admin user)
-  [cli-mongosh]             Command line tool to use, default to mongosh
   [template]                Go text/template rendered into a command line that replaces the default connect command
   [region=fr-par]           Region to target. If none is passed will use default region from the config (fr-par)
 
