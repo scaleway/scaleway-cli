@@ -39,10 +39,11 @@ func lifecycleCreateCommand() *core.Command {
 		ArgsType:  reflect.TypeFor[lifecycleCreateArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "bucket",
-				Positional: true,
-				Required:   true,
-				Short:      "The name of the bucket to which assign the lifecycle configuration.",
+				Name:             "bucket",
+				Positional:       true,
+				Required:         true,
+				Short:            "The name of the bucket to which assign the lifecycle configuration.",
+				AutoCompleteFunc: autocompleteBucketName,
 			},
 			{
 				Name:       "lifecycle-configuration",

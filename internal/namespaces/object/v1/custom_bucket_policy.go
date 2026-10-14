@@ -39,10 +39,11 @@ func bucketPolicyCreateCommand() *core.Command {
 		ArgsType:  reflect.TypeFor[bucketPolicyCreateArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "bucket",
-				Positional: true,
-				Required:   true,
-				Short:      "The name of the bucket to which assign the policy.",
+				Name:             "bucket",
+				Positional:       true,
+				Required:         true,
+				Short:            "The name of the bucket to which assign the policy.",
+				AutoCompleteFunc: autocompleteBucketName,
 			},
 			{
 				Name:       "policy",
