@@ -309,31 +309,49 @@ func createTestClient(
 // because they will be executed without waiting.
 var DefaultRetryInterval *time.Duration
 
-var moduleRoot string
+var foldersUsingVCRv4 = []string{
+	"cmd/scw",
+	"core",
+	"internal/e2e",
+	"internal/namespaces/alias",
+	"internal/namespaces/applesilicon/v1alpha1",
+	"internal/namespaces/autoscaling/v1alpha2",
+	"internal/namespaces/baremetal/v1",
+	"internal/namesapces/block/v1alpha1",
+	"internal/namesapces/config",
+	"internal/namespaces/container/v1",
+	"internal/namespaces/feedback",
+	"internal/namespaces/flexibleip/v1alpha1",
+	"internal/namespaces/iam/v1alpha1",
+	"internal/namespaces/info",
+	"internal/namespaces/init",
+	"internal/namespaces/instance/v1",
+	"internal/namespaces/instance/v2alpha1",
+	"internal/namespaces/iot/v1",
+	"internal/namespaces/k8s/v1",
+	"internal/namespaces/lb/v1",
+	"internal/namespaces/marketplace/v2",
+	"internal/namespaces/mcp/server",
+	"internal/namespaces/mnq/v1beta1",
+	"internal/namespaces/redis/v1",
+	"internal/namespaces/registry/v1",
+	"internal/namespaces/secret/v1beta1",
+	"internal/namespaces/test/custom",
+	"internal/namespaces/webhosting/v1",
+}
 
-func init() {
+func folderUsesVCRv4(path string) bool {
+	var moduleRoot string
 	current, _ := os.Getwd()
 	for current != "/" {
 		if _, err := os.Stat(filepath.Join(current, "go.mod")); err == nil {
 			moduleRoot = current
 
-			return
+			break
 		}
 		current = filepath.Dir(current)
 	}
-	panic("can't find the module root")
-}
 
-var foldersUsingVCRv4 = []string{
-	"cmd/scw",
-	"internal/namespaces/container/v1",
-	"internal/namespaces/instance/v1",
-	"internal/namespaces/instance/v2alpha1",
-	"internal/namespaces/k8s/v1",
-	"internal/namespaces/marketplace/v2",
-}
-
-func folderUsesVCRv4(path string) bool {
 	pkg, err := filepath.Rel(moduleRoot, path)
 	if err != nil {
 		panic(err)

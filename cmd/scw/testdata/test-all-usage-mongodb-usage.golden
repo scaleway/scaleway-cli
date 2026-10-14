@@ -6,12 +6,14 @@ USAGE:
   scw mongodb <command>
 
 AVAILABLE COMMANDS:
+  database    Database management commands
   endpoint    Endpoint management commands
   instance    Instance management commands
+  maintenance Maintenance management commands
   node-type   Node types management commands
   snapshot    Snapshot management commands
   user        User management commands
-  version     MongoDB® version management commands
+  version     MongoDB® major version management commands
 
 FLAGS:
   -h, --help                help for mongodb

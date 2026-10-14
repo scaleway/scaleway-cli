@@ -4,8 +4,10 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"os/exec"
 	"runtime"
 	"runtime/debug"
+	"strings"
 
 	"github.com/hashicorp/go-version"
 	"github.com/mattn/go-colorable"
@@ -70,7 +72,39 @@ func main() {
 	os.Exit(exitCode)
 }
 
+// dispatchPlugin implements external plugins, the same way git runs `git foo`
+// from an executable `git-foo` on PATH: `scw foo` looks for `scw-foo` and
+// executes it with the remaining arguments passed through unchanged.
+// No built-in command starts with "scw-" so this can safely run before
+// Bootstrap.
+func dispatchPlugin(args []string) (exitCode int, handled bool) {
+	if len(args) < 2 || strings.HasPrefix(args[1], "-") {
+		return 0, false
+	}
+	bin, err := exec.LookPath("scw-" + args[1])
+	if err != nil {
+		return 0, false
+	}
+
+	cmd := exec.Command(bin, args[2:]...)
+	cmd.Stdin, cmd.Stdout, cmd.Stderr = os.Stdin, os.Stdout, os.Stderr
+	if err := cmd.Run(); err != nil {
+		if exitErr, ok := err.(*exec.ExitError); ok {
+			return exitErr.ExitCode(), true
+		}
+		_, _ = fmt.Fprintln(os.Stderr, err)
+
+		return 1, true
+	}
+
+	return 0, true
+}
+
 func mainNoExit() int {
+	if exitCode, handled := dispatchPlugin(os.Args); handled {
+		return exitCode
+	}
+
 	buildInfo := &core.BuildInfo{
 		Version: version.Must(
 			version.NewSemver(buildVersion()),

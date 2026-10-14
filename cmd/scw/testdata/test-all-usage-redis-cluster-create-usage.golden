@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   [project-id]                                              Project ID to use. If none is passed the default project ID will be used
   [name=<generated>]                                        Name of the Database Instance
-  version                                                   Redis™ engine version of the Database Instance
+  version=latest                                            Redis™ engine version of the Database Instance
   [tags.{index}]                                            Tags to apply to the Database Instance
   node-type                                                 Type of node to use for the Database Instance
   user-name                                                 Name of the user created upon Database Instance creation

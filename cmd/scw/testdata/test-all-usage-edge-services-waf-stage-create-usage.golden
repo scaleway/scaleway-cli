@@ -6,10 +6,11 @@ USAGE:
   scw edge-services waf-stage create [arg=value ...]
 
 ARGS:
-  pipeline-id          Pipeline ID the WAF stage belongs to
-  [mode]               Mode defining WAF behavior (`disable`/`log_only`/`enable`) (unknown_mode | disable | log_only | enable)
-  [paranoia-level]     Sensitivity level (`1`,`2`,`3`,`4`) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign.
-  [backend-stage-id]   ID of the backend stage to forward requests to after the WAF stage
+  pipeline-id                               Pipeline ID the WAF stage belongs to
+  [mode]                                    Mode defining WAF behavior (`disable`/`log_only`/`enable`) (unknown_mode | disable | log_only | enable)
+  [paranoia-level]                          Sensitivity level (`1`,`2`,`3`,`4`) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign.
+  [exclusion-rules.rules.{index}.rule-id]   
+  [backend-stage-id]                        ID of the backend stage to forward requests to after the WAF stage
 
 FLAGS:
   -h, --help                help for create

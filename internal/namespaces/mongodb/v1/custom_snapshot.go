@@ -3,7 +3,7 @@ package mongodb
 import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
-	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1alpha1"
+	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
 )
 
 var snapshotStatusMarshalSpecs = human.EnumMarshalSpecs{

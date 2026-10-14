@@ -6,7 +6,7 @@ USAGE:
   scw mongodb version <command>
 
 AVAILABLE COMMANDS:
-  list        List available MongoDB® versions
+  list        List available MongoDB® major versions
 
 FLAGS:
   -h, --help                help for version

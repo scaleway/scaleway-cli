@@ -1,0 +1,27 @@
+---
+version: 1
+interactions:
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.37+dev cli-e2e-test
+    url: https://api.scaleway.com/rdb/v1/regions/fr-par/database-engines?page=1
+    method: GET
+  response:
+    body: '{"engines":[{"name":"MySQL", "logo_url":"https://s3.nl-ams.scw.cloud/scw-rdb-logos/mysql.svg",
+      "versions":[{"version":"8", "name":"MySQL-8", "end_of_life":"2026-04-01T00:00:00Z",
+      "disabled":false, "beta":false}], "region":"fr-par"}, {"name":"PostgreSQL",
+      "logo_url":"https://s3.fr-par.scw.cloud/scw-rdb-logos/postgresql.svg",
+      "versions":[{"version":"15", "name":"PostgreSQL-15", "end_of_life":"2027-11-11T00:00:00Z",
+      "disabled":false, "beta":false}, {"version":"14", "name":"PostgreSQL-14",
+      "end_of_life":"2026-11-12T00:00:00Z", "disabled":false, "beta":false},
+      {"version":"13", "name":"PostgreSQL-13", "end_of_life":"2025-11-13T00:00:00Z",
+      "disabled":true, "beta":false}], "region":"fr-par"}], "total_count":2}'
+    headers:
+      Content-Type:
+      - application/json
+    status: 200 OK
+    code: 200
+    duration: ""

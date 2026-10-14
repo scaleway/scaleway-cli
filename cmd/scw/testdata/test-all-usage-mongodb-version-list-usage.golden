@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-List available MongoDB® versions.
+List available MongoDB® major versions.
 
 USAGE:
   scw mongodb version list [arg=value ...]

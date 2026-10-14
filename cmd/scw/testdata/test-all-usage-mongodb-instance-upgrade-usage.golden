@@ -6,9 +6,10 @@ USAGE:
   scw mongodb instance upgrade <instance-id ...> [arg=value ...]
 
 ARGS:
-  instance-id       UUID of the Database Instance you want to upgrade
-  [volume-size]     Increase your Block Storage volume size
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  instance-id           UUID of the Database Instance you want to upgrade
+  [volume-size-bytes]   Increase your Block Storage volume size
+  [version]             MongoDB version to upgrade to (e.g., `8.0`, `7.0`, `8.2`)
+  [region=fr-par]       Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help                help for upgrade

@@ -6,7 +6,7 @@ USAGE:
   scw annotations binding delete-all-matching-srn [arg=value ...]
 
 ARGS:
-  [srn]               Scaleway Resource Name for which all bindings should be deleted.
+  [target-srn]        SRN of the resource for which all bindings should be deleted.
   [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
