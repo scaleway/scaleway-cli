@@ -110,6 +110,10 @@ type bucketGetArgs struct {
 	S3UsePathStyle string `json:"s3-use-path-style"`
 }
 
+func (a bucketGetArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
+}
+
 func bucketMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp []types.Bucket
 	result := tmp(i.([]types.Bucket))

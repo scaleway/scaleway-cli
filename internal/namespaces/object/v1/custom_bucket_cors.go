@@ -25,6 +25,10 @@ type bucketCorsCreateArgs struct {
 	S3UsePathStyle    string
 }
 
+func (a bucketCorsCreateArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
+}
+
 func bucketCorsCreateCommand() *core.Command {
 	return &core.Command{
 		Namespace: "object",
@@ -129,6 +133,10 @@ type bucketCorsDeleteArgs struct {
 	S3Endpoint     string
 }
 
+func (a bucketCorsDeleteArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
+}
+
 func bucketCorsDeleteCommand() *core.Command {
 	return &core.Command{
 		Namespace: "object",
@@ -186,6 +194,10 @@ type bucketCorsGetArgs struct {
 	ProjectID      string
 	S3Endpoint     string
 	S3UsePathStyle string
+}
+
+func (a bucketCorsGetArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
 }
 
 func bucketCorsGetCommand() *core.Command {

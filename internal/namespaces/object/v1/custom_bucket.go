@@ -14,6 +14,12 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+// bucketAutoCompleteArgs exposes the fields needed by autocompleteBucketName.
+// Every bucket-related arg struct implements it via the receiver method below.
+type bucketAutoCompleteArgs interface {
+	bucketArgsFields() (region scw.Region, projectID, s3Endpoint, s3UsePathStyle string)
+}
+
 func s3EndpointArgSpec() *core.ArgSpec {
 	return &core.ArgSpec{
 		Name:  "s3-endpoint",
@@ -37,6 +43,10 @@ type bucketConfigArgs struct {
 	ProjectID        string
 	S3Endpoint       string
 	S3UsePathStyle   string
+}
+
+func (a bucketConfigArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
 }
 
 func bucketCreateCommand() *core.Command {
@@ -145,6 +155,10 @@ type bucketDeleteArgs struct {
 	ProjectID      string
 	S3Endpoint     string
 	S3UsePathStyle string
+}
+
+func (a bucketDeleteArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
 }
 
 func bucketDeleteCommand() *core.Command {
@@ -511,60 +525,9 @@ func autocompleteBucketName(
 	request any,
 ) core.AutocompleteSuggestions {
 	var region scw.Region
-	var projectID string
-	var s3Endpoint string
-	var s3UsePathStyleStr string
-	switch t := request.(type) {
-	case bucketConfigArgs:
-		region = t.Region
-		projectID = t.ProjectID
-		s3Endpoint = t.S3Endpoint
-		s3UsePathStyleStr = t.S3UsePathStyle
-	case bucketDeleteArgs:
-		region = t.Region
-		projectID = t.ProjectID
-		s3Endpoint = t.S3Endpoint
-		s3UsePathStyleStr = t.S3UsePathStyle
-	case bucketGetArgs:
-		region = t.Region
-		projectID = t.ProjectID
-		s3Endpoint = t.S3Endpoint
-		s3UsePathStyleStr = t.S3UsePathStyle
-	case bucketCorsCreateArgs:
-		region = t.Region
-		projectID = t.ProjectID
-		s3Endpoint = t.S3Endpoint
-		s3UsePathStyleStr = t.S3UsePathStyle
-	case bucketCorsDeleteArgs:
-		region = t.Region
-		projectID = t.ProjectID
-		s3Endpoint = t.S3Endpoint
-		s3UsePathStyleStr = t.S3UsePathStyle
-	case bucketCorsGetArgs:
-		region = t.Region
-		projectID = t.ProjectID
-		s3Endpoint = t.S3Endpoint
-		s3UsePathStyleStr = t.S3UsePathStyle
-	case lifecycleDeleteArgs:
-		region = t.Region
-		projectID = t.ProjectID
-		s3Endpoint = t.S3Endpoint
-		s3UsePathStyleStr = t.S3UsePathStyle
-	case lifecycleGetArgs:
-		region = t.Region
-		projectID = t.ProjectID
-		s3Endpoint = t.S3Endpoint
-		s3UsePathStyleStr = t.S3UsePathStyle
-	case bucketPolicyDeleteArgs:
-		region = t.Region
-		projectID = t.ProjectID
-		s3Endpoint = t.S3Endpoint
-		s3UsePathStyleStr = t.S3UsePathStyle
-	case bucketPolicyGetArgs:
-		region = t.Region
-		projectID = t.ProjectID
-		s3Endpoint = t.S3Endpoint
-		s3UsePathStyleStr = t.S3UsePathStyle
+	var projectID, s3Endpoint, s3UsePathStyleStr string
+	if args, ok := request.(bucketAutoCompleteArgs); ok {
+		region, projectID, s3Endpoint, s3UsePathStyleStr = args.bucketArgsFields()
 	}
 
 	suggestions := core.AutocompleteSuggestions(nil)

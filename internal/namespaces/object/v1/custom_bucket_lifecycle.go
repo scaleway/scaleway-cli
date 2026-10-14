@@ -25,6 +25,10 @@ type lifecycleCreateArgs struct {
 	S3UsePathStyle         string
 }
 
+func (a lifecycleCreateArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
+}
+
 func lifecycleCreateCommand() *core.Command {
 	return &core.Command{
 		Namespace: "object",
@@ -128,6 +132,10 @@ type lifecycleDeleteArgs struct {
 	S3UsePathStyle string
 }
 
+func (a lifecycleDeleteArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
+}
+
 func lifecycleDeleteCommand() *core.Command {
 	return &core.Command{
 		Namespace: "object",
@@ -185,6 +193,10 @@ type lifecycleGetArgs struct {
 	ProjectID      string
 	S3Endpoint     string
 	S3UsePathStyle string
+}
+
+func (a lifecycleGetArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
 }
 
 func lifecycleGetCommand() *core.Command {

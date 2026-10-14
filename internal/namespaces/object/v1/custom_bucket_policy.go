@@ -25,6 +25,10 @@ type bucketPolicyCreateArgs struct {
 	S3UsePathStyle string
 }
 
+func (a bucketPolicyCreateArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
+}
+
 func bucketPolicyCreateCommand() *core.Command {
 	return &core.Command{
 		Namespace: "object",
@@ -119,6 +123,10 @@ type bucketPolicyDeleteArgs struct {
 	S3UsePathStyle string
 }
 
+func (a bucketPolicyDeleteArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
+}
+
 func bucketPolicyDeleteCommand() *core.Command {
 	return &core.Command{
 		Namespace: "object",
@@ -175,6 +183,10 @@ type bucketPolicyGetArgs struct {
 	ProjectID      string
 	S3Endpoint     string
 	S3UsePathStyle string
+}
+
+func (a bucketPolicyGetArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
 }
 
 func bucketPolicyGetCommand() *core.Command {
