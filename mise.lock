@@ -285,48 +285,47 @@ specifiers = [
 ]
 
 [[tools.pnpm]]
-version = "11.25.0"
+version = "10.24.0"
 backend = "aqua:pnpm/pnpm"
 specifiers = [
-    "11.25",
-    "latest",
+    "10",
+    "10.24.0",
 ]
 
 [tools.pnpm."platforms.linux-arm64"]
-checksum = "sha256:6d62b433b7a77b77e814dfaca8032bae57bb79c1a5ad50442e688c4f7fed3c8a"
-url = "https://github.com/pnpm/pnpm/releases/download/v11.25.0/pnpm-linux-arm64.tar.gz"
-url_api = "https://api.github.com/repos/pnpm/pnpm/releases/assets/535298943"
-provenance = "github-attestations"
+checksum = "sha256:1447737a6e8003386507fdcdafa376289b4abfff5867c8ba6a189b2fded13a4b"
+url = "https://github.com/pnpm/pnpm/releases/download/v10.24.0/pnpm-linux-arm64"
+url_api = "https://api.github.com/repos/pnpm/pnpm/releases/assets/321514953"
 
 [tools.pnpm."platforms.linux-arm64-musl"]
-checksum = "sha256:d826eaa243bb7b9c7bc21df3fae9ade147c3f0b6f035fa9fa92eef5196d1762e"
-url = "https://github.com/pnpm/pnpm/releases/download/v11.25.0/pnpm-linux-arm64-musl.tar.gz"
-url_api = "https://api.github.com/repos/pnpm/pnpm/releases/assets/535298947"
-provenance = "github-attestations"
+checksum = "sha256:1447737a6e8003386507fdcdafa376289b4abfff5867c8ba6a189b2fded13a4b"
+url = "https://github.com/pnpm/pnpm/releases/download/v10.24.0/pnpm-linux-arm64"
+url_api = "https://api.github.com/repos/pnpm/pnpm/releases/assets/321514953"
 
 [tools.pnpm."platforms.linux-x64"]
-checksum = "sha256:11caeed8b581d460638f836f10f6ead19cbf08d774a5b8e502628b20ebf3ac43"
-url = "https://github.com/pnpm/pnpm/releases/download/v11.25.0/pnpm-linux-x64.tar.gz"
-url_api = "https://api.github.com/repos/pnpm/pnpm/releases/assets/535298945"
-provenance = "github-attestations"
+checksum = "sha256:985824ae016db3c7bbd7b39dcb4e6f5740b11cce79f5c43d5e5e640768fd4806"
+url = "https://github.com/pnpm/pnpm/releases/download/v10.24.0/pnpm-linux-x64"
+url_api = "https://api.github.com/repos/pnpm/pnpm/releases/assets/321514957"
 
 [tools.pnpm."platforms.linux-x64-musl"]
-checksum = "sha256:2a25fd5614c89d3e8e7c8cabfe9f5f2aba3c4f997fb69e6934ee257dd8753ca5"
-url = "https://github.com/pnpm/pnpm/releases/download/v11.25.0/pnpm-linux-x64-musl.tar.gz"
-url_api = "https://api.github.com/repos/pnpm/pnpm/releases/assets/535298949"
-provenance = "github-attestations"
+checksum = "sha256:985824ae016db3c7bbd7b39dcb4e6f5740b11cce79f5c43d5e5e640768fd4806"
+url = "https://github.com/pnpm/pnpm/releases/download/v10.24.0/pnpm-linux-x64"
+url_api = "https://api.github.com/repos/pnpm/pnpm/releases/assets/321514957"
 
 [tools.pnpm."platforms.macos-arm64"]
-checksum = "sha256:cdcf7130ed2e7aa324c7c76ab597de66db0529b6b1e0db9e489bde538fdc0d04"
-url = "https://github.com/pnpm/pnpm/releases/download/v11.25.0/pnpm-darwin-arm64.tar.gz"
-url_api = "https://api.github.com/repos/pnpm/pnpm/releases/assets/535298948"
-provenance = "github-attestations"
+checksum = "sha256:e3978826faa5fa7fdf63b752afc7a1bc4585ecd591b899fb956ebdd4e49f5db8"
+url = "https://github.com/pnpm/pnpm/releases/download/v10.24.0/pnpm-macos-arm64"
+url_api = "https://api.github.com/repos/pnpm/pnpm/releases/assets/321514951"
+
+[tools.pnpm."platforms.macos-x64"]
+checksum = "sha256:8694dabaa7d29ece4db8cfa62e0582637e6ce70138ee8e8c5dbd58a5d1c8513d"
+url = "https://github.com/pnpm/pnpm/releases/download/v10.24.0/pnpm-macos-x64"
+url_api = "https://api.github.com/repos/pnpm/pnpm/releases/assets/321514952"
 
 [tools.pnpm."platforms.windows-x64"]
-checksum = "sha256:2d0203af85fc6fbb40f786a2671f175e9119a7c6dfcc4f30b1fa17e0f072c301"
-url = "https://github.com/pnpm/pnpm/releases/download/v11.25.0/pnpm-win32-x64.zip"
-url_api = "https://api.github.com/repos/pnpm/pnpm/releases/assets/535298950"
-provenance = "github-attestations"
+checksum = "sha256:e966e249a55c5d56d5d1844d220861b801c892148e763c66e95dadb9bd257d3f"
+url = "https://github.com/pnpm/pnpm/releases/download/v10.24.0/pnpm-win-x64.exe"
+url_api = "https://api.github.com/repos/pnpm/pnpm/releases/assets/321514954"
 
 [[tools.prettier]]
 version = "3.9.6"
