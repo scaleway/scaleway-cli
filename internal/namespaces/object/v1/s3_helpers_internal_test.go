@@ -28,8 +28,8 @@ func ctxWithClient(client *scw.Client) context.Context {
 	return core.InjectMeta(context.Background(), &core.Meta{Client: client})
 }
 
-// clearS3Env unsets every environment variable that getS3Endpoint,
-// getS3UsePathStyle and getBucketEndpoint rely on.
+// clearS3Env unsets every environment variable that getS3Endpoint and
+// getS3UsePathStyle rely on.
 func clearS3Env(t *testing.T) {
 	t.Helper()
 	for _, key := range []string{
