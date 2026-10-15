@@ -32,14 +32,30 @@ func CliConnectArgSpec() *core.ArgSpec {
 
 var description = "secret used by the cli to ease up connection"
 
+// Resource identifies the product resource whose credentials cli-connect
+// persists in Secret Manager: /<product>/<location>/<id>/<username>.
+// location is the product's native scope (region or zone).
+type Resource struct {
+	Product  string
+	Location string
+	ID       string
+	Username string
+}
+
+// Path returns the path of the credentials secret of the resource
+// (the user SRN without the "srn://" prefix).
+func (r Resource) Path() string {
+	return fmt.Sprintf("/%s/%s/%s/%s", r.Product, r.Location, r.ID, r.Username)
+}
+
 // Description returns the description persisted on the credentials secret:
 // a copy-pastable scw connect command for the resource, so a user reading the
 // secret in the console knows exactly how to reconnect.
 // ponytail: only the products with a hand-written connect command get a
 // copy-pastable command; add a case in connectCommand when a new product is
 // wired to cli-connect.
-func Description(product, location, resourceID, username string) string {
-	cmd := connectCommand(product, location, resourceID, username)
+func (r Resource) Description() string {
+	cmd := connectCommand(r.Product, r.Location, r.ID, r.Username)
 	if cmd == "" {
 		return description
 	}
@@ -81,30 +97,23 @@ type Credentials struct {
 	Password string `json:"password"`
 }
 
-// Path returns the path of the credentials secret of a product resource:
-// /<product>/<location>/<id>/<username> (the user SRN without the "srn://" prefix).
-// location is the product's native scope (region or zone).
-func Path(product, location, id, username string) string {
-	return fmt.Sprintf("/%s/%s/%s/%s", product, location, id, username)
-}
-
-// PersistCredentials stores the credentials in a secret named SecretName at
-// Path(product, location, resourceID, username), naming the owning resource on
-// failure. When a secret already exists at that path (e.g. the password of a
-// user is updated after the credentials were persisted at resource creation) a
-// new version is created on the existing secret instead.
-func PersistCredentials(
+// Persist stores the credentials in a secret named SecretName at r.Path(),
+// naming the owning resource on failure. When a secret already exists at that
+// path (e.g. the password of a user is updated after the credentials were
+// persisted at resource creation) a new version is created on the existing
+// secret instead.
+func (r Resource) Persist(
 	ctx context.Context,
 	region scw.Region,
-	product, location, resourceID, username, password, resourceType string,
+	password, resourceType string,
 ) error {
 	err := persist(
 		ctx,
 		region,
-		Path(product, location, resourceID, username),
-		Description(product, location, resourceID, username),
+		r.Path(),
+		r.Description(),
 		Credentials{
-			Username: username,
+			Username: r.Username,
 			Password: password,
 		},
 	)
@@ -112,7 +121,7 @@ func PersistCredentials(
 		return fmt.Errorf(
 			"%s %s was created but its credentials could not be persisted: %w",
 			resourceType,
-			resourceID,
+			r.ID,
 			err,
 		)
 	}
@@ -183,12 +192,13 @@ func persist(ctx context.Context, region scw.Region, path, desc string, creds Cr
 	return nil
 }
 
-// Fetch returns the credentials stored at the given path. found is false when
-// the secret cannot be retrieved.
+// Fetch returns the credentials stored at the resource's path. found is false
+// when the secret cannot be retrieved.
 // ponytail: any lookup error (not just 404) degrades to "not found" so a broken
 // Secret Manager access never blocks connecting; upgrade to erroring on
 // non-404 if silent degradation proves confusing.
-func Fetch(ctx context.Context, region scw.Region, path string) (Credentials, bool) {
+func (r Resource) Fetch(ctx context.Context, region scw.Region) (Credentials, bool) {
+	path := r.Path()
 	client := core.ExtractClient(ctx)
 	api := secretSDK.NewAPI(client)
 
@@ -214,10 +224,10 @@ func Fetch(ctx context.Context, region scw.Region, path string) (Credentials, bo
 	return creds, true
 }
 
-// FetchOrPrompt returns the credentials stored at path, or prompts for a
-// password when no usable secret exists.
-func FetchOrPrompt(ctx context.Context, region scw.Region, path string) (Credentials, error) {
-	creds, found := Fetch(ctx, region, path)
+// FetchOrPrompt returns the credentials stored for the resource, or prompts
+// for a password when no usable secret exists.
+func (r Resource) FetchOrPrompt(ctx context.Context, region scw.Region) (Credentials, error) {
+	creds, found := r.Fetch(ctx, region)
 	if found && creds.Password != "" {
 		return creds, nil
 	}
@@ -256,16 +266,13 @@ func RunUserUpdate(
 	}
 
 	if cliConnect {
-		if err := PersistCredentials(
-			ctx,
-			region,
-			product,
-			string(region),
-			resourceID,
-			name,
-			**password,
-			resourceType,
-		); err != nil {
+		resource := Resource{
+			Product:  product,
+			Location: string(region),
+			ID:       resourceID,
+			Username: name,
+		}
+		if err := resource.Persist(ctx, region, **password, resourceType); err != nil {
 			return nil, err
 		}
 	}

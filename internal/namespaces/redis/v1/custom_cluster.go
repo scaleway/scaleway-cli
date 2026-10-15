@@ -163,13 +163,15 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 				return nil, err
 			}
 
-			if err := connect.PersistCredentials(
+			res := connect.Resource{
+				Product:  "redis",
+				Location: string(cluster.Zone),
+				ID:       cluster.ID,
+				Username: createClusterRequest.UserName,
+			}
+			if err := res.Persist(
 				ctx,
 				region,
-				"redis",
-				string(cluster.Zone),
-				cluster.ID,
-				createClusterRequest.UserName,
 				createClusterRequest.Password,
 				"cluster",
 			); err != nil {
@@ -627,11 +629,12 @@ and the result is executed as the connect command.`,
 				return nil, err
 			}
 
-			creds, err := connect.FetchOrPrompt(
-				ctx,
-				region,
-				connect.Path("redis", string(cluster.Zone), cluster.ID, cluster.UserName),
-			)
+			creds, err := connect.Resource{
+				Product:  "redis",
+				Location: string(cluster.Zone),
+				ID:       cluster.ID,
+				Username: cluster.UserName,
+			}.FetchOrPrompt(ctx, region)
 			if err != nil {
 				return nil, err
 			}

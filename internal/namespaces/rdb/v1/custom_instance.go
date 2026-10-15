@@ -370,13 +370,15 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		if customRequest.CliConnect {
-			if err := connect.PersistCredentials(
+			res := connect.Resource{
+				Product:  "rdb",
+				Location: string(instance.Region),
+				ID:       instance.ID,
+				Username: createInstanceRequest.UserName,
+			}
+			if err := res.Persist(
 				ctx,
 				instance.Region,
-				"rdb",
-				string(instance.Region),
-				instance.ID,
-				createInstanceRequest.UserName,
 				createInstanceRequest.Password,
 				"instance",
 			); err != nil {
@@ -1039,11 +1041,12 @@ and {{.Engine}}, and the result is executed as the connect command.`,
 				}
 			}
 
-			creds, found := connect.Fetch(
-				ctx,
-				instance.Region,
-				connect.Path("rdb", string(instance.Region), instance.ID, username),
-			)
+			creds, found := connect.Resource{
+				Product:  "rdb",
+				Location: string(instance.Region),
+				ID:       instance.ID,
+				Username: username,
+			}.Fetch(ctx, instance.Region)
 			password := ""
 			if found {
 				if creds.Username != "" {

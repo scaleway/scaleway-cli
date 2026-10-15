@@ -194,13 +194,15 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 		}
 
 		if customRequest.CliConnect {
-			if err := connect.PersistCredentials(
+			res := connect.Resource{
+				Product:  "rdb",
+				Location: string(updateUserRequest.Region),
+				ID:       updateUserRequest.InstanceID,
+				Username: updateUserRequest.Name,
+			}
+			if err := res.Persist(
 				ctx,
 				updateUserRequest.Region,
-				"rdb",
-				string(updateUserRequest.Region),
-				updateUserRequest.InstanceID,
-				updateUserRequest.Name,
 				*updateUserRequest.Password,
 				"instance user",
 			); err != nil {

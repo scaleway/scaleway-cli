@@ -166,11 +166,12 @@ Use --template to run an arbitrary tool: the Go text/template is rendered with
 				}
 			}
 
-			creds, err := connect.FetchOrPrompt(
-				ctx,
-				instance.Region,
-				connect.Path("mongodb", string(instance.Region), instance.ID, username),
-			)
+			creds, err := connect.Resource{
+				Product:  "mongodb",
+				Location: string(instance.Region),
+				ID:       instance.ID,
+				Username: username,
+			}.FetchOrPrompt(ctx, instance.Region)
 			if err != nil {
 				return nil, err
 			}

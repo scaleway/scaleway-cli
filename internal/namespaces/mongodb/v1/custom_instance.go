@@ -112,16 +112,13 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		if customRequest.CliConnect {
-			if err := connect.PersistCredentials(
-				ctx,
-				instance.Region,
-				"mongodb",
-				string(instance.Region),
-				instance.ID,
-				request.UserName,
-				request.Password,
-				"instance",
-			); err != nil {
+			res := connect.Resource{
+				Product:  "mongodb",
+				Location: string(instance.Region),
+				ID:       instance.ID,
+				Username: request.UserName,
+			}
+			if err := res.Persist(ctx, instance.Region, request.Password, "instance"); err != nil {
 				return nil, err
 			}
 		}

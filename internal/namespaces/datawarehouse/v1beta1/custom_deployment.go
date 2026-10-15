@@ -68,13 +68,15 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		if customRequest.CliConnect {
-			if err := connect.PersistCredentials(
+			res := connect.Resource{
+				Product:  "datawarehouse",
+				Location: string(deployment.Region),
+				ID:       deployment.ID,
+				Username: dwAdminUsername,
+			}
+			if err := res.Persist(
 				ctx,
 				deployment.Region,
-				"datawarehouse",
-				string(deployment.Region),
-				deployment.ID,
-				dwAdminUsername,
 				request.Password,
 				"deployment",
 			); err != nil {
@@ -207,16 +209,12 @@ and the result is executed as the connect command.`,
 			}
 
 			// The Data Warehouse admin user is always "scwadmin"
-			creds, err := connect.FetchOrPrompt(
-				ctx,
-				deployment.Region,
-				connect.Path(
-					"datawarehouse",
-					string(deployment.Region),
-					deployment.ID,
-					dwAdminUsername,
-				),
-			)
+			creds, err := connect.Resource{
+				Product:  "datawarehouse",
+				Location: string(deployment.Region),
+				ID:       deployment.ID,
+				Username: dwAdminUsername,
+			}.FetchOrPrompt(ctx, deployment.Region)
 			if err != nil {
 				return nil, err
 			}
