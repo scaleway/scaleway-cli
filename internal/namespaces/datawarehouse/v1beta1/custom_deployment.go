@@ -77,6 +77,7 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 			if err := res.Persist(
 				ctx,
 				deployment.Region,
+				dwAdminUsername,
 				request.Password,
 				"deployment",
 			); err != nil {
@@ -209,16 +210,15 @@ and the result is executed as the connect command.`,
 			}
 
 			// The Data Warehouse admin user is always "scwadmin"
-			creds, err := connect.Resource{
+			password, err := connect.Resource{
 				Product:  "datawarehouse",
 				Location: string(deployment.Region),
 				ID:       deployment.ID,
 				Username: dwAdminUsername,
-			}.FetchOrPrompt(ctx, deployment.Region)
+			}.FetchOrPrompt(ctx, deployment.Region, dwAdminUsername)
 			if err != nil {
 				return nil, err
 			}
-			password := creds.Password
 
 			// Fail fast on an unreachable endpoint instead of letting the client hang on the dial
 			if args.Template == "" {

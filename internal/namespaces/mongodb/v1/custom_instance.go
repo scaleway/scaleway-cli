@@ -118,7 +118,13 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 				ID:       instance.ID,
 				Username: request.UserName,
 			}
-			if err := res.Persist(ctx, instance.Region, request.Password, "instance"); err != nil {
+			if err := res.Persist(
+				ctx,
+				instance.Region,
+				request.UserName,
+				request.Password,
+				"instance",
+			); err != nil {
 				return nil, err
 			}
 		}

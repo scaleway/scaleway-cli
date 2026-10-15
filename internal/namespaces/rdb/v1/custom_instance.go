@@ -379,6 +379,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 			if err := res.Persist(
 				ctx,
 				instance.Region,
+				createInstanceRequest.UserName,
 				createInstanceRequest.Password,
 				"instance",
 			); err != nil {
@@ -1041,19 +1042,12 @@ and {{.Engine}}, and the result is executed as the connect command.`,
 				}
 			}
 
-			creds, found := connect.Resource{
+			password, found := connect.Resource{
 				Product:  "rdb",
 				Location: string(instance.Region),
 				ID:       instance.ID,
 				Username: username,
-			}.Fetch(ctx, instance.Region)
-			password := ""
-			if found {
-				if creds.Username != "" {
-					username = creds.Username
-				}
-				password = creds.Password
-			}
+			}.Fetch(ctx, instance.Region, username)
 			args.Username = username
 
 			database := "rdb"

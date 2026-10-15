@@ -191,6 +191,7 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 			if err := res.Persist(
 				ctx,
 				updateUserRequest.Region,
+				updateUserRequest.Name,
 				*updateUserRequest.Password,
 				"instance user",
 			); err != nil {

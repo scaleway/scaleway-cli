@@ -126,34 +126,31 @@ func Test_UpdateUserCliConnect(t *testing.T) {
 				t.Helper()
 				region, _ := ctx.Client.GetDefaultRegion()
 				secretAPI := secretSDK.NewAPI(ctx.Client)
-				secretName := connect.SecretName
+				secretName := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance.ID
+				path := connect.SecretPath
 				list, err := secretAPI.ListSecrets(&secretSDK.ListSecretsRequest{
 					Region: region,
 					Name:   &secretName,
+					Path:   &path,
 				}, scw.WithAllPages())
 				require.NoError(t, err)
+				require.Len(t, list.Secrets, 1)
 
-				found := false
-				for _, secret := range list.Secrets {
-					if !strings.HasSuffix(secret.Path, "/"+user) {
-						continue
-					}
-					version, err := secretAPI.AccessSecretVersion(
-						&secretSDK.AccessSecretVersionRequest{
-							Region:   region,
-							SecretID: secret.ID,
-							Revision: "latest",
-						},
-					)
-					require.NoError(t, err)
+				secret := list.Secrets[0]
+				require.Equal(t, []string{"rdb", string(region)}, secret.Tags)
 
-					var creds connect.Credentials
-					require.NoError(t, json.Unmarshal(version.Data, &creds))
-					if creds.Username == user && creds.Password == "Newp1ssw0rd!" {
-						found = true
-					}
-				}
-				require.True(t, found, "updated credentials secret for user %s not found", user)
+				version, err := secretAPI.AccessSecretVersion(
+					&secretSDK.AccessSecretVersionRequest{
+						Region:   region,
+						SecretID: secret.ID,
+						Revision: "latest",
+					},
+				)
+				require.NoError(t, err)
+
+				var creds connect.Credentials
+				require.NoError(t, json.Unmarshal(version.Data, &creds))
+				require.Equal(t, "Newp1ssw0rd!", creds[user])
 			},
 		),
 		AfterFunc: deleteInstance(),

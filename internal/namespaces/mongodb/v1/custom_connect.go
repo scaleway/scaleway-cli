@@ -166,19 +166,15 @@ Use --template to run an arbitrary tool: the Go text/template is rendered with
 				}
 			}
 
-			creds, err := connect.Resource{
+			password, err := connect.Resource{
 				Product:  "mongodb",
 				Location: string(instance.Region),
 				ID:       instance.ID,
 				Username: username,
-			}.FetchOrPrompt(ctx, instance.Region)
+			}.FetchOrPrompt(ctx, instance.Region, username)
 			if err != nil {
 				return nil, err
 			}
-			if creds.Username != "" {
-				username = creds.Username
-			}
-			password := creds.Password
 
 			// TLS is mandatory: download the instance certificate and point mongosh at it
 			cert, err := api.GetInstanceCertificate(&mongodb.GetInstanceCertificateRequest{
