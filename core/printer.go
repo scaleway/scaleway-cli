@@ -45,6 +45,9 @@ type PrinterConfig struct {
 	OutputFlag string
 	Stdout     io.Writer
 	Stderr     io.Writer
+
+	// NoHeaders will skip headers in human output
+	NoHeaders bool
 }
 
 type Printer struct {
@@ -60,13 +63,17 @@ type Printer struct {
 
 	// Allow to select specifics column in a table with human printer
 	humanFields []string
+
+	// Skip headers in human output
+	noHeaders bool
 }
 
 // NewPrinter returns an initialized formatter corresponding to a given FormatterType.
 func NewPrinter(config *PrinterConfig) (*Printer, error) {
 	printer := &Printer{
-		stdout: config.Stdout,
-		stderr: config.Stderr,
+		stdout:    config.Stdout,
+		stderr:    config.Stderr,
+		noHeaders: config.NoHeaders,
 	}
 
 	// First we parse OutputFlag to extract printerName and printerOpt (e.g json=pretty)
@@ -221,6 +228,8 @@ func (p *Printer) printHuman(data any, opt *human.MarshalOpt) error {
 				})
 			}
 		}
+
+		opt.NoHeaders = p.noHeaders
 	}
 
 	str, err := human.Marshal(data, opt)
