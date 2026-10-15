@@ -391,6 +391,18 @@ func Test_ConfigValidateCommand(t *testing.T) {
 	}))
 }
 
+func Test_ConfigJsonSchemaCommand(t *testing.T) {
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: config.GetCommands(),
+		Cmd:      "scw config jsonschema",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+		TmpHomeDir: true,
+	}))
+}
+
 func checkConfig(f func(t *testing.T, config *scw.Config)) core.TestCheck {
 	return func(t *testing.T, ctx *core.CheckFuncCtx) {
 		t.Helper()

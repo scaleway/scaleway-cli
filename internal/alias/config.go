@@ -6,7 +6,7 @@ type Config struct {
 	// "scw instance server list"
 	// key = sl
 	// value = server, list
-	Aliases map[string][]string `yaml:"aliases"`
+	Aliases map[string][]string `jsonschema:"description=Mapping of alias names to the list of command words they expand to" yaml:"aliases"`
 
 	// map of alias using their first word as key
 	// value can contain multiple aliases with the same first word

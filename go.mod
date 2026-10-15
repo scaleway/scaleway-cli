@@ -78,7 +78,9 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/sts v1.45.8 // indirect
 	github.com/awslabs/amazon-ecr-credential-helper/ecr-login v0.12.0 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
+	github.com/bahlo/generic-list-go v0.2.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
+	github.com/buger/jsonparser v1.1.2 // indirect
 	github.com/buildpacks/imgutil v0.0.0-20251202182233-51c1c8c186ea // indirect
 	github.com/buildpacks/lifecycle v0.21.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
@@ -133,6 +135,7 @@ require (
 	github.com/in-toto/attestation v1.2.0 // indirect
 	github.com/in-toto/in-toto-golang v0.11.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
+	github.com/invopop/jsonschema v0.14.0 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/kevinburke/ssh_config v1.2.0 // indirect
 	github.com/klauspost/compress v1.19.2 // indirect
@@ -157,6 +160,7 @@ require (
 	github.com/muesli/termenv v0.16.0 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/opencontainers/selinux v1.15.1 // indirect
+	github.com/pb33f/ordered-map/v2 v2.3.1 // indirect
 	github.com/pjbgf/sha1cd v0.6.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pkg/term v1.2.0-beta.2 // indirect

@@ -3,6 +3,7 @@ package config
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
@@ -12,6 +13,7 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
+	"github.com/invopop/jsonschema"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/config"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
@@ -39,6 +41,7 @@ func GetCommands() *core.Commands {
 		configImportCommand(),
 		configValidateCommand(),
 		configEditCommand(),
+		configJsonSchemaCommand(),
 	)
 }
 
@@ -850,6 +853,78 @@ func configEditCommand() *core.Command {
 			}, nil
 		},
 	}
+}
+
+// configJsonSchemaCommand prints the JSON schema of the config file
+func configJsonSchemaCommand() *core.Command {
+	type configJsonSchemaArgs struct{}
+
+	return &core.Command{
+		Groups: []string{"config"},
+		Short:  `Print the JSON schema of the config file`,
+		Long: `Print the JSON schema of the Scaleway CLI config file (cli.yaml).
+It can be used to enable validation in editors. Example with the Red Hat YAML extension for VS Code:
+
+  scw config jsonschema > scw-cli-config-schema.json
+
+  {
+    "yaml.schemas": {
+      "file:///absolute/path/to/scw-cli-config-schema.json": ["~/.config/scw/cli.yaml"]
+    }
+  }`,
+		Namespace:            "config",
+		Resource:             "jsonschema",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeFor[configJsonSchemaArgs](),
+		Examples: []*core.Example{
+			{
+				Short: "Save the JSON schema of the config file",
+				Raw:   "scw config jsonschema > scw-cli-config-schema.json",
+			},
+		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Short:   "Config management help",
+				Command: "scw config",
+			},
+		},
+		Run: func(_ context.Context, _ any) (any, error) {
+			return buildConfigJSONSchema(), nil
+		},
+	}
+}
+
+// jsonSchemaOutput is the raw JSON schema, printed as-is by both the human and the JSON printers.
+type jsonSchemaOutput string
+
+func (o jsonSchemaOutput) String() string { return string(o) }
+
+func (o jsonSchemaOutput) MarshalJSON() ([]byte, error) {
+	return []byte(o), nil
+}
+
+// buildConfigJSONSchema returns the JSON schema of the CLI config file (internal/config.Config).
+func buildConfigJSONSchema() jsonSchemaOutput {
+	r := &jsonschema.Reflector{
+		// The config file is YAML, so validate against the yaml tags.
+		FieldNameTag: "yaml",
+		// No field is required in the config file: every one has a default.
+		RequiredFromJSONSchemaTags: true,
+		// The config is small: inline the whole tree instead of a $defs/$ref indirection.
+		// Also avoids a $defs name clash between config.Config and alias.Config.
+		DoNotReference: true,
+	}
+	schema := r.Reflect(&config.Config{})
+	schema.Title = "Scaleway CLI config file"
+	schema.Description = "Configuration file for the Scaleway CLI (cli.yaml)"
+
+	b, err := json.MarshalIndent(schema, "", "  ")
+	if err != nil {
+		// The schema is static data: marshaling cannot fail.
+		panic(err)
+	}
+
+	return jsonSchemaOutput(b)
 }
 
 // Helper functions
