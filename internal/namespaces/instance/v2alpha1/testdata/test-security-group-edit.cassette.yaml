@@ -6,9 +6,9 @@ interactions:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 258
+        content_length: 255
         host: api.scaleway.com
-        body: '{"name":"cli-sg-objective-lovelace","description":"","disable_default_rules":false,"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","tags":null,"project_default":false,"inbound_default_action":"accept","outbound_default_action":"accept","stateless":false}'
+        body: '{"name":"cli-sg-magical-hodgkin","description":"","disable_default_rules":false,"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","tags":null,"project_default":false,"inbound_default_action":"accept","outbound_default_action":"accept","stateless":false}'
         headers:
             Content-Type:
                 - application/json
@@ -20,17 +20,17 @@ interactions:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 2036
-        body: '{"srn":"srn://instance.scw.eu/zones/fr-par-1/security-groups/a7fa9d65-bc9a-4dfa-b687-f5bce302ba57","id":"a7fa9d65-bc9a-4dfa-b687-f5bce302ba57","name":"cli-sg-objective-lovelace","description":"","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","tags":[],"disable_default_rules":false,"project_default":false,"inbound_default_action":"accept","outbound_default_action":"accept","stateless":false,"created_at":"2026-10-15T13:11:40.982661Z","updated_at":"2026-10-15T13:11:40.982661Z","default_rules":[{"id":"11111111-2222-4333-8444-000000000001","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":1},{"id":"11111111-2222-4333-8444-000000000002","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":2},{"id":"11111111-2222-4333-8444-000000000003","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":3},{"id":"11111111-2222-4333-8444-000000000004","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":4},{"id":"11111111-2222-4333-8444-000000000005","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":5},{"id":"11111111-2222-4333-8444-000000000006","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":6}],"rules":[],"zone":"fr-par-1"}'
+        content_length: 2033
+        body: '{"srn":"srn://instance.scw.eu/zones/fr-par-1/security-groups/84fe529b-313a-4654-9c77-84da4774c48b","id":"84fe529b-313a-4654-9c77-84da4774c48b","name":"cli-sg-magical-hodgkin","description":"","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","tags":[],"disable_default_rules":false,"project_default":false,"inbound_default_action":"accept","outbound_default_action":"accept","stateless":false,"created_at":"2026-10-15T15:09:13.493847Z","updated_at":"2026-10-15T15:09:13.493847Z","default_rules":[{"id":"11111111-2222-4333-8444-000000000001","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":1},{"id":"11111111-2222-4333-8444-000000000002","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":2},{"id":"11111111-2222-4333-8444-000000000003","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":3},{"id":"11111111-2222-4333-8444-000000000004","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":4},{"id":"11111111-2222-4333-8444-000000000005","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":5},{"id":"11111111-2222-4333-8444-000000000006","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":6}],"rules":[],"zone":"fr-par-1"}'
         headers:
             Content-Length:
-                - "2036"
+                - "2033"
             Content-Type:
                 - application/json
             Date:
-                - Thu, 15 Oct 2026 13:11:41 GMT
+                - Thu, 15 Oct 2026 15:09:13 GMT
             Server:
-                - Scaleway API Gateway (fr-par-3;edge01)
+                - Scaleway API Gateway (fr-par-3;edge02)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
@@ -38,10 +38,10 @@ interactions:
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - de88c1a1-4dbe-4dfc-9ea2-3b6fc1a5ece2
+                - 61502008-da6e-48b4-a3b8-f08a2f651d6e
         status: 200 OK
         code: 200
-        duration: 211.666582ms
+        duration: 195.698772ms
     - id: 1
       request:
         proto: HTTP/1.1
@@ -66,9 +66,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Thu, 15 Oct 2026 13:11:41 GMT
+                - Thu, 15 Oct 2026 15:09:13 GMT
             Server:
-                - Scaleway API Gateway (fr-par-3;edge01)
+                - Scaleway API Gateway (fr-par-3;edge02)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
@@ -76,10 +76,10 @@ interactions:
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - 8ffa88df-8960-4152-90d7-b79552bf1aac
+                - 17da05df-dc64-490e-889e-5f94c14a7f47
         status: 200 OK
         code: 200
-        duration: 11.74285ms
+        duration: 7.6235ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -87,7 +87,7 @@ interactions:
         proto_minor: 1
         content_length: 431
         host: api.scaleway.com
-        body: '{"security_group_id":"a7fa9d65-bc9a-4dfa-b687-f5bce302ba57","security_group_rules":[{"protocol":"tcp","direction":"inbound","action":"drop","source_ip_range":"1.1.1.1/32","destination_ip_range":"","source_ports":null,"destination_ports":null,"position":0},{"protocol":"icmp","direction":"outbound","action":"drop","source_ip_range":"2.2.2.2/32","destination_ip_range":"","source_ports":null,"destination_ports":null,"position":0}]}'
+        body: '{"security_group_id":"84fe529b-313a-4654-9c77-84da4774c48b","security_group_rules":[{"protocol":"tcp","direction":"inbound","action":"drop","source_ip_range":"1.1.1.1/32","destination_ip_range":"","source_ports":null,"destination_ports":null,"position":0},{"protocol":"icmp","direction":"outbound","action":"drop","source_ip_range":"2.2.2.2/32","destination_ip_range":"","source_ports":null,"destination_ports":null,"position":0}]}'
         headers:
             Content-Type:
                 - application/json
@@ -99,17 +99,17 @@ interactions:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 2545
-        body: '{"srn":"srn://instance.scw.eu/zones/fr-par-1/security-groups/a7fa9d65-bc9a-4dfa-b687-f5bce302ba57","id":"a7fa9d65-bc9a-4dfa-b687-f5bce302ba57","name":"cli-sg-objective-lovelace","description":"","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","tags":[],"disable_default_rules":false,"project_default":false,"inbound_default_action":"accept","outbound_default_action":"accept","stateless":false,"created_at":"2026-10-15T13:11:40.982661Z","updated_at":"2026-10-15T13:11:41.075187Z","default_rules":[{"id":"11111111-2222-4333-8444-000000000001","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":1},{"id":"11111111-2222-4333-8444-000000000002","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":2},{"id":"11111111-2222-4333-8444-000000000003","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":3},{"id":"11111111-2222-4333-8444-000000000004","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":4},{"id":"11111111-2222-4333-8444-000000000005","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":5},{"id":"11111111-2222-4333-8444-000000000006","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":6}],"rules":[{"id":"0a1f8b19-719f-4ea9-8654-742e27a6d622","protocol":"tcp","direction":"inbound","action":"drop","source_ip_range":"1.1.1.1/32","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":1,"end":65536},"position":1},{"id":"ed18007d-3ac5-4dbc-99ee-057f5d6fb36f","protocol":"icmp","direction":"outbound","action":"drop","source_ip_range":"2.2.2.2/32","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":1,"end":65536},"position":2}],"zone":"fr-par-1"}'
+        content_length: 2542
+        body: '{"srn":"srn://instance.scw.eu/zones/fr-par-1/security-groups/84fe529b-313a-4654-9c77-84da4774c48b","id":"84fe529b-313a-4654-9c77-84da4774c48b","name":"cli-sg-magical-hodgkin","description":"","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","tags":[],"disable_default_rules":false,"project_default":false,"inbound_default_action":"accept","outbound_default_action":"accept","stateless":false,"created_at":"2026-10-15T15:09:13.493847Z","updated_at":"2026-10-15T15:09:13.583650Z","default_rules":[{"id":"11111111-2222-4333-8444-000000000001","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":1},{"id":"11111111-2222-4333-8444-000000000002","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":2},{"id":"11111111-2222-4333-8444-000000000003","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":3},{"id":"11111111-2222-4333-8444-000000000004","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":4},{"id":"11111111-2222-4333-8444-000000000005","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":5},{"id":"11111111-2222-4333-8444-000000000006","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":6}],"rules":[{"id":"98b166c3-8b47-4279-920c-2b29cdcfc181","protocol":"tcp","direction":"inbound","action":"drop","source_ip_range":"1.1.1.1/32","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":1,"end":65536},"position":1},{"id":"e8c49aab-a8a5-4649-899a-b341ebc29633","protocol":"icmp","direction":"outbound","action":"drop","source_ip_range":"2.2.2.2/32","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":1,"end":65536},"position":2}],"zone":"fr-par-1"}'
         headers:
             Content-Length:
-                - "2545"
+                - "2542"
             Content-Type:
                 - application/json
             Date:
-                - Thu, 15 Oct 2026 13:11:41 GMT
+                - Thu, 15 Oct 2026 15:09:13 GMT
             Server:
-                - Scaleway API Gateway (fr-par-3;edge01)
+                - Scaleway API Gateway (fr-par-3;edge02)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
@@ -117,10 +117,10 @@ interactions:
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - 504df2ff-9d39-4643-aa35-3eaa1d30c357
+                - 9ee2a006-57f7-434e-8a88-721ef69d0da6
         status: 200 OK
         code: 200
-        duration: 154.128399ms
+        duration: 215.961262ms
     - id: 3
       request:
         proto: HTTP/1.1
@@ -131,42 +131,42 @@ interactions:
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.39.1-0.20261012134007-9effca27d734 (go1.27.1; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/security-groups/a7fa9d65-bc9a-4dfa-b687-f5bce302ba57
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/security-groups/84fe529b-313a-4654-9c77-84da4774c48b
         method: GET
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 2545
-        body: '{"srn":"srn://instance.scw.eu/zones/fr-par-1/security-groups/a7fa9d65-bc9a-4dfa-b687-f5bce302ba57","id":"a7fa9d65-bc9a-4dfa-b687-f5bce302ba57","name":"cli-sg-objective-lovelace","description":"","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","tags":[],"disable_default_rules":false,"project_default":false,"inbound_default_action":"accept","outbound_default_action":"accept","stateless":false,"created_at":"2026-10-15T13:11:40.982661Z","updated_at":"2026-10-15T13:11:41.172422Z","default_rules":[{"id":"11111111-2222-4333-8444-000000000001","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":1},{"id":"11111111-2222-4333-8444-000000000002","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":2},{"id":"11111111-2222-4333-8444-000000000003","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":3},{"id":"11111111-2222-4333-8444-000000000004","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":4},{"id":"11111111-2222-4333-8444-000000000005","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":5},{"id":"11111111-2222-4333-8444-000000000006","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":6}],"rules":[{"id":"0a1f8b19-719f-4ea9-8654-742e27a6d622","protocol":"tcp","direction":"inbound","action":"drop","source_ip_range":"1.1.1.1/32","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":1,"end":65536},"position":1},{"id":"ed18007d-3ac5-4dbc-99ee-057f5d6fb36f","protocol":"icmp","direction":"outbound","action":"drop","source_ip_range":"2.2.2.2/32","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":1,"end":65536},"position":2}],"zone":"fr-par-1"}'
+        content_length: 2542
+        body: '{"srn":"srn://instance.scw.eu/zones/fr-par-1/security-groups/84fe529b-313a-4654-9c77-84da4774c48b","id":"84fe529b-313a-4654-9c77-84da4774c48b","name":"cli-sg-magical-hodgkin","description":"","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","tags":[],"disable_default_rules":false,"project_default":false,"inbound_default_action":"accept","outbound_default_action":"accept","stateless":false,"created_at":"2026-10-15T15:09:13.493847Z","updated_at":"2026-10-15T15:09:13.737192Z","default_rules":[{"id":"11111111-2222-4333-8444-000000000001","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":1},{"id":"11111111-2222-4333-8444-000000000002","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":2},{"id":"11111111-2222-4333-8444-000000000003","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":3},{"id":"11111111-2222-4333-8444-000000000004","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":4},{"id":"11111111-2222-4333-8444-000000000005","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":5},{"id":"11111111-2222-4333-8444-000000000006","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":6}],"rules":[{"id":"98b166c3-8b47-4279-920c-2b29cdcfc181","protocol":"tcp","direction":"inbound","action":"drop","source_ip_range":"1.1.1.1/32","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":1,"end":65536},"position":1},{"id":"e8c49aab-a8a5-4649-899a-b341ebc29633","protocol":"icmp","direction":"outbound","action":"drop","source_ip_range":"2.2.2.2/32","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":1,"end":65536},"position":2}],"zone":"fr-par-1"}'
         headers:
             Content-Length:
-                - "2545"
+                - "2542"
             Content-Type:
                 - application/json
             Date:
-                - Thu, 15 Oct 2026 13:11:41 GMT
+                - Thu, 15 Oct 2026 15:09:13 GMT
             Server:
-                - Scaleway API Gateway (fr-par-3;edge01)
+                - Scaleway API Gateway (fr-par-3;edge02)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
-                - "47"
+                - "49"
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - a7ee22ea-e92e-4e7b-9454-bc55f03add1e
+                - e4b25698-ec2b-4fcd-a50a-0b8fb2bebfda
         status: 200 OK
         code: 200
-        duration: 77.435843ms
+        duration: 82.332237ms
     - id: 4
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 465
+        content_length: 639
         host: api.scaleway.com
-        body: '{"security_group_id":"a7fa9d65-bc9a-4dfa-b687-f5bce302ba57","security_group_rules":[{"protocol":"tcp","direction":"inbound","action":"accept","source_ip_range":"1.1.1.1/32","destination_ip_range":"","source_ports":null,"destination_ports":{"start":1,"end":81},"position":0},{"protocol":"udp","direction":"inbound","action":"drop","source_ip_range":"3.3.3.3/32","destination_ip_range":"","source_ports":{"start":8080,"end":0},"destination_ports":null,"position":0}]}'
+        body: '{"security_group_id":"84fe529b-313a-4654-9c77-84da4774c48b","security_group_rules":[{"protocol":"tcp","direction":"inbound","action":"accept","source_ip_range":"1.1.1.1/32","destination_ip_range":"","source_ports":null,"destination_ports":{"start":1,"end":81},"position":0},{"protocol":"udp","direction":"inbound","action":"drop","source_ip_range":"3.3.3.3/32","destination_ip_range":"","source_ports":{"start":8080,"end":0},"destination_ports":null,"position":0},{"protocol":"icmp","direction":"outbound","action":"drop","source_ip_range":"4.4.4.4/32","destination_ip_range":"","source_ports":null,"destination_ports":null,"position":0}]}'
         headers:
             Content-Type:
                 - application/json
@@ -178,28 +178,28 @@ interactions:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 2544
-        body: '{"srn":"srn://instance.scw.eu/zones/fr-par-1/security-groups/a7fa9d65-bc9a-4dfa-b687-f5bce302ba57","id":"a7fa9d65-bc9a-4dfa-b687-f5bce302ba57","name":"cli-sg-objective-lovelace","description":"","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","tags":[],"disable_default_rules":false,"project_default":false,"inbound_default_action":"accept","outbound_default_action":"accept","stateless":false,"created_at":"2026-10-15T13:11:40.982661Z","updated_at":"2026-10-15T13:11:41.309274Z","default_rules":[{"id":"11111111-2222-4333-8444-000000000001","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":1},{"id":"11111111-2222-4333-8444-000000000002","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":2},{"id":"11111111-2222-4333-8444-000000000003","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":3},{"id":"11111111-2222-4333-8444-000000000004","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":4},{"id":"11111111-2222-4333-8444-000000000005","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":5},{"id":"11111111-2222-4333-8444-000000000006","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":6}],"rules":[{"id":"3258f7cf-28ca-4aa2-bb3d-9660e8516190","protocol":"tcp","direction":"inbound","action":"accept","source_ip_range":"1.1.1.1/32","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":1,"end":81},"position":1},{"id":"33614d8f-cb21-44c5-a1c0-0ba49fbe2362","protocol":"udp","direction":"inbound","action":"drop","source_ip_range":"3.3.3.3/32","destination_ip_range":"","source_ports":{"start":8080,"end":8080},"destination_ports":{"start":1,"end":65536},"position":2}],"zone":"fr-par-1"}'
+        content_length: 2797
+        body: '{"srn":"srn://instance.scw.eu/zones/fr-par-1/security-groups/84fe529b-313a-4654-9c77-84da4774c48b","id":"84fe529b-313a-4654-9c77-84da4774c48b","name":"cli-sg-magical-hodgkin","description":"","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","tags":[],"disable_default_rules":false,"project_default":false,"inbound_default_action":"accept","outbound_default_action":"accept","stateless":false,"created_at":"2026-10-15T15:09:13.493847Z","updated_at":"2026-10-15T15:09:13.874787Z","default_rules":[{"id":"11111111-2222-4333-8444-000000000001","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":1},{"id":"11111111-2222-4333-8444-000000000002","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":2},{"id":"11111111-2222-4333-8444-000000000003","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":3},{"id":"11111111-2222-4333-8444-000000000004","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":4},{"id":"11111111-2222-4333-8444-000000000005","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":5},{"id":"11111111-2222-4333-8444-000000000006","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":6}],"rules":[{"id":"38be1646-6141-472d-9189-8c6c9ff986e5","protocol":"tcp","direction":"inbound","action":"accept","source_ip_range":"1.1.1.1/32","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":1,"end":81},"position":1},{"id":"9dea5381-d5e5-4727-80be-07a45c498c0d","protocol":"udp","direction":"inbound","action":"drop","source_ip_range":"3.3.3.3/32","destination_ip_range":"","source_ports":{"start":8080,"end":8080},"destination_ports":{"start":1,"end":65536},"position":2},{"id":"0880da16-e419-431d-996f-c293e037fb71","protocol":"icmp","direction":"outbound","action":"drop","source_ip_range":"4.4.4.4/32","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":1,"end":65536},"position":3}],"zone":"fr-par-1"}'
         headers:
             Content-Length:
-                - "2544"
+                - "2797"
             Content-Type:
                 - application/json
             Date:
-                - Thu, 15 Oct 2026 13:11:41 GMT
+                - Thu, 15 Oct 2026 15:09:13 GMT
             Server:
-                - Scaleway API Gateway (fr-par-3;edge01)
+                - Scaleway API Gateway (fr-par-3;edge02)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
-                - "49"
+                - "48"
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - 732df087-1126-4bdb-bc65-61c8a095a95e
+                - 8d7671aa-921f-4c9b-bfff-b2aa44c59084
         status: 200 OK
         code: 200
-        duration: 170.394658ms
+        duration: 147.048305ms
     - id: 5
       request:
         proto: HTTP/1.1
@@ -210,7 +210,7 @@ interactions:
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.39.1-0.20261012134007-9effca27d734 (go1.27.1; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/security-groups/a7fa9d65-bc9a-4dfa-b687-f5bce302ba57
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/security-groups/84fe529b-313a-4654-9c77-84da4774c48b
         method: DELETE
       response:
         proto: HTTP/2.0
@@ -222,17 +222,17 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Thu, 15 Oct 2026 13:11:41 GMT
+                - Thu, 15 Oct 2026 15:09:14 GMT
             Server:
-                - Scaleway API Gateway (fr-par-3;edge01)
+                - Scaleway API Gateway (fr-par-3;edge02)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
-                - "46"
+                - "47"
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - d54891de-0ddb-4f2f-9ad6-61b3252347a3
+                - d530aebe-ec52-4b58-99be-03c52c200f7f
         status: 204 No Content
         code: 204
-        duration: 129.79674ms
+        duration: 133.024056ms
