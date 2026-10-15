@@ -104,13 +104,13 @@ scw redis acl update <acl-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                                       | Argument Specifications |
-|-------------|-----------------------------------------------------------------------------------|-------------------------|
-| cluster-id  | UUID of the Redis cluster                                                         | Required                |
-| acl-id      | UUID of the ACL rule to update                                                    | Required                |
-| ip-cidr     | New IPv4 network address of the rule (optional, defaults to current)              |                         |
-| description | New description of the rule (optional, defaults to current)                       |                         |
-| zone        | Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2                | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2) | Required |
+| Name        | Description                                                                                                                                    | Argument Specifications |
+|-------------|------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|
+| cluster-id  | UUID of the Redis cluster                                                                                                                      | Required                |
+| acl-id      | UUID of the ACL rule to update                                                                                                                 | Required                |
+| ip-cidr     | New IPv4 network address of the rule (optional, defaults to current)                                                                           |                         |
+| description | New description of the rule (optional, defaults to current)                                                                                    |                         |
+| zone        | Zone to target. If none is passed will use default zone from the config (fr-par-1 \| fr-par-2 \| nl-ams-1 \| nl-ams-2 \| pl-waw-1 \| pl-waw-2) | Required                |
 
 
 
