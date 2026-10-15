@@ -30,8 +30,10 @@ func testAutocompleteGetCommands() *core.Commands {
 				},
 				{
 					Name: "size",
-					AutoCompleteFunc: func(_ context.Context, prefix string, _ any) core.AutocompleteSuggestions {
-						return []string{regexp.MustCompile("[a-z]").ReplaceAllString(prefix, "")}
+					AutoCompleteFunc: func(_ context.Context, prefix string, _ any) map[string]string {
+						return map[string]string{
+							regexp.MustCompile("[a-z]").ReplaceAllString(prefix, ""): "the size",
+						}
 					},
 					EnumValues: []string{"S", "M", "L", "XL", "XXL"},
 				},
@@ -80,6 +82,7 @@ func testAutocompleteGetCommands() *core.Commands {
 
 type autoCompleteTestCase struct {
 	Suggestions         core.AutocompleteSuggestions
+	Descriptions        map[string]string
 	WordToCompleteIndex int
 	Words               []string
 }
@@ -110,6 +113,7 @@ func runAutocompleteTest(ctx context.Context, tc *autoCompleteTestCase) func(*te
 
 		result := core.AutoComplete(ctx, leftWords, wordToComplete, rightWord)
 		assert.Equal(t, tc.Suggestions, result.Suggestions)
+		assert.Equal(t, tc.Descriptions, result.Descriptions)
 	}
 }
 
@@ -219,7 +223,12 @@ func TestAutocomplete(t *testing.T) {
 	)
 	t.Run(
 		"scw test flower create size=a1b2c",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"size=12"}}),
+		run(
+			&testCase{
+				Suggestions:  core.AutocompleteSuggestions{"size=12"},
+				Descriptions: map[string]string{"size=12": "the size"},
+			},
+		),
 	)
 	t.Run(
 		"scw test flower create colo",
@@ -559,7 +568,7 @@ func TestAutocompleteArgs(t *testing.T) {
 		}{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "name",
+				Name:       "flower-id",
 				Positional: true,
 			},
 			{
@@ -575,12 +584,15 @@ func TestAutocompleteArgs(t *testing.T) {
 		ArgSpecs:  core.ArgSpecs{},
 		Run: func(_ context.Context, _ any) (any, error) {
 			return []*struct {
+				ID   string
 				Name string
 			}{
 				{
+					ID:   "id1",
 					Name: "flower1",
 				},
 				{
+					ID:   "id2",
 					Name: "flower2",
 				},
 			}, nil
@@ -620,7 +632,8 @@ func TestAutocompleteArgs(t *testing.T) {
 		"scw test flower get ",
 		run(
 			&testCase{
-				Suggestions: core.AutocompleteSuggestions{"flower1", "flower2", "material-name="},
+				Suggestions:  core.AutocompleteSuggestions{"id1", "id2", "material-name="},
+				Descriptions: map[string]string{"id1": "flower1", "id2": "flower2"},
 			},
 		),
 	)
@@ -637,7 +650,12 @@ func TestAutocompleteArgs(t *testing.T) {
 	)
 	t.Run(
 		"scw test flower get material-name=mat ",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"flower1", "flower2"}}),
+		run(
+			&testCase{
+				Suggestions:  core.AutocompleteSuggestions{"id1", "id2"},
+				Descriptions: map[string]string{"id1": "flower1", "id2": "flower2"},
+			},
+		),
 	)
 	t.Run(
 		"scw test flower create name=",

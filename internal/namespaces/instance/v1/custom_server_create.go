@@ -543,8 +543,8 @@ func instanceServerCreateImageAutoCompleteFunc(
 	ctx context.Context,
 	prefix string,
 	_ any,
-) core.AutocompleteSuggestions {
-	suggestions := core.AutocompleteSuggestions(nil)
+) map[string]string {
+	suggestions := map[string]string{}
 
 	client := core.ExtractClient(ctx)
 	api := marketplace.NewAPI(client)
@@ -561,7 +561,7 @@ func instanceServerCreateImageAutoCompleteFunc(
 
 	for _, image := range completeListImagesCache.Images {
 		if strings.HasPrefix(image.Label, prefix) {
-			suggestions = append(suggestions, image.Label)
+			suggestions[image.Label] = ""
 		}
 	}
 

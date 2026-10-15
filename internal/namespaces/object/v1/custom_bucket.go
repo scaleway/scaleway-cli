@@ -539,7 +539,7 @@ func autocompleteBucketName(
 	ctx context.Context,
 	prefix string,
 	request any,
-) core.AutocompleteSuggestions {
+) map[string]string {
 	var region scw.Region
 	var projectID string
 	switch t := request.(type) {
@@ -554,7 +554,7 @@ func autocompleteBucketName(
 		projectID = t.ProjectID
 	}
 
-	suggestions := core.AutocompleteSuggestions(nil)
+	suggestions := map[string]string{}
 	client := newS3Client(ctx, region, projectID)
 
 	if completeListBucketsCache == nil {
@@ -567,7 +567,7 @@ func autocompleteBucketName(
 
 	for _, bucket := range completeListBucketsCache {
 		if strings.HasPrefix(*bucket.Name, prefix) {
-			suggestions = append(suggestions, *bucket.Name)
+			suggestions[*bucket.Name] = ""
 		}
 	}
 

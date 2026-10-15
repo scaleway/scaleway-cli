@@ -59,8 +59,8 @@ func getGlobalFlags(ctx context.Context) []FlagSpec {
 }
 
 func AutocompleteProfileName() AutoCompleteArgFunc {
-	return func(ctx context.Context, prefix string, _ any) AutocompleteSuggestions {
-		res := AutocompleteSuggestions(nil)
+	return func(ctx context.Context, prefix string, _ any) map[string]string {
+		res := map[string]string{}
 		configPath := ExtractConfigPath(ctx)
 		config, err := scw.LoadConfigFromPath(configPath)
 		if err != nil {
@@ -69,12 +69,12 @@ func AutocompleteProfileName() AutoCompleteArgFunc {
 
 		for profileName := range config.Profiles {
 			if strings.HasPrefix(profileName, prefix) {
-				res = append(res, profileName)
+				res[profileName] = ""
 			}
 		}
 
 		if strings.HasPrefix(scw.DefaultProfileName, prefix) { //nolint:gocritic
-			res = append(res, scw.DefaultProfileName)
+			res[scw.DefaultProfileName] = ""
 		}
 
 		return res
@@ -88,12 +88,13 @@ var autocompleteResourceToNamespace = map[string]string{
 // AutocompleteGetArg tries to complete an argument by using the list verb if it exists for the same resource
 // It will search for the same field in the response of the list
 // Field name will be stripped of the resource name (ex: cluster-id -> id)
+// The returned map maps a value to an optional description: the resource name when completing an id, empty otherwise.
 func AutocompleteGetArg(
 	ctx context.Context,
 	cmd *Command,
 	argSpec *ArgSpec,
 	completedArgs map[string]string,
-) []string {
+) map[string]string {
 	commands := ExtractCommands(ctx)
 
 	// The argument we want to find (ex: server-id)
@@ -174,7 +175,7 @@ func AutocompleteGetArg(
 	if resources.Kind() != reflect.Slice {
 		return nil
 	}
-	values := []string(nil)
+	values := map[string]string{}
 	// Let's iterate over the struct in the response slice and get the searched field
 	for i := range resources.Len() {
 		resource := resources.Index(i)
@@ -182,9 +183,20 @@ func AutocompleteGetArg(
 			resource = resource.Elem()
 		}
 		resourceField := resource.FieldByName(strcase.ToPublicGoName(argName))
-		if resourceField.Kind() == reflect.String {
-			values = append(values, resourceField.String())
+		if resourceField.Kind() != reflect.String {
+			continue
 		}
+		value := resourceField.String()
+		if _, exists := values[value]; exists {
+			continue
+		}
+		description := ""
+		if argName == "id" {
+			if nameField := resource.FieldByName("Name"); nameField.Kind() == reflect.String {
+				description = nameField.String()
+			}
+		}
+		values[value] = description
 	}
 
 	return values

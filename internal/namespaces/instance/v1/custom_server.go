@@ -465,8 +465,7 @@ func customServerFromInstanceServer(server *instance.Server) *customServer {
 }
 
 func serverGetBuilder(c *core.Command) *core.Command {
-	// This method is here as a proof of concept before we find the correct way to implement it at larger scale
-	c.ArgSpecs.GetPositionalArg().AutoCompleteFunc = func(ctx context.Context, prefix string, request any) core.AutocompleteSuggestions {
+	c.ArgSpecs.GetPositionalArg().AutoCompleteFunc = func(ctx context.Context, prefix string, request any) map[string]string {
 		req := request.(*instance.GetServerRequest)
 		api := instance.NewAPI(core.ExtractClient(ctx))
 		resp, err := api.ListServers(&instance.ListServersRequest{
@@ -476,10 +475,10 @@ func serverGetBuilder(c *core.Command) *core.Command {
 			return nil
 		}
 
-		suggestion := core.AutocompleteSuggestions{}
+		suggestion := map[string]string{}
 		for _, s := range resp.Servers {
 			if strings.HasPrefix(s.ID, prefix) {
-				suggestion = append(suggestion, s.ID)
+				suggestion[s.ID] = s.Name
 			}
 		}
 

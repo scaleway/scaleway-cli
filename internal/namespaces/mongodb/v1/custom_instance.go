@@ -91,7 +91,7 @@ func autoCompleteNodeType(
 	ctx context.Context,
 	prefix string,
 	request any,
-) core.AutocompleteSuggestions {
+) map[string]string {
 	region := scw.Region("")
 	switch req := request.(type) {
 	case *mongodb.CreateInstanceRequest:
@@ -100,7 +100,7 @@ func autoCompleteNodeType(
 		region = req.Region
 	}
 
-	suggestions := core.AutocompleteSuggestions(nil)
+	suggestions := map[string]string{}
 
 	client := core.ExtractClient(ctx)
 	api := mongodb.NewAPI(client)
@@ -117,7 +117,7 @@ func autoCompleteNodeType(
 
 	for _, nodeType := range completeListNodeTypeCache.NodeTypes {
 		if strings.HasPrefix(nodeType.Name, prefix) {
-			suggestions = append(suggestions, nodeType.Name)
+			suggestions[nodeType.Name] = ""
 		}
 	}
 

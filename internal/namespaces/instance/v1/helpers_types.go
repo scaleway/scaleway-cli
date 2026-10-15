@@ -19,7 +19,7 @@ func completeServerType(
 	ctx context.Context,
 	prefix string,
 	createReq any,
-) core.AutocompleteSuggestions {
+) map[string]string {
 	req := createReq.(*instanceCreateServerRequest)
 	resp, err := instance.NewAPI(core.ExtractClient(ctx)).
 		ListServersTypes(&instance.ListServersTypesRequest{
@@ -29,11 +29,11 @@ func completeServerType(
 		return nil
 	}
 
-	suggestions := make([]string, 0, len(resp.Servers))
+	suggestions := make(map[string]string, len(resp.Servers))
 
 	for serverType := range resp.Servers {
 		if strings.HasPrefix(serverType, prefix) {
-			suggestions = append(suggestions, serverType)
+			suggestions[serverType] = ""
 		}
 	}
 

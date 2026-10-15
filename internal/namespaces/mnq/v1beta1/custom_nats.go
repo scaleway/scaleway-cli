@@ -116,7 +116,7 @@ func autocompleteNatsAccountID(
 	ctx context.Context,
 	prefix string,
 	request any,
-) core.AutocompleteSuggestions {
+) map[string]string {
 	region := scw.Region("")
 	switch req := request.(type) {
 	case *mnq.NatsAPIGetNatsAccountRequest:
@@ -125,7 +125,7 @@ func autocompleteNatsAccountID(
 		region = req.Region
 	}
 
-	suggestions := core.AutocompleteSuggestions(nil)
+	suggestions := map[string]string{}
 
 	client := core.ExtractClient(ctx)
 	api := mnq.NewNatsAPI(client)
@@ -142,7 +142,7 @@ func autocompleteNatsAccountID(
 
 	for _, natsAccountID := range completeListNatsAccountIDCache.NatsAccounts {
 		if strings.HasPrefix(natsAccountID.ID, prefix) {
-			suggestions = append(suggestions, natsAccountID.ID)
+			suggestions[natsAccountID.ID] = ""
 		}
 	}
 

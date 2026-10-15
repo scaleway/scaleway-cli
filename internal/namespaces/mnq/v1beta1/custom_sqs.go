@@ -34,10 +34,10 @@ func autocompleteSqsProjectID(
 	ctx context.Context,
 	prefix string,
 	request any,
-) core.AutocompleteSuggestions {
+) map[string]string {
 	_ = prefix
 	req := request.(*mnq.SqsAPIListSqsCredentialsRequest)
-	suggestions := make(core.AutocompleteSuggestions, 0, 1)
+	suggestions := make(map[string]string, 1)
 	client := core.ExtractClient(ctx)
 	api := mnq.NewSqsAPI(client)
 	if completeSqsInfoCache == nil {
@@ -50,7 +50,7 @@ func autocompleteSqsProjectID(
 		completeSqsInfoCache = res
 	}
 
-	suggestions = append(suggestions, completeSqsInfoCache.ProjectID)
+	suggestions[completeSqsInfoCache.ProjectID] = ""
 
 	return suggestions
 }
@@ -61,10 +61,10 @@ func autocompleteSqsCredentialsID(
 	ctx context.Context,
 	prefix string,
 	request any,
-) core.AutocompleteSuggestions {
+) map[string]string {
 	req := request.(*mnq.SqsAPIGetSqsCredentialsRequest)
 
-	suggestions := core.AutocompleteSuggestions(nil)
+	suggestions := map[string]string{}
 
 	if req.Region != "" {
 		client := core.ExtractClient(ctx)
@@ -91,7 +91,7 @@ func autocompleteSqsCredentialsID(
 
 		for _, sqsCredentials := range completeSqsListCredentials.SqsCredentials {
 			if strings.HasPrefix(sqsCredentials.ID, prefix) {
-				suggestions = append(suggestions, sqsCredentials.ID)
+				suggestions[sqsCredentials.ID] = ""
 			}
 		}
 	}

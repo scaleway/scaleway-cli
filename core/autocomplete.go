@@ -17,6 +17,9 @@ type AutocompleteSuggestions []string
 // AutocompleteResponse contains the autocomplete suggestions
 type AutocompleteResponse struct {
 	Suggestions AutocompleteSuggestions
+	// Descriptions holds an optional description per suggestion value,
+	// displayed next to the value by shells that support it (e.g. fish).
+	Descriptions map[string]string
 }
 
 const (
@@ -37,7 +40,9 @@ const (
 
 // AutoCompleteArgFunc is the function called to complete arguments values.
 // It is retrieved from core.ArgSpec.AutoCompleteFunc.
-type AutoCompleteArgFunc func(ctx context.Context, prefix string, request any) AutocompleteSuggestions
+// The returned map maps a suggestion value to an optional description: the
+// description is displayed next to the value by the shells that support it (e.g. fish).
+type AutoCompleteArgFunc func(ctx context.Context, prefix string, request any) map[string]string
 
 // AutoCompleteNode is a node in the AutoComplete Tree.
 // An AutoCompleteNode can either represent a command, a subcommand, or a command argument.
@@ -57,12 +62,18 @@ type FlagSpec struct {
 	EnumValues       []string
 }
 
-// newAutoCompleteResponse builds a new AutocompleteResponse
-func newAutoCompleteResponse(suggestions []string) *AutocompleteResponse {
+// newAutoCompleteResponseWithDescriptions builds a new AutocompleteResponse
+func newAutoCompleteResponseWithDescriptions(suggestions []string,
+	descriptions map[string]string,
+) *AutocompleteResponse {
 	sort.Strings(suggestions)
+	if len(descriptions) == 0 {
+		descriptions = nil
+	}
 
 	return &AutocompleteResponse{
-		Suggestions: suggestions,
+		Suggestions:  suggestions,
+		Descriptions: descriptions,
 	}
 }
 
@@ -323,7 +334,7 @@ func AutoComplete(
 			// We try to complete the value of an unknown arg
 			return &AutocompleteResponse{}
 		}
-		suggestions := AutoCompleteArgValue(
+		values := AutoCompleteArgValue(
 			ctx,
 			argNode.Command,
 			argNode.ArgSpec,
@@ -332,20 +343,30 @@ func AutoComplete(
 		)
 
 		// We need to prefix suggestions with the argName to enable the arg value auto-completion.
-		for k, s := range suggestions {
-			suggestions[k] = argName + s
+		suggestions := []string(nil)
+		descriptions := map[string]string{}
+		for value, description := range values {
+			suggestion := argName + value
+			suggestions = append(suggestions, suggestion)
+			if description != "" {
+				descriptions[suggestion] = description
+			}
 		}
 
-		return newAutoCompleteResponse(suggestions)
+		return newAutoCompleteResponseWithDescriptions(suggestions, descriptions)
 	}
 
 	// We are trying to complete a node: either a command name or an arg name or a flagname or a positional args
 	suggestions := []string(nil)
+	descriptions := map[string]string{}
 	for key, child := range node.Children {
 		if key == positionalValueNodeID {
-			for _, positionalSuggestion := range AutoCompleteArgValue(ctx, child.Command, child.ArgSpec, wordToComplete, completedArgs) {
+			for positionalSuggestion, description := range AutoCompleteArgValue(ctx, child.Command, child.ArgSpec, wordToComplete, completedArgs) {
 				if _, exists := completedArgs[positionalSuggestion]; !exists {
 					suggestions = append(suggestions, positionalSuggestion)
+					if description != "" {
+						descriptions[positionalSuggestion] = description
+					}
 				}
 			}
 
@@ -381,10 +402,11 @@ func AutoComplete(
 		suggestions = append(suggestions, keySuggestion(key, completedArgs, wordToComplete)...)
 	}
 
-	return newAutoCompleteResponse(suggestions)
+	return newAutoCompleteResponseWithDescriptions(suggestions, descriptions)
 }
 
 // AutoCompleteArgValue returns suggestions for a (argument name, argument value prefix) pair.
+// The returned map maps a suggestion value to an optional description (empty when unknown).
 // Priority is given to the AutoCompleteFunc from the ArgSpec, if it is set.
 // Otherwise, we use EnumValues from the ArgSpec.
 func AutoCompleteArgValue(
@@ -393,7 +415,7 @@ func AutoCompleteArgValue(
 	argSpec *ArgSpec,
 	argValuePrefix string,
 	completedArgs map[string]string,
-) []string {
+) map[string]string {
 	if argSpec == nil {
 		return nil
 	}
@@ -405,16 +427,19 @@ func AutoCompleteArgValue(
 		)
 	}
 
-	possibleValues := []string(nil)
+	possibleValues := map[string]string(nil)
 
 	if fieldType, err := args.GetArgType(cmd.ArgsType, argSpec.Name); err == nil {
 		if fieldType.Kind() == reflect.Bool {
-			possibleValues = []string{"true", "false"}
+			possibleValues = map[string]string{"true": "", "false": ""}
 		}
 	}
 
 	if len(argSpec.EnumValues) > 0 {
-		possibleValues = argSpec.EnumValues
+		possibleValues = map[string]string{}
+		for _, value := range argSpec.EnumValues {
+			possibleValues[value] = ""
+		}
 	}
 
 	// Complete arg value using list verb if possible
@@ -423,10 +448,10 @@ func AutoCompleteArgValue(
 		possibleValues = AutocompleteGetArg(ctx, cmd, argSpec, completedArgs)
 	}
 
-	suggestions := []string(nil)
-	for _, value := range possibleValues {
+	suggestions := map[string]string{}
+	for value, description := range possibleValues {
 		if strings.HasPrefix(value, argValuePrefix) {
-			suggestions = append(suggestions, value)
+			suggestions[value] = description
 		}
 	}
 
