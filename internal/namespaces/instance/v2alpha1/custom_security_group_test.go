@@ -301,6 +301,10 @@ func Test_SecurityGroup(t *testing.T) {
   source_ip_range: 3.3.3.3/32
   source_ports:
     start: 8080
+- action: drop
+  direction: outbound
+  protocol: icmp
+  source_ip_range: 4.4.4.4/32
 `
 
 				return nil
@@ -312,23 +316,48 @@ func Test_SecurityGroup(t *testing.T) {
 				t.Helper()
 
 				sgRules := ctx.Result.([]*instanceSDK.SecurityGroupRule)
-				assert.Len(t, sgRules, 2)
+				assert.Len(t, sgRules, 3)
+
 				assert.Equal(t, "tcp", sgRules[0].Protocol.String())
-				assert.Equal(t, "udp", sgRules[1].Protocol.String())
 				assert.Equal(t, "inbound", sgRules[0].Direction.String())
-				assert.Equal(t, "inbound", sgRules[1].Direction.String())
 				assert.Equal(t, "accept", sgRules[0].Action.String())
-				assert.Equal(t, "drop", sgRules[1].Action.String())
 				assert.Equal(t, "1.1.1.1/32", sgRules[0].SourceIPRange.String())
-				assert.Equal(t, "3.3.3.3/32", sgRules[1].SourceIPRange.String())
 				assert.Equal(t, uint32(1), sgRules[0].DestinationPorts.Start)
 				assert.Equal(t, uint32(81), sgRules[0].DestinationPorts.End)
+
+				assert.Equal(t, "udp", sgRules[1].Protocol.String())
+				assert.Equal(t, "inbound", sgRules[1].Direction.String())
+				assert.Equal(t, "drop", sgRules[1].Action.String())
+				assert.Equal(t, "3.3.3.3/32", sgRules[1].SourceIPRange.String())
 				assert.Equal(t, uint32(8080), sgRules[1].SourcePorts.Start)
 				assert.Equal(t, uint32(8080), sgRules[1].SourcePorts.End)
+
+				assert.Equal(t, "icmp", sgRules[2].Protocol.String())
+				assert.Equal(t, "outbound", sgRules[2].Direction.String())
+				assert.Equal(t, "drop", sgRules[2].Action.String())
+				assert.Equal(t, "4.4.4.4/32", sgRules[2].SourceIPRange.String())
+				assert.Equal(
+					t,
+					uint32(instance.SecurityGroupRulePortMin),
+					sgRules[2].SourcePorts.Start,
+				)
+				assert.Equal(
+					t,
+					uint32(instance.SecurityGroupRulePortMax),
+					sgRules[2].SourcePorts.End,
+				)
 			},
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: instance.DeleteSecurityGroup("SecurityGroup"),
+		AfterFunc: core.AfterFuncCombine(
+			instance.DeleteSecurityGroup("SecurityGroup"),
+			func(ctx *core.AfterFuncCtx) error {
+				editor.SkipEditor = false
+				editor.TestEditedYAML = ""
+
+				return nil
+			},
+		),
 	}))
 }

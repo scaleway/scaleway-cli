@@ -1,12 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                    PROTOCOL  DIRECTION  ACTION  SOURCE IP RANGE  SOURCE PORTS  DEST IP RANGE  DEST PORTS
-3258f7cf-28ca-4aa2-bb3d-9660e8516190  tcp       inbound    accept  1.1.1.1/32       ALL           -              1-81
-33614d8f-cb21-44c5-a1c0-0ba49fbe2362  udp       inbound    drop    3.3.3.3/32       8080          -              ALL
+38be1646-6141-472d-9189-8c6c9ff986e5  tcp       inbound    accept  1.1.1.1/32       ALL           -              1-81
+9dea5381-d5e5-4727-80be-07a45c498c0d  udp       inbound    drop    3.3.3.3/32       8080          -              ALL
+0880da16-e419-431d-996f-c293e037fb71  icmp      outbound   drop    4.4.4.4/32       ALL           -              ALL
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "3258f7cf-28ca-4aa2-bb3d-9660e8516190",
+    "id": "38be1646-6141-472d-9189-8c6c9ff986e5",
     "protocol": "tcp",
     "direction": "inbound",
     "action": "accept",
@@ -23,7 +24,7 @@ ID                                    PROTOCOL  DIRECTION  ACTION  SOURCE IP RAN
     "position": 1
   },
   {
-    "id": "33614d8f-cb21-44c5-a1c0-0ba49fbe2362",
+    "id": "9dea5381-d5e5-4727-80be-07a45c498c0d",
     "protocol": "udp",
     "direction": "inbound",
     "action": "drop",
@@ -38,5 +39,22 @@ ID                                    PROTOCOL  DIRECTION  ACTION  SOURCE IP RAN
       "end": 65536
     },
     "position": 2
+  },
+  {
+    "id": "0880da16-e419-431d-996f-c293e037fb71",
+    "protocol": "icmp",
+    "direction": "outbound",
+    "action": "drop",
+    "source_ip_range": "4.4.4.4/32",
+    "destination_ip_range": "",
+    "source_ports": {
+      "start": 1,
+      "end": 65536
+    },
+    "destination_ports": {
+      "start": 1,
+      "end": 65536
+    },
+    "position": 3
   }
 ]
