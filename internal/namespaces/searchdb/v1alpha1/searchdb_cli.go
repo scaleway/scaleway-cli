@@ -175,6 +175,13 @@ func searchdbDeploymentCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "volume.deployment-id",
+				Short:      `ID of the Deployment`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "endpoints.{index}.public",
 				Required:   false,
 				Deprecated: false,
