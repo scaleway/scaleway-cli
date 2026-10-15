@@ -511,7 +511,7 @@ func autocompleteBucketName(
 		region, projectID, s3Endpoint, s3UsePathStyleStr = args.bucketArgsFields()
 	}
 
-	suggestions := core.AutocompleteSuggestions(nil)
+	suggestions := core.AutocompleteSuggestions{}
 	client, err := newS3Client(
 		ctx, region, projectID, s3Endpoint, s3UsePathStyleStr,
 	)
@@ -529,7 +529,7 @@ func autocompleteBucketName(
 
 	for _, bucket := range completeListBucketsCache {
 		if strings.HasPrefix(*bucket.Name, prefix) {
-			suggestions = append(suggestions, *bucket.Name)
+			suggestions = append(suggestions, core.Suggestion{Value: *bucket.Name})
 		}
 	}
 

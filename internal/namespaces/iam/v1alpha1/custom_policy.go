@@ -22,7 +22,7 @@ func iamPolicyCreateBuilder(c *core.Command) *core.Command {
 		}
 		suggestions := core.AutocompleteSuggestions{}
 		for _, ps := range resp.PermissionSets {
-			suggestions = append(suggestions, ps.Name)
+			suggestions = append(suggestions, core.Suggestion{Value: ps.Name})
 		}
 
 		return suggestions

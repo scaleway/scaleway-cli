@@ -118,12 +118,14 @@ func autocompleteScripts(ctx context.Context, basename string) map[string]autoco
 			CompleteFunc: fmt.Sprintf(`
 			autoload -U compinit && compinit
 			_%[1]s () {
-				output=($(%[1]s autocomplete complete zsh -- ${CURRENT} ${words}))
-				opts=('-S' ' ')
+				local output
+				output=$(%[1]s autocomplete complete zsh -- ${CURRENT} "${words[@]}")
+				local opts=('-S' ' ')
 				if [[ $output == *= ]]; then
 					opts=('-S' '')
 				fi
-				compadd "${opts[@]}" -- "${output[@]}"
+				local -a matches=("${(@f)output}")
+				_describe 'resources' matches "${opts[@]}"
 			}
 			compdef _%[1]s %[1]s
 		`, basename),
@@ -317,12 +319,17 @@ func autocompleteCompleteBashCommand() *core.Command {
 			res := core.AutoComplete(ctx, leftWords, wordToComplete, rightWords)
 			if strings.Contains(wordToComplete, "=") {
 				prefix := strings.SplitAfterN(wordToComplete, "=", 2)[0]
-				for k, p := range res.Suggestions {
-					res.Suggestions[k] = strings.TrimPrefix(p, prefix)
+				for i, suggestion := range res.Suggestions {
+					res.Suggestions[i].Value = strings.TrimPrefix(suggestion.Value, prefix)
 				}
 			}
 
-			return strings.Join(res.Suggestions, " "), nil
+			values := make([]string, 0, len(res.Suggestions))
+			for _, suggestion := range res.Suggestions {
+				values = append(values, suggestion.Value)
+			}
+
+			return strings.Join(values, " "), nil
 		},
 	}
 }
@@ -359,12 +366,41 @@ func autocompleteCompleteFishCommand() *core.Command {
 
 			res := core.AutoComplete(ctx, leftWords, wordToComplete, rightWords)
 
-			// TODO: decide if we want to add descriptions
-			// see https://stackoverflow.com/a/20879411
-			// "followed optionally by a tab and a short description."
-			return strings.Join(res.Suggestions, "\n"), nil
+			return FishSuggestions(res), nil
 		},
 	}
+}
+
+// FishSuggestions formats an autocomplete response for the fish shell:
+// one suggestion per line, "value<TAB>description" when a description exists.
+func FishSuggestions(res *core.AutocompleteResponse) string {
+	return strings.Join(suggestionLines(res, "\t", false), "\n")
+}
+
+// ZshSuggestions formats an autocomplete response for the zsh shell:
+// one "value:description" pair per line, as consumed by _describe.
+func ZshSuggestions(res *core.AutocompleteResponse) string {
+	return strings.Join(suggestionLines(res, ":", true), "\n")
+}
+
+func suggestionLines(res *core.AutocompleteResponse, separator string, escapeValue bool) []string {
+	descReplacer := strings.NewReplacer("\n", " ", "\t", " ")
+	valueReplacer := strings.NewReplacer(`\`, `\\`, ":", `\:`)
+	lines := make([]string, 0, len(res.Suggestions))
+	for _, suggestion := range res.Suggestions {
+		value := suggestion.Value
+		if escapeValue {
+			value = valueReplacer.Replace(value)
+		}
+		if suggestion.Description != "" {
+			lines = append(lines, value+separator+descReplacer.Replace(suggestion.Description))
+
+			continue
+		}
+		lines = append(lines, value)
+	}
+
+	return lines
 }
 
 func autocompleteCompleteZshCommand() *core.Command {
@@ -412,7 +448,7 @@ func autocompleteCompleteZshCommand() *core.Command {
 
 			res := core.AutoComplete(ctx, leftWords, wordToComplete, rightWords)
 
-			return strings.Join(res.Suggestions, " "), nil
+			return ZshSuggestions(res), nil
 		},
 	}
 }
