@@ -242,13 +242,13 @@ func (r Resource) FetchOrPrompt(ctx context.Context, region scw.Region) (Credent
 
 // RunUserUpdate runs the cli-connect flow around a user update: it prompts
 // for a password when none is given and persists the credentials after a
-// successful update.
+// successful update. location is the product's native scope (region or zone).
 func RunUserUpdate(
 	ctx context.Context,
 	cliConnect bool,
 	product, resourceType string,
 	region scw.Region,
-	resourceID, name string,
+	location, resourceID, name string,
 	password **string,
 	update func(ctx context.Context) (any, error),
 ) (any, error) {
@@ -268,7 +268,7 @@ func RunUserUpdate(
 	if cliConnect {
 		resource := Resource{
 			Product:  product,
-			Location: string(region),
+			Location: location,
 			ID:       resourceID,
 			Username: name,
 		}

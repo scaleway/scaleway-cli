@@ -54,6 +54,63 @@ var connectSeeAlsos = []*core.SeeAlso{
 	},
 }
 
+func clusterUpdateBuilder(c *core.Command) *core.Command {
+	type updateClusterRequestCustom struct {
+		*redis.UpdateClusterRequest
+		CliConnect bool
+	}
+
+	c.ArgSpecs.AddBefore("password", connect.CliConnectArgSpec())
+	c.ArgsType = reflect.TypeFor[updateClusterRequestCustom]()
+
+	c.SeeAlsos = connectSeeAlsos
+
+	c.Run = func(ctx context.Context, args any) (any, error) {
+		req := args.(*updateClusterRequestCustom)
+		region, err := req.Zone.Region()
+		if err != nil {
+			return nil, err
+		}
+
+		// The secret is keyed by user name: when --user-name is not given the
+		// cluster keeps its current user, so resolve it to persist at the right path.
+		name := ""
+		if req.CliConnect {
+			if req.UserName != nil {
+				name = *req.UserName
+			} else {
+				cluster, err := redis.NewAPI(core.ExtractClient(ctx)).
+					GetCluster(&redis.GetClusterRequest{
+						ClusterID: req.ClusterID,
+						Zone:      req.Zone,
+					})
+				if err != nil {
+					return nil, err
+				}
+				name = cluster.UserName
+			}
+		}
+
+		return connect.RunUserUpdate(
+			ctx,
+			req.CliConnect,
+			"redis",
+			"cluster",
+			region,
+			string(req.Zone),
+			req.ClusterID,
+			name,
+			&req.Password,
+			func(ctx context.Context) (any, error) {
+				return redis.NewAPI(core.ExtractClient(ctx)).
+					UpdateCluster(req.UpdateClusterRequest, scw.WithContext(ctx))
+			},
+		)
+	}
+
+	return c
+}
+
 func clusterCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.AddBefore("endpoints.{index}.private-network.id", &core.ArgSpec{
 		Name:     "endpoints.{index}.private-network.enable-ipam",

@@ -30,6 +30,7 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 			"mongodb",
 			"instance user",
 			req.Region,
+			string(req.Region),
 			req.InstanceID,
 			req.Name,
 			&req.Password,

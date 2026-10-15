@@ -6,7 +6,6 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/connect"
-	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -163,8 +162,6 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*rdbUpdateUserRequestCustom)
 		updateUserRequest := customRequest.UpdateUserRequest
 
-		var err error
-
 		if customRequest.CliConnect && customRequest.Password == nil {
 			password, promptErr := connect.PromptPassword(ctx)
 			if promptErr != nil {
@@ -173,18 +170,9 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 			customRequest.Password = &password
 		}
 
-		if customRequest.Password == nil {
-			pwd, pwdErr := passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
-			if pwdErr != nil {
-				return nil, pwdErr
-			}
-			updateUserRequest.Password = &pwd
-
-			_, err = interactive.Println("Your generated password is", pwd)
-			if err != nil {
-				return nil, err
-			}
-		} else {
+		// A nil password is omitted from the request so the API keeps the
+		// current one: updating a user without --password must never rotate it.
+		if customRequest.Password != nil {
 			updateUserRequest.Password = customRequest.Password
 		}
 

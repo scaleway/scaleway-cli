@@ -78,7 +78,7 @@ func Test_UpdateUser(t *testing.T) {
 		AfterFunc: deleteInstance(),
 	}))
 
-	t.Run("With password generator", core.Test(&core.TestConfig{
+	t.Run("Without password", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			fetchLatestEngine("PostgreSQL"),
@@ -95,8 +95,9 @@ func Test_UpdateUser(t *testing.T) {
 			"scw rdb user update instance-id={{ $.Instance.Instance.ID }} name=%s is-admin=true",
 			name,
 		),
-		// do not check the golden as the password generated locally and on CI will necessarily be different
-		Check:     core.TestCheckExitCode(0),
+		// an update without --password must not rotate the password:
+		// the response carries an empty Password
+		Check:     core.TestCheckGolden(),
 		AfterFunc: deleteInstance(),
 	}))
 }

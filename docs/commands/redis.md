@@ -366,14 +366,15 @@ scw redis cluster update <cluster-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                             | Argument Specifications                                                                                 |
-|--------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| name         | Name of the Database Instance                                           |                                                                                                         |
-| tags.{index} | Database Instance tags                                                  |                                                                                                         |
-| user-name    | Name of the Database Instance user                                      |                                                                                                         |
-| password     | Password of the Database Instance user                                  |                                                                                                         |
-| cluster-id   | UUID of the Database Instance to update                                 | Required                                                                                                |
-| zone         | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
+| Name         | Description                                                                                                        | Argument Specifications                                                                                 |
+|--------------|--------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| name         | Name of the Database Instance                                                                                      |                                                                                                         |
+| tags.{index} | Database Instance tags                                                                                             |                                                                                                         |
+| user-name    | Name of the Database Instance user                                                                                 |                                                                                                         |
+| cli-connect  | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting | Default: `false`                                                                                        |
+| password     | Password of the Database Instance user                                                                             |                                                                                                         |
+| cluster-id   | UUID of the Database Instance to update                                                                            | Required                                                                                                |
+| zone         | Zone to target. If none is passed will use default zone from the config                                            | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
