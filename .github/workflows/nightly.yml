@@ -59,20 +59,8 @@ jobs:
           - webhosting
     runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
     steps:
-      - name: Set git to use LF to avoid problem with goldens on windows
-        run: |
-          git config --global core.autocrlf false
-          git config --global core.eol lf
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          fetch-depth: 1
-          persist-credentials: false
-      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
-        with:
-          version: 2026.10.8
-          cache: true
-          cache_save: false
-          experimental: true
+      - uses: $/.github/actions/checkout
+      - uses: $/.github/actions/mise
       - name: Run Acceptance Tests
         run: mise run test:cli --format github-actions --timeout 4h --cassettes --goldens ./internal/namespaces/${{ matrix.products }}/...
         env:
@@ -98,20 +86,8 @@ jobs:
     needs: nightly
     if: always()
     steps:
-      - name: Set git to use LF to avoid problem with goldens on windows
-        run: |
-          git config --global core.autocrlf false
-          git config --global core.eol lf
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          fetch-depth: 1
-          persist-credentials: false
-      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
-        with:
-          version: 2026.10.8
-          cache: true
-          cache_save: false
-          experimental: true
+      - uses: $/.github/actions/checkout
+      - uses: $/.github/actions/mise
       - name: Run Sweepers
         run: mise run sweep
         env:
