@@ -559,6 +559,13 @@ func Test(config *TestConfig) func(t *testing.T) {
 			})
 
 			meta["CmdResult"] = result
+
+			defer func() {
+				if r := recover(); r != nil {
+					t.Errorf("Check panicked: error: %v", r)
+				}
+			}()
+
 			config.Check(t, &CheckFuncCtx{
 				ExitCode:    exitCode,
 				Stdout:      stdout.Bytes(),
