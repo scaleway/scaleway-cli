@@ -1,0 +1,15 @@
+name: mise
+inputs:
+  cache:
+    default: true
+  cache_save:
+    default: false
+runs:
+  using: "composite"
+  steps:
+    - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+      with:
+        version: 2026.10.8
+        cache: ${{ inputs.cache }}
+        cache_save: ${{ inputs.cache_save }}
+        experimental: true
