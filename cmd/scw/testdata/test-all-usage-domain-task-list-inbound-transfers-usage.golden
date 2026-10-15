@@ -8,7 +8,7 @@ USAGE:
 
 ARGS:
   [project-id]        Project ID to use. If none is passed the default project ID will be used
-  [domain]            
+  [domain]            Filter inbound transfers by domain name.
   [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:

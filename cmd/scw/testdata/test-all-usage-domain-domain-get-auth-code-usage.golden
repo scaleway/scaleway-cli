@@ -7,7 +7,7 @@ USAGE:
   scw domain domain get-auth-code [arg=value ...]
 
 ARGS:
-  domain   
+  domain   The domain name to retrieve the authorization code for.
 
 FLAGS:
   -h, --help                help for get-auth-code

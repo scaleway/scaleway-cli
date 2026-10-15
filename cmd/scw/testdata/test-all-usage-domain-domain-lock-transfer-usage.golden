@@ -6,7 +6,7 @@ USAGE:
   scw domain domain lock-transfer [arg=value ...]
 
 ARGS:
-  domain   
+  domain   The domain name to lock for transfer.
 
 FLAGS:
   -h, --help                help for lock-transfer

@@ -6,7 +6,7 @@ USAGE:
   scw domain domain disable-auto-renew [arg=value ...]
 
 ARGS:
-  domain   
+  domain   The domain name to disable auto renew for.
 
 FLAGS:
   -h, --help                help for disable-auto-renew

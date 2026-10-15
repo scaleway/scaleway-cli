@@ -6,9 +6,9 @@ USAGE:
   scw domain domain list-renewable [arg=value ...]
 
 ARGS:
-  [order-by]           (domain_asc | domain_desc)
-  [project-id]        
-  [organization-id]   
+  [order-by]          Sort order of the returned renewable domains. (domain_asc | domain_desc)
+  [project-id]        Filter renewable domains by project ID.
+  [organization-id]   Filter renewable domains by organization ID.
 
 FLAGS:
   -h, --help                help for list-renewable
