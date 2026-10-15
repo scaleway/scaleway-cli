@@ -10,9 +10,8 @@ import (
 )
 
 var (
-	SkipEditor     = false
-	marshalMode    = MarshalModeYAML
-	TestEditedYAML string // replaces editor content in e2e testing
+	SkipEditor  = false
+	marshalMode = MarshalModeYAML
 )
 
 type (
@@ -127,11 +126,6 @@ func updateResourceEditor(
 	// This is useful for testing purpose
 	if cfg.EditedResource != "" {
 		updateRequestMarshaled = []byte(cfg.EditedResource)
-	}
-
-	// If TestEditedYAML is set (for integration tests), use it
-	if TestEditedYAML != "" {
-		updateRequestMarshaled = []byte(TestEditedYAML)
 	}
 
 	// Create a new updateRequest as destination for edited yaml/json

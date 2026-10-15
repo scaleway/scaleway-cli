@@ -16,8 +16,8 @@ import (
 )
 
 const (
-	securityGroupRulePortMin = 1
-	securityGroupRulePortMax = 65536
+	SecurityGroupRulePortMin = 1
+	SecurityGroupRulePortMax = 65536
 )
 
 //
@@ -124,8 +124,8 @@ func securityGroupRulePortRangeMarshalerFunc(i any, opt *human.MarshalOpt) (stri
 		securityGroupRulePortRange.End,
 	)
 
-	if securityGroupRulePortRange.Start == securityGroupRulePortMin &&
-		securityGroupRulePortRange.End == securityGroupRulePortMax {
+	if securityGroupRulePortRange.Start == SecurityGroupRulePortMin &&
+		securityGroupRulePortRange.End == SecurityGroupRulePortMax {
 		humanReadablePortRange = "ALL"
 	}
 
@@ -522,14 +522,20 @@ func securityGroupEditCommand() *core.Command {
 	}
 }
 
+// removePortRangeDefaultValues makes sure the ports are not 1-65536, which:
+// - are the default values returned from the API
+// - mean "no ports specified"
+// - are not accepted back by the API
 func removePortRangeDefaultValues(ports *instance.SecurityGroupRulePortRange) {
-	if ports == nil || ports.End != securityGroupRulePortMax {
+	if ports == nil || ports.End != SecurityGroupRulePortMax {
 		return
 	}
 
-	if ports.Start == securityGroupRulePortMin {
+	if ports.Start == SecurityGroupRulePortMin {
+		// Case 1-65536, return empty ports
 		*ports = instance.SecurityGroupRulePortRange{}
 	} else {
+		// Start is OK, it's a single port (not a range)
 		ports.End = ports.Start
 	}
 }
