@@ -169,13 +169,18 @@ scw domain contact list [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                 | Argument Specifications                                                       |
-|-----------------|-------------------------------------------------------------|-------------------------------------------------------------------------------|
-| domain          | Filter contacts by domain name.                             |                                                                               |
-| project-id      | Filter contacts by project ID.                              |                                                                               |
-| role            | Filter contacts by role (owner, administrative, technical). | One of: `unknown_role`, `owner`, `administrative`, `technical`                |
-| email-status    | Filter contacts by email validation status.                 | One of: `email_status_unknown`, `validated`, `not_validated`, `invalid_email` |
-| organization-id | Filter contacts by organization ID.                         |                                                                               |
+| Name            | Description                                                  | Argument Specifications                                                         |
+|-----------------|--------------------------------------------------------------|---------------------------------------------------------------------------------|
+| domain          | Filter contacts by domain name.                              |                                                                                 |
+| project-id      | Filter contacts by project ID.                               |                                                                                 |
+| role            | Filter contacts by role (owner, administrative, technical).  | One of: `unknown_role`, `owner`, `administrative`, `technical`                  |
+| email-status    | Filter contacts by email validation status.                  | One of: `email_status_unknown`, `validated`, `not_validated`, `invalid_email`   |
+| order-by        | Sort order of the returned contacts                          | One of: `created_at_asc`, `created_at_desc`, `email_asc`, `email_desc`          |
+| status          | Filter by contact status                                     | One of: `status_unknown`, `active`, `pending`                                   |
+| legal-form      | Filter by legal form                                         | One of: `legal_form_unknown`, `individual`, `corporate`, `association`, `other` |
+| email           | Filter by email address                                      |                                                                                 |
+| search          | Fuzzy search in firstname, lastname, email, and company_name |                                                                                 |
+| organization-id | Filter contacts by organization ID.                          |                                                                                 |
 
 
 
