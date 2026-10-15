@@ -6,7 +6,7 @@ USAGE:
   scw domain domain unlock-transfer [arg=value ...]
 
 ARGS:
-  domain   
+  domain   The domain name to unlock for transfer.
 
 FLAGS:
   -h, --help                help for unlock-transfer

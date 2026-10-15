@@ -6,8 +6,8 @@ USAGE:
   scw domain host delete [arg=value ...]
 
 ARGS:
-  domain   
-  name     
+  domain   The domain name of the hostname to delete.
+  name     The hostname to delete.
 
 FLAGS:
   -h, --help                help for delete

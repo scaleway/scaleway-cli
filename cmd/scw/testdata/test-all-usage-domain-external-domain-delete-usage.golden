@@ -6,7 +6,7 @@ USAGE:
   scw domain external-domain delete [arg=value ...]
 
 ARGS:
-  domain   
+  domain   The external domain name to delete.
 
 FLAGS:
   -h, --help                help for delete

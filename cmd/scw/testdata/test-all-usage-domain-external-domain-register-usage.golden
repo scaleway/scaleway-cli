@@ -6,7 +6,7 @@ USAGE:
   scw domain external-domain register [arg=value ...]
 
 ARGS:
-  [domain]       
+  domain         The external domain name to register.
   [project-id]   Project ID to use. If none is passed the default project ID will be used
 
 FLAGS:

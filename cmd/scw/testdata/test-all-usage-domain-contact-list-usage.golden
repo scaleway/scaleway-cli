@@ -7,11 +7,11 @@ USAGE:
   scw domain contact list [arg=value ...]
 
 ARGS:
-  [domain]            
-  [project-id]        
-  [role]               (unknown_role | owner | administrative | technical)
-  [email-status]       (email_status_unknown | validated | not_validated | invalid_email)
-  [organization-id]   
+  [domain]            Filter contacts by domain name.
+  [project-id]        Filter contacts by project ID.
+  [role]              Filter contacts by role (owner, administrative, technical). (unknown_role | owner | administrative | technical)
+  [email-status]      Filter contacts by email validation status. (email_status_unknown | validated | not_validated | invalid_email)
+  [organization-id]   Filter contacts by organization ID.
 
 FLAGS:
   -h, --help                help for list

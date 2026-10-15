@@ -6,9 +6,9 @@ USAGE:
   scw domain host update [arg=value ...]
 
 ARGS:
-  domain          
-  name            
-  [ips.{index}]   
+  domain          The domain name of the hostname to update.
+  name            The hostname to update.
+  [ips.{index}]   New list of glue IP addresses associated with the hostname.
 
 FLAGS:
   -h, --help                help for update

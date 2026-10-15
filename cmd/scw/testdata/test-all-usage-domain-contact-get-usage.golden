@@ -6,7 +6,7 @@ USAGE:
   scw domain contact get [arg=value ...]
 
 ARGS:
-  contact-id   
+  contact-id   ID of the contact to retrieve.
 
 FLAGS:
   -h, --help                help for get

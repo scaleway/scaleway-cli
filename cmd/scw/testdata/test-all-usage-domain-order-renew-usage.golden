@@ -6,9 +6,9 @@ USAGE:
   scw domain order renew [arg=value ...]
 
 ARGS:
-  domains.{index}        
-  [duration-in-years]    
-  [force-late-renewal]   
+  domains.{index}        List of domains to renew.
+  [duration-in-years]    Duration in years for the domain renewal.
+  [force-late-renewal]   Force the renewal to be a late renewal.
 
 FLAGS:
   -h, --help                help for renew

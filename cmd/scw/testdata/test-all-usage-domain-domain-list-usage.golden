@@ -6,13 +6,13 @@ USAGE:
   scw domain domain list [arg=value ...]
 
 ARGS:
-  [order-by]           (domain_asc | domain_desc)
-  [registrar]         
-  [status]             (status_unknown | active | creating | create_error | renewing | renew_error | xfering | xfer_error | expired | expiring | updating | checking | locked | deleting)
-  [project-id]        
-  [is-external]       
-  [domain]            
-  [organization-id]   
+  [order-by]          Sort order of the returned domains. (domain_asc | domain_desc)
+  [registrar]         Filter domains by registrar.
+  [status]            Filter domains by status. (status_unknown | active | creating | create_error | renewing | renew_error | xfering | xfer_error | expired | expiring | updating | checking | locked | deleting)
+  [project-id]        Filter domains by project ID.
+  [is-external]       Filter domains by external status.
+  [domain]            Filter domains by domain name.
+  [organization-id]   Filter domains by organization ID.
 
 FLAGS:
   -h, --help                help for list

@@ -6,9 +6,9 @@ USAGE:
   scw domain host create [arg=value ...]
 
 ARGS:
-  domain          
-  [name]          
-  [ips.{index}]   
+  domain          The domain name to create the hostname for.
+  [name]          The hostname to create.
+  [ips.{index}]   List of glue IP addresses associated with the hostname.
 
 FLAGS:
   -h, --help                help for create
