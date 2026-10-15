@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                              7f823fb5-928c-47de-b857-b44427372562
-Srn                             srn://vpc.scw.eu/regions/fr-par/private-networks/7f823fb5-928c-47de-b857-b44427372562
-Name                            cli-pn-objective-hermann
+ID                              0d935a0a-1632-41ad-af9e-2827edbbb957
+Srn                             srn://vpc.scw.eu/regions/fr-par/private-networks/0d935a0a-1632-41ad-af9e-2827edbbb957
+Name                            cli-pn-fervent-poitras
 OrganizationID                  5ebc0159-7cb7-406c-9521-9347d1987fb2
 ProjectID                       5ebc0159-7cb7-406c-9521-9347d1987fb2
 Region                          fr-par
@@ -15,38 +15,33 @@ HasObjectStoragePrivateAccess   false
 
 Subnets:
 ID                                    SRN                                                                           CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID                                REGION
-b6a20b73-0fde-4435-befc-ec871c1ef410  srn://vpc.scw.eu/regions/fr-par/subnets/b6a20b73-0fde-4435-befc-ec871c1ef410  few seconds ago  few seconds ago  172.16.0.0/22             5ebc0159-7cb7-406c-9521-9347d1987fb2  7f823fb5-928c-47de-b857-b44427372562  23270651-dde6-4327-97d2-555da5222ae3  fr-par
-821f0d39-3eb5-4b77-bdef-35f944c2229a  srn://vpc.scw.eu/regions/fr-par/subnets/821f0d39-3eb5-4b77-bdef-35f944c2229a  few seconds ago  few seconds ago  fdcd:e4f1:8712:5bdd::/64  5ebc0159-7cb7-406c-9521-9347d1987fb2  7f823fb5-928c-47de-b857-b44427372562  23270651-dde6-4327-97d2-555da5222ae3  fr-par
+93f6395e-7e7f-4925-829c-b2055cb4f17a  srn://vpc.scw.eu/regions/fr-par/subnets/93f6395e-7e7f-4925-829c-b2055cb4f17a  few seconds ago  few seconds ago  172.16.8.0/22             5ebc0159-7cb7-406c-9521-9347d1987fb2  0d935a0a-1632-41ad-af9e-2827edbbb957  23270651-dde6-4327-97d2-555da5222ae3  fr-par
+04dada23-e588-40ac-b8ac-d118d7811f3e  srn://vpc.scw.eu/regions/fr-par/subnets/04dada23-e588-40ac-b8ac-d118d7811f3e  few seconds ago  few seconds ago  fdcd:e4f1:8712:6d51::/64  5ebc0159-7cb7-406c-9521-9347d1987fb2  0d935a0a-1632-41ad-af9e-2827edbbb957  23270651-dde6-4327-97d2-555da5222ae3  fr-par
 
 Instance Servers:
-ID                                    NAME               STATE     NIC ID                                MAC ADDRESS
-1d1cc8a7-5b19-46f6-95c9-4e0b6017cea8  cli-srv-keen-wing  archived  ef1ada7b-c222-4207-9345-2eb5a9ed0a87  02:00:00:15:46:79
+ID                                    NAME                          STATE     NIC ID                                MAC ADDRESS
+ccf7c0c6-3fbd-4d6c-b5a1-406537598095  cli-srv-affectionate-faraday  archived  f2d06028-a7f5-4456-b8f3-e38c54c5773c  02:00:00:1e:da:e7
 
 Load-Balancers:
 ID                                    NAME      STATE
-737f2cd8-77f7-4f42-b909-208f19657a2b  cli-test  ready
+36a15e8c-b1f3-4d69-a836-1e75bb997ebf  cli-test  ready
 
 Rdb Instances:
 ID                                    NAME      STATE  ENDPOINT ID
-bb9f7dae-e5fc-412a-ad02-a6151fae96be  cli-test  ready  5d39932c-c88e-40ce-a897-7490d55a1d64
-
-MongoDB Instances:
-ID                                    NAME            STATE  ENDPOINT ID
-9633b8b9-03e3-43b4-b74d-1e5a17add176  mongo-cli-test  ready  f316c95d-00ff-4653-8317-23db19edd76c
+01518d56-4a6a-4162-b8ae-13610ede5d2c  cli-test  ready  846e69da-1426-4245-9bee-2b870cb5e64e
 
 IPAM IPs:
 ID                                    ADDRESS
-0598dae4-cff4-4ee6-9c42-7045b5919cd2  172.16.0.5/22
-a9020c7a-13ca-40cf-ace9-6a12e1842ba6  fdcd:e4f1:8712:5bdd:342f:be9e:cc7c:fef0/64
-01ec5fb5-f10d-483a-88b3-052b3afe3c7e  172.16.0.4/22
-21f8ce54-58e7-4617-b965-23b31bb2019c  172.16.0.3/22
-a4235cbe-9ad9-41fc-8955-1031c1c3dc0a  fdcd:e4f1:8712:5bdd:9144:8377:6193:fafb/64
-058c483e-2697-4129-aff8-24316b6ab300  172.16.0.2/22
+a5f15b7b-d179-45d2-b91e-475568d1bc36  fdcd:e4f1:8712:6d51:93a1:5cb9:3e4b:2e7a/64
+0d1da2cc-6239-4817-b992-b70e625ab0df  172.16.8.4/22
+7594bcc7-aa3a-44af-b0b4-8b48afd6287f  172.16.8.3/22
+28043086-b0d9-426a-9076-ffa847be6b1c  fdcd:e4f1:8712:6d51:5e1a:b7fc:50ef:aab0/64
+e515fbf1-0b83-495d-8967-d7d6d2e513ea  172.16.8.2/22
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "7f823fb5-928c-47de-b857-b44427372562",
-  "srn": "srn://vpc.scw.eu/regions/fr-par/private-networks/7f823fb5-928c-47de-b857-b44427372562",
-  "name": "cli-pn-objective-hermann",
+  "id": "0d935a0a-1632-41ad-af9e-2827edbbb957",
+  "srn": "srn://vpc.scw.eu/regions/fr-par/private-networks/0d935a0a-1632-41ad-af9e-2827edbbb957",
+  "name": "cli-pn-fervent-poitras",
   "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
   "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
   "region": "fr-par",
@@ -55,24 +50,24 @@ a4235cbe-9ad9-41fc-8955-1031c1c3dc0a  fdcd:e4f1:8712:5bdd:9144:8377:6193:fafb/64
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "b6a20b73-0fde-4435-befc-ec871c1ef410",
-      "srn": "srn://vpc.scw.eu/regions/fr-par/subnets/b6a20b73-0fde-4435-befc-ec871c1ef410",
+      "id": "93f6395e-7e7f-4925-829c-b2055cb4f17a",
+      "srn": "srn://vpc.scw.eu/regions/fr-par/subnets/93f6395e-7e7f-4925-829c-b2055cb4f17a",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.0.0/22",
+      "subnet": "172.16.8.0/22",
       "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "private_network_id": "7f823fb5-928c-47de-b857-b44427372562",
+      "private_network_id": "0d935a0a-1632-41ad-af9e-2827edbbb957",
       "vpc_id": "23270651-dde6-4327-97d2-555da5222ae3",
       "region": "fr-par"
     },
     {
-      "id": "821f0d39-3eb5-4b77-bdef-35f944c2229a",
-      "srn": "srn://vpc.scw.eu/regions/fr-par/subnets/821f0d39-3eb5-4b77-bdef-35f944c2229a",
+      "id": "04dada23-e588-40ac-b8ac-d118d7811f3e",
+      "srn": "srn://vpc.scw.eu/regions/fr-par/subnets/04dada23-e588-40ac-b8ac-d118d7811f3e",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fdcd:e4f1:8712:5bdd::/64",
+      "subnet": "fdcd:e4f1:8712:6d51::/64",
       "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "private_network_id": "7f823fb5-928c-47de-b857-b44427372562",
+      "private_network_id": "0d935a0a-1632-41ad-af9e-2827edbbb957",
       "vpc_id": "23270651-dde6-4327-97d2-555da5222ae3",
       "region": "fr-par"
     }
@@ -83,60 +78,48 @@ a4235cbe-9ad9-41fc-8955-1031c1c3dc0a  fdcd:e4f1:8712:5bdd:9144:8377:6193:fafb/64
   "has_object_storage_private_access": false,
   "instance_servers": [
     {
-      "id": "1d1cc8a7-5b19-46f6-95c9-4e0b6017cea8",
-      "name": "cli-srv-keen-wing",
+      "id": "ccf7c0c6-3fbd-4d6c-b5a1-406537598095",
+      "name": "cli-srv-affectionate-faraday",
       "state": "stopped",
-      "nic_id": "ef1ada7b-c222-4207-9345-2eb5a9ed0a87",
-      "mac": "02:00:00:15:46:79"
+      "nic_id": "f2d06028-a7f5-4456-b8f3-e38c54c5773c",
+      "mac": "02:00:00:1e:da:e7"
     }
   ],
   "lbs": [
     {
-      "id": "737f2cd8-77f7-4f42-b909-208f19657a2b",
+      "id": "36a15e8c-b1f3-4d69-a836-1e75bb997ebf",
       "name": "cli-test",
       "state": "ready"
     }
   ],
   "rdb_instances": [
     {
-      "id": "bb9f7dae-e5fc-412a-ad02-a6151fae96be",
+      "id": "01518d56-4a6a-4162-b8ae-13610ede5d2c",
       "name": "cli-test",
       "state": "ready",
-      "endpoint_id": "5d39932c-c88e-40ce-a897-7490d55a1d64"
-    }
-  ],
-  "mongodb_instances": [
-    {
-      "id": "9633b8b9-03e3-43b4-b74d-1e5a17add176",
-      "name": "mongo-cli-test",
-      "state": "ready",
-      "endpoint_id": "f316c95d-00ff-4653-8317-23db19edd76c"
+      "endpoint_id": "846e69da-1426-4245-9bee-2b870cb5e64e"
     }
   ],
   "ipam_ips": [
     {
-      "id": "0598dae4-cff4-4ee6-9c42-7045b5919cd2",
-      "address": "172.16.0.5/22"
+      "id": "a5f15b7b-d179-45d2-b91e-475568d1bc36",
+      "address": "fdcd:e4f1:8712:6d51:93a1:5cb9:3e4b:2e7a/64"
     },
     {
-      "id": "a9020c7a-13ca-40cf-ace9-6a12e1842ba6",
-      "address": "fdcd:e4f1:8712:5bdd:342f:be9e:cc7c:fef0/64"
+      "id": "0d1da2cc-6239-4817-b992-b70e625ab0df",
+      "address": "172.16.8.4/22"
     },
     {
-      "id": "01ec5fb5-f10d-483a-88b3-052b3afe3c7e",
-      "address": "172.16.0.4/22"
+      "id": "7594bcc7-aa3a-44af-b0b4-8b48afd6287f",
+      "address": "172.16.8.3/22"
     },
     {
-      "id": "21f8ce54-58e7-4617-b965-23b31bb2019c",
-      "address": "172.16.0.3/22"
+      "id": "28043086-b0d9-426a-9076-ffa847be6b1c",
+      "address": "fdcd:e4f1:8712:6d51:5e1a:b7fc:50ef:aab0/64"
     },
     {
-      "id": "a4235cbe-9ad9-41fc-8955-1031c1c3dc0a",
-      "address": "fdcd:e4f1:8712:5bdd:9144:8377:6193:fafb/64"
-    },
-    {
-      "id": "058c483e-2697-4129-aff8-24316b6ab300",
-      "address": "172.16.0.2/22"
+      "id": "e515fbf1-0b83-495d-8967-d7d6d2e513ea",
+      "address": "172.16.8.2/22"
     }
   ]
 }
