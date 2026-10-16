@@ -38,13 +38,17 @@ jobs:
         name: Restore go build cache
         with:
           path: ${{ env.GOCACHE }}
-          key: go-build-${{ runner.os }}
+          key: go-build-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            go-build-${{ runner.os }}-
       - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         id: pnpm-store-cache
         name: Restore pnpm store cache
         with:
           path: ${{ env.PNPM_HOME }}/store
-          key: pnpm-store-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-store-${{ runner.os }}-
       - uses: $/.github/actions/mise
         with:
           cache_save: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
@@ -70,10 +74,10 @@ jobs:
         uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ${{ env.GOCACHE }}
-          key: go-build-${{ runner.os }}
+          key: go-build-${{ runner.os }}-${{ github.sha }}
       - name: Save pnpm store cache
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ${{ env.PNPM_HOME }}/store
-          key: pnpm-store-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
