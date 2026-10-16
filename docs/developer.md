@@ -74,6 +74,27 @@ So let's suppose you would like to run the test `Test_InstallServer` in the bare
 Keep in mind that running a single file is NOT equivalent to run the test for a package.
 Always run the test on the whole package (here the "baremetal" package stored in the folder "./internal/namespaces/baremetal/v1") and use the `--run` to target specific tests.
 
+## Man pages
+
+The CLI can generate and install POSIX man pages (roff) for every built-in command, plus a top-level `scw` page:
+
+```shell
+scw man install /usr/local/share/man   # system-wide (may require elevated privileges)
+scw man install ~/my-man                # per-user man root
+```
+
+Pages are installed in the `man1` subdirectory of the target (i.e. the target is a man *root*).
+To make your system `man` command find them, add the target to `MANPATH`:
+
+```shell
+export MANPATH=$MANPATH:~/my-man
+man scw
+man scw-instance-server-create
+```
+
+On reinstall, only the pages owned by the CLI (`scw.1`, `scw-*.1`) are managed: stale pages are removed and
+pages that no longer correspond to a command disappear, while any other file in the target is left untouched.
+
 ## Adding new tests
 
 We welcome contributions!
