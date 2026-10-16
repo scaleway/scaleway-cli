@@ -287,7 +287,7 @@ func Test_SecurityGroup(t *testing.T) {
 			),
 			func(ctx *core.BeforeFuncCtx) error {
 				editor.SkipEditor = true
-				editor.TestEditedYAML = `security_group_rules:
+				editor.EditorTestContent = `security_group_rules:
 - action: accept
   direction: inbound
   protocol: tcp
@@ -318,23 +318,23 @@ func Test_SecurityGroup(t *testing.T) {
 				sgRules := ctx.Result.([]*instanceSDK.SecurityGroupRule)
 				assert.Len(t, sgRules, 3)
 
-				assert.Equal(t, "tcp", sgRules[0].Protocol.String())
-				assert.Equal(t, "inbound", sgRules[0].Direction.String())
 				assert.Equal(t, "accept", sgRules[0].Action.String())
+				assert.Equal(t, "inbound", sgRules[0].Direction.String())
+				assert.Equal(t, "tcp", sgRules[0].Protocol.String())
 				assert.Equal(t, "1.1.1.1/32", sgRules[0].SourceIPRange.String())
 				assert.Equal(t, uint32(1), sgRules[0].DestinationPorts.Start)
 				assert.Equal(t, uint32(81), sgRules[0].DestinationPorts.End)
 
-				assert.Equal(t, "udp", sgRules[1].Protocol.String())
-				assert.Equal(t, "inbound", sgRules[1].Direction.String())
 				assert.Equal(t, "drop", sgRules[1].Action.String())
+				assert.Equal(t, "inbound", sgRules[1].Direction.String())
+				assert.Equal(t, "udp", sgRules[1].Protocol.String())
 				assert.Equal(t, "3.3.3.3/32", sgRules[1].SourceIPRange.String())
 				assert.Equal(t, uint32(8080), sgRules[1].SourcePorts.Start)
 				assert.Equal(t, uint32(8080), sgRules[1].SourcePorts.End)
 
-				assert.Equal(t, "icmp", sgRules[2].Protocol.String())
-				assert.Equal(t, "outbound", sgRules[2].Direction.String())
 				assert.Equal(t, "drop", sgRules[2].Action.String())
+				assert.Equal(t, "outbound", sgRules[2].Direction.String())
+				assert.Equal(t, "icmp", sgRules[2].Protocol.String())
 				assert.Equal(t, "4.4.4.4/32", sgRules[2].SourceIPRange.String())
 				assert.Equal(
 					t,
@@ -354,7 +354,7 @@ func Test_SecurityGroup(t *testing.T) {
 			instance.DeleteSecurityGroup("SecurityGroup"),
 			func(ctx *core.AfterFuncCtx) error {
 				editor.SkipEditor = false
-				editor.TestEditedYAML = ""
+				editor.EditorTestContent = ""
 
 				return nil
 			},
