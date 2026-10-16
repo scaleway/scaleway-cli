@@ -113,7 +113,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 
 		if customRequest.CliConnect {
 			res := connect.Resource{
-				Product:  "mongodb",
+				Product:  connect.MongoDB,
 				Location: string(instance.Region),
 				ID:       instance.ID,
 				Username: request.UserName,
@@ -179,7 +179,7 @@ func instanceDeleteBuilder(c *core.Command) *core.Command {
 
 		if args.CliConnect {
 			resource := connect.Resource{
-				Product:  "mongodb",
+				Product:  connect.MongoDB,
 				Location: string(args.Region),
 				ID:       args.InstanceID,
 			}

@@ -183,7 +183,7 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 
 		if customRequest.CliConnect {
 			res := connect.Resource{
-				Product:  "rdb",
+				Product:  connect.RDB,
 				Location: string(updateUserRequest.Region),
 				ID:       updateUserRequest.InstanceID,
 				Username: updateUserRequest.Name,

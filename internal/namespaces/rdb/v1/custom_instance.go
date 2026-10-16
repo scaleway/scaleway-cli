@@ -371,7 +371,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 
 		if customRequest.CliConnect {
 			res := connect.Resource{
-				Product:  "rdb",
+				Product:  connect.RDB,
 				Location: string(instance.Region),
 				ID:       instance.ID,
 				Username: createInstanceRequest.UserName,
@@ -790,7 +790,7 @@ func instanceDeleteBuilder(c *core.Command) *core.Command {
 
 		if args.CliConnect {
 			resource := connect.Resource{
-				Product:  "rdb",
+				Product:  connect.RDB,
 				Location: string(args.Region),
 				ID:       args.InstanceID,
 			}
@@ -1075,7 +1075,7 @@ and {{.Engine}}, and the result is executed as the connect command.`,
 			}
 
 			password, found := connect.Resource{
-				Product:  "rdb",
+				Product:  connect.RDB,
 				Location: string(instance.Region),
 				ID:       instance.ID,
 				Username: username,

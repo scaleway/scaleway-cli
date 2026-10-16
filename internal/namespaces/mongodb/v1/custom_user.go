@@ -27,7 +27,7 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 		return connect.RunUserUpdate(
 			ctx,
 			req.CliConnect,
-			"mongodb",
+			connect.MongoDB,
 			"instance user",
 			req.Region,
 			string(req.Region),

@@ -19,6 +19,13 @@ import (
 // Secret Manager endpoints reject relative paths.
 const SecretPath = "/cli-connect"
 
+const (
+	Redis         = "redis"
+	RDB           = "rdb"
+	MongoDB       = "mongodb"
+	Datawarehouse = "datawarehouse"
+)
+
 // CliConnectArgSpec is the shared --cli-connect flag spec.
 func CliConnectArgSpec() *core.ArgSpec {
 	return &core.ArgSpec{
@@ -89,7 +96,7 @@ func (r Resource) Description() string {
 
 func connectCommand(product, location, resourceID, username string) string {
 	switch product {
-	case "rdb", "mongodb":
+	case RDB, MongoDB:
 		user := ""
 		if username != "" {
 			user = " username=" + username
@@ -102,9 +109,9 @@ func connectCommand(product, location, resourceID, username string) string {
 			user,
 			location,
 		)
-	case "redis":
+	case Redis:
 		return fmt.Sprintf("scw redis cluster connect %s --zone %s", resourceID, location)
-	case "datawarehouse":
+	case Datawarehouse:
 		return fmt.Sprintf(
 			"scw datawarehouse deployment connect %s --region %s",
 			resourceID,

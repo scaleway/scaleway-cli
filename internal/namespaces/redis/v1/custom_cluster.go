@@ -94,7 +94,7 @@ func clusterUpdateBuilder(c *core.Command) *core.Command {
 		return connect.RunUserUpdate(
 			ctx,
 			req.CliConnect,
-			"redis",
+			connect.Redis,
 			"cluster",
 			region,
 			string(req.Zone),
@@ -221,7 +221,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 			}
 
 			res := connect.Resource{
-				Product:  "redis",
+				Product:  connect.Redis,
 				Location: string(cluster.Zone),
 				ID:       cluster.ID,
 				Username: createClusterRequest.UserName,
@@ -293,7 +293,7 @@ func clusterDeleteBuilder(c *core.Command) *core.Command {
 			}
 
 			resource := connect.Resource{
-				Product:  "redis",
+				Product:  connect.Redis,
 				Location: string(args.Zone),
 				ID:       args.ClusterID,
 			}
@@ -725,7 +725,7 @@ and the result is executed as the connect command.`,
 			}
 
 			password, err := connect.Resource{
-				Product:  "redis",
+				Product:  connect.Redis,
 				Location: string(cluster.Zone),
 				ID:       cluster.ID,
 				Username: cluster.UserName,

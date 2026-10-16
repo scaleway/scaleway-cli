@@ -167,7 +167,7 @@ Use --template to run an arbitrary tool: the Go text/template is rendered with
 			}
 
 			password, err := connect.Resource{
-				Product:  "mongodb",
+				Product:  connect.MongoDB,
 				Location: string(instance.Region),
 				ID:       instance.ID,
 				Username: username,
