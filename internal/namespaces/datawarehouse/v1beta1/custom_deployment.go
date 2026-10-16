@@ -70,7 +70,7 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 		if customRequest.CliConnect {
 			res := connect.Resource{
 				Product:  connect.Datawarehouse,
-				Location: string(deployment.Region),
+				Location: deployment.Region.String(),
 				ID:       deployment.ID,
 				Username: dwAdminUsername,
 			}
@@ -113,7 +113,7 @@ func deploymentDeleteBuilder(c *core.Command) *core.Command {
 		if args.CliConnect {
 			resource := connect.Resource{
 				Product:  connect.Datawarehouse,
-				Location: string(args.Region),
+				Location: args.Region.String(),
 				ID:       args.DeploymentID,
 			}
 			if err := resource.Delete(ctx, args.Region); err != nil {
@@ -248,7 +248,7 @@ and the result is executed as the connect command.`,
 			// The Data Warehouse admin user is always "scwadmin"
 			password, err := connect.Resource{
 				Product:  connect.Datawarehouse,
-				Location: string(deployment.Region),
+				Location: deployment.Region.String(),
 				ID:       deployment.ID,
 				Username: dwAdminUsername,
 			}.FetchOrPrompt(ctx, deployment.Region, dwAdminUsername)

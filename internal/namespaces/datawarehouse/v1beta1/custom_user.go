@@ -30,7 +30,7 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 			connect.Datawarehouse,
 			"deployment user",
 			req.Region,
-			string(req.Region),
+			req.Region.String(),
 			req.DeploymentID,
 			req.Name,
 			&req.Password,
