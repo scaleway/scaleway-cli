@@ -91,6 +91,42 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+type deleteDeploymentRequestCustom struct {
+	*datawarehouse.DeleteDeploymentRequest
+	CliConnect bool
+}
+
+func deploymentDeleteBuilder(c *core.Command) *core.Command {
+	c.ArgsType = reflect.TypeFor[deleteDeploymentRequestCustom]()
+	c.ArgSpecs.AddBefore("region", connect.CliConnectDeleteArgSpec())
+
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
+		args := argsI.(*deleteDeploymentRequestCustom)
+
+		client := core.ExtractClient(ctx)
+		api := datawarehouse.NewAPI(client)
+		deployment, err := api.DeleteDeployment(args.DeleteDeploymentRequest, scw.WithContext(ctx))
+		if err != nil {
+			return nil, err
+		}
+
+		if args.CliConnect {
+			resource := connect.Resource{
+				Product:  "datawarehouse",
+				Location: string(args.Region),
+				ID:       args.DeploymentID,
+			}
+			if err := resource.Delete(ctx, args.Region); err != nil {
+				return deployment, err
+			}
+		}
+
+		return deployment, nil
+	}
+
+	return c
+}
+
 type deploymentConnectArgs struct {
 	Region         scw.Region
 	PrivateNetwork bool

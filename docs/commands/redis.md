@@ -215,10 +215,11 @@ scw redis cluster delete <cluster-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                             | Argument Specifications                                                                                 |
-|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| cluster-id | UUID of the Database Instance to delete                                 | Required                                                                                                |
-| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
+| Name        | Description                                                                       | Argument Specifications                                                                                 |
+|-------------|-----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| cluster-id  | UUID of the Database Instance to delete                                           | Required                                                                                                |
+| cli-connect | Remove the credentials secret of the resource, if it was created with cli-connect | Default: `false`                                                                                        |
+| zone        | Zone to target. If none is passed will use default zone from the config           | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 

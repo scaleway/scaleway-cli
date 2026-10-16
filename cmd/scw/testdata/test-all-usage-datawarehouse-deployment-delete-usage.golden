@@ -6,8 +6,9 @@ USAGE:
   scw datawarehouse deployment delete <deployment-id ...> [arg=value ...]
 
 ARGS:
-  deployment-id     UUID of the deployment to delete
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  deployment-id         UUID of the deployment to delete
+  [cli-connect=false]   Remove the credentials secret of the resource, if it was created with cli-connect
+  [region=fr-par]       Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help                help for delete

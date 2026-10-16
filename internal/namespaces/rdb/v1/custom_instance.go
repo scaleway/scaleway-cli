@@ -745,6 +745,11 @@ func instanceUpdateRequestHasChanges(req *rdbSDK.UpdateInstanceRequest) bool {
 		req.BackupScheduleStartHour != nil
 }
 
+type rdbDeleteInstanceRequestCustom struct {
+	*rdbSDK.DeleteInstanceRequest
+	CliConnect bool
+}
+
 func instanceDeleteBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
@@ -765,6 +770,33 @@ func instanceDeleteBuilder(c *core.Command) *core.Command {
 			}
 
 			return nil, err
+		}
+
+		return instance, nil
+	}
+
+	c.ArgsType = reflect.TypeFor[rdbDeleteInstanceRequestCustom]()
+	c.ArgSpecs.AddBefore("region", connect.CliConnectDeleteArgSpec())
+
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
+		args := argsI.(*rdbDeleteInstanceRequestCustom)
+
+		client := core.ExtractClient(ctx)
+		api := rdbSDK.NewAPI(client)
+		instance, err := api.DeleteInstance(args.DeleteInstanceRequest, scw.WithContext(ctx))
+		if err != nil {
+			return nil, err
+		}
+
+		if args.CliConnect {
+			resource := connect.Resource{
+				Product:  "rdb",
+				Location: string(args.Region),
+				ID:       args.InstanceID,
+			}
+			if err := resource.Delete(ctx, args.Region); err != nil {
+				return instance, err
+			}
 		}
 
 		return instance, nil

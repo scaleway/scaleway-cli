@@ -10,6 +10,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("datawarehouse").Groups = []string{"database"}
 
 	cmds.MustFind("datawarehouse", "deployment", "create").Override(deploymentCreateBuilder)
+	cmds.MustFind("datawarehouse", "deployment", "delete").Override(deploymentDeleteBuilder)
 	cmds.MustFind("datawarehouse", "deployment", "get").SeeAlsos = connectSeeAlsos
 	cmds.MustFind("datawarehouse", "user", "update").Override(userUpdateBuilder)
 

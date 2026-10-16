@@ -158,6 +158,42 @@ func fetchLatestEngine(ctx context.Context) (string, string) {
 	return latestValueVersion.Version, latestValueVersion.Version
 }
 
+type mongodbDeleteInstanceRequestCustom struct {
+	*mongodb.DeleteInstanceRequest
+	CliConnect bool
+}
+
+func instanceDeleteBuilder(c *core.Command) *core.Command {
+	c.ArgsType = reflect.TypeFor[mongodbDeleteInstanceRequestCustom]()
+	c.ArgSpecs.AddBefore("region", connect.CliConnectDeleteArgSpec())
+
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
+		args := argsI.(*mongodbDeleteInstanceRequestCustom)
+
+		client := core.ExtractClient(ctx)
+		api := mongodb.NewAPI(client)
+		instance, err := api.DeleteInstance(args.DeleteInstanceRequest, scw.WithContext(ctx))
+		if err != nil {
+			return nil, err
+		}
+
+		if args.CliConnect {
+			resource := connect.Resource{
+				Product:  "mongodb",
+				Location: string(args.Region),
+				ID:       args.InstanceID,
+			}
+			if err := resource.Delete(ctx, args.Region); err != nil {
+				return instance, err
+			}
+		}
+
+		return instance, nil
+	}
+
+	return c
+}
+
 var completeListNodeTypeCache *mongodb.ListNodeTypesResponse
 
 func autoCompleteNodeType(

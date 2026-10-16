@@ -169,10 +169,11 @@ scw mongodb instance delete <instance-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                                 | Argument Specifications                 |
-|-------------|-----------------------------------------------------------------------------|-----------------------------------------|
-| instance-id | UUID of the Database Instance to delete                                     | Required                                |
-| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+| Name        | Description                                                                       | Argument Specifications                 |
+|-------------|-----------------------------------------------------------------------------------|-----------------------------------------|
+| instance-id | UUID of the Database Instance to delete                                           | Required                                |
+| cli-connect | Remove the credentials secret of the resource, if it was created with cli-connect | Default: `false`                        |
+| region      | Region to target. If none is passed will use default region from the config       | Default: `fr-par`<br />One of: `fr-par` |
 
 
 

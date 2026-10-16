@@ -100,6 +100,27 @@ func Test_CreateInstanceCliConnect(t *testing.T) {
 	}))
 }
 
+func Test_DeleteInstanceCliConnect(t *testing.T) {
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: rdb.GetCommands(),
+		Cmd:      "scw rdb instance delete 19fe63d7-3a09-4c5b-87ba-0db8206ea38d cli-connect=true",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+	}))
+
+	// Deleting a resource that never had cli-connect must be a no-op.
+	t.Run("WithoutSecret", core.Test(&core.TestConfig{
+		Commands: rdb.GetCommands(),
+		Cmd:      "scw rdb instance delete 19fe63d7-3a09-4c5b-87ba-0db8206ea38d cli-connect=true",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+	}))
+}
+
 func Test_CreateInstanceInitEndpoints(t *testing.T) {
 	cmds := rdb.GetCommands()
 	cmds.Merge(vpc.GetCommands())

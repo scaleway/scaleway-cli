@@ -31,6 +31,19 @@ func CliConnectArgSpec() *core.ArgSpec {
 	}
 }
 
+// CliConnectDeleteArgSpec is the shared cli-connect arg spec of the delete
+// commands: it removes the credentials secret of the deleted resource.
+func CliConnectDeleteArgSpec() *core.ArgSpec {
+	return &core.ArgSpec{
+		Name:       "cli-connect",
+		Short:      `Remove the credentials secret of the resource, if it was created with cli-connect`,
+		Required:   false,
+		Deprecated: false,
+		Positional: false,
+		Default:    core.DefaultValueSetter("false"),
+	}
+}
+
 var description = "secret used by the cli to ease up connection"
 
 // Resource identifies the product resource whose credentials cli-connect
@@ -210,6 +223,52 @@ func (r Resource) FetchOrPrompt(
 	}
 
 	return PromptPassword(ctx)
+}
+
+// Delete removes the credentials secret of the resource, so that deleting a
+// resource with cli-connect does not leave orphaned secrets behind. It is a
+// no-op when the secret does not exist.
+//
+// ponytail: the delete commands call this right after the delete API call
+// succeeds, i.e. before --wait confirms the resource is gone; if the wait
+// then fails the secret is already removed. Move the call into the delete
+// WaitFuncs if that proves confusing.
+func (r Resource) Delete(ctx context.Context, region scw.Region) error {
+	client := core.ExtractClient(ctx)
+	api := secretSDK.NewAPI(client)
+
+	name := r.Name()
+	path := r.Path()
+	secrets, err := api.ListSecrets(&secretSDK.ListSecretsRequest{
+		Region: region,
+		Name:   &name,
+		Path:   &path,
+	}, scw.WithAllPages())
+	if err != nil {
+		return fmt.Errorf("failed to list secrets %s/%s: %w", path, name, err)
+	}
+
+	for _, secret := range secrets.Secrets {
+		// The name filter may be a prefix match: only remove the exact
+		// credentials secret of the resource.
+		if secret.Name != name {
+			continue
+		}
+		if err := api.DeleteSecret(&secretSDK.DeleteSecretRequest{
+			Region:   region,
+			SecretID: secret.ID,
+		}); err != nil {
+			return fmt.Errorf("failed to delete secret %s: %w", secret.ID, err)
+		}
+
+		interactive.Printf("Credentials secret %s (path: %s) removed\n", name, path)
+
+		return nil
+	}
+
+	core.ExtractLogger(ctx).Debugf("no credentials secret to remove for %s %s", r.Product, r.ID)
+
+	return nil
 }
 
 // RunUserUpdate runs the cli-connect flow around a user update: it prompts

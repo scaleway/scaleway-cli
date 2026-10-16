@@ -268,6 +268,43 @@ func clusterDeleteBuilder(c *core.Command) *core.Command {
 		return cluster, nil
 	}
 
+	type deleteClusterRequestCustom struct {
+		*redis.DeleteClusterRequest
+		CliConnect bool
+	}
+
+	c.ArgsType = reflect.TypeFor[deleteClusterRequestCustom]()
+	c.ArgSpecs.AddBefore("zone", connect.CliConnectDeleteArgSpec())
+
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
+		args := argsI.(*deleteClusterRequestCustom)
+
+		client := core.ExtractClient(ctx)
+		api := redis.NewAPI(client)
+		cluster, err := api.DeleteCluster(args.DeleteClusterRequest, scw.WithContext(ctx))
+		if err != nil {
+			return nil, err
+		}
+
+		if args.CliConnect {
+			region, err := args.Zone.Region()
+			if err != nil {
+				return cluster, err
+			}
+
+			resource := connect.Resource{
+				Product:  "redis",
+				Location: string(args.Zone),
+				ID:       args.ClusterID,
+			}
+			if err := resource.Delete(ctx, region); err != nil {
+				return cluster, err
+			}
+		}
+
+		return cluster, nil
+	}
+
 	return c
 }
 
