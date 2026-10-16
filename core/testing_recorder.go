@@ -96,6 +96,43 @@ func customS3Matcher(r *http.Request, i cassette.Request) bool {
 		actualURL.RawQuery == expectedURL.RawQuery
 }
 
+// newCassetteRecorder creates a recorder bound to the given cassette, with the
+// filters and the matcher shared by every cassette user.
+func newCassetteRecorder(cassettePath string, mode recorder.Mode) (*recorder.Recorder, error) {
+	r, err := recorder.NewAsMode(cassettePath, mode, &SocketPassthroughTransport{})
+	if err != nil {
+		return nil, err
+	}
+
+	// Add a filter which removes Authorization headers from all requests:
+	r.AddFilter(cassetteRequestFilter)
+
+	// Remove secrets from response
+	r.AddSaveFilter(cassetteResponseFilter)
+
+	r.SetMatcher(cassetteMatcher)
+
+	return r, nil
+}
+
+// NewReplayHTTPClient creates an httpClient replaying the given cassette.
+// Contrary to the test recorder, the cassette is named explicitly, so callers
+// that are not a test can replay interactions recorded by the test suite.
+// Interactions are replayable, meaning the same request can be served any
+// number of times.
+//
+// The returned stop function must be called once done with the client.
+func NewReplayHTTPClient(cassettePath string) (client *http.Client, stop func() error, err error) {
+	r, err := newCassetteRecorder(cassettePath, recorder.ModeReplaying)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	r.SetReplayableInteractions(true)
+
+	return &http.Client{Transport: &retryableHTTPTransport{transport: r}}, r.Stop, nil
+}
+
 // getHTTPRecoder creates a new httpClient that records all HTTP requests in a cassette.
 // This cassette is then replayed whenever tests are executed again. This means that once the
 // requests are recorded in the cassette, no more real HTTP request must be made to run the tests.
@@ -110,22 +147,10 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 	}
 
 	// Setup recorder and scw client
-	r, err := recorder.NewAsMode(
-		getTestFilePath(t, ".cassette"),
-		recorderMode,
-		&SocketPassthroughTransport{},
-	)
+	r, err := newCassetteRecorder(getTestFilePath(t, ".cassette"), recorderMode)
 	if err != nil {
 		return nil, nil, err
 	}
-
-	// Add a filter which removes Authorization headers from all requests:
-	r.AddFilter(cassetteRequestFilter)
-
-	// Remove secrets from response
-	r.AddSaveFilter(cassetteResponseFilter)
-
-	r.SetMatcher(cassetteMatcher)
 
 	return &http.Client{Transport: &retryableHTTPTransport{transport: r}}, func() {
 		assert.NoError(t, r.Stop()) // Make sure recorder is stopped once done with it
