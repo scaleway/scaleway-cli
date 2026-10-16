@@ -6,8 +6,9 @@ USAGE:
   scw mongodb instance delete <instance-id ...> [arg=value ...]
 
 ARGS:
-  instance-id       UUID of the Database Instance to delete
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  instance-id           UUID of the Database Instance to delete
+  [cli-connect=false]   Remove the credentials secret of the resource, if it was created with cli-connect
+  [region=fr-par]       Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help                help for delete

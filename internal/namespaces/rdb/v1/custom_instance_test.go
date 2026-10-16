@@ -2,6 +2,7 @@ package rdb_test
 
 import (
 	"fmt"
+	"os/exec"
 	"strings"
 	"testing"
 
@@ -68,7 +69,7 @@ func Test_CreateInstance(t *testing.T) {
 	t.Run("With password generator", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
 		Cmd: fmt.Sprintf(
-			strings.Replace(baseCommand, "password=%s", "generate-password=true", 1),
+			strings.Replace(baseCommand, " password=%s", "", 1),
 			name,
 			engine,
 			user,
@@ -83,6 +84,40 @@ func Test_CreateInstance(t *testing.T) {
 			},
 		),
 		AfterFunc: core.ExecAfterCmd("scw rdb instance delete {{ .CmdResult.ID }}"),
+	}))
+}
+
+func Test_CreateInstanceCliConnect(t *testing.T) {
+	cmd := strings.Replace(baseCommand, "--wait", "cli-connect=true --wait", 1)
+
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: rdb.GetCommands(),
+		Cmd:      fmt.Sprintf(cmd, name, engine, user, password),
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+	}))
+}
+
+func Test_DeleteInstanceCliConnect(t *testing.T) {
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: rdb.GetCommands(),
+		Cmd:      "scw rdb instance delete 19fe63d7-3a09-4c5b-87ba-0db8206ea38d cli-connect=true",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+	}))
+
+	// Deleting a resource that never had cli-connect must be a no-op.
+	t.Run("WithoutSecret", core.Test(&core.TestConfig{
+		Commands: rdb.GetCommands(),
+		Cmd:      "scw rdb instance delete 19fe63d7-3a09-4c5b-87ba-0db8206ea38d cli-connect=true",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
 	}))
 }
 
@@ -387,6 +422,30 @@ func Test_Connect(t *testing.T) {
 		),
 		AfterFunc: deleteInstance(),
 	}))
+	t.Run("psql with secret", core.Test(&core.TestConfig{
+		Commands: rdb.GetCommands(),
+		BeforeFunc: core.ExecStoreBeforeCmd(
+			"Instance",
+			fmt.Sprintf(
+				strings.Replace(baseCommand, "--wait", "cli-connect=true --wait", 1),
+				name, engine, user, password,
+			),
+		),
+		Cmd: "scw rdb instance connect {{ .Instance.ID }}",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+		OverrideExec: func(ctx *core.ExecFuncCtx, cmd *exec.Cmd) (int, error) {
+			expected := "psql --host 195.154.71.12 --port 6467 --username foobar --dbname rdb"
+			assert.Equal(ctx.T, expected, strings.Join(cmd.Args, " "))
+			require.Contains(ctx.T, cmd.Env, "PGPASSWORD="+password)
+
+			return 0, nil
+		},
+		AfterFunc: deleteInstance(),
+	}))
+
 	t.Run("psql", core.Test(&core.TestConfig{
 		Commands: rdb.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(

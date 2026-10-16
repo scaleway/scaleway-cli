@@ -122,6 +122,9 @@ A Redis™ Database Instance, also known as a Redis™ cluster, consists of eith
 ### Connect to a Redis cluster using locally installed redis-cli
 
 Connect to a Redis cluster using locally installed redis-cli. The command will check if redis-cli is installed, download the certificate if TLS is enabled, and prompt for the password.
+Use --template to run an arbitrary tool: the Go text/template is rendered with
+{{.Username}}, {{.Password}} (from the persisted secret), {{.Host}}, {{.Port}}, {{.CertPath}} and {{.TLS}},
+and the result is executed as the connect command.
 
 **Usage:**
 
@@ -132,13 +135,12 @@ scw redis cluster connect <cluster-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                             | Argument Specifications                                                                                 |
-|-----------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| private-network | Connect by the private network endpoint attached.                       | Default: `false`                                                                                        |
-| cluster-id      | UUID of the cluster                                                     | Required                                                                                                |
-| cli-redis       | Command line tool to use, default to redis-cli                          |                                                                                                         |
-| cli-args        | Additional arguments to pass to redis-cli                               |                                                                                                         |
-| zone            | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
+| Name            | Description                                                                             | Argument Specifications                                                                                 |
+|-----------------|-----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| private-network | Connect by the private network endpoint attached.                                       | Default: `false`                                                                                        |
+| cluster-id      | UUID of the cluster                                                                     | Required                                                                                                |
+| template        | Go text/template rendered into a command line that replaces the default connect command |                                                                                                         |
+| zone            | Zone to target. If none is passed will use default zone from the config                 | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 **Examples:**
@@ -152,6 +154,11 @@ scw redis cluster connect 11111111-1111-1111-1111-111111111111
 Connect to a Redis cluster via private network
 ```shell
 scw redis cluster connect 11111111-1111-1111-1111-111111111111 private-network=true
+```
+
+Connect with a custom tool using a template
+```shell
+scw redis cluster connect 11111111-1111-1111-1111-111111111111 --template "my-redis-tool -h {{.Host}} -p {{.Port}}"
 ```
 
 
@@ -170,27 +177,28 @@ scw redis cluster create [arg=value ...]
 
 **Arguments:**
 
-| Name                                                  | Description                                                                              | Argument Specifications                                                                                 |
-|-------------------------------------------------------|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| project-id                                            | Project ID to use. If none is passed the default project ID will be used                 |                                                                                                         |
-| name                                                  | Name of the Database Instance                                                            | Default: `<generated>`                                                                                  |
-| version                                               | Redis™ engine version of the Database Instance                                           | Required<br />Default: `latest`                                                                         |
-| tags.{index}                                          | Tags to apply to the Database Instance                                                   |                                                                                                         |
-| node-type                                             | Type of node to use for the Database Instance                                            | Required                                                                                                |
-| user-name                                             | Name of the user created upon Database Instance creation                                 | Required                                                                                                |
-| password                                              | Password of the user                                                                     | Required                                                                                                |
-| cluster-size                                          | Number of nodes in the Redis™ cluster                                                    |                                                                                                         |
-| acl-rules.{index}.ip-cidr                             | IPv4 network address of the rule                                                         |                                                                                                         |
-| acl-rules.{index}.description                         | Description of the rule                                                                  |                                                                                                         |
-| endpoints.{index}.private-network.enable-ipam         | Will configure your Private Network endpoint with Scaleway IPAM service if true          | Default: `false`                                                                                        |
-| endpoints.{index}.private-network.id                  | UUID of the Private Network to connect to the Database Instance                          |                                                                                                         |
-| endpoints.{index}.private-network.service-ips.{index} | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |                                                                                                         |
-| endpoints.{index}.private-network.ipam-config         | Automated configuration of your Private Network endpoint with Scaleway IPAM service.     |                                                                                                         |
-| endpoints.{index}.public-network                      | Public network specification details                                                     |                                                                                                         |
-| tls-enabled                                           | Defines whether or not TLS is enabled                                                    |                                                                                                         |
-| cluster-settings.{index}.value                        | Value of the setting                                                                     |                                                                                                         |
-| cluster-settings.{index}.name                         | Name of the setting                                                                      |                                                                                                         |
-| zone                                                  | Zone to target. If none is passed will use default zone from the config                  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
+| Name                                                  | Description                                                                                                        | Argument Specifications                                                                                 |
+|-------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| project-id                                            | Project ID to use. If none is passed the default project ID will be used                                           |                                                                                                         |
+| name                                                  | Name of the Database Instance                                                                                      | Default: `<generated>`                                                                                  |
+| version                                               | Redis™ engine version of the Database Instance                                                                     | Required<br />Default: `latest`                                                                         |
+| tags.{index}                                          | Tags to apply to the Database Instance                                                                             |                                                                                                         |
+| node-type                                             | Type of node to use for the Database Instance                                                                      | Required                                                                                                |
+| user-name                                             | Name of the user created upon Database Instance creation                                                           | Required<br />Default: `admin`                                                                          |
+| cli-connect                                           | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting | Default: `false`                                                                                        |
+| password                                              | Password of the user                                                                                               |                                                                                                         |
+| cluster-size                                          | Number of nodes in the Redis™ cluster                                                                              |                                                                                                         |
+| acl-rules.{index}.ip-cidr                             | IPv4 network address of the rule                                                                                   |                                                                                                         |
+| acl-rules.{index}.description                         | Description of the rule                                                                                            |                                                                                                         |
+| endpoints.{index}.private-network.enable-ipam         | Will configure your Private Network endpoint with Scaleway IPAM service if true                                    | Default: `false`                                                                                        |
+| endpoints.{index}.private-network.id                  | UUID of the Private Network to connect to the Database Instance                                                    |                                                                                                         |
+| endpoints.{index}.private-network.service-ips.{index} | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node.                           |                                                                                                         |
+| endpoints.{index}.private-network.ipam-config         | Automated configuration of your Private Network endpoint with Scaleway IPAM service.                               |                                                                                                         |
+| endpoints.{index}.public-network                      | Public network specification details                                                                               |                                                                                                         |
+| tls-enabled                                           | Defines whether or not TLS is enabled                                                                              |                                                                                                         |
+| cluster-settings.{index}.value                        | Value of the setting                                                                                               |                                                                                                         |
+| cluster-settings.{index}.name                         | Name of the setting                                                                                                |                                                                                                         |
+| zone                                                  | Zone to target. If none is passed will use default zone from the config                                            | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -207,10 +215,11 @@ scw redis cluster delete <cluster-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                             | Argument Specifications                                                                                 |
-|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| cluster-id | UUID of the Database Instance to delete                                 | Required                                                                                                |
-| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
+| Name        | Description                                                                       | Argument Specifications                                                                                 |
+|-------------|-----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| cluster-id  | UUID of the Database Instance to delete                                           | Required                                                                                                |
+| cli-connect | Remove the credentials secret of the resource, if it was created with cli-connect | Default: `false`                                                                                        |
+| zone        | Zone to target. If none is passed will use default zone from the config           | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -358,14 +367,15 @@ scw redis cluster update <cluster-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                             | Argument Specifications                                                                                 |
-|--------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| name         | Name of the Database Instance                                           |                                                                                                         |
-| tags.{index} | Database Instance tags                                                  |                                                                                                         |
-| user-name    | Name of the Database Instance user                                      |                                                                                                         |
-| password     | Password of the Database Instance user                                  |                                                                                                         |
-| cluster-id   | UUID of the Database Instance to update                                 | Required                                                                                                |
-| zone         | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
+| Name         | Description                                                                                                        | Argument Specifications                                                                                 |
+|--------------|--------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| name         | Name of the Database Instance                                                                                      |                                                                                                         |
+| tags.{index} | Database Instance tags                                                                                             |                                                                                                         |
+| user-name    | Name of the Database Instance user                                                                                 |                                                                                                         |
+| cli-connect  | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting | Default: `false`                                                                                        |
+| password     | Password of the Database Instance user                                                                             |                                                                                                         |
+| cluster-id   | UUID of the Database Instance to update                                                                            | Required                                                                                                |
+| zone         | Zone to target. If none is passed will use default zone from the config                                            | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 

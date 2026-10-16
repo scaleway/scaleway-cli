@@ -9,6 +9,9 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -16,6 +19,18 @@ import (
 const (
 	instanceActionTimeout = 20 * time.Minute
 )
+
+type createInstanceRequestCustom struct {
+	*mongodb.CreateInstanceRequest
+	CliConnect bool
+}
+
+var connectSeeAlsos = []*core.SeeAlso{
+	{
+		Command: "scw mongodb instance connect",
+		Short:   "Connect to a MongoDB® Database Instance using locally installed mongosh",
+	},
+}
 
 var instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
 	mongodb.InstanceStatusConfiguring: &human.EnumMarshalSpec{
@@ -59,6 +74,63 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("volume.type").Default = core.DefaultValueSetter("sbs_5k")
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 
+	c.ArgsType = reflect.TypeFor[createInstanceRequestCustom]()
+	c.ArgSpecs.AddBefore("user-name", connect.CliConnectArgSpec())
+	c.ArgSpecs.GetByName("password").Required = false
+	c.ArgSpecs.GetByName("user-name").Default = core.DefaultValueSetter("admin")
+
+	c.SeeAlsos = []*core.SeeAlso{
+		{
+			Command: "scw mongodb instance connect",
+			Short:   "Connect to a MongoDB® Database Instance using locally installed mongosh",
+		},
+		{
+			Command: "scw mongodb user update",
+			Short:   "Change the password of a user of the instance",
+		},
+	}
+
+	c.Run = func(ctx context.Context, args any) (any, error) {
+		customRequest := args.(*createInstanceRequestCustom)
+		request := customRequest.CreateInstanceRequest
+
+		generatedPassword, err := passwordgenerator.GenerateIfEmpty(&request.Password)
+		if err != nil {
+			return nil, err
+		}
+
+		client := core.ExtractClient(ctx)
+		api := mongodb.NewAPI(client)
+
+		instance, err := api.CreateInstance(request, scw.WithContext(ctx))
+		if err != nil {
+			return nil, err
+		}
+
+		if generatedPassword != "" {
+			interactive.Printf("Your generated password is %s \n\n", generatedPassword)
+		}
+
+		if customRequest.CliConnect {
+			res := connect.Resource{
+				Product:  connect.MongoDB,
+				Location: string(instance.Region),
+				ID:       instance.ID,
+				Username: request.UserName,
+			}
+			if err := res.SaveSecret(
+				ctx,
+				instance.Region,
+				request.UserName,
+				request.Password,
+			); err != nil {
+				return nil, err
+			}
+		}
+
+		return instance, nil
+	}
+
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		getResp := respI.(*mongodb.Instance)
 		api := mongodb.NewAPI(core.ExtractClient(ctx))
@@ -83,6 +155,42 @@ func fetchLatestEngine(ctx context.Context) (string, string) {
 	}
 
 	return latestValueVersion.Version, latestValueVersion.Version
+}
+
+type mongodbDeleteInstanceRequestCustom struct {
+	*mongodb.DeleteInstanceRequest
+	CliConnect bool
+}
+
+func instanceDeleteBuilder(c *core.Command) *core.Command {
+	c.ArgsType = reflect.TypeFor[mongodbDeleteInstanceRequestCustom]()
+	c.ArgSpecs.AddBefore("region", connect.CliConnectDeleteArgSpec())
+
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
+		args := argsI.(*mongodbDeleteInstanceRequestCustom)
+
+		client := core.ExtractClient(ctx)
+		api := mongodb.NewAPI(client)
+		instance, err := api.DeleteInstance(args.DeleteInstanceRequest, scw.WithContext(ctx))
+		if err != nil {
+			return nil, err
+		}
+
+		if args.CliConnect {
+			resource := connect.Resource{
+				Product:  connect.MongoDB,
+				Location: string(args.Region),
+				ID:       args.InstanceID,
+			}
+			if err := resource.DeleteSecret(ctx, args.Region); err != nil {
+				return instance, err
+			}
+		}
+
+		return instance, nil
+	}
+
+	return c
 }
 
 var completeListNodeTypeCache *mongodb.ListNodeTypesResponse

@@ -2,11 +2,10 @@ package rdb
 
 import (
 	"context"
-	"errors"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -91,30 +90,14 @@ func userListBuilder(c *core.Command) *core.Command {
 }
 
 func userCreateBuilder(c *core.Command) *core.Command {
-	type rdbCreateUserRequestCustom struct {
-		*rdb.CreateUserRequest
-		GeneratePassword bool
-	}
-
 	type rdbCreateUserResponseCustom struct {
 		*rdb.User
 		Password string `json:"password"`
 	}
 
-	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
-		Name:       "generate-password",
-		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
-		Required:   false,
-		Deprecated: false,
-		Positional: false,
-		Default:    core.DefaultValueSetter("true"),
-	})
-	c.ArgsType = reflect.TypeFor[rdbCreateUserRequestCustom]()
-
 	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
-		customRequest := argsI.(*rdbCreateUserRequestCustom)
-		req := customRequest.CreateUserRequest
+		req := argsI.(*rdb.CreateUserRequest)
 
 		if req.Name != "" {
 			users, err := api.ListUsers(&rdb.ListUsersRequest{
@@ -130,13 +113,9 @@ func userCreateBuilder(c *core.Command) *core.Command {
 			}
 		}
 
-		if customRequest.GeneratePassword && customRequest.Password == "" {
-			password, err := passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
-			if err != nil {
-				return nil, err
-			}
-			req.Password = password
-			// password is returned in the command output; avoid logging it to stdout
+		// password is returned in the command output; avoid logging it to stdout
+		if _, err := passwordgenerator.GenerateIfEmpty(&req.Password); err != nil {
+			return nil, err
 		}
 
 		user, err := api.CreateUser(req)
@@ -158,7 +137,7 @@ func userCreateBuilder(c *core.Command) *core.Command {
 func userUpdateBuilder(c *core.Command) *core.Command {
 	type rdbUpdateUserRequestCustom struct {
 		*rdb.UpdateUserRequest
-		GeneratePassword bool
+		CliConnect bool
 	}
 
 	type rdbUpdateUserResponseCustom struct {
@@ -166,15 +145,15 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 		Password string `json:"password"`
 	}
 
-	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
-		Name:       "generate-password",
-		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
-		Required:   false,
-		Deprecated: false,
-		Positional: false,
-		Default:    core.DefaultValueSetter("true"),
-	})
+	c.ArgSpecs.AddBefore("password", connect.CliConnectArgSpec())
 	c.ArgsType = reflect.TypeFor[rdbUpdateUserRequestCustom]()
+
+	c.SeeAlsos = []*core.SeeAlso{
+		{
+			Command: "scw rdb instance connect",
+			Short:   "Connect to an instance using locally installed CLI",
+		},
+	}
 
 	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		client := core.ExtractClient(ctx)
@@ -183,36 +162,40 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*rdbUpdateUserRequestCustom)
 		updateUserRequest := customRequest.UpdateUserRequest
 
-		var err error
-
-		if customRequest.GeneratePassword || customRequest.Password != nil {
-			switch {
-			case customRequest.GeneratePassword && customRequest.Password == nil:
-				updateUserRequest.Password = new(string)
-				pwd, err := passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
-				if err != nil {
-					return nil, err
-				}
-				*updateUserRequest.Password = pwd
-
-				_, err = interactive.Println("Your generated password is", pwd)
-				if err != nil {
-					return nil, err
-				}
-
-			case !customRequest.GeneratePassword && customRequest.Password == nil:
-				return nil, errors.New(
-					"you must provide a password when generate-password is set to false",
-				)
-
-			default:
-				updateUserRequest.Password = customRequest.Password
+		if customRequest.CliConnect && customRequest.Password == nil {
+			password, promptErr := connect.PromptPassword(ctx)
+			if promptErr != nil {
+				return nil, promptErr
 			}
+			customRequest.Password = &password
+		}
+
+		// A nil password is omitted from the request so the API keeps the
+		// current one: updating a user without --password must never rotate it.
+		if customRequest.Password != nil {
+			updateUserRequest.Password = customRequest.Password
 		}
 
 		user, err := api.UpdateUser(updateUserRequest)
 		if err != nil {
 			return nil, err
+		}
+
+		if customRequest.CliConnect {
+			res := connect.Resource{
+				Product:  connect.RDB,
+				Location: string(updateUserRequest.Region),
+				ID:       updateUserRequest.InstanceID,
+				Username: updateUserRequest.Name,
+			}
+			if err := res.SaveSecret(
+				ctx,
+				updateUserRequest.Region,
+				updateUserRequest.Name,
+				*updateUserRequest.Password,
+			); err != nil {
+				return nil, err
+			}
 		}
 
 		respPwd := ""

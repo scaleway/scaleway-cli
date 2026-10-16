@@ -6,6 +6,7 @@ USAGE:
   scw datawarehouse deployment <command>
 
 AVAILABLE COMMANDS:
+  connect         Connect to a Data Warehouse deployment using locally installed clickhousectl
   create          Create a deployment
   delete          Delete a deployment
   get             Get a deployment
