@@ -66,6 +66,18 @@ func Test_CorePrinter(t *testing.T) {
 		Cmd:      "scw -D list -o human=Name,ID,Unknown",
 		Check:    core.TestCheckGolden(),
 	}))
+
+	t.Run("human-list-no-headers", core.Test(&core.TestConfig{
+		Commands: commands,
+		Cmd:      "scw list -o human -H",
+		Check:    core.TestCheckGolden(),
+	}))
+
+	t.Run("human-list-no-headers-with-options", core.Test(&core.TestConfig{
+		Commands: commands,
+		Cmd:      "scw list -o human=Name,ID -H",
+		Check:    core.TestCheckGolden(),
+	}))
 }
 
 func Test_YamlPrinter(t *testing.T) {

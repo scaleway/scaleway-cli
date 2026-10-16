@@ -99,21 +99,12 @@ func Test_PlacementGroup_Update(t *testing.T) {
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				if pg, ok := ctx.Result.(*instanceSDK.PlacementGroup); !ok {
-					t.Errorf("result was not *instance.PlacementGroup but %T", ctx.Result)
-				} else {
-					assert.Equal(
-						t,
-						pg.PolicyType,
-						instanceSDK.PlacementGroupPolicyType("low_latency"),
-					)
-					assert.Equal(t, "cli-test-pg-update", pg.Name)
-					if !assert.Len(t, pg.Tags, 2) {
-						t.Fatal()
-					}
-					assert.Equal(t, "test-update", pg.Tags[0])
-					assert.Equal(t, "cli", pg.Tags[1])
-				}
+				pg := ctx.Result.(*instanceSDK.PlacementGroup)
+				assert.Equal(t, pg.PolicyType, instanceSDK.PlacementGroupPolicyType("low_latency"))
+				assert.Equal(t, "cli-test-pg-update", pg.Name)
+				assert.Len(t, pg.Tags, 2)
+				assert.Equal(t, "test-update", pg.Tags[0])
+				assert.Equal(t, "cli", pg.Tags[1])
 			},
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),

@@ -85,6 +85,7 @@ func secretSecretCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+				Default:    core.RandomValueGenerator("secret"),
 			},
 			{
 				Name:       "tags.{index}",

@@ -328,11 +328,13 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 	grid := make([][]string, 0, slice.Len()+1)
 
 	// Generate header row
-	headerRow := []string(nil)
-	for _, fieldSpec := range opt.Fields {
-		headerRow = append(headerRow, fieldSpec.getLabel())
+	if !opt.NoHeaders {
+		headerRow := []string(nil)
+		for _, fieldSpec := range opt.Fields {
+			headerRow = append(headerRow, fieldSpec.getLabel())
+		}
+		grid = append(grid, headerRow)
 	}
-	grid = append(grid, headerRow)
 
 	// For each item in the slice
 	for i := range slice.Len() {
@@ -365,6 +367,11 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 			row = append(row, str)
 		}
 		grid = append(grid, row)
+	}
+
+	// formatGrid requires at least one row, without a header an empty slice produces none
+	if len(grid) == 0 {
+		return "", nil
 	}
 
 	return formatGrid(grid, !opt.DisableShrinking)

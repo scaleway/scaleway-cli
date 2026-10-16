@@ -168,6 +168,13 @@ func messageqDeploymentCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "volume.deployment-id",
+				Short:      `ID of the deployment`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "endpoints.{index}.public",
 				Required:   false,
 				Deprecated: false,
