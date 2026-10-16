@@ -43,7 +43,7 @@ func Test_Endpoints(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				if ctx.Result != nil {
-					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					endpoints := ctx.Result.(*redis.CreateClusterResponse).Cluster.Endpoints
 					checkEndpoints(t, endpoints, 1, 0, 0)
 				}
 			},
@@ -70,7 +70,7 @@ func Test_Endpoints(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				if ctx.Result != nil {
-					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					endpoints := ctx.Result.(*redis.CreateClusterResponse).Cluster.Endpoints
 					checkEndpoints(t, endpoints, 0, 1, 0)
 				}
 			},
@@ -109,7 +109,7 @@ func Test_Endpoints(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				if ctx.Result != nil {
-					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					endpoints := ctx.Result.(*redis.CreateClusterResponse).Cluster.Endpoints
 					checkEndpoints(t, endpoints, 0, 2, 0)
 				}
 			},
@@ -146,7 +146,7 @@ func Test_IpamConfig(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				if ctx.Result != nil {
-					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					endpoints := ctx.Result.(*redis.CreateClusterResponse).Cluster.Endpoints
 					checkEndpoints(t, endpoints, 0, 0, 1)
 				}
 			},
@@ -179,7 +179,7 @@ func Test_IpamConfig(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				if ctx.Result != nil {
-					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					endpoints := ctx.Result.(*redis.CreateClusterResponse).Cluster.Endpoints
 					checkEndpoints(t, endpoints, 0, 0, 2)
 				}
 			},
@@ -213,7 +213,7 @@ func Test_IpamConfig(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				if ctx.Result != nil {
-					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					endpoints := ctx.Result.(*redis.CreateClusterResponse).Cluster.Endpoints
 					checkEndpoints(t, endpoints, 0, 1, 1)
 				}
 			},
@@ -372,5 +372,24 @@ func Test_CreateClusterCliConnect(t *testing.T) {
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 		),
+	}))
+}
+
+func Test_CreateClusterGeneratedPassword(t *testing.T) {
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: redis.GetCommands(),
+		Cmd:      "scw redis cluster create name=generated-pw version=" + redisTestVersion + " node-type=RED1-micro user-name=admin",
+		// do not check the golden as the generated password differs on every run
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+				resp, ok := ctx.Result.(*redis.CreateClusterResponse)
+				require.True(t, ok, "expected a *redis.CreateClusterResponse result, got %T", ctx.Result)
+				require.NotNil(t, resp.Password, "generated password must be part of the response")
+				require.Len(t, *resp.Password, 21)
+			},
+		),
+		AfterFunc: deleteCluster(),
 	}))
 }

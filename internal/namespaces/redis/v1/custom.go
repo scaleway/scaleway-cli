@@ -12,6 +12,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("redis").Groups = []string{"database"}
 
 	human.RegisterMarshalerFunc(redis.Cluster{}, redisClusterGetMarshalerFunc)
+	human.RegisterMarshalerFunc(CreateClusterResponse{}, createClusterResponseMarshalerFunc)
 
 	cmds.Merge(core.NewCommands(clusterWaitCommand(), clusterConnectCommand()))
 	cmds.MustFind("redis", "cluster", "create").Override(clusterCreateBuilder)
