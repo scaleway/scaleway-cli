@@ -50,7 +50,7 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 		customRequest := args.(*createDeploymentRequestCustom)
 		request := customRequest.CreateDeploymentRequest
 
-		generatedPassword, err := passwordgenerator.GenerateIfNeeded(&request.Password)
+		generatedPassword, err := passwordgenerator.GenerateIfEmpty(&request.Password)
 		if err != nil {
 			return nil, err
 		}

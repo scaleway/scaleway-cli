@@ -94,7 +94,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		customRequest := args.(*createInstanceRequestCustom)
 		request := customRequest.CreateInstanceRequest
 
-		generatedPassword, err := passwordgenerator.GenerateIfNeeded(&request.Password)
+		generatedPassword, err := passwordgenerator.GenerateIfEmpty(&request.Password)
 		if err != nil {
 			return nil, err
 		}

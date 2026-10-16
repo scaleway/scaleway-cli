@@ -85,9 +85,9 @@ func randInt(length int) (int, error) {
 	return int(i.Int64()), nil
 }
 
-// GenerateIfNeeded stores a generated 21-character password in *password when
+// GenerateIfEmpty stores a generated 21-character password in *password when
 // it is empty, returning the generated password (or "" when none was needed).
-func GenerateIfNeeded(password *string) (string, error) {
+func GenerateIfEmpty(password *string) (string, error) {
 	if *password != "" {
 		return "", nil
 	}

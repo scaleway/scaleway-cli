@@ -114,7 +114,7 @@ func userCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		// password is returned in the command output; avoid logging it to stdout
-		if _, err := passwordgenerator.GenerateIfNeeded(&req.Password); err != nil {
+		if _, err := passwordgenerator.GenerateIfEmpty(&req.Password); err != nil {
 			return nil, err
 		}
 

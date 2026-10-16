@@ -346,7 +346,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		createInstanceRequest := customRequest.CreateInstanceRequest
 
 		createInstanceRequest.NodeType = strings.ToLower(createInstanceRequest.NodeType)
-		generatedPassword, err := passwordgenerator.GenerateIfNeeded(
+		generatedPassword, err := passwordgenerator.GenerateIfEmpty(
 			&createInstanceRequest.Password,
 		)
 		if err != nil {

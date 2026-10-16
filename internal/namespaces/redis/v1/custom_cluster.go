@@ -161,7 +161,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*CreateClusterRequestCustom)
 		createClusterRequest := customRequest.CreateClusterRequest
 
-		generatedPassword, err := passwordgenerator.GenerateIfNeeded(&createClusterRequest.Password)
+		generatedPassword, err := passwordgenerator.GenerateIfEmpty(&createClusterRequest.Password)
 		if err != nil {
 			return nil, err
 		}
