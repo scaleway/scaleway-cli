@@ -74,7 +74,7 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 				ID:       deployment.ID,
 				Username: dwAdminUsername,
 			}
-			if err := res.Persist(
+			if err := res.SaveSecret(
 				ctx,
 				deployment.Region,
 				dwAdminUsername,

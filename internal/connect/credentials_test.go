@@ -76,7 +76,7 @@ func Test_Resource_Description(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := tt.res.Description(); got != tt.want {
+			if got := tt.res.SecretDescription(); got != tt.want {
 				t.Fatalf("Description() = %q, want %q", got, tt.want)
 			}
 		})
@@ -91,7 +91,7 @@ func Test_Resource_Name(t *testing.T) {
 		Username: "foobar",
 	}
 
-	if got := res.Name(); got != "11111111-1111-1111-1111-111111111111" {
+	if got := res.SecretName(); got != "11111111-1111-1111-1111-111111111111" {
 		t.Fatalf("Name() = %q, want the resource UUID", got)
 	}
 }
@@ -104,7 +104,7 @@ func Test_Resource_Path(t *testing.T) {
 		Username: "foobar",
 	}
 
-	if got := res.Path(); got != connect.SecretPath {
+	if got := res.SecretPath(); got != connect.SecretPath {
 		t.Fatalf("Path() = %q, want %q", got, connect.SecretPath)
 	}
 }
@@ -137,7 +137,7 @@ func Test_Resource_Tags(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := tt.res.Tags(); !slices.Equal(got, tt.want) {
+			if got := tt.res.SecretTags(); !slices.Equal(got, tt.want) {
 				t.Fatalf("Tags() = %v, want %v", got, tt.want)
 			}
 		})

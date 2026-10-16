@@ -225,7 +225,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 				ID:       cluster.ID,
 				Username: createClusterRequest.UserName,
 			}
-			if err := res.Persist(
+			if err := res.SaveSecret(
 				ctx,
 				region,
 				createClusterRequest.UserName,

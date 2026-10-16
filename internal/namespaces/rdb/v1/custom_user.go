@@ -188,7 +188,7 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 				ID:       updateUserRequest.InstanceID,
 				Username: updateUserRequest.Name,
 			}
-			if err := res.Persist(
+			if err := res.SaveSecret(
 				ctx,
 				updateUserRequest.Region,
 				updateUserRequest.Name,

@@ -65,28 +65,28 @@ type Resource struct {
 	Username string
 }
 
-// Name is the name of the credentials secret of the resource: the resource
+// SecretName is the name of the credentials secret of the resource: the resource
 // UUID.
-func (r Resource) Name() string {
+func (r Resource) SecretName() string {
 	return r.ID
 }
 
-// Path is the folder that holds all cli-connect credentials secrets.
-func (r Resource) Path() string {
+// SecretPath is the folder that holds all cli-connect credentials secrets.
+func (r Resource) SecretPath() string {
 	return SecretPath
 }
 
-// Tags let the credentials secret be filtered by product and locality.
-func (r Resource) Tags() []string {
+// SecretTags let the credentials secret be filtered by product and locality.
+func (r Resource) SecretTags() []string {
 	return []string{string(r.Product), r.Location}
 }
 
-// Description returns the description persisted on the credentials secret:
+// SecretDescription returns the description persisted on the credentials secret:
 // a copy-pastable scw connect command for the resource, so a user reading the
 // secret in the console knows exactly how to reconnect.
 // ponytail: only the products in connectSpecs get a copy-pastable command;
 // add a row there when a new product is wired to cli-connect.
-func (r Resource) Description() string {
+func (r Resource) SecretDescription() string {
 	cmd := connectCommand(r.Product, r.Location, r.ID, r.Username)
 	if cmd == "" {
 		return description
@@ -136,12 +136,12 @@ func connectCommand(product Product, location, resourceID, username string) stri
 // password, so all the users of a resource live in a single secret.
 type Credentials = map[string]string
 
-// Persist stores the username/password pair in the credentials secret of the
+// SaveSecret stores the username/password pair in the credentials secret of the
 // resource, naming the owning resource on failure. When the secret already
 // exists a new version with the updated password is created on it.
-func (r Resource) Persist(
+func (r Resource) SaveSecret(
 	ctx context.Context,
-	region scw.Region,
+	secretManagerRegion scw.Region,
 	username, password string,
 ) error {
 	client := core.ExtractClient(ctx)
@@ -156,14 +156,14 @@ func (r Resource) Persist(
 		)
 	}
 
-	secret, err := r.findOrCreateSecret(region, api)
+	secret, err := r.findOrCreateSecret(api, secretManagerRegion)
 	if err != nil {
 		return fail(err)
 	}
 
 	creds := Credentials{}
 	if secret.VersionCount > 0 {
-		creds = latestCredentials(region, api, secret.ID)
+		creds = latestCredentials(api, secretManagerRegion, secret.ID)
 	}
 	creds[username] = password
 
@@ -173,7 +173,7 @@ func (r Resource) Persist(
 	}
 
 	if _, err := api.CreateSecretVersion(&secretSDK.CreateSecretVersionRequest{
-		Region:   region,
+		Region:   secretManagerRegion,
 		SecretID: secret.ID,
 		Data:     data,
 	}); err != nil {
@@ -182,8 +182,8 @@ func (r Resource) Persist(
 
 	interactive.Printf(
 		"Credentials persisted in secret %s (path: %s, id: %s)\n",
-		r.Name(),
-		r.Path(),
+		r.SecretName(),
+		r.SecretPath(),
 		secret.ID,
 	)
 
@@ -195,15 +195,19 @@ func (r Resource) Persist(
 // ponytail: any lookup error (not just 404) degrades to "not found" so a broken
 // Secret Manager access never blocks connecting; upgrade to erroring on
 // non-404 if silent degradation proves confusing.
-func (r Resource) Fetch(ctx context.Context, region scw.Region, username string) (string, bool) {
+func (r Resource) Fetch(
+	ctx context.Context,
+	secretManagerRegion scw.Region,
+	username string,
+) (string, bool) {
 	client := core.ExtractClient(ctx)
 	api := secretSDK.NewAPI(client)
 
 	resp, err := api.AccessSecretVersionByPath(&secretSDK.AccessSecretVersionByPathRequest{
-		Region:     region,
+		Region:     secretManagerRegion,
 		Revision:   "latest",
-		SecretPath: r.Path(),
-		SecretName: r.Name(),
+		SecretPath: r.SecretPath(),
+		SecretName: r.SecretName(),
 	})
 	if err != nil {
 		core.ExtractLogger(ctx).Debugf("no credentials secret for %s %s: %s", r.Product, r.ID, err)
@@ -250,40 +254,27 @@ func (r Resource) FetchOrPrompt(
 // succeeds, i.e. before --wait confirms the resource is gone; if the wait
 // then fails the secret is already removed. Move the call into the delete
 // WaitFuncs if that proves confusing.
-func (r Resource) Delete(ctx context.Context, region scw.Region) error {
+func (r Resource) Delete(ctx context.Context, secretManagerRegion scw.Region) error {
 	client := core.ExtractClient(ctx)
 	api := secretSDK.NewAPI(client)
 
-	name := r.Name()
-	path := r.Path()
-	secrets, err := api.ListSecrets(&secretSDK.ListSecretsRequest{
-		Region: region,
-		Name:   &name,
-		Path:   &path,
-	}, scw.WithAllPages())
+	secret, err := findSecret(api, secretManagerRegion, r.SecretName(), r.SecretPath())
 	if err != nil {
-		return fmt.Errorf("failed to list secrets %s/%s: %w", path, name, err)
+		return err
 	}
-
-	for _, secret := range secrets.Secrets {
-		// The name filter may be a prefix match: only remove the exact
-		// credentials secret of the resource.
-		if secret.Name != name {
-			continue
-		}
-		if err := api.DeleteSecret(&secretSDK.DeleteSecretRequest{
-			Region:   region,
-			SecretID: secret.ID,
-		}); err != nil {
-			return fmt.Errorf("failed to delete secret %s: %w", secret.ID, err)
-		}
-
-		interactive.Printf("Credentials secret %s (path: %s) removed\n", name, path)
+	if secret == nil {
+		core.ExtractLogger(ctx).Debugf("no credentials secret to remove for %s %s", r.Product, r.ID)
 
 		return nil
 	}
+	if err := api.DeleteSecret(&secretSDK.DeleteSecretRequest{
+		Region:   secretManagerRegion,
+		SecretID: secret.ID,
+	}); err != nil {
+		return fmt.Errorf("failed to delete secret %s: %w", secret.ID, err)
+	}
 
-	core.ExtractLogger(ctx).Debugf("no credentials secret to remove for %s %s", r.Product, r.ID)
+	interactive.Printf("Credentials secret %s (path: %s) removed\n", r.SecretName(), r.SecretPath())
 
 	return nil
 }
@@ -295,7 +286,7 @@ func RunUserUpdate(
 	ctx context.Context,
 	cliConnect bool,
 	product Product,
-	region scw.Region,
+	secretManagerRegion scw.Region,
 	location, resourceID, name string,
 	password **string,
 	update func(ctx context.Context) (any, error),
@@ -320,7 +311,7 @@ func RunUserUpdate(
 			ID:       resourceID,
 			Username: name,
 		}
-		if err := resource.Persist(ctx, region, name, **password); err != nil {
+		if err := resource.SaveSecret(ctx, secretManagerRegion, name, **password); err != nil {
 			return nil, err
 		}
 	}
@@ -345,42 +336,37 @@ func PromptPassword(ctx context.Context) (string, error) {
 // it when missing. When the secret already exists its metadata is refreshed
 // so that tags and the connect command stay up to date.
 func (r Resource) findOrCreateSecret(
-	region scw.Region,
 	api *secretSDK.API,
+	secretManagerRegion scw.Region,
 ) (*secretSDK.Secret, error) {
-	path := r.Path()
-	desc := r.Description()
-	name := r.Name()
+	path := r.SecretPath()
+	desc := r.SecretDescription()
+	name := r.SecretName()
 
 	secret, err := api.CreateSecret(&secretSDK.CreateSecretRequest{
-		Region:      region,
+		Region:      secretManagerRegion,
 		Name:        name,
 		Path:        &path,
 		Description: &desc,
-		Tags:        r.Tags(),
+		Tags:        r.SecretTags(),
 	})
 	if err == nil {
 		return secret, nil
 	}
 
-	// The slot is taken (a version of the CLI already persisted these
+	// The slot is taken (a version of the CLI already saved these
 	// credentials): reuse the existing secret.
-	existing, listErr := api.ListSecrets(&secretSDK.ListSecretsRequest{
-		Region: region,
-		Name:   &name,
-		Path:   &path,
-	}, scw.WithAllPages())
-	if listErr != nil || len(existing.Secrets) == 0 {
+	secret, listErr := findSecret(api, secretManagerRegion, name, path)
+	if listErr != nil || secret == nil {
 		return nil, fmt.Errorf("failed to create secret %s/%s: %w", path, name, err)
 	}
-	secret = existing.Secrets[0]
 
 	needsUpdate := secret.Description == nil || *secret.Description != desc ||
-		!sameTags(secret.Tags, r.Tags())
+		!sameTags(secret.Tags, r.SecretTags())
 	if needsUpdate {
-		tags := r.Tags()
+		tags := r.SecretTags()
 		if _, err := api.UpdateSecret(&secretSDK.UpdateSecretRequest{
-			Region:      region,
+			Region:      secretManagerRegion,
 			SecretID:    secret.ID,
 			Description: &desc,
 			Tags:        &tags,
@@ -390,6 +376,32 @@ func (r Resource) findOrCreateSecret(
 	}
 
 	return secret, nil
+}
+
+// findSecret returns the secret named exactly name under path, or nil when it
+// does not exist. The ListSecrets name filter is a prefix match, hence the
+// exact comparison.
+func findSecret(
+	api *secretSDK.API,
+	secretManagerRegion scw.Region,
+	name, path string,
+) (*secretSDK.Secret, error) {
+	secrets, err := api.ListSecrets(&secretSDK.ListSecretsRequest{
+		Region: secretManagerRegion,
+		Name:   &name,
+		Path:   &path,
+	}, scw.WithAllPages())
+	if err != nil {
+		return nil, fmt.Errorf("failed to list secrets %s/%s: %w", path, name, err)
+	}
+
+	for _, secret := range secrets.Secrets {
+		if secret.Name == name {
+			return secret, nil
+		}
+	}
+
+	return nil, nil
 }
 
 func sameTags(a, b []string) bool {
@@ -403,9 +415,13 @@ func sameTags(a, b []string) bool {
 
 // latestCredentials returns the credentials stored in the latest version of
 // the secret, or an empty map when it cannot be read.
-func latestCredentials(region scw.Region, api *secretSDK.API, secretID string) Credentials {
+func latestCredentials(
+	api *secretSDK.API,
+	secretManagerRegion scw.Region,
+	secretID string,
+) Credentials {
 	resp, err := api.AccessSecretVersion(&secretSDK.AccessSecretVersionRequest{
-		Region:   region,
+		Region:   secretManagerRegion,
 		SecretID: secretID,
 		Revision: "latest",
 	})

@@ -376,7 +376,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 				ID:       instance.ID,
 				Username: createInstanceRequest.UserName,
 			}
-			if err := res.Persist(
+			if err := res.SaveSecret(
 				ctx,
 				instance.Region,
 				createInstanceRequest.UserName,
