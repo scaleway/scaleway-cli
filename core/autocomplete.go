@@ -40,8 +40,7 @@ const (
 
 // AutoCompleteArgFunc is the function called to complete arguments values.
 // It is retrieved from core.ArgSpec.AutoCompleteFunc.
-// The returned map maps a suggestion value to an optional description: the
-// description is displayed next to the value by the shells that support it (e.g. fish).
+// The returned map maps a suggestion value to an optional description.
 type AutoCompleteArgFunc func(ctx context.Context, prefix string, request any) map[string]string
 
 // AutoCompleteNode is a node in the AutoComplete Tree.
@@ -406,7 +405,6 @@ func AutoComplete(
 }
 
 // AutoCompleteArgValue returns suggestions for a (argument name, argument value prefix) pair.
-// The returned map maps a suggestion value to an optional description (empty when unknown).
 // Priority is given to the AutoCompleteFunc from the ArgSpec, if it is set.
 // Otherwise, we use EnumValues from the ArgSpec.
 func AutoCompleteArgValue(

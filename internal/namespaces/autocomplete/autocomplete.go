@@ -364,14 +364,12 @@ func autocompleteCompleteFishCommand() *core.Command {
 
 // FishSuggestions formats an autocomplete response for the fish shell:
 // one suggestion per line, "value<TAB>description" when a description exists.
-// fish displays the description next to the value, and only the value is inserted.
 func FishSuggestions(res *core.AutocompleteResponse) string {
 	return strings.Join(suggestionLines(res, "\t", false), "\n")
 }
 
 // ZshSuggestions formats an autocomplete response for the zsh shell:
-// one "value:description" pair per line, as consumed by _describe:
-// the value is inserted, and the description is displayed alongside.
+// one "value:description" pair per line, as consumed by _describe.
 func ZshSuggestions(res *core.AutocompleteResponse) string {
 	return strings.Join(suggestionLines(res, ":", true), "\n")
 }

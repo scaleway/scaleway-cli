@@ -8,91 +8,57 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestFishSuggestions(t *testing.T) {
+func TestSuggestions(t *testing.T) {
 	tests := map[string]struct {
 		Response *core.AutocompleteResponse
-		Expected string
+		Fish     string
+		Zsh      string
 	}{
 		"no description": {
 			Response: &core.AutocompleteResponse{
 				Suggestions: core.AutocompleteSuggestions{"id1", "id2"},
 			},
-			Expected: "id1\nid2",
+			Fish: "id1\nid2",
+			Zsh:  "id1\nid2",
 		},
 		"with description": {
 			Response: &core.AutocompleteResponse{
 				Suggestions:  core.AutocompleteSuggestions{"id1", "id2"},
 				Descriptions: map[string]string{"id1": "flower1"},
 			},
-			Expected: "id1\tflower1\nid2",
+			Fish: "id1\tflower1\nid2",
+			Zsh:  "id1:flower1\nid2",
 		},
 		"arg value suggestion": {
 			Response: &core.AutocompleteResponse{
 				Suggestions:  core.AutocompleteSuggestions{"flower-id=id1"},
 				Descriptions: map[string]string{"flower-id=id1": "flower1"},
 			},
-			Expected: "flower-id=id1\tflower1",
+			Fish: "flower-id=id1\tflower1",
+			Zsh:  "flower-id=id1:flower1",
 		},
 		"sanitized description": {
 			Response: &core.AutocompleteResponse{
 				Suggestions:  core.AutocompleteSuggestions{"id1"},
 				Descriptions: map[string]string{"id1": "flower\t1\n2"},
 			},
-			Expected: "id1\tflower 1 2",
-		},
-	}
-
-	for name, tc := range tests {
-		t.Run(name, func(t *testing.T) {
-			assert.Equal(t, tc.Expected, autocomplete.FishSuggestions(tc.Response))
-		})
-	}
-}
-
-func TestZshSuggestions(t *testing.T) {
-	tests := map[string]struct {
-		Response *core.AutocompleteResponse
-		Expected string
-	}{
-		"no description": {
-			Response: &core.AutocompleteResponse{
-				Suggestions: core.AutocompleteSuggestions{"id1", "id2"},
-			},
-			Expected: "id1\nid2",
-		},
-		"with description": {
-			Response: &core.AutocompleteResponse{
-				Suggestions:  core.AutocompleteSuggestions{"id1", "id2"},
-				Descriptions: map[string]string{"id1": "flower1"},
-			},
-			Expected: "id1:flower1\nid2",
-		},
-		"arg value suggestion": {
-			Response: &core.AutocompleteResponse{
-				Suggestions:  core.AutocompleteSuggestions{"flower-id=id1"},
-				Descriptions: map[string]string{"flower-id=id1": "flower1"},
-			},
-			Expected: "flower-id=id1:flower1",
-		},
-		"sanitized description": {
-			Response: &core.AutocompleteResponse{
-				Suggestions:  core.AutocompleteSuggestions{"id1"},
-				Descriptions: map[string]string{"id1": "flower\t1\n2"},
-			},
-			Expected: "id1:flower 1 2",
+			Fish: "id1\tflower 1 2",
+			Zsh:  "id1:flower 1 2",
 		},
 		"escaped value": {
 			Response: &core.AutocompleteResponse{
 				Suggestions:  core.AutocompleteSuggestions{"id:1"},
 				Descriptions: map[string]string{"id:1": "flower1"},
 			},
-			Expected: `id\:1:flower1`,
+			Fish: "id:1\tflower1",
+			Zsh:  `id\:1:flower1`,
 		},
 	}
 
 	for name, tc := range tests {
 		t.Run(name, func(t *testing.T) {
-			assert.Equal(t, tc.Expected, autocomplete.ZshSuggestions(tc.Response))
+			assert.Equal(t, tc.Fish, autocomplete.FishSuggestions(tc.Response))
+			assert.Equal(t, tc.Zsh, autocomplete.ZshSuggestions(tc.Response))
 		})
 	}
 }

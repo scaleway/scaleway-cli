@@ -187,9 +187,6 @@ func AutocompleteGetArg(
 			continue
 		}
 		value := resourceField.String()
-		if _, exists := values[value]; exists {
-			continue
-		}
 		description := ""
 		if argName == "id" {
 			if nameField := resource.FieldByName("Name"); nameField.Kind() == reflect.String {
