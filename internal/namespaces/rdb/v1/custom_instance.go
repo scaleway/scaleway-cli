@@ -793,7 +793,7 @@ func instanceDeleteBuilder(c *core.Command) *core.Command {
 				Location: string(args.Region),
 				ID:       args.InstanceID,
 			}
-			if err := resource.Delete(ctx, args.Region); err != nil {
+			if err := resource.DeleteSecret(ctx, args.Region); err != nil {
 				return instance, err
 			}
 		}

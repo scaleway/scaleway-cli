@@ -115,7 +115,7 @@ func deploymentDeleteBuilder(c *core.Command) *core.Command {
 				Location: args.Region.String(),
 				ID:       args.DeploymentID,
 			}
-			if err := resource.Delete(ctx, args.Region); err != nil {
+			if err := resource.DeleteSecret(ctx, args.Region); err != nil {
 				return deployment, err
 			}
 		}

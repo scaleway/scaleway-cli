@@ -246,7 +246,7 @@ func (r Resource) FetchOrPrompt(
 	return PromptPassword(ctx)
 }
 
-// Delete removes the credentials secret of the resource, so that deleting a
+// DeleteSecret removes the credentials secret of the resource, so that deleting a
 // resource with cli-connect does not leave orphaned secrets behind. It is a
 // no-op when the secret does not exist.
 //
@@ -254,7 +254,7 @@ func (r Resource) FetchOrPrompt(
 // succeeds, i.e. before --wait confirms the resource is gone; if the wait
 // then fails the secret is already removed. Move the call into the delete
 // WaitFuncs if that proves confusing.
-func (r Resource) Delete(ctx context.Context, secretManagerRegion scw.Region) error {
+func (r Resource) DeleteSecret(ctx context.Context, secretManagerRegion scw.Region) error {
 	client := core.ExtractClient(ctx)
 	api := secretSDK.NewAPI(client)
 

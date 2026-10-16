@@ -295,7 +295,7 @@ func clusterDeleteBuilder(c *core.Command) *core.Command {
 				Location: string(args.Zone),
 				ID:       args.ClusterID,
 			}
-			if err := resource.Delete(ctx, region); err != nil {
+			if err := resource.DeleteSecret(ctx, region); err != nil {
 				return cluster, err
 			}
 		}
