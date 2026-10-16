@@ -15,6 +15,7 @@ func GetCommands() *core.Commands {
 	cmds.Merge(core.NewCommands(
 		serverWaitCommand(),
 		serverAddFlexibleIP(),
+		serverSSHCommand(),
 	))
 
 	human.RegisterMarshalerFunc(
