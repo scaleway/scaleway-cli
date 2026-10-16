@@ -31,7 +31,9 @@ func testAutocompleteGetCommands() *core.Commands {
 				{
 					Name: "size",
 					AutoCompleteFunc: func(_ context.Context, prefix string, _ any) core.AutocompleteSuggestions {
-						return []string{regexp.MustCompile("[a-z]").ReplaceAllString(prefix, "")}
+						value := regexp.MustCompile("[a-z]").ReplaceAllString(prefix, "")
+
+						return core.AutocompleteSuggestions{{Value: value, Description: "the size"}}
 					},
 					EnumValues: []string{"S", "M", "L", "XL", "XXL"},
 				},
@@ -124,51 +126,73 @@ func TestAutocomplete(t *testing.T) {
 		return runAutocompleteTest(ctx, tc)
 	}
 
-	t.Run("scw ", run(&testCase{Suggestions: core.AutocompleteSuggestions{"test"}}))
-	t.Run("scw te", run(&testCase{Suggestions: core.AutocompleteSuggestions{"test"}}))
-	t.Run("scw test", run(&testCase{Suggestions: core.AutocompleteSuggestions{"test"}}))
+	t.Run("scw ", run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "test"}}}))
+	t.Run("scw te", run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "test"}}}))
+	t.Run("scw test", run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "test"}}}))
 	t.Run(
 		"scw  flower create name=plop",
-		run(&testCase{WordToCompleteIndex: 1, Suggestions: core.AutocompleteSuggestions{"test"}}),
+		run(&testCase{
+			WordToCompleteIndex: 1,
+			Suggestions:         core.AutocompleteSuggestions{{Value: "test"}},
+		}),
 	)
 	t.Run(
 		"scw te flower create name=plop",
-		run(&testCase{WordToCompleteIndex: 1, Suggestions: core.AutocompleteSuggestions{"test"}}),
+		run(&testCase{
+			WordToCompleteIndex: 1,
+			Suggestions:         core.AutocompleteSuggestions{{Value: "test"}},
+		}),
 	)
-	t.Run("scw test ", run(&testCase{Suggestions: core.AutocompleteSuggestions{"flower"}}))
-	t.Run("scw test fl", run(&testCase{Suggestions: core.AutocompleteSuggestions{"flower"}}))
+	t.Run(
+		"scw test ",
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "flower"}}}),
+	)
+	t.Run(
+		"scw test fl",
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "flower"}}}),
+	)
 	t.Run(
 		"scw test flower ",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"create", "delete"}}),
+		run(
+			&testCase{
+				Suggestions: core.AutocompleteSuggestions{{Value: "create"}, {Value: "delete"}},
+			},
+		),
 	)
-	t.Run("scw test flower cr", run(&testCase{Suggestions: core.AutocompleteSuggestions{"create"}}))
-	t.Run("scw test flower d", run(&testCase{Suggestions: core.AutocompleteSuggestions{"delete"}}))
+	t.Run(
+		"scw test flower cr",
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "create"}}}),
+	)
+	t.Run(
+		"scw test flower d",
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "delete"}}}),
+	)
 	t.Run(
 		"scw test flower create ",
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					"colours.0=",
-					"leaves.",
-					"name=",
-					"size=",
-					"species=",
+					{Value: "colours.0="},
+					{Value: "leaves."},
+					{Value: "name="},
+					{Value: "size="},
+					{Value: "species="},
 				},
 			},
 		),
 	)
 	t.Run(
 		"scw test flower create n",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"name="}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "name="}}}),
 	)
 	t.Run(
 		"scw test flower create name",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"name="}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "name="}}}),
 	)
 	t.Run("scw test flower create name=", run(&testCase{Suggestions: nil}))
 	t.Run(
 		"scw test flower create name n",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"name="}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "name="}}}),
 	)
 	t.Run("scw test flower create name=p", run(&testCase{Suggestions: nil}))
 	t.Run(
@@ -176,10 +200,10 @@ func TestAutocomplete(t *testing.T) {
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					"colours.0=",
-					"leaves.",
-					"size=",
-					"species=",
+					{Value: "colours.0="},
+					{Value: "leaves."},
+					{Value: "size="},
+					{Value: "species="},
 				},
 			},
 		),
@@ -191,17 +215,21 @@ func TestAutocomplete(t *testing.T) {
 	)
 	t.Run(
 		"scw test flower create s",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"size=", "species="}}),
+		run(
+			&testCase{
+				Suggestions: core.AutocompleteSuggestions{{Value: "size="}, {Value: "species="}},
+			},
+		),
 	)
 	t.Run(
 		"scw test flower create species=",
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					"species=petunia",
-					"species=rose",
-					"species=violet",
-					"species=virginia bluebell",
+					{Value: "species=petunia"},
+					{Value: "species=rose"},
+					{Value: "species=violet"},
+					{Value: "species=virginia bluebell"},
 				},
 			},
 		),
@@ -211,46 +239,52 @@ func TestAutocomplete(t *testing.T) {
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					"species=violet",
-					"species=virginia bluebell",
+					{Value: "species=violet"},
+					{Value: "species=virginia bluebell"},
 				},
 			},
 		),
 	)
 	t.Run(
 		"scw test flower create size=a1b2c",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"size=12"}}),
+		run(
+			&testCase{
+				Suggestions: core.AutocompleteSuggestions{
+					{Value: "size=12", Description: "the size"},
+				},
+			},
+		),
 	)
 	t.Run(
 		"scw test flower create colo",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"colours.0="}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "colours.0="}}}),
 	)
 	t.Run(
 		"scw test flower create colours.0",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"colours.0="}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "colours.0="}}}),
 	)
 	t.Run(
 		"scw test flower create colours.0=",
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					"colours.0=blue",
-					"colours.0=pink",
-					"colours.0=red",
+					{Value: "colours.0=blue"},
+					{Value: "colours.0=pink"},
+					{Value: "colours.0=red"},
 				},
 			},
 		),
 	)
 	t.Run(
 		"scw test flower create colours.0=r",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"colours.0=red"}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "colours.0=red"}}}),
 	)
 	t.Run(
 		"scw test flower create colo colours.1=red",
 		run(
 			&testCase{
 				WordToCompleteIndex: 4,
-				Suggestions:         core.AutocompleteSuggestions{"colours.0="},
+				Suggestions:         core.AutocompleteSuggestions{{Value: "colours.0="}},
 			},
 		),
 	)
@@ -259,84 +293,98 @@ func TestAutocomplete(t *testing.T) {
 		run(
 			&testCase{
 				WordToCompleteIndex: 4,
-				Suggestions:         core.AutocompleteSuggestions{"colours.2="},
+				Suggestions:         core.AutocompleteSuggestions{{Value: "colours.2="}},
 			},
 		),
 	)
 	t.Run(
 		"scw test flower create colours.0=blue colours.1=r",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"colours.1=red"}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "colours.1=red"}}}),
 	)
 	t.Run(
 		"scw test flower create leaves.",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"leaves."}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "leaves."}}}),
 	)
 	t.Run(
 		"scw test flower create leaves.0",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"leaves.0.size="}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "leaves.0.size="}}}),
 	)
 	t.Run(
 		"scw test flower create leaves.0.",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"leaves.0.size="}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "leaves.0.size="}}}),
 	)
 	t.Run(
 		"scw test flower create leaves.0.size=M",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"leaves.0.size=M"}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "leaves.0.size=M"}}}),
 	)
 	t.Run(
 		"scw test flower create leaves.0.size=M leaves",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"leaves."}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "leaves."}}}),
 	)
 	t.Run(
 		"scw test flower create leaves.0.size=M leaves leaves.1.size=M",
 		run(
-			&testCase{WordToCompleteIndex: 5, Suggestions: core.AutocompleteSuggestions{"leaves."}},
+			&testCase{
+				WordToCompleteIndex: 5,
+				Suggestions:         core.AutocompleteSuggestions{{Value: "leaves."}},
+			},
 		),
 	)
 	t.Run(
 		"scw test flower delete ",
 		run(
 			&testCase{
-				Suggestions: core.AutocompleteSuggestions{"anemone", "hibiscus", "with-leaves="},
+				Suggestions: core.AutocompleteSuggestions{
+					{Value: "anemone"},
+					{Value: "hibiscus"},
+					{Value: "with-leaves="},
+				},
 			},
 		),
 	)
 	t.Run(
 		"scw test flower delete w",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"with-leaves="}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "with-leaves="}}}),
 	)
 	t.Run(
 		"scw test flower delete h",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"hibiscus"}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "hibiscus"}}}),
 	)
 	t.Run(
 		"scw test flower delete with-leaves=true ",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"anemone", "hibiscus"}}),
+		run(
+			&testCase{
+				Suggestions: core.AutocompleteSuggestions{{Value: "anemone"}, {Value: "hibiscus"}},
+			},
+		),
 	) // invalid notation
 	t.Run("scw test flower delete hibiscus n", run(&testCase{Suggestions: nil}))
 	t.Run(
 		"scw test flower delete hibiscus w",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"with-leaves="}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "with-leaves="}}}),
 	)
 	t.Run(
 		"scw test flower delete hibiscus with-leaves=true",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"with-leaves=true"}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "with-leaves=true"}}}),
 	)
 	t.Run(
 		"scw test flower delete hibiscus with-leaves=true ",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"anemone"}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "anemone"}}}),
 	)
 	t.Run(
 		"scw test flower delete hibiscus with-leaves=",
 		run(
 			&testCase{
-				Suggestions: core.AutocompleteSuggestions{"with-leaves=false", "with-leaves=true"},
+				Suggestions: core.AutocompleteSuggestions{
+					{Value: "with-leaves=false"},
+					{Value: "with-leaves=true"},
+				},
 			},
 		),
 	)
 	t.Run(
 		"scw test flower delete hibiscus with-leaves=tr",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"with-leaves=true"}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "with-leaves=true"}}}),
 	)
 	t.Run("scw test flower delete hibiscus with-leaves=yes", run(&testCase{Suggestions: nil}))
 	t.Run(
@@ -344,11 +392,11 @@ func TestAutocomplete(t *testing.T) {
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					"leaves.0.size=L",
-					"leaves.0.size=M",
-					"leaves.0.size=S",
-					"leaves.0.size=XL",
-					"leaves.0.size=XXL",
+					{Value: "leaves.0.size=L"},
+					{Value: "leaves.0.size=M"},
+					{Value: "leaves.0.size=S"},
+					{Value: "leaves.0.size=XL"},
+					{Value: "leaves.0.size=XXL"},
 				},
 			},
 		),
@@ -358,30 +406,33 @@ func TestAutocomplete(t *testing.T) {
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					"--config",
-					"--debug",
-					"--help",
-					"--output",
-					"--profile",
-					"-D",
-					"-c",
-					"-h",
-					"-o",
-					"-p",
+					{Value: "--config"},
+					{Value: "--debug"},
+					{Value: "--help"},
+					{Value: "--output"},
+					{Value: "--profile"},
+					{Value: "-D"},
+					{Value: "-c"},
+					{Value: "-h"},
+					{Value: "-o"},
+					{Value: "-p"},
 				},
 			},
 		),
 	)
-	t.Run("scw test -o j", run(&testCase{Suggestions: core.AutocompleteSuggestions{"json"}}))
+	t.Run(
+		"scw test -o j",
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "json"}}}),
+	)
 	t.Run(
 		"scw test flower -o ",
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					string(core.PrinterTypeHuman),
-					string(core.PrinterTypeJSON),
-					string(core.PrinterTypeTemplate),
-					string(core.PrinterTypeYAML),
+					{Value: string(core.PrinterTypeHuman)},
+					{Value: string(core.PrinterTypeJSON)},
+					{Value: string(core.PrinterTypeTemplate)},
+					{Value: string(core.PrinterTypeYAML)},
 				},
 			},
 		),
@@ -391,34 +442,34 @@ func TestAutocomplete(t *testing.T) {
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					"--config",
-					"--debug",
-					"--help",
-					"--output",
-					"--profile",
-					"--wait",
-					"-D",
-					"-c",
-					"-h",
-					"-p",
-					"-w",
+					{Value: "--config"},
+					{Value: "--debug"},
+					{Value: "--help"},
+					{Value: "--output"},
+					{Value: "--profile"},
+					{Value: "--wait"},
+					{Value: "-D"},
+					{Value: "-c"},
+					{Value: "-h"},
+					{Value: "-p"},
+					{Value: "-w"},
 				},
 			},
 		),
 	)
 	t.Run(
 		"scw test flower create name=p -o j",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"json"}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "json"}}}),
 	)
 	t.Run(
 		"scw test flower create name=p -o json ",
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					"colours.0=",
-					"leaves.",
-					"size=",
-					"species=",
+					{Value: "colours.0="},
+					{Value: "leaves."},
+					{Value: "size="},
+					{Value: "species="},
 				},
 			},
 		),
@@ -428,10 +479,10 @@ func TestAutocomplete(t *testing.T) {
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					"colours.0=",
-					"leaves.",
-					"size=",
-					"species=",
+					{Value: "colours.0="},
+					{Value: "leaves."},
+					{Value: "size="},
+					{Value: "species="},
 				},
 			},
 		),
@@ -442,18 +493,18 @@ func TestAutocomplete(t *testing.T) {
 	) // TODO: make this work
 	t.Run(
 		"scw test flower create name=p -o",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"-o"}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "-o"}}}),
 	)
 	t.Run(
 		"scw test -o json flower create ",
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					"colours.0=",
-					"leaves.",
-					"name=",
-					"size=",
-					"species=",
+					{Value: "colours.0="},
+					{Value: "leaves."},
+					{Value: "name="},
+					{Value: "size="},
+					{Value: "species="},
 				},
 			},
 		),
@@ -463,10 +514,10 @@ func TestAutocomplete(t *testing.T) {
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					"colours.0=",
-					"leaves.",
-					"size=",
-					"species=",
+					{Value: "colours.0="},
+					{Value: "leaves."},
+					{Value: "size="},
+					{Value: "species="},
 				},
 			},
 		),
@@ -476,10 +527,10 @@ func TestAutocomplete(t *testing.T) {
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					"colours.0=",
-					"leaves.",
-					"size=",
-					"species=",
+					{Value: "colours.0="},
+					{Value: "leaves."},
+					{Value: "size="},
+					{Value: "species="},
 				},
 			},
 		),
@@ -491,15 +542,15 @@ func TestAutocomplete(t *testing.T) {
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					"--config",
-					"--debug",
-					"--help",
-					"--output",
-					"--profile",
-					"-D",
-					"-c",
-					"-h",
-					"-p",
+					{Value: "--config"},
+					{Value: "--debug"},
+					{Value: "--help"},
+					{Value: "--output"},
+					{Value: "--profile"},
+					{Value: "-D"},
+					{Value: "-c"},
+					{Value: "-h"},
+					{Value: "-p"},
 				},
 			},
 		),
@@ -509,23 +560,27 @@ func TestAutocomplete(t *testing.T) {
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					string(core.PrinterTypeHuman),
-					string(core.PrinterTypeJSON),
-					string(core.PrinterTypeTemplate),
-					string(core.PrinterTypeYAML),
+					{Value: string(core.PrinterTypeHuman)},
+					{Value: string(core.PrinterTypeJSON)},
+					{Value: string(core.PrinterTypeTemplate)},
+					{Value: string(core.PrinterTypeYAML)},
 				},
 			},
 		),
 	)
 	t.Run(
 		"scw test flower delete -o j",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"json"}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "json"}}}),
 	)
 	t.Run(
 		"scw test flower delete -o json ",
 		run(
 			&testCase{
-				Suggestions: core.AutocompleteSuggestions{"anemone", "hibiscus", "with-leaves="},
+				Suggestions: core.AutocompleteSuggestions{
+					{Value: "anemone"},
+					{Value: "hibiscus"},
+					{Value: "with-leaves="},
+				},
 			},
 		),
 	)
@@ -533,17 +588,21 @@ func TestAutocomplete(t *testing.T) {
 		"scw test flower delete -o=json ",
 		run(
 			&testCase{
-				Suggestions: core.AutocompleteSuggestions{"anemone", "hibiscus", "with-leaves="},
+				Suggestions: core.AutocompleteSuggestions{
+					{Value: "anemone"},
+					{Value: "hibiscus"},
+					{Value: "with-leaves="},
+				},
 			},
 		),
 	)
 	t.Run(
 		"scw test flower delete -o json hibiscus w",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"with-leaves="}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "with-leaves="}}}),
 	)
 	t.Run(
 		"scw test flower delete -o=json hibiscus w",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"with-leaves="}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "with-leaves="}}}),
 	)
 }
 
@@ -559,7 +618,7 @@ func TestAutocompleteArgs(t *testing.T) {
 		}{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "name",
+				Name:       "flower-id",
 				Positional: true,
 			},
 			{
@@ -575,12 +634,15 @@ func TestAutocompleteArgs(t *testing.T) {
 		ArgSpecs:  core.ArgSpecs{},
 		Run: func(_ context.Context, _ any) (any, error) {
 			return []*struct {
+				ID   string
 				Name string
 			}{
 				{
+					ID:   "id1",
 					Name: "flower1",
 				},
 				{
+					ID:   "id2",
 					Name: "flower2",
 				},
 			}, nil
@@ -620,7 +682,11 @@ func TestAutocompleteArgs(t *testing.T) {
 		"scw test flower get ",
 		run(
 			&testCase{
-				Suggestions: core.AutocompleteSuggestions{"flower1", "flower2", "material-name="},
+				Suggestions: core.AutocompleteSuggestions{
+					{Value: "id1", Description: "flower1"},
+					{Value: "id2", Description: "flower2"},
+					{Value: "material-name="},
+				},
 			},
 		),
 	)
@@ -629,15 +695,22 @@ func TestAutocompleteArgs(t *testing.T) {
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					"material-name=material1",
-					"material-name=material2",
+					{Value: "material-name=material1"},
+					{Value: "material-name=material2"},
 				},
 			},
 		),
 	)
 	t.Run(
 		"scw test flower get material-name=mat ",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"flower1", "flower2"}}),
+		run(
+			&testCase{
+				Suggestions: core.AutocompleteSuggestions{
+					{Value: "id1", Description: "flower1"},
+					{Value: "id2", Description: "flower2"},
+				},
+			},
+		),
 	)
 	t.Run(
 		"scw test flower create name=",
@@ -669,11 +742,17 @@ func TestAutocompleteProfiles(t *testing.T) {
 		},
 	})
 
-	t.Run("scw -p ", run(&testCase{Suggestions: core.AutocompleteSuggestions{"p1", "p2"}}))
-	t.Run("scw test -p ", run(&testCase{Suggestions: core.AutocompleteSuggestions{"p1", "p2"}}))
+	t.Run(
+		"scw -p ",
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "p1"}, {Value: "p2"}}}),
+	)
+	t.Run(
+		"scw test -p ",
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "p1"}, {Value: "p2"}}}),
+	)
 	t.Run(
 		"scw test flower --profile ",
-		run(&testCase{Suggestions: core.AutocompleteSuggestions{"p1", "p2"}}),
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{{Value: "p1"}, {Value: "p2"}}}),
 	)
 }
 

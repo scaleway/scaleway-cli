@@ -125,7 +125,7 @@ func autocompleteNatsAccountID(
 		region = req.Region
 	}
 
-	suggestions := core.AutocompleteSuggestions(nil)
+	suggestions := core.AutocompleteSuggestions{}
 
 	client := core.ExtractClient(ctx)
 	api := mnq.NewNatsAPI(client)
@@ -142,7 +142,7 @@ func autocompleteNatsAccountID(
 
 	for _, natsAccountID := range completeListNatsAccountIDCache.NatsAccounts {
 		if strings.HasPrefix(natsAccountID.ID, prefix) {
-			suggestions = append(suggestions, natsAccountID.ID)
+			suggestions = append(suggestions, core.Suggestion{Value: natsAccountID.ID})
 		}
 	}
 

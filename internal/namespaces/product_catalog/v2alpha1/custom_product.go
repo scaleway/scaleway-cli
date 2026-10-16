@@ -19,7 +19,7 @@ func autocompleteProductType(ctx context.Context, _ string, _ any) core.Autocomp
 	}
 
 	for _, productType := range completeProductTypeCache {
-		suggestions = append(suggestions, string(productType))
+		suggestions = append(suggestions, core.Suggestion{Value: string(productType)})
 	}
 
 	return suggestions
