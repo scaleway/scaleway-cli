@@ -79,7 +79,6 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 				deployment.Region,
 				dwAdminUsername,
 				request.Password,
-				"deployment",
 			); err != nil {
 				return nil, err
 			}

@@ -19,11 +19,13 @@ import (
 // Secret Manager endpoints reject relative paths.
 const SecretPath = "/cli-connect"
 
+type Product string
+
 const (
-	Redis         = "redis"
-	RDB           = "rdb"
-	MongoDB       = "mongodb"
-	Datawarehouse = "datawarehouse"
+	Redis         Product = "redis"
+	RDB           Product = "rdb"
+	MongoDB       Product = "mongodb"
+	Datawarehouse Product = "datawarehouse"
 )
 
 // CliConnectArgSpec is the shared --cli-connect flag spec.
@@ -57,7 +59,7 @@ var description = "secret used by the cli to ease up connection"
 // persists in Secret Manager: a secret named after the resource UUID, in the
 // cli-connect folder, tagged by product and locality.
 type Resource struct {
-	Product  string
+	Product  Product
 	Location string
 	ID       string
 	Username string
@@ -76,15 +78,14 @@ func (r Resource) Path() string {
 
 // Tags let the credentials secret be filtered by product and locality.
 func (r Resource) Tags() []string {
-	return []string{r.Product, r.Location}
+	return []string{string(r.Product), r.Location}
 }
 
 // Description returns the description persisted on the credentials secret:
 // a copy-pastable scw connect command for the resource, so a user reading the
 // secret in the console knows exactly how to reconnect.
-// ponytail: only the products with a hand-written connect command get a
-// copy-pastable command; add a case in connectCommand when a new product is
-// wired to cli-connect.
+// ponytail: only the products in connectSpecs get a copy-pastable command;
+// add a row there when a new product is wired to cli-connect.
 func (r Resource) Description() string {
 	cmd := connectCommand(r.Product, r.Location, r.ID, r.Username)
 	if cmd == "" {
@@ -94,32 +95,41 @@ func (r Resource) Description() string {
 	return "Secret used to enable cli-connect. Connect directly using: " + cmd
 }
 
-func connectCommand(product, location, resourceID, username string) string {
-	switch product {
-	case RDB, MongoDB:
-		user := ""
-		if username != "" {
-			user = " username=" + username
-		}
+// connectSpecs is the data behind the copy-pastable connect command stored
+// in the credentials secret description. Add a row when a new product is
+// wired to cli-connect.
+type connectSpec struct {
+	resource    string // "instance", "cluster", "deployment"
+	locationArg string // "--region" or "--zone"
+	withUser    bool
+}
 
-		return fmt.Sprintf(
-			"scw %s instance connect %s%s --region %s",
-			product,
-			resourceID,
-			user,
-			location,
-		)
-	case Redis:
-		return fmt.Sprintf("scw redis cluster connect %s --zone %s", resourceID, location)
-	case Datawarehouse:
-		return fmt.Sprintf(
-			"scw datawarehouse deployment connect %s --region %s",
-			resourceID,
-			location,
-		)
-	default:
+var connectSpecs = map[Product]connectSpec{
+	RDB:           {resource: "instance", locationArg: "--region", withUser: true},
+	MongoDB:       {resource: "instance", locationArg: "--region", withUser: true},
+	Redis:         {resource: "cluster", locationArg: "--zone", withUser: false},
+	Datawarehouse: {resource: "deployment", locationArg: "--region", withUser: false},
+}
+
+func connectCommand(product Product, location, resourceID, username string) string {
+	spec, ok := connectSpecs[product]
+	if !ok {
 		return ""
 	}
+	user := ""
+	if spec.withUser && username != "" {
+		user = " username=" + username
+	}
+
+	return fmt.Sprintf(
+		"scw %s %s connect %s%s %s %s",
+		product,
+		spec.resource,
+		resourceID,
+		user,
+		spec.locationArg,
+		location,
+	)
 }
 
 // Credentials is the data stored in a credentials secret: username ->
@@ -132,7 +142,7 @@ type Credentials = map[string]string
 func (r Resource) Persist(
 	ctx context.Context,
 	region scw.Region,
-	username, password, resourceType string,
+	username, password string,
 ) error {
 	client := core.ExtractClient(ctx)
 	api := secretSDK.NewAPI(client)
@@ -140,7 +150,7 @@ func (r Resource) Persist(
 	fail := func(err error) error {
 		return fmt.Errorf(
 			"%s %s was created but its credentials could not be persisted: %w",
-			resourceType,
+			r.Product,
 			r.ID,
 			err,
 		)
@@ -284,7 +294,7 @@ func (r Resource) Delete(ctx context.Context, region scw.Region) error {
 func RunUserUpdate(
 	ctx context.Context,
 	cliConnect bool,
-	product, resourceType string,
+	product Product,
 	region scw.Region,
 	location, resourceID, name string,
 	password **string,
@@ -310,7 +320,7 @@ func RunUserUpdate(
 			ID:       resourceID,
 			Username: name,
 		}
-		if err := resource.Persist(ctx, region, name, **password, resourceType); err != nil {
+		if err := resource.Persist(ctx, region, name, **password); err != nil {
 			return nil, err
 		}
 	}

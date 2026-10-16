@@ -381,7 +381,6 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 				instance.Region,
 				createInstanceRequest.UserName,
 				createInstanceRequest.Password,
-				"instance",
 			); err != nil {
 				return nil, err
 			}

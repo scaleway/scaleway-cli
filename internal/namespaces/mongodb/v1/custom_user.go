@@ -28,7 +28,6 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 			ctx,
 			req.CliConnect,
 			connect.MongoDB,
-			"instance user",
 			req.Region,
 			string(req.Region),
 			req.InstanceID,

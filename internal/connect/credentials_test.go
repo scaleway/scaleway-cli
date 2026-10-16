@@ -14,7 +14,7 @@ func Test_Resource_Description(t *testing.T) {
 		want string
 	}{
 		{
-			name: connect.RDB,
+			name: string(connect.RDB),
 			res: connect.Resource{
 				Product:  connect.RDB,
 				Location: "fr-par",
@@ -24,7 +24,7 @@ func Test_Resource_Description(t *testing.T) {
 			want: "Secret used to enable cli-connect. Connect directly using: scw rdb instance connect 11111111-1111-1111-1111-111111111111 username=foobar --region fr-par",
 		},
 		{
-			name: connect.MongoDB,
+			name: string(connect.MongoDB),
 			res: connect.Resource{
 				Product:  connect.MongoDB,
 				Location: "fr-par",
@@ -43,7 +43,7 @@ func Test_Resource_Description(t *testing.T) {
 			want: "Secret used to enable cli-connect. Connect directly using: scw rdb instance connect 33333333-3333-3333-3333-333333333333 --region nl-ams",
 		},
 		{
-			name: connect.Redis,
+			name: string(connect.Redis),
 			res: connect.Resource{
 				Product:  connect.Redis,
 				Location: "fr-par-1",
@@ -53,7 +53,7 @@ func Test_Resource_Description(t *testing.T) {
 			want: "Secret used to enable cli-connect. Connect directly using: scw redis cluster connect 44444444-4444-4444-4444-444444444444 --zone fr-par-1",
 		},
 		{
-			name: connect.Datawarehouse,
+			name: string(connect.Datawarehouse),
 			res: connect.Resource{
 				Product:  connect.Datawarehouse,
 				Location: "fr-par",

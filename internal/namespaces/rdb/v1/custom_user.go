@@ -193,7 +193,6 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 				updateUserRequest.Region,
 				updateUserRequest.Name,
 				*updateUserRequest.Password,
-				"instance user",
 			); err != nil {
 				return nil, err
 			}

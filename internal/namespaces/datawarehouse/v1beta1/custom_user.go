@@ -28,7 +28,6 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 			ctx,
 			req.CliConnect,
 			connect.Datawarehouse,
-			"deployment user",
 			req.Region,
 			req.Region.String(),
 			req.DeploymentID,

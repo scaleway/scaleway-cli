@@ -137,7 +137,7 @@ func Test_UpdateUserCliConnect(t *testing.T) {
 				require.Len(t, list.Secrets, 1)
 
 				secret := list.Secrets[0]
-				require.Equal(t, []string{connect.RDB, string(region)}, secret.Tags)
+				require.Equal(t, []string{string(connect.RDB), string(region)}, secret.Tags)
 
 				version, err := secretAPI.AccessSecretVersion(
 					&secretSDK.AccessSecretVersionRequest{

@@ -95,7 +95,6 @@ func clusterUpdateBuilder(c *core.Command) *core.Command {
 			ctx,
 			req.CliConnect,
 			connect.Redis,
-			"cluster",
 			region,
 			string(req.Zone),
 			req.ClusterID,
@@ -231,7 +230,6 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 				region,
 				createClusterRequest.UserName,
 				createClusterRequest.Password,
-				"cluster",
 			); err != nil {
 				return nil, err
 			}

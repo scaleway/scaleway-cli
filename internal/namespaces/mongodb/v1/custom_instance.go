@@ -123,7 +123,6 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 				instance.Region,
 				request.UserName,
 				request.Password,
-				"instance",
 			); err != nil {
 				return nil, err
 			}
