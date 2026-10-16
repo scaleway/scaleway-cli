@@ -10,24 +10,24 @@ interactions:
         host: api.scaleway.com
         headers:
             User-Agent:
-                - scaleway-sdk-go/v1.0.0-beta.37.0.20261002075733-8aea664f16f2 (go1.27.1; linux; amd64) cli-e2e-test
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; darwin; arm64) cli-e2e-test
         url: https://api.scaleway.com/mongodb/v1/regions/fr-par/versions
         method: GET
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 966
-        body: '{"versions":[{"version":"8.0.32","end_of_life_at":"2029-10-31T00:00:00Z","available_settings":[]},{"version":"8.0.29","end_of_life_at":"2029-10-31T00:00:00Z","available_settings":[]},{"version":"8.0.26","end_of_life_at":"2029-10-31T00:00:00Z","available_settings":[]},{"version":"7.0.43","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.40","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.37","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.34","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.30","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.28","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.21","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.12","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]}],"total_count":11}'
+        content_length: 220
+        body: '{"versions":[{"version":"8.0","end_of_life_at":"2029-10-31T00:00:00Z","released_at":"2024-10-01T00:00:00Z"},{"version":"7.0","end_of_life_at":"2027-08-31T00:00:00Z","released_at":"2024-10-09T00:00:00Z"}],"total_count":2}'
         headers:
             Content-Length:
-                - "966"
+                - "220"
             Content-Type:
                 - application/json
             Date:
-                - Tue, 06 Oct 2026 09:41:00 GMT
+                - Mon, 12 Oct 2026 12:12:43 GMT
             Server:
-                - Scaleway API Gateway (fr-par-3;edge02)
+                - Scaleway API Gateway (fr-par-1;edge03)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
@@ -35,7 +35,7 @@ interactions:
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - b96b0f3c-f87e-4c48-abee-7eb136df57c6
+                - a12cd872-6f28-484b-a7df-ff135b5377f0
         status: 200 OK
         code: 200
-        duration: 177.496592ms
+        duration: 215.107583ms

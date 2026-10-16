@@ -5,8 +5,6 @@ package object
 import (
 	"context"
 	"fmt"
-	"net/url"
-	"os"
 	"reflect"
 	"strings"
 
@@ -16,6 +14,26 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+// bucketAutoCompleteArgs exposes the fields needed by autocompleteBucketName.
+// Every bucket-related arg struct implements it via the receiver method below.
+type bucketAutoCompleteArgs interface {
+	bucketArgsFields() (region scw.Region, projectID, s3Endpoint, s3UsePathStyle string)
+}
+
+func s3EndpointArgSpec() *core.ArgSpec {
+	return &core.ArgSpec{
+		Name:  "s3-endpoint",
+		Short: "Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint",
+	}
+}
+
+func s3UsePathStyleArgSpec() *core.ArgSpec {
+	return &core.ArgSpec{
+		Name:  "s3-use-path-style",
+		Short: "Whether to use path style addressing for S3 API calls or not",
+	}
+}
+
 type bucketConfigArgs struct {
 	Region           scw.Region
 	Name             string
@@ -23,6 +41,12 @@ type bucketConfigArgs struct {
 	EnableVersioning bool `json:"enable-versioning"`
 	ACL              string
 	ProjectID        string
+	S3Endpoint       string
+	S3UsePathStyle   string
+}
+
+func (a bucketConfigArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
 }
 
 func bucketCreateCommand() *core.Command {
@@ -62,23 +86,26 @@ func bucketCreateCommand() *core.Command {
 				Short:            "The permissions given to users (grantees) to read or write objects",
 				AutoCompleteFunc: autocompleteBucketACL,
 			},
-			{
-				Name:         "project-id",
-				Short:        "Scaleway project ID to use with IAM Access Key syntax",
-				Required:     false,
-				ValidateFunc: core.ValidateProjectID(),
-			},
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
+			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketConfigArgs)
-			client := newS3Client(ctx, args.Region, args.ProjectID)
+
+			client, s3Endpoint, s3UsePathStyle, err := newS3ClientFromArgs(
+				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
+			)
+			if err != nil {
+				return nil, err
+			}
 
 			if ok, possibleValues := verifyACLInput(args.ACL); !ok {
 				return nil, fmt.Errorf("ACL field must be one of %v", possibleValues)
 			}
 
-			_, err := client.CreateBucket(ctx, &s3.CreateBucketInput{
+			_, err = client.CreateBucket(ctx, &s3.CreateBucketInput{
 				Bucket: &args.Name,
 				ACL:    types.BucketCannedACL(args.ACL),
 				CreateBucketConfiguration: &types.CreateBucketConfiguration{
@@ -100,7 +127,12 @@ func bucketCreateCommand() *core.Command {
 			}
 
 			bucket, err := getBucketInfo(
-				ctx, args.Region, args.Name, args.ProjectID,
+				ctx,
+				args.Region,
+				args.Name,
+				client,
+				s3UsePathStyle,
+				s3Endpoint,
 			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
@@ -118,9 +150,15 @@ func bucketCreateCommand() *core.Command {
 }
 
 type bucketDeleteArgs struct {
-	Region    scw.Region
-	Name      string
-	ProjectID string
+	Region         scw.Region
+	Name           string
+	ProjectID      string
+	S3Endpoint     string
+	S3UsePathStyle string
+}
+
+func (a bucketDeleteArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
 }
 
 func bucketDeleteCommand() *core.Command {
@@ -139,19 +177,22 @@ func bucketDeleteCommand() *core.Command {
 				Short:            "The unique name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
-			{
-				Name:         "project-id",
-				Short:        "Scaleway project ID to use with IAM Access Key syntax",
-				Required:     false,
-				ValidateFunc: core.ValidateProjectID(),
-			},
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
+			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketDeleteArgs)
-			client := newS3Client(ctx, args.Region, args.ProjectID)
 
-			_, err := client.DeleteBucket(ctx, &s3.DeleteBucketInput{
+			client, _, _, err := newS3ClientFromArgs(
+				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
+			)
+			if err != nil {
+				return nil, err
+			}
+
+			_, err = client.DeleteBucket(ctx, &s3.DeleteBucketInput{
 				Bucket: &args.Name,
 			})
 			if err != nil {
@@ -189,20 +230,28 @@ func bucketGetCommand() *core.Command {
 				Default:    core.DefaultValueSetter("false"),
 				Short:      "Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets.",
 			},
-			{
-				Name:         "project-id",
-				Short:        "Scaleway project ID to use with IAM Access Key syntax",
-				Required:     false,
-				ValidateFunc: core.ValidateProjectID(),
-			},
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
+			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketGetArgs)
-			client := newS3Client(ctx, args.Region, args.ProjectID)
+
+			client, s3Endpoint, s3UsePathStyle, err := newS3ClientFromArgs(
+				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
+			)
+			if err != nil {
+				return nil, err
+			}
 
 			bucket, err := getBucketInfo(
-				ctx, args.Region, args.Name, args.ProjectID,
+				ctx,
+				args.Region,
+				args.Name,
+				client,
+				s3UsePathStyle,
+				s3Endpoint,
 			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
@@ -233,8 +282,9 @@ func bucketGetCommand() *core.Command {
 }
 
 type bucketListArgs struct {
-	Region    scw.Region
-	ProjectID string
+	Region     scw.Region
+	ProjectID  string
+	S3Endpoint string
 }
 
 func bucketListCommand() *core.Command {
@@ -246,17 +296,21 @@ func bucketListCommand() *core.Command {
 		Long:      "List all existing S3 buckets in the specified region",
 		ArgsType:  reflect.TypeFor[bucketListArgs](),
 		ArgSpecs: core.ArgSpecs{
-			{
-				Name:         "project-id",
-				Short:        "Scaleway project ID to use with IAM Access Key syntax",
-				Required:     false,
-				ValidateFunc: core.ValidateProjectID(),
-			},
+			s3EndpointArgSpec(),
+			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketListArgs)
-			client := newS3Client(ctx, args.Region, args.ProjectID)
+
+			// s3UsePathStyle is not relevant to this call, we arbitrarily set
+			// it to false
+			client, _, _, err := newS3ClientFromArgs(
+				ctx, args.Region, args.ProjectID, args.S3Endpoint, "false",
+			)
+			if err != nil {
+				return nil, err
+			}
 
 			buckets, err := client.ListBuckets(ctx, &s3.ListBucketsInput{})
 			if err != nil {
@@ -305,19 +359,22 @@ func bucketUpdateCommand() *core.Command {
 				Short:            "The permissions given to users (grantees) to read or write objects",
 				AutoCompleteFunc: autocompleteBucketACL,
 			},
-			{
-				Name:         "project-id",
-				Short:        "Scaleway project ID to use with IAM Access Key syntax",
-				Required:     false,
-				ValidateFunc: core.ValidateProjectID(),
-			},
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
+			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketConfigArgs)
-			client := newS3Client(ctx, args.Region, args.ProjectID)
 
-			err := putBucketVersioning(ctx, client, args.Name, args.EnableVersioning)
+			client, s3Endpoint, s3UsePathStyle, err := newS3ClientFromArgs(
+				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
+			)
+			if err != nil {
+				return nil, err
+			}
+
+			err = putBucketVersioning(ctx, client, args.Name, args.EnableVersioning)
 			if err != nil {
 				return nil, fmt.Errorf("could not update bucket versioning: %w", err)
 			}
@@ -333,7 +390,12 @@ func bucketUpdateCommand() *core.Command {
 			}
 
 			bucketResponse, err := getBucketInfo(
-				ctx, args.Region, args.Name, args.ProjectID,
+				ctx,
+				args.Region,
+				args.Name,
+				client,
+				s3UsePathStyle,
+				s3Endpoint,
 			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
@@ -348,84 +410,6 @@ func bucketUpdateCommand() *core.Command {
 			}, nil
 		},
 	}
-}
-
-func getBucketInfo(
-	ctx context.Context,
-	region scw.Region,
-	name,
-	projectID string,
-) (*bucketInfo, error) {
-	client := newS3Client(ctx, region, projectID)
-	bucket := &bucketInfo{
-		ID:     name,
-		Region: region,
-	}
-
-	// get versioning
-	versioningOutput, err := client.GetBucketVersioning(ctx, &s3.GetBucketVersioningInput{
-		Bucket: &name,
-	})
-	if err != nil {
-		return nil, fmt.Errorf("could not get bucket versioning: %w", err)
-	}
-	switch versioningOutput.Status {
-	case types.BucketVersioningStatusSuspended, "":
-		bucket.EnableVersioning = false
-	case types.BucketVersioningStatusEnabled:
-		bucket.EnableVersioning = true
-	}
-
-	// get tagging
-	tagging, err := client.GetBucketTagging(ctx, &s3.GetBucketTaggingInput{
-		Bucket: &name,
-	})
-	if err != nil && !strings.Contains(err.Error(), "NoSuchTagSet") {
-		return nil, fmt.Errorf("could not get bucket tagging: %w", err)
-	} else if tagging != nil {
-		bucket.Tags = tagging.TagSet
-	}
-
-	// get ACL
-	acl, err := client.GetBucketAcl(ctx, &s3.GetBucketAclInput{
-		Bucket: &name,
-	})
-	if err != nil {
-		return nil, fmt.Errorf("could not get bucket ACL: %w", err)
-	}
-	bucket.Owner = normalizeOwnerID(acl.Owner.ID)
-	bucket.ACL = awsACLToCustomGrants(acl)
-
-	// get endpoints
-	bucket.APIEndpoint = getAPIEndpoint(region.String())
-	bucket.BucketEndpoint, err = getBucketEndpoint(name, region.String())
-	if err != nil {
-		return nil, err
-	}
-
-	return bucket, nil
-}
-
-func getAPIEndpoint(region string) string {
-	if customEndpoint := os.Getenv("SCW_S3_ENDPOINT"); customEndpoint != "" {
-		return customEndpoint
-	}
-
-	return fmt.Sprintf("https://s3.%s.scw.cloud", region)
-}
-
-func getBucketEndpoint(name, region string) (string, error) {
-	if customEndpoint := os.Getenv("SCW_S3_ENDPOINT"); customEndpoint != "" {
-		u, err := url.Parse(customEndpoint)
-		if err != nil {
-			return "", fmt.Errorf("could not parse custom endpoint %s: %w", customEndpoint, err)
-		}
-		u = u.JoinPath(name, u.Path)
-
-		return u.String(), nil
-	}
-
-	return fmt.Sprintf("https://%s.s3.%s.scw.cloud", name, region), nil
 }
 
 func countBucketObjects(
@@ -541,21 +525,18 @@ func autocompleteBucketName(
 	request any,
 ) core.AutocompleteSuggestions {
 	var region scw.Region
-	var projectID string
-	switch t := request.(type) {
-	case bucketConfigArgs:
-		region = t.Region
-		projectID = t.ProjectID
-	case bucketDeleteArgs:
-		region = t.Region
-		projectID = t.ProjectID
-	case bucketGetArgs:
-		region = t.Region
-		projectID = t.ProjectID
+	var projectID, s3Endpoint, s3UsePathStyleStr string
+	if args, ok := request.(bucketAutoCompleteArgs); ok {
+		region, projectID, s3Endpoint, s3UsePathStyleStr = args.bucketArgsFields()
 	}
 
 	suggestions := core.AutocompleteSuggestions(nil)
-	client := newS3Client(ctx, region, projectID)
+	client, _, _, err := newS3ClientFromArgs(
+		ctx, region, projectID, s3Endpoint, s3UsePathStyleStr,
+	)
+	if err != nil {
+		return nil
+	}
 
 	if completeListBucketsCache == nil {
 		buckets, err := client.ListBuckets(ctx, &s3.ListBucketsInput{})

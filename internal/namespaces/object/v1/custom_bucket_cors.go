@@ -21,6 +21,12 @@ type bucketCorsCreateArgs struct {
 	CorsConfiguration string
 	Region            scw.Region
 	ProjectID         string
+	S3Endpoint        string
+	S3UsePathStyle    string
+}
+
+func (a bucketCorsCreateArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
 }
 
 func bucketCorsCreateCommand() *core.Command {
@@ -45,6 +51,8 @@ func bucketCorsCreateCommand() *core.Command {
 				Required:   true,
 				Short:      "The path to the local JSON file containing the CORS configuration.",
 			},
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -77,10 +85,16 @@ func bucketCorsCreateCommand() *core.Command {
 				)
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
 			params := s3.PutBucketCorsInput{
 				Bucket:            &args.Bucket,
 				CORSConfiguration: &config,
+			}
+
+			client, s3Endpoint, s3UsePathStyle, err := newS3ClientFromArgs(
+				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
+			)
+			if err != nil {
+				return nil, err
 			}
 
 			_, err = client.PutBucketCors(ctx, &params)
@@ -88,7 +102,14 @@ func bucketCorsCreateCommand() *core.Command {
 				return nil, fmt.Errorf("could not create bucket CORS configuration: %w", err)
 			}
 
-			bucket, err := getBucketInfo(ctx, args.Region, args.Bucket, args.ProjectID)
+			bucket, err := getBucketInfo(
+				ctx,
+				args.Region,
+				args.Bucket,
+				client,
+				s3UsePathStyle,
+				s3Endpoint,
+			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
 			}
@@ -105,9 +126,15 @@ func bucketCorsCreateCommand() *core.Command {
 }
 
 type bucketCorsDeleteArgs struct {
-	Bucket    string
-	Region    scw.Region
-	ProjectID string
+	Bucket         string
+	Region         scw.Region
+	ProjectID      string
+	S3UsePathStyle string
+	S3Endpoint     string
+}
+
+func (a bucketCorsDeleteArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
 }
 
 func bucketCorsDeleteCommand() *core.Command {
@@ -126,6 +153,8 @@ func bucketCorsDeleteCommand() *core.Command {
 				Short:            "The name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -135,12 +164,18 @@ func bucketCorsDeleteCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
 			params := s3.DeleteBucketCorsInput{
 				Bucket: &args.Bucket,
 			}
 
-			_, err := client.DeleteBucketCors(ctx, &params)
+			client, _, _, err := newS3ClientFromArgs(
+				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
+			)
+			if err != nil {
+				return nil, err
+			}
+
+			_, err = client.DeleteBucketCors(ctx, &params)
 			if err != nil {
 				return nil, fmt.Errorf("could not delete bucket CORS: %w", err)
 			}
@@ -154,9 +189,15 @@ func bucketCorsDeleteCommand() *core.Command {
 }
 
 type bucketCorsGetArgs struct {
-	Bucket    string
-	Region    scw.Region
-	ProjectID string
+	Bucket         string
+	Region         scw.Region
+	ProjectID      string
+	S3Endpoint     string
+	S3UsePathStyle string
+}
+
+func (a bucketCorsGetArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
 }
 
 func bucketCorsGetCommand() *core.Command {
@@ -175,6 +216,8 @@ func bucketCorsGetCommand() *core.Command {
 				Short:            "The name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -184,9 +227,15 @@ func bucketCorsGetCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
 			params := s3.GetBucketCorsInput{
 				Bucket: &args.Bucket,
+			}
+
+			client, _, _, err := newS3ClientFromArgs(
+				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
+			)
+			if err != nil {
+				return nil, err
 			}
 
 			conf, err := client.GetBucketCors(ctx, &params)

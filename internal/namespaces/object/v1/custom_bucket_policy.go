@@ -17,10 +17,16 @@ import (
 )
 
 type bucketPolicyCreateArgs struct {
-	Bucket    string
-	Policy    string
-	Region    scw.Region
-	ProjectID string
+	Bucket         string
+	Policy         string
+	Region         scw.Region
+	ProjectID      string
+	S3Endpoint     string
+	S3UsePathStyle string
+}
+
+func (a bucketPolicyCreateArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
 }
 
 func bucketPolicyCreateCommand() *core.Command {
@@ -33,10 +39,11 @@ func bucketPolicyCreateCommand() *core.Command {
 		ArgsType:  reflect.TypeFor[bucketPolicyCreateArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "bucket",
-				Positional: true,
-				Required:   true,
-				Short:      "The name of the bucket to which assign the policy.",
+				Name:             "bucket",
+				Positional:       true,
+				Required:         true,
+				Short:            "The name of the bucket to which assign the policy.",
+				AutoCompleteFunc: autocompleteBucketName,
 			},
 			{
 				Name:       "policy",
@@ -44,6 +51,8 @@ func bucketPolicyCreateCommand() *core.Command {
 				Required:   true,
 				Short:      "The path to the local JSON file containing the bucket policy.",
 			},
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -67,7 +76,13 @@ func bucketPolicyCreateCommand() *core.Command {
 
 			policy := string(policyBytes)
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
+			client, s3Endpoint, s3UsePathStyle, err := newS3ClientFromArgs(
+				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
+			)
+			if err != nil {
+				return nil, err
+			}
+
 			params := s3.PutBucketPolicyInput{
 				Bucket: &args.Bucket,
 				Policy: &policy,
@@ -78,7 +93,14 @@ func bucketPolicyCreateCommand() *core.Command {
 				return nil, fmt.Errorf("could not create bucket policy: %w", err)
 			}
 
-			bucket, err := getBucketInfo(ctx, args.Region, args.Bucket, args.ProjectID)
+			bucket, err := getBucketInfo(
+				ctx,
+				args.Region,
+				args.Bucket,
+				client,
+				s3UsePathStyle,
+				s3Endpoint,
+			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
 			}
@@ -95,9 +117,15 @@ func bucketPolicyCreateCommand() *core.Command {
 }
 
 type bucketPolicyDeleteArgs struct {
-	Bucket    string
-	Region    scw.Region
-	ProjectID string
+	Bucket         string
+	Region         scw.Region
+	ProjectID      string
+	S3Endpoint     string
+	S3UsePathStyle string
+}
+
+func (a bucketPolicyDeleteArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
 }
 
 func bucketPolicyDeleteCommand() *core.Command {
@@ -116,6 +144,8 @@ func bucketPolicyDeleteCommand() *core.Command {
 				Short:            "The unique name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -125,12 +155,17 @@ func bucketPolicyDeleteCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
+			client, _, _, err := newS3ClientFromArgs(
+				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
+			)
+			if err != nil {
+				return nil, err
+			}
 			params := s3.DeleteBucketPolicyInput{
 				Bucket: &args.Bucket,
 			}
 
-			_, err := client.DeleteBucketPolicy(ctx, &params)
+			_, err = client.DeleteBucketPolicy(ctx, &params)
 			if err != nil {
 				return nil, fmt.Errorf("could not delete bucket policy: %w", err)
 			}
@@ -144,9 +179,15 @@ func bucketPolicyDeleteCommand() *core.Command {
 }
 
 type bucketPolicyGetArgs struct {
-	Bucket    string
-	Region    scw.Region
-	ProjectID string
+	Bucket         string
+	Region         scw.Region
+	ProjectID      string
+	S3Endpoint     string
+	S3UsePathStyle string
+}
+
+func (a bucketPolicyGetArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
 }
 
 func bucketPolicyGetCommand() *core.Command {
@@ -165,6 +206,8 @@ func bucketPolicyGetCommand() *core.Command {
 				Short:            "The unique name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -174,7 +217,13 @@ func bucketPolicyGetCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
+			client, _, _, err := newS3ClientFromArgs(
+				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
+			)
+			if err != nil {
+				return nil, err
+			}
+
 			params := s3.GetBucketPolicyInput{
 				Bucket: &args.Bucket,
 			}
