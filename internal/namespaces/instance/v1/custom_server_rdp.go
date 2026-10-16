@@ -187,18 +187,21 @@ func parsePrivateKey(ctx context.Context, key []byte) (any, error) {
 	return privateKey, nil
 }
 
-func completeSSHKeyID(ctx context.Context, prefix string, _ any) map[string]string {
+func completeSSHKeyID(ctx context.Context, prefix string, _ any) core.AutocompleteSuggestions {
 	resp, err := iam.NewAPI(core.ExtractClient(ctx)).
 		ListSSHKeys(&iam.ListSSHKeysRequest{}, scw.WithAllPages())
 	if err != nil {
 		return nil
 	}
 
-	suggestion := make(map[string]string, len(resp.SSHKeys))
+	suggestion := make(core.AutocompleteSuggestions, 0, len(resp.SSHKeys))
 
 	for _, sshKey := range resp.SSHKeys {
 		if strings.HasPrefix(sshKey.ID, prefix) {
-			suggestion[sshKey.ID] = sshKey.Name
+			suggestion = append(
+				suggestion,
+				core.Suggestion{Value: sshKey.ID, Description: sshKey.Name},
+			)
 		}
 	}
 

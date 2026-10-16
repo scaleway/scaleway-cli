@@ -270,8 +270,8 @@ func autoCompleteSettingsName(
 	ctx context.Context,
 	prefix string,
 	request any,
-) map[string]string {
-	suggestions := map[string]string{}
+) core.AutocompleteSuggestions {
+	suggestions := core.AutocompleteSuggestions{}
 	req := request.(*redis.AddClusterSettingsRequest)
 	client := core.ExtractClient(ctx)
 	api := redis.NewAPI(client)
@@ -299,7 +299,7 @@ func autoCompleteSettingsName(
 		for _, version := range completeClusterVersionCache.Versions {
 			for _, settingName := range version.AvailableSettings {
 				if strings.HasPrefix(settingName.Name, prefix) {
-					suggestions[settingName.Name] = ""
+					suggestions = append(suggestions, core.Suggestion{Value: settingName.Name})
 				}
 			}
 		}
@@ -314,7 +314,7 @@ func autoCompleteNodeType(
 	ctx context.Context,
 	prefix string,
 	request any,
-) map[string]string {
+) core.AutocompleteSuggestions {
 	req := request.(*redis.MigrateClusterRequest)
 
 	return completeNodeTypes(ctx, req.Zone, prefix)
@@ -334,7 +334,7 @@ func autoCompleteCreateNodeType(
 	ctx context.Context,
 	prefix string,
 	request any,
-) map[string]string {
+) core.AutocompleteSuggestions {
 	req := request.(*CreateClusterRequestCustom)
 
 	return completeNodeTypes(ctx, CreateRequestZone(req), prefix)
@@ -344,8 +344,8 @@ func completeNodeTypes(
 	ctx context.Context,
 	zone scw.Zone,
 	prefix string,
-) map[string]string {
-	suggestions := map[string]string{}
+) core.AutocompleteSuggestions {
+	suggestions := core.AutocompleteSuggestions{}
 	client := core.ExtractClient(ctx)
 	api := redis.NewAPI(client)
 
@@ -360,7 +360,7 @@ func completeNodeTypes(
 	}
 	for _, nodeType := range completeRedisNoteTypeCache.NodeTypes {
 		if strings.HasPrefix(nodeType.Name, prefix) {
-			suggestions[nodeType.Name] = ""
+			suggestions = append(suggestions, core.Suggestion{Value: nodeType.Name})
 		}
 	}
 
@@ -374,8 +374,8 @@ func autoCompleteRedisVersion(
 	ctx context.Context,
 	prefix string,
 	request any,
-) map[string]string {
-	suggestions := map[string]string{}
+) core.AutocompleteSuggestions {
+	suggestions := core.AutocompleteSuggestions{}
 	zone := CreateRequestZone(request.(*CreateClusterRequestCustom))
 
 	client := core.ExtractClient(ctx)
@@ -393,7 +393,7 @@ func autoCompleteRedisVersion(
 
 	for _, v := range completeRedisVersionCache.Versions {
 		if strings.HasPrefix(v.Version, prefix) {
-			suggestions[v.Version] = ""
+			suggestions = append(suggestions, core.Suggestion{Value: v.Version})
 		}
 	}
 

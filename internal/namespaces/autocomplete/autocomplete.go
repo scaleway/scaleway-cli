@@ -317,12 +317,17 @@ func autocompleteCompleteBashCommand() *core.Command {
 			res := core.AutoComplete(ctx, leftWords, wordToComplete, rightWords)
 			if strings.Contains(wordToComplete, "=") {
 				prefix := strings.SplitAfterN(wordToComplete, "=", 2)[0]
-				for k, p := range res.Suggestions {
-					res.Suggestions[k] = strings.TrimPrefix(p, prefix)
+				for i, suggestion := range res.Suggestions {
+					res.Suggestions[i].Value = strings.TrimPrefix(suggestion.Value, prefix)
 				}
 			}
 
-			return strings.Join(res.Suggestions, " "), nil
+			values := make([]string, 0, len(res.Suggestions))
+			for _, suggestion := range res.Suggestions {
+				values = append(values, suggestion.Value)
+			}
+
+			return strings.Join(values, " "), nil
 		},
 	}
 }
@@ -379,12 +384,12 @@ func suggestionLines(res *core.AutocompleteResponse, separator string, escapeVal
 	valueReplacer := strings.NewReplacer(`\`, `\\`, ":", `\:`)
 	lines := make([]string, 0, len(res.Suggestions))
 	for _, suggestion := range res.Suggestions {
-		value := suggestion
+		value := suggestion.Value
 		if escapeValue {
 			value = valueReplacer.Replace(value)
 		}
-		if description := res.Descriptions[suggestion]; description != "" {
-			lines = append(lines, value+separator+descReplacer.Replace(description))
+		if suggestion.Description != "" {
+			lines = append(lines, value+separator+descReplacer.Replace(suggestion.Description))
 
 			continue
 		}

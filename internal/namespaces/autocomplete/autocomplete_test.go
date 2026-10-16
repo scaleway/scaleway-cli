@@ -16,39 +16,44 @@ func TestSuggestions(t *testing.T) {
 	}{
 		"no description": {
 			Response: &core.AutocompleteResponse{
-				Suggestions: core.AutocompleteSuggestions{"id1", "id2"},
+				Suggestions: core.AutocompleteSuggestions{{Value: "id1"}, {Value: "id2"}},
 			},
 			Fish: "id1\nid2",
 			Zsh:  "id1\nid2",
 		},
 		"with description": {
 			Response: &core.AutocompleteResponse{
-				Suggestions:  core.AutocompleteSuggestions{"id1", "id2"},
-				Descriptions: map[string]string{"id1": "flower1"},
+				Suggestions: core.AutocompleteSuggestions{
+					{Value: "id1", Description: "flower1"},
+					{Value: "id2"},
+				},
 			},
 			Fish: "id1\tflower1\nid2",
 			Zsh:  "id1:flower1\nid2",
 		},
 		"arg value suggestion": {
 			Response: &core.AutocompleteResponse{
-				Suggestions:  core.AutocompleteSuggestions{"flower-id=id1"},
-				Descriptions: map[string]string{"flower-id=id1": "flower1"},
+				Suggestions: core.AutocompleteSuggestions{
+					{Value: "flower-id=id1", Description: "flower1"},
+				},
 			},
 			Fish: "flower-id=id1\tflower1",
 			Zsh:  "flower-id=id1:flower1",
 		},
 		"sanitized description": {
 			Response: &core.AutocompleteResponse{
-				Suggestions:  core.AutocompleteSuggestions{"id1"},
-				Descriptions: map[string]string{"id1": "flower\t1\n2"},
+				Suggestions: core.AutocompleteSuggestions{
+					{Value: "id1", Description: "flower\t1\n2"},
+				},
 			},
 			Fish: "id1\tflower 1 2",
 			Zsh:  "id1:flower 1 2",
 		},
 		"escaped value": {
 			Response: &core.AutocompleteResponse{
-				Suggestions:  core.AutocompleteSuggestions{"id:1"},
-				Descriptions: map[string]string{"id:1": "flower1"},
+				Suggestions: core.AutocompleteSuggestions{
+					{Value: "id:1", Description: "flower1"},
+				},
 			},
 			Fish: "id:1\tflower1",
 			Zsh:  `id\:1:flower1`,

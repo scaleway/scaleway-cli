@@ -10,7 +10,7 @@ import (
 )
 
 func iamPolicyCreateBuilder(c *core.Command) *core.Command {
-	c.ArgSpecs.GetByName("rules.{index}.permission-set-names.{index}").AutoCompleteFunc = func(ctx context.Context, _ string, _ any) map[string]string {
+	c.ArgSpecs.GetByName("rules.{index}.permission-set-names.{index}").AutoCompleteFunc = func(ctx context.Context, _ string, _ any) core.AutocompleteSuggestions {
 		client := core.ExtractClient(ctx)
 		api := iam.NewAPI(client)
 		// TODO: store result in a CLI cache
@@ -20,9 +20,9 @@ func iamPolicyCreateBuilder(c *core.Command) *core.Command {
 		if err != nil {
 			return nil
 		}
-		suggestions := map[string]string{}
+		suggestions := core.AutocompleteSuggestions{}
 		for _, ps := range resp.PermissionSets {
-			suggestions[ps.Name] = ""
+			suggestions = append(suggestions, core.Suggestion{Value: ps.Name})
 		}
 
 		return suggestions

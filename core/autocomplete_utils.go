@@ -59,8 +59,8 @@ func getGlobalFlags(ctx context.Context) []FlagSpec {
 }
 
 func AutocompleteProfileName() AutoCompleteArgFunc {
-	return func(ctx context.Context, prefix string, _ any) map[string]string {
-		res := map[string]string{}
+	return func(ctx context.Context, prefix string, _ any) AutocompleteSuggestions {
+		res := AutocompleteSuggestions{}
 		configPath := ExtractConfigPath(ctx)
 		config, err := scw.LoadConfigFromPath(configPath)
 		if err != nil {
@@ -69,12 +69,12 @@ func AutocompleteProfileName() AutoCompleteArgFunc {
 
 		for profileName := range config.Profiles {
 			if strings.HasPrefix(profileName, prefix) {
-				res[profileName] = ""
+				res = append(res, Suggestion{Value: profileName})
 			}
 		}
 
 		if strings.HasPrefix(scw.DefaultProfileName, prefix) { //nolint:gocritic
-			res[scw.DefaultProfileName] = ""
+			res = append(res, Suggestion{Value: scw.DefaultProfileName})
 		}
 
 		return res
@@ -88,13 +88,13 @@ var autocompleteResourceToNamespace = map[string]string{
 // AutocompleteGetArg tries to complete an argument by using the list verb if it exists for the same resource
 // It will search for the same field in the response of the list
 // Field name will be stripped of the resource name (ex: cluster-id -> id)
-// The returned map maps a value to an optional description: the resource name when completing an id, empty otherwise.
+// The suggestions are values, with the resource name as description when completing an id, empty otherwise.
 func AutocompleteGetArg(
 	ctx context.Context,
 	cmd *Command,
 	argSpec *ArgSpec,
 	completedArgs map[string]string,
-) map[string]string {
+) AutocompleteSuggestions {
 	commands := ExtractCommands(ctx)
 
 	// The argument we want to find (ex: server-id)
@@ -175,7 +175,7 @@ func AutocompleteGetArg(
 	if resources.Kind() != reflect.Slice {
 		return nil
 	}
-	values := map[string]string{}
+	values := AutocompleteSuggestions{}
 	// Let's iterate over the struct in the response slice and get the searched field
 	for i := range resources.Len() {
 		resource := resources.Index(i)
@@ -193,7 +193,7 @@ func AutocompleteGetArg(
 				description = nameField.String()
 			}
 		}
-		values[value] = description
+		values = append(values, Suggestion{Value: value, Description: description})
 	}
 
 	return values

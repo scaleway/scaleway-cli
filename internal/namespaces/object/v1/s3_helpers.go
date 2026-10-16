@@ -93,8 +93,8 @@ func FormatAccessKey(accessKey, argProjectID, defaultProjectID string) (formatte
 // Caching BucketCannedACL values for shell completion
 var completeBucketACLCache []types.BucketCannedACL
 
-func autocompleteBucketACL(_ context.Context, prefix string, _ any) map[string]string {
-	suggestions := map[string]string{}
+func autocompleteBucketACL(_ context.Context, prefix string, _ any) core.AutocompleteSuggestions {
+	suggestions := core.AutocompleteSuggestions{}
 
 	if len(completeBucketACLCache) == 0 {
 		var awsCannedACL types.BucketCannedACL
@@ -103,7 +103,7 @@ func autocompleteBucketACL(_ context.Context, prefix string, _ any) map[string]s
 
 	for _, acl := range completeBucketACLCache {
 		if strings.HasPrefix(string(acl), prefix) {
-			suggestions[string(acl)] = ""
+			suggestions = append(suggestions, core.Suggestion{Value: string(acl)})
 		}
 	}
 

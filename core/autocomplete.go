@@ -11,15 +11,19 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
 )
 
+// Suggestion is a single word offered to the shell as an autocomplete candidate.
+// Description is optional and displayed next to Value by the shells that support it (e.g. fish, zsh).
+type Suggestion struct {
+	Value       string
+	Description string
+}
+
 // AutocompleteSuggestions is a list of words to be set to the shell as autocomplete suggestions.
-type AutocompleteSuggestions []string
+type AutocompleteSuggestions []Suggestion
 
 // AutocompleteResponse contains the autocomplete suggestions
 type AutocompleteResponse struct {
 	Suggestions AutocompleteSuggestions
-	// Descriptions holds an optional description per suggestion value,
-	// displayed next to the value by shells that support it (e.g. fish).
-	Descriptions map[string]string
 }
 
 const (
@@ -40,8 +44,7 @@ const (
 
 // AutoCompleteArgFunc is the function called to complete arguments values.
 // It is retrieved from core.ArgSpec.AutoCompleteFunc.
-// The returned map maps a suggestion value to an optional description.
-type AutoCompleteArgFunc func(ctx context.Context, prefix string, request any) map[string]string
+type AutoCompleteArgFunc func(ctx context.Context, prefix string, request any) AutocompleteSuggestions
 
 // AutoCompleteNode is a node in the AutoComplete Tree.
 // An AutoCompleteNode can either represent a command, a subcommand, or a command argument.
@@ -61,18 +64,14 @@ type FlagSpec struct {
 	EnumValues       []string
 }
 
-// newAutoCompleteResponseWithDescriptions builds a new AutocompleteResponse
-func newAutoCompleteResponseWithDescriptions(suggestions []string,
-	descriptions map[string]string,
-) *AutocompleteResponse {
-	sort.Strings(suggestions)
-	if len(descriptions) == 0 {
-		descriptions = nil
-	}
+// newAutoCompleteResponse builds a new AutocompleteResponse, sorted by suggestion value.
+func newAutoCompleteResponse(suggestions AutocompleteSuggestions) *AutocompleteResponse {
+	sort.Slice(suggestions, func(i, j int) bool {
+		return suggestions[i].Value < suggestions[j].Value
+	})
 
 	return &AutocompleteResponse{
-		Suggestions:  suggestions,
-		Descriptions: descriptions,
+		Suggestions: suggestions,
 	}
 }
 
@@ -342,30 +341,24 @@ func AutoComplete(
 		)
 
 		// We need to prefix suggestions with the argName to enable the arg value auto-completion.
-		suggestions := []string(nil)
-		descriptions := map[string]string{}
-		for value, description := range values {
-			suggestion := argName + value
-			suggestions = append(suggestions, suggestion)
-			if description != "" {
-				descriptions[suggestion] = description
-			}
+		suggestions := AutocompleteSuggestions(nil)
+		for _, suggestion := range values {
+			suggestions = append(suggestions, Suggestion{
+				Value:       argName + suggestion.Value,
+				Description: suggestion.Description,
+			})
 		}
 
-		return newAutoCompleteResponseWithDescriptions(suggestions, descriptions)
+		return newAutoCompleteResponse(suggestions)
 	}
 
 	// We are trying to complete a node: either a command name or an arg name or a flagname or a positional args
-	suggestions := []string(nil)
-	descriptions := map[string]string{}
+	suggestions := AutocompleteSuggestions(nil)
 	for key, child := range node.Children {
 		if key == positionalValueNodeID {
-			for positionalSuggestion, description := range AutoCompleteArgValue(ctx, child.Command, child.ArgSpec, wordToComplete, completedArgs) {
-				if _, exists := completedArgs[positionalSuggestion]; !exists {
+			for _, positionalSuggestion := range AutoCompleteArgValue(ctx, child.Command, child.ArgSpec, wordToComplete, completedArgs) {
+				if _, exists := completedArgs[positionalSuggestion.Value]; !exists {
 					suggestions = append(suggestions, positionalSuggestion)
-					if description != "" {
-						descriptions[positionalSuggestion] = description
-					}
 				}
 			}
 
@@ -392,7 +385,7 @@ func AutoComplete(
 				// suggestions: -o
 				continue
 			}
-			suggestions = append(suggestions, key)
+			suggestions = append(suggestions, Suggestion{Value: key})
 
 			continue
 		}
@@ -401,7 +394,7 @@ func AutoComplete(
 		suggestions = append(suggestions, keySuggestion(key, completedArgs, wordToComplete)...)
 	}
 
-	return newAutoCompleteResponseWithDescriptions(suggestions, descriptions)
+	return newAutoCompleteResponse(suggestions)
 }
 
 // AutoCompleteArgValue returns suggestions for a (argument name, argument value prefix) pair.
@@ -413,30 +406,34 @@ func AutoCompleteArgValue(
 	argSpec *ArgSpec,
 	argValuePrefix string,
 	completedArgs map[string]string,
-) map[string]string {
+) AutocompleteSuggestions {
 	if argSpec == nil {
 		return nil
 	}
 	if argSpec.AutoCompleteFunc != nil {
-		return argSpec.AutoCompleteFunc(
-			ctx,
-			argValuePrefix,
-			requestFromCompletedArgs(cmd, completedArgs),
+		// The AutoCompleteFunc is responsible for the prefix filtering.
+		return filterSuggestions(
+			argSpec.AutoCompleteFunc(
+				ctx,
+				argValuePrefix,
+				requestFromCompletedArgs(cmd, completedArgs),
+			),
+			"",
 		)
 	}
 
-	possibleValues := map[string]string(nil)
+	var possibleValues AutocompleteSuggestions
 
 	if fieldType, err := args.GetArgType(cmd.ArgsType, argSpec.Name); err == nil {
 		if fieldType.Kind() == reflect.Bool {
-			possibleValues = map[string]string{"true": "", "false": ""}
+			possibleValues = AutocompleteSuggestions{{Value: "true"}, {Value: "false"}}
 		}
 	}
 
 	if len(argSpec.EnumValues) > 0 {
-		possibleValues = map[string]string{}
+		possibleValues = AutocompleteSuggestions{}
 		for _, value := range argSpec.EnumValues {
-			possibleValues[value] = ""
+			possibleValues = append(possibleValues, Suggestion{Value: value})
 		}
 	}
 
@@ -446,11 +443,22 @@ func AutoCompleteArgValue(
 		possibleValues = AutocompleteGetArg(ctx, cmd, argSpec, completedArgs)
 	}
 
-	suggestions := map[string]string{}
-	for value, description := range possibleValues {
-		if strings.HasPrefix(value, argValuePrefix) {
-			suggestions[value] = description
+	return filterSuggestions(possibleValues, argValuePrefix)
+}
+
+// filterSuggestions keeps the suggestions matching the prefix, deduplicated by value.
+func filterSuggestions(values AutocompleteSuggestions, prefix string) AutocompleteSuggestions {
+	suggestions := AutocompleteSuggestions{}
+	seen := make(map[string]struct{}, len(values))
+	for _, suggestion := range values {
+		if !strings.HasPrefix(suggestion.Value, prefix) {
+			continue
 		}
+		if _, exists := seen[suggestion.Value]; exists {
+			continue
+		}
+		seen[suggestion.Value] = struct{}{}
+		suggestions = append(suggestions, suggestion)
 	}
 
 	return suggestions
@@ -518,7 +526,11 @@ func hasPrefix(key, wordToComplete string) bool {
 
 // keySuggestion will suggest the next key available for the map (or array) argument.
 // Keys are suggested in ascending order arg.0, arg.1, arg.2...
-func keySuggestion(key string, completedArg map[string]string, wordToComplete string) []string {
+func keySuggestion(
+	key string,
+	completedArg map[string]string,
+	wordToComplete string,
+) AutocompleteSuggestions {
 	splitKey := strings.Split(key, ".")
 	splitWordToComplete := strings.Split(wordToComplete, ".")
 
@@ -537,11 +549,11 @@ func keySuggestion(key string, completedArg map[string]string, wordToComplete st
 		for arg := range completedArg {
 			// if the arg is already given, ignore it
 			if arg == newKey {
-				return []string{}
+				return AutocompleteSuggestions{}
 			}
 		}
 
-		return []string{newKey}
+		return AutocompleteSuggestions{{Value: newKey}}
 	}
 
 	usedIndex := make(map[string]struct{})
@@ -565,10 +577,10 @@ func keySuggestion(key string, completedArg map[string]string, wordToComplete st
 	newKey = keyCut[0]
 
 	if depth == 0 {
-		return []string{strings.ReplaceAll(newKey, "([0-9]+)", "0")}
+		return AutocompleteSuggestions{{Value: strings.ReplaceAll(newKey, "([0-9]+)", "0")}}
 	}
 
-	finalKeys := []string{}
+	finalKeys := AutocompleteSuggestions{}
 
 	baseIndex := make([]string, depth)
 	for i := range baseIndex {
@@ -582,7 +594,7 @@ func keySuggestion(key string, completedArg map[string]string, wordToComplete st
 				for _, v := range baseIndex {
 					key = strings.Replace(key, "([0-9]+)", v, 1)
 				}
-				finalKeys = append(finalKeys, key)
+				finalKeys = append(finalKeys, Suggestion{Value: key})
 				for k := 1; k <= j; k++ {
 					baseIndex[len(baseIndex)-k] = "0"
 				}
@@ -594,7 +606,7 @@ func keySuggestion(key string, completedArg map[string]string, wordToComplete st
 				for _, v := range baseIndex {
 					key = strings.Replace(key, "([0-9]+)", v, 1)
 				}
-				finalKeys = append(finalKeys, key)
+				finalKeys = append(finalKeys, Suggestion{Value: key})
 			}
 			newIndex, _ := strconv.Atoi(baseIndex[len(baseIndex)-1])
 			baseIndex[len(baseIndex)-1] = strconv.Itoa(newIndex + 1)

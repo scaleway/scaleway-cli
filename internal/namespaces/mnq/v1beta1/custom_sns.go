@@ -26,10 +26,10 @@ func autocompleteSnsProjectID(
 	ctx context.Context,
 	prefix string,
 	request any,
-) map[string]string {
+) core.AutocompleteSuggestions {
 	_ = prefix
 	req := request.(*mnq.SnsAPIListSnsCredentialsRequest)
-	suggestions := make(map[string]string, 1)
+	suggestions := make(core.AutocompleteSuggestions, 0, 1)
 
 	client := core.ExtractClient(ctx)
 	api := mnq.NewSnsAPI(client)
@@ -44,7 +44,7 @@ func autocompleteSnsProjectID(
 		completeSnsInfoCache = res
 	}
 
-	suggestions[completeSnsInfoCache.ProjectID] = ""
+	suggestions = append(suggestions, core.Suggestion{Value: completeSnsInfoCache.ProjectID})
 
 	return suggestions
 }
@@ -55,10 +55,10 @@ func autocompleteSnsCredentialsID(
 	ctx context.Context,
 	prefix string,
 	request any,
-) map[string]string {
+) core.AutocompleteSuggestions {
 	req := request.(*mnq.SnsAPIGetSnsCredentialsRequest)
 
-	suggestions := map[string]string{}
+	suggestions := core.AutocompleteSuggestions{}
 
 	if req.Region != "" {
 		client := core.ExtractClient(ctx)
@@ -85,7 +85,7 @@ func autocompleteSnsCredentialsID(
 
 		for _, snsCredentials := range completeSnsListCredentials.SnsCredentials {
 			if strings.HasPrefix(snsCredentials.ID, prefix) {
-				suggestions[snsCredentials.ID] = ""
+				suggestions = append(suggestions, core.Suggestion{Value: snsCredentials.ID})
 			}
 		}
 	}

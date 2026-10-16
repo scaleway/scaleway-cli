@@ -215,7 +215,7 @@ func autoCompleteNodeType(
 	ctx context.Context,
 	prefix string,
 	request any,
-) map[string]string {
+) core.AutocompleteSuggestions {
 	region := scw.Region("")
 	switch req := request.(type) {
 	case *rdbSDK.CreateInstanceRequest:
@@ -224,7 +224,7 @@ func autoCompleteNodeType(
 		region = req.Region
 	}
 
-	suggestions := map[string]string{}
+	suggestions := core.AutocompleteSuggestions{}
 
 	client := core.ExtractClient(ctx)
 	api := rdbSDK.NewAPI(client)
@@ -241,7 +241,7 @@ func autoCompleteNodeType(
 
 	for _, nodeType := range completeListNodeTypeCache.NodeTypes {
 		if strings.HasPrefix(nodeType.Name, prefix) {
-			suggestions[nodeType.Name] = ""
+			suggestions = append(suggestions, core.Suggestion{Value: nodeType.Name})
 		}
 	}
 
@@ -252,14 +252,14 @@ func autoCompleteDatabaseEngines(
 	ctx context.Context,
 	prefix string,
 	request any,
-) map[string]string {
+) core.AutocompleteSuggestions {
 	region := scw.Region("")
 	if req, ok := request.(*rdbCreateInstanceRequestCustom); ok && req != nil &&
 		req.CreateInstanceRequest != nil {
 		region = req.CreateInstanceRequest.Region
 	}
 
-	suggestion := map[string]string{}
+	suggestion := core.AutocompleteSuggestions{}
 	client := core.ExtractClient(ctx)
 	api := rdbSDK.NewAPI(client)
 
@@ -276,7 +276,7 @@ func autoCompleteDatabaseEngines(
 	for _, engine := range completeListEngineCache.Engines {
 		for _, version := range engine.Versions {
 			if !version.Disabled && strings.HasPrefix(version.Name, prefix) {
-				suggestion[version.Name] = ""
+				suggestion = append(suggestion, core.Suggestion{Value: version.Name})
 			}
 		}
 	}
