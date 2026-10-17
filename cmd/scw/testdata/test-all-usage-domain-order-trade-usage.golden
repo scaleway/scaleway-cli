@@ -9,8 +9,8 @@ USAGE:
   scw domain order trade [arg=value ...]
 
 ARGS:
-  domain                                                                  The domain name to trade.
-  [project-id]                                                            Project ID to associate with the domain after the trade.
+  domain                                                                  The domain name to trade (change of owner/registrant).
+  [project-id]                                                            Project ID to associate with the domain after the trade. Also used to filter the new owner's contacts.
   [new-owner-contact-id]                                                  ID of the existing contact to use as the domain's new owner.
   [new-owner-contact.legal-form]                                          Legal form of the contact (individual, corporate, association, other). (legal_form_unknown | individual | corporate | association | other)
   [new-owner-contact.firstname]                                           First name of the contact.
@@ -18,15 +18,15 @@ ARGS:
   [new-owner-contact.company-name]                                        Company name of the contact (required for corporate legal forms).
   [new-owner-contact.email]                                               Email address of the contact.
   [new-owner-contact.email-alt]                                           Alternative email address of the contact.
-  [new-owner-contact.phone-number]                                        Phone number of the contact.
-  [new-owner-contact.fax-number]                                          Fax number of the contact.
+  [new-owner-contact.phone-number]                                        Phone number of the contact, normalized to +CC.NationalNumber format.
+  [new-owner-contact.fax-number]                                          Fax number of the contact, normalized to +CC.NationalNumber format.
   [new-owner-contact.address-line-1]                                      First line of the contact's address.
   [new-owner-contact.address-line-2]                                      Second line of the contact's address.
   [new-owner-contact.zip]                                                 Postal code of the contact.
   [new-owner-contact.city]                                                City of the contact.
   [new-owner-contact.country]                                             Country code of the contact (ISO 3166-1 alpha-2 format).
   [new-owner-contact.vat-identification-code]                             VAT identification code of the contact.
-  [new-owner-contact.company-identification-code]                         Company identification code (e.g. SIRET/SIREN) of the contact.
+  [new-owner-contact.company-identification-code]                         Company identification code of the contact (SIRET/SIREN for French contacts, any format for others).
   [new-owner-contact.lang]                                                Preferred language of the contact. (unknown_language_code | en_US | fr_FR | de_DE)
   [new-owner-contact.resale]                                              Indicates whether the contact's information can be resold.
   [new-owner-contact.extension-fr.mode]                                    (mode_unknown | individual | company_identification_code | duns | local | association | trademark | code_auth_afnic)
