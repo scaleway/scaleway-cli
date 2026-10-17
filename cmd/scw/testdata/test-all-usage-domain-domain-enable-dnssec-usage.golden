@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   domain                              The domain name to enable DNSSEC for.
   [ds-record.key-id]                  The key tag of the DS record.
-  [ds-record.algorithm]               The cryptographic algorithm used for the DS record. (rsamd5 | dh | dsa | rsasha1 | dsa_nsec3_sha1 | rsasha1_nsec3_sha1 | rsasha256 | rsasha512 | ecc_gost | ecdsap256sha256 | ecdsap384sha384 | ed25519 | ed448)
+  [ds-record.algorithm]               The cryptographic algorithm of the DNSKEY used for the DS record. (rsamd5 | dh | dsa | rsasha1 | dsa_nsec3_sha1 | rsasha1_nsec3_sha1 | rsasha256 | rsasha512 | ecc_gost | ecdsap256sha256 | ecdsap384sha384 | ed25519 | ed448)
   [ds-record.digest.type]             The digest type of the DS record. (sha_1 | sha_256 | gost_r_34_11_94 | sha_384)
   [ds-record.digest.digest]           The digest string of the DS record.
   [ds-record.digest.public-key.key]   The public key string.
