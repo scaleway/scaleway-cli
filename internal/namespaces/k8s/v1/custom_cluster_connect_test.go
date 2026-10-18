@@ -3,6 +3,7 @@ package k8s_test
 import (
 	"errors"
 	"os/exec"
+	"slices"
 	"strings"
 	"testing"
 
@@ -42,6 +43,29 @@ func Test_ClusterConnect(t *testing.T) {
 			default:
 				return 0, errors.New("unexpected exec: " + cmd.Args[0])
 			}
+		},
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+		),
+	}))
+
+	t.Run("template", core.Test(&core.TestConfig{
+		Commands: k8s.GetCommands(),
+		// The template braces are escaped so the test framework's own templating leaves them for the CLI
+		Cmd: `scw k8s cluster connect 3313184d-3767-4535-902a-2bba7b7a4414 ` +
+			`template="kubectl --kubeconfig {{"{{"}}.Kubeconfig{{"}}"}} get pods"`,
+		OverrideExec: func(ctx *core.ExecFuncCtx, cmd *exec.Cmd) (int, error) {
+			// The rendered command must be executed directly, no k9s involved
+			if len(cmd.Args) != 5 || cmd.Args[0] != "kubectl" || cmd.Args[1] != "--kubeconfig" ||
+				cmd.Args[3] != "get" || cmd.Args[4] != "pods" || !strings.HasSuffix(cmd.Args[2], ".yaml") {
+				return 0, errors.New("unexpected rendered command: " + strings.Join(cmd.Args, " "))
+			}
+
+			if !slices.Contains(cmd.Env, "KUBECONFIG="+cmd.Args[2]) {
+				return 0, errors.New("KUBECONFIG env not set for rendered command")
+			}
+
+			return 0, nil
 		},
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),

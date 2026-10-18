@@ -104,6 +104,10 @@ It is composed of different pools, each pool containing the same kind of nodes.
 Connect to a Kubernetes Kapsule cluster using the locally installed k9s.
 The command checks that k9s is installed, downloads the cluster kubeconfig to a temporary file and opens k9s against it.
 
+Use --template to run an arbitrary tool: the Go text/template is rendered with
+{{.ClusterID}}, {{.Region}} and {{.Kubeconfig}} (path to a temporary kubeconfig file),
+and the result is executed as the connect command.
+
 **Usage:**
 
 ```shell
@@ -113,10 +117,11 @@ scw k8s cluster connect <cluster-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                                 | Argument Specifications |
-|------------|-----------------------------------------------------------------------------|-------------------------|
-| cluster-id | Cluster ID to connect to                                                    | Required                |
-| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+| Name       | Description                                                                             | Argument Specifications |
+|------------|-----------------------------------------------------------------------------------------|-------------------------|
+| cluster-id | Cluster ID to connect to                                                                | Required                |
+| region     | Region to target. If none is passed will use default region from the config             | Default: `fr-par`       |
+| template   | Go text/template rendered into a command line that replaces the default connect command |                         |
 
 
 **Examples:**
@@ -130,6 +135,11 @@ scw k8s cluster connect 11111111-1111-1111-1111-111111111111
 Connect to a cluster in a specific region with k9s
 ```shell
 scw k8s cluster connect 11111111-1111-1111-1111-111111111111 region=fr-par
+```
+
+Connect to a cluster with an arbitrary tool via template
+```shell
+scw k8s cluster connect 11111111-1111-1111-1111-111111111111 template="kubectl --kubeconfig {{.Kubeconfig}} get pods"
 ```
 
 
