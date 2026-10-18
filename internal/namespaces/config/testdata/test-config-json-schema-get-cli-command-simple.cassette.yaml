@@ -20,9 +20,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 09 Oct 2026 21:53:12 GMT
+      - Sun, 18 Oct 2026 17:48:44 GMT
       Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
+      - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -36,7 +36,7 @@ interactions:
       X-Ratelimit-Reset:
       - "1"
       X-Request-Id:
-      - f5bc710c-e9cd-40a3-8cb1-b49010d83189
+      - 061c992c-60b3-4e40-91a8-dfbee0057242
     status: 401 Unauthorized
     code: 401
     duration: ""

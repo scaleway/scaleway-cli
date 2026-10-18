@@ -391,10 +391,22 @@ func Test_ConfigValidateCommand(t *testing.T) {
 	}))
 }
 
-func Test_ConfigJsonSchemaCommand(t *testing.T) {
+func Test_ConfigJsonSchemaGetCLICommand(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: config.GetCommands(),
-		Cmd:      "scw config jsonschema",
+		Cmd:      "scw config jsonschema get-cli",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+		TmpHomeDir: true,
+	}))
+}
+
+func Test_ConfigJsonSchemaGetSDKCommand(t *testing.T) {
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: config.GetCommands(),
+		Cmd:      "scw config jsonschema get-sdk",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),

@@ -1,0 +1,191 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/scaleway/scaleway-sdk-go/scw/config",
+  "properties": {
+    "access_key": {
+      "type": "string"
+    },
+    "secret_key": {
+      "type": "string"
+    },
+    "api_url": {
+      "type": "string"
+    },
+    "s3_endpoint": {
+      "type": "string"
+    },
+    "s3_use_path_style": {
+      "type": "boolean"
+    },
+    "insecure": {
+      "type": "boolean"
+    },
+    "default_organization_id": {
+      "type": "string"
+    },
+    "default_project_id": {
+      "type": "string"
+    },
+    "default_region": {
+      "type": "string"
+    },
+    "default_zone": {
+      "type": "string"
+    },
+    "send_telemetry": {
+      "type": "boolean"
+    },
+    "user_agent": {
+      "type": "string"
+    },
+    "active_profile": {
+      "type": "string"
+    },
+    "profiles": {
+      "additionalProperties": {
+        "properties": {
+          "access_key": {
+            "type": "string"
+          },
+          "secret_key": {
+            "type": "string"
+          },
+          "api_url": {
+            "type": "string"
+          },
+          "s3_endpoint": {
+            "type": "string"
+          },
+          "s3_use_path_style": {
+            "type": "boolean"
+          },
+          "insecure": {
+            "type": "boolean"
+          },
+          "default_organization_id": {
+            "type": "string"
+          },
+          "default_project_id": {
+            "type": "string"
+          },
+          "default_region": {
+            "type": "string"
+          },
+          "default_zone": {
+            "type": "string"
+          },
+          "send_telemetry": {
+            "type": "boolean"
+          },
+          "user_agent": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "title": "Scaleway SDK config file",
+  "description": "Configuration file shared by the Scaleway CLI, the Terraform provider and the Go SDK (config.yaml)"
+}
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/scaleway/scaleway-sdk-go/scw/config",
+  "properties": {
+    "access_key": {
+      "type": "string"
+    },
+    "secret_key": {
+      "type": "string"
+    },
+    "api_url": {
+      "type": "string"
+    },
+    "s3_endpoint": {
+      "type": "string"
+    },
+    "s3_use_path_style": {
+      "type": "boolean"
+    },
+    "insecure": {
+      "type": "boolean"
+    },
+    "default_organization_id": {
+      "type": "string"
+    },
+    "default_project_id": {
+      "type": "string"
+    },
+    "default_region": {
+      "type": "string"
+    },
+    "default_zone": {
+      "type": "string"
+    },
+    "send_telemetry": {
+      "type": "boolean"
+    },
+    "user_agent": {
+      "type": "string"
+    },
+    "active_profile": {
+      "type": "string"
+    },
+    "profiles": {
+      "additionalProperties": {
+        "properties": {
+          "access_key": {
+            "type": "string"
+          },
+          "secret_key": {
+            "type": "string"
+          },
+          "api_url": {
+            "type": "string"
+          },
+          "s3_endpoint": {
+            "type": "string"
+          },
+          "s3_use_path_style": {
+            "type": "boolean"
+          },
+          "insecure": {
+            "type": "boolean"
+          },
+          "default_organization_id": {
+            "type": "string"
+          },
+          "default_project_id": {
+            "type": "string"
+          },
+          "default_region": {
+            "type": "string"
+          },
+          "default_zone": {
+            "type": "string"
+          },
+          "send_telemetry": {
+            "type": "boolean"
+          },
+          "user_agent": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "title": "Scaleway SDK config file",
+  "description": "Configuration file shared by the Scaleway CLI, the Terraform provider and the Go SDK (config.yaml)"
+}

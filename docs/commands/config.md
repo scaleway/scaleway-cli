@@ -154,23 +154,17 @@ scw -p prod config info
 
 
 
-## Print the JSON schema of the config file
+## Print the JSON schema of the config files
+
+
+
+
+### Print the JSON schema of the CLI config file (cli.yaml)
 
 Print the JSON schema of the Scaleway CLI config file (cli.yaml).
 It can be used to enable validation in editors. Example with the Red Hat YAML extension for VS Code:
 
-  scw config jsonschema > scw-cli-config-schema.json
-
-  {
-    "yaml.schemas": {
-      "file:///absolute/path/to/scw-cli-config-schema.json": ["~/.config/scw/cli.yaml"]
-    }
-  }
-
-Print the JSON schema of the Scaleway CLI config file (cli.yaml).
-It can be used to enable validation in editors. Example with the Red Hat YAML extension for VS Code:
-
-  scw config jsonschema > scw-cli-config-schema.json
+  scw config jsonschema get-cli > scw-cli-config-schema.json
 
   {
     "yaml.schemas": {
@@ -181,16 +175,47 @@ It can be used to enable validation in editors. Example with the Red Hat YAML ex
 **Usage:**
 
 ```shell
-scw config jsonschema
+scw config jsonschema get-cli
 ```
 
 
 **Examples:**
 
 
-Save the JSON schema of the config file
+Save the JSON schema of the CLI config file
 ```shell
-scw config jsonschema > scw-cli-config-schema.json
+scw config jsonschema get-cli > scw-cli-config-schema.json
+```
+
+
+
+
+### Print the JSON schema of the Scaleway SDK config file (config.yaml)
+
+Print the JSON schema of the Scaleway SDK config file (config.yaml), shared by the CLI, the Terraform provider and the Go SDK.
+It can be used to enable validation in editors. Example with the Red Hat YAML extension for VS Code:
+
+  scw config jsonschema get-sdk > scw-sdk-config-schema.json
+
+  {
+    "yaml.schemas": {
+      "file:///absolute/path/to/scw-sdk-config-schema.json": ["~/.config/scw/config.yaml"]
+    }
+  }
+
+**Usage:**
+
+```shell
+scw config jsonschema get-sdk
+```
+
+
+**Examples:**
+
+
+Save the JSON schema of the SDK config file
+```shell
+scw config jsonschema get-sdk > scw-sdk-config-schema.json
 ```
 
 

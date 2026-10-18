@@ -42,6 +42,8 @@ func GetCommands() *core.Commands {
 		configValidateCommand(),
 		configEditCommand(),
 		configJsonSchemaCommand(),
+		configJsonSchemaGetCLICommand(),
+		configJsonSchemaGetSDKCommand(),
 	)
 }
 
@@ -855,17 +857,33 @@ func configEditCommand() *core.Command {
 	}
 }
 
-// configJsonSchemaCommand prints the JSON schema of the config file
+// configJsonSchemaCommand is the parent of the jsonschema sub-commands
 func configJsonSchemaCommand() *core.Command {
+	return &core.Command{
+		Groups:    []string{"config"},
+		Short:     `Print the JSON schema of the config files`,
+		Namespace: "config",
+		Resource:  "jsonschema",
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Short:   "Config management help",
+				Command: "scw config",
+			},
+		},
+	}
+}
+
+// configJsonSchemaGetCLICommand prints the JSON schema of the CLI config file
+func configJsonSchemaGetCLICommand() *core.Command {
 	type configJsonSchemaArgs struct{}
 
 	return &core.Command{
 		Groups: []string{"config"},
-		Short:  `Print the JSON schema of the config file`,
+		Short:  `Print the JSON schema of the CLI config file (cli.yaml)`,
 		Long: `Print the JSON schema of the Scaleway CLI config file (cli.yaml).
 It can be used to enable validation in editors. Example with the Red Hat YAML extension for VS Code:
 
-  scw config jsonschema > scw-cli-config-schema.json
+  scw config jsonschema get-cli > scw-cli-config-schema.json
 
   {
     "yaml.schemas": {
@@ -874,12 +892,13 @@ It can be used to enable validation in editors. Example with the Red Hat YAML ex
   }`,
 		Namespace:            "config",
 		Resource:             "jsonschema",
+		Verb:                 "get-cli",
 		AllowAnonymousClient: true,
 		ArgsType:             reflect.TypeFor[configJsonSchemaArgs](),
 		Examples: []*core.Example{
 			{
-				Short: "Save the JSON schema of the config file",
-				Raw:   "scw config jsonschema > scw-cli-config-schema.json",
+				Short: "Save the JSON schema of the CLI config file",
+				Raw:   "scw config jsonschema get-cli > scw-cli-config-schema.json",
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -894,6 +913,46 @@ It can be used to enable validation in editors. Example with the Red Hat YAML ex
 	}
 }
 
+// configJsonSchemaGetSDKCommand prints the JSON schema of the SDK config file
+func configJsonSchemaGetSDKCommand() *core.Command {
+	type configJsonSchemaArgs struct{}
+
+	return &core.Command{
+		Groups: []string{"config"},
+		Short:  `Print the JSON schema of the Scaleway SDK config file (config.yaml)`,
+		Long: `Print the JSON schema of the Scaleway SDK config file (config.yaml), shared by the CLI, the Terraform provider and the Go SDK.
+It can be used to enable validation in editors. Example with the Red Hat YAML extension for VS Code:
+
+  scw config jsonschema get-sdk > scw-sdk-config-schema.json
+
+  {
+    "yaml.schemas": {
+      "file:///absolute/path/to/scw-sdk-config-schema.json": ["~/.config/scw/config.yaml"]
+    }
+  }`,
+		Namespace:            "config",
+		Resource:             "jsonschema",
+		Verb:                 "get-sdk",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeFor[configJsonSchemaArgs](),
+		Examples: []*core.Example{
+			{
+				Short: "Save the JSON schema of the SDK config file",
+				Raw:   "scw config jsonschema get-sdk > scw-sdk-config-schema.json",
+			},
+		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Short:   "Config management help",
+				Command: "scw config",
+			},
+		},
+		Run: func(_ context.Context, _ any) (any, error) {
+			return buildSDKJSONSchema(), nil
+		},
+	}
+}
+
 // jsonSchemaOutput is the raw JSON schema, printed as-is by both the human and the JSON printers.
 type jsonSchemaOutput string
 
@@ -903,20 +962,20 @@ func (o jsonSchemaOutput) MarshalJSON() ([]byte, error) {
 	return []byte(o), nil
 }
 
-// buildConfigJSONSchema returns the JSON schema of the CLI config file (internal/config.Config).
-func buildConfigJSONSchema() jsonSchemaOutput {
+// buildJSONSchema reflects v into a JSON schema, printed as-is by both the human and the JSON printers.
+func buildJSONSchema(title, description string, v any) jsonSchemaOutput {
 	r := &jsonschema.Reflector{
 		// The config file is YAML, so validate against the yaml tags.
 		FieldNameTag: "yaml",
 		// No field is required in the config file: every one has a default.
 		RequiredFromJSONSchemaTags: true,
-		// The config is small: inline the whole tree instead of a $defs/$ref indirection.
+		// The configs are small: inline the whole tree instead of a $defs/$ref indirection.
 		// Also avoids a $defs name clash between config.Config and alias.Config.
 		DoNotReference: true,
 	}
-	schema := r.Reflect(&config.Config{})
-	schema.Title = "Scaleway CLI config file"
-	schema.Description = "Configuration file for the Scaleway CLI (cli.yaml)"
+	schema := r.Reflect(v)
+	schema.Title = title
+	schema.Description = description
 
 	b, err := json.MarshalIndent(schema, "", "  ")
 	if err != nil {
@@ -925,6 +984,25 @@ func buildConfigJSONSchema() jsonSchemaOutput {
 	}
 
 	return jsonSchemaOutput(b)
+}
+
+// buildConfigJSONSchema returns the JSON schema of the CLI config file (internal/config.Config).
+func buildConfigJSONSchema() jsonSchemaOutput {
+	return buildJSONSchema(
+		"Scaleway CLI config file",
+		"Configuration file for the Scaleway CLI (cli.yaml)",
+		&config.Config{},
+	)
+}
+
+// buildSDKJSONSchema returns the JSON schema of the SDK config file (scw.Config).
+// ponytail: no per-field descriptions, scw.Profile has no jsonschema tags; add them upstream in scaleway-sdk-go to get them here.
+func buildSDKJSONSchema() jsonSchemaOutput {
+	return buildJSONSchema(
+		"Scaleway SDK config file",
+		"Configuration file shared by the Scaleway CLI, the Terraform provider and the Go SDK (config.yaml)",
+		&scw.Config{},
+	)
 }
 
 // Helper functions
