@@ -286,8 +286,7 @@ func (p *Printer) printJSON(data any) error {
 	if isError {
 		writer = p.stderr
 	}
-	var opts []json.Options
-	opts = append(opts, json.Deterministic(true), json.FormatNilSliceAsNull(true))
+	opts := []json.Options{json.Deterministic(true), json.FormatNilSliceAsNull(true)}
 	if p.jsonPretty {
 		opts = append(opts, jsontext.WithIndent("  "))
 	}
@@ -302,8 +301,7 @@ func (p *Printer) printJSON(data any) error {
 	if err := json.MarshalWrite(writer, data, opts...); err != nil {
 		return err
 	}
-	_, err = writer.Write([]byte("\n"))
-
+	_, err = io.WriteString(writer, "\n")
 	return err
 }
 

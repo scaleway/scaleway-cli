@@ -99,16 +99,11 @@ func setupDockerConfigFile(ctx context.Context, registries []string, binaryName 
 		return err
 	}
 
-	err = json.MarshalWrite(f, dockerConfig, jsontext.WithIndent("  "))
-	if err != nil {
+	if err := json.MarshalWrite(f, dockerConfig, jsontext.WithIndent("  ")); err != nil {
 		return err
 	}
 	_, err = f.WriteString("\n")
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return err
 }
 
 func getRegistryEndpoint(region scw.Region) string {
