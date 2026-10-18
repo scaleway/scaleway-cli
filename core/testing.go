@@ -438,6 +438,11 @@ func Test(config *TestConfig) func(t *testing.T) {
 			dir := t.TempDir()
 			overrideEnv["HOME"] = dir
 			overrideEnv[scw.ScwCacheDirEnv] = dir
+			// Isolate tests from the host KUBECONFIG so kubeconfig commands
+			// operate on the temporary HOME
+			if _, ok := overrideEnv["KUBECONFIG"]; !ok {
+				overrideEnv["KUBECONFIG"] = ""
+			}
 			meta["HOME"] = dir
 			meta[scw.ScwCacheDirEnv] = dir
 		}
