@@ -1,25 +1,25 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              35d4a543-ba4f-46b8-94a1-3e7d1caeccb9
+ID              05536b67-dd38-4f00-a0e6-a2cd0dd83a0c
 Name            foobar2
 PublicKey       ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBIHoWVcE8ItB7WPbmanQY/GhMWqU2XKQthfoAv51IE4OAgnnMWo7RHf1grLdiRZ4MxIwW2SaDBGIDminJCw1OMo=
 Fingerprint     256 MD5:a5:b1:5a:ff:d2:71:ed:53:d7:8c:fb:b0:ec:12:10:de (ecdsa-sha2-nistp256)
 CreatedAt       few seconds ago
 UpdatedAt       few seconds ago
-OrganizationID  9e9389ca-503a-44c3-bbd5-7a3812303bb0
-ProjectID       9e9389ca-503a-44c3-bbd5-7a3812303bb0
+OrganizationID  de2b260d-2c2e-4be9-baa0-99d8ed17f1da
+ProjectID       de2b260d-2c2e-4be9-baa0-99d8ed17f1da
 Disabled        false
-Srn             -
+Srn             srn://iam.scw.eu/ssh-keys/05536b67-dd38-4f00-a0e6-a2cd0dd83a0c
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "35d4a543-ba4f-46b8-94a1-3e7d1caeccb9",
+  "id": "05536b67-dd38-4f00-a0e6-a2cd0dd83a0c",
   "name": "foobar2",
   "public_key": "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBIHoWVcE8ItB7WPbmanQY/GhMWqU2XKQthfoAv51IE4OAgnnMWo7RHf1grLdiRZ4MxIwW2SaDBGIDminJCw1OMo=",
   "fingerprint": "256 MD5:a5:b1:5a:ff:d2:71:ed:53:d7:8c:fb:b0:ec:12:10:de (ecdsa-sha2-nistp256)",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
-  "organization_id": "9e9389ca-503a-44c3-bbd5-7a3812303bb0",
-  "project_id": "9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+  "organization_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
+  "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
   "disabled": false,
-  "srn": ""
+  "srn": "srn://iam.scw.eu/ssh-keys/05536b67-dd38-4f00-a0e6-a2cd0dd83a0c"
 }

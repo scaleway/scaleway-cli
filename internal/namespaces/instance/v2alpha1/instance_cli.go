@@ -34,6 +34,7 @@ func GetGeneratedCommands() *core.Commands {
 		instanceServerGet(),
 		instanceServerUpdate(),
 		instanceServerDelete(),
+		instanceServerGetCompatibleTypes(),
 		instanceServerTypeList(),
 		instanceServerStart(),
 		instanceServerReboot(),
@@ -809,13 +810,13 @@ func instanceServerDelete() *core.Command {
 	}
 }
 
-func instanceServerTypeList() *core.Command {
+func instanceServerGetCompatibleTypes() *core.Command {
 	return &core.Command{
 		Short:     `List compatible Instance types`,
 		Long:      `List the Instance types that a given instance could be converted to.`,
 		Namespace: "instance",
-		Resource:  "server-type",
-		Verb:      "list",
+		Resource:  "server",
+		Verb:      "get-compatible-types",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeFor[instance.ListServerCompatibleTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
@@ -862,6 +863,64 @@ func instanceServerTypeList() *core.Command {
 			{
 				Short:    "List the 10 first compatible server types for a given instance",
 				ArgsJSON: `{"page_size":10,"server_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
+}
+
+func instanceServerTypeList() *core.Command {
+	return &core.Command{
+		Short:     `List Instance types`,
+		Long:      `List available Instance types and their technical details.`,
+		Namespace: "instance",
+		Resource:  "server-type",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[instance.ListServerTypesRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "page-token",
+				Short:      `Token for pagination`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "page-size",
+				Short:      `Number of server types to return per page`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.ZoneItMil1,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*instance.ListServerTypesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			return api.ListServerTypes(request, scw.WithContext(ctx))
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "List all server-types in the default zone",
+				ArgsJSON: `null`,
+			},
+			{
+				Short:    "List all server-types in fr-par-1 zone",
+				ArgsJSON: `{"zone":"fr-par-1"}`,
 			},
 		},
 	}

@@ -10,7 +10,9 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	redisSDK "github.com/scaleway/scaleway-sdk-go/api/redis/v1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 const (
@@ -338,4 +340,19 @@ func checkEndpoints(
 			nbActualPrivIpam,
 		)
 	}
+}
+
+func Test_CreateRequestZone(t *testing.T) {
+	// During shell completion the embedded *redis.CreateClusterRequest is
+	// nil (reflect.New leaves it unallocated); this must not panic.
+	t.Run("Nil embedded request does not panic", func(t *testing.T) {
+		require.Equal(t, scw.Zone(""), redis.CreateRequestZone(&redis.CreateClusterRequestCustom{}))
+	})
+
+	t.Run("Returns zone when embedded request is set", func(t *testing.T) {
+		req := &redis.CreateClusterRequestCustom{
+			CreateClusterRequest: &redisSDK.CreateClusterRequest{Zone: scw.ZoneFrPar1},
+		}
+		assert.Equal(t, scw.ZoneFrPar1, redis.CreateRequestZone(req))
+	})
 }

@@ -1,17 +1,23 @@
 {
-  "name": "mise",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-  "features": {
-    "ghcr.io/devcontainers-extra/features/mise:1": {}
-  },
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "hverlin.mise-vscode"
-      ]
-    }
-  },
-  "mounts": [],
-  "containerEnv": {},
-  "remoteEnv": {}
+	"name": "scaleway-cli",
+	"image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+	"features": {
+		"ghcr.io/devcontainers-extra/features/mise:1": {
+			"version": "2026.9.3"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": ["hverlin.mise-vscode", "golang.Go"],
+			"settings": {
+				"go.useLanguageServer": true,
+				"go.toolsManagement.checkForUpdates": "local"
+			}
+		}
+	},
+	"runArgs": ["--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"],
+	"postCreateCommand": "mise trust && mise install",
+	"mounts": [
+		"source=${localEnv:HOME}/.config/scw,target=/home/vscode/.config/scw,type=bind,readonly,consistency=cached"
+	]
 }
