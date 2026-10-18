@@ -80,9 +80,14 @@ scw mongodb endpoint delete <endpoint-id ...> [arg=value ...]
 A Managed MongoDB® Database Instance is composed of one or multiple dedicated compute nodes running a single database engine.
 
 
-### Connect to an instance using locally installed mongosh
+### Connect to a MongoDB® Database Instance using locally installed mongosh
 
-Connect to an instance using locally installed mongosh. The command verifies mongosh is installed, downloads the CA certificate for TLS, and lets mongosh prompt for the password.
+Connect to a MongoDB® Database Instance using locally installed mongosh.
+When no username is given, the admin user is used. The password is prompted.
+
+Use --template to run an arbitrary tool: the Go text/template is rendered with
+{{.Username}}, {{.Password}}, {{.ConnURL}}, {{.DNSRecord}} and
+{{.CertPath}}, and the result is executed as the connect command.
 
 **Usage:**
 
@@ -93,28 +98,26 @@ scw mongodb instance connect <instance-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                 | Argument Specifications                 |
-|-----------------|-----------------------------------------------------------------------------|-----------------------------------------|
-| private-network | Connect by the private network endpoint attached.                           | Default: `false`                        |
-| instance-id     | UUID of the instance                                                        | Required                                |
-| username        | Name of the user to connect with to the database                            | Required                                |
-| database        | Name of the database to connect to                                          | Default: `admin`                        |
-| cli-mongo       | Command line tool to use, defaults to mongosh                               |                                         |
-| cli-args        | Additional arguments to pass to mongosh                                     |                                         |
-| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+| Name            | Description                                                                             | Argument Specifications                 |
+|-----------------|-----------------------------------------------------------------------------------------|-----------------------------------------|
+| private-network | Connect by the private network endpoint attached.                                       | Default: `false`                        |
+| instance-id     | UUID of the instance                                                                    | Required                                |
+| username        | Name of the user to connect with to the database (defaults to the admin user)           |                                         |
+| template        | Go text/template rendered into a command line that replaces the default connect command |                                         |
+| region          | Region to target. If none is passed will use default region from the config             | Default: `fr-par`<br />One of: `fr-par` |
 
 
 **Examples:**
 
 
-Connect to an instance
+Connect to a MongoDB instance
 ```shell
-scw mongodb instance connect 11111111-1111-1111-1111-111111111111 --username=admin
+scw mongodb instance connect 11111111-1111-1111-1111-111111111111
 ```
 
-Connect to an instance via private network
+Connect with a custom tool using a template
 ```shell
-scw mongodb instance connect 11111111-1111-1111-1111-111111111111 --username=admin --private-network=true --database=mydb
+scw mongodb instance connect 11111111-1111-1111-1111-111111111111 --template "my-mongo-tool --auth {{.Username}}:{{.Password}} {{.DNSRecord}}"
 ```
 
 
