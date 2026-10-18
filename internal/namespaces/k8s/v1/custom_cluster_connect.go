@@ -10,7 +10,6 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/connect"
-	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -37,11 +36,10 @@ and the result is executed as the connect command.`,
 		ArgsType: reflect.TypeFor[clusterConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:             "cluster-id",
-				Short:            "Cluster ID to connect to",
-				Required:         true,
-				Positional:       true,
-				AutoCompleteFunc: autocompleteClusterID,
+				Name:       "cluster-id",
+				Short:      "Cluster ID to connect to",
+				Required:   true,
+				Positional: true,
 			},
 			core.RegionArgSpec(),
 			connect.TemplateArgSpec(),
@@ -134,38 +132,4 @@ and the result is executed as the connect command.`,
 		},
 		ExcludeFromMCP: true,
 	}
-}
-
-// Caching ListClusters response for shell completion, per region
-var completeClusterIDCache = map[scw.Region]*k8s.ListClustersResponse{}
-
-func autocompleteClusterID(
-	ctx context.Context,
-	prefix string,
-	request any,
-) core.AutocompleteSuggestions {
-	req := request.(*clusterConnectArgs)
-	if req.Region == "" {
-		return nil
-	}
-
-	res, ok := completeClusterIDCache[req.Region]
-	if !ok {
-		list, err := k8s.NewAPI(core.ExtractClient(ctx)).
-			ListClusters(&k8s.ListClustersRequest{Region: req.Region}, scw.WithAllPages())
-		if err != nil {
-			return nil
-		}
-		res = list
-		completeClusterIDCache[req.Region] = res
-	}
-
-	suggestions := core.AutocompleteSuggestions(nil)
-	for _, cluster := range res.Clusters {
-		if strings.HasPrefix(cluster.ID, prefix) {
-			suggestions = append(suggestions, cluster.ID)
-		}
-	}
-
-	return suggestions
 }
