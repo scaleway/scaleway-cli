@@ -157,6 +157,13 @@ func mongodbNodeTypeList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "project-id",
+				Short:      `ID of a project to get a personalized view of the stock`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.Region(core.AllLocalities),
@@ -420,6 +427,7 @@ func mongodbInstanceCreate() *core.Command {
 			},
 			{
 				Name:       "endpoints.{index}.public-network",
+				Short:      `Expose the Database Instance publicly (empty object)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1268,6 +1276,7 @@ func mongodbEndpointCreate() *core.Command {
 			},
 			{
 				Name:       "endpoint.public-network",
+				Short:      `Expose the Database Instance publicly (empty object)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

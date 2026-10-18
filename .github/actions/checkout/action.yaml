@@ -1,0 +1,13 @@
+name: checkout
+runs:
+  using: "composite"
+  steps:
+    - name: Set git to use LF to avoid problem with goldens on windows
+      shell: bash
+      run: |
+        git config --global core.autocrlf false
+        git config --global core.eol lf
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        fetch-depth: 1
+        persist-credentials: false

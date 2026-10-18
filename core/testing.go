@@ -309,21 +309,6 @@ func createTestClient(
 // because they will be executed without waiting.
 var DefaultRetryInterval *time.Duration
 
-var moduleRoot string
-
-func init() {
-	current, _ := os.Getwd()
-	for current != "/" {
-		if _, err := os.Stat(filepath.Join(current, "go.mod")); err == nil {
-			moduleRoot = current
-
-			return
-		}
-		current = filepath.Dir(current)
-	}
-	panic("can't find the module root")
-}
-
 var foldersUsingVCRv4 = []string{
 	"cmd/scw",
 	"core",
@@ -335,13 +320,38 @@ var foldersUsingVCRv4 = []string{
 	"internal/namesapces/block/v1alpha1",
 	"internal/namesapces/config",
 	"internal/namespaces/container/v1",
+	"internal/namespaces/feedback",
+	"internal/namespaces/flexibleip/v1alpha1",
+	"internal/namespaces/iam/v1alpha1",
+	"internal/namespaces/info",
+	"internal/namespaces/init",
 	"internal/namespaces/instance/v1",
 	"internal/namespaces/instance/v2alpha1",
+	"internal/namespaces/iot/v1",
 	"internal/namespaces/k8s/v1",
+	"internal/namespaces/lb/v1",
 	"internal/namespaces/marketplace/v2",
+	"internal/namespaces/mcp/server",
+	"internal/namespaces/mnq/v1beta1",
+	"internal/namespaces/redis/v1",
+	"internal/namespaces/registry/v1",
+	"internal/namespaces/secret/v1beta1",
+	"internal/namespaces/test/custom",
+	"internal/namespaces/webhosting/v1",
 }
 
 func folderUsesVCRv4(path string) bool {
+	var moduleRoot string
+	current, _ := os.Getwd()
+	for current != "/" {
+		if _, err := os.Stat(filepath.Join(current, "go.mod")); err == nil {
+			moduleRoot = current
+
+			break
+		}
+		current = filepath.Dir(current)
+	}
+
 	pkg, err := filepath.Rel(moduleRoot, path)
 	if err != nil {
 		panic(err)
@@ -549,6 +559,13 @@ func Test(config *TestConfig) func(t *testing.T) {
 			})
 
 			meta["CmdResult"] = result
+
+			defer func() {
+				if r := recover(); r != nil {
+					t.Errorf("Check panicked: error: %v", r)
+				}
+			}()
+
 			config.Check(t, &CheckFuncCtx{
 				ExitCode:    exitCode,
 				Stdout:      stdout.Bytes(),

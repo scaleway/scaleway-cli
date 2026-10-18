@@ -49,6 +49,9 @@ func (c *Config) ResolveAliases(command []string) []string {
 // AddAlias add alias to config
 // return true if alias has been replaced
 func (c *Config) AddAlias(name string, command []string) bool {
+	if c.Aliases == nil {
+		c.Aliases = make(map[string][]string)
+	}
 	_, exists := c.Aliases[name]
 	c.Aliases[name] = command
 

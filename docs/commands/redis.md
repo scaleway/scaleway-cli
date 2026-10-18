@@ -104,13 +104,13 @@ scw redis acl update <acl-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                                       | Argument Specifications |
-|-------------|-----------------------------------------------------------------------------------|-------------------------|
-| cluster-id  | UUID of the Redis cluster                                                         | Required                |
-| acl-id      | UUID of the ACL rule to update                                                    | Required                |
-| ip-cidr     | New IPv4 network address of the rule (optional, defaults to current)              |                         |
-| description | New description of the rule (optional, defaults to current)                       |                         |
-| zone        | Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2                | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2) | Required |
+| Name        | Description                                                                                                                                    | Argument Specifications |
+|-------------|------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|
+| cluster-id  | UUID of the Redis cluster                                                                                                                      | Required                |
+| acl-id      | UUID of the ACL rule to update                                                                                                                 | Required                |
+| ip-cidr     | New IPv4 network address of the rule (optional, defaults to current)                                                                           |                         |
+| description | New description of the rule (optional, defaults to current)                                                                                    |                         |
+| zone        | Zone to target. If none is passed will use default zone from the config (fr-par-1 \| fr-par-2 \| nl-ams-1 \| nl-ams-2 \| pl-waw-1 \| pl-waw-2) | Required                |
 
 
 
@@ -174,7 +174,7 @@ scw redis cluster create [arg=value ...]
 |-------------------------------------------------------|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
 | project-id                                            | Project ID to use. If none is passed the default project ID will be used                 |                                                                                                         |
 | name                                                  | Name of the Database Instance                                                            | Default: `<generated>`                                                                                  |
-| version                                               | Redis™ engine version of the Database Instance                                           | Required                                                                                                |
+| version                                               | Redis™ engine version of the Database Instance                                           | Required<br />Default: `latest`                                                                         |
 | tags.{index}                                          | Tags to apply to the Database Instance                                                   |                                                                                                         |
 | node-type                                             | Type of node to use for the Database Instance                                            | Required                                                                                                |
 | user-name                                             | Name of the user created upon Database Instance creation                                 | Required                                                                                                |

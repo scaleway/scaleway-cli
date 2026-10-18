@@ -11,7 +11,7 @@ interactions:
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.37.0.20261002075733-8aea664f16f2 (go1.27.1; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/mongodb/v1alpha1/regions/fr-par/versions
+        url: https://api.scaleway.com/mongodb/v1/regions/fr-par/versions
         method: GET
       response:
         proto: HTTP/2.0

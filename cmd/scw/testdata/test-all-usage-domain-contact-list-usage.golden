@@ -7,11 +7,16 @@ USAGE:
   scw domain contact list [arg=value ...]
 
 ARGS:
-  [domain]            
-  [project-id]        
-  [role]               (unknown_role | owner | administrative | technical)
-  [email-status]       (email_status_unknown | validated | not_validated | invalid_email)
-  [organization-id]   
+  [domain]            Filter contacts by domain name.
+  [project-id]        Filter contacts by project ID.
+  [role]              Filter contacts by role (owner, administrative, technical). (unknown_role | owner | administrative | technical)
+  [email-status]      Filter contacts by email validation status. (email_status_unknown | validated | not_validated | invalid_email)
+  [order-by]          Sort order of the returned contacts (created_at_asc | created_at_desc | email_asc | email_desc)
+  [status]            Filter by contact status (status_unknown | active | pending)
+  [legal-form]        Filter by legal form (legal_form_unknown | individual | corporate | association | other)
+  [email]             Filter by email address
+  [search]            Fuzzy search in firstname, lastname, email, and company_name
+  [organization-id]   Filter contacts by organization ID.
 
 FLAGS:
   -h, --help                help for list
@@ -21,5 +26,6 @@ GLOBAL FLAGS:
   -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
+  -H, --no-headers       Skip headers in human output
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use

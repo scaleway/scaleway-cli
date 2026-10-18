@@ -1,9 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ Initialization completed with success.
-  Except for SSH key: scaleway-sdk-go: invalid argument(s): project_id is wrongly formatted, value must be a valid UUID
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "message": "Initialization completed with success",
-  "details": "Except for SSH key: scaleway-sdk-go: invalid argument(s): project_id is wrongly formatted, value must be a valid UUID"
+  "details": ""
 }
