@@ -103,6 +103,7 @@ func setupDockerConfigFile(ctx context.Context, registries []string, binaryName 
 		return err
 	}
 	_, err = f.WriteString("\n")
+
 	return err
 }
 

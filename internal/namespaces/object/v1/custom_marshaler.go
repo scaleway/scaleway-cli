@@ -151,7 +151,12 @@ func CleanAndIndentJSON(v any, prefix, indent string) ([]byte, error) {
 
 	cleanedData := removeNulls(genericData)
 
-	return json.Marshal(cleanedData, json.Deterministic(true), jsontext.WithIndentPrefix(prefix), jsontext.WithIndent(indent))
+	return json.Marshal(
+		cleanedData,
+		json.Deterministic(true),
+		jsontext.WithIndentPrefix(prefix),
+		jsontext.WithIndent(indent),
+	)
 }
 
 // removeNulls recursively purges nil entries from maps and slices
