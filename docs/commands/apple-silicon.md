@@ -286,22 +286,26 @@ scw apple-silicon server create [arg=value ...]
 
 **Arguments:**
 
-| Name                                                           | Description                                                                  | Argument Specifications                           |
-|----------------------------------------------------------------|------------------------------------------------------------------------------|---------------------------------------------------|
-| name                                                           | Create a server with this given name                                         | Default: `<generated>`                            |
-| project-id                                                     | Project ID to use. If none is passed the default project ID will be used     |                                                   |
-| type                                                           | Create a server of the given type                                            |                                                   |
-| os-id                                                          | Create a server with the given os_id                                         |                                                   |
-| enable-vpc                                                     | Activate the Private Network feature for this server                         |                                                   |
-| commitment-type                                                | Activate commitment for this server                                          | One of: `duration_24h`, `renewed_monthly`, `none` |
-| public-bandwidth-bps                                           | Public bandwidth to configure for this server. Expressed in bits per second. |                                                   |
-| runner-configuration.name                                      |                                                                              |                                                   |
-| runner-configuration.url                                       |                                                                              |                                                   |
-| runner-configuration.token                                     |                                                                              |                                                   |
-| runner-configuration.provider                                  |                                                                              | One of: `unknown_provider`, `github`, `gitlab`    |
-| applied-runner-configurations.runner-configuration-ids.{index} |                                                                              |                                                   |
-| enable-kext                                                    | Enable kernel extensions                                                     |                                                   |
-| zone                                                           | Zone to target. If none is passed will use default zone from the config      | Default: `fr-par-1`<br />One of: `fr-par-3`       |
+| Name                                                           | Description                                                                  | Argument Specifications                             |
+|----------------------------------------------------------------|------------------------------------------------------------------------------|-----------------------------------------------------|
+| name                                                           | Create a server with this given name                                         | Default: `<generated>`                              |
+| project-id                                                     | Project ID to use. If none is passed the default project ID will be used     |                                                     |
+| type                                                           | Create a server of the given type                                            |                                                     |
+| os-id                                                          | Create a server with the given os_id                                         |                                                     |
+| enable-vpc                                                     | Activate the Private Network feature for this server                         |                                                     |
+| commitment-type                                                | Activate commitment for this server                                          | One of: `duration_24h`, `renewed_monthly`, `none`   |
+| public-bandwidth-bps                                           | Public bandwidth to configure for this server. Expressed in bits per second. |                                                     |
+| runner-configuration.name                                      |                                                                              |                                                     |
+| runner-configuration.url                                       |                                                                              |                                                     |
+| runner-configuration.token                                     |                                                                              |                                                     |
+| runner-configuration.provider                                  |                                                                              | One of: `unknown_provider`, `github`, `gitlab`      |
+| runner-configuration.download-runner                           |                                                                              |                                                     |
+| runner-configuration.action                                    |                                                                              | One of: `unknown_action`, `remove`, `update`, `add` |
+| runner-configuration.id                                        |                                                                              |                                                     |
+| runner-configuration.labels.{index}                            |                                                                              |                                                     |
+| applied-runner-configurations.runner-configuration-ids.{index} |                                                                              |                                                     |
+| enable-kext                                                    | Enable kernel extensions                                                     |                                                     |
+| zone                                                           | Zone to target. If none is passed will use default zone from the config      | Default: `fr-par-1`<br />One of: `fr-par-3`         |
 
 
 

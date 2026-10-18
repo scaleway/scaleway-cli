@@ -105,7 +105,7 @@ After initialization, there are three ways to provide %s:
 
 Note that the last method has the highest priority.
 
-More info: https://github.com/scaleway/scaleway-sdk-go/tree/master/scw#scaleway-config`,
+More info: https://github.com/scaleway/scaleway-sdk-go/tree/main/scw#scaleway-config`,
 		configKey,
 		configKey,
 		configKey,

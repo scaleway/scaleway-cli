@@ -220,3 +220,15 @@ var iamApiKeyCustomBuilder = struct {
 		})
 	},
 }
+
+func iamApiKeyListCustomBuilder(c *core.Command) *core.Command {
+	apiKeyListFields := c.View.Fields[:0]
+	for _, field := range c.View.Fields {
+		if field.FieldName != "SecretKey" {
+			apiKeyListFields = append(apiKeyListFields, field)
+		}
+	}
+	c.View.Fields = apiKeyListFields
+
+	return c
+}

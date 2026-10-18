@@ -1,6 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                         86e4aaa2-0fa9-4ea6-8e64-2571bde9133e
+Srn                                        -
 Name                                       cli-test-blissful-jennings
 NamespaceID                                bd210c2f-1af8-4091-b228-033566363282
 Description                                -
@@ -25,10 +26,12 @@ LivenessProbe.FailureThreshold             30
 LivenessProbe.Interval                     10 seconds
 LivenessProbe.Timeout                      1 seconds
 PublicEndpoint                             https://clinsaffectionatetorbd210c2f-cli-test-blissful-jennings.functions.fnc.fr-par.scw.cloud
+DefaultPublicEndpointEnabled               false
 Region                                     fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "86e4aaa2-0fa9-4ea6-8e64-2571bde9133e",
+  "srn": "",
   "name": "cli-test-blissful-jennings",
   "namespace_id": "bd210c2f-1af8-4091-b228-033566363282",
   "description": "",
@@ -65,5 +68,7 @@ Region                                     fr-par
   "command": [],
   "args": [],
   "public_endpoint": "https://clinsaffectionatetorbd210c2f-cli-test-blissful-jennings.functions.fnc.fr-par.scw.cloud",
+  "private_endpoint": null,
+  "default_public_endpoint_enabled": false,
   "region": "fr-par"
 }

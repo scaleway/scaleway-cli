@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"reflect"
 	"testing"
 	"text/template"
@@ -10,7 +11,7 @@ import (
 )
 
 func Test_WebValidateTemplates(t *testing.T) {
-	cmds := commands.GetCommands()
+	cmds := commands.GetCommands(context.Background())
 
 	// Test that web urls are valid templates
 	type failedTemplate struct {
@@ -37,7 +38,7 @@ func Test_WebValidateTemplates(t *testing.T) {
 }
 
 func Test_WebValidateTemplatesVariables(t *testing.T) {
-	cmds := commands.GetCommands()
+	cmds := commands.GetCommands(context.Background())
 
 	// Test that web urls are valid templates
 	type failedTemplate struct {

@@ -194,6 +194,13 @@ func serverListBuilder(c *core.Command) *core.Command {
 			request.Organization = args.OrganizationID
 			request.Project = args.ProjectID
 
+			// The API only accepts the snake_case value "stopped_in_place" for the state
+			// filter, while the SDK enum uses the JSON representation "stopped in place".
+			if request.State != nil && *request.State == instance.ServerStateStoppedInPlace {
+				stoppedInPlace := instance.ServerState("stopped_in_place")
+				request.State = &stoppedInPlace
+			}
+
 			return runner(ctx, request)
 		},
 	)

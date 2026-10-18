@@ -26,7 +26,6 @@ func GetGeneratedCommands() *core.Commands {
 		k8sVersion(),
 		k8sClusterType(),
 		k8sACL(),
-		k8sUserdata(),
 		k8sClusterList(),
 		k8sClusterCreate(),
 		k8sClusterGet(),
@@ -47,8 +46,8 @@ func GetGeneratedCommands() *core.Commands {
 		k8sPoolUpgrade(),
 		k8sPoolUpdate(),
 		k8sPoolDelete(),
-		k8sUserdataGet(),
-		k8sUserdataList(),
+		k8sPoolGetUserdata(),
+		k8sPoolListUserdata(),
 		k8sNodeList(),
 		k8sNodeGet(),
 		k8sNodeReplace(),
@@ -124,16 +123,6 @@ func k8sACL() *core.Command {
 		Long:      `Network Access Control Lists (ACLs) allow you to manage inbound network traffic by setting up ACL rules.`,
 		Namespace: "k8s",
 		Resource:  "acl",
-	}
-}
-
-func k8sUserdata() *core.Command {
-	return &core.Command{
-		Short: `User Data management commands`,
-		Long: `User data allow to attach user complementary content to a pool.
-A special use case of these data are cloud-init configuration.`,
-		Namespace: "k8s",
-		Resource:  "userdata",
 	}
 }
 
@@ -565,7 +554,7 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "pools.{index}.max-termination-grace-period",
-				Short:      `Maximum amount of time before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node. It overrides pods ` + "`" + `PodDisruptionBudget` + "`" + ` and ` + "`" + `terminationGracePeriodSeconds` + "`" + `. Defaults to 15 minutes, up to 1 hour.`,
+				Short:      `Maximum amount of time in seconds before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node. It overrides pods ` + "`" + `PodDisruptionBudget` + "`" + ` and ` + "`" + `terminationGracePeriodSeconds` + "`" + `. Defaults to 15 minutes, up to 1 hour.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2036,7 +2025,7 @@ func k8sPoolCreate() *core.Command {
 			},
 			{
 				Name:       "max-termination-grace-period",
-				Short:      `Maximum amount of time before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node. It overrides pods ` + "`" + `PodDisruptionBudget` + "`" + ` and ` + "`" + `terminationGracePeriodSeconds` + "`" + `. Defaults to 15 minutes, up to 1 hour.`,
+				Short:      `Maximum amount of time in seconds before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node. It overrides pods ` + "`" + `PodDisruptionBudget` + "`" + ` and ` + "`" + `terminationGracePeriodSeconds` + "`" + `. Defaults to 15 minutes, up to 1 hour.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2252,7 +2241,7 @@ func k8sPoolUpdate() *core.Command {
 			},
 			{
 				Name:       "max-termination-grace-period",
-				Short:      `New maximum amount of time before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node.`,
+				Short:      `New maximum amount of time in seconds before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2334,14 +2323,14 @@ func k8sPoolDelete() *core.Command {
 	}
 }
 
-func k8sUserdataGet() *core.Command {
+func k8sPoolGetUserdata() *core.Command {
 	return &core.Command{
 		Short: `Get a pool related user data`,
 		Long: `Retrieve specific user data content for a given pool.
 Tip: add ` + "`" + `?dl=1` + "`" + ` at the end of the URL to directly retrieve the base64 decoded content of your user data.`,
 		Namespace: "k8s",
-		Resource:  "userdata",
-		Verb:      "get",
+		Resource:  "pool",
+		Verb:      "get-userdata",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeFor[k8s.GetUserDataRequest](),
 		ArgSpecs: core.ArgSpecs{
@@ -2350,7 +2339,7 @@ Tip: add ` + "`" + `?dl=1` + "`" + ` at the end of the URL to directly retrieve 
 				Short:      `Pool the user data are associated to`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "key",
@@ -2377,19 +2366,19 @@ Tip: add ` + "`" + `?dl=1` + "`" + ` at the end of the URL to directly retrieve 
 		Examples: []*core.Example{
 			{
 				Short: "Get a pool user data by name",
-				Raw:   `scw k8s user-data get cloud-init pool-id=11111111-1111-1111-1111-111111111111`,
+				Raw:   `scw k8s pool get-userdata 11111111-1111-1111-1111-111111111111 key=cloud-init`,
 			},
 		},
 	}
 }
 
-func k8sUserdataList() *core.Command {
+func k8sPoolListUserdata() *core.Command {
 	return &core.Command{
 		Short:     `List all user data related to a given pool.`,
 		Long:      `This list only the user data key and not the content.`,
 		Namespace: "k8s",
-		Resource:  "userdata",
-		Verb:      "list",
+		Resource:  "pool",
+		Verb:      "list-userdata",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeFor[k8s.ListUserDataRequest](),
 		ArgSpecs: core.ArgSpecs{
@@ -2398,7 +2387,7 @@ func k8sUserdataList() *core.Command {
 				Short:      `Pool the user data are associated to`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -2418,7 +2407,7 @@ func k8sUserdataList() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "List all user data for a given pool",
-				Raw:   `scw k8s user-data list pool-id=11111111-1111-1111-1111-111111111111`,
+				Raw:   `scw k8s pool list-userdata 11111111-1111-1111-1111-111111111111`,
 			},
 		},
 	}
@@ -2775,9 +2764,6 @@ func k8sVersionList() *core.Command {
 			},
 			{
 				FieldName: "AvailableCnis",
-			},
-			{
-				FieldName: "AvailableContainerRuntimes",
 			},
 			{
 				FieldName: "AvailableFeatureGates",

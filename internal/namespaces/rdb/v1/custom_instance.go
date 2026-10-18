@@ -253,22 +253,19 @@ func autoCompleteDatabaseEngines(
 	prefix string,
 	request any,
 ) core.AutocompleteSuggestions {
-	var req *rdbCreateInstanceRequestCustom
-	switch v := request.(type) {
-	case rdbCreateInstanceRequestCustom:
-		req = &v
-	case *rdbCreateInstanceRequestCustom:
-		req = v
-	default:
-		return nil
+	region := scw.Region("")
+	if req, ok := request.(*rdbCreateInstanceRequestCustom); ok && req != nil &&
+		req.CreateInstanceRequest != nil {
+		region = req.CreateInstanceRequest.Region
 	}
+
 	suggestion := core.AutocompleteSuggestions(nil)
 	client := core.ExtractClient(ctx)
 	api := rdbSDK.NewAPI(client)
 
 	if completeListEngineCache == nil {
 		res, err := api.ListDatabaseEngines(&rdbSDK.ListDatabaseEnginesRequest{
-			Region: req.Region,
+			Region: region,
 		}, scw.WithAllPages())
 		if err != nil {
 			return nil
@@ -277,8 +274,10 @@ func autoCompleteDatabaseEngines(
 	}
 
 	for _, engine := range completeListEngineCache.Engines {
-		if strings.HasPrefix(engine.Name, prefix) {
-			suggestion = append(suggestion, engine.Name)
+		for _, version := range engine.Versions {
+			if !version.Disabled && strings.HasPrefix(version.Name, prefix) {
+				suggestion = append(suggestion, version.Name)
+			}
 		}
 	}
 
@@ -656,19 +655,28 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 				}
 			}
 
-			updateInstanceResponse, err := api.UpdateInstance(updateInstanceRequest)
-			if err != nil {
-				return nil, err
+			// Skip empty UpdateInstance calls: after SetInstanceSettings the instance is often
+			// "configuring", and a no-op PATCH can fail intermittently.
+			if !instanceUpdateRequestHasChanges(updateInstanceRequest) {
+				return api.GetInstance(&rdbSDK.GetInstanceRequest{
+					Region:     customRequest.Region,
+					InstanceID: customRequest.InstanceID,
+				})
 			}
 
-			return updateInstanceResponse, nil
+			return api.UpdateInstance(updateInstanceRequest)
 		},
 		WaitFunc: func(ctx context.Context, _, respI any) (any, error) {
+			instance, ok := respI.(*rdbSDK.Instance)
+			if !ok || instance == nil {
+				return nil, errors.New("unexpected nil instance while waiting for update")
+			}
+
 			api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
-				InstanceID:    respI.(*rdbSDK.Instance).ID,
-				Region:        respI.(*rdbSDK.Instance).Region,
+				InstanceID:    instance.ID,
+				Region:        instance.Region,
 				Timeout:       new(instanceActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
@@ -688,6 +696,21 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 			},
 		},
 	}
+}
+
+func instanceUpdateRequestHasChanges(req *rdbSDK.UpdateInstanceRequest) bool {
+	if req == nil {
+		return false
+	}
+
+	return req.BackupScheduleFrequency != nil ||
+		req.BackupScheduleRetention != nil ||
+		req.IsBackupScheduleDisabled != nil ||
+		req.Name != nil ||
+		req.Tags != nil ||
+		req.LogsPolicy != nil ||
+		req.BackupSameRegion != nil ||
+		req.BackupScheduleStartHour != nil
 }
 
 func instanceDeleteBuilder(c *core.Command) *core.Command {

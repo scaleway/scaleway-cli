@@ -6,7 +6,9 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	instanceV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v2alpha1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	instanceSDKV2 "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -16,6 +18,17 @@ func Test_ListServer(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		Cmd:      "scw instance server list",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(0),
+		),
+	}))
+
+	t.Run("State with space", core.Test(&core.TestConfig{
+		Commands: instance.GetCommands(),
+		// The "stopped in place" state value must be converted to the
+		// snake_case "stopped_in_place" value accepted by the API.
+		Args: []string{"scw", "instance", "server", "list", `state=stopped in place`},
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -63,8 +76,10 @@ func Test_CreateVolume(t *testing.T) {
 }
 
 func Test_ServerUpdate(t *testing.T) {
+	cmds := instance.GetCommands()
+
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands:   instance.GetCommands(),
+		Commands:   cmds,
 		BeforeFunc: createServer("Server"),
 		Cmd:        "scw instance server update {{ .Server.ID }}",
 		Check: core.TestCheckCombine(
@@ -92,10 +107,12 @@ func Test_ServerUpdate(t *testing.T) {
 		AfterFunc: deleteServer("Server"),
 	}))
 
+	cmds.Merge(instanceV2.GetCommands())
+
 	t.Run(
 		`No initial placement group & placement-group-id=<existing pg id>`,
 		core.Test(&core.TestConfig{
-			Commands: instance.GetCommands(),
+			Commands: cmds,
 			BeforeFunc: core.BeforeFuncCombine(
 				createPlacementGroup("PlacementGroup"),
 				createServer("Server"),
@@ -106,7 +123,7 @@ func Test_ServerUpdate(t *testing.T) {
 					t.Helper()
 					require.NoError(t, ctx.Err)
 					assert.Equal(t,
-						ctx.Meta["PlacementGroup"].(*instanceSDK.PlacementGroup).ID,
+						ctx.Meta["PlacementGroup"].(*instanceSDKV2.PlacementGroup).ID,
 						ctx.Result.(*instance.ServerWithWarningsResponse).Server.PlacementGroup.ID,
 					)
 				},
@@ -148,7 +165,7 @@ func Test_ServerUpdate(t *testing.T) {
 	)
 
 	t.Run(`Initial placement group & placement-group-id=none`, core.Test(&core.TestConfig{
-		Commands: instance.GetCommands(),
+		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPlacementGroup("PlacementGroup"),
 			core.ExecStoreBeforeCmd(
@@ -177,7 +194,7 @@ func Test_ServerUpdate(t *testing.T) {
 	t.Run(
 		`Initial placement group & placement-group-id=<current pg id>`,
 		core.Test(&core.TestConfig{
-			Commands: instance.GetCommands(),
+			Commands: cmds,
 			BeforeFunc: core.BeforeFuncCombine(
 				createPlacementGroup("PlacementGroup"),
 				core.ExecStoreBeforeCmd(
@@ -191,7 +208,7 @@ func Test_ServerUpdate(t *testing.T) {
 					t.Helper()
 					require.NoError(t, ctx.Err)
 					assert.Equal(t,
-						ctx.Meta["PlacementGroup"].(*instanceSDK.PlacementGroup).ID,
+						ctx.Meta["PlacementGroup"].(*instanceSDKV2.PlacementGroup).ID,
 						ctx.Result.(*instance.ServerWithWarningsResponse).Server.PlacementGroup.ID,
 					)
 				},
@@ -205,7 +222,7 @@ func Test_ServerUpdate(t *testing.T) {
 	)
 
 	t.Run(`Initial placement group & placement-group-id=<new pg id>`, core.Test(&core.TestConfig{
-		Commands: instance.GetCommands(),
+		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createPlacementGroup("PlacementGroup1"),
 			createPlacementGroup("PlacementGroup2"),
@@ -220,7 +237,7 @@ func Test_ServerUpdate(t *testing.T) {
 				t.Helper()
 				require.NoError(t, ctx.Err)
 				assert.Equal(t,
-					ctx.Meta["PlacementGroup2"].(*instanceSDK.PlacementGroup).ID,
+					ctx.Meta["PlacementGroup2"].(*instanceSDKV2.PlacementGroup).ID,
 					ctx.Result.(*instance.ServerWithWarningsResponse).Server.PlacementGroup.ID,
 				)
 			},

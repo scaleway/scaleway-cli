@@ -114,6 +114,8 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("cni").Default = core.DefaultValueSetter("cilium")
 	c.ArgSpecs.GetByName("version").Default = core.DefaultValueSetter("latest")
 
+	c.ArgSpecs.GetByName("pools.{index}.user-data.{key}").CanLoadFile = true
+
 	c.ArgSpecs.GetByName("private-network-id").Short += ". For Kapsule clusters, if none is provided, a private network will be created"
 
 	c.ArgSpecs.GetByName("version").AutoCompleteFunc = autocompleteK8SVersion

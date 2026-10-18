@@ -19,8 +19,8 @@ RootVolumeType    l_ssd
 RootVolumeSize    40 GB
 PublicIPDisabled  false
 SecurityGroupID   aa085195-0b80-44df-9c92-8b9c52d8411a
-Region            fr-par
 Srn               srn://k8s.scw.eu/regions/fr-par/pools/a88c1cea-8b04-4d71-8944-3cc298d03dfb
+Region            fr-par
 
 Upgrade Policy:
 MaxUnavailable  1
@@ -68,6 +68,6 @@ KEY  VALUE  EFFECT
   "private_network_id": null,
   "error_message": null,
   "max_termination_grace_period": null,
-  "region": "fr-par",
-  "srn": "srn://k8s.scw.eu/regions/fr-par/pools/a88c1cea-8b04-4d71-8944-3cc298d03dfb"
+  "srn": "srn://k8s.scw.eu/regions/fr-par/pools/a88c1cea-8b04-4d71-8944-3cc298d03dfb",
+  "region": "fr-par"
 }

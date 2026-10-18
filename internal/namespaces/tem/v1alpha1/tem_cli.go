@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	tem "github.com/scaleway/scaleway-sdk-go/api/tem/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/tem/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -87,7 +87,7 @@ func temDomain() *core.Command {
 func temWebhook() *core.Command {
 	return &core.Command{
 		Short:     `Webhook management commands`,
-		Long:      `Webhooks enable real-time communication and automation between systems by sending messages through all protocols supported by SNS, such as HTTP, HTTPS, and Serverless Functions, allowing for immediate updates and actions based on specific events. This feature is in beta. You can request quotas from the [Scaleway betas page](https://www.scaleway.com/fr/betas/#email-webhooks).`,
+		Long:      `Webhooks enable real-time communication and automation between systems by sending messages through all protocols supported by SNS, such as HTTP, HTTPS, and Serverless Functions, allowing for immediate updates and actions based on specific events.`,
 		Namespace: "tem",
 		Resource:  "webhook",
 	}

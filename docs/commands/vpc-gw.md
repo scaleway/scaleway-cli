@@ -287,7 +287,7 @@ scw vpc-gw gateway-network update <gateway-network-id ...> [arg=value ...]
 
 ## Gateway types information
 
-Public Gateways come in various shapes, sizes and prices, which are  described by gateway types. They represent the different commercial  offer types for Public Gateways available at Scaleway.
+Public Gateways come in various shapes, sizes and prices, which are described by gateway types. They represent the different commercial offer types for Public Gateways available at Scaleway.
 
 
 ### List Public Gateway types
@@ -425,7 +425,7 @@ scw vpc-gw ip update <ip-id ...> [arg=value ...]
 
 ## PAT rules management
 
-PAT (Port Address Translation) rules, aka static NAT rules, belong to a specified Public Gateway.  They define the forwarding of a public port to a specific device on a Private Network, enabling enables ingress traffic from the public Internet  to reach the correct device in the Private Network.
+PAT (Port Address Translation) rules, aka static NAT rules, belong to a specified Public Gateway. They define the forwarding of a public port to a specific device on a Private Network, enabling enables ingress traffic from the public Internet to reach the correct device in the Private Network.
 
 
 ### Create a PAT rule

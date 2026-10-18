@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	searchdb "github.com/scaleway/scaleway-sdk-go/api/searchdb/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/searchdb/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -170,6 +170,13 @@ func searchdbDeploymentCreate() *core.Command {
 			{
 				Name:       "volume.size-bytes",
 				Short:      `Define the size of the Volume`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "volume.deployment-id",
+				Short:      `ID of the Deployment`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

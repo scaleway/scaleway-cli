@@ -1,0 +1,14 @@
+// Snippet of Grafana Alloy configuration to add to cockpit.alloy
+// Forwards logs to your Cockpit logs data source. Add loki.source.* components
+// and forward them to loki.write.cockpit.receiver.
+// Run with: alloy run cockpit.alloy
+
+loki.write "cockpit" {
+    endpoint {
+        url = "{{ .PushURL }}"
+        headers = {
+            "X-TOKEN" = "{{ .Token }}",
+        }
+    }
+}
+

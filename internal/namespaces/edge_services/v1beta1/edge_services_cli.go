@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	edge_services "github.com/scaleway/scaleway-sdk-go/api/edge_services/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/edge_services/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -542,7 +542,7 @@ func edgeServicesDNSStageCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fqdns.{index}",
-				Short:      `Fully Qualified Domain Name (in the format subdomain.example.com) to attach to the stage`,
+				Short:      `Custom Fully Qualified Domain Name to be configured (only 1 FQDN can be setup for now)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -642,7 +642,7 @@ func edgeServicesDNSStageUpdate() *core.Command {
 			},
 			{
 				Name:       "fqdns.{index}",
-				Short:      `Fully Qualified Domain Name (in the format subdomain.example.com) attached to the stage`,
+				Short:      `Custom Fully Qualified Domain Name to be configured (only 1 FQDN can be setup for now)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1687,6 +1687,12 @@ func edgeServicesWafStageCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "exclusion-rules.rules.{index}.rule-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "backend-stage-id",
 				Short:      `ID of the backend stage to forward requests to after the WAF stage`,
 				Required:   false,
@@ -1767,6 +1773,12 @@ func edgeServicesWafStageUpdate() *core.Command {
 			{
 				Name:       "paranoia-level",
 				Short:      `Sensitivity level (` + "`" + `1` + "`" + `,` + "`" + `2` + "`" + `,` + "`" + `3` + "`" + `,` + "`" + `4` + "`" + `) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "exclusion-rules.rules.{index}.rule-id",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

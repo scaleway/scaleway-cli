@@ -107,8 +107,8 @@ func partnerOrganizationCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "siren-number",
-				Short:      `A SIREN number for the customer`,
+				Name:       "comment",
+				Short:      `A comment about the organization`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

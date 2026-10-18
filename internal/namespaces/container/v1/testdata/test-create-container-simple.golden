@@ -1,6 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                         0a1826ab-6f6e-4e77-9ed3-dd6db801e176
+Srn                                        -
 Name                                       cli-test-eager-curran
 NamespaceID                                aa7e929d-6282-460b-8f85-ce815640d1ca
 Description                                -
@@ -24,10 +25,12 @@ LivenessProbe.FailureThreshold             30
 LivenessProbe.Interval                     10 seconds
 LivenessProbe.Timeout                      1 seconds
 PublicEndpoint                             https://clinsquizzicalmooreaa7e929d-cli-test-eager-curran.functions.fnc.fr-par.scw.cloud
+DefaultPublicEndpointEnabled               false
 Region                                     fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "0a1826ab-6f6e-4e77-9ed3-dd6db801e176",
+  "srn": "",
   "name": "cli-test-eager-curran",
   "namespace_id": "aa7e929d-6282-460b-8f85-ce815640d1ca",
   "description": "",
@@ -64,5 +67,7 @@ Region                                     fr-par
   "command": [],
   "args": [],
   "public_endpoint": "https://clinsquizzicalmooreaa7e929d-cli-test-eager-curran.functions.fnc.fr-par.scw.cloud",
+  "private_endpoint": null,
+  "default_public_endpoint_enabled": false,
   "region": "fr-par"
 }

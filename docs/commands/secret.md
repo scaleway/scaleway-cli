@@ -44,7 +44,7 @@ scw secret secret create [arg=value ...]
 | Name                                   | Description                                                                                   | Argument Specifications                                                                                              |
 |----------------------------------------|-----------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
 | project-id                             | Project ID to use. If none is passed the default project ID will be used                      |                                                                                                                      |
-| name                                   | Name of the secret                                                                            |                                                                                                                      |
+| name                                   | Name of the secret                                                                            | Default: `<generated>`                                                                                               |
 | tags.{index}                           | List of the secret's tags                                                                     |                                                                                                                      |
 | description                            | Description of the secret                                                                     |                                                                                                                      |
 | type                                   | Type of the secret                                                                            | One of: `unknown_type`, `opaque`, `certificate`, `key_value`, `basic_credentials`, `database_credentials`, `ssh_key` |
@@ -120,7 +120,7 @@ scw secret secret get <secret-id ...> [arg=value ...]
 
 ### List secrets
 
-Retrieve the list of secrets created within an Organization and/or Project. 
+Retrieve the list of secrets created within an Organization and/or Project.
 If the user has permissions for all current and future projects: Either organization_id or project_id is required.
 If the user has permissions for all current projects or only specific projects: The `project_id` is required.
 The `region` parameter in path is needed in both case.

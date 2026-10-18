@@ -171,13 +171,46 @@ scw kafka cluster update <cluster-id ...> [arg=value ...]
 
 Cluster endpoints enable connection to your cluster.
 
-Cluster endpoints enable connection to your cluster.
+
+### Create a new Kafka cluster endpoint
+
+Create a new endpoint for a Kafka cluster. You can add `public_network` or `private_network` specifications to the body of the request. Note that currently only `private_network` is supported.
 
 **Usage:**
 
 ```shell
-scw kafka endpoint
+scw kafka endpoint create <cluster-id ...> [arg=value ...]
 ```
+
+
+**Arguments:**
+
+| Name                                        | Description                                                                 | Argument Specifications                 |
+|---------------------------------------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| cluster-id                                  | UUID of the Kafka Cluster                                                   | Required                                |
+| endpoint.public-network                     |                                                                             |                                         |
+| endpoint.private-network.private-network-id | UUID of the Private Network                                                 |                                         |
+| region                                      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+
+
+
+### Delete a Kafka cluster endpoint
+
+Delete the endpoint of a Kafka cluster. You must specify the `endpoint_id` parameter of the endpoint you want to delete. Note that you might need to update any environment configurations that point to the deleted endpoint.
+
+**Usage:**
+
+```shell
+scw kafka endpoint delete <endpoint-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name        | Description                                                                 | Argument Specifications                 |
+|-------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| endpoint-id | UUID of the endpoint to delete                                              | Required                                |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 

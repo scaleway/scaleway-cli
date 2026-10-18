@@ -147,7 +147,7 @@ func billingBudgetCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "consumption-limit",
-				Short:      `Cost limit for the budget`,
+				Short:      `Cost limit for the budget expressed in the invoiced currency (no cents allowed)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -191,7 +191,7 @@ func billingBudgetUpdate() *core.Command {
 			},
 			{
 				Name:       "consumption-limit",
-				Short:      `Cost limit for the budget`,
+				Short:      `Cost limit for the budget expressed in the invoiced currency (no cents allowed)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

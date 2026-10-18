@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"strings"
@@ -13,7 +14,7 @@ import (
 )
 
 func main() {
-	cmds := commands.GetCommands()
+	cmds := commands.GetCommands(context.Background())
 	errors := qa.LintCommands(cmds)
 
 	fmt.Println(terminal.Style("Errors:", color.Bold))

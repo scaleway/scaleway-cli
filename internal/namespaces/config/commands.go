@@ -88,7 +88,7 @@ func configRoot() *core.Command {
 			The following environment variables are supported:
 
 			` + envVarTable.String() + `
-			Read more about the config management engine at https://github.com/scaleway/scaleway-sdk-go/tree/master/scw#scaleway-config
+			Read more about the config management engine at https://github.com/scaleway/scaleway-sdk-go/tree/main/scw#scaleway-config
 		`),
 		Namespace: "config",
 		SeeAlsos: []*core.SeeAlso{

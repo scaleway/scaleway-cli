@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	s2s_vpn "github.com/scaleway/scaleway-sdk-go/api/s2s_vpn/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/s2s_vpn/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -73,8 +73,8 @@ func s2sVpnVpnGateway() *core.Command {
 
 func s2sVpnVpnGatewayType() *core.Command {
 	return &core.Command{
-		Short:     `VPN gateways come in various shapes, sizes and prices, which are  described by VPN gateway types. They represent the different commercial  offer types for VPN gateways available at Scaleway.`,
-		Long:      `VPN gateways come in various shapes, sizes and prices, which are  described by VPN gateway types. They represent the different commercial  offer types for VPN gateways available at Scaleway.`,
+		Short:     `VPN gateways come in various shapes, sizes and prices, which are described by VPN gateway types. They represent the different commercial offer types for VPN gateways available at Scaleway.`,
+		Long:      `VPN gateways come in various shapes, sizes and prices, which are described by VPN gateway types. They represent the different commercial offer types for VPN gateways available at Scaleway.`,
 		Namespace: "s2s-vpn",
 		Resource:  "vpn-gateway-type",
 	}
@@ -1014,6 +1014,20 @@ func s2sVpnConnectionUpdate() *core.Command {
 					"curve25519",
 				},
 			},
+			{
+				Name:       "secret-id",
+				Short:      `Secret ID in the client's project containing the PSK`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret-revision",
+				Short:      `Secret version in the client's project containing the PSK.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionItMil,
@@ -1093,7 +1107,7 @@ func s2sVpnConnectionRenewPsk() *core.Command {
 			},
 			{
 				Name:       "generate-revision",
-				Short:      `Generate a new revision or update to the latest existing one`,
+				Short:      `Generate a new version or update to the latest existing one`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

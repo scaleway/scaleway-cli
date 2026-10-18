@@ -24,6 +24,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	args "github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/pkg/shlex"
 	"github.com/scaleway/scaleway-cli/v2/internal/platform/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/test/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -295,7 +296,8 @@ func createTestClient(
 		require.NoError(t, err)
 
 		client, err = scw.NewClient(
-			append(clientOpts, scw.WithAuth(res.AccessKey, res.SecretKey))...)
+			append(clientOpts, scw.WithAuth(res.AccessKey, res.SecretKey))...,
+		)
 		require.NoError(t, err)
 	}
 
@@ -308,18 +310,54 @@ func createTestClient(
 var DefaultRetryInterval *time.Duration
 
 var foldersUsingVCRv4 = []string{
-	"container",
-	"instance",
-	"k8s",
-	"marketplace",
+	"cmd/scw",
+	"core",
+	"internal/e2e",
+	"internal/namespaces/alias",
+	"internal/namespaces/applesilicon/v1alpha1",
+	"internal/namespaces/autoscaling/v1alpha2",
+	"internal/namespaces/baremetal/v1",
+	"internal/namesapces/block/v1alpha1",
+	"internal/namesapces/config",
+	"internal/namespaces/container/v1",
+	"internal/namespaces/feedback",
+	"internal/namespaces/flexibleip/v1alpha1",
+	"internal/namespaces/iam/v1alpha1",
+	"internal/namespaces/info",
+	"internal/namespaces/init",
+	"internal/namespaces/instance/v1",
+	"internal/namespaces/instance/v2alpha1",
+	"internal/namespaces/iot/v1",
+	"internal/namespaces/k8s/v1",
+	"internal/namespaces/lb/v1",
+	"internal/namespaces/marketplace/v2",
+	"internal/namespaces/mcp/server",
+	"internal/namespaces/mnq/v1beta1",
+	"internal/namespaces/redis/v1",
+	"internal/namespaces/registry/v1",
+	"internal/namespaces/secret/v1beta1",
+	"internal/namespaces/test/custom",
+	"internal/namespaces/webhosting/v1",
 }
 
-func folderUsesVCRv4(fullFolderPath string) bool {
-	fullPathSplit := strings.Split(fullFolderPath, string(os.PathSeparator))
+func folderUsesVCRv4(path string) bool {
+	var moduleRoot string
+	current, _ := os.Getwd()
+	for current != "/" {
+		if _, err := os.Stat(filepath.Join(current, "go.mod")); err == nil {
+			moduleRoot = current
 
-	folder := fullPathSplit[len(fullPathSplit)-2]
+			break
+		}
+		current = filepath.Dir(current)
+	}
 
-	return slices.Contains(foldersUsingVCRv4, folder)
+	pkg, err := filepath.Rel(moduleRoot, path)
+	if err != nil {
+		panic(err)
+	}
+
+	return slices.Contains(foldersUsingVCRv4, pkg)
 }
 
 // Run a CLI integration test. See TestConfig for configuration option
@@ -521,6 +559,13 @@ func Test(config *TestConfig) func(t *testing.T) {
 			})
 
 			meta["CmdResult"] = result
+
+			defer func() {
+				if r := recover(); r != nil {
+					t.Errorf("Check panicked: error: %v", r)
+				}
+			}()
+
 			config.Check(t, &CheckFuncCtx{
 				ExitCode:    exitCode,
 				Stdout:      stdout.Bytes(),
@@ -553,7 +598,12 @@ func Test(config *TestConfig) func(t *testing.T) {
 }
 
 func cmdToArgs(meta TestMetadata, s string) []string {
-	return strings.Split(meta.Render(s), " ")
+	args, err := shlex.Split(meta.Render(s))
+	if err != nil {
+		panic("malformed command: " + err.Error())
+	}
+
+	return args
 }
 
 // BeforeFuncCombine combines multiple before functions into one.

@@ -4,8 +4,10 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"os/exec"
 	"runtime"
 	"runtime/debug"
+	"strings"
 
 	"github.com/hashicorp/go-version"
 	"github.com/mattn/go-colorable"
@@ -14,6 +16,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/platform/terminal"
 	"github.com/scaleway/scaleway-cli/v2/internal/sentry"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/spf13/pflag"
 )
 
 var (
@@ -69,7 +72,39 @@ func main() {
 	os.Exit(exitCode)
 }
 
+// dispatchPlugin implements external plugins, the same way git runs `git foo`
+// from an executable `git-foo` on PATH: `scw foo` looks for `scw-foo` and
+// executes it with the remaining arguments passed through unchanged.
+// No built-in command starts with "scw-" so this can safely run before
+// Bootstrap.
+func dispatchPlugin(args []string) (exitCode int, handled bool) {
+	if len(args) < 2 || strings.HasPrefix(args[1], "-") {
+		return 0, false
+	}
+	bin, err := exec.LookPath("scw-" + args[1])
+	if err != nil {
+		return 0, false
+	}
+
+	cmd := exec.Command(bin, args[2:]...)
+	cmd.Stdin, cmd.Stdout, cmd.Stderr = os.Stdin, os.Stdout, os.Stderr
+	if err := cmd.Run(); err != nil {
+		if exitErr, ok := err.(*exec.ExitError); ok {
+			return exitErr.ExitCode(), true
+		}
+		_, _ = fmt.Fprintln(os.Stderr, err)
+
+		return 1, true
+	}
+
+	return 0, true
+}
+
 func mainNoExit() int {
+	if exitCode, handled := dispatchPlugin(os.Args); handled {
+		return exitCode
+	}
+
 	buildInfo := &core.BuildInfo{
 		Version: version.Must(
 			version.NewSemver(buildVersion()),
@@ -84,14 +119,28 @@ func mainNoExit() int {
 	}
 	defer cleanup(buildInfo)
 
-	exitCode, _, _ := core.Bootstrap(context.Background(), &core.BootstrapConfig{
+	// Beta mode must be known before GetCommands is called, as it controls which
+	// command namespaces (e.g. dedibox) are registered. Bootstrap will re-parse
+	// the same flags later; this early read only resolves --beta/-B so that
+	// GetCommands can pick it up via core.ExtractBetaMode.
+	betaMode := BetaMode
+	preFlags := pflag.NewFlagSet("scw", pflag.ContinueOnError)
+	preFlags.BoolVarP(&betaMode, "beta", "B", betaMode, "Enable beta mode")
+	preFlags.ParseErrorsWhitelist.UnknownFlags = true
+	preFlags.Usage = func() {}
+	_ = preFlags.Parse(os.Args[1:])
+
+	ctx := context.Background()
+	ctx = core.InjectMeta(ctx, &core.Meta{BetaMode: betaMode})
+
+	exitCode, _, _ := core.Bootstrap(ctx, &core.BootstrapConfig{
 		Args:      os.Args,
-		Commands:  commands.GetCommands(),
+		Commands:  commands.GetCommands(ctx),
 		BuildInfo: buildInfo,
 		Stdout:    colorable.NewColorableStdout(),
 		Stderr:    colorable.NewColorableStderr(),
 		Stdin:     os.Stdin,
-		BetaMode:  BetaMode,
+		BetaMode:  betaMode,
 		Platform:  terminal.NewPlatform(buildInfo.GetUserAgent()),
 	})
 

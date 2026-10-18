@@ -1,0 +1,11 @@
+{{- if .PrivateNetworkID }}// Connect from a resource attached to private network {{ .PrivateNetworkID }}
+{{ end -}}
+use sqlx::postgres::PgPoolOptions;
+
+#[tokio::main]
+async fn main() -> Result<(), sqlx::Error> {
+    let pool = PgPoolOptions::new().connect("{{ .PostgresDSN }}").await?;
+    let _ = pool;
+    Ok(())
+}
+

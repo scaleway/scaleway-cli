@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	audit_trail "github.com/scaleway/scaleway-sdk-go/api/audit_trail/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/audit_trail/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -103,6 +103,7 @@ func auditTrailEventList() *core.Command {
 					"account_organization",
 					"account_project",
 					"account_contract_signature",
+					"instance_dedicated_pool",
 					"instance_server",
 					"instance_placement_group",
 					"instance_security_group",
@@ -191,6 +192,9 @@ func auditTrailEventList() *core.Command {
 					"serverless_functions_domain",
 					"serverless_functions_cron",
 					"serverless_functions_trigger",
+					"wofl_workflow_definition",
+					"wofl_workflow_run",
+					"wofl_workflow_version",
 				},
 			},
 			{

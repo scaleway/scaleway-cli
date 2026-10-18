@@ -45,6 +45,7 @@ StateDetail             booting kernel
 Arch                    x86_64
 Zone                    fr-par-1
 EndOfService            false
+Srn                     -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "37eebbd9-a323-47fd-8192-07e13fe467a2",

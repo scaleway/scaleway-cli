@@ -146,7 +146,7 @@ scw k8s cluster create [arg=value ...]
 | pools.{index}.startup-taints.{index}.key           | The taint key to be applied to a node                                                                                                                                                                                                                                                                                                                                                                 |                                                                                                                 |
 | pools.{index}.startup-taints.{index}.value         | The taint value corresponding to the taint key                                                                                                                                                                                                                                                                                                                                                        |                                                                                                                 |
 | pools.{index}.startup-taints.{index}.effect        | Effect defines the effects of Taint                                                                                                                                                                                                                                                                                                                                                                   | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute`                                                           |
-| pools.{index}.max-termination-grace-period         | Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.                                                                                                                                                                                          |                                                                                                                 |
+| pools.{index}.max-termination-grace-period         | Maximum amount of time in seconds before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.                                                                                                                                                                               |                                                                                                                 |
 | pools.{index}.user-data.{key}                      | User data applied and reconciled with the pool                                                                                                                                                                                                                                                                                                                                                        |                                                                                                                 |
 | autoscaler-config.scale-down-disabled              | Forbid cluster autoscaler to scale down the cluster, defaults to false                                                                                                                                                                                                                                                                                                                                |                                                                                                                 |
 | autoscaler-config.scale-down-delay-after-add       | How long after scale up the scale down evaluation resumes                                                                                                                                                                                                                                                                                                                                             |                                                                                                                 |
@@ -986,7 +986,7 @@ scw k8s pool create [arg=value ...]
 | startup-taints.{index}.value   | The taint value corresponding to the taint key                                                                                                                                                                                                               |                                                                       |
 | startup-taints.{index}.effect  | Effect defines the effects of Taint                                                                                                                                                                                                                          | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute`                 |
 | user-data.{key}                | User data applied and reconciled with the pool                                                                                                                                                                                                               |                                                                       |
-| max-termination-grace-period   | Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.                                                 |                                                                       |
+| max-termination-grace-period   | Maximum amount of time in seconds before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.                                      |                                                                       |
 | region                         | Region to target. If none is passed will use default region from the config                                                                                                                                                                                  | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
@@ -1006,6 +1006,11 @@ scw k8s pool create cluster-id=11111111-1111-1111-1111-111111111111 name=fish no
 Create a tagged pool named 'turtle' with 1 GP1-S which is using the already created placement group 22222222-2222-2222-2222-222222222222 for all the nodes in the pool on a cluster
 ```shell
 scw k8s pool create cluster-id=11111111-1111-1111-1111-111111111111 name=turtle node-type=GP1-S size=1 placement-group-id=22222222-2222-2222-2222-222222222222 tags.0=turtle-uses-placement-group
+```
+
+Create a pool with user data loaded from a local file
+```shell
+scw k8s pool create cluster-id=11111111-1111-1111-1111-111111111111 name=bar node-type=DEV1-XL size=2 user-data.cloud-init=@cloud-init.yml
 ```
 
 
@@ -1071,6 +1076,38 @@ scw k8s pool get 11111111-1111-1111-1111-111111111111
 
 
 
+### Get a pool related user data
+
+Retrieve specific user data content for a given pool.
+Tip: add `?dl=1` at the end of the URL to directly retrieve the base64 decoded content of your user data.
+
+**Usage:**
+
+```shell
+scw k8s pool get-userdata <pool-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name    | Description                                                                 | Argument Specifications                                               |
+|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| pool-id | Pool the user data are associated to                                        | Required                                                              |
+| key     | User data key to retrieved                                                  | Required                                                              |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
+
+
+**Examples:**
+
+
+Get a pool user data by name
+```shell
+scw k8s pool get-userdata 11111111-1111-1111-1111-111111111111 key=cloud-init
+```
+
+
+
+
 ### List Pools in a Cluster
 
 List all the existing pools for a specific Kubernetes cluster.
@@ -1114,6 +1151,36 @@ scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111 name=foo
 List all pools for a cluster and order them by ascending creation date
 ```shell
 scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111 order-by=created_at_asc
+```
+
+
+
+
+### List all user data related to a given pool.
+
+This list only the user data key and not the content.
+
+**Usage:**
+
+```shell
+scw k8s pool list-userdata <pool-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name    | Description                                                                 | Argument Specifications                                               |
+|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| pool-id | Pool the user data are associated to                                        | Required                                                              |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
+
+
+**Examples:**
+
+
+List all user data for a given pool
+```shell
+scw k8s pool list-userdata 11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -1338,21 +1405,21 @@ scw k8s pool update <pool-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name                           | Description                                                                                   | Argument Specifications                                               |
-|--------------------------------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| pool-id                        | ID of the pool to update                                                                      | Required                                                              |
-| autoscaling                    | New value for the pool autoscaling enablement                                                 |                                                                       |
-| size                           | New desired pool size                                                                         |                                                                       |
-| min-size                       | New minimum size for the pool                                                                 |                                                                       |
-| max-size                       | New maximum size for the pool                                                                 |                                                                       |
-| autohealing                    | New value for the pool autohealing enablement                                                 |                                                                       |
-| tags.{index}                   | New tags associated with the pool                                                             |                                                                       |
-| kubelet-args.{key}             | New Kubelet arguments to be used by this pool. Note that this feature is experimental         |                                                                       |
-| upgrade-policy.max-unavailable | New maximum number of nodes that can be `upgrading` at the same time                          |                                                                       |
-| upgrade-policy.max-surge       | New maximum number of nodes to be created during the upgrade                                  |                                                                       |
-| security-group-id              | Security group ID in which all the nodes of the pool will be moved                            |                                                                       |
-| max-termination-grace-period   | New maximum amount of time before the API forces the drain and deletion of a `deleting` node. |                                                                       |
-| region                         | Region to target. If none is passed will use default region from the config                   | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
+| Name                           | Description                                                                                              | Argument Specifications                                               |
+|--------------------------------|----------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| pool-id                        | ID of the pool to update                                                                                 | Required                                                              |
+| autoscaling                    | New value for the pool autoscaling enablement                                                            |                                                                       |
+| size                           | New desired pool size                                                                                    |                                                                       |
+| min-size                       | New minimum size for the pool                                                                            |                                                                       |
+| max-size                       | New maximum size for the pool                                                                            |                                                                       |
+| autohealing                    | New value for the pool autohealing enablement                                                            |                                                                       |
+| tags.{index}                   | New tags associated with the pool                                                                        |                                                                       |
+| kubelet-args.{key}             | New Kubelet arguments to be used by this pool. Note that this feature is experimental                    |                                                                       |
+| upgrade-policy.max-unavailable | New maximum number of nodes that can be `upgrading` at the same time                                     |                                                                       |
+| upgrade-policy.max-surge       | New maximum number of nodes to be created during the upgrade                                             |                                                                       |
+| security-group-id              | Security group ID in which all the nodes of the pool will be moved                                       |                                                                       |
+| max-termination-grace-period   | New maximum amount of time in seconds before the API forces the drain and deletion of a `deleting` node. |                                                                       |
+| region                         | Region to target. If none is passed will use default region from the config                              | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 **Examples:**
@@ -1439,74 +1506,6 @@ scw k8s pool wait <pool-id ...> [arg=value ...]
 Wait for a pool to reach a stable state
 ```shell
 scw k8s pool wait 11111111-1111-1111-1111-111111111111
-```
-
-
-
-
-## User Data management commands
-
-User data allow to attach user complementary content to a pool.
-A special use case of these data are cloud-init configuration.
-
-
-### Get a pool related user data
-
-Retrieve specific user data content for a given pool.
-Tip: add `?dl=1` at the end of the URL to directly retrieve the base64 decoded content of your user data.
-
-**Usage:**
-
-```shell
-scw k8s userdata get [arg=value ...]
-```
-
-
-**Arguments:**
-
-| Name    | Description                                                                 | Argument Specifications                                               |
-|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| pool-id | Pool the user data are associated to                                        | Required                                                              |
-| key     | User data key to retrieved                                                  | Required                                                              |
-| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
-
-
-**Examples:**
-
-
-Get a pool user data by name
-```shell
-scw k8s user-data get cloud-init pool-id=11111111-1111-1111-1111-111111111111
-```
-
-
-
-
-### List all user data related to a given pool.
-
-This list only the user data key and not the content.
-
-**Usage:**
-
-```shell
-scw k8s userdata list [arg=value ...]
-```
-
-
-**Arguments:**
-
-| Name    | Description                                                                 | Argument Specifications                                               |
-|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| pool-id | Pool the user data are associated to                                        | Required                                                              |
-| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
-
-
-**Examples:**
-
-
-List all user data for a given pool
-```shell
-scw k8s user-data list pool-id=11111111-1111-1111-1111-111111111111
 ```
 
 

@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -246,6 +246,36 @@ func appleSiliconServerCreate() *core.Command {
 					"github",
 					"gitlab",
 				},
+			},
+			{
+				Name:       "runner-configuration.download-runner",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.action",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_action",
+					"remove",
+					"update",
+					"add",
+				},
+			},
+			{
+				Name:       "runner-configuration.id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.labels.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "applied-runner-configurations.runner-configuration-ids.{index}",

@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	key_manager "github.com/scaleway/scaleway-sdk-go/api/key_manager/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/key_manager/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -122,6 +122,7 @@ func keymanagerKeyCreate() *core.Command {
 			},
 			{
 				Name:       "usage.key-encapsulation",
+				Short:      `Wrap and unwrap key using a key encapsulation algorithm.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -176,6 +177,18 @@ func keymanagerKeyCreate() *core.Command {
 					"unknown_origin",
 					"scaleway_kms",
 					"external",
+				},
+			},
+			{
+				Name:       "protection-level",
+				Short:      `Key Protection level`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_protection_level",
+					"software",
+					"hsm",
 				},
 			},
 			core.RegionArgSpec(
@@ -512,7 +525,7 @@ func keymanagerKeyDisable() *core.Command {
 func keymanagerKeyList() *core.Command {
 	return &core.Command{
 		Short: `List keys`,
-		Long: `Retrieve a list of keys across all Projects in an Organization or within a specific Project. 
+		Long: `Retrieve a list of keys across all Projects in an Organization or within a specific Project.
 If the user has permissions for all current and future projects: Either organization_id or project_id is required.
 If the user has permissions for all current projects or only specific projects: The project_id is required.
 The ` + "`" + `region` + "`" + ` parameter in path is needed in both case.`,
@@ -568,6 +581,7 @@ The ` + "`" + `region` + "`" + ` parameter in path is needed in both case.`,
 					"symmetric_encryption",
 					"asymmetric_encryption",
 					"asymmetric_signing",
+					"key_encapsulation",
 				},
 			},
 			{
@@ -576,6 +590,18 @@ The ` + "`" + `region` + "`" + ` parameter in path is needed in both case.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+			},
+			{
+				Name:       "protection-level",
+				Short:      `(Optional) Filter keys by protection level.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_protection_level",
+					"software",
+					"hsm",
+				},
 			},
 			{
 				Name:       "organization-id",
@@ -783,12 +809,26 @@ func keymanagerKeyImportKeyMaterial() *core.Command {
 				Name:       "key-material",
 				Short:      `The key material`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
 				Name:       "salt",
 				Short:      `(Optional) Salt value to pass the key derivation function`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "encrypted-key-material.data",
+				Short:      `The encrypted key material to import.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "encrypted-key-material.import-token",
+				Short:      `The secure import token returned by the ` + "`" + `GetKeyMaterialImportParameters` + "`" + ` method.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -826,6 +866,13 @@ func keymanagerKeyDeleteKeyMaterial() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
+			},
+			{
+				Name:       "key-rotation-index",
+				Short:      `(Optional) Rotation index of which to delete the key material`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,

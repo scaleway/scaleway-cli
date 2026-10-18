@@ -3,6 +3,7 @@ package getorcreate
 import (
 	"context"
 
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/api/container/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -46,8 +47,9 @@ func Namespace(
 	}
 
 	namespace, err = api.WaitForNamespace(&container.WaitForNamespaceRequest{
-		Region:      region,
-		NamespaceID: namespace.ID,
+		Region:        region,
+		NamespaceID:   namespace.ID,
+		RetryInterval: core.DefaultRetryInterval,
 	}, scw.WithContext(ctx))
 	if err != nil {
 		return nil, err

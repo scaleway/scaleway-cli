@@ -27,13 +27,14 @@ scw keymanager key create [arg=value ...]
 | usage.symmetric-encryption       | Encrypt and decrypt arbitrary payloads using a symmetric encryption algorithm.                            | One of: `unknown_symmetric_encryption`, `aes_256_gcm`                                                                                                                                                                                                                                  |
 | usage.asymmetric-encryption      | Encrypt and decrypt arbitrary payloads using an asymmetric encryption algorithm.                          | One of: `unknown_asymmetric_encryption`, `rsa_oaep_2048_sha256`, `rsa_oaep_3072_sha256`, `rsa_oaep_4096_sha256`                                                                                                                                                                        |
 | usage.asymmetric-signing         | Sign and verify arbitrary messages using an asymmetric signing algorithm.                                 | One of: `unknown_asymmetric_signing`, `ec_p256_sha256`, `ec_p384_sha384`, `rsa_pss_2048_sha256`, `rsa_pss_3072_sha256`, `rsa_pss_4096_sha256`, `rsa_pkcs1_2048_sha256`, `rsa_pkcs1_3072_sha256`, `rsa_pkcs1_4096_sha256`, `ml_dsa_44`, `ml_dsa_65`, `ml_dsa_87`, `ec_secp256k1_sha256` |
-| usage.key-encapsulation          |                                                                                                           | One of: `unknown_key_encapsulation`, `ml_kem_768`, `ml_kem_1024`                                                                                                                                                                                                                       |
+| usage.key-encapsulation          | Wrap and unwrap key using a key encapsulation algorithm.                                                  | One of: `unknown_key_encapsulation`, `ml_kem_768`, `ml_kem_1024`                                                                                                                                                                                                                       |
 | description                      | (Optional) Description of the key                                                                         |                                                                                                                                                                                                                                                                                        |
 | tags.{index}                     | (Optional) List of the key's tags                                                                         |                                                                                                                                                                                                                                                                                        |
 | rotation-policy.rotation-period  | Rotation period                                                                                           |                                                                                                                                                                                                                                                                                        |
 | rotation-policy.next-rotation-at | Key next rotation date                                                                                    |                                                                                                                                                                                                                                                                                        |
 | unprotected                      | (Optional) Defines whether key protection is applied to a key. Protected keys can be used but not deleted |                                                                                                                                                                                                                                                                                        |
 | origin                           | Key origin                                                                                                | One of: `unknown_origin`, `scaleway_kms`, `external`                                                                                                                                                                                                                                   |
+| protection-level                 | Key Protection level                                                                                      | One of: `unknown_protection_level`, `software`, `hsm`                                                                                                                                                                                                                                  |
 | region                           | Region to target. If none is passed will use default region from the config                               | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`                                                                                                                                                                                                                            |
 
 
@@ -93,10 +94,11 @@ scw keymanager key delete-key-material <key-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name   | Description                                                                 | Argument Specifications                                     |
-|--------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| key-id | ID of the key of which to delete the key material                           | Required                                                    |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name               | Description                                                                 | Argument Specifications                                     |
+|--------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| key-id             | ID of the key of which to delete the key material                           | Required                                                    |
+| key-rotation-index | (Optional) Rotation index of which to delete the key material               |                                                             |
+| region             | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -219,18 +221,20 @@ scw keymanager key import-key-material <key-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                                 | Argument Specifications                                     |
-|--------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| key-id       | ID of the key in which to import key material                               | Required                                                    |
-| key-material | The key material                                                            |                                                             |
-| salt         | (Optional) Salt value to pass the key derivation function                   |                                                             |
-| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name                                | Description                                                                      | Argument Specifications                                     |
+|-------------------------------------|----------------------------------------------------------------------------------|-------------------------------------------------------------|
+| key-id                              | ID of the key in which to import key material                                    | Required                                                    |
+| ~~key-material~~                    | The key material                                                                 | Deprecated                                                  |
+| salt                                | (Optional) Salt value to pass the key derivation function                        |                                                             |
+| encrypted-key-material.data         | The encrypted key material to import.                                            |                                                             |
+| encrypted-key-material.import-token | The secure import token returned by the `GetKeyMaterialImportParameters` method. |                                                             |
+| region                              | Region to target. If none is passed will use default region from the config      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
 ### List keys
 
-Retrieve a list of keys across all Projects in an Organization or within a specific Project. 
+Retrieve a list of keys across all Projects in an Organization or within a specific Project.
 If the user has permissions for all current and future projects: Either organization_id or project_id is required.
 If the user has permissions for all current projects or only specific projects: The project_id is required.
 The `region` parameter in path is needed in both case.
@@ -244,16 +248,17 @@ scw keymanager key list [arg=value ...]
 
 **Arguments:**
 
-| Name                   | Description                                                                                                              | Argument Specifications                                                                                   |
-|------------------------|--------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| project-id             | (Optional) Filter by Project ID                                                                                          |                                                                                                           |
-| order-by               |                                                                                                                          | One of: `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` |
-| tags.{index}           | (Optional) List of tags to filter on                                                                                     |                                                                                                           |
-| name                   | (Optional) Filter by key name                                                                                            |                                                                                                           |
-| usage                  | (Optional) Filter keys by usage.                                                                                         | One of: `unknown_usage`, `symmetric_encryption`, `asymmetric_encryption`, `asymmetric_signing`            |
-| scheduled-for-deletion | Filter keys based on their deletion status. By default, only keys not scheduled for deletion are returned in the output. |                                                                                                           |
-| organization-id        | (Optional) Filter by Organization ID                                                                                     |                                                                                                           |
-| region                 | Region to target. If none is passed will use default region from the config                                              | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`                                        |
+| Name                   | Description                                                                                                              | Argument Specifications                                                                                             |
+|------------------------|--------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+| project-id             | (Optional) Filter by Project ID                                                                                          |                                                                                                                     |
+| order-by               |                                                                                                                          | One of: `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`           |
+| tags.{index}           | (Optional) List of tags to filter on                                                                                     |                                                                                                                     |
+| name                   | (Optional) Filter by key name                                                                                            |                                                                                                                     |
+| usage                  | (Optional) Filter keys by usage.                                                                                         | One of: `unknown_usage`, `symmetric_encryption`, `asymmetric_encryption`, `asymmetric_signing`, `key_encapsulation` |
+| scheduled-for-deletion | Filter keys based on their deletion status. By default, only keys not scheduled for deletion are returned in the output. |                                                                                                                     |
+| protection-level       | (Optional) Filter keys by protection level.                                                                              | One of: `unknown_protection_level`, `software`, `hsm`                                                               |
+| organization-id        | (Optional) Filter by Organization ID                                                                                     |                                                                                                                     |
+| region                 | Region to target. If none is passed will use default region from the config                                              | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`                                                  |
 
 
 
