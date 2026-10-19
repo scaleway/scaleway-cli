@@ -14,10 +14,13 @@ import (
 	"strings"
 	"time"
 
+	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
-	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
+	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	"github.com/scaleway/scaleway-cli/v2/internal/semver"
+	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -41,7 +44,80 @@ type redisEndpointSpecCustom struct {
 
 type CreateClusterRequestCustom struct {
 	*redis.CreateClusterRequest
-	Endpoints []*redisEndpointSpecCustom `json:"endpoints"`
+	Endpoints  []*redisEndpointSpecCustom `json:"endpoints"`
+	CliConnect bool
+}
+
+// CreateClusterResponse is the created cluster plus the password, when one was
+// generated because none was supplied: the output is the only place a generated
+// password is ever revealed (e.g. `scw redis cluster create ... --output json | jq .password`).
+// A user-supplied password is not echoed back (Password stays nil).
+type CreateClusterResponse struct {
+	*redis.Cluster
+	Password *string `json:"password,omitempty"`
+}
+
+var connectSeeAlsos = []*core.SeeAlso{
+	{
+		Command: "scw redis cluster connect",
+		Short:   "Connect to a Redis cluster using locally installed redis-cli",
+	},
+}
+
+func clusterUpdateBuilder(c *core.Command) *core.Command {
+	type updateClusterRequestCustom struct {
+		*redis.UpdateClusterRequest
+		CliConnect bool
+	}
+
+	c.ArgSpecs.AddBefore("password", connect.CliConnectArgSpec())
+	c.ArgsType = reflect.TypeFor[updateClusterRequestCustom]()
+
+	c.SeeAlsos = connectSeeAlsos
+
+	c.Run = func(ctx context.Context, args any) (any, error) {
+		req := args.(*updateClusterRequestCustom)
+		region, err := req.Zone.Region()
+		if err != nil {
+			return nil, err
+		}
+
+		// The secret is keyed by user name: when --user-name is not given the
+		// cluster keeps its current user, so resolve it to persist at the right path.
+		name := ""
+		if req.CliConnect {
+			if req.UserName != nil {
+				name = *req.UserName
+			} else {
+				cluster, err := redis.NewAPI(core.ExtractClient(ctx)).
+					GetCluster(&redis.GetClusterRequest{
+						ClusterID: req.ClusterID,
+						Zone:      req.Zone,
+					})
+				if err != nil {
+					return nil, err
+				}
+				name = cluster.UserName
+			}
+		}
+
+		return connect.RunUserUpdate(
+			ctx,
+			req.CliConnect,
+			connect.Redis,
+			region,
+			string(req.Zone),
+			req.ClusterID,
+			name,
+			&req.Password,
+			func(ctx context.Context) (any, error) {
+				return redis.NewAPI(core.ExtractClient(ctx)).
+					UpdateCluster(req.UpdateClusterRequest, scw.WithContext(ctx))
+			},
+		)
+	}
+
+	return c
 }
 
 func clusterCreateBuilder(c *core.Command) *core.Command {
@@ -58,11 +134,27 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("version").AutoCompleteFunc = autoCompleteRedisVersion
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteCreateNodeType
 
+	c.ArgSpecs.AddBefore("password", connect.CliConnectArgSpec())
+	c.ArgSpecs.GetByName("password").Required = false
+	c.ArgSpecs.GetByName("user-name").Default = core.DefaultValueSetter("admin")
+
+	c.SeeAlsos = []*core.SeeAlso{
+		{
+			Command: "scw redis cluster connect",
+			Short:   "Connect to a Redis cluster using locally installed redis-cli",
+		},
+		{
+			Command: "scw redis cluster update",
+			Short:   "Change the password of a user of the cluster",
+		},
+	}
+
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := redis.NewAPI(core.ExtractClient(ctx))
+		resp := respI.(*CreateClusterResponse)
 		cluster, err := api.WaitForCluster(&redis.WaitForClusterRequest{
-			ClusterID:     respI.(*redis.Cluster).ID,
-			Zone:          respI.(*redis.Cluster).Zone,
+			ClusterID:     resp.Cluster.ID,
+			Zone:          resp.Cluster.Zone,
 			Timeout:       new(redisActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -70,7 +162,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		return cluster, nil
+		return &CreateClusterResponse{Cluster: cluster, Password: resp.Password}, nil
 	}
 
 	c.Run = func(ctx context.Context, argsI any) (any, error) {
@@ -79,6 +171,11 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 
 		customRequest := argsI.(*CreateClusterRequestCustom)
 		createClusterRequest := customRequest.CreateClusterRequest
+
+		generatedPassword, err := passwordgenerator.GenerateIfEmpty(&createClusterRequest.Password)
+		if err != nil {
+			return nil, err
+		}
 
 		// Handle default latest version for redis cluster
 		if createClusterRequest.Version == "latest" {
@@ -123,7 +220,36 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		return cluster, nil
+		if customRequest.CliConnect {
+			region, err := cluster.Zone.Region()
+			if err != nil {
+				return nil, err
+			}
+
+			res := connect.Resource{
+				Product:  connect.Redis,
+				Location: string(cluster.Zone),
+				ID:       cluster.ID,
+				Username: createClusterRequest.UserName,
+			}
+			if err := res.SaveSecret(
+				ctx,
+				region,
+				createClusterRequest.UserName,
+				createClusterRequest.Password,
+			); err != nil {
+				return nil, err
+			}
+		}
+
+		// Only a password generated by the CLI is surfaced in the response;
+		// echoing back a supplied one would only widen its exposure.
+		var password *string
+		if generatedPassword != "" {
+			password = &generatedPassword
+		}
+
+		return &CreateClusterResponse{Cluster: cluster, Password: password}, nil
 	}
 
 	return c
@@ -149,6 +275,43 @@ func clusterDeleteBuilder(c *core.Command) *core.Command {
 			}
 
 			return nil, err
+		}
+
+		return cluster, nil
+	}
+
+	type deleteClusterRequestCustom struct {
+		*redis.DeleteClusterRequest
+		CliConnect bool
+	}
+
+	c.ArgsType = reflect.TypeFor[deleteClusterRequestCustom]()
+	c.ArgSpecs.AddBefore("zone", connect.CliConnectDeleteArgSpec())
+
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
+		args := argsI.(*deleteClusterRequestCustom)
+
+		client := core.ExtractClient(ctx)
+		api := redis.NewAPI(client)
+		cluster, err := api.DeleteCluster(args.DeleteClusterRequest, scw.WithContext(ctx))
+		if err != nil {
+			return nil, err
+		}
+
+		if args.CliConnect {
+			region, err := args.Zone.Region()
+			if err != nil {
+				return cluster, err
+			}
+
+			resource := connect.Resource{
+				Product:  connect.Redis,
+				Location: string(args.Zone),
+				ID:       args.ClusterID,
+			}
+			if err := resource.DeleteSecret(ctx, region); err != nil {
+				return cluster, err
+			}
 		}
 
 		return cluster, nil
@@ -260,6 +423,24 @@ func redisClusterGetMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) 
 	}
 
 	return str, nil
+}
+
+func createClusterResponseMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
+	resp := i.(CreateClusterResponse)
+
+	str, err := human.Marshal(resp.Cluster, opt)
+	if err != nil {
+		return "", err
+	}
+
+	if resp.Password == nil {
+		return str, nil
+	}
+
+	return strings.Join([]string{
+		str,
+		terminal.Style("Password: ", color.Bold) + "\n" + *resp.Password,
+	}, "\n\n"), nil
 }
 
 var completeClusterCache *redis.Cluster
@@ -422,8 +603,7 @@ type clusterConnectArgs struct {
 	Zone           scw.Zone
 	PrivateNetwork bool
 	ClusterID      string
-	CliRedis       *string
-	CliArgs        []string
+	Template       string
 }
 
 const (
@@ -453,8 +633,8 @@ func getPrivateEndpoint(endpoints []*redis.Endpoint) (*redis.Endpoint, error) {
 	return nil, fmt.Errorf("%s", errorMessagePrivateEndpointNotFound)
 }
 
-func checkRedisCliInstalled(cliRedis string) error {
-	cmd := exec.Command(cliRedis, "--version") //nolint:gosec
+func checkRedisCliInstalled() error {
+	cmd := exec.Command("redis-cli", "--version") //nolint:gosec
 	if err := cmd.Run(); err != nil {
 		return fmt.Errorf("%s", errorMessageRedisCliNotFound)
 	}
@@ -478,8 +658,11 @@ func clusterConnectCommand() *core.Command {
 		Resource:  "cluster",
 		Verb:      "connect",
 		Short:     "Connect to a Redis cluster using locally installed redis-cli",
-		Long:      "Connect to a Redis cluster using locally installed redis-cli. The command will check if redis-cli is installed, download the certificate if TLS is enabled, and prompt for the password.",
-		ArgsType:  reflect.TypeFor[clusterConnectArgs](),
+		Long: `Connect to a Redis cluster using locally installed redis-cli. The command will check if redis-cli is installed, download the certificate if TLS is enabled, and prompt for the password.
+Use --template to run an arbitrary tool: the Go text/template is rendered with
+{{.Username}}, {{.Password}} (from the persisted secret), {{.Host}}, {{.Port}}, {{.CertPath}} and {{.TLS}},
+and the result is executed as the connect command.`,
+		ArgsType: reflect.TypeFor[clusterConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:     "private-network",
@@ -493,27 +676,16 @@ func clusterConnectCommand() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
-			{
-				Name:  "cli-redis",
-				Short: "Command line tool to use, default to redis-cli",
-			},
-			{
-				Name:     "cli-args",
-				Short:    "Additional arguments to pass to redis-cli",
-				Required: false,
-			},
+			connect.TemplateArgSpec(),
 			core.ZoneArgSpec(getRedisZones()...),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*clusterConnectArgs)
 
-			cliRedis := "redis-cli"
-			if args.CliRedis != nil {
-				cliRedis = *args.CliRedis
-			}
-
-			if err := checkRedisCliInstalled(cliRedis); err != nil {
-				return nil, err
+			if args.Template == "" {
+				if err := checkRedisCliInstalled(); err != nil {
+					return nil, err
+				}
 			}
 
 			client := core.ExtractClient(ctx)
@@ -577,22 +749,35 @@ func clusterConnectCommand() *core.Command {
 				}()
 			}
 
-			password, err := interactive.PromptPasswordWithConfig(
-				ctx,
-				&interactive.PromptPasswordConfig{
-					Prompt: "Password",
-				},
-			)
+			region, err := cluster.Zone.Region()
 			if err != nil {
-				return nil, fmt.Errorf("failed to get password: %w", err)
+				return nil, err
+			}
+
+			password, err := connect.Resource{
+				Product:  connect.Redis,
+				Location: string(cluster.Zone),
+				ID:       cluster.ID,
+				Username: cluster.UserName,
+			}.FetchOrPrompt(ctx, region, cluster.UserName)
+			if err != nil {
+				return nil, err
 			}
 
 			hostStr := endpoint.IPs[0].String()
+
+			// Fail fast on an unreachable endpoint instead of letting redis-cli hang on the dial
+			if args.Template == "" {
+				if err := core.CheckReachable(hostStr, port); err != nil {
+					return nil, err
+				}
+			}
+
 			cmdArgs := []string{
-				cliRedis,
+				"redis-cli",
 				"-h", hostStr,
 				"-p", strconv.FormatUint(uint64(port), 10),
-				"-a", password,
+				"--pass", password,
 			}
 
 			if cluster.TLSEnabled {
@@ -603,9 +788,19 @@ func clusterConnectCommand() *core.Command {
 				cmdArgs = append(cmdArgs, "--user", cluster.UserName)
 			}
 
-			// Add any additional arguments passed by the user
-			if len(args.CliArgs) > 0 {
-				cmdArgs = append(cmdArgs, args.CliArgs...)
+			templateArgs, err := connect.RenderCommand(args.Template, map[string]any{
+				"Username": cluster.UserName,
+				"Password": password,
+				"Host":     hostStr,
+				"Port":     strconv.FormatUint(uint64(port), 10),
+				"CertPath": certPath,
+				"TLS":      cluster.TLSEnabled,
+			})
+			if err != nil {
+				return nil, err
+			}
+			if templateArgs != nil {
+				cmdArgs = templateArgs
 			}
 
 			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
@@ -634,6 +829,10 @@ func clusterConnectCommand() *core.Command {
 			{
 				Short: "Connect to a Redis cluster via private network",
 				Raw:   `scw redis cluster connect 11111111-1111-1111-1111-111111111111 private-network=true`,
+			},
+			{
+				Short: "Connect with a custom tool using a template",
+				Raw:   `scw redis cluster connect 11111111-1111-1111-1111-111111111111 --template "my-redis-tool -h {{.Host}} -p {{.Port}}"`,
 			},
 		},
 	}

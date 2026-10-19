@@ -17,6 +17,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
@@ -92,8 +93,8 @@ type CreateInstanceResult struct {
 
 type rdbCreateInstanceRequestCustom struct {
 	*rdbSDK.CreateInstanceRequest
-	InitEndpoints    []*rdbEndpointSpecCustom `json:"init-endpoints"`
-	GeneratePassword bool
+	InitEndpoints []*rdbEndpointSpecCustom `json:"init-endpoints"`
+	CliConnect    bool
 }
 
 func createInstanceResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
@@ -297,20 +298,25 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		Required:   false,
 		OneOfGroup: "config",
 	})
-	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
-		Name:       "generate-password",
-		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
-		Required:   false,
-		Deprecated: false,
-		Positional: false,
-		Default:    core.DefaultValueSetter("true"),
-	})
+	c.ArgSpecs.AddBefore("password", connect.CliConnectArgSpec())
 	c.ArgSpecs.GetByName("password").Required = false
+	c.ArgSpecs.GetByName("user-name").Default = core.DefaultValueSetter("admin")
 	c.ArgSpecs.GetByName("node-type").Default = core.DefaultValueSetter("DB-DEV-S")
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 	c.ArgSpecs.GetByName("engine").AutoCompleteFunc = autoCompleteDatabaseEngines
 
 	c.ArgsType = reflect.TypeFor[rdbCreateInstanceRequestCustom]()
+
+	c.SeeAlsos = []*core.SeeAlso{
+		{
+			Command: "scw rdb instance connect",
+			Short:   "Connect to an instance using locally installed CLI",
+		},
+		{
+			Command: "scw rdb user update",
+			Short:   "Change the password of a user of the instance",
+		},
+	}
 
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
@@ -339,15 +345,12 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*rdbCreateInstanceRequestCustom)
 		createInstanceRequest := customRequest.CreateInstanceRequest
 
-		var err error
 		createInstanceRequest.NodeType = strings.ToLower(createInstanceRequest.NodeType)
-		if customRequest.GeneratePassword && customRequest.Password == "" {
-			createInstanceRequest.Password, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
-			if err != nil {
-				return nil, err
-			}
-			fmt.Printf("Your generated password is %s \n", createInstanceRequest.Password)
-			fmt.Printf("\n")
+		generatedPassword, err := passwordgenerator.GenerateIfEmpty(
+			&createInstanceRequest.Password,
+		)
+		if err != nil {
+			return nil, err
 		}
 
 		createInstanceRequest.InitEndpoints, err = endpointRequestFromCustom(
@@ -360,6 +363,27 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		instance, err := api.CreateInstance(createInstanceRequest)
 		if err != nil {
 			return nil, err
+		}
+
+		if generatedPassword != "" {
+			interactive.Printf("Your generated password is %s \n\n", generatedPassword)
+		}
+
+		if customRequest.CliConnect {
+			res := connect.Resource{
+				Product:  connect.RDB,
+				Location: string(instance.Region),
+				ID:       instance.ID,
+				Username: createInstanceRequest.UserName,
+			}
+			if err := res.SaveSecret(
+				ctx,
+				instance.Region,
+				createInstanceRequest.UserName,
+				createInstanceRequest.Password,
+			); err != nil {
+				return nil, err
+			}
 		}
 
 		result := CreateInstanceResult{
@@ -382,6 +406,13 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 }
 
 func instanceGetBuilder(c *core.Command) *core.Command {
+	c.SeeAlsos = []*core.SeeAlso{
+		{
+			Command: "scw rdb instance connect",
+			Short:   "Connect to an instance using locally installed CLI",
+		},
+	}
+
 	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		res, err := runner(ctx, argsI)
 		if err != nil {
@@ -713,6 +744,11 @@ func instanceUpdateRequestHasChanges(req *rdbSDK.UpdateInstanceRequest) bool {
 		req.BackupScheduleStartHour != nil
 }
 
+type rdbDeleteInstanceRequestCustom struct {
+	*rdbSDK.DeleteInstanceRequest
+	CliConnect bool
+}
+
 func instanceDeleteBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
@@ -733,6 +769,33 @@ func instanceDeleteBuilder(c *core.Command) *core.Command {
 			}
 
 			return nil, err
+		}
+
+		return instance, nil
+	}
+
+	c.ArgsType = reflect.TypeFor[rdbDeleteInstanceRequestCustom]()
+	c.ArgSpecs.AddBefore("region", connect.CliConnectDeleteArgSpec())
+
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
+		args := argsI.(*rdbDeleteInstanceRequestCustom)
+
+		client := core.ExtractClient(ctx)
+		api := rdbSDK.NewAPI(client)
+		instance, err := api.DeleteInstance(args.DeleteInstanceRequest, scw.WithContext(ctx))
+		if err != nil {
+			return nil, err
+		}
+
+		if args.CliConnect {
+			resource := connect.Resource{
+				Product:  connect.RDB,
+				Location: string(args.Region),
+				ID:       args.InstanceID,
+			}
+			if err := resource.DeleteSecret(ctx, args.Region); err != nil {
+				return instance, err
+			}
 		}
 
 		return instance, nil
@@ -785,7 +848,7 @@ type instanceConnectArgs struct {
 	InstanceID     string
 	Username       string
 	Database       *string
-	CliDB          *string
+	Template       string
 }
 
 type engineFamily string
@@ -891,28 +954,18 @@ func createConnectCommandLineArgs(
 
 	switch family {
 	case PostgreSQL:
-		clidb := "psql"
-		if args.CliDB != nil {
-			clidb = *args.CliDB
-		}
-
 		// psql -h 51.159.25.206 --port 13917 -d rdb -U username
 		return []string{
-			clidb,
+			"psql",
 			"--host", endpoint.IP.String(),
 			"--port", strconv.FormatUint(uint64(endpoint.Port), 10),
 			"--username", args.Username,
 			"--dbname", database,
 		}, nil
 	case MySQL:
-		clidb := "mysql"
-		if args.CliDB != nil {
-			clidb = *args.CliDB
-		}
-
 		// mysql -h 195.154.69.163 --port 12210 -p -u username
 		return []string{
-			clidb,
+			"mysql",
 			"--host", endpoint.IP.String(),
 			"--port", strconv.FormatUint(uint64(endpoint.Port), 10),
 			"--database", database,
@@ -929,8 +982,14 @@ func instanceConnectCommand() *core.Command {
 		Resource:  "instance",
 		Verb:      "connect",
 		Short:     "Connect to an instance using locally installed CLI",
-		Long:      "Connect to an instance using locally installed CLI such as psql or mysql.",
-		ArgsType:  reflect.TypeFor[instanceConnectArgs](),
+		Long: `Connect to an instance using locally installed CLI such as psql or mysql.
+When no username is given, the admin user is used and credentials are fetched from the secret
+created by "rdb instance create cli-connect=true" when available.
+
+Use --template to run an arbitrary tool: the Go text/template is rendered with
+{{.Username}}, {{.Password}} (from the persisted secret), {{.Host}}, {{.Port}}, {{.Database}}
+and {{.Engine}}, and the result is executed as the connect command.`,
+		ArgsType: reflect.TypeFor[instanceConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:     "private-network",
@@ -946,18 +1005,15 @@ func instanceConnectCommand() *core.Command {
 			},
 			{
 				Name:     "username",
-				Short:    "Name of the user to connect with to the database",
-				Required: true,
+				Short:    "Name of the user to connect with to the database (defaults to the admin user)",
+				Required: false,
 			},
 			{
 				Name:    "database",
 				Short:   "Name of the database",
 				Default: core.DefaultValueSetter("rdb"),
 			},
-			{
-				Name:  "cli-db",
-				Short: "Command line tool to use, default to psql/mysql",
-			},
+			connect.TemplateArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
@@ -996,17 +1052,71 @@ func instanceConnectCommand() *core.Command {
 				}
 			}
 
-			cmdArgs, err := createConnectCommandLineArgs(endpoint, engineFamily, args)
+			username := args.Username
+			if username == "" {
+				users, err := api.ListUsers(&rdbSDK.ListUsersRequest{
+					Region:     args.Region,
+					InstanceID: args.InstanceID,
+				})
+				if err != nil {
+					return nil, err
+				}
+				for _, user := range users.Users {
+					if user.IsAdmin {
+						username = user.Name
+
+						break
+					}
+				}
+				if username == "" {
+					return nil, fmt.Errorf("no admin user found on instance %s", args.InstanceID)
+				}
+			}
+
+			password, found := connect.Resource{
+				Product:  connect.RDB,
+				Location: string(instance.Region),
+				ID:       instance.ID,
+				Username: username,
+			}.Fetch(ctx, instance.Region, username)
+			args.Username = username
+
+			database := "rdb"
+			if args.Database != nil {
+				database = *args.Database
+			}
+
+			cmdArgs, err := connect.RenderCommand(args.Template, map[string]any{
+				"Username": username,
+				"Password": password,
+				"Host":     endpoint.IP.String(),
+				"Port":     strconv.FormatUint(uint64(endpoint.Port), 10),
+				"Database": database,
+				"Engine":   string(engineFamily),
+			})
 			if err != nil {
 				return nil, err
 			}
+			if cmdArgs == nil {
+				cmdArgs, err = createConnectCommandLineArgs(endpoint, engineFamily, args)
+				if err != nil {
+					return nil, err
+				}
+			}
 
-			if !passwordFileExist(ctx, engineFamily) {
+			if !found && !passwordFileExist(ctx, engineFamily) {
 				interactive.Println(passwordFileHint(engineFamily))
 			}
 
 			// Run command
 			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
+			if found {
+				envVar := "PGPASSWORD"
+				if engineFamily == MySQL {
+					envVar = "MYSQL_PWD"
+				}
+				cmd.Env = append(os.Environ(), envVar+"="+password)
+			}
 			// cmd.Stdin = os.Stdin
 			core.ExtractLogger(ctx).Debugf("executing: %s\n", cmd.Args)
 			exitCode, err := core.ExecCmd(ctx, cmd)

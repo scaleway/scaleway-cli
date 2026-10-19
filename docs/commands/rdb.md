@@ -707,6 +707,12 @@ scw rdb instance clone <instance-id ...> [arg=value ...]
 ### Connect to an instance using locally installed CLI
 
 Connect to an instance using locally installed CLI such as psql or mysql.
+When no username is given, the admin user is used and credentials are fetched from the secret
+created by "rdb instance create cli-connect=true" when available.
+
+Use --template to run an arbitrary tool: the Go text/template is rendered with
+{{.Username}}, {{.Password}} (from the persisted secret), {{.Host}}, {{.Port}}, {{.Database}}
+and {{.Engine}}, and the result is executed as the connect command.
 
 **Usage:**
 
@@ -717,14 +723,14 @@ scw rdb instance connect <instance-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                 | Argument Specifications                           |
-|-----------------|-----------------------------------------------------------------------------|---------------------------------------------------|
-| private-network | Connect by the private network endpoint attached.                           | Default: `false`                                  |
-| instance-id     | UUID of the instance                                                        | Required                                          |
-| username        | Name of the user to connect with to the database                            | Required                                          |
-| database        | Name of the database                                                        | Default: `rdb`                                    |
-| cli-db          | Command line tool to use, default to psql/mysql                             |                                                   |
-| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
+| Name            | Description                                                                             | Argument Specifications                           |
+|-----------------|-----------------------------------------------------------------------------------------|---------------------------------------------------|
+| private-network | Connect by the private network endpoint attached.                                       | Default: `false`                                  |
+| instance-id     | UUID of the instance                                                                    | Required                                          |
+| username        | Name of the user to connect with to the database (defaults to the admin user)           |                                                   |
+| database        | Name of the database                                                                    | Default: `rdb`                                    |
+| template        | Go text/template rendered into a command line that replaces the default connect command |                                                   |
+| region          | Region to target. If none is passed will use default region from the config             | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -746,8 +752,8 @@ scw rdb instance create [arg=value ...]
 | project-id                                                | Project ID to use. If none is passed the default project ID will be used                                                                                                                                                                                                       |                                                                                      |
 | name                                                      | Name of the Database Instance                                                                                                                                                                                                                                                  | Default: `<generated>`                                                               |
 | engine                                                    | Database engine of the Database Instance (PostgreSQL, MySQL, ...)                                                                                                                                                                                                              | Required                                                                             |
-| user-name                                                 | Username created when the Database Instance is created                                                                                                                                                                                                                         | Required                                                                             |
-| generate-password                                         | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols                                                                                                                                                      | Default: `true`                                                                      |
+| user-name                                                 | Username created when the Database Instance is created                                                                                                                                                                                                                         | Required<br />Default: `admin`                                                       |
+| cli-connect                                               | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting                                                                                                                                                             | Default: `false`                                                                     |
 | password                                                  | Password of the user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character                                                                                                                        |                                                                                      |
 | node-type                                                 | Type of node to use for the Database Instance                                                                                                                                                                                                                                  | Required<br />Default: `DB-DEV-S`                                                    |
 | ~~is-ha-cluster~~                                         | Defines whether or not High-Availability is enabled                                                                                                                                                                                                                            | Deprecated                                                                           |
@@ -784,10 +790,11 @@ scw rdb instance delete <instance-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                                 | Argument Specifications                                     |
-|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| instance-id | UUID of the Database Instance to delete                                     | Required                                                    |
-| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name        | Description                                                                       | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance to delete                                           | Required                                                    |
+| cli-connect | Remove the credentials secret of the resource, if it was created with cli-connect | Default: `false`                                            |
+| region      | Region to target. If none is passed will use default region from the config       | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1660,14 +1667,13 @@ scw rdb user create [arg=value ...]
 
 **Arguments:**
 
-| Name              | Description                                                                                                                                                                | Argument Specifications                                     |
-|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
-| instance-id       | UUID of the Database Instance in which you want to create a user                                                                                                           | Required                                                    |
-| name              | Name of the user you want to create                                                                                                                                        |                                                             |
-| generate-password | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols                                                  | Default: `true`                                             |
-| password          | Password of the user you want to create. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character |                                                             |
-| is-admin          | Defines whether the user will have administrative privileges                                                                                                               |                                                             |
-| region            | Region to target. If none is passed will use default region from the config                                                                                                | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name        | Description                                                                                                                                                                | Argument Specifications                                     |
+|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance in which you want to create a user                                                                                                           | Required                                                    |
+| name        | Name of the user you want to create                                                                                                                                        |                                                             |
+| password    | Password of the user you want to create. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character |                                                             |
+| is-admin    | Defines whether the user will have administrative privileges                                                                                                               |                                                             |
+| region      | Region to target. If none is passed will use default region from the config                                                                                                | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1748,14 +1754,14 @@ scw rdb user update [arg=value ...]
 
 **Arguments:**
 
-| Name              | Description                                                                                                                                                      | Argument Specifications                                     |
-|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
-| instance-id       | UUID of the Database Instance the user belongs to                                                                                                                | Required                                                    |
-| name              | Name of the database user                                                                                                                                        | Required                                                    |
-| generate-password | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols                                        | Default: `true`                                             |
-| password          | Password of the database user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character |                                                             |
-| is-admin          | Defines whether or not this user got administrative privileges                                                                                                   |                                                             |
-| region            | Region to target. If none is passed will use default region from the config                                                                                      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name        | Description                                                                                                                                                      | Argument Specifications                                     |
+|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance the user belongs to                                                                                                                | Required                                                    |
+| name        | Name of the database user                                                                                                                                        | Required                                                    |
+| cli-connect | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting                                               | Default: `false`                                            |
+| password    | Password of the database user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character |                                                             |
+| is-admin    | Defines whether or not this user got administrative privileges                                                                                                   |                                                             |
+| region      | Region to target. If none is passed will use default region from the config                                                                                      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 

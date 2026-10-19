@@ -25,9 +25,13 @@ func GetCommands() *core.Commands {
 	)
 
 	cmds.MustFind("mongodb", "instance", "create").Override(instanceCreateBuilder)
+	cmds.MustFind("mongodb", "instance", "delete").Override(instanceDeleteBuilder)
+	cmds.MustFind("mongodb", "instance", "get").SeeAlsos = connectSeeAlsos
+	cmds.MustFind("mongodb", "user", "update").Override(userUpdateBuilder)
 
 	cmds.Merge(core.NewCommands(
 		instanceWaitCommand(),
+		instanceConnectCommand(),
 	))
 
 	return cmds

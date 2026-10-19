@@ -80,6 +80,50 @@ scw mongodb endpoint delete <endpoint-id ...> [arg=value ...]
 A Managed MongoDB® Database Instance is composed of one or multiple dedicated compute nodes running a single database engine.
 
 
+### Connect to a MongoDB® Database Instance using locally installed mongosh
+
+Connect to a MongoDB® Database Instance using locally installed mongosh.
+When no username is given, the admin user is used and credentials are fetched from the secret
+created by "mongodb instance create cli-connect=true" when available.
+
+Use --template to run an arbitrary tool: the Go text/template is rendered with
+{{.Username}}, {{.Password}} (from the persisted secret), {{.ConnURL}}, {{.DNSRecord}} and
+{{.CertPath}}, and the result is executed as the connect command.
+
+**Usage:**
+
+```shell
+scw mongodb instance connect <instance-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name            | Description                                                                             | Argument Specifications                 |
+|-----------------|-----------------------------------------------------------------------------------------|-----------------------------------------|
+| private-network | Connect by the private network endpoint attached.                                       | Default: `false`                        |
+| instance-id     | UUID of the instance                                                                    | Required                                |
+| username        | Name of the user to connect with to the database (defaults to the admin user)           |                                         |
+| template        | Go text/template rendered into a command line that replaces the default connect command |                                         |
+| region          | Region to target. If none is passed will use default region from the config             | Default: `fr-par`<br />One of: `fr-par` |
+
+
+**Examples:**
+
+
+Connect to a MongoDB instance
+```shell
+scw mongodb instance connect 11111111-1111-1111-1111-111111111111
+```
+
+Connect with a custom tool using a template
+```shell
+scw mongodb instance connect 11111111-1111-1111-1111-111111111111 --template "my-mongo-tool --auth {{.Username}}:{{.Password}} {{.DNSRecord}}"
+```
+
+
+
+
 ### Create a MongoDB® Database Instance
 
 Create a new MongoDB® Database Instance.
@@ -93,21 +137,22 @@ scw mongodb instance create [arg=value ...]
 
 **Arguments:**
 
-| Name                                                 | Description                                                                 | Argument Specifications                                            |
-|------------------------------------------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
-| project-id                                           | Project ID to use. If none is passed the default project ID will be used    |                                                                    |
-| name                                                 | Name of the Database Instance                                               | Default: `<generated>`                                             |
-| version                                              | Major version of the MongoDB® engine                                        | Required<br />Default: ``                                          |
-| tags.{index}                                         | Tags to apply to the Database Instance                                      |                                                                    |
-| node-amount                                          | Number of node to use for the Database Instance                             | Required<br />Default: `1`                                         |
-| node-type                                            | Type of node to use for the Database Instance                               | Required                                                           |
-| user-name                                            | Username created when the Database Instance is created                      | Required                                                           |
-| password                                             | Password of the initial user                                                | Required                                                           |
-| volume.type                                          | Type of volume where data is stored                                         | Default: `sbs_5k`<br />One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
-| volume.size-bytes                                    | Volume size                                                                 | Default: `5GB`                                                     |
-| endpoints.{index}.public-network                     | Expose the Database Instance publicly (empty object)                        |                                                                    |
-| endpoints.{index}.private-network.private-network-id | UUID of the Private Network                                                 |                                                                    |
-| region                                               | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`                            |
+| Name                                                 | Description                                                                                                        | Argument Specifications                                            |
+|------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------|
+| project-id                                           | Project ID to use. If none is passed the default project ID will be used                                           |                                                                    |
+| name                                                 | Name of the Database Instance                                                                                      | Default: `<generated>`                                             |
+| version                                              | Major version of the MongoDB® engine                                                                               | Required<br />Default: ``                                          |
+| tags.{index}                                         | Tags to apply to the Database Instance                                                                             |                                                                    |
+| node-amount                                          | Number of node to use for the Database Instance                                                                    | Required<br />Default: `1`                                         |
+| node-type                                            | Type of node to use for the Database Instance                                                                      | Required                                                           |
+| cli-connect                                          | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting | Default: `false`                                                   |
+| user-name                                            | Username created when the Database Instance is created                                                             | Required<br />Default: `admin`                                     |
+| password                                             | Password of the initial user                                                                                       |                                                                    |
+| volume.type                                          | Type of volume where data is stored                                                                                | Default: `sbs_5k`<br />One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
+| volume.size-bytes                                    | Volume size                                                                                                        | Default: `5GB`                                                     |
+| endpoints.{index}.public-network                     |                                                                                                                    |                                                                    |
+| endpoints.{index}.private-network.private-network-id | UUID of the Private Network                                                                                        |                                                                    |
+| region                                               | Region to target. If none is passed will use default region from the config                                        | Default: `fr-par`<br />One of: `fr-par`                            |
 
 
 
@@ -124,10 +169,11 @@ scw mongodb instance delete <instance-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                                 | Argument Specifications                 |
-|-------------|-----------------------------------------------------------------------------|-----------------------------------------|
-| instance-id | UUID of the Database Instance to delete                                     | Required                                |
-| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+| Name        | Description                                                                       | Argument Specifications                 |
+|-------------|-----------------------------------------------------------------------------------|-----------------------------------------|
+| instance-id | UUID of the Database Instance to delete                                           | Required                                |
+| cli-connect | Remove the credentials secret of the resource, if it was created with cli-connect | Default: `false`                        |
+| region      | Region to target. If none is passed will use default region from the config       | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -613,12 +659,13 @@ scw mongodb user update [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                                 | Argument Specifications                 |
-|-------------|-----------------------------------------------------------------------------|-----------------------------------------|
-| instance-id | UUID of the Database Instance the user belongs to                           | Required                                |
-| name        | Name of the database user                                                   | Required                                |
-| password    | Password of the database user                                               |                                         |
-| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+| Name        | Description                                                                                                        | Argument Specifications                 |
+|-------------|--------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| instance-id | UUID of the Database Instance the user belongs to                                                                  | Required                                |
+| name        | Name of the database user                                                                                          | Required                                |
+| cli-connect | Persist the credentials in a Secret Manager secret so that the connect command can retrieve them without prompting | Default: `false`                        |
+| password    | Password of the database user                                                                                      |                                         |
+| region      | Region to target. If none is passed will use default region from the config                                        | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
