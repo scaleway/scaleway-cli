@@ -1853,14 +1853,9 @@ scw instance server get 94ededdf-358d-4019-9886-d754f8a2e78d
 
 
 
-### Get Instance compatible types
+### List compatible Instance types
 
-Get compatible commercial types that can be used to update the Instance. The compatibility of an Instance offer is based on:
-* the CPU architecture
-* the OS type
-* the required l_ssd storage size
-* the required scratch storage size
-If the specified Instance offer is flagged as end of service, the best compatible offer is the first returned.
+List the Instance types that a given instance could be converted to.
 
 **Usage:**
 
@@ -1871,10 +1866,22 @@ scw instance server get-compatible-types <server-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name      | Description                                                             | Argument Specifications                                                                                                                                 |
-|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| server-id | UUID of the Instance you want to get                                    | Required                                                                                                                                                |
-| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name       | Description                                                             | Argument Specifications                                                                                                                                                         |
+|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| page-token |                                                                         |                                                                                                                                                                                 |
+| page-size  |                                                                         |                                                                                                                                                                                 |
+| server-id  |                                                                         | Required                                                                                                                                                                        |
+| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
+
+
+**Examples:**
+
+
+List the 10 first compatible server types for a given instance
+```shell
+scw instance server get-compatible-types 11111111-1111-1111-1111-111111111111 page-size=10
+```
+
 
 
 
@@ -2291,7 +2298,7 @@ scw instance server wait 11111111-1111-1111-1111-111111111111
 ## Instance type management commands
 
 All Instance types available in a specified zone.
-Each type contains all the features of the Instance (CPU, RAM, Storage) as well as their associated pricing.
+Each type contains all the features of the Instance (CPU, RAM, storage).
 
 
 ### Get availability
@@ -2326,9 +2333,11 @@ scw instance server-type list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description                                                             | Argument Specifications                                                                                                                                 |
-|------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name       | Description                                                             | Argument Specifications                                                                                                                                                         |
+|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| page-token | Token for pagination                                                    |                                                                                                                                                                                 |
+| page-size  | Number of server types to return per page                               |                                                                                                                                                                                 |
+| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 **Examples:**
