@@ -453,7 +453,7 @@ depends = ["test:*", "check:*"]
 
 [tasks.default]
 description = "default task, fast local loop for the cli"
-depends = ["*:cli"]
+depends = ["build:cli", "lint:cli", "test:cli"]
 
 [tasks.ci]
 description = "meta-task for the ci"
