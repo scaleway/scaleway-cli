@@ -9,10 +9,14 @@ import (
 
 func Test_RenderCommand(t *testing.T) {
 	data := map[string]any{
-		"Username": "admin",
-		"Password": "s3cr3t",
-		"Host":     "1.2.3.4",
-		"Port":     "5432",
+		"Username":       "admin",
+		"Password":       "s3cr3t",
+		"Host":           "1.2.3.4",
+		"Port":           "5432",
+		"ProjectID":      "p1",
+		"Project":        "proj",
+		"OrganizationID": "o1",
+		"Organization":   "org",
 	}
 
 	tests := []struct {
@@ -21,14 +25,19 @@ func Test_RenderCommand(t *testing.T) {
 		want    []string
 		wantErr bool
 	}{
-		{name: "empty returns nil", tmpl: "", want: nil},
-		{name: "whitespace returns nil", tmpl: "   ", want: nil},
+		{name: "empty returns error", tmpl: "", wantErr: true},
+		{name: "whitespace returns error", tmpl: "   ", wantErr: true},
 		{
 			name: "renders fields",
 			tmpl: "psql --host {{.Host}} --port {{.Port}} --username {{.Username}}",
 			want: []string{"psql", "--host", "1.2.3.4", "--port", "5432", "--username", "admin"},
 		},
 		{name: "no placeholders", tmpl: "mytool", want: []string{"mytool"}},
+		{
+			name: "renders default args",
+			tmpl: "mytool {{.ProjectID}} {{.Project}} {{.OrganizationID}} {{.Organization}}",
+			want: []string{"mytool", "p1", "proj", "o1", "org"},
+		},
 		{
 			name: "quoted arg",
 			tmpl: `mytool --msg "hello world"`,

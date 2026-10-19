@@ -20,7 +20,7 @@ func Test_ClusterConnect(t *testing.T) {
 		},
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
-			core.TestCheckStderrContains("is not installed. Please install k9s"),
+			core.TestCheckStderrContains(`Exec: "k9s": executable file not found`),
 		),
 	}))
 

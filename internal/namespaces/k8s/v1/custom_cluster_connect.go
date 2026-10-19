@@ -2,7 +2,6 @@ package k8s
 
 import (
 	"context"
-	"errors"
 	"os"
 	"os/exec"
 	"reflect"
@@ -13,12 +12,19 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-const errorMessageK9sNotFound = "k9s is not installed. Please install k9s to use this command (https://k9scli.io)"
-
 type clusterConnectArgs struct {
 	ClusterID string
 	Region    scw.Region
 	Template  string
+}
+
+// clusterConnectTemplateData is the template data for the connect command:
+// the base connect values plus the k8s cluster values.
+type clusterConnectTemplateData struct {
+	*connect.TemplateData
+	ClusterID  string
+	Region     scw.Region
+	Kubeconfig string
 }
 
 func clusterConnectCommand() *core.Command {
@@ -28,10 +34,11 @@ func clusterConnectCommand() *core.Command {
 		Verb:      "connect",
 		Short:     `Connect to a cluster using k9s`,
 		Long: `Connect to a Kubernetes Kapsule cluster using the locally installed k9s.
-The command checks that k9s is installed, downloads the cluster kubeconfig to a temporary file and opens k9s against it.
+The command downloads the cluster kubeconfig to a temporary file and opens k9s against it.
 
-Use --template to run an arbitrary tool: the Go text/template is rendered with
-{{.ClusterID}}, {{.Region}} and {{.Kubeconfig}} (path to a temporary kubeconfig file),
+Use --template to run an arbitrary tool instead: the Go text/template is rendered with
+{{.ClusterID}}, {{.Region}}, {{.Kubeconfig}} (path to a temporary kubeconfig file, removed when the command exits),
+{{.OrganizationID}}, {{.OrganizationName}}, {{.ProjectID}} and {{.ProjectName}},
 and the result is executed as the connect command.`,
 		ArgsType: reflect.TypeFor[clusterConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
@@ -46,13 +53,6 @@ and the result is executed as the connect command.`,
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*clusterConnectArgs)
-
-			if args.Template == "" {
-				exitCode, err := core.ExecCmd(ctx, exec.Command("k9s", "version"))
-				if err != nil || exitCode != 0 {
-					return nil, errors.New(errorMessageK9sNotFound)
-				}
-			}
 
 			kubeconfigRes, err := k8sKubeconfigGetRun(ctx, &k8sKubeconfigGetRequest{
 				ClusterID:  args.ClusterID,
@@ -80,17 +80,16 @@ and the result is executed as the connect command.`,
 				return nil, err
 			}
 
-			cmdArgs, err := connect.RenderCommand(args.Template, map[string]any{
-				"ClusterID":  args.ClusterID,
-				"Region":     args.Region,
-				"Kubeconfig": kubeconfigFile.Name(),
-			})
-			if err != nil {
-				return nil, err
+			templateData := &clusterConnectTemplateData{
+				TemplateData: connect.NewTemplateData(ctx),
+				ClusterID:    args.ClusterID,
+				Region:       args.Region,
+				Kubeconfig:   kubeconfigFile.Name(),
 			}
 
-			if cmdArgs == nil {
-				cmdArgs = []string{"k9s"}
+			cmdArgs, err := connect.RenderCommand(args.Template, templateData)
+			if err != nil {
+				return nil, err
 			}
 
 			// Drop any user KUBECONFIG so the tool only sees this cluster
