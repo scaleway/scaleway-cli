@@ -10,7 +10,7 @@ ARGS:
   [registrar]         Filter domains by registrar.
   [status]            Filter domains by status. (status_unknown | active | creating | create_error | renewing | renew_error | xfering | xfer_error | expired | expiring | updating | checking | locked | deleting)
   [project-id]        Filter domains by project ID.
-  [is-external]       Filter domains by external status.
+  [is-external]       Filter domains by whether they are external (not managed by Scaleway as registrar).
   [domain]            Filter domains by domain name.
   [organization-id]   Filter domains by organization ID.
 
