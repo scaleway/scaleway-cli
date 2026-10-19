@@ -252,6 +252,7 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 			return 1, nil, err
 		}
 	}
+	meta.outputFlag = outputFlag
 
 	// Run checks after command has been executed
 	defer func() { // if we plan to remove defer, do not forget logger is not set until cobra pre init func
