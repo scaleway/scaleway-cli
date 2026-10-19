@@ -1,12 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Connect to a Kubernetes Kapsule cluster using the locally installed k9s.
-The command downloads the cluster kubeconfig to a temporary file and opens k9s against it.
+Connect to a Kubernetes Kapsule cluster.
 
-Use --template to run an arbitrary tool instead: the Go text/template is rendered with
-{{.Cluster}}, {{.Region}}, {{.Kubeconfig}} (path to a temporary kubeconfig file, removed when the command exits),
-{{.Organization}} and {{.Project}},
-and the result is executed as the connect command.
+By default the command downloads the cluster kubeconfig to a temporary file,
+sets KUBECONFIG to it, and opens k9s against it.
+
+Use --template to connect with a different tool instead. Its value (default "k9s")
+is rendered as a Go text/template and the result is executed as the connect command.
+Available variables:
+{{.ClusterID}}, {{.Cluster}} (the cluster object, e.g. {{.Cluster.Name}}),
+{{.Region}}, {{.Organization}}, {{.Project}} and
+{{.Kubeconfig}} (path to the temporary kubeconfig file, removed when the command exits).
 
 USAGE:
   scw k8s cluster connect <cluster-id ...> [arg=value ...]
@@ -27,7 +31,7 @@ EXAMPLES:
 ARGS:
   cluster-id        Cluster ID to connect to
   [region=fr-par]   Region to target. If none is passed will use default region from the config
-  [template=k9s]    Go text/template rendered into a command line that replaces the default connect command
+  [template=k9s]    Command line to run instead of the default k9s one, as a Go text/template (default: "k9s")
 
 FLAGS:
   -h, --help                help for connect
