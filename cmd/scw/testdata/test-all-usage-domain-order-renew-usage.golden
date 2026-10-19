@@ -7,8 +7,8 @@ USAGE:
 
 ARGS:
   domains.{index}        List of domains to renew.
-  [duration-in-years]    Duration in years for the domain renewal.
-  [force-late-renewal]   Force the renewal to be a late renewal.
+  [duration-in-years]    Duration in years for the domain renewal. Subject to TLD-specific minimum and maximum constraints.
+  [force-late-renewal]   Confirm the late renewal (incurs extra fees).
 
 FLAGS:
   -h, --help                help for renew
