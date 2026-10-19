@@ -74,6 +74,12 @@ func NewTemplateData(ctx context.Context) *TemplateData {
 	return data
 }
 
+// Client returns the client used by the base template data, for embedding
+// commands that need their own API lookups.
+func (d *TemplateData) Client() *scw.Client {
+	return d.client
+}
+
 // OrganizationName returns the default organization's name.
 func (d *TemplateData) OrganizationName() string {
 	org, err := iam.NewAPI(d.client).GetOrganization(

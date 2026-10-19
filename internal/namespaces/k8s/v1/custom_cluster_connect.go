@@ -9,6 +9,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/connect"
+	"github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -27,6 +28,19 @@ type clusterConnectTemplateData struct {
 	Kubeconfig string
 }
 
+// ClusterName returns the name of the cluster, resolved lazily.
+func (d *clusterConnectTemplateData) ClusterName() string {
+	cluster, err := k8s.NewAPI(d.Client()).GetCluster(&k8s.GetClusterRequest{
+		ClusterID: d.ClusterID,
+		Region:    d.Region,
+	})
+	if err != nil {
+		return ""
+	}
+
+	return cluster.Name
+}
+
 func clusterConnectCommand() *core.Command {
 	return &core.Command{
 		Namespace: "k8s",
@@ -37,7 +51,7 @@ func clusterConnectCommand() *core.Command {
 The command downloads the cluster kubeconfig to a temporary file and opens k9s against it.
 
 Use --template to run an arbitrary tool instead: the Go text/template is rendered with
-{{.ClusterID}}, {{.Region}}, {{.Kubeconfig}} (path to a temporary kubeconfig file, removed when the command exits),
+{{.ClusterID}}, {{.ClusterName}}, {{.Region}}, {{.Kubeconfig}} (path to a temporary kubeconfig file, removed when the command exits),
 {{.OrganizationID}}, {{.OrganizationName}}, {{.ProjectID}} and {{.ProjectName}},
 and the result is executed as the connect command.`,
 		ArgsType: reflect.TypeFor[clusterConnectArgs](),
@@ -72,8 +86,18 @@ and the result is executed as the connect command.`,
 			}
 
 			defer func() {
-				kubeconfigFile.Close()
-				os.Remove(kubeconfigFile.Name())
+				errClose := kubeconfigFile.Close()
+				if errClose != nil {
+					core.ExtractLogger(ctx).Errorf("error closing kubeconfig: %v", errClose)
+
+					return
+				}
+				errRemove := os.Remove(kubeconfigFile.Name())
+				if errRemove != nil {
+					core.ExtractLogger(ctx).Errorf("error removing kubeconfig: %v", errRemove)
+
+					return
+				}
 			}()
 
 			if _, err := kubeconfigFile.WriteString(kubeconfig); err != nil {
