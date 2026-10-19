@@ -14,15 +14,6 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-// TemplateArgSpec is the shared --template flag spec for connect commands.
-func TemplateArgSpec() *core.ArgSpec {
-	return &core.ArgSpec{
-		Name:    "template",
-		Short:   "Go text/template rendered into a command line that replaces the default connect command",
-		Default: core.DefaultValueSetter("k9s"),
-	}
-}
-
 // RenderCommand renders a Go text/template into a command line using the
 // given data. The rendered output is split with shlex (quotes honored) and
 // executed directly, without any shell.

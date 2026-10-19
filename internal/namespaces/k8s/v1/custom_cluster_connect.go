@@ -63,7 +63,11 @@ and the result is executed as the connect command.`,
 				Positional: true,
 			},
 			core.RegionArgSpec(),
-			connect.TemplateArgSpec(),
+			&core.ArgSpec{
+				Name:    "template",
+				Short:   "Go text/template rendered into a command line that replaces the default connect command",
+				Default: core.DefaultValueSetter("k9s"),
+			},
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*clusterConnectArgs)
