@@ -99,6 +99,62 @@ A cluster is a fully managed Kubernetes cluster
 It is composed of different pools, each pool containing the same kind of nodes.
 
 
+### Connect to a cluster using k9s, or a custom command via --template
+
+Connect to a Kubernetes Kapsule cluster.
+
+By default the command downloads the cluster kubeconfig to a temporary file,
+sets KUBECONFIG to it, and opens k9s against it.
+
+Use --template to connect with a different tool instead. Its value (default "k9s")
+is rendered as a Go text/template and the result is executed as the connect command.
+Available variables:
+{{.ClusterID}}, {{.Cluster}} (the cluster object, e.g. {{.Cluster.Name}}),
+{{.Region}}, {{.Organization}}, {{.Project}} and
+{{.Kubeconfig}} (path to the temporary kubeconfig file, removed when the command exits).
+
+**Usage:**
+
+```shell
+scw k8s cluster connect <cluster-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                                | Argument Specifications |
+|------------|--------------------------------------------------------------------------------------------|-------------------------|
+| cluster-id | Cluster ID to connect to                                                                   | Required                |
+| region     | Region to target. If none is passed will use default region from the config                | Default: `fr-par`       |
+| template   | Command line to run instead of the default k9s one, as a Go text/template (default: "k9s") | Default: `k9s`          |
+
+
+**Examples:**
+
+
+Connect to a cluster with k9s
+```shell
+scw k8s cluster connect 11111111-1111-1111-1111-111111111111
+```
+
+Connect to a cluster with k9s using the pulse view
+```shell
+scw k8s cluster connect 11111111-1111-1111-1111-111111111111 template="k9s -c pulses"
+```
+
+Connect to a cluster in a specific region with k9s
+```shell
+scw k8s cluster connect 11111111-1111-1111-1111-111111111111 region=fr-par
+```
+
+Connect to a cluster with an arbitrary tool via template
+```shell
+scw k8s cluster connect 11111111-1111-1111-1111-111111111111 template="kubectl --kubeconfig {{.Kubeconfig}} get pods"
+```
+
+
+
+
 ### Create a new Cluster
 
 Create a new Kubernetes cluster in a Scaleway region.

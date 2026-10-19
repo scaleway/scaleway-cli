@@ -438,11 +438,17 @@ func Test(config *TestConfig) func(t *testing.T) {
 			dir := t.TempDir()
 			overrideEnv["HOME"] = dir
 			overrideEnv[scw.ScwCacheDirEnv] = dir
+			// Isolate tests from the host KUBECONFIG so kubeconfig commands
+			// operate on the temporary HOME
+			if _, ok := overrideEnv["KUBECONFIG"]; !ok {
+				overrideEnv["KUBECONFIG"] = ""
+			}
 			meta["HOME"] = dir
 			meta[scw.ScwCacheDirEnv] = dir
 		}
 
-		overrideExec := defaultOverrideExec
+		// A nil OverrideExec means the child process must really be executed.
+		var overrideExec OverrideExecFunc
 		if config.OverrideExec != nil {
 			overrideExec = func(cmd *exec.Cmd) (exitCode int, err error) {
 				return config.OverrideExec(&ExecFuncCtx{
