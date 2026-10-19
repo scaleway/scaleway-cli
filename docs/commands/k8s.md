@@ -99,15 +99,19 @@ A cluster is a fully managed Kubernetes cluster
 It is composed of different pools, each pool containing the same kind of nodes.
 
 
-### Connect to a cluster using k9s
+### Connect to a cluster using k9s, or a custom command via --template
 
-Connect to a Kubernetes Kapsule cluster using the locally installed k9s.
-The command downloads the cluster kubeconfig to a temporary file and opens k9s against it.
+Connect to a Kubernetes Kapsule cluster.
 
-Use --template to run an arbitrary tool instead: the Go text/template is rendered with
-{{.Cluster}}, {{.Region}}, {{.Kubeconfig}} (path to a temporary kubeconfig file, removed when the command exits),
-{{.Organization}} and {{.Project}},
-and the result is executed as the connect command.
+By default the command downloads the cluster kubeconfig to a temporary file,
+sets KUBECONFIG to it, and opens k9s against it.
+
+Use --template to connect with a different tool instead. Its value (default "k9s")
+is rendered as a Go text/template and the result is executed as the connect command.
+Available variables:
+{{.ClusterID}}, {{.Cluster}} (the cluster object, e.g. {{.Cluster.Name}}),
+{{.Region}}, {{.Organization}}, {{.Project}} and
+{{.Kubeconfig}} (path to the temporary kubeconfig file, removed when the command exits).
 
 **Usage:**
 
@@ -118,11 +122,11 @@ scw k8s cluster connect <cluster-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                                             | Argument Specifications |
-|------------|-----------------------------------------------------------------------------------------|-------------------------|
-| cluster-id | Cluster ID to connect to                                                                | Required                |
-| region     | Region to target. If none is passed will use default region from the config             | Default: `fr-par`       |
-| template   | Go text/template rendered into a command line that replaces the default connect command | Default: `k9s`          |
+| Name       | Description                                                                                | Argument Specifications |
+|------------|--------------------------------------------------------------------------------------------|-------------------------|
+| cluster-id | Cluster ID to connect to                                                                   | Required                |
+| region     | Region to target. If none is passed will use default region from the config                | Default: `fr-par`       |
+| template   | Command line to run instead of the default k9s one, as a Go text/template (default: "k9s") | Default: `k9s`          |
 
 
 **Examples:**

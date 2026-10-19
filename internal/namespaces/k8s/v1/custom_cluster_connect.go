@@ -42,14 +42,18 @@ func clusterConnectCommand() *core.Command {
 		Namespace: "k8s",
 		Resource:  "cluster",
 		Verb:      "connect",
-		Short:     `Connect to a cluster using k9s`,
-		Long: `Connect to a Kubernetes Kapsule cluster using the locally installed k9s.
-The command downloads the cluster kubeconfig to a temporary file and opens k9s against it.
+		Short:     `Connect to a cluster using k9s, or a custom command via --template`,
+		Long: `Connect to a Kubernetes Kapsule cluster.
 
-Use --template to run an arbitrary tool instead: the Go text/template is rendered with
-{{.Cluster}}, {{.Region}}, {{.Kubeconfig}} (path to a temporary kubeconfig file, removed when the command exits),
-{{.Organization}} and {{.Project}},
-and the result is executed as the connect command.`,
+By default the command downloads the cluster kubeconfig to a temporary file,
+sets KUBECONFIG to it, and opens k9s against it.
+
+Use --template to connect with a different tool instead. Its value (default "k9s")
+is rendered as a Go text/template and the result is executed as the connect command.
+Available variables:
+{{.ClusterID}}, {{.Cluster}} (the cluster object, e.g. {{.Cluster.Name}}),
+{{.Region}}, {{.Organization}}, {{.Project}} and
+{{.Kubeconfig}} (path to the temporary kubeconfig file, removed when the command exits).`,
 		ArgsType: reflect.TypeFor[clusterConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -61,7 +65,7 @@ and the result is executed as the connect command.`,
 			core.RegionArgSpec(),
 			&core.ArgSpec{
 				Name:    "template",
-				Short:   "Go text/template rendered into a command line that replaces the default connect command",
+				Short:   `Command line to run instead of the default k9s one, as a Go text/template (default: "k9s")`,
 				Default: core.DefaultValueSetter("k9s"),
 			},
 		},
