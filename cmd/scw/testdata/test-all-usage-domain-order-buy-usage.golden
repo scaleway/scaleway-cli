@@ -8,7 +8,7 @@ USAGE:
 
 ARGS:
   domains.{index}                                                              List of domains to purchase.
-  [duration-in-years]                                                          Duration in years for the domain registration.
+  [duration-in-years]                                                          Duration in years for the domain registration. Subject to TLD-specific minimum and maximum constraints.
   [project-id]                                                                 Project ID to use. If none is passed the default project ID will be used
   [owner-contact-id]                                                           ID of the existing contact to use as the domain's owner.
   [owner-contact.legal-form]                                                   Legal form of the contact (individual, corporate, association, other). (legal_form_unknown | individual | corporate | association | other)
@@ -17,15 +17,15 @@ ARGS:
   [owner-contact.company-name]                                                 Company name of the contact (required for corporate legal forms).
   [owner-contact.email]                                                        Email address of the contact.
   [owner-contact.email-alt]                                                    Alternative email address of the contact.
-  [owner-contact.phone-number]                                                 Phone number of the contact.
-  [owner-contact.fax-number]                                                   Fax number of the contact.
+  [owner-contact.phone-number]                                                 Phone number of the contact, normalized to +CC.NationalNumber format.
+  [owner-contact.fax-number]                                                   Fax number of the contact, normalized to +CC.NationalNumber format.
   [owner-contact.address-line-1]                                               First line of the contact's address.
   [owner-contact.address-line-2]                                               Second line of the contact's address.
   [owner-contact.zip]                                                          Postal code of the contact.
   [owner-contact.city]                                                         City of the contact.
   [owner-contact.country]                                                      Country code of the contact (ISO 3166-1 alpha-2 format).
   [owner-contact.vat-identification-code]                                      VAT identification code of the contact.
-  [owner-contact.company-identification-code]                                  Company identification code (e.g. SIRET/SIREN) of the contact.
+  [owner-contact.company-identification-code]                                  Company identification code of the contact (SIRET/SIREN for French contacts, any format for others).
   [owner-contact.lang]                                                         Preferred language of the contact. (unknown_language_code | en_US | fr_FR | de_DE)
   [owner-contact.resale]                                                       Indicates whether the contact's information can be resold.
   [owner-contact.extension-fr.mode]                                             (mode_unknown | individual | company_identification_code | duns | local | association | trademark | code_auth_afnic)
@@ -44,22 +44,22 @@ ARGS:
   [owner-contact.extension-it.pin]                                             Domain name registrant's Taxcode (mandatory / only optional when the trustee is used)
   [owner-contact.questions.{index}.question]                                   
   [owner-contact.questions.{index}.answer]                                     
-  [administrative-contact-id]                                                  ID of the existing contact to use as the domain's administrative contact.
+  [administrative-contact-id]                                                  ID of the existing contact to use as the domain's administrative contact. Optional; falls back to the owner contact if omitted.
   [administrative-contact.legal-form]                                          Legal form of the contact (individual, corporate, association, other). (legal_form_unknown | individual | corporate | association | other)
   [administrative-contact.firstname]                                           First name of the contact.
   [administrative-contact.lastname]                                            Last name of the contact.
   [administrative-contact.company-name]                                        Company name of the contact (required for corporate legal forms).
   [administrative-contact.email]                                               Email address of the contact.
   [administrative-contact.email-alt]                                           Alternative email address of the contact.
-  [administrative-contact.phone-number]                                        Phone number of the contact.
-  [administrative-contact.fax-number]                                          Fax number of the contact.
+  [administrative-contact.phone-number]                                        Phone number of the contact, normalized to +CC.NationalNumber format.
+  [administrative-contact.fax-number]                                          Fax number of the contact, normalized to +CC.NationalNumber format.
   [administrative-contact.address-line-1]                                      First line of the contact's address.
   [administrative-contact.address-line-2]                                      Second line of the contact's address.
   [administrative-contact.zip]                                                 Postal code of the contact.
   [administrative-contact.city]                                                City of the contact.
   [administrative-contact.country]                                             Country code of the contact (ISO 3166-1 alpha-2 format).
   [administrative-contact.vat-identification-code]                             VAT identification code of the contact.
-  [administrative-contact.company-identification-code]                         Company identification code (e.g. SIRET/SIREN) of the contact.
+  [administrative-contact.company-identification-code]                         Company identification code of the contact (SIRET/SIREN for French contacts, any format for others).
   [administrative-contact.lang]                                                Preferred language of the contact. (unknown_language_code | en_US | fr_FR | de_DE)
   [administrative-contact.resale]                                              Indicates whether the contact's information can be resold.
   [administrative-contact.extension-fr.mode]                                    (mode_unknown | individual | company_identification_code | duns | local | association | trademark | code_auth_afnic)
@@ -78,22 +78,22 @@ ARGS:
   [administrative-contact.extension-it.pin]                                    Domain name registrant's Taxcode (mandatory / only optional when the trustee is used)
   [administrative-contact.questions.{index}.question]                          
   [administrative-contact.questions.{index}.answer]                            
-  [technical-contact-id]                                                       ID of the existing contact to use as the domain's technical contact.
+  [technical-contact-id]                                                       ID of the existing contact to use as the domain's technical contact. Optional; falls back to the owner contact if omitted.
   [technical-contact.legal-form]                                               Legal form of the contact (individual, corporate, association, other). (legal_form_unknown | individual | corporate | association | other)
   [technical-contact.firstname]                                                First name of the contact.
   [technical-contact.lastname]                                                 Last name of the contact.
   [technical-contact.company-name]                                             Company name of the contact (required for corporate legal forms).
   [technical-contact.email]                                                    Email address of the contact.
   [technical-contact.email-alt]                                                Alternative email address of the contact.
-  [technical-contact.phone-number]                                             Phone number of the contact.
-  [technical-contact.fax-number]                                               Fax number of the contact.
+  [technical-contact.phone-number]                                             Phone number of the contact, normalized to +CC.NationalNumber format.
+  [technical-contact.fax-number]                                               Fax number of the contact, normalized to +CC.NationalNumber format.
   [technical-contact.address-line-1]                                           First line of the contact's address.
   [technical-contact.address-line-2]                                           Second line of the contact's address.
   [technical-contact.zip]                                                      Postal code of the contact.
   [technical-contact.city]                                                     City of the contact.
   [technical-contact.country]                                                  Country code of the contact (ISO 3166-1 alpha-2 format).
   [technical-contact.vat-identification-code]                                  VAT identification code of the contact.
-  [technical-contact.company-identification-code]                              Company identification code (e.g. SIRET/SIREN) of the contact.
+  [technical-contact.company-identification-code]                              Company identification code of the contact (SIRET/SIREN for French contacts, any format for others).
   [technical-contact.lang]                                                     Preferred language of the contact. (unknown_language_code | en_US | fr_FR | de_DE)
   [technical-contact.resale]                                                   Indicates whether the contact's information can be resold.
   [technical-contact.extension-fr.mode]                                         (mode_unknown | individual | company_identification_code | duns | local | association | trademark | code_auth_afnic)
