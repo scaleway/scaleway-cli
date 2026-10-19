@@ -50,47 +50,36 @@ func RenderCommand(tmpl string, data any) ([]string, error) {
 // invoke no-arg methods at the point of use).
 // Name lookups are best-effort: on error the name is left empty.
 type TemplateData struct {
-	OrganizationID string
-	ProjectID      string
-
 	client *scw.Client
 }
 
 func NewTemplateData(ctx context.Context) *TemplateData {
 	client := core.ExtractClient(ctx)
 	data := &TemplateData{client: client}
-	data.OrganizationID, _ = client.GetDefaultOrganizationID()
-	data.ProjectID, _ = client.GetDefaultProjectID()
 
 	return data
 }
 
-// Client returns the client used by the base template data, for embedding
-// commands that need their own API lookups.
-func (d *TemplateData) Client() *scw.Client {
-	return d.client
-}
-
-// OrganizationName returns the default organization's name.
-func (d *TemplateData) OrganizationName() string {
-	org, err := iam.NewAPI(d.client).GetOrganization(
-		&iam.GetOrganizationRequest{OrganizationID: d.OrganizationID},
-	)
-	if err != nil {
-		return ""
+// Organization returns the default organization.
+func (d *TemplateData) Organization() (*iam.Organization, error) {
+	org, exists := d.client.GetDefaultOrganizationID()
+	if !exists {
+		return nil, errors.New("organization not found")
 	}
 
-	return org.Name
+	return iam.NewAPI(d.client).GetOrganization(
+		&iam.GetOrganizationRequest{OrganizationID: org},
+	)
 }
 
-// ProjectName returns the default project's name.
-func (d *TemplateData) ProjectName() string {
-	project, err := account.NewProjectAPI(d.client).GetProject(
-		&account.ProjectAPIGetProjectRequest{ProjectID: d.ProjectID},
-	)
-	if err != nil {
-		return ""
+// Project returns the default project.
+func (d *TemplateData) Project() (*account.Project, error) {
+	project, exists := d.client.GetDefaultProjectID()
+	if !exists {
+		return nil, errors.New("project not found")
 	}
 
-	return project.Name
+	return account.NewProjectAPI(d.client).GetProject(
+		&account.ProjectAPIGetProjectRequest{ProjectID: project},
+	)
 }

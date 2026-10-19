@@ -106,7 +106,7 @@ The command downloads the cluster kubeconfig to a temporary file and opens k9s a
 
 Use --template to run an arbitrary tool instead: the Go text/template is rendered with
 {{.ClusterID}}, {{.ClusterName}}, {{.Region}}, {{.Kubeconfig}} (path to a temporary kubeconfig file, removed when the command exits),
-{{.OrganizationID}}, {{.OrganizationName}}, {{.ProjectID}} and {{.ProjectName}},
+{{.Organization}} and {{.Project}},
 and the result is executed as the connect command.
 
 **Usage:**

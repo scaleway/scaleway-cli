@@ -26,11 +26,12 @@ type clusterConnectTemplateData struct {
 	ClusterID  string
 	Region     scw.Region
 	Kubeconfig string
+	client     *scw.Client
 }
 
 // ClusterName returns the name of the cluster, resolved lazily.
 func (d *clusterConnectTemplateData) ClusterName() string {
-	cluster, err := k8s.NewAPI(d.Client()).GetCluster(&k8s.GetClusterRequest{
+	cluster, err := k8s.NewAPI(d.client).GetCluster(&k8s.GetClusterRequest{
 		ClusterID: d.ClusterID,
 		Region:    d.Region,
 	})
@@ -52,7 +53,7 @@ The command downloads the cluster kubeconfig to a temporary file and opens k9s a
 
 Use --template to run an arbitrary tool instead: the Go text/template is rendered with
 {{.ClusterID}}, {{.ClusterName}}, {{.Region}}, {{.Kubeconfig}} (path to a temporary kubeconfig file, removed when the command exits),
-{{.OrganizationID}}, {{.OrganizationName}}, {{.ProjectID}} and {{.ProjectName}},
+{{.Organization}} and {{.Project}},
 and the result is executed as the connect command.`,
 		ArgsType: reflect.TypeFor[clusterConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
@@ -110,6 +111,7 @@ and the result is executed as the connect command.`,
 
 			templateData := &clusterConnectTemplateData{
 				TemplateData: connect.NewTemplateData(ctx),
+				client:       core.ExtractClient(ctx),
 				ClusterID:    args.ClusterID,
 				Region:       args.Region,
 				Kubeconfig:   kubeconfigFile.Name(),
