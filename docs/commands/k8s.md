@@ -102,10 +102,11 @@ It is composed of different pools, each pool containing the same kind of nodes.
 ### Connect to a cluster using k9s
 
 Connect to a Kubernetes Kapsule cluster using the locally installed k9s.
-The command checks that k9s is installed, downloads the cluster kubeconfig to a temporary file and opens k9s against it.
+The command downloads the cluster kubeconfig to a temporary file and opens k9s against it.
 
-Use --template to run an arbitrary tool: the Go text/template is rendered with
-{{.ClusterID}}, {{.Region}} and {{.Kubeconfig}} (path to a temporary kubeconfig file),
+Use --template to run an arbitrary tool instead: the Go text/template is rendered with
+{{.ClusterID}}, {{.ClusterName}}, {{.Region}}, {{.Kubeconfig}} (path to a temporary kubeconfig file, removed when the command exits),
+{{.OrganizationID}}, {{.OrganizationName}}, {{.ProjectID}} and {{.ProjectName}},
 and the result is executed as the connect command.
 
 **Usage:**
@@ -121,7 +122,7 @@ scw k8s cluster connect <cluster-id ...> [arg=value ...]
 |------------|-----------------------------------------------------------------------------------------|-------------------------|
 | cluster-id | Cluster ID to connect to                                                                | Required                |
 | region     | Region to target. If none is passed will use default region from the config             | Default: `fr-par`       |
-| template   | Go text/template rendered into a command line that replaces the default connect command |                         |
+| template   | Go text/template rendered into a command line that replaces the default connect command | Default: `k9s`          |
 
 
 **Examples:**
@@ -130,6 +131,11 @@ scw k8s cluster connect <cluster-id ...> [arg=value ...]
 Connect to a cluster with k9s
 ```shell
 scw k8s cluster connect 11111111-1111-1111-1111-111111111111
+```
+
+Connect to a cluster with k9s using the pulse view
+```shell
+scw k8s cluster connect 11111111-1111-1111-1111-111111111111 template="k9s -c pulses"
 ```
 
 Connect to a cluster in a specific region with k9s
