@@ -45,10 +45,9 @@ func RenderCommand(tmpl string, data any) ([]string, error) {
 
 // TemplateData is the base template data for connect commands, embedded by
 // each namespace's connect command which adds its own template values.
-// OrganizationName and ProjectName are resolved lazily: the API is only called when
-// the template references {{.OrganizationName}} or {{.ProjectName}} (Go templates
+// Organization and Project are resolved lazily: the API is only called when
+// the template references {{.Organization}} or {{.Project}} (Go templates
 // invoke no-arg methods at the point of use).
-// Name lookups are best-effort: on error the name is left empty.
 type TemplateData struct {
 	client *scw.Client
 }
