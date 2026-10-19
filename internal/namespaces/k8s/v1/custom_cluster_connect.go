@@ -129,7 +129,7 @@ and the result is executed as the connect command.`,
 			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
 			cmd.Env = env
 
-			exitCode, err := core.ExecCmd(ctx, cmd)
+			exitCode, err := connect.ExecCmd(ctx, cmd)
 			if err != nil {
 				return nil, err
 			}
@@ -143,6 +143,10 @@ and the result is executed as the connect command.`,
 			{
 				Short: "Connect to a cluster with k9s",
 				Raw:   `scw k8s cluster connect 11111111-1111-1111-1111-111111111111`,
+			},
+			{
+				Short: "Connect to a cluster with k9s using the pulse view",
+				Raw:   `scw k8s cluster connect 11111111-1111-1111-1111-111111111111 template="k9s -c pulses"`,
 			},
 			{
 				Short:    "Connect to a cluster in a specific region with k9s",

@@ -213,11 +213,6 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 		meta.OverrideEnv = map[string]string{}
 	}
 
-	// If OverrideExec was not set in the config, we set a default value.
-	if meta.OverrideExec == nil {
-		meta.OverrideExec = defaultOverrideExec
-	}
-
 	// Keep Bootstrap resilient to callers passing a nil context.
 	// Context injection helpers commonly rely on context.WithValue, which panics on nil parents.
 	if ctx == nil {
