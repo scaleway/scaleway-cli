@@ -70,6 +70,8 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("k8s", "version", "list").Override(versionListBuilder)
 
+	addCockpitURLs(cmds)
+
 	return cmds
 }
 

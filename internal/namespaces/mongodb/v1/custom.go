@@ -30,5 +30,7 @@ func GetCommands() *core.Commands {
 		instanceWaitCommand(),
 	))
 
+	addCockpitURLs(cmds)
+
 	return cmds
 }

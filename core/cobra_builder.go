@@ -236,6 +236,12 @@ func (b *cobraBuilder) hydrateCobra(
 		cobraCmd.PersistentFlags().Bool("web", false, "open console page for the current resource")
 	}
 
+	if commandHasCockpit(cmd) {
+		cobraCmd.PersistentFlags().Bool(
+			"cockpit", false, "open the Cockpit Grafana dashboard for the current resource",
+		)
+	}
+
 	// Add --list-sub-commands flag to list all subcommands
 	cobraCmd.PersistentFlags().Bool("list-sub-commands", false, "List all subcommands")
 }
