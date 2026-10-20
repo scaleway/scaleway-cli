@@ -201,7 +201,7 @@ scw instance server create image=ubuntu_focal ip=$ip`,
 func instanceWaitServerCreateRun() core.WaitFunc {
 	return func(ctx context.Context, argsI, respI any) (any, error) {
 		resp := respI.(*ServerWithWarningsResponse)
-		serverID := resp.Server.ID
+		serverID := resp.ID
 
 		waitServer, err := instance.NewAPI(core.ExtractClient(ctx)).
 			WaitForServer(&instance.WaitForServerRequest{

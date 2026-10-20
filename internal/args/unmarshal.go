@@ -151,7 +151,8 @@ func UnmarshalStruct(args []string, data any) error {
 
 	// Second make sure data is a pointer to a struct or a map.
 	dest := reflect.ValueOf(data)
-	if !(dest.Kind() == reflect.Pointer && (dest.Elem().Kind() == reflect.Struct || dest.Elem().Kind() == reflect.Map)) {
+	if dest.Kind() != reflect.Pointer ||
+		dest.Elem().Kind() != reflect.Struct && dest.Elem().Kind() != reflect.Map {
 		return &DataMustBeAPointerError{}
 	}
 

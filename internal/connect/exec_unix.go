@@ -49,7 +49,7 @@ func runChild(cmd *exec.Cmd) (exitCode int, err error) {
 		// The child was killed by a signal (e.g. the forwarded SIGINT):
 		// report the shell convention of 128+signal.
 		if exitErr.ExitCode() == -1 {
-			if ws, ok := exitErr.ProcessState.Sys().(syscall.WaitStatus); ok {
+			if ws, ok := exitErr.Sys().(syscall.WaitStatus); ok {
 				if sig := ws.Signal(); sig != 0 {
 					return 128 + int(sig), nil
 				}

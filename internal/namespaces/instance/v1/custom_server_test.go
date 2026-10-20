@@ -145,7 +145,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				resp := testhelpers.Value[*instance.ServerWithWarningsResponse](t, ctx.Result)
-				assert.Equal(t, (*instanceSDK.ServerIP)(nil), resp.Server.PublicIP)
+				assert.Equal(t, (*instanceSDK.ServerIP)(nil), resp.PublicIP)
 			},
 			core.TestCheckExitCode(0),
 		),
@@ -166,8 +166,8 @@ func Test_ServerUpdateCustom(t *testing.T) {
 				resp := testhelpers.Value[*instance.ServerWithWarningsResponse](t, ctx.Result)
 
 				assert.NotNil(t, resp.Server)
-				assert.NotNil(t, resp.Server.PublicIP)
-				assert.Equal(t, ip.Address, resp.Server.PublicIP.Address)
+				assert.NotNil(t, resp.PublicIP)
+				assert.Equal(t, ip.Address, resp.PublicIP.Address)
 			},
 			core.TestCheckExitCode(0),
 		),
@@ -195,12 +195,12 @@ func Test_ServerUpdateCustom(t *testing.T) {
 				assert.Equal(
 					t,
 					ctx.Meta["IP1"].(*instanceSDK.IP).Address,
-					ctx.Meta["UpdatedServer"].(*instance.ServerWithWarningsResponse).Server.PublicIP.Address,
+					ctx.Meta["UpdatedServer"].(*instance.ServerWithWarningsResponse).PublicIP.Address,
 				)
 				// Test that the Server IS attached to IP2.
 				assert.Equal(t,
 					ctx.Meta["IP2"].(*instanceSDK.IP).Address,
-					ctx.Result.(*instance.ServerWithWarningsResponse).Server.PublicIP.Address)
+					ctx.Result.(*instance.ServerWithWarningsResponse).PublicIP.Address)
 			},
 			core.TestCheckExitCode(0),
 		),
@@ -235,7 +235,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 					t.Helper()
 					assert.Equal(t,
 						ctx.Meta["PlacementGroup2"].(*instanceSDKV2.PlacementGroup).ID,
-						ctx.Result.(*instance.ServerWithWarningsResponse).Server.PlacementGroup.ID)
+						ctx.Result.(*instance.ServerWithWarningsResponse).PlacementGroup.ID)
 				},
 			),
 			AfterFunc: core.AfterFuncCombine(
@@ -268,7 +268,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 					t.Helper()
 					assert.Equal(t,
 						ctx.Meta["SecurityGroup2"].(*instanceSDK.SecurityGroup).ID,
-						ctx.Result.(*instance.ServerWithWarningsResponse).Server.SecurityGroup.ID)
+						ctx.Result.(*instance.ServerWithWarningsResponse).SecurityGroup.ID)
 				},
 			),
 			AfterFunc: core.AfterFuncCombine(
@@ -311,7 +311,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 			Check: func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				require.NoError(t, ctx.Err)
-				assert.Empty(t, ctx.Result.(*instance.ServerWithWarningsResponse).Server.Volumes)
+				assert.Empty(t, ctx.Result.(*instance.ServerWithWarningsResponse).Volumes)
 			},
 			AfterFunc: core.AfterFuncCombine(
 				core.ExecAfterCmd(

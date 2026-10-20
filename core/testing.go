@@ -969,11 +969,10 @@ func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
 	}
 
 	buffer := bytes.Buffer{}
-	buffer.WriteString(
-		fmt.Sprintf(
-			"\U0001F3B2\U0001F3B2\U0001F3B2 EXIT CODE: %d \U0001F3B2\U0001F3B2\U0001F3B2\n",
-			ctx.ExitCode,
-		),
+	fmt.Fprintf(
+		&buffer,
+		"\U0001F3B2\U0001F3B2\U0001F3B2 EXIT CODE: %d \U0001F3B2\U0001F3B2\U0001F3B2\n",
+		ctx.ExitCode,
 	)
 
 	if len(ctx.Stdout) > 0 {

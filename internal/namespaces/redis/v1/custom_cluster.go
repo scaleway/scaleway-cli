@@ -327,7 +327,7 @@ func CreateRequestZone(req *CreateClusterRequestCustom) scw.Zone {
 		return ""
 	}
 
-	return req.CreateClusterRequest.Zone
+	return req.Zone
 }
 
 func autoCompleteCreateNodeType(

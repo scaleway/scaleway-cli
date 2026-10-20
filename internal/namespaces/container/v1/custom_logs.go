@@ -107,7 +107,7 @@ func containerLogsRun(ctx context.Context, argsI any) (any, error) {
 
 	resp, err := httpClient.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("Error making request: %v\n", err)
+		return nil, fmt.Errorf("error making request: %w", err)
 	}
 	defer resp.Body.Close()
 
@@ -141,7 +141,7 @@ func buildLokiQuery(datasourceURL string, args *containerLogsRequest) (*http.Req
 
 	req, err := http.NewRequest(http.MethodGet, reqURL, nil)
 	if err != nil {
-		return nil, fmt.Errorf("Error creating request: %v\n", err)
+		return nil, fmt.Errorf("error creating request: %w", err)
 	}
 
 	req.URL.RawQuery = urlValues.Encode()
@@ -169,13 +169,13 @@ func readLokiResponseBody(
 ) ([]LogEntry, error) {
 	body, err := io.ReadAll(requestBody)
 	if err != nil {
-		return nil, fmt.Errorf("Error reading response: %v\n", err)
+		return nil, fmt.Errorf("error reading response: %w", err)
 	}
 
 	var lokiResp LokiResponse
 
 	if err := json.Unmarshal(body, &lokiResp); err != nil {
-		return nil, fmt.Errorf("Error parsing JSON: %v\n", err)
+		return nil, fmt.Errorf("error parsing JSON: %w", err)
 	}
 
 	if len(lokiResp.Data.Result) == 0 ||

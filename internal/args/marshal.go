@@ -50,7 +50,8 @@ func MarshalStruct(data any) (args []string, err error) {
 
 	// Second make sure data is a pointer to a struct or a map.
 	src := reflect.ValueOf(data)
-	if !(src.Kind() == reflect.Pointer && (src.Elem().Kind() == reflect.Struct || src.Elem().Kind() == reflect.Map)) {
+	if src.Kind() != reflect.Pointer ||
+		src.Elem().Kind() != reflect.Struct && src.Elem().Kind() != reflect.Map {
 		return nil, &DataMustBeAPointerError{}
 	}
 

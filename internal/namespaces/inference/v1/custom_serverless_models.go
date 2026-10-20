@@ -112,9 +112,10 @@ func listServerlessModels() *core.Command {
 					}
 				}
 
-				if genAPIs.TokenType == product_catalog.PublicCatalogProductPropertiesGenerativeAPIsTokenTypeInputToken {
+				switch genAPIs.TokenType {
+				case product_catalog.PublicCatalogProductPropertiesGenerativeAPIsTokenTypeInputToken:
 					info.InputPrice = price * 1_000
-				} else if genAPIs.TokenType == product_catalog.PublicCatalogProductPropertiesGenerativeAPIsTokenTypeOutputToken {
+				case product_catalog.PublicCatalogProductPropertiesGenerativeAPIsTokenTypeOutputToken:
 					info.OutputPrice = price * 1_000
 				}
 				infoByModelAndMode[key] = info

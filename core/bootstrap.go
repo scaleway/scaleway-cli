@@ -104,7 +104,7 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 		"Enable beta mode",
 	)
 	// Ignore unknown flag
-	flags.ParseErrorsWhitelist.UnknownFlags = true
+	flags.ParseErrorsAllowlist.UnknownFlags = true
 	// Make sure usage is never print by the parse method. (It should only be print by cobra)
 	flags.Usage = func() {}
 
