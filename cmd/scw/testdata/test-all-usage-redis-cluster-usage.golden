@@ -6,6 +6,7 @@ USAGE:
   scw redis cluster <command>
 
 AVAILABLE COMMANDS:
+  cockpit           Open the Cockpit Grafana dashboard for this cluster
   connect           Connect to a Redis cluster using locally installed redis-cli
   create            Create a Redis™ Database Instance
   delete            Delete a Redis™ Database Instance
@@ -24,7 +25,6 @@ FLAGS:
 
 GLOBAL FLAGS:
   -B, --beta             Enable beta mode
-      --cockpit          open the Cockpit Grafana dashboard for the current resource
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -H, --no-headers       Skip headers in human output

@@ -31,7 +31,6 @@ FLAGS:
 
 GLOBAL FLAGS:
   -B, --beta             Enable beta mode
-      --cockpit          open the Cockpit Grafana dashboard for the current resource
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -H, --no-headers       Skip headers in human output

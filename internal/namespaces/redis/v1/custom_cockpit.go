@@ -1,11 +1,43 @@
 package redis
 
-import "github.com/scaleway/scaleway-cli/v2/core"
+import (
+	"context"
+	"reflect"
 
-func addCockpitURLs(cmds *core.Commands) {
-	const dashboard = "scw-redis-overview"
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
+)
 
-	cmds.MustFind("redis").CockpitDashboard = dashboard
-	cmds.MustFind("redis", "cluster", "get").CockpitDashboard = dashboard
-	cmds.MustFind("redis", "cluster", "get").CockpitResourceVar = "resource_name"
+type clusterCockpitArgs struct {
+	ClusterID string
+	Zone      scw.Zone
+}
+
+func clusterCockpitCommand() *core.Command {
+	return &core.Command{
+		Namespace: "redis",
+		Resource:  "cluster",
+		Verb:      "cockpit",
+		Short:     `Open the Cockpit Grafana dashboard for this cluster`,
+		ArgsType:  reflect.TypeFor[clusterCockpitArgs](),
+		ArgSpecs: core.ArgSpecs{
+			{Name: "cluster-id", Short: "Cluster ID", Required: true, Positional: true},
+			core.ZoneArgSpec(),
+		},
+		Run: func(ctx context.Context, argsI any) (any, error) {
+			args := argsI.(*clusterCockpitArgs)
+
+			api := redis.NewAPI(core.ExtractClient(ctx))
+			cluster, err := api.GetCluster(&redis.GetClusterRequest{
+				ClusterID: args.ClusterID,
+				Zone:      args.Zone,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			return core.OpenCockpitDashboard(ctx, "scw-redis-overview", "resource_name", cluster)
+		},
+	}
 }

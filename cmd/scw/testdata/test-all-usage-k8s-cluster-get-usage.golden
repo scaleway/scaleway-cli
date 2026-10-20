@@ -14,7 +14,6 @@ ARGS:
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
 FLAGS:
-      --cockpit             open the Cockpit Grafana dashboard for the current resource
   -h, --help                help for get
       --list-sub-commands   List all subcommands
 

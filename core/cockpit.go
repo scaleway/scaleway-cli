@@ -1,67 +1,32 @@
 package core
 
 import (
-	"bytes"
 	"context"
 	"errors"
 	"fmt"
 	"net/url"
 	"reflect"
-	"strings"
-	"text/template"
 
 	cockpit "github.com/scaleway/scaleway-sdk-go/api/cockpit/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/skratchdot/open-golang/open"
 )
 
-func commandHasCockpit(cmd *Command) bool {
-	return cmd.CockpitDashboard != ""
-}
-
-// ensureClient makes sure an authenticated client is on the meta, mirroring the
-// client creation done in cobraRun. It is needed for the non-runnable (namespace-level)
-// --cockpit path, where cobraRun never runs. The runnable path already has a client,
-// so it should not call this.
-func ensureClient(ctx context.Context, allowAnonymous bool) error {
-	meta := ExtractMeta(ctx)
-	if !allowAnonymous && !meta.isClientFromBootstrapConfig {
-		client, err := meta.Platform.CreateClient(
-			meta.httpClient,
-			ExtractConfigPath(ctx),
-			ExtractProfileName(ctx),
-		)
-		if err != nil {
-			return createClientError(err)
-		}
-		meta.Client = client
-	}
-
-	return nil
-}
-
-// runCockpit opens the Grafana dashboard for the current resource.
-// respI is the command response (used to resolve the resource name/region and any
-// dashboard-name template), or nil for a product-level dashboard.
-func runCockpit(ctx context.Context, cmd *Command, respI any) (any, error) {
-	// Resolve the dashboard name, evaluating any template against the response.
-	dashboardName := cmd.CockpitDashboard
-	if strings.Contains(dashboardName, "{{") {
-		if respI == nil {
-			return nil, &CliError{
-				Err:     errors.New("dashboard name requires a resource"),
-				Message: "This command cannot resolve a cockpit dashboard",
-			}
-		}
-		tmpl, err := template.New("dashboard").Parse(dashboardName)
-		if err != nil {
-			return nil, err
-		}
-		buf := bytes.NewBuffer(nil)
-		if err := tmpl.Execute(buf, respI); err != nil {
-			return nil, err
-		}
-		dashboardName = buf.String()
+// OpenCockpitDashboard opens the Grafana product dashboard for a resource and
+// returns the "Opening <url>" message to print.
+//
+// dashboardName is the product dashboard (e.g. "scw-mongodb-overview"),
+// resourceVar the dashboard variable that receives the resource's name
+// (e.g. "cl_name"), and resource the fetched resource (any struct with Name
+// and Region/Zone fields).
+func OpenCockpitDashboard(
+	ctx context.Context,
+	dashboardName, resourceVar string,
+	resource any,
+) (any, error) {
+	name, region, err := extractNameAndRegion(resource)
+	if err != nil {
+		return nil, err
 	}
 
 	// Fetch the product dashboard to get its (org-specific) base URL.
@@ -77,23 +42,8 @@ func runCockpit(ctx context.Context, cmd *Command, respI any) (any, error) {
 		return nil, err
 	}
 
-	// Resolve the identifying resource variable, if any.
-	resourceName, region := "", ""
-	if cmd.CockpitResourceVar != "" {
-		if respI == nil {
-			return nil, &CliError{
-				Err:     errors.New("resource is required for this dashboard"),
-				Message: "Pass a resource to open its cockpit dashboard",
-			}
-		}
-		resourceName, region, err = extractNameAndRegion(respI)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	// Build the Grafana URL. var-Datasource is intentionally omitted: the dashboard
-	// falls back to its default datasource (ponytail: add it if a dashboard needs it).
+	// var-Datasource is intentionally omitted: the dashboard falls back to its
+	// default datasource (ponytail: add it if a dashboard needs it).
 	q := url.Values{}
 	q.Set("orgId", "1")
 	q.Set("from", "now-1h")
@@ -102,9 +52,7 @@ func runCockpit(ctx context.Context, cmd *Command, respI any) (any, error) {
 	if region != "" {
 		q.Set("var-region", region)
 	}
-	if cmd.CockpitResourceVar != "" {
-		q.Set("var-"+cmd.CockpitResourceVar, resourceName)
-	}
+	q.Set("var-"+resourceVar, name)
 	fullURL := dash.URL + "?" + q.Encode()
 
 	if err := open.Start(fullURL); err != nil {

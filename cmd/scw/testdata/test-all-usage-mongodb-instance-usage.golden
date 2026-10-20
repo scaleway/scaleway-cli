@@ -6,6 +6,7 @@ USAGE:
   scw mongodb instance <command>
 
 AVAILABLE COMMANDS:
+  cockpit         Open the Cockpit Grafana dashboard for this instance
   create          Create a MongoDB® Database Instance
   delete          Delete a MongoDB® Database Instance
   get             Get a MongoDB® Database Instance
@@ -23,7 +24,6 @@ FLAGS:
 
 GLOBAL FLAGS:
   -B, --beta             Enable beta mode
-      --cockpit          open the Cockpit Grafana dashboard for the current resource
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -H, --no-headers       Skip headers in human output

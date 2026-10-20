@@ -228,11 +228,6 @@ func run(
 		}
 	}
 
-	cockpitFlag, err := cobraCmd.PersistentFlags().GetBool("cockpit")
-	if err == nil && cockpitFlag && commandHasCockpit(cmd) {
-		return runCockpit(ctx, cmd, data)
-	}
-
 	return data, nil
 }
 
@@ -326,21 +321,6 @@ func cobraRunHelp(cmd *Command) func(cmd *cobra.Command, args []string) error {
 		webFlag, err := cobraCmd.PersistentFlags().GetBool("web")
 		if err == nil && webFlag {
 			out, err := runWeb(cmd, nil)
-			if err != nil {
-				return err
-			}
-			cobraCmd.Println(out)
-
-			return nil
-		}
-
-		cockpitFlag, err := cobraCmd.PersistentFlags().GetBool("cockpit")
-		if err == nil && cockpitFlag && commandHasCockpit(cmd) {
-			ctx := cobraCmd.Context()
-			if err := ensureClient(ctx, cmd.AllowAnonymousClient); err != nil {
-				return err
-			}
-			out, err := runCockpit(ctx, cmd, nil)
 			if err != nil {
 				return err
 			}

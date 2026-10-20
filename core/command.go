@@ -81,16 +81,6 @@ type Command struct {
 	// Can contain template of values in request, ex: "url/{{ .Zone }}/{{ .ResourceID }}"
 	WebURL string
 
-	// CockpitDashboard is the name of the Grafana product dashboard to open when the
-	// --cockpit flag is passed, e.g. "scw-mongodb-overview". It can be a template
-	// evaluated against the command response (ex: "scw-rdb-{{ .Engine }}-overview").
-	CockpitDashboard string
-
-	// CockpitResourceVar is the dashboard variable that receives the resource's Name
-	// when --cockpit is passed, e.g. "cl_name" or "resource_name". When empty, the
-	// dashboard is opened without a specific resource (product-level view).
-	CockpitResourceVar string
-
 	// WaitUsage override the usage for the -w (--wait) flag
 	WaitUsage string
 

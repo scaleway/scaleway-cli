@@ -14,7 +14,6 @@ AVAILABLE COMMANDS:
   version     Redis™ version management commands
 
 FLAGS:
-      --cockpit             open the Cockpit Grafana dashboard for the current resource
   -h, --help                help for redis
       --list-sub-commands   List all subcommands
 

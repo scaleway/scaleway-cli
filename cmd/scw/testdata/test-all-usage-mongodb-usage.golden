@@ -16,7 +16,6 @@ AVAILABLE COMMANDS:
   version     MongoDB® major version management commands
 
 FLAGS:
-      --cockpit             open the Cockpit Grafana dashboard for the current resource
   -h, --help                help for mongodb
       --list-sub-commands   List all subcommands
 

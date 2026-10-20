@@ -15,7 +15,6 @@ AVAILABLE COMMANDS:
   version         Available Kubernetes versions commands
 
 FLAGS:
-      --cockpit             open the Cockpit Grafana dashboard for the current resource
   -h, --help                help for k8s
       --list-sub-commands   List all subcommands
 
