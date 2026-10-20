@@ -8,11 +8,11 @@ shell = "bash -c"
 
 [tools]
 devcontainer-cli = "0.89"
-go = "1.27"
+go = "1.27.3"
 "go:github.com/boumenot/gocover-cobertura" = "1.5"
 "go:github.com/go-delve/delve/cmd/dlv" = "1.27"
 "go:gotest.tools/gotestsum" = "1.13"
-golangci-lint = "2.13"
+golangci-lint = "2.15"
 goreleaser = "2.18"
 hadolint = "2.15"
 node = "24.11.1"
