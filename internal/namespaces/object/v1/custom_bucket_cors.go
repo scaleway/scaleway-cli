@@ -90,7 +90,7 @@ func bucketCorsCreateCommand() *core.Command {
 				CORSConfiguration: &config,
 			}
 
-			client, s3Endpoint, s3UsePathStyle, err := newS3Client(
+			client, err := newS3Client(
 				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
 			)
 			if err != nil {
@@ -107,8 +107,6 @@ func bucketCorsCreateCommand() *core.Command {
 				args.Region,
 				args.Bucket,
 				client,
-				s3UsePathStyle,
-				s3Endpoint,
 			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
@@ -168,7 +166,7 @@ func bucketCorsDeleteCommand() *core.Command {
 				Bucket: &args.Bucket,
 			}
 
-			client, _, _, err := newS3Client(
+			client, err := newS3Client(
 				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
 			)
 			if err != nil {
@@ -231,7 +229,7 @@ func bucketCorsGetCommand() *core.Command {
 				Bucket: &args.Bucket,
 			}
 
-			client, _, _, err := newS3Client(
+			client, err := newS3Client(
 				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
 			)
 			if err != nil {

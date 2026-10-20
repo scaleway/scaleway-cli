@@ -76,7 +76,7 @@ func bucketPolicyCreateCommand() *core.Command {
 
 			policy := string(policyBytes)
 
-			client, s3Endpoint, s3UsePathStyle, err := newS3Client(
+			client, err := newS3Client(
 				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
 			)
 			if err != nil {
@@ -98,8 +98,6 @@ func bucketPolicyCreateCommand() *core.Command {
 				args.Region,
 				args.Bucket,
 				client,
-				s3UsePathStyle,
-				s3Endpoint,
 			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
@@ -155,7 +153,7 @@ func bucketPolicyDeleteCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client, _, _, err := newS3Client(
+			client, err := newS3Client(
 				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
 			)
 			if err != nil {
@@ -217,7 +215,7 @@ func bucketPolicyGetCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client, _, _, err := newS3Client(
+			client, err := newS3Client(
 				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
 			)
 			if err != nil {

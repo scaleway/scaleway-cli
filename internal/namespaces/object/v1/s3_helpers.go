@@ -22,33 +22,31 @@ import (
 
 // newS3Client builds an S3 client from the CLI s3-endpoint and
 // s3-use-path-style arguments, resolving them through the same configuration
-// priority as GetS3Endpoint and GetS3UsePathStyle. It also returns the
-// resolved endpoint and path-style flag so callers that need them (e.g. for
-// getBucketInfo) don't have to derive them again.
+// priority as GetS3Endpoint and GetS3UsePathStyle.
 func newS3Client(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,
 	s3EndpointArg string,
 	s3UsePathStyleArg string,
-) (client *s3.Client, s3Endpoint string, s3UsePathStyle bool, err error) {
-	s3UsePathStyle, err = GetS3UsePathStyle(ctx, s3UsePathStyleArg)
+) (client *s3.Client, err error) {
+	s3UsePathStyle, err := GetS3UsePathStyle(ctx, s3UsePathStyleArg)
 	if err != nil {
-		return nil, "", false, fmt.Errorf("could not get S3 use path style flag: %w", err)
+		return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
 	}
 
-	s3Endpoint = GetS3Endpoint(ctx, region.String(), s3EndpointArg)
+	s3Endpoint := GetS3Endpoint(ctx, region.String(), s3EndpointArg)
 
 	httpClient := core.ExtractHTTPClient(ctx)
 	scwClient := core.ExtractClient(ctx)
 	buildInfo := core.ExtractBuildInfo(ctx)
 	accessKey, ok := scwClient.GetAccessKey()
 	if !ok {
-		return nil, "", false, fmt.Errorf("could not get SCW access key: %w", err)
+		return nil, fmt.Errorf("could not get SCW access key: %w", err)
 	}
 	secretKey, ok := scwClient.GetSecretKey()
 	if !ok {
-		return nil, "", false, fmt.Errorf("could not get SCW secret key: %w", err)
+		return nil, fmt.Errorf("could not get SCW secret key: %w", err)
 	}
 
 	defaultProjectID, _ := scwClient.GetDefaultProjectID()
@@ -76,7 +74,7 @@ func newS3Client(
 		Region:       region.String(),
 		HTTPClient:   httpClient,
 		UsePathStyle: s3UsePathStyle,
-	}), s3Endpoint, s3UsePathStyle, nil
+	}), nil
 }
 
 // FormatAccessKey formats the access key to the <KEY>@<PROJECT_ID> format,
@@ -180,8 +178,6 @@ func getBucketInfo(
 	region scw.Region,
 	name string,
 	client *s3.Client,
-	s3UsePathStyle bool,
-	s3Endpoint string,
 ) (*bucketInfo, error) {
 	bucket := &bucketInfo{
 		ID:     name,
@@ -223,8 +219,10 @@ func getBucketInfo(
 	bucket.ACL = awsACLToCustomGrants(acl)
 
 	// Get endpoints
-	bucket.APIEndpoint = s3Endpoint
-	bucket.BucketEndpoint, err = buildBucketEndpoint(s3Endpoint, name, s3UsePathStyle)
+	bucket.APIEndpoint = *client.Options().BaseEndpoint
+	bucket.BucketEndpoint, err = buildBucketEndpoint(
+		bucket.APIEndpoint, name, client.Options().UsePathStyle,
+	)
 	if err != nil {
 		return nil, err
 	}

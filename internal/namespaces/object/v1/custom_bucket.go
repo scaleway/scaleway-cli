@@ -94,7 +94,7 @@ func bucketCreateCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketConfigArgs)
 
-			client, s3Endpoint, s3UsePathStyle, err := newS3Client(
+			client, err := newS3Client(
 				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
 			)
 			if err != nil {
@@ -131,8 +131,6 @@ func bucketCreateCommand() *core.Command {
 				args.Region,
 				args.Name,
 				client,
-				s3UsePathStyle,
-				s3Endpoint,
 			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
@@ -185,7 +183,7 @@ func bucketDeleteCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketDeleteArgs)
 
-			client, _, _, err := newS3Client(
+			client, err := newS3Client(
 				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
 			)
 			if err != nil {
@@ -238,7 +236,7 @@ func bucketGetCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketGetArgs)
 
-			client, s3Endpoint, s3UsePathStyle, err := newS3Client(
+			client, err := newS3Client(
 				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
 			)
 			if err != nil {
@@ -250,8 +248,6 @@ func bucketGetCommand() *core.Command {
 				args.Region,
 				args.Name,
 				client,
-				s3UsePathStyle,
-				s3Endpoint,
 			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
@@ -305,7 +301,7 @@ func bucketListCommand() *core.Command {
 
 			// s3UsePathStyle is not relevant to this call, we arbitrarily set
 			// it to false
-			client, _, _, err := newS3Client(
+			client, err := newS3Client(
 				ctx, args.Region, args.ProjectID, args.S3Endpoint, "false",
 			)
 			if err != nil {
@@ -367,7 +363,7 @@ func bucketUpdateCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketConfigArgs)
 
-			client, s3Endpoint, s3UsePathStyle, err := newS3Client(
+			client, err := newS3Client(
 				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
 			)
 			if err != nil {
@@ -394,8 +390,6 @@ func bucketUpdateCommand() *core.Command {
 				args.Region,
 				args.Name,
 				client,
-				s3UsePathStyle,
-				s3Endpoint,
 			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
@@ -531,7 +525,7 @@ func autocompleteBucketName(
 	}
 
 	suggestions := core.AutocompleteSuggestions(nil)
-	client, _, _, err := newS3Client(
+	client, err := newS3Client(
 		ctx, region, projectID, s3Endpoint, s3UsePathStyleStr,
 	)
 	if err != nil {
