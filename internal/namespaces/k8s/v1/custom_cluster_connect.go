@@ -2,6 +2,7 @@ package k8s
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"os/exec"
 	"reflect"
@@ -13,10 +14,13 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+const defaultClusterConnectTemplate = "k9s"
+
 type clusterConnectArgs struct {
 	ClusterID string
 	Region    scw.Region
 	Template  string
+	Force     bool
 }
 
 // clusterConnectTemplateData is the template data for the connect command:
@@ -50,6 +54,8 @@ sets KUBECONFIG to it, and opens k9s against it.
 
 Use --template to connect with a different tool instead. Its value (default "k9s")
 is rendered as a Go text/template and the result is executed as the connect command.
+A non-default template requires interactive confirmation before running
+(--force to skip).
 Available variables:
 {{.ClusterID}}, {{.Cluster}} (the cluster object, e.g. {{.Cluster.Name}}),
 {{.Region}}, {{.Organization}}, {{.Project}} and
@@ -66,11 +72,26 @@ Available variables:
 			&core.ArgSpec{
 				Name:    "template",
 				Short:   `Command line to run instead of the default k9s one, as a Go text/template (default: "k9s")`,
-				Default: core.DefaultValueSetter("k9s"),
+				Default: core.DefaultValueSetter(defaultClusterConnectTemplate),
+			},
+			&core.ArgSpec{
+				Name:  "force",
+				Short: "Skip the interactive confirmation of a custom template",
 			},
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*clusterConnectArgs)
+
+			// A custom template executes an arbitrary binary with the cluster
+			// kubeconfig: confirm it before any secret is downloaded or written.
+			if err := connect.ConfirmTemplate(
+				ctx,
+				args.Template,
+				defaultClusterConnectTemplate,
+				args.Force,
+			); err != nil {
+				return nil, err
+			}
 
 			kubeconfigRes, err := k8sKubeconfigGetRun(ctx, &k8sKubeconfigGetRequest{
 				ClusterID:  args.ClusterID,
@@ -130,6 +151,10 @@ Available variables:
 			}
 
 			env = append(env, "KUBECONFIG="+kubeconfigFile.Name())
+
+			// Show exactly what will run: the defense against PATH shadows,
+			// malicious aliases, and templates from scripts you don't remember.
+			fmt.Fprintf(core.ExtractStderr(ctx), "running: %s\n", strings.Join(cmdArgs, " "))
 
 			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
 			cmd.Env = env

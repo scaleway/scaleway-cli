@@ -57,7 +57,7 @@ func Test_ClusterConnect(t *testing.T) {
 		Commands: k8s.GetCommands(),
 		// The template braces are escaped so the test framework's own templating leaves them for the CLI
 		Cmd: `scw k8s cluster connect 3313184d-3767-4535-902a-2bba7b7a4414 ` +
-			`template="kubectl --kubeconfig {{"{{"}}.Kubeconfig{{"}}"}} get pods"`,
+			`template="kubectl --kubeconfig {{"{{"}}.Kubeconfig{{"}}"}} get pods" force=true`,
 		OverrideExec: func(ctx *core.ExecFuncCtx, cmd *exec.Cmd) (int, error) {
 			// The rendered command must be executed directly, no k9s involved
 			if len(cmd.Args) != 5 || cmd.Args[0] != "kubectl" || cmd.Args[1] != "--kubeconfig" ||
@@ -76,13 +76,23 @@ func Test_ClusterConnect(t *testing.T) {
 		),
 	}))
 
+	t.Run("template_requires_confirmation", core.Test(&core.TestConfig{
+		Commands: k8s.GetCommands(),
+		Cmd: `scw k8s cluster connect 3313184d-3767-4535-902a-2bba7b7a4414 ` +
+			`template="kubectl get pods"`,
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(1),
+			core.TestCheckStderrContains("Custom template requires interactive confirmation"),
+		),
+	}))
+
 	t.Run("interrupted", core.Test(&core.TestConfig{
 		Commands: k8s.GetCommands(),
 		// No OverrideExec: the child process is really executed. It sends SIGINT
 		// to scw (its parent) one second in, simulating a Ctrl-C during a
 		// long-running session, then keeps running until terminated.
 		Cmd: `scw k8s cluster connect 3313184d-3767-4535-902a-2bba7b7a4414 ` +
-			`template="sh -c 'sleep 1; kill -INT $PPID; exec sleep 300'"`,
+			`template="sh -c 'sleep 1; kill -INT $PPID; exec sleep 300'" force=true`,
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(130),
 			func(t *testing.T, _ *core.CheckFuncCtx) {

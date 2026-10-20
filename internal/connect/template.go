@@ -8,6 +8,7 @@ import (
 	"text/template"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/pkg/shlex"
 	"github.com/scaleway/scaleway-sdk-go/api/account/v3"
 	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
@@ -41,6 +42,37 @@ func RenderCommand(tmpl string, data any) ([]string, error) {
 	}
 
 	return fields, nil
+}
+
+// ConfirmTemplate gates a custom connect template behind an interactive
+// confirmation: any template other than defaultTmpl runs an arbitrary binary
+// that receives cluster secrets, so it must be explicitly acknowledged.
+// In non-interactive mode it fails unless force is set.
+func ConfirmTemplate(ctx context.Context, tmpl, defaultTmpl string, force bool) error {
+	if tmpl == defaultTmpl || force {
+		return nil
+	}
+	if !interactive.IsInteractive {
+		return errors.New(
+			"custom template requires interactive confirmation: run in a terminal or pass --force to skip it",
+		)
+	}
+
+	confirmed, err := interactive.PromptBoolWithConfig(
+		ctx,
+		&interactive.PromptBoolConfig{
+			Prompt:       fmt.Sprintf("Execute the custom template %q?", tmpl),
+			DefaultValue: false,
+		},
+	)
+	if err != nil {
+		return err
+	}
+	if !confirmed {
+		return errors.New("connect canceled")
+	}
+
+	return nil
 }
 
 // TemplateData is the base template data for connect commands, embedded by
