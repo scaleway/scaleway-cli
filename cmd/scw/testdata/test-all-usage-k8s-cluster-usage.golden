@@ -11,6 +11,7 @@ AVAILABLE COMMANDS:
   create                  Create a new Cluster
   delete                  Delete a Cluster
   get                     Get a Cluster
+  kubectl                 Execute a one-shot kubectl command against a cluster
   list                    List Clusters
   list-available-types    List available cluster types for a cluster
   list-available-versions List available versions for a Cluster

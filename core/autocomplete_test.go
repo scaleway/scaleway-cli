@@ -690,3 +690,37 @@ func TestAutocompleteDeprecatedCommand(t *testing.T) {
 
 	t.Run("scw test flower deprecated", run(&testCase{Suggestions: nil}))
 }
+
+// TestAutocompletePassthrough tests the passthrough AutoCompleteFunc (see
+// Command.AutoCompleteFunc) and the ordered typed args exposed via
+// ExtractTypedArgs.
+func TestAutocompletePassthrough(t *testing.T) {
+	ctx := core.InjectMeta(t.Context(), &core.Meta{
+		Commands: core.NewCommands(
+			&core.Command{
+				Namespace: "test",
+				Resource:  "passthrough",
+				Verb:      "run",
+				ArgsType:  reflect.TypeOf(struct{}{}),
+				AutoCompleteFunc: func(ctx context.Context, prefix string, _ any) core.AutocompleteSuggestions {
+					typedArgs := core.ExtractTypedArgs(ctx)
+					if len(typedArgs) == 0 {
+						return nil
+					}
+
+					return core.AutocompleteSuggestions{strings.Join(typedArgs, ",") + "|" + prefix}
+				},
+			},
+		),
+	})
+
+	run := func(tc *autoCompleteTestCase) func(*testing.T) {
+		return runAutocompleteTest(ctx, tc)
+	}
+
+	t.Run("scw test passthrough run ", run(&autoCompleteTestCase{Suggestions: nil}))
+	t.Run(
+		"scw test passthrough run a b ",
+		run(&autoCompleteTestCase{Suggestions: core.AutocompleteSuggestions{"a,b|"}}),
+	)
+}

@@ -28,6 +28,7 @@ func GetCommands() *core.Commands {
 		k8sKubeconfigInstallCommand(),
 		k8sKubeconfigUninstallCommand(),
 		clusterConnectCommand(),
+		clusterKubectlCommand(),
 		k8sClusterWaitCommand(),
 		k8sNodeWaitCommand(),
 		k8sPoolWaitCommand(),

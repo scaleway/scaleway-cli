@@ -225,6 +225,14 @@ func BuildAutoCompleteTree(ctx context.Context, commands *Commands) *AutoComplet
 			node.Children[argSpec.Name+"="] = NewAutoCompleteArgNode(cmd, argSpec)
 		}
 
+		// Passthrough completion for free-form args (e.g. kubectl).
+		if cmd.AutoCompleteFunc != nil {
+			node.Children[positionalValueNodeID] = NewAutoCompleteArgNode(cmd, &ArgSpec{
+				Name:             "args",
+				AutoCompleteFunc: cmd.AutoCompleteFunc,
+			})
+		}
+
 		if cmd.WaitFunc != nil {
 			node.Children["-w"] = NewAutoCompleteFlagNode(node, &FlagSpec{
 				Name: "-w",
@@ -236,6 +244,63 @@ func BuildAutoCompleteTree(ctx context.Context, commands *Commands) *AutoComplet
 	}
 
 	return root
+}
+
+// walkAutoCompleteTree walks the autocomplete tree following the typed words
+// (without the binary name). It returns the reached node, the index of the
+// rightmost word containing a namespace, verb, resource, flag or flag value
+// (nodeIndexInWords) and the index of the last word that advanced the
+// command path (pathWordIndex, -1 if none). ok is false when an unknown word
+// is typed before reaching a leaf command: no suggestion can be returned.
+func walkAutoCompleteTree(
+	node *AutoCompleteNode,
+	leftWords []string,
+) (reached *AutoCompleteNode, nodeIndexInWords, pathWordIndex int, ok bool) {
+	// seenSeparator is true once a "--" was typed on a leaf command: from
+	// then on words are passthrough args of the command, not scw flags
+	// (mirroring what cobra does at run time).
+	seenSeparator := false
+
+	for i, word := range leftWords {
+		if word == "--" && node.isLeafCommand() {
+			seenSeparator = true
+
+			continue
+		}
+		if seenSeparator {
+			continue
+		}
+
+		children, childrenExists := node.Children[word]
+		if !childrenExists {
+			children, childrenExists = node.Children[positionalValueNodeID]
+		}
+
+		switch {
+		case !childrenExists && node.isLeafCommand():
+			// word is probably an unknown argument
+			// Just skip it
+
+		case !childrenExists:
+			// We did not find a child matching exactly the word
+			// We did not reach a leaf command, and word is unknown
+			return nil, 0, -1, false
+
+		case children.Type == AutoCompleteNodeTypeArgument:
+			// Do nothing
+			// Arguments do not have children: they are not used to go deeper into the tree
+
+		default:
+			// word is a namespace or verb or resource or flag or flag value
+			node = children
+			nodeIndexInWords = i
+			if children.Type == AutoCompleteNodeTypeCommand {
+				pathWordIndex = i
+			}
+		}
+	}
+
+	return node, nodeIndexInWords, pathWordIndex, true
 }
 
 // AutoComplete process a command line and returns autocompletion suggestions.
@@ -253,40 +318,20 @@ func AutoComplete(
 	// Create AutoComplete Tree
 	commandTreeRoot := BuildAutoCompleteTree(ctx, commands)
 
-	// For each left word that is not a flag nor an argument, we try to go deeper in the autocomplete tree and store the current node in `node`.
-	node := commandTreeRoot
-	// nodeIndexInWords is the rightmost word index, before the cursor, that contains either a namespace or verb or resource or flag or flag value.
-	// see test 'scw test flower delete f'
-	nodeIndexInWords := 0
-
 	// We remove command binary name from the left words.
 	leftWords = leftWords[1:]
 
-	for i, word := range leftWords {
-		children, childrenExists := node.Children[word]
-		if !childrenExists {
-			children, childrenExists = node.Children[positionalValueNodeID]
-		}
+	node, nodeIndexInWords, pathWordIndex, ok := walkAutoCompleteTree(commandTreeRoot, leftWords)
+	if !ok {
+		return &AutocompleteResponse{}
+	}
 
-		switch {
-		case !childrenExists && node.isLeafCommand():
-			// word is probably an unknown argument
-			// Just skip it
-
-		case !childrenExists:
-			// We did not find a child matching exactly the word
-			// We did not reach a leaf command, and word is unknown
-			return &AutocompleteResponse{}
-
-		case children.Type == AutoCompleteNodeTypeArgument:
-			// Do nothing
-			// Arguments do not have children: they are not used to go deeper into the tree
-
-		default:
-			// word is a namespace or verb or resource or flag or flag value
-			node = children
-			nodeIndexInWords = i
-		}
+	// typedArgs are the words typed after the command path, in order (left of
+	// the cursor). Exposed via context to passthrough AutoCompleteFunc (see
+	// Command.AutoCompleteFunc), which may forward them to an external tool
+	// completion mechanism (e.g. kubectl __complete).
+	if pathWordIndex+1 < len(leftWords) {
+		ctx = context.WithValue(ctx, typedArgsKey{}, leftWords[pathWordIndex+1:])
 	}
 
 	// keep track of the completed args
@@ -382,6 +427,18 @@ func AutoComplete(
 	}
 
 	return newAutoCompleteResponse(suggestions)
+}
+
+type typedArgsKey struct{}
+
+// ExtractTypedArgs returns the words typed after the command path (namespace,
+// resource, verb), in order, without the word currently being completed.
+// It is only populated during AutoComplete for passthrough completion (see
+// Command.AutoCompleteFunc); it returns nil otherwise.
+func ExtractTypedArgs(ctx context.Context) []string {
+	typedArgs, _ := ctx.Value(typedArgsKey{}).([]string)
+
+	return typedArgs
 }
 
 // AutoCompleteArgValue returns suggestions for a (argument name, argument value prefix) pair.
