@@ -357,6 +357,12 @@ vitest "${args[@]}"
 # markdown-link-check -c ./.markdownlinkcheck.json -q ./docs
 # '''
 
+[tasks.'check:go-mod-tidy']
+description = "check that go.mod and go.sum are tidy"
+run = '''
+go mod tidy -diff
+'''
+
 [tasks.'check:binary-size']
 description = "check the size of the cli binary"
 depends = ["build:cli"]
