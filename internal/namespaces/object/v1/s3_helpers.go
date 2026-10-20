@@ -20,12 +20,12 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
-// newS3ClientFromArgs builds an S3 client from the CLI s3-endpoint and
+// newS3Client builds an S3 client from the CLI s3-endpoint and
 // s3-use-path-style arguments, resolving them through the same configuration
 // priority as GetS3Endpoint and GetS3UsePathStyle. It also returns the
 // resolved endpoint and path-style flag so callers that need them (e.g. for
 // getBucketInfo) don't have to derive them again.
-func newS3ClientFromArgs(
+func newS3Client(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,
