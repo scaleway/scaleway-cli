@@ -42,13 +42,13 @@ func clusterConnectCommand() *core.Command {
 		Namespace: "k8s",
 		Resource:  "cluster",
 		Verb:      "connect",
-		Short:     `Connect to a cluster using k9s, or a custom command via --template`,
+		Short:     `Connect to a cluster using k9s, or a custom command via template`,
 		Long: `Connect to a Kubernetes Kapsule cluster.
 
 By default the command downloads the cluster kubeconfig to a temporary file,
 sets KUBECONFIG to it, and opens k9s against it.
 
-Use --template to connect with a different tool instead. Its value (default "k9s")
+Use template to connect with a different tool instead. Its value (default "k9s")
 is rendered as a Go text/template and the result is executed as the connect command.
 Available variables:
 {{.ClusterID}}, {{.Cluster}} (the cluster object, e.g. {{.Cluster.Name}}),

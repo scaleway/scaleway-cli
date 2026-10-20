@@ -8,6 +8,7 @@ import (
 	"text/template"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/pkg/shlex"
 	"github.com/scaleway/scaleway-sdk-go/api/account/v3"
 	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
@@ -45,18 +46,50 @@ func RenderCommand(tmpl string, data any) ([]string, error) {
 
 // TemplateData is the base template data for connect commands, embedded by
 // each namespace's connect command which adds its own template values.
-// Organization and Project are resolved lazily: the API is only called when
-// the template references {{.Organization}} or {{.Project}} (Go templates
-// invoke no-arg methods at the point of use).
+// Organization, Project and Password are resolved lazily: the API call or
+// the user prompt only happens when the template references the variable
+// (Go templates invoke no-arg methods at the point of use).
 type TemplateData struct {
-	client *scw.Client
+	// The context is stored because the no-arg template methods (Password)
+	// cannot receive it as a parameter.
+	ctx      context.Context //nolint:containedctx
+	client   *scw.Client
+	password string
 }
 
 func NewTemplateData(ctx context.Context) *TemplateData {
 	client := core.ExtractClient(ctx)
-	data := &TemplateData{client: client}
+	data := &TemplateData{ctx: ctx, client: client}
 
 	return data
+}
+
+// WithPassword sets the password returned by Password, so the user is not
+// prompted for it.
+func (d *TemplateData) WithPassword(password string) *TemplateData {
+	d.password = password
+
+	return d
+}
+
+// Password returns the password of the connect session: the one set with
+// WithPassword when provided, otherwise the user is prompted for it.
+func (d *TemplateData) Password() (string, error) {
+	if d.password != "" {
+		return d.password, nil
+	}
+
+	password, err := interactive.PromptPasswordWithConfig(
+		d.ctx,
+		&interactive.PromptPasswordConfig{
+			Prompt: "Password",
+		},
+	)
+	if err != nil {
+		return "", fmt.Errorf("failed to get password: %w", err)
+	}
+
+	return password, nil
 }
 
 // Organization returns the default organization.
