@@ -9,13 +9,13 @@ importers:
   .:
     dependencies:
       actions-up:
-        specifier: 1.20.0
-        version: 1.20.0
+        specifier: 1.21.0
+        version: 1.21.0
 
 packages:
 
-  actions-up@1.20.0:
-    resolution: {integrity: sha512-Wq1Jdb3YHdyoEv6UriVV889Ymnz683441V8/YApVdDvTtr70QHUqFNHp59FZ05R5gzlC6Y2aaZoymwLg70OAdQ==}
+  actions-up@1.21.0:
+    resolution: {integrity: sha512-HZKLe9RWIRBB5SfjfL0aVTqT7MUiY89jLr9dv147jHXge0/JID5+JCvzcfGmFnEAQmxncw3RzwAFde8r5dLu9A==}
     engines: {node: ^18.3.0 || >=20.0.0}
     hasBin: true
 
@@ -53,7 +53,7 @@ packages:
 
 snapshots:
 
-  actions-up@1.20.0:
+  actions-up@1.21.0:
     dependencies:
       enquirer: 2.4.1
       nanospinner: 1.2.2
