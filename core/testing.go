@@ -228,7 +228,7 @@ func (config *TestConfig) DebugString() string {
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
 func getTestFilePath(t *testing.T, suffix string) string {
 	t.Helper()
-	specialChars := regexp.MustCompile(`[\\?%*:|"<>. ]`)
+	specialChars := regexp.MustCompile(`[\\?%*:|"'<>. ]`)
 
 	// Replace nested tests separators.
 	fileName := strings.ReplaceAll(t.Name(), "/", "-")
