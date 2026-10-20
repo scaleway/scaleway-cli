@@ -6,6 +6,7 @@ USAGE:
   scw object bucket <command>
 
 AVAILABLE COMMANDS:
+  cockpit     Open the Cockpit Grafana dashboard for this bucket
   create      Create an S3 bucket
   delete      Delete an S3 bucket
   get         Get information about an S3 bucket

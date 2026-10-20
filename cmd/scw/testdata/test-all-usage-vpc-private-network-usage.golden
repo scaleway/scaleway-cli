@@ -9,6 +9,7 @@ USAGE:
   scw vpc private-network <command>
 
 AVAILABLE COMMANDS:
+  cockpit     Open the Cockpit Grafana dashboard for this private network
   create      Create a Private Network
   delete      Delete a Private Network
   enable-dhcp Enable DHCP on a Private Network
