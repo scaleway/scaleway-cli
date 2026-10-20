@@ -319,6 +319,50 @@ scw k8s cluster get 11111111-1111-1111-1111-111111111111
 
 
 
+### Execute a one-shot kubectl command against a cluster
+
+Execute a one-shot kubectl command against a Kubernetes Kapsule cluster.
+
+The cluster kubeconfig is downloaded to a temporary file (removed on exit)
+and passed to kubectl through the KUBECONFIG environment variable.
+
+The first argument is the cluster ID, followed by the arguments to pass to kubectl.
+Only the "region" argument is interpreted by scw, every other argument is passed
+to kubectl as-is. If a kubectl argument starts with a dash, prefix the kubectl
+arguments with "--":
+
+    scw k8s cluster kubectl 1111... get nodes
+    scw k8s cluster kubectl 1111... -- get pods -o wide
+    scw k8s cluster kubectl 1111... -- get pods -l app=web
+
+**Usage:**
+
+```shell
+scw k8s cluster kubectl
+```
+
+
+**Examples:**
+
+
+List the nodes of a cluster
+```shell
+scw k8s cluster kubectl 11111111-1111-1111-1111-111111111111 get nodes
+```
+
+List pods in wide format (note the -- separator before kubectl flags)
+```shell
+scw k8s cluster kubectl 11111111-1111-1111-1111-111111111111 -- get pods -o wide
+```
+
+List nodes of a cluster in a specific region
+```shell
+scw k8s cluster kubectl 11111111-1111-1111-1111-111111111111 region=fr-par get nodes
+```
+
+
+
+
 ### List Clusters
 
 List all existing Kubernetes clusters in a specific region.

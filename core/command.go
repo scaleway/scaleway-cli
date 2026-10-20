@@ -49,6 +49,12 @@ type Command struct {
 	// If enabled, positional argument is expected to be a list.
 	AcceptMultiplePositionalArgs bool
 
+	// AutoCompleteFunc provides autocompletion for free-form arguments
+	// passed through to an external tool (e.g. kubectl). When set, any word
+	// typed after the command path is completed with this function, which
+	// can retrieve the ordered typed words via ExtractTypedArgs.
+	AutoCompleteFunc AutoCompleteArgFunc
+
 	// View defines the View for this command.
 	// It is used to create the different options for the different Marshalers.
 	View *View

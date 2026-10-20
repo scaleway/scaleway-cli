@@ -37,6 +37,68 @@ func (d *clusterConnectTemplateData) Cluster() (*k8s.Cluster, error) {
 	})
 }
 
+// runWithKubeconfig writes the cluster kubeconfig to a temporary file
+// (0600, removed on exit), points KUBECONFIG at it (dropping any user
+// KUBECONFIG) and executes the command built by buildCmdArgs, which receives
+// the temporary file path. The child exit code is propagated: a non-zero exit
+// code returns a CliError with that code.
+func runWithKubeconfig(
+	ctx context.Context,
+	kubeconfig string,
+	buildCmdArgs func(kubeconfigPath string) ([]string, error),
+) error {
+	// The kubeconfig contains secrets, keep it 0600 and clean it up on exit
+	kubeconfigFile, err := os.CreateTemp("", "scw-k8s-kubeconfig-*.yaml")
+	if err != nil {
+		return err
+	}
+
+	defer func() {
+		errClose := kubeconfigFile.Close()
+		if errClose != nil {
+			core.ExtractLogger(ctx).Errorf("error closing kubeconfig: %v", errClose)
+
+			return
+		}
+		errRemove := os.Remove(kubeconfigFile.Name())
+		if errRemove != nil {
+			core.ExtractLogger(ctx).Errorf("error removing kubeconfig: %v", errRemove)
+		}
+	}()
+
+	if _, err := kubeconfigFile.WriteString(kubeconfig); err != nil {
+		return err
+	}
+
+	cmdArgs, err := buildCmdArgs(kubeconfigFile.Name())
+	if err != nil {
+		return err
+	}
+
+	// Drop any user KUBECONFIG so the tool only sees this cluster
+	env := make([]string, 0, len(os.Environ())+1)
+	for _, e := range os.Environ() {
+		if !strings.HasPrefix(e, "KUBECONFIG=") {
+			env = append(env, e)
+		}
+	}
+
+	env = append(env, "KUBECONFIG="+kubeconfigFile.Name())
+
+	cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
+	cmd.Env = env
+
+	exitCode, err := connect.ExecCmd(ctx, cmd)
+	if err != nil {
+		return err
+	}
+	if exitCode != 0 {
+		return &core.CliError{Empty: true, Code: exitCode}
+	}
+
+	return nil
+}
+
 func clusterConnectCommand() *core.Command {
 	return &core.Command{
 		Namespace: "k8s",
@@ -81,65 +143,24 @@ Available variables:
 				return nil, err
 			}
 
-			kubeconfig := kubeconfigRes.(string)
-
-			// The kubeconfig contains secrets, keep it 0600 and clean it up on exit
-			kubeconfigFile, err := os.CreateTemp("", "scw-k8s-kubeconfig-*.yaml")
-			if err != nil {
-				return nil, err
-			}
-
-			defer func() {
-				errClose := kubeconfigFile.Close()
-				if errClose != nil {
-					core.ExtractLogger(ctx).Errorf("error closing kubeconfig: %v", errClose)
-
-					return
-				}
-				errRemove := os.Remove(kubeconfigFile.Name())
-				if errRemove != nil {
-					core.ExtractLogger(ctx).Errorf("error removing kubeconfig: %v", errRemove)
-
-					return
-				}
-			}()
-
-			if _, err := kubeconfigFile.WriteString(kubeconfig); err != nil {
-				return nil, err
-			}
-
 			templateData := &clusterConnectTemplateData{
 				TemplateData: connect.NewTemplateData(ctx),
 				client:       core.ExtractClient(ctx),
 				ClusterID:    args.ClusterID,
 				Region:       args.Region,
-				Kubeconfig:   kubeconfigFile.Name(),
 			}
 
-			cmdArgs, err := connect.RenderCommand(args.Template, templateData)
+			err = runWithKubeconfig(
+				ctx,
+				kubeconfigRes.(string),
+				func(kubeconfigPath string) ([]string, error) {
+					templateData.Kubeconfig = kubeconfigPath
+
+					return connect.RenderCommand(args.Template, templateData)
+				},
+			)
 			if err != nil {
 				return nil, err
-			}
-
-			// Drop any user KUBECONFIG so the tool only sees this cluster
-			env := make([]string, 0, len(os.Environ())+1)
-			for _, e := range os.Environ() {
-				if !strings.HasPrefix(e, "KUBECONFIG=") {
-					env = append(env, e)
-				}
-			}
-
-			env = append(env, "KUBECONFIG="+kubeconfigFile.Name())
-
-			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
-			cmd.Env = env
-
-			exitCode, err := connect.ExecCmd(ctx, cmd)
-			if err != nil {
-				return nil, err
-			}
-			if exitCode != 0 {
-				return nil, &core.CliError{Empty: true, Code: exitCode}
 			}
 
 			return &core.SuccessResult{Empty: true}, nil
