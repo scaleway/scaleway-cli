@@ -6,6 +6,7 @@ USAGE:
   scw container container <command>
 
 AVAILABLE COMMANDS:
+  cockpit                 Open the Cockpit Grafana dashboard for this container
   create                  Create a new container in a namespace.
   delete                  Delete the container associated with the specified ID.
   get                     Get the container associated with the specified ID.

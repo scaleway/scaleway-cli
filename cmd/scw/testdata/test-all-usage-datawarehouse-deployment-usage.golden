@@ -6,6 +6,7 @@ USAGE:
   scw datawarehouse deployment <command>
 
 AVAILABLE COMMANDS:
+  cockpit         Open the Cockpit Grafana dashboard for this data warehouse
   create          Create a deployment
   delete          Delete a deployment
   get             Get a deployment

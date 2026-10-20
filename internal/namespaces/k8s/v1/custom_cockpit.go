@@ -5,6 +5,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -37,8 +38,13 @@ func clusterCockpitCommand() *core.Command {
 				return nil, err
 			}
 
-			return core.OpenCockpitDashboard(
-				ctx, "scw-kubernetes-cluster-overview", "cluster_name", cluster,
+			return cockpit.OpenDashboard(
+				ctx,
+				"scw-kubernetes-cluster-overview",
+				map[string]string{
+					"region":       string(cluster.Region),
+					"cluster_name": cluster.Name,
+				},
 			)
 		},
 	}

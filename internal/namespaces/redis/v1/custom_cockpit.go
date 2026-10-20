@@ -5,6 +5,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -37,7 +38,12 @@ func clusterCockpitCommand() *core.Command {
 				return nil, err
 			}
 
-			return core.OpenCockpitDashboard(ctx, "scw-redis-overview", "resource_name", cluster)
+			region, _ := cluster.Zone.Region()
+
+			return cockpit.OpenDashboard(ctx, "scw-redis-overview", map[string]string{
+				"region":        string(region),
+				"resource_name": cluster.Name,
+			})
 		},
 	}
 }

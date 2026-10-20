@@ -5,6 +5,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1"
 	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -37,7 +38,10 @@ func instanceCockpitCommand() *core.Command {
 				return nil, err
 			}
 
-			return core.OpenCockpitDashboard(ctx, "scw-mongodb-overview", "cl_name", instance)
+			return cockpit.OpenDashboard(ctx, "scw-mongodb-overview", map[string]string{
+				"region":  string(instance.Region),
+				"cl_name": instance.Name,
+			})
 		},
 	}
 }
