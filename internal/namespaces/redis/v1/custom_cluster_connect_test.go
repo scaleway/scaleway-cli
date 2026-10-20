@@ -41,11 +41,13 @@ func Test_ClusterConnect(t *testing.T) {
 
 	t.Run("not-installed", core.Test(&core.TestConfig{
 		Commands: redis.GetCommands(),
+		// No OverrideExec: the command really tries to exec a tool that does
+		// not exist, and the child process must fail to start.
 		Cmd: "scw redis cluster connect " + connectNotInstalledClusterID +
 			` template="not-a-real-tool-xyz --host {{"{{"}}.Host{{"}}"}}"`,
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
-			core.TestCheckStderrContains("not-a-real-tool-xyz is not installed"),
+			core.TestCheckStderrContains(`Exec: "not-a-real-tool-xyz": executable file not found`),
 		),
 	}))
 

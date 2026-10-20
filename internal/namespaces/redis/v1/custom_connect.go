@@ -12,6 +12,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/connect"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	redisSDK "github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -33,6 +34,9 @@ type clusterConnectArgs struct {
 // the base connect values plus the redis cluster values.
 type clusterConnectTemplateData struct {
 	*connect.TemplateData
+	// The context is stored because the no-arg template method (Password)
+	// cannot receive it as a parameter.
+	ctx        context.Context //nolint:containedctx
 	Host       string
 	Port       uint32
 	UserName   string
@@ -40,6 +44,7 @@ type clusterConnectTemplateData struct {
 	CACert     string
 	ClusterID  string
 	Zone       scw.Zone
+	password   string
 	client     *scw.Client
 }
 
@@ -49,6 +54,32 @@ func (d *clusterConnectTemplateData) Cluster() (*redisSDK.Cluster, error) {
 		ClusterID: d.ClusterID,
 		Zone:      d.Zone,
 	})
+}
+
+// Password returns the password of the connect session: the one passed on
+// the command line when provided, otherwise the user is prompted for it.
+// Resolved lazily: the prompt only happens when the template references
+// {{.Password}} (Go templates invoke no-arg methods at the point of use).
+func (d *clusterConnectTemplateData) Password() (string, error) {
+	if d.password != "" {
+		return d.password, nil
+	}
+
+	password, err := interactive.PromptPasswordWithConfig(
+		d.ctx,
+		&interactive.PromptPasswordConfig{
+			Prompt: "Password",
+		},
+	)
+	if err != nil {
+		return "", fmt.Errorf("failed to get password: %w", err)
+	}
+
+	// Cache the prompted value so a template referencing {{.Password}}
+	// more than once does not prompt again.
+	d.password = password
+
+	return password, nil
 }
 
 func clusterConnectCommand() *core.Command {
@@ -153,7 +184,8 @@ Available variables:
 			}
 
 			templateData := &clusterConnectTemplateData{
-				TemplateData: connect.NewTemplateData(ctx).WithPassword(args.Password),
+				TemplateData: connect.NewTemplateData(ctx),
+				ctx:          ctx,
 				Host:         endpoint.IPs[0].String(),
 				Port:         endpoint.Port,
 				UserName:     cluster.UserName,
@@ -161,20 +193,13 @@ Available variables:
 				CACert:       certPath,
 				ClusterID:    args.ClusterID,
 				Zone:         args.Zone,
+				password:     args.Password,
 				client:       client,
 			}
 
 			cmdArgs, err := connect.RenderCommand(args.Template, templateData)
 			if err != nil {
 				return nil, err
-			}
-
-			if _, err := exec.LookPath(cmdArgs[0]); err != nil {
-				return nil, fmt.Errorf(
-					"%s is not installed. Please install %s to use this command",
-					cmdArgs[0],
-					cmdArgs[0],
-				)
 			}
 
 			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
