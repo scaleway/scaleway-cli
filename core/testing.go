@@ -318,7 +318,7 @@ var foldersUsingVCRv4 = []string{
 	"internal/namespaces/autoscaling/v1alpha2",
 	"internal/namespaces/baremetal/v1",
 	"internal/namespaces/block/v1alpha1",
-	"internal/namesapces/config",
+	"internal/namespaces/config",
 	"internal/namespaces/container/v1",
 	"internal/namespaces/feedback",
 	"internal/namespaces/flexibleip/v1alpha1",
