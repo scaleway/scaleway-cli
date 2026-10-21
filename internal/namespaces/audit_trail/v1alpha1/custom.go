@@ -10,6 +10,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("audit-trail").Groups = []string{"security", "monitoring"}
 
 	cmds.MustFind("audit-trail", "event", "list").Override(eventListBuilder)
+	cmds.MustFind("audit-trail", "product", "list").Override(productListBuilder)
 
 	return cmds
 }
