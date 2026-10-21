@@ -21,6 +21,12 @@ type lifecycleCreateArgs struct {
 	LifecycleConfiguration string
 	Region                 scw.Region
 	ProjectID              string
+	S3Endpoint             string
+	S3UsePathStyle         string
+}
+
+func (a lifecycleCreateArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
 }
 
 func lifecycleCreateCommand() *core.Command {
@@ -33,10 +39,11 @@ func lifecycleCreateCommand() *core.Command {
 		ArgsType:  reflect.TypeFor[lifecycleCreateArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "bucket",
-				Positional: true,
-				Required:   true,
-				Short:      "The name of the bucket to which assign the lifecycle configuration.",
+				Name:             "bucket",
+				Positional:       true,
+				Required:         true,
+				Short:            "The name of the bucket to which assign the lifecycle configuration.",
+				AutoCompleteFunc: autocompleteBucketName,
 			},
 			{
 				Name:       "lifecycle-configuration",
@@ -44,6 +51,8 @@ func lifecycleCreateCommand() *core.Command {
 				Required:   true,
 				Short:      "The path to the local JSON file containing the bucket lifecycle configuration.",
 			},
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -76,7 +85,13 @@ func lifecycleCreateCommand() *core.Command {
 				)
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
+			client, err := newS3Client(
+				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
+			)
+			if err != nil {
+				return nil, err
+			}
+
 			params := s3.PutBucketLifecycleConfigurationInput{
 				Bucket:                 &args.Bucket,
 				LifecycleConfiguration: &config,
@@ -87,7 +102,12 @@ func lifecycleCreateCommand() *core.Command {
 				return nil, fmt.Errorf("could not create bucket lifecycle configuration: %w", err)
 			}
 
-			bucket, err := getBucketInfo(ctx, args.Region, args.Bucket, args.ProjectID)
+			bucket, err := getBucketInfo(
+				ctx,
+				args.Region,
+				args.Bucket,
+				client,
+			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
 			}
@@ -104,9 +124,15 @@ func lifecycleCreateCommand() *core.Command {
 }
 
 type lifecycleDeleteArgs struct {
-	Bucket    string
-	Region    scw.Region
-	ProjectID string
+	Bucket         string
+	Region         scw.Region
+	ProjectID      string
+	S3Endpoint     string
+	S3UsePathStyle string
+}
+
+func (a lifecycleDeleteArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
 }
 
 func lifecycleDeleteCommand() *core.Command {
@@ -125,6 +151,8 @@ func lifecycleDeleteCommand() *core.Command {
 				Short:            "The unique name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -134,12 +162,18 @@ func lifecycleDeleteCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
+			client, err := newS3Client(
+				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
+			)
+			if err != nil {
+				return nil, err
+			}
+
 			params := s3.DeleteBucketLifecycleInput{
 				Bucket: &args.Bucket,
 			}
 
-			_, err := client.DeleteBucketLifecycle(ctx, &params)
+			_, err = client.DeleteBucketLifecycle(ctx, &params)
 			if err != nil {
 				return nil, fmt.Errorf("could not delete bucket lifecycle: %w", err)
 			}
@@ -153,9 +187,15 @@ func lifecycleDeleteCommand() *core.Command {
 }
 
 type lifecycleGetArgs struct {
-	Bucket    string
-	Region    scw.Region
-	ProjectID string
+	Bucket         string
+	Region         scw.Region
+	ProjectID      string
+	S3Endpoint     string
+	S3UsePathStyle string
+}
+
+func (a lifecycleGetArgs) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
 }
 
 func lifecycleGetCommand() *core.Command {
@@ -174,6 +214,8 @@ func lifecycleGetCommand() *core.Command {
 				Short:            "The unique name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -183,7 +225,13 @@ func lifecycleGetCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
+			client, err := newS3Client(
+				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
+			)
+			if err != nil {
+				return nil, err
+			}
+
 			params := s3.GetBucketLifecycleConfigurationInput{
 				Bucket: &args.Bucket,
 			}
