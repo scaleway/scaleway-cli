@@ -9,6 +9,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"reflect"
+	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/connect"
@@ -17,10 +18,12 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-// defaultConnectTemplate renders the same redis-cli invocation the connect
-// command has always used: the endpoint, the password, the TLS certificate
-// (when TLS is enabled) and the cluster user.
-const defaultConnectTemplate = `redis-cli -h {{.Host}} -p {{.Port}} -a {{.Password}}{{if .TLSEnabled}} --tls --cacert {{.CACert}}{{end}}{{if .UserName}} --user {{.UserName}}{{end}}`
+// defaultConnectTemplate renders the default redis-cli invocation: the
+// endpoint, the TLS certificate (when TLS is enabled) and the cluster
+// user. The password is not on the command line, where it would be visible
+// in the process list: redis-cli picks it up from the REDISCLI_AUTH
+// environment variable the connect command exports.
+const defaultConnectTemplate = `redis-cli -h {{.Host}} -p {{.Port}}{{if .TLSEnabled}} --tls --cacert {{.CACert}}{{end}}{{if .UserName}} --user {{.UserName}}{{end}}`
 
 type clusterConnectArgs struct {
 	ClusterID      string
@@ -58,8 +61,9 @@ func (d *clusterConnectTemplateData) Cluster() (*redisSDK.Cluster, error) {
 
 // Password returns the password of the connect session: the one passed on
 // the command line when provided, otherwise the user is prompted for it.
-// Resolved lazily: the prompt only happens when the template references
-// {{.Password}} (Go templates invoke no-arg methods at the point of use).
+// The connect command always resolves it up front (it is exported to the
+// child process as REDISCLI_AUTH); the result is cached so a template
+// referencing {{.Password}} does not prompt again.
 func (d *clusterConnectTemplateData) Password() (string, error) {
 	if d.password != "" {
 		return d.password, nil
@@ -90,7 +94,9 @@ func clusterConnectCommand() *core.Command {
 		Short:     `Connect to a Redis cluster using locally installed redis-cli, or a custom command via template`,
 		Long: `Connect to a Redis cluster using locally installed redis-cli.
 
-The command prompts for the password (unless password= is provided), downloads the cluster TLS certificate to a temporary file (removed when the command exits) when TLS is enabled, and connects to the cluster endpoint.
+The command prompts for the password (unless password= is provided), downloads the cluster TLS certificate to a temporary file (removed when the command exits) when TLS is enabled, and connects to the cluster endpoint with redis-cli's -h/-p options.
+
+The password is not on the command line, where it would be visible in the process list: it is exported to the connect command as the REDISCLI_AUTH environment variable (the standard redis-cli auth variable). Any REDISCLI_AUTH already set in the environment is replaced by it.
 
 Use template to connect with a different tool instead. Its value (default: the redis-cli command below) is rendered as a Go text/template and the result is executed as the connect command.
 Available variables:
@@ -115,7 +121,7 @@ Available variables:
 			},
 			{
 				Name:  "password",
-				Short: `Password to connect with. If not provided, the user is prompted for it`,
+				Short: `Password to connect with. If not provided, the user is prompted for it. Exported to the connect command as the REDISCLI_AUTH environment variable`,
 			},
 			core.ZoneArgSpec(),
 		},
@@ -202,7 +208,26 @@ Available variables:
 				return nil, err
 			}
 
+			// The password is exported as REDISCLI_AUTH, the standard redis-cli
+			// auth environment variable, instead of being passed on the command
+			// line where it would be visible in the process list.
+			password, err := templateData.Password()
+			if err != nil {
+				return nil, err
+			}
+
+			// Drop any user REDISCLI_AUTH so the tool only sees this session's password
+			env := make([]string, 0, len(os.Environ())+1)
+			for _, e := range os.Environ() {
+				if !strings.HasPrefix(e, "REDISCLI_AUTH=") {
+					env = append(env, e)
+				}
+			}
+
+			env = append(env, "REDISCLI_AUTH="+password)
+
 			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
+			cmd.Env = env
 
 			exitCode, err := connect.ExecCmd(ctx, cmd)
 			if err != nil {

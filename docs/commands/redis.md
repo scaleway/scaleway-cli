@@ -123,7 +123,9 @@ A Redis™ Database Instance, also known as a Redis™ cluster, consists of eith
 
 Connect to a Redis cluster using locally installed redis-cli.
 
-The command prompts for the password (unless password= is provided), downloads the cluster TLS certificate to a temporary file (removed when the command exits) when TLS is enabled, and connects to the cluster endpoint.
+The command prompts for the password (unless password= is provided), downloads the cluster TLS certificate to a temporary file (removed when the command exits) when TLS is enabled, and connects to the cluster endpoint with redis-cli's -h/-p options.
+
+The password is not on the command line, where it would be visible in the process list: it is exported to the connect command as the REDISCLI_AUTH environment variable (the standard redis-cli auth variable). Any REDISCLI_AUTH already set in the environment is replaced by it.
 
 Use template to connect with a different tool instead. Its value (default: the redis-cli command below) is rendered as a Go text/template and the result is executed as the connect command.
 Available variables:
@@ -138,13 +140,13 @@ scw redis cluster connect <cluster-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                     | Argument Specifications                                                                                                                                         |
-|-----------------|---------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| private-network | Connect by the private network endpoint attached.                               | Default: `false`                                                                                                                                                |
-| cluster-id      | UUID of the cluster                                                             | Required                                                                                                                                                        |
-| template        | Command line to run instead of the default redis-cli one, as a Go text/template | Default: `redis-cli -h {{.Host}} -p {{.Port}} -a {{.Password}}{{if .TLSEnabled}} --tls --cacert {{.CACert}}{{end}}{{if .UserName}} --user {{.UserName}}{{end}}` |
-| password        | Password to connect with. If not provided, the user is prompted for it          |                                                                                                                                                                 |
-| zone            | Zone to target. If none is passed will use default zone from the config         | Default: `fr-par-1`                                                                                                                                             |
+| Name            | Description                                                                                                                                       | Argument Specifications                                                                                                                        |
+|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| private-network | Connect by the private network endpoint attached.                                                                                                 | Default: `false`                                                                                                                               |
+| cluster-id      | UUID of the cluster                                                                                                                               | Required                                                                                                                                       |
+| template        | Command line to run instead of the default redis-cli one, as a Go text/template                                                                   | Default: `redis-cli -h {{.Host}} -p {{.Port}}{{if .TLSEnabled}} --tls --cacert {{.CACert}}{{end}}{{if .UserName}} --user {{.UserName}}{{end}}` |
+| password        | Password to connect with. If not provided, the user is prompted for it. Exported to the connect command as the REDISCLI_AUTH environment variable |                                                                                                                                                |
+| zone            | Zone to target. If none is passed will use default zone from the config                                                                           | Default: `fr-par-1`                                                                                                                            |
 
 
 **Examples:**

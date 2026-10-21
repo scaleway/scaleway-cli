@@ -6,6 +6,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"slices"
+	"strings"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -24,6 +25,18 @@ const (
 	connectNotInstalledClusterID = "aabbccdd-eeff-0011-2233-445566778899"
 	connectPasswordArgClusterID  = "99999999-8888-7777-6666-555555555555"
 )
+
+// envRedisAuth returns the value of REDISCLI_AUTH in the child process
+// environment, or "" if it is not set.
+func envRedisAuth(cmd *exec.Cmd) string {
+	for _, e := range cmd.Env {
+		if v, ok := strings.CutPrefix(e, "REDISCLI_AUTH="); ok {
+			return v
+		}
+	}
+
+	return ""
+}
 
 func Test_ClusterConnect(t *testing.T) {
 	checkNoCertLeftover := func(clusterID string) func(t *testing.T, _ *core.CheckFuncCtx) {
@@ -45,6 +58,8 @@ func Test_ClusterConnect(t *testing.T) {
 		// not exist, and the child process must fail to start.
 		Cmd: "scw redis cluster connect " + connectNotInstalledClusterID +
 			` template="not-a-real-tool-xyz --host {{"{{"}}.Host{{"}}"}}"`,
+		// The password prompt always fires, even with a custom template.
+		PromptResponseMocks: []string{"P@sSw0Rd"},
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			core.TestCheckStderrContains(`Exec: "not-a-real-tool-xyz": executable file not found`),
@@ -54,26 +69,30 @@ func Test_ClusterConnect(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands: redis.GetCommands(),
 		Cmd:      "scw redis cluster connect " + connectSimpleClusterID,
-		// The default template must build the same redis-cli invocation as
-		// before the template refactor: endpoint, password, TLS certificate, user.
+		// The default template must build the redis-cli invocation: host,
+		// port, --tls, --cacert and --user. The password is not in the
+		// command: it must be exported as REDISCLI_AUTH.
 		// No password=: the user is prompted.
 		PromptResponseMocks: []string{"P@sSw0Rd"},
 		OverrideExec: func(_ *core.ExecFuncCtx, cmd *exec.Cmd) (int, error) {
-			if len(cmd.Args) != 12 {
+			if len(cmd.Args) != 10 {
 				return 0, fmt.Errorf("unexpected args: %v", cmd.Args)
 			}
 			want := []string{
-				"redis-cli", "-h", "78.232.49.55", "-p", "6379", "-a", "P@sSw0Rd",
+				"redis-cli", "-h", "78.232.49.55", "-p", "6379",
 				"--tls", "--cacert",
 			}
-			if !slices.Equal(cmd.Args[:9], want) {
+			if !slices.Equal(cmd.Args[:7], want) {
 				return 0, fmt.Errorf("unexpected args: %v", cmd.Args)
 			}
-			if _, err := os.Stat(cmd.Args[9]); err != nil {
+			if _, err := os.Stat(cmd.Args[7]); err != nil {
 				return 0, fmt.Errorf("certificate file not found: %w", err)
 			}
-			if cmd.Args[10] != "--user" || cmd.Args[11] != "admin" {
+			if cmd.Args[8] != "--user" || cmd.Args[9] != "admin" {
 				return 0, fmt.Errorf("unexpected args: %v", cmd.Args)
+			}
+			if got := envRedisAuth(cmd); got != "P@sSw0Rd" {
+				return 0, fmt.Errorf("unexpected REDISCLI_AUTH: %q", got)
 			}
 
 			return 0, nil
@@ -92,18 +111,22 @@ func Test_ClusterConnect(t *testing.T) {
 		// below fails.
 		PromptResponseMocks: []string{"should-not-be-prompted"},
 		OverrideExec: func(_ *core.ExecFuncCtx, cmd *exec.Cmd) (int, error) {
-			if len(cmd.Args) != 12 {
+			if len(cmd.Args) != 10 {
 				return 0, fmt.Errorf("unexpected args: %v", cmd.Args)
 			}
 			want := []string{
-				"redis-cli", "-h", "78.232.49.55", "-p", "6379", "-a", "P@sSw0Rd",
+				"redis-cli", "-h", "78.232.49.55", "-p", "6379",
 				"--tls", "--cacert",
 			}
-			if !slices.Equal(cmd.Args[:9], want) {
+			if !slices.Equal(cmd.Args[:7], want) {
 				return 0, fmt.Errorf("unexpected args: %v", cmd.Args)
 			}
-			if cmd.Args[10] != "--user" || cmd.Args[11] != "admin" {
+			if cmd.Args[8] != "--user" || cmd.Args[9] != "admin" {
 				return 0, fmt.Errorf("unexpected args: %v", cmd.Args)
+			}
+			// The prompted trap value must not leak into REDISCLI_AUTH.
+			if got := envRedisAuth(cmd); got != "P@sSw0Rd" {
+				return 0, fmt.Errorf("unexpected REDISCLI_AUTH: %q", got)
 			}
 
 			return 0, nil
@@ -119,6 +142,8 @@ func Test_ClusterConnect(t *testing.T) {
 		// The template braces are escaped so the test framework's own templating leaves them for the CLI
 		Cmd: "scw redis cluster connect " + connectTemplateClusterID +
 			` template="sleep {{"{{"}}.Port{{"}}"}}"`,
+		// The password prompt always fires, even with a custom template.
+		PromptResponseMocks: []string{"P@sSw0Rd"},
 		OverrideExec: func(_ *core.ExecFuncCtx, cmd *exec.Cmd) (int, error) {
 			want := []string{"sleep", "6379"}
 			if !slices.Equal(cmd.Args, want) {
@@ -139,6 +164,8 @@ func Test_ClusterConnect(t *testing.T) {
 		// long-running session, then keeps running until terminated.
 		Cmd: "scw redis cluster connect " + connectInterruptedClusterID +
 			` template="sh -c 'sleep 1; kill -INT $PPID; exec sleep 300'"`,
+		// The password prompt always fires, even with a custom template.
+		PromptResponseMocks: []string{"P@sSw0Rd"},
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(130),
 			checkNoCertLeftover(connectInterruptedClusterID),
