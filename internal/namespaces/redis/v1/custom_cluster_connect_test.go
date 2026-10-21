@@ -57,7 +57,7 @@ func Test_ClusterConnect(t *testing.T) {
 		// No OverrideExec: the command really tries to exec a tool that does
 		// not exist, and the child process must fail to start.
 		Cmd: "scw redis cluster connect " + connectNotInstalledClusterID +
-			` template="not-a-real-tool-xyz --host {{"{{"}}.Host{{"}}"}}"`,
+			` template="not-a-real-tool-xyz --host {{"{{"}}.Endpoint.Host{{"}}"}}"`,
 		// The password prompt always fires, even with a custom template.
 		PromptResponseMocks: []string{"P@sSw0Rd"},
 		Check: core.TestCheckCombine(
@@ -141,7 +141,7 @@ func Test_ClusterConnect(t *testing.T) {
 		Commands: redis.GetCommands(),
 		// The template braces are escaped so the test framework's own templating leaves them for the CLI
 		Cmd: "scw redis cluster connect " + connectTemplateClusterID +
-			` template="sleep {{"{{"}}.Port{{"}}"}}"`,
+			` template="sleep {{"{{"}}.Endpoint.Port{{"}}"}}"`,
 		// The password prompt always fires, even with a custom template.
 		PromptResponseMocks: []string{"P@sSw0Rd"},
 		OverrideExec: func(_ *core.ExecFuncCtx, cmd *exec.Cmd) (int, error) {
