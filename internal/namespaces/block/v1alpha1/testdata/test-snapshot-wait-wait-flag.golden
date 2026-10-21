@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                   1f3733f9-b4ac-4a1e-b5a3-78576a5ac4da
-Name                 cli-snp-angry-grothendieck
-ParentVolume.ID      6fe45cd1-e040-4eba-b164-9b4fcd2c4ce9
-ParentVolume.Name    cli-vol-reverent-pascal
+ID                   a4cc2dc3-f11a-4fa3-922f-a3bd59dd19e1
+Name                 cli-snp-intelligent-banach
+ParentVolume.ID      50805e17-89f0-4693-acef-4b711d6d0fb1
+ParentVolume.Name    cli-vol-vibrant-benz
 ParentVolume.Type    sbs_5k
 ParentVolume.Status  available
 Size                 20 GB
@@ -15,11 +15,11 @@ Zone                 fr-par-1
 Class                sbs
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "1f3733f9-b4ac-4a1e-b5a3-78576a5ac4da",
-  "name": "cli-snp-angry-grothendieck",
+  "id": "a4cc2dc3-f11a-4fa3-922f-a3bd59dd19e1",
+  "name": "cli-snp-intelligent-banach",
   "parent_volume": {
-    "id": "6fe45cd1-e040-4eba-b164-9b4fcd2c4ce9",
-    "name": "cli-vol-reverent-pascal",
+    "id": "50805e17-89f0-4693-acef-4b711d6d0fb1",
+    "name": "cli-vol-vibrant-benz",
     "type": "sbs_5k",
     "status": "available"
   },
