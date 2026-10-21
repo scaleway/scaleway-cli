@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                   3d724360-a2a1-43fa-a700-d56b3e80e766
-Name                 cli-snp-festive-kare
-ParentVolume.ID      8652ddc1-0fde-47a3-93d8-777f6d2c1957
-ParentVolume.Name    cli-vol-eloquent-turing
+ID                   9023faba-a9a5-43b6-a43c-81510f4e4134
+Name                 cli-snp-relaxed-visvesvaraya
+ParentVolume.ID      023e1333-49fd-4325-8438-a18a666a1f16
+ParentVolume.Name    cli-vol-musing-joliot
 ParentVolume.Type    sbs_5k
 ParentVolume.Status  available
 Size                 20 GB
@@ -15,11 +15,11 @@ Zone                 fr-par-1
 Class                sbs
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "3d724360-a2a1-43fa-a700-d56b3e80e766",
-  "name": "cli-snp-festive-kare",
+  "id": "9023faba-a9a5-43b6-a43c-81510f4e4134",
+  "name": "cli-snp-relaxed-visvesvaraya",
   "parent_volume": {
-    "id": "8652ddc1-0fde-47a3-93d8-777f6d2c1957",
-    "name": "cli-vol-eloquent-turing",
+    "id": "023e1333-49fd-4325-8438-a18a666a1f16",
+    "name": "cli-vol-musing-joliot",
     "type": "sbs_5k",
     "status": "available"
   },
