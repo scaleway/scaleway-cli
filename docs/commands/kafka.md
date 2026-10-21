@@ -157,13 +157,14 @@ scw kafka cluster update <cluster-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                                 | Argument Specifications                 |
-|--------------|-----------------------------------------------------------------------------|-----------------------------------------|
-| cluster-id   | UUID of the Kafka Clusters to update                                        | Required                                |
-| name         | Name of the Kafka Cluster                                                   |                                         |
-| tags.{index} | Tags of a Kafka Cluster                                                     |                                         |
-| version      | Version of Kafka                                                            |                                         |
-| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+| Name              | Description                                                                 | Argument Specifications                 |
+|-------------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| cluster-id        | UUID of the Kafka Clusters to update                                        | Required                                |
+| name              | Name of the Kafka Cluster                                                   |                                         |
+| tags.{index}      | Tags of a Kafka Cluster                                                     |                                         |
+| version           | Version of Kafka                                                            |                                         |
+| volume-size-bytes | New volume size for each broker, can only increase                          |                                         |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
