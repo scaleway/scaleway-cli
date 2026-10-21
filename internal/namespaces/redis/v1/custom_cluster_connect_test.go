@@ -12,7 +12,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 )
 
 // One cluster id per subtest so the temporary certificate files
@@ -43,12 +42,8 @@ func Test_ClusterConnect(t *testing.T) {
 		return func(t *testing.T, _ *core.CheckFuncCtx) {
 			t.Helper()
 
-			leftovers, err := filepath.Glob(
-				filepath.Join(os.TempDir(), "redis-cert-"+clusterID+".crt"),
-			)
-			require.NoError(t, err)
-
-			assert.Empty(t, leftovers, "temporary certificate must be removed")
+			_, err := os.Stat(filepath.Join(os.TempDir(), "redis-cert-"+clusterID+".crt"))
+			assert.True(t, os.IsNotExist(err), "temporary certificate must be removed")
 		}
 	}
 

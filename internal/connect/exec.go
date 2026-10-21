@@ -4,9 +4,23 @@ import (
 	"context"
 	"os"
 	"os/exec"
+	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 )
+
+// SetEnv replaces any existing key in the command's environment with
+// key=value, so the child process only sees this session's value.
+func SetEnv(cmd *exec.Cmd, key, value string) {
+	env := make([]string, 0, len(cmd.Env)+1)
+	for _, e := range cmd.Env {
+		if !strings.HasPrefix(e, key+"=") {
+			env = append(env, e)
+		}
+	}
+	env = append(env, key+"="+value)
+	cmd.Env = env
+}
 
 // ExecCmd runs the child process of a connect session.
 // On unix, SIGINT/SIGTERM received while the session is running are forwarded

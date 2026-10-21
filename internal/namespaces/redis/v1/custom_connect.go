@@ -9,7 +9,6 @@ import (
 	"os/exec"
 	"path/filepath"
 	"reflect"
-	"strings"
 	"sync"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -45,24 +44,21 @@ type endpoint struct {
 // the base connect values plus the redis cluster values.
 type clusterConnectTemplateData struct {
 	*connect.TemplateData
-	// The context is stored because the no-arg template method (Password)
-	// cannot receive it as a parameter.
-	ctx context.Context //nolint:containedctx
 
-	clusterOnce  sync.Once
-	certOnce     sync.Once
-	passwordOnce sync.Once
+	clusterOnce sync.Once
+	certOnce    sync.Once
 
-	errCluster  error
-	errCert     error
-	errPassword error
-	cluster     *redisSDK.Cluster
-	certPath    string
-	ClusterID   string
-	Zone        scw.Zone
+	errCluster error
+	errCert    error
+	cluster    *redisSDK.Cluster
+	certPath   string
+	ClusterID  string
+	Zone       scw.Zone
+	// Password is the session password, resolved before rendering so that
+	// templates can reference {{.Password}}.
+	Password string
 	// privateNetwork selects the private endpoint instead of the public one.
 	privateNetwork bool
-	password       string
 	client         *scw.Client
 }
 
@@ -115,35 +111,6 @@ func (d *clusterConnectTemplateData) CACert() (string, error) {
 	})
 
 	return d.certPath, d.errCert
-}
-
-// Password returns the password of the connect session: the one passed on
-// the command line when provided, otherwise the user is prompted for it.
-// The connect command always resolves it up front (it is exported to the
-// child process as REDISCLI_AUTH); the result is cached so a template
-// referencing {{.Password}} does not prompt again.
-func (d *clusterConnectTemplateData) Password() (string, error) {
-	d.passwordOnce.Do(func() {
-		if d.password != "" {
-			return
-		}
-
-		password, err := interactive.PromptPasswordWithConfig(
-			d.ctx,
-			&interactive.PromptPasswordConfig{
-				Prompt: "Password",
-			},
-		)
-		if err != nil {
-			d.password, d.errPassword = "", fmt.Errorf("failed to get password: %w", err)
-		}
-
-		// Cache the prompted value so a template referencing {{.Password}}
-		// more than once does not prompt again.
-		d.password = password
-	})
-
-	return d.password, d.errPassword
 }
 
 func (d *clusterConnectTemplateData) downloadCertificate() (string, error) {
@@ -220,16 +187,34 @@ Available variables:
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*clusterConnectArgs)
 
+			// The password is exported to the child process as REDISCLI_AUTH,
+			// the standard redis-cli auth environment variable, instead of
+			// being passed on the command line where it would be visible in
+			// the process list. It is resolved before rendering so templates
+			// can reference {{.Password}}.
+			password := args.Password
+			if password == "" {
+				var err error
+				password, err = interactive.PromptPasswordWithConfig(
+					ctx,
+					&interactive.PromptPasswordConfig{
+						Prompt: "Password",
+					},
+				)
+				if err != nil {
+					return nil, fmt.Errorf("failed to get password: %w", err)
+				}
+			}
+
 			// The cluster, the endpoint and the certificate are resolved
 			// lazily: the API is only called for the values the template
 			// actually references (like Organization and Project).
 			templateData := &clusterConnectTemplateData{
 				TemplateData:   connect.NewTemplateData(ctx),
-				ctx:            ctx,
 				ClusterID:      args.ClusterID,
 				Zone:           args.Zone,
 				privateNetwork: args.PrivateNetwork,
-				password:       args.Password,
+				Password:       password,
 				client:         core.ExtractClient(ctx),
 			}
 			// Remove the temporary certificate, downloaded while rendering
@@ -248,26 +233,9 @@ Available variables:
 				return nil, err
 			}
 
-			// The password is exported as REDISCLI_AUTH, the standard redis-cli
-			// auth environment variable, instead of being passed on the command
-			// line where it would be visible in the process list.
-			password, err := templateData.Password()
-			if err != nil {
-				return nil, err
-			}
-
-			// Drop any user REDISCLI_AUTH so the tool only sees this session's password
-			env := make([]string, 0, len(os.Environ())+1)
-			for _, e := range os.Environ() {
-				if !strings.HasPrefix(e, "REDISCLI_AUTH=") {
-					env = append(env, e)
-				}
-			}
-
-			env = append(env, "REDISCLI_AUTH="+password)
-
 			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
-			cmd.Env = env
+			// Drop any user REDISCLI_AUTH so the tool only sees this session's password.
+			connect.SetEnv(cmd, "REDISCLI_AUTH", password)
 
 			exitCode, err := connect.ExecCmd(ctx, cmd)
 			if err != nil {

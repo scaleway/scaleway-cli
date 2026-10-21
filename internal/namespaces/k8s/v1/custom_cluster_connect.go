@@ -5,7 +5,6 @@ import (
 	"os"
 	"os/exec"
 	"reflect"
-	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/connect"
@@ -121,18 +120,9 @@ Available variables:
 				return nil, err
 			}
 
-			// Drop any user KUBECONFIG so the tool only sees this cluster
-			env := make([]string, 0, len(os.Environ())+1)
-			for _, e := range os.Environ() {
-				if !strings.HasPrefix(e, "KUBECONFIG=") {
-					env = append(env, e)
-				}
-			}
-
-			env = append(env, "KUBECONFIG="+kubeconfigFile.Name())
-
 			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
-			cmd.Env = env
+			// Drop any user KUBECONFIG so the tool only sees this cluster.
+			connect.SetEnv(cmd, "KUBECONFIG", kubeconfigFile.Name())
 
 			exitCode, err := connect.ExecCmd(ctx, cmd)
 			if err != nil {
