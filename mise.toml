@@ -1,6 +1,7 @@
 #:schema https://mise.jdx.dev/schema/mise.json
 
 [settings]
+experimental = true
 lockfile = true
 
 [task_config]
