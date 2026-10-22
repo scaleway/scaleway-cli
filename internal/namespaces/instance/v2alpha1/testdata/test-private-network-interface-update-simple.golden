@@ -1,31 +1,31 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                5d22f1fc-798d-46cc-b3e5-a23fee87c9d0
-Srn               -
-PrivateNetworkID  53d186c4-4baf-44dc-9dc5-23b341cf37bc
+ID                b6d5fd95-6d19-49c2-b479-f64ab1b2815f
+Srn               srn://instance.scw.eu/zones/fr-par-1/private-network-interfaces/b6d5fd95-6d19-49c2-b479-f64ab1b2815f
+PrivateNetworkID  0ebc3cf4-ef79-4ce2-af7e-b4a7e6b3a107
 ProjectID         fa1e3217-dc80-42ac-85c3-3f034b78b552
-ServerID          b4ef71d2-26f7-4dd0-8701-edfea35623eb
-MacAddress        02:00:00:1e:82:31
+ServerID          43abb4e5-3bc1-4ff1-807e-95f14dd21eb2
+MacAddress        02:00:00:1f:08:c6
 Status            available
-IPIDs.0           0cbbad86-e95c-4424-b279-10fa85c733fd
-IPIDs.1           fbea5d57-9023-4f3d-a87e-0ee79088fbba
+IPIDs.0           a17f312e-bf08-4fb8-b70e-bcc77f44ca25
+IPIDs.1           8cd9a069-e190-4bb6-b002-af047663d14c
 Tags.0            cli-test
 Tags.1            update
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
-Zone
+Zone              fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "5d22f1fc-798d-46cc-b3e5-a23fee87c9d0",
-  "srn": "",
-  "private_network_id": "53d186c4-4baf-44dc-9dc5-23b341cf37bc",
+  "id": "b6d5fd95-6d19-49c2-b479-f64ab1b2815f",
+  "srn": "srn://instance.scw.eu/zones/fr-par-1/private-network-interfaces/b6d5fd95-6d19-49c2-b479-f64ab1b2815f",
+  "private_network_id": "0ebc3cf4-ef79-4ce2-af7e-b4a7e6b3a107",
   "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "server_id": "b4ef71d2-26f7-4dd0-8701-edfea35623eb",
-  "mac_address": "02:00:00:1e:82:31",
+  "server_id": "43abb4e5-3bc1-4ff1-807e-95f14dd21eb2",
+  "mac_address": "02:00:00:1f:08:c6",
   "status": "available",
   "ip_ids": [
-    "0cbbad86-e95c-4424-b279-10fa85c733fd",
-    "fbea5d57-9023-4f3d-a87e-0ee79088fbba"
+    "a17f312e-bf08-4fb8-b70e-bcc77f44ca25",
+    "8cd9a069-e190-4bb6-b002-af047663d14c"
   ],
   "tags": [
     "cli-test",
@@ -33,5 +33,5 @@ Zone
   ],
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
-  "zone": ""
+  "zone": "fr-par-1"
 }
