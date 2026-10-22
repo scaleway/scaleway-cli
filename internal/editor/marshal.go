@@ -1,7 +1,8 @@
 package editor
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"fmt"
 	"strings"
 
@@ -32,7 +33,7 @@ func marshal(i any, mode MarshalMode) ([]byte, error) {
 	case MarshalModeYAML:
 		marshaledData, err = yaml.Marshal(i)
 	case MarshalModeJSON:
-		marshaledData, err = json.MarshalIndent(i, "", "  ")
+		marshaledData, err = json.Marshal(i, jsontext.WithIndent("  "))
 	}
 	if err != nil {
 		return marshaledData, err

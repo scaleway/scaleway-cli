@@ -2,7 +2,7 @@ package inference
 
 import (
 	"context"
-	"encoding/json"
+	"encoding/json/v2"
 	"errors"
 	"fmt"
 	"net/http"
@@ -202,7 +202,7 @@ func fetchModels(ctx context.Context, secret string) (*ListServerlessModelsRespo
 	}
 
 	var listResp ListServerlessModelsResponse
-	if err := json.NewDecoder(resp.Body).Decode(&listResp); err != nil {
+	if err := json.UnmarshalRead(resp.Body, &listResp); err != nil {
 		return nil, fmt.Errorf("failed to decode response: %w", err)
 	}
 

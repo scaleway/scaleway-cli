@@ -1,7 +1,8 @@
 package core
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"errors"
 	"fmt"
 	"io"
@@ -285,9 +286,14 @@ func (p *Printer) printJSON(data any) error {
 	if isError {
 		writer = p.stderr
 	}
-	encoder := json.NewEncoder(writer)
+	opts := []json.Options{
+		json.Deterministic(true),
+		json.FormatNilSliceAsNull(true),
+		json.FormatNilMapAsNull(true),
+		jsontext.EscapeForHTML(true),
+	}
 	if p.jsonPretty {
-		encoder.SetIndent("", "  ")
+		opts = append(opts, jsontext.WithIndent("  "))
 	}
 
 	// We handle special case to make sure that a nil slice is marshal as `[]`
@@ -297,7 +303,42 @@ func (p *Printer) printJSON(data any) error {
 		return err
 	}
 
-	return encoder.Encode(data)
+	// encoding/json v2 refuses to marshal structs with no exported fields
+	// (e.g. *bytes.Buffer), where v1 encoded them as {}.
+	if noExportedFields(data) {
+		_, err := writer.Write([]byte("{}\n"))
+
+		return err
+	}
+
+	if err := json.MarshalWrite(writer, data, opts...); err != nil {
+		return err
+	}
+	_, err = io.WriteString(writer, "\n")
+
+	return err
+}
+
+// noExportedFields reports whether v (or the value it points to) is a struct with no exported fields.
+func noExportedFields(v any) bool {
+	rv := reflect.ValueOf(v)
+	for rv.Kind() == reflect.Pointer || rv.Kind() == reflect.Interface {
+		if rv.IsNil() {
+			return false
+		}
+		rv = rv.Elem()
+	}
+	if rv.Kind() != reflect.Struct {
+		return false
+	}
+	t := rv.Type()
+	for f := range t.Fields() {
+		if f.PkgPath == "" {
+			return false
+		}
+	}
+
+	return true
 }
 
 func (p *Printer) printYAML(data any) error {

@@ -1,7 +1,7 @@
 package qa
 
 import (
-	"encoding/json"
+	"encoding/json/v2"
 	"fmt"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
