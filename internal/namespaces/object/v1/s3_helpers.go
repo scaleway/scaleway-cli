@@ -94,7 +94,7 @@ func FormatAccessKey(accessKey, argProjectID, defaultProjectID string) (formatte
 var completeBucketACLCache []types.BucketCannedACL
 
 func autocompleteBucketACL(_ context.Context, prefix string, _ any) core.AutocompleteSuggestions {
-	suggestions := core.AutocompleteSuggestions(nil)
+	suggestions := core.AutocompleteSuggestions{}
 
 	if len(completeBucketACLCache) == 0 {
 		var awsCannedACL types.BucketCannedACL
@@ -103,7 +103,7 @@ func autocompleteBucketACL(_ context.Context, prefix string, _ any) core.Autocom
 
 	for _, acl := range completeBucketACLCache {
 		if strings.HasPrefix(string(acl), prefix) {
-			suggestions = append(suggestions, string(acl))
+			suggestions = append(suggestions, core.Suggestion{Value: string(acl)})
 		}
 	}
 

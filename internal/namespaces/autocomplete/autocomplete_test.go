@@ -3,9 +3,70 @@ package autocomplete_test
 import (
 	"testing"
 
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
 	"github.com/stretchr/testify/assert"
 )
+
+func TestSuggestions(t *testing.T) {
+	tests := map[string]struct {
+		Response *core.AutocompleteResponse
+		Fish     string
+		Zsh      string
+	}{
+		"no description": {
+			Response: &core.AutocompleteResponse{
+				Suggestions: core.AutocompleteSuggestions{{Value: "id1"}, {Value: "id2"}},
+			},
+			Fish: "id1\nid2",
+			Zsh:  "id1\nid2",
+		},
+		"with description": {
+			Response: &core.AutocompleteResponse{
+				Suggestions: core.AutocompleteSuggestions{
+					{Value: "id1", Description: "flower1"},
+					{Value: "id2"},
+				},
+			},
+			Fish: "id1\tflower1\nid2",
+			Zsh:  "id1:flower1\nid2",
+		},
+		"arg value suggestion": {
+			Response: &core.AutocompleteResponse{
+				Suggestions: core.AutocompleteSuggestions{
+					{Value: "flower-id=id1", Description: "flower1"},
+				},
+			},
+			Fish: "flower-id=id1\tflower1",
+			Zsh:  "flower-id=id1:flower1",
+		},
+		"sanitized description": {
+			Response: &core.AutocompleteResponse{
+				Suggestions: core.AutocompleteSuggestions{
+					{Value: "id1", Description: "flower\t1\n2"},
+				},
+			},
+			Fish: "id1\tflower 1 2",
+			Zsh:  "id1:flower 1 2",
+		},
+		"escaped value": {
+			Response: &core.AutocompleteResponse{
+				Suggestions: core.AutocompleteSuggestions{
+					{Value: "id:1", Description: "flower1"},
+				},
+			},
+			Fish: "id:1\tflower1",
+			Zsh:  `id\:1:flower1`,
+		},
+	}
+
+	for name, tc := range tests {
+		t.Run(name, func(t *testing.T) {
+			assert.Equal(t, tc.Fish, autocomplete.FishSuggestions(tc.Response))
+			assert.Equal(t, tc.Zsh, autocomplete.ZshSuggestions(tc.Response))
+		})
+	}
+}
 
 func TestTrimText(t *testing.T) {
 	type testCase struct {
