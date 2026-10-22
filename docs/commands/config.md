@@ -134,8 +134,15 @@ scw config import <file ...> [arg=value ...]
 **Usage:**
 
 ```shell
-scw config info
+scw config info [arg=value ...]
 ```
+
+
+**Arguments:**
+
+| Name        | Description       | Argument Specifications |
+|-------------|-------------------|-------------------------|
+| show-secret | Reveal secret key | Default: `false`        |
 
 
 **Examples:**
@@ -149,6 +156,11 @@ scw config info
 Get the config values of the profile 'prod'
 ```shell
 scw -p prod config info
+```
+
+Get the config values, revealing the secret key
+```shell
+scw config info show-secret=true
 ```
 
 
