@@ -44,62 +44,75 @@ type endpoint struct {
 // the base connect values plus the redis cluster values.
 type clusterConnectTemplateData struct {
 	*connect.TemplateData
-
-	clusterOnce sync.Once
-	certOnce    sync.Once
-
-	errCluster error
-	errCert    error
-	cluster    *redisSDK.Cluster
-	certPath   string
-	ClusterID  string
-	Zone       scw.Zone
+	ClusterID string
+	Zone      scw.Zone
 	// Password is the session password, resolved before rendering so that
 	// templates can reference {{.Password}}.
 	Password string
+
+	cluster  *redisSDK.Cluster
+	endpoint *endpoint
+	certPath string
 	// privateNetwork selects the private endpoint instead of the public one.
 	privateNetwork bool
-	client         *scw.Client
+
+	client       *scw.Client
+	clusterOnce  sync.Once
+	clusterErr   error
+	endpointOnce sync.Once
+	endpointErr  error
+	certOnce     sync.Once
+	certErr      error
 }
 
 // Cluster returns the cluster, resolved lazily.
 func (d *clusterConnectTemplateData) Cluster() (*redisSDK.Cluster, error) {
 	d.clusterOnce.Do(func() {
-		d.cluster, d.errCluster = redisSDK.NewAPI(d.client).GetCluster(&redisSDK.GetClusterRequest{
+		d.cluster, d.clusterErr = redisSDK.NewAPI(d.client).GetCluster(&redisSDK.GetClusterRequest{
 			ClusterID: d.ClusterID,
 			Zone:      d.Zone,
 		})
 	})
 
-	return d.cluster, d.errCluster
+	return d.cluster, d.clusterErr
 }
 
 // Endpoint returns the connect address, resolved lazily from the cluster:
 // the first IP and the port of the public endpoint, or of the attached
 // private network endpoint when private-network=true.
 func (d *clusterConnectTemplateData) Endpoint() (*endpoint, error) {
-	cluster, err := d.Cluster()
-	if err != nil {
-		return nil, err
-	}
+	d.endpointOnce.Do(func() {
+		cluster, err := d.Cluster()
+		if err != nil {
+			d.endpoint, d.endpointErr = nil, err
 
-	var selected *redisSDK.Endpoint
-	if d.privateNetwork {
-		selected, err = getPrivateEndpoint(cluster.Endpoints)
-	} else {
-		selected, err = getPublicEndpoint(cluster.Endpoints)
-	}
-	if err != nil {
-		return nil, err
-	}
-	if len(selected.IPs) == 0 {
-		return nil, errors.New("endpoint has no IP addresses")
-	}
+			return
+		}
 
-	return &endpoint{
-		Host: selected.IPs[0].String(),
-		Port: selected.Port,
-	}, nil
+		var selected *redisSDK.Endpoint
+		if d.privateNetwork {
+			selected, err = getPrivateEndpoint(cluster.Endpoints)
+		} else {
+			selected, err = getPublicEndpoint(cluster.Endpoints)
+		}
+		if err != nil {
+			d.endpoint, d.endpointErr = nil, err
+
+			return
+		}
+		if len(selected.IPs) == 0 {
+			d.endpoint, d.endpointErr = nil, errors.New("endpoint has no IP addresses")
+		}
+
+		d.endpoint, d.endpointErr = &endpoint{
+			Host: selected.IPs[0].String(),
+			Port: selected.Port,
+		}, nil
+
+		return
+	})
+
+	return d.endpoint, d.endpointErr
 }
 
 // CACert returns the path of the temporary file holding the cluster TLS
@@ -107,10 +120,10 @@ func (d *clusterConnectTemplateData) Endpoint() (*endpoint, error) {
 // the connect command removes the file when it exits.
 func (d *clusterConnectTemplateData) CACert() (string, error) {
 	d.certOnce.Do(func() {
-		d.certPath, d.errCert = d.downloadCertificate()
+		d.certPath, d.certErr = d.downloadCertificate()
 	})
 
-	return d.certPath, d.errCert
+	return d.certPath, d.certErr
 }
 
 func (d *clusterConnectTemplateData) downloadCertificate() (string, error) {
