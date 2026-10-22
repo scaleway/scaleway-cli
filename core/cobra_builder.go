@@ -63,7 +63,14 @@ func (b *cobraBuilder) build() *cobra.Command {
 		}
 
 		// If Resource is empty, the command represent a namespace directly.
+		// Prefer this command for namespace metadata, but only set it once (first root command wins).
 		if cmd.Resource == "" {
+			existing := commandsIndex[cmd.Namespace]
+			// Only update if the existing command is not already a root command
+			if existing.Resource != "" {
+				commandsIndex[cmd.Namespace] = cmd
+			}
+
 			continue
 		}
 
@@ -76,7 +83,14 @@ func (b *cobraBuilder) build() *cobra.Command {
 			index[cmd.Namespace].AddCommand(cobraCmd)
 		}
 
+		// Prefer commands with no verb for the resource metadata (parent resource command).
+		// Only update if the existing command is not already a parent resource command.
 		if cmd.Verb == "" {
+			existing := commandsIndex[resourceKey]
+			if existing.Verb != "" {
+				commandsIndex[resourceKey] = cmd
+			}
+
 			continue
 		}
 
@@ -211,8 +225,11 @@ func (b *cobraBuilder) hydrateCobra(
 	}
 
 	if cmd.Deprecated {
-		cobraCmd.IsAvailableCommand()
-		cobraCmd.Deprecated = "Deprecated:"
+		cobraCmd.Deprecated = cmd.DeprecationMessage
+		if cobraCmd.Deprecated == "" {
+			// String length has to be > 0 for Cobra to flag the command as deprecated
+			cobraCmd.Deprecated = " "
+		}
 	}
 
 	if commandHasWeb(cmd) {

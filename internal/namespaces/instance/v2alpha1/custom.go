@@ -15,7 +15,13 @@ import (
 // - Merge handwritten commands
 func GetCommands() *core.Commands {
 	cmds := core.NewCommands(
+		instancePlacementGroup(),
 		instanceTemplate(),
+		instancePlacementGroupList(),
+		instancePlacementGroupCreate(),
+		instancePlacementGroupGet(),
+		instancePlacementGroupUpdate(),
+		instancePlacementGroupDelete(),
 		instanceTemplateList(),
 		instanceTemplateCreate(),
 		instanceTemplateGet(),
@@ -30,6 +36,14 @@ func GetCommands() *core.Commands {
 		instanceTemplateCheck(),
 		instanceTemplateCreateServer(),
 	)
+
+	//
+	// Placement Group
+	//
+
+	cmds.MustFind("instance", "placement-group", "create").Override(placementGroupCreateBuilder)
+	cmds.MustFind("instance", "placement-group", "get").Override(placementGroupGetBuilder)
+	cmds.MustFind("instance", "placement-group", "list").Override(placementGroupListBuilder)
 
 	//
 	// Templates
@@ -53,6 +67,10 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("instance", "template", "set-cloud-init").Override(TemplateSetCloudInitBuilder)
 	cmds.MustFind("instance", "template", "get-cloud-init").Override(TemplateGetCloudInitBuilder)
+
+	// Web URLs (--web)
+
+	addWebUrls(cmds)
 
 	return cmds
 }

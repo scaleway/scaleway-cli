@@ -1,16 +1,17 @@
-name: Slack Announcement
-
-permissions:
-  contents: read
+name: announce
 
 on:
   release:
     types:
       - published
 
+permissions: {}
+
 jobs:
   slack:
     runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
+    permissions:
+      contents: read
     steps:
       - name: Announce on slack
         env:

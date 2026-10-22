@@ -28,5 +28,10 @@ func ExecCmd(ctx context.Context, cmd *exec.Cmd) (exitCode int, err error) {
 	cmd.Stdout = meta.stdout
 	cmd.Stderr = meta.stderr
 
-	return meta.OverrideExec(cmd)
+	// A nil OverrideExec means the child process must really be executed.
+	if meta.OverrideExec != nil {
+		return meta.OverrideExec(cmd)
+	}
+
+	return defaultOverrideExec(cmd)
 }

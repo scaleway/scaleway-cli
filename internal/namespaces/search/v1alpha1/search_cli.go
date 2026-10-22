@@ -113,7 +113,7 @@ func searchResourceSearch() *core.Command {
 					"serverless_job_definition",
 					"serverless_sqldb_database",
 					"serverless_sqldb_backup",
-					"ddl_datalab",
+					"datalab",
 					"mgdb_instance",
 					"mgdb_snapshot",
 					"ifr_deployment",
@@ -129,6 +129,8 @@ func searchResourceSearch() *core.Command {
 					"kafk_cluster",
 					"sedb_cluster",
 					"autoscaling_group",
+					"wofl_definition",
+					"wofl_run",
 				},
 			},
 			{

@@ -14,7 +14,7 @@ func createSecret(name string) core.BeforeFunc {
 func createSecretVersion(content string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"SecretVersion",
-		"scw secret version create {{ .Secret.ID }} data="+content,
+		"scw secret version create {{ .Secret.ID }} data='"+content+"'",
 	)
 }
 

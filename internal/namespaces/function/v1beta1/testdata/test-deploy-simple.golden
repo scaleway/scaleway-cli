@@ -1,8 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              1eb1bff4-3ba6-4bef-a8de-6a6508c28a74
+ID              ded87875-47b9-4c7b-93ad-c9a891f86331
+Srn             srn://functions.scw.eu/regions/fr-par/functions/ded87875-47b9-4c7b-93ad-c9a891f86331
 Name            cli-test-function-deploy
-NamespaceID     8b9efc3d-f37b-4fad-af1a-71f11ca8243a
+NamespaceID     a7584290-ac7e-42aa-89b4-38b97f6df3e3
 Status          ready
 MinScale        0
 MaxScale        5
@@ -13,7 +14,7 @@ Timeout         5 minutes
 Handler         Handle
 Privacy         public
 Description     -
-DomainName      clitestfunctiondeploj3ospr1i-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud
+DomainName      clitestfunctiondeplopeeccyly-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud
 Region          fr-par
 HTTPOption      enabled
 RuntimeMessage  -
@@ -23,9 +24,10 @@ UpdatedAt       few seconds ago
 ReadyAt         few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "1eb1bff4-3ba6-4bef-a8de-6a6508c28a74",
+  "id": "ded87875-47b9-4c7b-93ad-c9a891f86331",
+  "srn": "srn://functions.scw.eu/regions/fr-par/functions/ded87875-47b9-4c7b-93ad-c9a891f86331",
   "name": "cli-test-function-deploy",
-  "namespace_id": "8b9efc3d-f37b-4fad-af1a-71f11ca8243a",
+  "namespace_id": "a7584290-ac7e-42aa-89b4-38b97f6df3e3",
   "status": "ready",
   "environment_variables": {},
   "min_scale": 0,
@@ -39,7 +41,7 @@ ReadyAt         few seconds ago
   "build_message": null,
   "privacy": "public",
   "description": "",
-  "domain_name": "clitestfunctiondeploj3ospr1i-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud",
+  "domain_name": "clitestfunctiondeplopeeccyly-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud",
   "secret_environment_variables": [],
   "region": "fr-par",
   "http_option": "enabled",

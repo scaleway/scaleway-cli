@@ -1,32 +1,32 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  CONDITION  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID  SRN
-732a2e80-760c-49f6-9137-70a3c58051c9  [IPAMReadOnly]        projects                    -          [9c3120c4-adb4-4ea4-bd9b-79834955d02f]  -                -                     -
-415dcb71-d6d8-4ef5-9f56-a091ac6b88c2  [VPCReadOnly]         projects                    -          [9c3120c4-adb4-4ea4-bd9b-79834955d02f]  -                -                     -
+fc7679c4-5d2c-4956-bea6-6d2b48f6d91f  [IPAMReadOnly]        projects                    -          [551905dd-83e8-4492-8d2d-ccaf58e65cfd]  -                -                     srn://iam.scw.eu/rules/fc7679c4-5d2c-4956-bea6-6d2b48f6d91f
+f85a14b2-4f32-4b04-aee8-ddf5c93ad95d  [VPCReadOnly]         projects                    -          [551905dd-83e8-4492-8d2d-ccaf58e65cfd]  -                -                     srn://iam.scw.eu/rules/f85a14b2-4f32-4b04-aee8-ddf5c93ad95d
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "732a2e80-760c-49f6-9137-70a3c58051c9",
+    "id": "fc7679c4-5d2c-4956-bea6-6d2b48f6d91f",
     "permission_set_names": [
       "IPAMReadOnly"
     ],
     "permission_sets_scope_type": "projects",
     "condition": "",
     "project_ids": [
-      "9c3120c4-adb4-4ea4-bd9b-79834955d02f"
+      "551905dd-83e8-4492-8d2d-ccaf58e65cfd"
     ],
-    "srn": ""
+    "srn": "srn://iam.scw.eu/rules/fc7679c4-5d2c-4956-bea6-6d2b48f6d91f"
   },
   {
-    "id": "415dcb71-d6d8-4ef5-9f56-a091ac6b88c2",
+    "id": "f85a14b2-4f32-4b04-aee8-ddf5c93ad95d",
     "permission_set_names": [
       "VPCReadOnly"
     ],
     "permission_sets_scope_type": "projects",
     "condition": "",
     "project_ids": [
-      "9c3120c4-adb4-4ea4-bd9b-79834955d02f"
+      "551905dd-83e8-4492-8d2d-ccaf58e65cfd"
     ],
-    "srn": ""
+    "srn": "srn://iam.scw.eu/rules/f85a14b2-4f32-4b04-aee8-ddf5c93ad95d"
   }
 ]

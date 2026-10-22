@@ -13,7 +13,7 @@ func Test_InstallServer(t *testing.T) {
 	t.Run("Simple", func(t *testing.T) {
 		// baremetal api requires that the key must be at least 1024 bits long. Regardless of the algorithm
 		sshKey := `ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCbJuYSOQc01zjHsMyn4OUsW61cqRvttKt3StJgbvt2WBuGpwi1/5RtSoMQpudYlZpdeivFb21S8QRas8zcOc+6WqgWa2nj/8yA+cauRlV6CMWY+hOTkkg39xaekstuQ+WR2/AP7O/9hjVx5735+9ZNIxxHsFjVYdBEuk9gEX+1Rw== foobar@foobar`
-		osID := `03b7f4ba-a6a1-4305-984e-b54fafbf1681` // Ubuntu 20.04 LTS (Focal)
+		osID := `b9a016fc-947f-4bbc-bf95-343c8524535a`
 		cmds := baremetal.GetCommands()
 		cmds.Merge(iam.GetCommands())
 

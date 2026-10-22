@@ -1,211 +1,198 @@
 ---
-version: 1
+version: 2
 interactions:
-- request:
-    body: '{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "region":"fr-par",
-      "created_at":"2024-02-19T15:12:40.034465840Z", "updated_at":"2024-02-19T15:12:40.034465840Z",
-      "id":"ABDLXG3FVXGC4NOWTCLQ6WKPVP3ZVL7FUKWCRH6V5R3FDMHZH5SSLXRJ", "name":"cli-mnq-confident-elion",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.5; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts
-    method: POST
-  response:
-    body: '{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "region":"fr-par",
-      "created_at":"2024-02-19T15:12:40.034465840Z", "updated_at":"2024-02-19T15:12:40.034465840Z",
-      "id":"ABDLXG3FVXGC4NOWTCLQ6WKPVP3ZVL7FUKWCRH6V5R3FDMHZH5SSLXRJ", "name":"cli-mnq-confident-elion",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}'
-    headers:
-      Content-Length:
-      - "320"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 19 Feb 2024 15:12:40 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 734a7fd5-8fd1-4f87-934b-56c068e25ca0
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "region":"fr-par",
-      "created_at":"2024-02-19T15:12:40.139064899Z", "updated_at":"2024-02-19T15:12:40.139064899Z",
-      "id":"AAWVS4I5P67K2SEI3PDB2Q7KI772VYT5WFQZSDARYJMDIIFPC4DKES4I", "name":"cli-mnq-elegant-poincare",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.5; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts
-    method: POST
-  response:
-    body: '{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "region":"fr-par",
-      "created_at":"2024-02-19T15:12:40.139064899Z", "updated_at":"2024-02-19T15:12:40.139064899Z",
-      "id":"AAWVS4I5P67K2SEI3PDB2Q7KI772VYT5WFQZSDARYJMDIIFPC4DKES4I", "name":"cli-mnq-elegant-poincare",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}'
-    headers:
-      Content-Length:
-      - "321"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 19 Feb 2024 15:12:40 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 755e7808-2737-487c-a87a-654f8613fdbf
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"total_count":6, "nats_accounts":[{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T09:48:46.687350Z", "updated_at":"2024-02-19T09:48:46.687350Z",
-      "id":"ABURI34PBZXAB7VDGHGK7LJX4SFBDA6PHUDR3Y2XU42QIOGHD3GKN6RS", "name":"cli-mnq-competent-moser",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}, {"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T09:49:15.694622Z", "updated_at":"2024-02-19T09:49:15.694622Z",
-      "id":"ACQBLIGB4MNGFZ3RQJCI223YMJ6G3BLZ4TD32A6E56KKZT75XWEVJZKJ", "name":"cli-mnq-zealous-curie",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}, {"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T13:24:39.062406Z", "updated_at":"2024-02-19T13:24:39.062406Z",
-      "id":"AAULS6BP6AZ3YFJOXBWYTCEMS35NTJ4K5GUMVKM5M4N764IJDP3SMKSS", "name":"cli-mnq-vibrant-gates",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}, {"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T13:59:22.353551Z", "updated_at":"2024-02-19T13:59:22.353551Z",
-      "id":"AAMRPEMQWUCBKJ2HTGAESWJ7ITP4QFNSBYFVE5JPBLETC4TQAO3GOLKD", "name":"cli-mnq-keen-meninsky",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}, {"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T15:12:40.034465Z", "updated_at":"2024-02-19T15:12:40.034465Z",
-      "id":"ABDLXG3FVXGC4NOWTCLQ6WKPVP3ZVL7FUKWCRH6V5R3FDMHZH5SSLXRJ", "name":"cli-mnq-confident-elion",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}, {"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T15:12:40.139064Z", "updated_at":"2024-02-19T15:12:40.139064Z",
-      "id":"AAWVS4I5P67K2SEI3PDB2Q7KI772VYT5WFQZSDARYJMDIIFPC4DKES4I", "name":"cli-mnq-elegant-poincare",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}]}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.5; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts?order_by=created_at_asc
-    method: GET
-  response:
-    body: '{"total_count":6, "nats_accounts":[{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T09:48:46.687350Z", "updated_at":"2024-02-19T09:48:46.687350Z",
-      "id":"ABURI34PBZXAB7VDGHGK7LJX4SFBDA6PHUDR3Y2XU42QIOGHD3GKN6RS", "name":"cli-mnq-competent-moser",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}, {"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T09:49:15.694622Z", "updated_at":"2024-02-19T09:49:15.694622Z",
-      "id":"ACQBLIGB4MNGFZ3RQJCI223YMJ6G3BLZ4TD32A6E56KKZT75XWEVJZKJ", "name":"cli-mnq-zealous-curie",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}, {"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T13:24:39.062406Z", "updated_at":"2024-02-19T13:24:39.062406Z",
-      "id":"AAULS6BP6AZ3YFJOXBWYTCEMS35NTJ4K5GUMVKM5M4N764IJDP3SMKSS", "name":"cli-mnq-vibrant-gates",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}, {"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T13:59:22.353551Z", "updated_at":"2024-02-19T13:59:22.353551Z",
-      "id":"AAMRPEMQWUCBKJ2HTGAESWJ7ITP4QFNSBYFVE5JPBLETC4TQAO3GOLKD", "name":"cli-mnq-keen-meninsky",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}, {"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T15:12:40.034465Z", "updated_at":"2024-02-19T15:12:40.034465Z",
-      "id":"ABDLXG3FVXGC4NOWTCLQ6WKPVP3ZVL7FUKWCRH6V5R3FDMHZH5SSLXRJ", "name":"cli-mnq-confident-elion",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}, {"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T15:12:40.139064Z", "updated_at":"2024-02-19T15:12:40.139064Z",
-      "id":"AAWVS4I5P67K2SEI3PDB2Q7KI772VYT5WFQZSDARYJMDIIFPC4DKES4I", "name":"cli-mnq-elegant-poincare",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}]}'
-    headers:
-      Content-Length:
-      - "1926"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 19 Feb 2024 15:12:40 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 4e074529-8975-4246-8bc2-05ba6846fbc8
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.5; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts/ABDLXG3FVXGC4NOWTCLQ6WKPVP3ZVL7FUKWCRH6V5R3FDMHZH5SSLXRJ
-    method: DELETE
-  response:
-    body: ""
-    headers:
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 19 Feb 2024 15:12:40 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 906c4f88-d167-488f-9bd4-e3113b4cb8f4
-    status: 204 No Content
-    code: 204
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.5; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts/AAWVS4I5P67K2SEI3PDB2Q7KI772VYT5WFQZSDARYJMDIIFPC4DKES4I
-    method: DELETE
-  response:
-    body: ""
-    headers:
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 19 Feb 2024 15:12:40 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 502e796b-dbee-4fd5-9550-073c63cfb1d7
-    status: 204 No Content
-    code: 204
-    duration: ""
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 87
+        host: api.scaleway.com
+        body: '{"name":"cli-mnq-practical-lamarr","project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da"}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 321
+        body: '{"project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "region":"fr-par", "created_at":"2026-10-07T17:01:21.831132591Z", "updated_at":"2026-10-07T17:01:21.831132591Z", "id":"AC2TDYJQDYMLIDTCFB2GKFRVUXVCJ5OMNPBHM4FVYUK2NLH3QF7RLL4Y", "name":"cli-mnq-practical-lamarr", "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}'
+        headers:
+            Content-Length:
+                - "321"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 07 Oct 2026 17:01:21 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "48"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 938495ed-217c-4150-ae7f-b46cf59e05d2
+        status: 200 OK
+        code: 200
+        duration: 231.973323ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 84
+        host: api.scaleway.com
+        body: '{"name":"cli-mnq-pensive-jones","project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da"}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 318
+        body: '{"project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "region":"fr-par", "created_at":"2026-10-07T17:01:22.063010991Z", "updated_at":"2026-10-07T17:01:22.063010991Z", "id":"AANY7RPFEPNDI5KQCM2O3T5A2DY3X52NCDXWCFAS2EJ6ZM3VERZYDQVS", "name":"cli-mnq-pensive-jones", "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}'
+        headers:
+            Content-Length:
+                - "318"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 07 Oct 2026 17:01:22 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "48"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 6df0f783-4a7c-4bb8-ae9c-2f8e4a4c6082
+        status: 200 OK
+        code: 200
+        duration: 236.54251ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        form:
+            order_by:
+                - created_at_asc
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts?order_by=created_at_asc
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 666
+        body: '{"total_count":2, "nats_accounts":[{"project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "region":"fr-par", "created_at":"2026-10-07T17:01:21.831132Z", "updated_at":"2026-10-07T17:01:21.831132Z", "id":"AC2TDYJQDYMLIDTCFB2GKFRVUXVCJ5OMNPBHM4FVYUK2NLH3QF7RLL4Y", "name":"cli-mnq-practical-lamarr", "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}, {"project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "region":"fr-par", "created_at":"2026-10-07T17:01:22.063010Z", "updated_at":"2026-10-07T17:01:22.063010Z", "id":"AANY7RPFEPNDI5KQCM2O3T5A2DY3X52NCDXWCFAS2EJ6ZM3VERZYDQVS", "name":"cli-mnq-pensive-jones", "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}]}'
+        headers:
+            Content-Length:
+                - "666"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 07 Oct 2026 17:01:22 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "47"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 5b623324-1546-421a-a120-1c75fa75724a
+        status: 200 OK
+        code: 200
+        duration: 42.192416ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts/AC2TDYJQDYMLIDTCFB2GKFRVUXVCJ5OMNPBHM4FVYUK2NLH3QF7RLL4Y
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 07 Oct 2026 17:01:22 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "46"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - e503502b-eda7-40d3-ae80-4b877f03dc85
+        status: 204 No Content
+        code: 204
+        duration: 207.493254ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts/AANY7RPFEPNDI5KQCM2O3T5A2DY3X52NCDXWCFAS2EJ6ZM3VERZYDQVS
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 07 Oct 2026 17:01:22 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - da7c0dd3-8c37-489c-b251-554dafaeed1e
+        status: 204 No Content
+        code: 204
+        duration: 234.535355ms

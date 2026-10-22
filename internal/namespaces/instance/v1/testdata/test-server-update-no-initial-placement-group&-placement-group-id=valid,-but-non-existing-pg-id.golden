@@ -1,11 +1,24 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Cannot find resource 'instance_placement_group' with ID '11111111-1111-1111-1111-111111111111'
+Invalid arguments 'placement_group.id'
+
+Details:
+- 'placement_group.id' 
+
+Hint:
+No instance_placement_group found with ID 11111111-1111-1111-1111-111111111111.
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "cannot find resource 'instance_placement_group' with ID '11111111-1111-1111-1111-111111111111'",
+  "message": "invalid arguments 'placement_group.id'",
   "error": {
-    "resource": "instance_placement_group",
-    "resource_id": "11111111-1111-1111-1111-111111111111"
-  }
+    "details": [
+      {
+        "argument_name": "placement_group.id",
+        "reason": "not_found",
+        "help_message": "No instance_placement_group found with ID 11111111-1111-1111-1111-111111111111."
+      }
+    ]
+  },
+  "details": "- 'placement_group.id' ",
+  "hint": "No instance_placement_group found with ID 11111111-1111-1111-1111-111111111111."
 }

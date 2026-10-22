@@ -1,0 +1,30 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                    NAME                    POLICY TYPE       ZONE      TAGS  PROJECT ID                            CREATED AT       UPDATED AT
+2a6b77f3-ee4f-43f4-8ddd-7715911a45e3  cli-pg-unruffled-lewin  low_latency       fr-par-1  []    fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+3a76bdb4-a177-4ceb-b28e-840ac05daa99  cli-pg-stoic-bell       max_availability  fr-par-1  []    fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "id": "2a6b77f3-ee4f-43f4-8ddd-7715911a45e3",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/placement-groups/2a6b77f3-ee4f-43f4-8ddd-7715911a45e3",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "cli-pg-unruffled-lewin",
+    "policy_type": "low_latency",
+    "tags": [],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "3a76bdb4-a177-4ceb-b28e-840ac05daa99",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/placement-groups/3a76bdb4-a177-4ceb-b28e-840ac05daa99",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "cli-pg-stoic-bell",
+    "policy_type": "max_availability",
+    "tags": [],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "zone": "fr-par-1"
+  }
+]
