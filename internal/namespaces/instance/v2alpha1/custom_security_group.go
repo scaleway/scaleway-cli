@@ -522,14 +522,20 @@ func securityGroupEditCommand() *core.Command {
 	}
 }
 
+// removePortRangeDefaultValues makes sure the ports are not 1-65536, which:
+// - are the default values returned from the API
+// - mean "no ports specified"
+// - are not accepted back by the API
 func removePortRangeDefaultValues(ports *instance.SecurityGroupRulePortRange) {
 	if ports == nil || ports.End != SecurityGroupRulePortMax {
 		return
 	}
 
 	if ports.Start == SecurityGroupRulePortMin {
+		// Case 1-65536, return empty ports
 		*ports = instance.SecurityGroupRulePortRange{}
 	} else {
+		// Start is OK, it's a single port (not a range)
 		ports.End = ports.Start
 	}
 }
