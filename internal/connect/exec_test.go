@@ -1,15 +1,17 @@
-package connect
+package connect_test
 
 import (
 	"os/exec"
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
 )
 
 func TestSetEnv(t *testing.T) {
 	t.Parallel()
 
 	cmd := exec.Command("true")
-	SetEnv(cmd, "FOO", "bar")
+	connect.SetEnv(cmd, "FOO", "bar")
 
 	if v, ok := cmdEnvValue(cmd.Env, "FOO"); !ok || v != "bar" {
 		t.Errorf("FOO = %q (found %v), want %q", v, ok, "bar")
@@ -27,5 +29,6 @@ func cmdEnvValue(env []string, key string) (string, bool) {
 			return e[len(key)+1:], true
 		}
 	}
+
 	return "", false
 }
