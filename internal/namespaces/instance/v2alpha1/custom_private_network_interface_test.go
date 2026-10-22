@@ -71,6 +71,7 @@ func Test_PrivateNetworkInterface_Create(t *testing.T) {
 		),
 		AfterFunc: core.AfterFuncCombine(
 			deleteServerV1("Server"),
+			testhelpers.DeleteIPAMIP(),
 			testhelpers.DeletePN(),
 		),
 	}))
