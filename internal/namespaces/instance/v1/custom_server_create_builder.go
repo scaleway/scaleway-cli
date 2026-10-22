@@ -82,7 +82,7 @@ func (sb *ServerBuilder) AddProjectID(projectID *string) *ServerBuilder {
 }
 
 func (sb *ServerBuilder) AddEnableIPv6(enableIPv6 *bool) *ServerBuilder {
-	sb.createReq.EnableIPv6 = enableIPv6 //nolint: staticcheck
+	sb.createReq.EnableIPv6 = enableIPv6
 
 	return sb
 }
@@ -97,7 +97,7 @@ func (sb *ServerBuilder) AddTags(tags []string) *ServerBuilder {
 
 func (sb *ServerBuilder) AddRoutedIPEnabled(routedIPEnabled *bool) *ServerBuilder {
 	if routedIPEnabled != nil {
-		sb.createReq.RoutedIPEnabled = routedIPEnabled //nolint: staticcheck // Field is deprecated but still supported
+		sb.createReq.RoutedIPEnabled = routedIPEnabled
 	}
 
 	return sb

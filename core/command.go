@@ -201,11 +201,7 @@ func (c *Command) IsReadOnly() bool {
 
 	readOnlyPattern := regexp.MustCompile(`^(get|list)$|^get-|^list-|^wait`)
 
-	if readOnlyPattern.MatchString(c.Verb) {
-		return true
-	}
-
-	return false
+	return readOnlyPattern.MatchString(c.Verb)
 }
 
 // IsList returns true if the command is a list operation
@@ -216,11 +212,7 @@ func (c *Command) IsList() bool {
 
 	listPattern := regexp.MustCompile(`^(list)$|^(list-*)`)
 
-	if listPattern.MatchString(c.Verb) {
-		return true
-	}
-
-	return false
+	return listPattern.MatchString(c.Verb)
 }
 
 func (c *Command) IsDestructive() bool {

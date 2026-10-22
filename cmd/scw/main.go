@@ -126,7 +126,7 @@ func mainNoExit() int {
 	betaMode := BetaMode
 	preFlags := pflag.NewFlagSet("scw", pflag.ContinueOnError)
 	preFlags.BoolVarP(&betaMode, "beta", "B", betaMode, "Enable beta mode")
-	preFlags.ParseErrorsWhitelist.UnknownFlags = true
+	preFlags.ParseErrorsAllowlist.UnknownFlags = true
 	preFlags.Usage = func() {}
 	_ = preFlags.Parse(os.Args[1:])
 

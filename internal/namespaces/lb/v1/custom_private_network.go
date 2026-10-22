@@ -38,12 +38,10 @@ func lbPrivateNetworksMarshalerFunc(i any, opt *human.MarshalOpt) (string, error
 			UpdatedAt:        pn.UpdatedAt,
 		}
 
-		//nolint: staticcheck
 		if pn.DHCPConfig != nil {
 			customPN.DHCPConfigIPID = pn.DHCPConfig.IPID
 		}
 
-		//nolint: staticcheck
 		if pn.StaticConfig != nil {
 			customPN.StaticConfigIPAddress = pn.StaticConfig.IPAddress
 		}

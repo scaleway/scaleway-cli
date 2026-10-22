@@ -138,8 +138,8 @@ func createNonEmptyLocalVolume(metaKey string, sizeInGB int) core.BeforeFunc {
 		)
 		server := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		createServerResponse := server.(*instance.ServerWithWarningsResponse)
-		serverID := createServerResponse.Server.ID
-		volume := createServerResponse.Server.Volumes["0"]
+		serverID := createServerResponse.ID
+		volume := createServerResponse.Volumes["0"]
 		ctx.Meta[metaKey] = volume
 
 		cmd = "scw instance server detach-volume volume-id=" + volume.ID + " server-id=" + serverID

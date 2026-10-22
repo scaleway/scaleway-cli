@@ -256,7 +256,7 @@ func autoCompleteDatabaseEngines(
 	region := scw.Region("")
 	if req, ok := request.(*rdbCreateInstanceRequestCustom); ok && req != nil &&
 		req.CreateInstanceRequest != nil {
-		region = req.CreateInstanceRequest.Region
+		region = req.Region
 	}
 
 	suggestion := core.AutocompleteSuggestions(nil)

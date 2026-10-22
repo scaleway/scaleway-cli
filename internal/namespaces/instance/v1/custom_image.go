@@ -227,7 +227,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 					return nil, err
 				}
 
-				newCustomImage.Image.RootVolume.Size = blockVolume.Size
+				newCustomImage.RootVolume.Size = blockVolume.Size
 			}
 
 			for index, volume := range image.ExtraVolumes {

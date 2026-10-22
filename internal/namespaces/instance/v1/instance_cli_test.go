@@ -99,7 +99,7 @@ func Test_ServerUpdate(t *testing.T) {
 				require.NoError(t, ctx.Err)
 				assert.Nil(
 					t,
-					ctx.Result.(*instance.ServerWithWarningsResponse).Server.PlacementGroup,
+					ctx.Result.(*instance.ServerWithWarningsResponse).PlacementGroup,
 				)
 			},
 			core.TestCheckExitCode(0),
@@ -124,7 +124,7 @@ func Test_ServerUpdate(t *testing.T) {
 					require.NoError(t, ctx.Err)
 					assert.Equal(t,
 						ctx.Meta["PlacementGroup"].(*instanceSDKV2.PlacementGroup).ID,
-						ctx.Result.(*instance.ServerWithWarningsResponse).Server.PlacementGroup.ID,
+						ctx.Result.(*instance.ServerWithWarningsResponse).PlacementGroup.ID,
 					)
 				},
 				core.TestCheckExitCode(0),
@@ -180,7 +180,7 @@ func Test_ServerUpdate(t *testing.T) {
 				require.NoError(t, ctx.Err)
 				assert.Nil(
 					t,
-					ctx.Result.(*instance.ServerWithWarningsResponse).Server.PlacementGroup,
+					ctx.Result.(*instance.ServerWithWarningsResponse).PlacementGroup,
 				)
 			},
 			core.TestCheckExitCode(0),
@@ -209,7 +209,7 @@ func Test_ServerUpdate(t *testing.T) {
 					require.NoError(t, ctx.Err)
 					assert.Equal(t,
 						ctx.Meta["PlacementGroup"].(*instanceSDKV2.PlacementGroup).ID,
-						ctx.Result.(*instance.ServerWithWarningsResponse).Server.PlacementGroup.ID,
+						ctx.Result.(*instance.ServerWithWarningsResponse).PlacementGroup.ID,
 					)
 				},
 				core.TestCheckExitCode(0),
@@ -238,7 +238,7 @@ func Test_ServerUpdate(t *testing.T) {
 				require.NoError(t, ctx.Err)
 				assert.Equal(t,
 					ctx.Meta["PlacementGroup2"].(*instanceSDKV2.PlacementGroup).ID,
-					ctx.Result.(*instance.ServerWithWarningsResponse).Server.PlacementGroup.ID,
+					ctx.Result.(*instance.ServerWithWarningsResponse).PlacementGroup.ID,
 				)
 			},
 			core.TestCheckExitCode(0),
