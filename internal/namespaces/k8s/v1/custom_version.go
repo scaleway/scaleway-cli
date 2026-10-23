@@ -64,7 +64,7 @@ func getLatestK8SVersion(scwClient *scw.Client) (string, error) {
 	api := k8s.NewAPI(scwClient)
 	versions, err := api.ListVersions(&k8s.ListVersionsRequest{})
 	if err != nil {
-		return "", fmt.Errorf("could not get latest K8S version: %s", err)
+		return "", fmt.Errorf("could not get latest K8S version: %w", err)
 	}
 
 	names := make([]string, 0, len(versions.Versions))

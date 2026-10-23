@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"errors"
 	"os"
 	"os/exec"
 )
@@ -10,7 +11,7 @@ type OverrideExecFunc func(cmd *exec.Cmd) (exitCode int, err error)
 
 func defaultOverrideExec(cmd *exec.Cmd) (exitCode int, err error) {
 	err = cmd.Run()
-	if exitErr, isExitErr := err.(*exec.ExitError); isExitErr {
+	if exitErr, ok := errors.AsType[*exec.ExitError](err); ok {
 		return exitErr.ExitCode(), nil
 	}
 

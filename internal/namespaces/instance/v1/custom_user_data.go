@@ -2,6 +2,7 @@ package instance
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -41,7 +42,7 @@ func userDataGetBuilder(c *core.Command) *core.Command {
 			req := argsI.(*instance.GetServerUserDataRequest)
 			res, err := runner(ctx, argsI)
 			if err != nil {
-				if resErr, ok := err.(*scw.ResponseError); ok {
+				if resErr, ok := errors.AsType[*scw.ResponseError](err); ok {
 					if resErr.StatusCode == http.StatusNotFound {
 						return nil, fmt.Errorf("'%s' key does not exist", req.Key)
 					}

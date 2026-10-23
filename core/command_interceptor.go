@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"strings"
@@ -47,22 +48,26 @@ func sdkStdErrorInterceptor(
 	runner CommandRunner,
 ) (any, error) {
 	res, err := runner(ctx, args)
-	switch sdkError := err.(type) {
-	case *scw.ResourceNotFoundError:
+
+	if resourceNotFoundError, ok := errors.AsType[*scw.ResourceNotFoundError](err); ok {
 		return nil, &CliError{
 			Message: fmt.Sprintf(
 				"cannot find resource '%v' with ID '%v'",
-				sdkError.Resource,
-				sdkError.ResourceID,
+				resourceNotFoundError.Resource,
+				resourceNotFoundError.ResourceID,
 			),
 			Err: err,
 		}
-	case *scw.ResponseError:
+	}
+
+	if responseError, ok := errors.AsType[*scw.ResponseError](err); ok {
 		return nil, &CliError{
-			Message: sdkError.Message,
-			Err:     sdkError,
+			Message: responseError.Message,
+			Err:     responseError,
 		}
-	case *scw.InvalidArgumentsError:
+	}
+
+	if invalidArgumentsError, ok := errors.AsType[*scw.InvalidArgumentsError](err); ok {
 		reasonsMap := map[string]string{
 			"unknown":    "is invalid for unexpected reasons",
 			"required":   "is required",
@@ -70,10 +75,10 @@ func sdkStdErrorInterceptor(
 			"constraint": "does not respect constraints",
 		}
 
-		arguments := make([]string, len(sdkError.Details))
-		reasons := make([]string, len(sdkError.Details))
-		hints := make([]string, len(sdkError.Details))
-		for i, d := range sdkError.Details {
+		arguments := make([]string, len(invalidArgumentsError.Details))
+		reasons := make([]string, len(invalidArgumentsError.Details))
+		hints := make([]string, len(invalidArgumentsError.Details))
+		for i, d := range invalidArgumentsError.Details {
 			arguments[i] = "'" + d.ArgumentName + "'"
 			reasons[i] = "- '" + d.ArgumentName + "' " + reasonsMap[d.Reason]
 			hints[i] = d.HelpMessage
@@ -85,11 +90,12 @@ func sdkStdErrorInterceptor(
 			Details: strings.Join(reasons, "\n"),
 			Hint:    strings.Join(hints, "\n"),
 		}
+	}
 
-	case *scw.QuotasExceededError:
-		invalidArgs := make([]string, len(sdkError.Details))
-		resources := make([]string, len(sdkError.Details))
-		for i, d := range sdkError.Details {
+	if quotasExceededError, ok := errors.AsType[*scw.QuotasExceededError](err); ok {
+		invalidArgs := make([]string, len(quotasExceededError.Details))
+		resources := make([]string, len(quotasExceededError.Details))
+		for i, d := range quotasExceededError.Details {
 			invalidArgs[i] = fmt.Sprintf(
 				"- %s has reached its quota (%d/%d)",
 				d.Resource,
@@ -105,33 +111,42 @@ func sdkStdErrorInterceptor(
 			Details: strings.Join(invalidArgs, "\n"),
 			Hint:    "Quotas are defined by organization. You should either delete unused resources or contact support to obtain bigger quotas.",
 		}
-	case *scw.TransientStateError:
+	}
+
+	if transientStateError, ok := errors.AsType[*scw.TransientStateError](err); ok {
 		return nil, &CliError{
-			Message: fmt.Sprintf("transient state error for resource '%v'", sdkError.Resource),
-			Err:     err,
+			Message: fmt.Sprintf(
+				"transient state error for resource '%v'",
+				transientStateError.Resource,
+			),
+			Err: err,
 			Details: fmt.Sprintf("resource %s with ID %s is in a transient state '%s'",
-				sdkError.Resource,
-				sdkError.ResourceID,
-				sdkError.CurrentState),
+				transientStateError.Resource,
+				transientStateError.ResourceID,
+				transientStateError.CurrentState),
 		}
-	case *scw.OutOfStockError:
+	}
+
+	if outOfStockError, ok := errors.AsType[*scw.OutOfStockError](err); ok {
 		return nil, &CliError{
-			Message: fmt.Sprintf("resource out of stock '%v'", sdkError.Resource),
+			Message: fmt.Sprintf("resource out of stock '%v'", outOfStockError.Resource),
 			Err:     err,
 			Hint:    "Try again later :-)",
 		}
-	case *scw.ResourceExpiredError:
+	}
+
+	if resourceExpiredError, ok := errors.AsType[*scw.ResourceExpiredError](err); ok {
 		var hint string
-		if sdkError.Resource == "account_token" {
+		if resourceExpiredError.Resource == "account_token" {
 			hint = "Try to generate a new token here https://console.scaleway.com/iam/api-keys"
 		}
 
 		return nil, &CliError{
 			Message: fmt.Sprintf(
 				"resource %s with ID %s expired since %s",
-				sdkError.Resource,
-				sdkError.ResourceID,
-				sdkError.ExpiredSince.String(),
+				resourceExpiredError.Resource,
+				resourceExpiredError.ResourceID,
+				resourceExpiredError.ExpiredSince.String(),
 			),
 			Err:  err,
 			Hint: hint,
