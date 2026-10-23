@@ -407,7 +407,7 @@ func getLatestRedisVersion(client *scw.Client, zone scw.Zone) (string, error) {
 		scw.WithAllPages(),
 	)
 	if err != nil {
-		return "", fmt.Errorf("could not get latest Redis version: %s", err)
+		return "", fmt.Errorf("could not get latest Redis version: %w", err)
 	}
 
 	versions := make([]string, 0, len(resp.Versions))
@@ -615,7 +615,7 @@ func clusterConnectCommand() *core.Command {
 			core.ExtractLogger(ctx).Debugf("executing: %s\n", cmd.Args)
 
 			if err := cmd.Run(); err != nil {
-				if exitError, ok := err.(*exec.ExitError); ok {
+				if exitError, ok := errors.AsType[*exec.ExitError](err); ok {
 					return nil, &core.CliError{Empty: true, Code: exitError.ExitCode()}
 				}
 

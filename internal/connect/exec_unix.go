@@ -3,6 +3,7 @@
 package connect
 
 import (
+	"errors"
 	"os"
 	"os/exec"
 	"os/signal"
@@ -42,7 +43,7 @@ func runChild(cmd *exec.Cmd) (exitCode int, err error) {
 	}()
 
 	if err := cmd.Wait(); err != nil {
-		exitErr, ok := err.(*exec.ExitError)
+		exitErr, ok := errors.AsType[*exec.ExitError](err)
 		if !ok {
 			return 0, err
 		}

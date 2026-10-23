@@ -112,7 +112,7 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI any) (i any, e erro
 
 	err = writeHelperScript(helperScriptPath, helperScriptContent)
 	if err != nil {
-		return nil, fmt.Errorf("failed to write helper script: %s", err)
+		return nil, fmt.Errorf("failed to write helper script: %w", err)
 	}
 
 	registries := make([]string, 0, len(scw.AllRegions))
@@ -122,7 +122,7 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI any) (i any, e erro
 
 	err = setupDockerConfigFile(ctx, registries, binaryName)
 	if err != nil {
-		return nil, fmt.Errorf("failed to write docker config file: %s", err)
+		return nil, fmt.Errorf("failed to write docker config file: %w", err)
 	}
 
 	_, _ = interactive.Println()
@@ -184,7 +184,7 @@ func registryDockerHelperGetCommand() *core.Command {
 func registryDockerHelperGetRun(ctx context.Context, _ any) (i any, e error) {
 	var serverURL string
 	serverURL, err := bufio.NewReader(core.ExtractStdin(ctx)).ReadString('\n')
-	if err != nil && err != io.EOF {
+	if err != nil && !errors.Is(err, io.EOF) {
 		return nil, err
 	}
 
