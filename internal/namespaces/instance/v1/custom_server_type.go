@@ -2,8 +2,6 @@ package instance
 
 import (
 	"context"
-	"errors"
-	"fmt"
 	"strings"
 
 	"github.com/fatih/color"
@@ -150,9 +148,9 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 				if pcuServerType.UnitOfMeasure != nil &&
 					pcuServerType.UnitOfMeasure.Unit == product_catalog.PublicCatalogProductUnitOfMeasureCountableUnitMinute &&
 					pcuServerType.UnitOfMeasure.Size == 1 {
-					nanos := moneyToNanos(serverType.HourlyPrice)
+					nanos := scw.MoneyToNanos(serverType.HourlyPrice)
 					nanos *= 60
-					serverType.HourlyPrice = newMoneyFromNanos(
+					serverType.HourlyPrice = scw.NewMoneyFromNanos(
 						nanos,
 						serverType.HourlyPrice.CurrencyCode,
 					)
@@ -207,120 +205,9 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-// TODO: moneyToNanos() and newMoneyFromNanos() should be moved to the Go SDK.
-
-func moneyToNanos(m *scw.Money) int64 {
-	return m.Units*1e9 + int64(m.Nanos)
-}
-
-func newMoneyFromNanos(value int64, currencyCode string) *scw.Money {
-	return &scw.Money{
-		CurrencyCode: currencyCode,
-		Units:        value / 1e9,
-		Nanos:        int32(value % 1e9),
-	}
-}
-
-func getCompatibleTypesBuilder(c *core.Command) *core.Command {
-	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
-		rawResp, err := runner(ctx, argsI)
-		if err != nil {
-			return rawResp, err
-		}
-		getCompatibleTypesResp := rawResp.(*instance.ServerCompatibleTypes)
-
-		request := argsI.(*instance.GetServerCompatibleTypesRequest)
-		client := core.ExtractClient(ctx)
-		api := instance.NewAPI(client)
-		warnings := []error(nil)
-
-		// Get all server types to fill in the details in the response.
-		listServersTypesResponse, err := api.ListServersTypes(&instance.ListServersTypesRequest{
-			Zone: request.Zone,
-		}, scw.WithAllPages())
-		if err != nil {
-			return nil, err
-		}
-
-		// Build compatible types list with details
-		compatibleServerTypesCustom := []*customServerType(nil)
-		for _, compatibleType := range getCompatibleTypesResp.CompatibleTypes {
-			serverType, ok := listServersTypesResponse.Servers[compatibleType]
-			if !ok {
-				warnings = append(
-					warnings,
-					fmt.Errorf("could not find details on compatible type %q", compatibleType),
-				)
-			}
-
-			compatibleServerTypesCustom = append(compatibleServerTypesCustom, &customServerType{
-				Name: compatibleType,
-				HourlyPrice: scw.NewMoneyFromFloat(
-					float64(serverType.HourlyPrice),
-					"EUR",
-					3,
-				),
-				CPU:  serverType.Ncpus,
-				GPU:  uint32(*serverType.Gpu),
-				RAM:  scw.Size(serverType.RAM),
-				Arch: serverType.Arch.String(),
-			})
-		}
-
-		// Get server's current type to fill in the details in the response
-		server, err := api.GetServer(&instance.GetServerRequest{
-			Zone:     request.Zone,
-			ServerID: request.ServerID,
-		})
-		if err != nil {
-			return nil, err
-		}
-		currentServerType, ok := listServersTypesResponse.Servers[server.Server.CommercialType]
-		if !ok {
-			warnings = append(
-				warnings,
-				fmt.Errorf(
-					"could not find details on current type %q",
-					server.Server.CommercialType,
-				),
-			)
-		}
-		currentServerTypeCustom := []*customServerType{
-			{
-				Name: server.Server.CommercialType,
-				HourlyPrice: scw.NewMoneyFromFloat(
-					float64(currentServerType.HourlyPrice),
-					"EUR",
-					3,
-				),
-				CPU:  currentServerType.Ncpus,
-				GPU:  uint32(*currentServerType.Gpu),
-				RAM:  scw.Size(currentServerType.RAM),
-				Arch: currentServerType.Arch.String(),
-			},
-		}
-
-		return &struct {
-			CurrentServerType     []*customServerType
-			CompatibleServerTypes []*customServerType
-		}{
-			currentServerTypeCustom,
-			compatibleServerTypesCustom,
-		}, errors.Join(warnings...)
-	}
-
-	c.View = &core.View{
-		Sections: []*core.ViewSection{
-			{
-				Title:     "Current Server Type",
-				FieldName: "CurrentServerType",
-			},
-			{
-				Title:     "Compatible Server Types",
-				FieldName: "CompatibleServerTypes",
-			},
-		},
-	}
+func serverTypeGetBuilder(c *core.Command) *core.Command {
+	deprecateV1OnlyCommand(c)
+	c.DeprecationMessage += " Availability can be fetched using \"scw instance server-type list\"."
 
 	return c
 }

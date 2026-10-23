@@ -16,12 +16,15 @@ import (
 func GetCommands() *core.Commands {
 	cmds := core.NewCommands(
 		instancePlacementGroup(),
+		instanceServerType(),
 		instanceTemplate(),
 		instancePlacementGroupList(),
 		instancePlacementGroupCreate(),
 		instancePlacementGroupGet(),
 		instancePlacementGroupUpdate(),
 		instancePlacementGroupDelete(),
+		instanceServerGetCompatibleTypes(),
+		instanceServerTypeList(),
 		instanceTemplateList(),
 		instanceTemplateCreate(),
 		instanceTemplateGet(),
@@ -44,6 +47,22 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "placement-group", "create").Override(placementGroupCreateBuilder)
 	cmds.MustFind("instance", "placement-group", "get").Override(placementGroupGetBuilder)
 	cmds.MustFind("instance", "placement-group", "list").Override(placementGroupListBuilder)
+
+	//
+	// Server-Type
+	//
+	human.RegisterMarshalerFunc(
+		instanceSDK.ServerTypeAvailability(""),
+		human.EnumMarshalFunc(serverTypesAvailabilityMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc([]*customServerType{}, serverTypesListMarshalerFunc)
+
+	cmds.MustFind("instance", "server-type", "list").Override(serverTypeListBuilder)
+
+	//
+	// Get-Compatible-Types
+	//
+	cmds.MustFind("instance", "server", "get-compatible-types").Override(getCompatibleTypesBuilder)
 
 	//
 	// Templates
