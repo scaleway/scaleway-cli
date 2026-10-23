@@ -6,6 +6,7 @@ USAGE:
   scw redis cluster <command>
 
 AVAILABLE COMMANDS:
+  cockpit           Open the Cockpit Grafana dashboard for this cluster
   connect           Connect to a Redis cluster using locally installed redis-cli
   create            Create a Redis™ Database Instance
   delete            Delete a Redis™ Database Instance

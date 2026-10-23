@@ -5,6 +5,7 @@ k8s        acl           add                      k8s_acl_add                   
 k8s        acl           delete                   k8s_acl_delete                       Delete an existing ACL
 k8s        acl           list                     k8s_acl_list                         List ACLs
 k8s        acl           set                      k8s_acl_set                          Set new ACLs
+k8s        cluster       cockpit                  k8s_cluster_cockpit                  Open the Cockpit Grafana dashboard for this cluster
 k8s        cluster       create                   k8s_cluster_create                   Create a new Cluster
 k8s        cluster       delete                   k8s_cluster_delete                   Delete a Cluster
 k8s        cluster       get                      k8s_cluster_get                      Get a Cluster
@@ -71,6 +72,13 @@ k8s        version       list                     k8s_version_list              
     "verb": "set",
     "tool_name": "k8s_acl_set",
     "short": "Set new ACLs"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "verb": "cockpit",
+    "tool_name": "k8s_cluster_cockpit",
+    "short": "Open the Cockpit Grafana dashboard for this cluster"
   },
   {
     "namespace": "k8s",

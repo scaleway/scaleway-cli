@@ -6,6 +6,7 @@ USAGE:
   scw messageq deployment <command>
 
 AVAILABLE COMMANDS:
+  cockpit     Open the Cockpit Grafana dashboard for this MessageQ deployment
   create      Create a new MessageQ deployment
   delete      Delete a MessageQ deployment
   get         Retrieve a specific MessageQ deployment

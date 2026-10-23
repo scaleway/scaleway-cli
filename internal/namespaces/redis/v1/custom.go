@@ -23,5 +23,7 @@ func GetCommands() *core.Commands {
 	cmds.Merge(core.NewCommands(redisACLUpdateCommand()))
 	cmds.Merge(core.NewCommands(redisVersionSettingsCommand()))
 
+	cmds.Merge(core.NewCommands(clusterCockpitCommand()))
+
 	return cmds
 }
