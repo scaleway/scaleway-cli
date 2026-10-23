@@ -1729,6 +1729,13 @@ func instancePrivateNetworkInterfaceList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "security-group-ids.{index}",
+				Short:      `Filter by security group IDs`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "private-network-ids.{index}",
 				Short:      `Filter by Private Network IDs`,
 				Required:   false,
@@ -1789,6 +1796,13 @@ func instancePrivateNetworkInterfaceCreate() *core.Command {
 			{
 				Name:       "server-id",
 				Short:      `ID of the Instance to attach the interface to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "security-group-id",
+				Short:      `ID of the security group to associate with the interface`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1890,6 +1904,13 @@ func instancePrivateNetworkInterfaceUpdate() *core.Command {
 				Name:       "private-network-interface-id",
 				Short:      `ID of the private network interface to update`,
 				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "security-group-id",
+				Short:      `New security group ID to associate with the interface`,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -3727,6 +3748,13 @@ func instanceTemplateCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "private-networks.{index}.security-group-id",
+				Short:      `ID of the security group for the private network`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "filesystem-ids.{index}",
 				Short:      `List of filesystem IDs to associate with the template`,
 				Required:   false,
@@ -3940,6 +3968,13 @@ func instanceTemplateUpdate() *core.Command {
 			{
 				Name:       "update-private-networks.private-networks.{index}.private-network-id",
 				Short:      `ID of the private network`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "update-private-networks.private-networks.{index}.security-group-id",
+				Short:      `ID of the security group for the private network`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
