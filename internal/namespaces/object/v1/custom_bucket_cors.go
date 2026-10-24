@@ -5,7 +5,6 @@ package object
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"os"
 	"reflect"
@@ -14,10 +13,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/scw"
-)
-
-var ErrFailedToUnmarshalBucketCORSConfiguration = errors.New(
-	"failed to unmarshal bucket CORS configuration: ",
 )
 
 type bucketCorsCreateArgs struct {
@@ -76,8 +71,7 @@ func bucketCorsCreateCommand() *core.Command {
 			err = json.Unmarshal([]byte(configStr), &config)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"%w%w",
-					ErrFailedToUnmarshalBucketCORSConfiguration,
+					"failed to unmarshal bucket CORS configuration: %w",
 					err,
 				)
 			}

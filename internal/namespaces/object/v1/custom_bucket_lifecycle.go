@@ -23,9 +23,6 @@ var (
 		"configuration file path cannot be empty",
 	)
 
-	ErrFailedToUnmarshalBucketLifecycleConfiguration = errors.New(
-		"failed to unmarshal bucket lifecycle configuration: ",
-	)
 	ErrCouldNotGetBucketConfigurationResultIsNil = errors.New(
 		"could not get bucket configuration (result is nil)",
 	)
@@ -86,8 +83,7 @@ func lifecycleCreateCommand() *core.Command {
 			err = json.Unmarshal([]byte(configStr), &config)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"%w%w",
-					ErrFailedToUnmarshalBucketLifecycleConfiguration,
+					"failed to unmarshal bucket lifecycle configuration: %w",
 					err,
 				)
 			}

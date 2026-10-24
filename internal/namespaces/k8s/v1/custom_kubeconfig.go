@@ -52,15 +52,12 @@ var (
 	defaultAuthMethod = string(authMethodCLI)
 
 	ErrUnknownAuthMethod                               = errors.New("unknown auth method: ")
-	ErrCouldNotGetSecretKey                            = errors.New("could not get secret key")
 	ErrClusterNotFound                                 = errors.New("cluster not found")
 	ErrUserNotFound                                    = errors.New("user not found")
 	ErrContextNotFound                                 = errors.New("context not found")
 	ErrClusterNotFoundByName                           = errors.New("cluster '")
 	ErrUserNotFoundByName                              = errors.New("user '")
 	ErrContextNotFoundByName                           = errors.New("context '")
-	ErrClusterNotFoundInKubeconfig                     = errors.New("cluster '")
-	ErrUserNotFoundInKubeconfig                        = errors.New("user '")
 	ErrDuplicatedClusterFoundInKubeconfig              = errors.New("duplicated cluster '")
 	ErrDuplicatedUserFoundInKubeconfig                 = errors.New("duplicated user '")
 	ErrDuplicatedContextFoundInKubeconfig              = errors.New("duplicated context '")
@@ -194,7 +191,7 @@ func generateCLINamedAuthInfo(ctx context.Context) (*api.NamedAuthInfo, error) {
 func generateTokenNamedAuthInfo(ctx context.Context) (*api.NamedAuthInfo, error) {
 	secretKey, ok := core.ExtractClient(ctx).GetSecretKey()
 	if !ok {
-		return nil, ErrCouldNotGetSecretKey
+		return nil, core.ErrCouldNotGetSecretKey
 	}
 
 	configPathSum := crc32.ChecksumIEEE([]byte(secretKey))
@@ -409,7 +406,7 @@ func (c *KubeMapConfig) SetContext(name string, context api.Context, overwrite b
 	if _, ok := c.clusters[context.Cluster]; !ok {
 		return fmt.Errorf(
 			"%w'%s' not found in kubeconfig",
-			ErrClusterNotFoundInKubeconfig,
+			ErrClusterNotFoundByName,
 			context.Cluster,
 		)
 	}
@@ -417,7 +414,7 @@ func (c *KubeMapConfig) SetContext(name string, context api.Context, overwrite b
 	if _, ok := c.users[context.AuthInfo]; !ok {
 		return fmt.Errorf(
 			"%w'%s' not found in kubeconfig",
-			ErrUserNotFoundInKubeconfig,
+			ErrUserNotFoundByName,
 			context.AuthInfo,
 		)
 	}

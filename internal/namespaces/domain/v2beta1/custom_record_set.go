@@ -10,11 +10,8 @@ import (
 	domain "github.com/scaleway/scaleway-sdk-go/api/domain/v2beta1"
 )
 
-var (
-	ErrAtLeastOneValuesEgValues0IsRequired = errors.New(
-		"at least one values (eg: values.0) is required",
-	)
-	ErrCannotSetTheRecord = errors.New("cannot set the record: ")
+var ErrAtLeastOneValuesEgValues0IsRequired = errors.New(
+	"at least one values (eg: values.0) is required",
 )
 
 type dnsRecordSetRequest struct {
@@ -206,7 +203,7 @@ func dnsRecordSetRun(ctx context.Context, argsI any) (i any, e error) {
 
 	resp, err := apiDomain.UpdateDNSZoneRecords(dnsRecordSetReq)
 	if err != nil {
-		return nil, fmt.Errorf("%w%w", ErrCannotSetTheRecord, err)
+		return nil, fmt.Errorf("cannot set the record: %w", err)
 	}
 
 	return resp.Records, nil

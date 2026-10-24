@@ -7,6 +7,8 @@ import (
 
 var (
 	ErrMissingRequiredArgument        = errors.New("missing required argument")
+	ErrCouldNotGetSecretKey           = errors.New("could not get secret key")
+	ErrInstallationCancelled          = errors.New("installation cancelled")
 	ErrInvalidValue                   = errors.New("invalid value")
 	ErrInvalidSecretKey               = errors.New("invalid secret_key")
 	ErrInvalidAccessKey               = errors.New("invalid access_key")

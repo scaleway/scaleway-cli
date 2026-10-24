@@ -13,11 +13,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
 
-var (
-	ErrCouldNotReadArgument      = errors.New("could not read argument:")
-	ErrCouldNotOpenRequestedFile = errors.New("could not open requested file:")
-	ErrUnsupportedFieldType      = errors.New("unsupported field type:")
-)
+var ErrUnsupportedFieldType = errors.New("unsupported field type:")
 
 // loadArgsFileContent loads the content of the files referenced by arguments that
 // support it (ArgSpec.CanLoadFile), i.e. arguments whose value starts with "@".
@@ -157,13 +153,13 @@ func fileContentForLeaf(leaf reflect.Value) (reflect.Value, error) {
 	case io.Reader:
 		b, err := io.ReadAll(i)
 		if err != nil {
-			return reflect.Value{}, fmt.Errorf("%w %w", ErrCouldNotReadArgument, err)
+			return reflect.Value{}, fmt.Errorf("could not read argument: %w", err)
 		}
 
 		if strings.HasPrefix(string(b), "@") {
 			content, err := os.ReadFile(string(b)[1:])
 			if err != nil {
-				return reflect.Value{}, fmt.Errorf("%w %w", ErrCouldNotOpenRequestedFile, err)
+				return reflect.Value{}, fmt.Errorf("could not open requested file: %w", err)
 			}
 
 			return reflect.ValueOf(bytes.NewBuffer(content)), nil
@@ -175,7 +171,7 @@ func fileContentForLeaf(leaf reflect.Value) (reflect.Value, error) {
 		if strings.HasPrefix(*i, "@") {
 			content, err := os.ReadFile((*i)[1:])
 			if err != nil {
-				return reflect.Value{}, fmt.Errorf("%w %w", ErrCouldNotOpenRequestedFile, err)
+				return reflect.Value{}, fmt.Errorf("could not open requested file: %w", err)
 			}
 
 			s := string(content)
@@ -186,7 +182,7 @@ func fileContentForLeaf(leaf reflect.Value) (reflect.Value, error) {
 		if strings.HasPrefix(i, "@") {
 			content, err := os.ReadFile(i[1:])
 			if err != nil {
-				return reflect.Value{}, fmt.Errorf("%w %w", ErrCouldNotOpenRequestedFile, err)
+				return reflect.Value{}, fmt.Errorf("could not open requested file: %w", err)
 			}
 
 			return reflect.ValueOf(string(content)), nil
@@ -195,7 +191,7 @@ func fileContentForLeaf(leaf reflect.Value) (reflect.Value, error) {
 		if strings.HasPrefix(string(i), "@") {
 			content, err := os.ReadFile(string(i[1:]))
 			if err != nil {
-				return reflect.Value{}, fmt.Errorf("%w %w", ErrCouldNotOpenRequestedFile, err)
+				return reflect.Value{}, fmt.Errorf("could not open requested file: %w", err)
 			}
 
 			return reflect.ValueOf(content), nil

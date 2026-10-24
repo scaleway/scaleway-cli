@@ -2,15 +2,12 @@ package domain
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	domain "github.com/scaleway/scaleway-sdk-go/api/domain/v2beta1"
 )
-
-var ErrCannotAddTheRecord = errors.New("cannot add the record: ")
 
 type dnsRecordAddRequest struct {
 	DNSZone string
@@ -184,7 +181,7 @@ func dnsRecordAddRun(ctx context.Context, argsI any) (i any, e error) {
 
 	resp, err := apiDomain.UpdateDNSZoneRecords(dnsRecordAddReq)
 	if err != nil {
-		return nil, fmt.Errorf("%w%w", ErrCannotAddTheRecord, err)
+		return nil, fmt.Errorf("cannot add the record: %w", err)
 	}
 
 	return resp.Records, nil

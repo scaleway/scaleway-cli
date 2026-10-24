@@ -8,7 +8,6 @@ import (
 )
 
 var (
-	ErrInstallationCancelled                           = errors.New("installation cancelled")
 	ErrUnsupportedShell                                = errors.New("unsupported shell")
 	ErrUnsupportedOS                                   = errors.New("unsupported OS")
 	ErrCannotFindWhereToInstallAutocompleteScriptTried = errors.New(
@@ -30,7 +29,7 @@ func unsupportedOsError(os string) *core.CliError {
 
 func installationCancelledError(shellName string, script string) *core.CliError {
 	return &core.CliError{
-		Err:  ErrInstallationCancelled,
+		Err:  core.ErrInstallationCancelled,
 		Hint: fmt.Sprintf("To manually enable autocomplete for %v, run: %v", shellName, script),
 	}
 }

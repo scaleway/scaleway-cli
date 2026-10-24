@@ -46,7 +46,7 @@ func registryLoginRun(ctx context.Context, argsI any) (i any, e error) {
 
 	secretKey, ok := client.GetSecretKey()
 	if !ok {
-		return nil, ErrCouldNotGetSecretKey
+		return nil, core.ErrCouldNotGetSecretKey
 	}
 
 	cmdArgs := []string{"login", "-u", "scaleway", "--password-stdin", endpoint}

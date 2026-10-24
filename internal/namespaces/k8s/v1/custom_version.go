@@ -2,7 +2,6 @@ package k8s
 
 import (
 	"context"
-	"errors"
 	"fmt"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -11,8 +10,6 @@ import (
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
-
-var ErrCouldNotGetLatestK8SVersion = errors.New("could not get latest K8S version: ")
 
 func versionListBuilder(c *core.Command) *core.Command {
 	c.AddInterceptors(
@@ -67,7 +64,7 @@ func getLatestK8SVersion(scwClient *scw.Client) (string, error) {
 	api := k8s.NewAPI(scwClient)
 	versions, err := api.ListVersions(&k8s.ListVersionsRequest{})
 	if err != nil {
-		return "", fmt.Errorf("%w%w", ErrCouldNotGetLatestK8SVersion, err)
+		return "", fmt.Errorf("could not get latest K8S version: %w", err)
 	}
 
 	names := make([]string, 0, len(versions.Versions))

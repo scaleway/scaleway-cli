@@ -23,12 +23,8 @@ import (
 )
 
 var (
-	ErrEndpoint                      = errors.New("endpoint")
-	ErrIsNotADirectory               = errors.New("is not a directory")
-	ErrInstallationCancelled         = errors.New("installation cancelled")
-	ErrCouldNotGetSecretKey          = errors.New("could not get secret key")
-	ErrFailedToWriteHelperScript     = errors.New("failed to write helper script")
-	ErrFailedToWriteDockerConfigFile = errors.New("failed to write docker config file")
+	ErrEndpoint        = errors.New("endpoint")
+	ErrIsNotADirectory = errors.New("is not a directory")
 )
 
 type emptyRequest struct{}
@@ -116,12 +112,12 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI any) (i any, e erro
 		return nil, err
 	}
 	if !continueInstallation {
-		return nil, ErrInstallationCancelled
+		return nil, core.ErrInstallationCancelled
 	}
 
 	err = writeHelperScript(helperScriptPath, helperScriptContent)
 	if err != nil {
-		return nil, fmt.Errorf("%w: %w", ErrFailedToWriteHelperScript, err)
+		return nil, fmt.Errorf("failed to write helper script: %w", err)
 	}
 
 	registries := make([]string, 0, len(scw.AllRegions))
@@ -131,7 +127,7 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI any) (i any, e erro
 
 	err = setupDockerConfigFile(ctx, registries, binaryName)
 	if err != nil {
-		return nil, fmt.Errorf("%w: %w", ErrFailedToWriteDockerConfigFile, err)
+		return nil, fmt.Errorf("failed to write docker config file: %w", err)
 	}
 
 	_, _ = interactive.Println()
@@ -216,7 +212,7 @@ func registryDockerHelperGetRun(ctx context.Context, _ any) (i any, e error) {
 
 	secretKey, ok := client.GetSecretKey()
 	if !ok {
-		return nil, ErrCouldNotGetSecretKey
+		return nil, core.ErrCouldNotGetSecretKey
 	}
 
 	raw, err := json.Marshal(registryDockerHelperGetResponse{

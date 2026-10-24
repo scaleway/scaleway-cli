@@ -18,10 +18,6 @@ import (
 )
 
 var (
-	ErrCannotCreateResourceRequiredForServer = errors.New(
-		"cannot create resource required for server",
-	)
-	ErrCannotCreateTheServer             = errors.New("cannot create the server")
 	ErrFirstVolumeSizeMustBeAtLeast      = errors.New("first volume size must be at least")
 	ErrImageRootVolumeConstraint         = errors.New("image")
 	ErrTotalLocalVolumeSizeMustBeBetween = errors.New("total local volume size must be between")
@@ -296,7 +292,7 @@ func instanceServerCreateRun(ctx context.Context, argsI any) (i any, e error) {
 			logger.Warningf("cannot clean created resources: %s.", cleanErr)
 		}
 
-		return nil, fmt.Errorf("%w: %w", ErrCannotCreateResourceRequiredForServer, err)
+		return nil, fmt.Errorf("cannot create resource required for server: %w", err)
 	}
 
 	createReq, err := serverBuilder.Build()
@@ -306,7 +302,7 @@ func instanceServerCreateRun(ctx context.Context, argsI any) (i any, e error) {
 			logger.Warningf("cannot clean created resources: %s.", cleanErr)
 		}
 
-		return nil, fmt.Errorf("%w: %w", ErrCannotCreateTheServer, err)
+		return nil, fmt.Errorf("cannot create the server: %w", err)
 	}
 
 	//
@@ -320,7 +316,7 @@ func instanceServerCreateRun(ctx context.Context, argsI any) (i any, e error) {
 			logger.Warningf("cannot clean created resources: %s.", cleanErr)
 		}
 
-		return nil, fmt.Errorf("%w: %w", ErrCannotCreateTheServer, err)
+		return nil, fmt.Errorf("cannot create the server: %w", err)
 	}
 	server := serverRes.Server
 	logger.Debugf("server created %s", server.ID)

@@ -19,12 +19,6 @@ import (
 const redisActionTimeout = 15 * time.Minute
 
 var (
-	ErrAnyEndpointIsAssociatedOnYourCluster = errors.New(
-		"any endpoint is associated on your cluster",
-	)
-	ErrCouldNotGetLatestRedisVersion = errors.New(
-		"could not get latest Redis version: ",
-	)
 	ErrEndpointHasNoIPAddresses = errors.New(
 		"endpoint has no IP addresses",
 	)
@@ -33,9 +27,6 @@ var (
 	)
 	ErrPrivateEndpointNotFound = errors.New(
 		"private endpoint not found",
-	)
-	ErrRedisCliIsNotInstalledPleaseInstallRedisCliToUseThisCommand = errors.New(
-		"redis-cli is not installed. Please install redis-cli to use this command",
 	)
 )
 
@@ -422,7 +413,7 @@ func getLatestRedisVersion(client *scw.Client, zone scw.Zone) (string, error) {
 		scw.WithAllPages(),
 	)
 	if err != nil {
-		return "", fmt.Errorf("%w%w", ErrCouldNotGetLatestRedisVersion, err)
+		return "", fmt.Errorf("could not get latest Redis version: %w", err)
 	}
 
 	versions := make([]string, 0, len(resp.Versions))

@@ -19,7 +19,6 @@ import (
 )
 
 var (
-	ErrInvalidIPOption                              = errors.New("invalid IP")
 	ErrInvalidSizeFormat                            = errors.New("invalid size format")
 	ErrInvalidVolumeFormat                          = errors.New("invalid volume format")
 	ErrInvalidVolumeIops                            = errors.New("invalid volume iops")
@@ -33,10 +32,7 @@ var (
 	ErrTriedToImportAVolumeWithAnEmptyID = errors.New(
 		"tried to import a volume with an empty ID",
 	)
-	ErrVolumeDoesNotExist              = errors.New("volume")
-	ErrVolumeIsAlreadyAttached         = errors.New("volume")
-	ErrVolumeIsAlreadyAttachedToServer = errors.New("volume")
-	ErrVolumeNotFoundInServer          = errors.New("volume")
+	ErrVolume = errors.New("volume")
 )
 
 type ServerBuilder struct {
@@ -234,7 +230,7 @@ func (sb *ServerBuilder) AddIP(ip string) (*ServerBuilder, error) {
 	default:
 		return sb, fmt.Errorf(
 			"%w \"%s\", should be either 'new', 'ipv4', 'ipv6', 'both', 'dynamic', 'none', an IP address ID or a reserved flexible IP address",
-			ErrInvalidIPOption,
+			ErrInvalidIP,
 			ip,
 		)
 	}
@@ -513,7 +509,7 @@ func (sb *ServerBuilder) BuildPostCreationSetup() PostServerCreationSetupFunc {
 		for i, volume := range volumes {
 			serverVolume, serverHasVolume := server.Volumes[strconv.Itoa(i+1)]
 			if !serverHasVolume {
-				return fmt.Errorf("%w %d not found in server", ErrVolumeNotFoundInServer, i+1)
+				return fmt.Errorf("%w %d not found in server", ErrVolume, i+1)
 			}
 			volume.ExecutePostCreationSetup(ctx, sb.apiBlock, serverVolume.ID)
 		}
@@ -688,7 +684,7 @@ func (vb *VolumeBuilder) buildImportedVolume(
 		if res.Volume.Server != nil {
 			return nil, fmt.Errorf(
 				"%w %s is already attached to %s server",
-				ErrVolumeIsAlreadyAttachedToServer,
+				ErrVolume,
 				res.Volume.ID,
 				res.Volume.Server.ID,
 			)
@@ -707,7 +703,7 @@ func (vb *VolumeBuilder) buildImportedVolume(
 	})
 	if err != nil {
 		if core.IsNotFoundError(err) {
-			return nil, fmt.Errorf("%w %s does not exist", ErrVolumeDoesNotExist, *vb.VolumeID)
+			return nil, fmt.Errorf("%w %s does not exist", ErrVolume, *vb.VolumeID)
 		}
 
 		return nil, err
@@ -716,7 +712,7 @@ func (vb *VolumeBuilder) buildImportedVolume(
 	if len(blockRes.References) > 0 {
 		return nil, fmt.Errorf(
 			"%w %s is already attached to %s %s",
-			ErrVolumeIsAlreadyAttached,
+			ErrVolume,
 			blockRes.ID,
 			blockRes.References[0].ProductResourceID,
 			blockRes.References[0].ProductResourceType,

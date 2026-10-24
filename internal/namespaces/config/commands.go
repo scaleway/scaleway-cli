@@ -28,7 +28,6 @@ var (
 	ErrDefaultProjectIDCannotBeEmpty      = errors.New("default project ID cannot be empty")
 	ErrDefaultRegionCannotBeEmpty         = errors.New("default region cannot be empty")
 	ErrDefaultZoneCannotBeEmpty           = errors.New("default zone cannot be empty")
-	ErrFailedToSaveUpdatedConfiguration   = errors.New("failed to save updated configuration")
 	ErrSecretKeyCannotBeEmpty             = errors.New("secret key cannot be empty")
 	ErrURL                                = errors.New("URL")
 )
@@ -775,7 +774,7 @@ func configImportCommand() *core.Command {
 
 			err = currentConfig.SaveTo(configPath)
 			if err != nil {
-				return nil, fmt.Errorf("%w: %w", ErrFailedToSaveUpdatedConfiguration, err)
+				return nil, fmt.Errorf("failed to save updated configuration: %w", err)
 			}
 
 			return &core.SuccessResult{
