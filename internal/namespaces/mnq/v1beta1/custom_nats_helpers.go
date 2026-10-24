@@ -14,6 +14,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var ErrBothXDGConfigHomeAndHOMEAreNotSet = errors.New("both XDG_CONFIG_HOME and HOME are not set")
+
 type NatsEntity struct {
 	Name    string
 	Content []byte
@@ -88,7 +90,7 @@ func getNATSContextDir(ctx context.Context) (string, error) {
 	if xdgConfigHome == "" {
 		homeDir := core.ExtractEnv(ctx, "HOME")
 		if homeDir == "" {
-			return "", errors.New("both XDG_CONFIG_HOME and HOME are not set")
+			return "", ErrBothXDGConfigHomeAndHOMEAreNotSet
 		}
 
 		return filepath.Join(homeDir, ".config", "nats", "context"), nil

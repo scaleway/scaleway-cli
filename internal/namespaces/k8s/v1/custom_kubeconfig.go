@@ -50,6 +50,27 @@ var (
 
 	// defaultAuthMethod is the default choice
 	defaultAuthMethod = string(authMethodCLI)
+
+	ErrUnknownAuthMethod                    = errors.New("unknown auth method: ")
+	ErrClusterNotFound                      = errors.New("cluster not found")
+	ErrUserNotFound                         = errors.New("user not found")
+	ErrContextNotFound                      = errors.New("context not found")
+	ErrClusterNotFoundByName                = errors.New("cluster '")
+	ErrUserNotFoundByName                   = errors.New("user '")
+	ErrContextNotFoundByName                = errors.New("context '")
+	ErrDuplicatedClusterFoundInKubeconfig   = errors.New("duplicated cluster '")
+	ErrDuplicatedUserFoundInKubeconfig      = errors.New("duplicated user '")
+	ErrDuplicatedContextFoundInKubeconfig   = errors.New("duplicated context '")
+	ErrDuplicatedExtensionFoundInKubeconfig = errors.New("duplicated extension '")
+	ErrLegacyAuthMethod                     = errors.New(
+		"legacy method is not handled by generateNamedAuthInfo",
+	)
+	ErrClusterStillReferenced = errors.New(
+		"unable to remove cluster",
+	)
+	ErrUserStillReferenced = errors.New(
+		"unable to remove user",
+	)
 )
 
 // get the path to the wanted kubeconfig on disk
@@ -103,10 +124,10 @@ func generateNamedAuthInfo(ctx context.Context, method authMethods) (*api.NamedA
 	case authMethodCLI:
 		return generateCLINamedAuthInfo(ctx)
 	case authMethodLegacy:
-		return nil, errors.New("legacy method is not handled by generateNamedAuthInfo")
+		return nil, ErrLegacyAuthMethod
 	}
 
-	return nil, fmt.Errorf("unknown auth method: %s", method)
+	return nil, fmt.Errorf("%w%s", ErrUnknownAuthMethod, method)
 }
 
 func generateCLINamedAuthInfo(ctx context.Context) (*api.NamedAuthInfo, error) {
@@ -170,7 +191,7 @@ func generateCLINamedAuthInfo(ctx context.Context) (*api.NamedAuthInfo, error) {
 func generateTokenNamedAuthInfo(ctx context.Context) (*api.NamedAuthInfo, error) {
 	secretKey, ok := core.ExtractClient(ctx).GetSecretKey()
 	if !ok {
-		return nil, errors.New("could not get secret key")
+		return nil, core.ErrCouldNotGetSecretKey
 	}
 
 	configPathSum := crc32.ChecksumIEEE([]byte(secretKey))
@@ -224,21 +245,33 @@ func LoadKubeMapConfig(ctx context.Context, kubeconfigPath string) (*KubeMapConf
 
 	for _, namedCluster := range kubeconfig.Clusters {
 		if _, ok := kubeMapConfig.clusters[namedCluster.Name]; ok {
-			return nil, fmt.Errorf("duplicated cluster '%s' found in kubeconfig", namedCluster.Name)
+			return nil, fmt.Errorf(
+				"%w'%s' found in kubeconfig",
+				ErrDuplicatedClusterFoundInKubeconfig,
+				namedCluster.Name,
+			)
 		}
 		kubeMapConfig.clusters[namedCluster.Name] = namedCluster.Cluster
 	}
 
 	for _, namedAuthInfo := range kubeconfig.AuthInfos {
 		if _, ok := kubeMapConfig.users[namedAuthInfo.Name]; ok {
-			return nil, fmt.Errorf("duplicated user '%s' found in kubeconfig", namedAuthInfo.Name)
+			return nil, fmt.Errorf(
+				"%w'%s' found in kubeconfig",
+				ErrDuplicatedUserFoundInKubeconfig,
+				namedAuthInfo.Name,
+			)
 		}
 		kubeMapConfig.users[namedAuthInfo.Name] = namedAuthInfo.AuthInfo
 	}
 
 	for _, namedContext := range kubeconfig.Contexts {
 		if _, ok := kubeMapConfig.contexts[namedContext.Name]; ok {
-			return nil, fmt.Errorf("duplicated context '%s' found in kubeconfig", namedContext.Name)
+			return nil, fmt.Errorf(
+				"%w'%s' found in kubeconfig",
+				ErrDuplicatedContextFoundInKubeconfig,
+				namedContext.Name,
+			)
 		}
 
 		// Warn the user about its invalid kubeconfig
@@ -258,7 +291,8 @@ func LoadKubeMapConfig(ctx context.Context, kubeconfigPath string) (*KubeMapConf
 	for _, namedExtension := range kubeconfig.Extensions {
 		if _, ok := kubeMapConfig.extensions[namedExtension.Name]; ok {
 			return nil, fmt.Errorf(
-				"duplicated extension '%s' found in kubeconfig",
+				"%w'%s' found in kubeconfig",
+				ErrDuplicatedExtensionFoundInKubeconfig,
 				namedExtension.Name,
 			)
 		}
@@ -273,12 +307,16 @@ func (c *KubeMapConfig) GetCluster(name string) (*api.NamedCluster, error) {
 		return &api.NamedCluster{Name: name, Cluster: cluster}, nil
 	}
 
-	return nil, fmt.Errorf("cluster '%s' not found", name)
+	return nil, fmt.Errorf("%w'%s' not found", ErrClusterNotFoundByName, name)
 }
 
 func (c *KubeMapConfig) SetCluster(name string, cluster api.Cluster, overwrite bool) error {
 	if _, ok := c.clusters[name]; ok && !overwrite {
-		return fmt.Errorf("duplicated cluster '%s' found in kubeconfig", name)
+		return fmt.Errorf(
+			"%w'%s' found in kubeconfig",
+			ErrDuplicatedClusterFoundInKubeconfig,
+			name,
+		)
 	}
 	c.clusters[name] = cluster
 
@@ -287,13 +325,14 @@ func (c *KubeMapConfig) SetCluster(name string, cluster api.Cluster, overwrite b
 
 func (c *KubeMapConfig) RemoveCluster(name string) error {
 	if _, ok := c.clusters[name]; !ok {
-		return errors.New("cluster not found")
+		return ErrClusterNotFound
 	}
 
 	for contextName, contextValue := range c.contexts {
 		if contextValue.Cluster == name {
 			return fmt.Errorf(
-				"unable to remove cluster: cluster '%s' still referenced in context '%s'",
+				"%w: cluster '%s' still referenced in context '%s'",
+				ErrClusterStillReferenced,
 				name,
 				contextName,
 			)
@@ -310,12 +349,16 @@ func (c *KubeMapConfig) GetUser(name string) (*api.NamedAuthInfo, error) {
 		return &api.NamedAuthInfo{Name: name, AuthInfo: user}, nil
 	}
 
-	return nil, fmt.Errorf("user '%s' not found", name)
+	return nil, fmt.Errorf("%w'%s' not found", ErrUserNotFoundByName, name)
 }
 
 func (c *KubeMapConfig) SetUser(name string, user api.AuthInfo, overwrite bool) error {
 	if _, ok := c.users[name]; ok && !overwrite {
-		return fmt.Errorf("duplicated user '%s' found in kubeconfig", name)
+		return fmt.Errorf(
+			"%w'%s' found in kubeconfig",
+			ErrDuplicatedUserFoundInKubeconfig,
+			name,
+		)
 	}
 	c.users[name] = user
 
@@ -324,13 +367,14 @@ func (c *KubeMapConfig) SetUser(name string, user api.AuthInfo, overwrite bool) 
 
 func (c *KubeMapConfig) RemoveUser(name string) error {
 	if _, ok := c.users[name]; !ok {
-		return errors.New("user not found")
+		return ErrUserNotFound
 	}
 
 	for contextName, contextValue := range c.contexts {
 		if contextValue.AuthInfo == name {
 			return fmt.Errorf(
-				"unable to remove user: user '%s' referenced in context '%s'",
+				"%w: user '%s' referenced in context '%s'",
+				ErrUserStillReferenced,
 				name,
 				contextName,
 			)
@@ -347,20 +391,32 @@ func (c *KubeMapConfig) GetContext(name string) (*api.NamedContext, error) {
 		return &api.NamedContext{Name: name, Context: kubeContext}, nil
 	}
 
-	return nil, fmt.Errorf("context '%s' not found", name)
+	return nil, fmt.Errorf("%w'%s' not found", ErrContextNotFoundByName, name)
 }
 
 func (c *KubeMapConfig) SetContext(name string, context api.Context, overwrite bool) error {
 	if _, ok := c.contexts[name]; ok && !overwrite {
-		return fmt.Errorf("duplicated context '%s' found in kubeconfig", name)
+		return fmt.Errorf(
+			"%w'%s' found in kubeconfig",
+			ErrDuplicatedContextFoundInKubeconfig,
+			name,
+		)
 	}
 
 	if _, ok := c.clusters[context.Cluster]; !ok {
-		return fmt.Errorf("cluster '%s' not found in kubeconfig", context.Cluster)
+		return fmt.Errorf(
+			"%w'%s' not found in kubeconfig",
+			ErrClusterNotFoundByName,
+			context.Cluster,
+		)
 	}
 
 	if _, ok := c.users[context.AuthInfo]; !ok {
-		return fmt.Errorf("user '%s' not found in kubeconfig", context.AuthInfo)
+		return fmt.Errorf(
+			"%w'%s' not found in kubeconfig",
+			ErrUserNotFoundByName,
+			context.AuthInfo,
+		)
 	}
 
 	c.contexts[name] = context
@@ -375,7 +431,7 @@ func (c *KubeMapConfig) RemoveContext(name string) error {
 		return nil
 	}
 
-	return errors.New("context not found")
+	return ErrContextNotFound
 }
 
 func (c *KubeMapConfig) Kubeconfig() api.Config {

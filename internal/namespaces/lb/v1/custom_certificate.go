@@ -2,7 +2,6 @@ package lb
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"reflect"
 
@@ -14,9 +13,18 @@ import (
 )
 
 var certificateStatusMarshalSpecs = human.EnumMarshalSpecs{
-	lb.CertificateStatusError:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-	lb.CertificateStatusPending: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "pending"},
-	lb.CertificateStatusReady:   &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
+	lb.CertificateStatusError: &human.EnumMarshalSpec{
+		Attribute: color.FgRed,
+		Value:     "error",
+	},
+	lb.CertificateStatusPending: &human.EnumMarshalSpec{
+		Attribute: color.FgBlue,
+		Value:     "pending",
+	},
+	lb.CertificateStatusReady: &human.EnumMarshalSpec{
+		Attribute: color.FgGreen,
+		Value:     "ready",
+	},
 }
 
 func lbCertificateMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
@@ -115,7 +123,7 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		return nil, &core.CliError{
-			Err: errors.New("missing required argument"),
+			Err: core.ErrMissingRequiredArgument,
 			Hint: fmt.Sprintf(
 				"You need to specify %s or %s",
 				leCommonNameArgSpecs.Name,

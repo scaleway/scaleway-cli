@@ -12,6 +12,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var errNamespaceNotFound = errors.New("namespace not found")
+
 func Test_Deploy(t *testing.T) {
 	functionName := "cli-test-function-deploy"
 	testZip := "testfixture/gofunction.zip"
@@ -61,7 +63,7 @@ func testDeleteFunctionNamespaceAfter(functionName string) func(*core.AfterFuncC
 		}
 
 		if namespaceID == "" {
-			return errors.New("namespace not found")
+			return errNamespaceNotFound
 		}
 
 		return core.ExecAfterCmd("scw function namespace delete " + namespaceID)(ctx)

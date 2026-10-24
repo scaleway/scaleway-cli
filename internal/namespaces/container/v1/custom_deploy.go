@@ -33,6 +33,14 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var (
+	ErrDockerBuildFailedWithErrorCode = errors.New("docker build failed with error code")
+
+	ErrApplicationNameRequired = errors.New(
+		"unable to determine application name, please specify it with name=",
+	)
+)
+
 type containerDeployRequest struct {
 	Region scw.Region
 
@@ -135,9 +143,7 @@ func containerDeployRun(ctx context.Context, argsI any) (i any, e error) {
 	if args.Name == "" {
 		args.Name = filepath.Base(args.BuildSource)
 		if args.Name == "." {
-			return nil, errors.New(
-				"unable to determine application name, please specify it with name=",
-			)
+			return nil, ErrApplicationNameRequired
 		}
 
 		args.Name = "app-" + args.Name
@@ -359,7 +365,8 @@ func DeployStepDockerBuildImage(
 			}
 
 			return nil, fmt.Errorf(
-				"docker build failed with error code %d: %s",
+				"%w %d: %s",
+				ErrDockerBuildFailedWithErrorCode,
 				jerr.Code,
 				jerr.Message,
 			)
@@ -467,7 +474,8 @@ func DeployStepPushImage(
 			}
 
 			return nil, fmt.Errorf(
-				"docker build failed with error code %d: %s",
+				"%w %d: %s",
+				ErrDockerBuildFailedWithErrorCode,
 				jerr.Code,
 				jerr.Message,
 			)

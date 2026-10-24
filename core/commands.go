@@ -1,7 +1,6 @@
 package core
 
 import (
-	"fmt"
 	"sort"
 	"strings"
 
@@ -51,7 +50,7 @@ func (c *Commands) MustFind(path ...string) *Command {
 		return cmd
 	}
 
-	panic(fmt.Errorf("command %v not found", strings.Join(path, " ")))
+	panic("command not found: " + strings.Join(path, " "))
 }
 
 func (c *Commands) Find(path ...string) *Command {

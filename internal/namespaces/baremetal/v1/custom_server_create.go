@@ -2,6 +2,7 @@ package baremetal
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 
@@ -9,6 +10,8 @@ import (
 	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
+
+var ErrCouldNotMatchAnOfferWithTheType = errors.New("could not match an offer with the type: ")
 
 func serverCreateBuilder(c *core.Command) *core.Command {
 	type baremetalCreateServerRequestCustom struct {
@@ -70,7 +73,7 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 		if offer == nil {
-			return nil, fmt.Errorf("could not match an offer with the type: %s", tmpRequest.Type)
+			return nil, fmt.Errorf("%w%s", ErrCouldNotMatchAnOfferWithTheType, tmpRequest.Type)
 		}
 		request.OfferID = offer.ID
 

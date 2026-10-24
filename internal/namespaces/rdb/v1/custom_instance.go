@@ -32,6 +32,18 @@ const (
 	errorMessageEndpointNotFound        = "any endpoint is associated on your instance"
 )
 
+var (
+	ErrUnexpectedNilInstanceWhileWaitingForUpdate = errors.New(
+		"unexpected nil instance while waiting for update",
+	)
+	ErrInstanceEngineIsNil                   = errors.New("instance engine is nil")
+	ErrUnknownEngine                         = errors.New("unknown engine:")
+	ErrPublicEndpointNotFound                = errors.New(errorMessagePublicEndpointNotFound)
+	ErrPrivateEndpointNotFound               = errors.New(errorMessagePrivateEndpointNotFound)
+	ErrAnyEndpointIsAssociatedOnYourInstance = errors.New(errorMessageEndpointNotFound)
+	ErrUnrecognizeDatabaseEngine             = errors.New("unrecognize database engine:")
+)
+
 var instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
 	rdbSDK.InstanceStatusUnknown: &human.EnumMarshalSpec{
 		Attribute: color.Faint,
@@ -669,7 +681,7 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 		WaitFunc: func(ctx context.Context, _, respI any) (any, error) {
 			instance, ok := respI.(*rdbSDK.Instance)
 			if !ok || instance == nil {
-				return nil, errors.New("unexpected nil instance while waiting for update")
+				return nil, ErrUnexpectedNilInstanceWhileWaitingForUpdate
 			}
 
 			api := rdbSDK.NewAPI(core.ExtractClient(ctx))
@@ -847,7 +859,7 @@ func passwordFileHint(family engineFamily) string {
 
 func detectEngineFamily(instance *rdbSDK.Instance) (engineFamily, error) {
 	if instance == nil {
-		return Unknown, errors.New("instance engine is nil")
+		return Unknown, ErrInstanceEngineIsNil
 	}
 	if strings.HasPrefix(instance.Engine, string(PostgreSQL)) {
 		return PostgreSQL, nil
@@ -856,7 +868,7 @@ func detectEngineFamily(instance *rdbSDK.Instance) (engineFamily, error) {
 		return MySQL, nil
 	}
 
-	return Unknown, fmt.Errorf("unknown engine: %s", instance.Engine)
+	return Unknown, fmt.Errorf("%w %s", ErrUnknownEngine, instance.Engine)
 }
 
 func getPublicEndpoint(endpoints []*rdbSDK.Endpoint) (*rdbSDK.Endpoint, error) {
@@ -866,7 +878,7 @@ func getPublicEndpoint(endpoints []*rdbSDK.Endpoint) (*rdbSDK.Endpoint, error) {
 		}
 	}
 
-	return nil, fmt.Errorf("%s", errorMessagePublicEndpointNotFound)
+	return nil, ErrPublicEndpointNotFound
 }
 
 func getPrivateEndpoint(endpoints []*rdbSDK.Endpoint) (*rdbSDK.Endpoint, error) {
@@ -876,7 +888,7 @@ func getPrivateEndpoint(endpoints []*rdbSDK.Endpoint) (*rdbSDK.Endpoint, error) 
 		}
 	}
 
-	return nil, fmt.Errorf("%s", errorMessagePrivateEndpointNotFound)
+	return nil, ErrPrivateEndpointNotFound
 }
 
 func createConnectCommandLineArgs(
@@ -920,7 +932,7 @@ func createConnectCommandLineArgs(
 		}, nil
 	}
 
-	return nil, fmt.Errorf("unrecognize database engine: %s", family)
+	return nil, fmt.Errorf("%w %s", ErrUnrecognizeDatabaseEngine, family)
 }
 
 func instanceConnectCommand() *core.Command {
@@ -979,7 +991,7 @@ func instanceConnectCommand() *core.Command {
 			}
 
 			if len(instance.Endpoints) == 0 {
-				return nil, fmt.Errorf("%s", errorMessageEndpointNotFound)
+				return nil, ErrAnyEndpointIsAssociatedOnYourInstance
 			}
 
 			var endpoint *rdbSDK.Endpoint

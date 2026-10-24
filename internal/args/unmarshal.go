@@ -29,12 +29,20 @@ type UnmarshalFunc func(value string, dest any) error
 
 var TestForceNow *time.Time
 
+var (
+	ErrEmptyTimeGiven                     = errors.New("empty time given")
+	ErrNotAValidIP                        = errors.New("not a valid IP")
+	ErrSizeMustBeDefinedUsingTheGOrGBUnit = errors.New(
+		"size must be defined using the G or GB unit",
+	)
+)
+
 var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 	reflect.TypeFor[scw.Size](): func(value string, dest any) error {
 		// Only support G, GB for now (case insensitive).
 		value = strings.ToLower(value)
 		if !strings.HasSuffix(value, "g") && !strings.HasSuffix(value, "gb") {
-			return errors.New("size must be defined using the G or GB unit")
+			return ErrSizeMustBeDefinedUsingTheGOrGBUnit
 		}
 
 		bytes, err := humanize.ParseBytes(value)
@@ -53,7 +61,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 	reflect.TypeFor[net.IP](): func(value string, dest any) error {
 		ip := net.ParseIP(value)
 		if ip == nil {
-			return fmt.Errorf("%s is not a valid IP", value)
+			return fmt.Errorf("%s is %w", value, ErrNotAValidIP)
 		}
 		*dest.(*net.IP) = ip
 
@@ -76,7 +84,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		}
 
 		if len(value) == 0 {
-			return errors.New("empty time given")
+			return ErrEmptyTimeGiven
 		}
 
 		// Handle relative time

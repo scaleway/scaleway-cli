@@ -18,6 +18,12 @@ const (
 	LocalityTypeRegion LocalityType = "region"
 )
 
+var (
+	ErrFailedToAssertRegionFetcher = errors.New("failed to assert region fetcher")
+	ErrFailedToAssertZoneFetcher   = errors.New("failed to assert zone fetcher")
+	ErrUnknownLocalityType         = errors.New("unknown locality type")
+)
+
 type Locality interface {
 	scw.Zone | scw.Region
 }
@@ -64,7 +70,7 @@ func (w *fetcherWrapper[L]) FetchAny(
 	case LocalityTypeZone:
 		zoneFetcher, ok := any(w.fetcher).(Fetcher[scw.Zone])
 		if !ok {
-			return nil, errors.New("failed to assert zone fetcher")
+			return nil, ErrFailedToAssertZoneFetcher
 		}
 
 		return zoneFetcher.Fetch(ctx, zone, projectID)
@@ -75,12 +81,12 @@ func (w *fetcherWrapper[L]) FetchAny(
 		}
 		regionFetcher, ok := any(w.fetcher).(Fetcher[scw.Region])
 		if !ok {
-			return nil, errors.New("failed to assert region fetcher")
+			return nil, ErrFailedToAssertRegionFetcher
 		}
 
 		return regionFetcher.Fetch(ctx, region, projectID)
 	default:
-		return nil, errors.New("unknown locality type")
+		return nil, ErrUnknownLocalityType
 	}
 }
 

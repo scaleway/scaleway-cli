@@ -26,7 +26,7 @@ func writeHelperScript(scriptPath string, scriptContent string) error {
 		return err
 	}
 	if !stats.IsDir() {
-		return fmt.Errorf("%s is not a directory", scriptDir)
+		return fmt.Errorf("%v %w", scriptDir, ErrIsNotADirectory)
 	}
 
 	f, err := os.OpenFile(scriptPath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0o755)

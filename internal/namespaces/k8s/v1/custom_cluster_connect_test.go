@@ -2,6 +2,7 @@ package k8s_test
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -13,6 +14,15 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+)
+
+var (
+	errKubeconfigEnvNotSetForK9s             = errors.New("KUBECONFIG env not set for k9s")
+	errUnexpectedExec                        = errors.New("unexpected exec: ")
+	errUnexpectedRenderedCommand             = errors.New("unexpected rendered command: ")
+	errKubeconfigEnvNotSetForRenderedCommand = errors.New(
+		"KUBECONFIG env not set for rendered command",
+	)
 )
 
 func Test_ClusterConnect(t *testing.T) {
@@ -43,9 +53,9 @@ func Test_ClusterConnect(t *testing.T) {
 					}
 				}
 
-				return 0, errors.New("KUBECONFIG env not set for k9s")
+				return 0, errKubeconfigEnvNotSetForK9s
 			default:
-				return 0, errors.New("unexpected exec: " + cmd.Args[0])
+				return 0, fmt.Errorf("%w%s", errUnexpectedExec, cmd.Args[0])
 			}
 		},
 		Check: core.TestCheckCombine(
@@ -62,11 +72,15 @@ func Test_ClusterConnect(t *testing.T) {
 			// The rendered command must be executed directly, no k9s involved
 			if len(cmd.Args) != 5 || cmd.Args[0] != "kubectl" || cmd.Args[1] != "--kubeconfig" ||
 				cmd.Args[3] != "get" || cmd.Args[4] != "pods" || !strings.HasSuffix(cmd.Args[2], ".yaml") {
-				return 0, errors.New("unexpected rendered command: " + strings.Join(cmd.Args, " "))
+				return 0, fmt.Errorf(
+					"%w%s",
+					errUnexpectedRenderedCommand,
+					strings.Join(cmd.Args, " "),
+				)
 			}
 
 			if !slices.Contains(cmd.Env, "KUBECONFIG="+cmd.Args[2]) {
-				return 0, errors.New("KUBECONFIG env not set for rendered command")
+				return 0, errKubeconfigEnvNotSetForRenderedCommand
 			}
 
 			return 0, nil

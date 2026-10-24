@@ -14,6 +14,11 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var (
+	ErrCouldNotFindDetailsOnCompatibleType = errors.New("could not find details on compatible type")
+	ErrCouldNotFindDetailsOnCurrentType    = errors.New("could not find details on current type")
+)
+
 //
 // Marshalers
 //
@@ -249,7 +254,7 @@ func getCompatibleTypesBuilder(c *core.Command) *core.Command {
 			if !ok {
 				warnings = append(
 					warnings,
-					fmt.Errorf("could not find details on compatible type %q", compatibleType),
+					fmt.Errorf("%w %q", ErrCouldNotFindDetailsOnCompatibleType, compatibleType),
 				)
 			}
 
@@ -280,7 +285,8 @@ func getCompatibleTypesBuilder(c *core.Command) *core.Command {
 			warnings = append(
 				warnings,
 				fmt.Errorf(
-					"could not find details on current type %q",
+					"%w %q",
+					ErrCouldNotFindDetailsOnCurrentType,
 					server.Server.CommercialType,
 				),
 			)

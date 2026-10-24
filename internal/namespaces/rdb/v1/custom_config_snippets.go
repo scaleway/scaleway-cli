@@ -1,6 +1,7 @@
 package rdb
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -19,6 +20,8 @@ const (
 	rdbConfigTypeRust       rdbConfigType = "rust"
 )
 
+var ErrUnsupportedConfigType = errors.New("unsupported config type")
+
 func renderRDBConfig(configType rdbConfigType, info *ConnectionInfo) (core.RawResult, error) {
 	switch configType {
 	case rdbConfigTypePHP,
@@ -29,6 +32,6 @@ func renderRDBConfig(configType rdbConfigType, info *ConnectionInfo) (core.RawRe
 		rdbConfigTypeRust:
 		return renderConfigTemplate(configType, info)
 	default:
-		return core.RawResult(""), fmt.Errorf("unsupported config type %q", configType)
+		return core.RawResult(""), fmt.Errorf("%w %q", ErrUnsupportedConfigType, configType)
 	}
 }

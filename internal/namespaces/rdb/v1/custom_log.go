@@ -20,6 +20,14 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var (
+	ErrNoLogsFoundForTheSpecifiedTimeRange = errors.New(
+		"no logs found for the specified time range",
+	)
+	ErrNoLogsReadyAfterWaiting   = errors.New("no logs ready after waiting")
+	ErrDownloadURLIsNotAvailable = errors.New("download URL is not available")
+)
+
 var logStatusMarshalSpecs = human.EnumMarshalSpecs{
 	rdb.InstanceLogStatusUnknown: &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
 	rdb.InstanceLogStatusReady:   &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
@@ -154,7 +162,7 @@ func logDownloadCommand() *core.Command {
 			}
 
 			if len(prepareResp.InstanceLogs) == 0 {
-				return nil, errors.New("no logs found for the specified time range")
+				return nil, ErrNoLogsFoundForTheSpecifiedTimeRange
 			}
 
 			_, err = interactive.Println("OK")
@@ -187,12 +195,12 @@ func logDownloadCommand() *core.Command {
 			}
 
 			if len(readyLogs) == 0 {
-				return nil, errors.New("no logs ready after waiting")
+				return nil, ErrNoLogsReadyAfterWaiting
 			}
 
 			logToDownload := readyLogs[0]
 			if logToDownload.DownloadURL == nil {
-				return nil, errors.New("download URL is not available")
+				return nil, ErrDownloadURLIsNotAvailable
 			}
 
 			httpClient := core.ExtractHTTPClient(ctx)

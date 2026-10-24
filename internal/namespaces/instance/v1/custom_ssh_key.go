@@ -18,6 +18,11 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var (
+	ErrKeyAlreadyExists           = errors.New("key already exists")
+	ErrNoKeyFoundWithGivenFilters = errors.New("no key found with given filters")
+)
+
 const (
 	sshKeyTagPrefix = "AUTHORIZED_KEY="
 )
@@ -110,7 +115,7 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 
 			for i, tag := range server.Server.Tags {
 				if tag == formattedKey {
-					return nil, fmt.Errorf("key already exists (tags.%d)", i)
+					return nil, fmt.Errorf("%w (tags.%d)", ErrKeyAlreadyExists, i)
 				}
 			}
 
@@ -352,7 +357,7 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 			}
 
 			if len(removedKeys) == 0 {
-				return nil, errors.New("no key found with given filters")
+				return nil, ErrNoKeyFoundWithGivenFilters
 			}
 
 			_, err = api.UpdateServer(&instance.UpdateServerRequest{

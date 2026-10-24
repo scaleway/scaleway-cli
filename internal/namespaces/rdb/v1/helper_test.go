@@ -18,6 +18,8 @@ const (
 	engine   = "PostgreSQL-15"
 )
 
+var errCouldGetIP4Bytes = errors.New("could get ip 4 bytes")
+
 func fetchLatestEngine(engine string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		api := rdbSDK.NewAPI(ctx.Client)
@@ -80,7 +82,7 @@ func createPN() core.BeforeFunc {
 func getIPSubnet(ipNet scw.IPNet) (*string, error) {
 	addr := ipNet.IP.To4()
 	if addr == nil {
-		return nil, errors.New("could get ip 4 bytes")
+		return nil, errCouldGetIP4Bytes
 	}
 	addr = addr.Mask(addr.DefaultMask())
 	addr[3] = +3

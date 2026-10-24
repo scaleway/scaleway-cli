@@ -12,6 +12,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var errAliasListShouldNotContainInstance = errors.New("alias list should not contain instance")
+
 func Test_Alias(t *testing.T) {
 	t.Run("Multiple words", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
@@ -84,7 +86,7 @@ func Test_Alias(t *testing.T) {
 				}
 
 				if strings.Contains(resString, "instance") {
-					return errors.New("alias list should not contain instance")
+					return errAliasListShouldNotContainInstance
 				}
 
 				return nil

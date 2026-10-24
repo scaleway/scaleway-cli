@@ -63,7 +63,8 @@ func RenderAlloyConfig(
 		})
 	default:
 		return core.RawResult(""), fmt.Errorf(
-			"unsupported data source type %q for alloy config",
+			"%w %q for alloy config",
+			ErrUnsupportedDataSourceType,
 			dataSourceType,
 		)
 	}

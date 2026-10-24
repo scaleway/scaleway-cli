@@ -17,6 +17,14 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var (
+	ErrNoCockpitDatasource = errors.New(
+		"could not find any cockpit datasource to fetch the logs from",
+	)
+	ErrFailedToParseLogEntryAtIndex = errors.New("failed to parse log entry at index")
+	ErrNoResultsFoundForContainer   = errors.New("no results found for container")
+)
+
 type containerLogsRequest struct {
 	ContainerID string
 	Region      scw.Region
@@ -75,7 +83,7 @@ func containerLogsRun(ctx context.Context, argsI any) (any, error) {
 	}
 
 	if ds.TotalCount == 0 {
-		return nil, errors.New("could not find any cockpit datasource to fetch the logs from")
+		return nil, ErrNoCockpitDatasource
 	}
 
 	// Setup request
@@ -181,7 +189,8 @@ func readLokiResponseBody(
 	if len(lokiResp.Data.Result) == 0 ||
 		len(lokiResp.Data.Result[0].Values) == 0 {
 		return nil, fmt.Errorf(
-			"no results found for container %s in the last %s",
+			"%w %s in the last %s",
+			ErrNoResultsFoundForContainer,
 			args.ContainerID,
 			args.TimeSpan,
 		)
@@ -201,7 +210,8 @@ func readLokiResponseBody(
 
 		if len(value) < 2 {
 			return nil, fmt.Errorf(
-				"failed to parse log entry at index %d: expected 2 parts, got %d",
+				"%w %d: expected 2 parts, got %d",
+				ErrFailedToParseLogEntryAtIndex,
 				count,
 				len(value),
 			)

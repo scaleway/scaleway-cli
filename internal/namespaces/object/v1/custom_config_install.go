@@ -14,6 +14,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var ErrInstallationAbortedByUser = errors.New("installation aborted by user")
+
 func configInstallCommand() *core.Command {
 	type installArgs struct {
 		Region    scw.Region
@@ -97,7 +99,7 @@ func configInstallCommand() *core.Command {
 					return nil, err
 				}
 				if !doIt {
-					return nil, errors.New("installation aborted by user")
+					return nil, ErrInstallationAbortedByUser
 				}
 			}
 

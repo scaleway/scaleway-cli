@@ -19,6 +19,12 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/logger"
 )
 
+var (
+	ErrIndexCannotBe1OrLower    = errors.New("index cannot be 1 (0) or lower")
+	ErrIndexToCompleteIsInvalid = errors.New("index to complete is invalid")
+	ErrNotEnoughArguments       = errors.New("not enough arguments")
+)
+
 func GetCommands() *core.Commands {
 	cmds := core.NewCommands(
 		autocompleteRootCommand(),
@@ -293,7 +299,7 @@ func autocompleteCompleteBashCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			if len(rawArgs) < 3 {
-				return nil, errors.New("not enough arguments")
+				return nil, ErrNotEnoughArguments
 			}
 			wordIndex, err := strconv.Atoi(rawArgs[1])
 			if err != nil {
@@ -301,7 +307,7 @@ func autocompleteCompleteBashCommand() *core.Command {
 			}
 			words := rawArgs[2:]
 			if len(words) <= wordIndex {
-				return nil, errors.New("index to complete is invalid")
+				return nil, ErrIndexToCompleteIsInvalid
 			}
 
 			aliases := core.ExtractAliases(ctx)
@@ -340,7 +346,7 @@ func autocompleteCompleteFishCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			if len(rawArgs) < 4 {
-				return nil, errors.New("not enough arguments")
+				return nil, ErrNotEnoughArguments
 			}
 
 			aliases := core.ExtractAliases(ctx)
@@ -378,7 +384,7 @@ func autocompleteCompleteZshCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			if len(rawArgs) < 2 {
-				return nil, errors.New("not enough arguments")
+				return nil, ErrNotEnoughArguments
 			}
 
 			// First arg is the word index.
@@ -389,7 +395,7 @@ func autocompleteCompleteZshCommand() *core.Command {
 			wordIndex-- // In zsh word index starts at 1.
 
 			if wordIndex <= 0 {
-				return nil, errors.New("index cannot be 1 (0) or lower")
+				return nil, ErrIndexCannotBe1OrLower
 			}
 
 			// Other args are all the words.

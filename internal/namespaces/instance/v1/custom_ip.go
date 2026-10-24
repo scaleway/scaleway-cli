@@ -2,6 +2,7 @@ package instance
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net"
 	"reflect"
@@ -11,6 +12,11 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/validation"
+)
+
+var (
+	ErrDoesNotBelongToYou = errors.New("does not belong to you")
+	ErrInvalidIP          = errors.New("invalid IP")
 )
 
 // Builders
@@ -158,12 +164,13 @@ func ipDetachCommand() *core.Command {
 					IP:   args.IP,
 				})
 				if err != nil { // FIXME: isNotFoundError
-					return nil, fmt.Errorf("%s does not belong to you", args.IP)
+					return nil, fmt.Errorf("%s %w", args.IP, ErrDoesNotBelongToYou)
 				}
 				ipID = res.IP.ID
 			default:
 				return nil, fmt.Errorf(
-					`invalid IP "%s", should be either an IP address ID or a reserved flexible IP address`,
+					"%w \"%s\", should be either an IP address ID or a reserved flexible IP address",
+					ErrInvalidIP,
 					args.IP,
 				)
 			}

@@ -2,7 +2,7 @@ package core_test
 
 import (
 	"context"
-	"errors"
+	"fmt"
 	"reflect"
 	"strings"
 	"testing"
@@ -111,8 +111,11 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			core.TestCheckError(&core.CliError{
-				Err: errors.New(
-					"invalid argument 'name_id': arg name must only contain lowercase letters, numbers or dashes",
+				Err: fmt.Errorf(
+					"%w '%s': %s",
+					core.ErrInvalidArgument,
+					"name_id",
+					"arg name must only contain lowercase letters, numbers or dashes",
 				),
 				Hint: "Valid arguments are: name-id",
 			}),
@@ -125,8 +128,11 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			core.TestCheckError(&core.CliError{
-				Err: errors.New(
-					"invalid argument 'ubuntu_focal': arg name must only contain lowercase letters, numbers or dashes",
+				Err: fmt.Errorf(
+					"%w '%s': %s",
+					core.ErrInvalidArgument,
+					"ubuntu_focal",
+					"arg name must only contain lowercase letters, numbers or dashes",
 				),
 				Hint: "Valid arguments are: name-id",
 			}),
@@ -143,7 +149,7 @@ func Test_handleUnmarshalErrors(t *testing.T) {
 				Details: `Absolute time error: parsing time "+3R" as "2006-01-02T15:04:05Z07:00": cannot parse "+3R" as "2006"
 Relative time error: unknown unit in duration: "R"
 `,
-				Err:  errors.New("date parsing error: +3R"),
+				Err:  fmt.Errorf("%w %s", core.ErrDateParsingError, "+3R"),
 				Hint: "Run `scw help date` to learn more about date parsing",
 			}),
 		),
@@ -177,7 +183,7 @@ func Test_PositionalArg(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(1),
 				core.TestCheckError(&core.CliError{
-					Err:  errors.New("a positional argument is required for this command"),
+					Err:  core.ErrPositionalArgumentRequired,
 					Hint: "Try running: scw test positional <name-id>",
 				}),
 			),
@@ -189,7 +195,7 @@ func Test_PositionalArg(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(1),
 				core.TestCheckError(&core.CliError{
-					Err:  errors.New("a positional argument is required for this command"),
+					Err:  core.ErrPositionalArgumentRequired,
 					Hint: "Try running: scw test positional <name-id> tag=world",
 				}),
 			),
@@ -295,7 +301,7 @@ func Test_MultiPositionalArg(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			core.TestCheckError(&core.CliError{
-				Err:  errors.New("a positional argument is required for this command"),
+				Err:  core.ErrPositionalArgumentRequired,
 				Hint: "Try running: scw test multi-positional <name-ids> tag=tag1",
 			}),
 		),

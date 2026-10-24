@@ -22,6 +22,11 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var (
+	ErrEndpoint        = errors.New("endpoint")
+	ErrIsNotADirectory = errors.New("is not a directory")
+)
+
 type emptyRequest struct{}
 
 type registrySetupDockerHelperArgs struct {
@@ -48,7 +53,7 @@ It avoid running docker login commands.
 				ValidateFunc: func(_ *core.ArgSpec, value any) error {
 					stat, err := os.Stat(value.(string))
 					if err != nil || !stat.IsDir() {
-						return fmt.Errorf("%s is not a directory", value)
+						return fmt.Errorf("%v %w", value, ErrIsNotADirectory)
 					}
 
 					return nil
@@ -107,7 +112,7 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI any) (i any, e erro
 		return nil, err
 	}
 	if !continueInstallation {
-		return nil, errors.New("installation cancelled")
+		return nil, core.ErrInstallationCancelled
 	}
 
 	err = writeHelperScript(helperScriptPath, helperScriptContent)
@@ -200,14 +205,14 @@ func registryDockerHelperGetRun(ctx context.Context, _ any) (i any, e error) {
 	}
 
 	if !serverFound {
-		return nil, fmt.Errorf("endpoint %s does not exist", serverURL)
+		return nil, fmt.Errorf("%w %s does not exist", ErrEndpoint, serverURL)
 	}
 
 	client := core.ExtractClient(ctx)
 
 	secretKey, ok := client.GetSecretKey()
 	if !ok {
-		return nil, errors.New("could not get secret key")
+		return nil, core.ErrCouldNotGetSecretKey
 	}
 
 	raw, err := json.Marshal(registryDockerHelperGetResponse{

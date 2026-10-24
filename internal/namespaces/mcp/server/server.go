@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -11,6 +12,8 @@ import (
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/scaleway/scaleway-cli/v2/core"
 )
+
+var ErrUnknownTransportMode = errors.New("unknown transport mode: ")
 
 // MCPServer wraps the MCP server with CLI command integration
 type MCPServer struct {
@@ -162,7 +165,8 @@ func (s *MCPServer) Serve(
 
 	default:
 		return nil, fmt.Errorf(
-			"unknown transport mode: %s (valid modes: stdio, streamable-http)",
+			"%w%s (valid modes: stdio, streamable-http)",
+			ErrUnknownTransportMode,
 			transportMode,
 		)
 	}

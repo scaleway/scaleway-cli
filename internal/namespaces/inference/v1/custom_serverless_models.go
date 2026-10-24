@@ -13,6 +13,11 @@ import (
 	product_catalog "github.com/scaleway/scaleway-sdk-go/api/product_catalog/v2alpha1"
 )
 
+var (
+	ErrAPIReturnedStatus = errors.New("API returned status ")
+	ErrSecretKeyNotFound = errors.New("secret key not found")
+)
+
 type ListServerlessModelsResponse struct {
 	Object string  `json:"object"`
 	Data   []Model `json:"data"`
@@ -50,7 +55,7 @@ func listServerlessModels() *core.Command {
 
 			secret, ok := scwClient.GetSecretKey()
 			if !ok {
-				return nil, errors.New("secret key not found")
+				return nil, ErrSecretKeyNotFound
 			}
 
 			resp, err := fetchModels(ctx, secret)
@@ -198,7 +203,7 @@ func fetchModels(ctx context.Context, secret string) (*ListServerlessModelsRespo
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("API returned status %d", resp.StatusCode)
+		return nil, fmt.Errorf("%w%d", ErrAPIReturnedStatus, resp.StatusCode)
 	}
 
 	var listResp ListServerlessModelsResponse

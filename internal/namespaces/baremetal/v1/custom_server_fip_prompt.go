@@ -11,7 +11,12 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 )
 
-var ipTypeOption = []string{"IPv4", "IPv6"}
+var (
+	ipTypeOption                             = []string{"IPv4", "IPv6"}
+	ErrFailedToCreateAndAttachANewFlexibleIP = errors.New(
+		"failed to create and attach a new flexible IP",
+	)
+)
 
 func promptIPFlexibleServer(
 	ctx context.Context,
@@ -19,7 +24,7 @@ func promptIPFlexibleServer(
 ) (*serverAddFlexibleIPRequest, error) {
 	if !interactive.IsInteractive {
 		return nil, &core.CliError{
-			Err:  errors.New("failed to create and attach a new flexible IP"),
+			Err:  ErrFailedToCreateAndAttachANewFlexibleIP,
 			Hint: "Missing argument 'ip-type'",
 		}
 	}

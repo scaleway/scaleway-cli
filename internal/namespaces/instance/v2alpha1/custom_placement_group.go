@@ -91,10 +91,7 @@ func placementGroupListBuilder(c *core.Command) *core.Command {
 
 		pgList, ok := rawResp.(*instance.ListPlacementGroupsResponse)
 		if !ok {
-			return rawResp, fmt.Errorf(
-				"expected response of type instance.ListPlacementGroupsResponse, got %T",
-				rawResp,
-			)
+			return rawResp, fmt.Errorf("%w: %T", ErrUnexpectedResponseType, rawResp)
 		}
 
 		return pgList.PlacementGroups, nil

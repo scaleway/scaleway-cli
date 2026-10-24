@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"slices"
 	"strings"
@@ -11,7 +12,14 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
-var AllLocalities = "all"
+var (
+	AllLocalities                             = "all"
+	ErrMoreThanOnePositionalParameterDetected = errors.New(
+		"more than one positional parameter detected:",
+	)
+	ErrInDeleteByNameNotFound = errors.New("in DeleteByName:")
+	ErrInAddBeforeNotFound    = errors.New("in AddBefore:")
+)
 
 type ArgSpecs []*ArgSpec
 
@@ -24,7 +32,8 @@ func (s *ArgSpecs) GetPositionalArg() *ArgSpec {
 			if positionalArg != nil {
 				panic(
 					fmt.Errorf(
-						"more than one positional parameter detected: %s and %s are flagged as positional arg",
+						"%w %s and %s are flagged as positional arg",
+						ErrMoreThanOnePositionalParameterDetected,
 						positionalArg.Name,
 						argSpec.Name,
 					),
@@ -67,7 +76,7 @@ func (s *ArgSpecs) DeleteByName(name string) {
 			return
 		}
 	}
-	panic(fmt.Errorf("in DeleteByName: %s not found", name))
+	panic(fmt.Errorf("%w %s not found", ErrInDeleteByNameNotFound, name))
 }
 
 func (s *ArgSpecs) AddBefore(name string, argSpec *ArgSpec) {
@@ -82,7 +91,7 @@ func (s *ArgSpecs) AddBefore(name string, argSpec *ArgSpec) {
 			return
 		}
 	}
-	panic(fmt.Errorf("in AddBefore: %s not found", name))
+	panic(fmt.Errorf("%w %s not found", ErrInAddBeforeNotFound, name))
 }
 
 type ArgSpec struct {
@@ -159,7 +168,7 @@ func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
 			}
 
 			return &CliError{
-				Err:  fmt.Errorf("invalid zone %s", value),
+				Err:  fmt.Errorf("%w %s", ErrInvalidZone, value),
 				Hint: "Zone format should look like XX-XXX-X (e.g. fr-par-1)",
 			}
 		},
@@ -191,7 +200,7 @@ func RegionArgSpec(regions ...scw.Region) *ArgSpec {
 			}
 
 			return &CliError{
-				Err:  fmt.Errorf("invalid region %s", value),
+				Err:  fmt.Errorf("%w %s", ErrInvalidRegion, value),
 				Hint: "Region format should look like XX-XXX (e.g. fr-par)",
 			}
 		},

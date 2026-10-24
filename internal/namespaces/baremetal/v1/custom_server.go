@@ -34,6 +34,13 @@ var serverPingStatusMarshalSpecs = human.EnumMarshalSpecs{
 	},
 }
 
+var (
+	ErrServer                                 = errors.New("server ")
+	ErrServerDidNotReachAStableDeliveryStatus = errors.New(
+		"server did not reach a stable delivery status",
+	)
+)
+
 func serverWaitCommand() *core.Command {
 	type serverWaitRequest struct {
 		ServerID string
@@ -65,7 +72,7 @@ func serverWaitCommand() *core.Command {
 			}
 			if server.Status != baremetal.ServerStatusReady {
 				return nil, &core.CliError{
-					Err:     errors.New("server did not reach a stable delivery status"),
+					Err:     ErrServerDidNotReachAStableDeliveryStatus,
 					Details: fmt.Sprintf("server %s is in %s status", server.ID, server.Status),
 				}
 			}
@@ -88,7 +95,8 @@ func serverWaitCommand() *core.Command {
 			if server.Install.Status != baremetal.ServerInstallStatusCompleted {
 				return nil, &core.CliError{
 					Err: fmt.Errorf(
-						"server %s did not reach a stable installation status",
+						"%w%s did not reach a stable installation status",
+						ErrServer,
 						server.ID,
 					),
 					Details: fmt.Sprintf("server %s is in %s status", server.ID, server.Status),

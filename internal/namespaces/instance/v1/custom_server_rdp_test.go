@@ -20,6 +20,14 @@ import (
 	"golang.org/x/crypto/ssh"
 )
 
+var (
+	errEmptyTestKeyShouldBeUpdatedWithCassettes = errors.New(
+		"empty test key, should be updated with cassettes",
+	)
+	errFailedToAssertPrivateKeyType = errors.New("failed to assert private key type")
+	errMissingProjectID             = errors.New("missing project id")
+)
+
 // tryLoadKey will try to load an RSA SSH Key from given path.
 // If not found, it will generate the key and create the file.
 func loadRSASSHKey(path string) (*rsa.PrivateKey, error) {
@@ -46,7 +54,7 @@ func loadRSASSHKey(path string) (*rsa.PrivateKey, error) {
 			return nil, fmt.Errorf("failed to save test key: %w", err)
 		}
 	} else if len(pemContent) == 0 {
-		return nil, errors.New("empty test key, should be updated with cassettes")
+		return nil, errEmptyTestKeyShouldBeUpdatedWithCassettes
 	}
 
 	key, err := ssh.ParseRawPrivateKey(pemContent)
@@ -57,7 +65,8 @@ func loadRSASSHKey(path string) (*rsa.PrivateKey, error) {
 	privateKey, ok := key.(*rsa.PrivateKey)
 	if !ok {
 		return nil, fmt.Errorf(
-			"failed to assert private key type, expected *rsa.PrivateKey, got: %v",
+			"%w, expected *rsa.PrivateKey, got: %v",
+			errFailedToAssertPrivateKeyType,
 			reflect.TypeOf(privateKey),
 		)
 	}
@@ -104,7 +113,7 @@ func generateRSASSHKey(metaKey string) func(beforeFunc *core.BeforeFuncCtx) erro
 		api := iam.NewAPI(ctx.Client)
 		projectID, exists := ctx.Client.GetDefaultProjectID()
 		if !exists {
-			return errors.New("missing project id")
+			return errMissingProjectID
 		}
 		key, err := api.CreateSSHKey(&iam.CreateSSHKeyRequest{
 			Name:      "test-cli-instance-server-get-rdp-password",

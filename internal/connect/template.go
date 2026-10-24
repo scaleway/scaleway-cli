@@ -14,12 +14,21 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var (
+	ErrConnectTemplateRenderedAnEmptyCommand = errors.New(
+		"connect template rendered an empty command",
+	)
+	ErrEmptyConnectTemplate = errors.New("empty connect template")
+	ErrOrganizationNotFound = errors.New("organization not found")
+	ErrProjectNotFound      = errors.New("project not found")
+)
+
 // RenderCommand renders a Go text/template into a command line using the
 // given data. The rendered output is split with shlex (quotes honored) and
 // executed directly, without any shell.
 func RenderCommand(tmpl string, data any) ([]string, error) {
 	if strings.TrimSpace(tmpl) == "" {
-		return nil, errors.New("empty connect template")
+		return nil, ErrEmptyConnectTemplate
 	}
 
 	t, err := template.New("connect").Option("missingkey=error").Parse(tmpl)
@@ -37,7 +46,7 @@ func RenderCommand(tmpl string, data any) ([]string, error) {
 		return nil, fmt.Errorf("failed to parse connect command: %w", err)
 	}
 	if len(fields) == 0 {
-		return nil, errors.New("connect template rendered an empty command")
+		return nil, ErrConnectTemplateRenderedAnEmptyCommand
 	}
 
 	return fields, nil
@@ -63,7 +72,7 @@ func NewTemplateData(ctx context.Context) *TemplateData {
 func (d *TemplateData) Organization() (*iam.Organization, error) {
 	org, exists := d.client.GetDefaultOrganizationID()
 	if !exists {
-		return nil, errors.New("organization not found")
+		return nil, ErrOrganizationNotFound
 	}
 
 	return iam.NewAPI(d.client).GetOrganization(
@@ -75,7 +84,7 @@ func (d *TemplateData) Organization() (*iam.Organization, error) {
 func (d *TemplateData) Project() (*account.Project, error) {
 	project, exists := d.client.GetDefaultProjectID()
 	if !exists {
-		return nil, errors.New("project not found")
+		return nil, ErrProjectNotFound
 	}
 
 	return account.NewProjectAPI(d.client).GetProject(

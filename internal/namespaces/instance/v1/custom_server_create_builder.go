@@ -18,6 +18,23 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
+var (
+	ErrInvalidSizeFormat                   = errors.New("invalid size format")
+	ErrInvalidVolumeFormat                 = errors.New("invalid volume format")
+	ErrInvalidVolumeIops                   = errors.New("invalid volume iops")
+	ErrInvalidVolumeType                   = errors.New("invalid volume type")
+	ErrRootVolumeNotFound                  = errors.New("root volume not found")
+	ErrSnapshotDoesNotExist                = errors.New("snapshot")
+	ErrSnapshotNotCompatibleWithVolumeType = errors.New("snapshot not compatible with volume type")
+	ErrEmptySnapshotID                     = errors.New(
+		"tried to build a volume from snapshot with an empty ID",
+	)
+	ErrTriedToImportAVolumeWithAnEmptyID = errors.New(
+		"tried to import a volume with an empty ID",
+	)
+	ErrVolume = errors.New("volume")
+)
+
 type ServerBuilder struct {
 	// createdReq is the request being built
 	createReq *instance.CreateServerRequest
@@ -202,7 +219,7 @@ func (sb *ServerBuilder) AddIP(ip string) (*ServerBuilder, error) {
 			IP:   ip,
 		})
 		if err != nil { // FIXME: isNotFoundError
-			return sb, fmt.Errorf("%s does not belong to you", ip)
+			return sb, fmt.Errorf("%s %w", ip, ErrDoesNotBelongToYou)
 		}
 		sb.createReq.PublicIP = new(res.IP.ID)
 
@@ -212,7 +229,8 @@ func (sb *ServerBuilder) AddIP(ip string) (*ServerBuilder, error) {
 		sb.createReq.DynamicIPRequired = new(false)
 	default:
 		return sb, fmt.Errorf(
-			`invalid IP "%s", should be either 'new', 'ipv4', 'ipv6', 'both', 'dynamic', 'none', an IP address ID or a reserved flexible IP address`,
+			"%w \"%s\", should be either 'new', 'ipv4', 'ipv6', 'both', 'dynamic', 'none', an IP address ID or a reserved flexible IP address",
+			ErrInvalidIP,
 			ip,
 		)
 	}
@@ -484,14 +502,14 @@ func (sb *ServerBuilder) BuildPostCreationSetup() PostServerCreationSetupFunc {
 		if rootVolume != nil {
 			serverRootVolume, hasRootVolume := server.Volumes["0"]
 			if !hasRootVolume {
-				return errors.New("root volume not found")
+				return ErrRootVolumeNotFound
 			}
 			rootVolume.ExecutePostCreationSetup(ctx, sb.apiBlock, serverRootVolume.ID)
 		}
 		for i, volume := range volumes {
 			serverVolume, serverHasVolume := server.Volumes[strconv.Itoa(i+1)]
 			if !serverHasVolume {
-				return fmt.Errorf("volume %d not found in server", i+1)
+				return fmt.Errorf("%w %d not found in server", ErrVolume, i+1)
 			}
 			volume.ExecutePostCreationSetup(ctx, sb.apiBlock, serverVolume.ID)
 		}
@@ -561,7 +579,7 @@ func NewVolumeBuilder(zone scw.Zone, flagV string) (*VolumeBuilder, error) {
 	if len(parts) == 3 {
 		iops, err := strconv.ParseUint(parts[2], 10, 32)
 		if err != nil {
-			return nil, fmt.Errorf("invalid volume iops %s in %s volume", parts[2], flagV)
+			return nil, fmt.Errorf("%w %s in %s volume", ErrInvalidVolumeIops, parts[2], flagV)
 		}
 		vb.IOPS = new(uint32(iops))
 		parts = parts[0:2]
@@ -577,7 +595,7 @@ func NewVolumeBuilder(zone scw.Zone, flagV string) (*VolumeBuilder, error) {
 			vb.VolumeType = instance.VolumeVolumeTypeScratch
 
 		default:
-			return nil, fmt.Errorf("invalid volume type %s in %s volume", parts[0], flagV)
+			return nil, fmt.Errorf("%w %s in %s volume", ErrInvalidVolumeType, parts[0], flagV)
 		}
 
 		if validation.IsUUID(parts[1]) {
@@ -585,7 +603,7 @@ func NewVolumeBuilder(zone scw.Zone, flagV string) (*VolumeBuilder, error) {
 		} else {
 			size, err := humanize.ParseBytes(parts[1])
 			if err != nil {
-				return nil, fmt.Errorf("invalid size format %s in %s volume", parts[1], flagV)
+				return nil, fmt.Errorf("%w %s in %s volume", ErrInvalidSizeFormat, parts[1], flagV)
 			}
 			vb.Size = new(scw.Size(size))
 		}
@@ -601,7 +619,7 @@ func NewVolumeBuilder(zone scw.Zone, flagV string) (*VolumeBuilder, error) {
 	}
 
 	return nil, &core.CliError{
-		Err:     fmt.Errorf("invalid volume format '%s'", flagV),
+		Err:     fmt.Errorf("%w '%s'", ErrInvalidVolumeFormat, flagV),
 		Details: "",
 		Hint:    `You must provide either a UUID ("11111111-1111-1111-1111-111111111111"), a local volume size ("local:100G" or "l:100G") or a block volume size ("block:100G" or "b:100G").`,
 	}
@@ -650,7 +668,7 @@ func (vb *VolumeBuilder) buildImportedVolume(
 	blockAPI *block.API,
 ) (*instance.VolumeServerTemplate, error) {
 	if vb.VolumeID == nil {
-		return nil, errors.New("tried to import a volume with an empty ID")
+		return nil, ErrTriedToImportAVolumeWithAnEmptyID
 	}
 
 	res, err := api.GetVolume(&instance.GetVolumeRequest{
@@ -665,7 +683,8 @@ func (vb *VolumeBuilder) buildImportedVolume(
 		// Check that volume is not already attached to a server.
 		if res.Volume.Server != nil {
 			return nil, fmt.Errorf(
-				"volume %s is already attached to %s server",
+				"%w %s is already attached to %s server",
+				ErrVolume,
 				res.Volume.ID,
 				res.Volume.Server.ID,
 			)
@@ -684,7 +703,7 @@ func (vb *VolumeBuilder) buildImportedVolume(
 	})
 	if err != nil {
 		if core.IsNotFoundError(err) {
-			return nil, fmt.Errorf("volume %s does not exist", *vb.VolumeID)
+			return nil, fmt.Errorf("%w %s does not exist", ErrVolume, *vb.VolumeID)
 		}
 
 		return nil, err
@@ -692,7 +711,8 @@ func (vb *VolumeBuilder) buildImportedVolume(
 
 	if len(blockRes.References) > 0 {
 		return nil, fmt.Errorf(
-			"volume %s is already attached to %s %s",
+			"%w %s is already attached to %s %s",
+			ErrVolume,
 			blockRes.ID,
 			blockRes.References[0].ProductResourceID,
 			blockRes.References[0].ProductResourceType,
@@ -719,7 +739,7 @@ func (vb *VolumeBuilder) buildSnapshotVolume(
 	blockAPI *block.API,
 ) (*instance.VolumeServerTemplate, error) {
 	if vb.SnapshotID == nil {
-		return nil, errors.New("tried to build a volume from snapshot with an empty ID")
+		return nil, ErrEmptySnapshotID
 	}
 	res, err := api.GetSnapshot(&instance.GetSnapshotRequest{
 		Zone:       vb.Zone,
@@ -734,7 +754,8 @@ func (vb *VolumeBuilder) buildSnapshotVolume(
 
 		if snapshotType != instance.VolumeVolumeTypeUnified && snapshotType != vb.VolumeType {
 			return nil, fmt.Errorf(
-				"snapshot of type %s not compatible with requested volume type %s",
+				"%w: %s (requested: %s)",
+				ErrSnapshotNotCompatibleWithVolumeType,
 				snapshotType,
 				vb.VolumeType,
 			)
@@ -754,7 +775,7 @@ func (vb *VolumeBuilder) buildSnapshotVolume(
 	})
 	if err != nil {
 		if core.IsNotFoundError(err) {
-			return nil, fmt.Errorf("snapshot %s does not exist", *vb.SnapshotID)
+			return nil, fmt.Errorf("%w %s does not exist", ErrSnapshotDoesNotExist, *vb.SnapshotID)
 		}
 
 		return nil, err

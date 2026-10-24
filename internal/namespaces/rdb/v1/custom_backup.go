@@ -24,6 +24,8 @@ const (
 	backupActionTimeout = 20 * time.Minute
 )
 
+var ErrDownloadURLIsStillNilAfterExport = errors.New("download URL is still nil after export")
+
 var backupStatusMarshalSpecs = human.EnumMarshalSpecs{
 	rdb.DatabaseBackupStatusUnknown: &human.EnumMarshalSpec{
 		Attribute: color.Faint,
@@ -440,7 +442,7 @@ func backupDownloadCommand() *core.Command {
 			httpClient := core.ExtractHTTPClient(ctx)
 
 			if backup.DownloadURL == nil {
-				return nil, errors.New("download URL is still nil after export")
+				return nil, ErrDownloadURLIsStillNilAfterExport
 			}
 
 			res, err := httpClient.Get(*backup.DownloadURL)

@@ -14,6 +14,11 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+var (
+	errFail        = errors.New("fail")
+	errInterrupted = errors.New("interrupted")
+)
+
 func TestGeneric(t *testing.T) {
 	ts := tasks.Begin()
 	ts.SetLoggerMode(tasks.PrinterModeQuiet)
@@ -110,7 +115,7 @@ func TestCleanup(t *testing.T) {
 				return nil
 			})
 
-			return nil, errors.New("fail")
+			return nil, errFail
 		},
 	)
 
@@ -177,7 +182,7 @@ func TestCleanupOnContext(t *testing.T) {
 
 			select {
 			case <-ctx.Done():
-				return nil, errors.New("interrupted")
+				return nil, errInterrupted
 			case <-time.After(time.Second * 3):
 				return nil, nil
 			}

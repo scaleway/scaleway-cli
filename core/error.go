@@ -42,7 +42,7 @@ func (s *CliError) MarshalHuman() (string, error) {
 	if s.Err != nil {
 		humanError := s.Err
 		if s.Message != "" {
-			humanError = fmt.Errorf("%s", s.Message)
+			humanError = fmt.Errorf("%w%s", ErrEmpty, s.Message)
 		}
 		str, err := human.Marshal(humanError, nil)
 		if err != nil {

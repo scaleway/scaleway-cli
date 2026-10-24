@@ -2,6 +2,7 @@ package editor
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -18,6 +19,8 @@ const (
 var (
 	MarshalModeDefault = MarshalModeYAML
 	MarshalModeEnum    = []MarshalMode{MarshalModeYAML, MarshalModeJSON}
+
+	ErrUnknownMarshalMode = errors.New("unknown marshal mode")
 )
 
 func marshal(i any, mode MarshalMode) ([]byte, error) {
@@ -41,7 +44,7 @@ func marshal(i any, mode MarshalMode) ([]byte, error) {
 		return marshaledData, err
 	}
 
-	return nil, fmt.Errorf("unknown marshal mode %q", mode)
+	return nil, fmt.Errorf("%w %q", ErrUnknownMarshalMode, mode)
 }
 
 func unmarshal(data []byte, i any, mode MarshalMode) error {
@@ -56,7 +59,7 @@ func unmarshal(data []byte, i any, mode MarshalMode) error {
 		return json.Unmarshal(data, i)
 	}
 
-	return fmt.Errorf("unknown marshal mode %q", mode)
+	return fmt.Errorf("%w %q", ErrUnknownMarshalMode, mode)
 }
 
 // removeFields remove some fields from marshaled data

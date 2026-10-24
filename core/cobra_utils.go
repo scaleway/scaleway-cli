@@ -12,6 +12,15 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var (
+	ErrPositionalArgumentRequired = errors.New("a positional argument is required for this command")
+	ErrEmpty                      = errors.New("")
+	ErrDateParsingError           = errors.New("date parsing error:")
+	ErrInvalidValueFor            = errors.New("invalid value for")
+	ErrInvalidArgument            = errors.New("invalid argument")
+	ErrUnknownArgument            = errors.New("unknown argument")
+)
+
 // cobraRun returns a cobraRun command that wrap a CommandRunner function.
 func cobraRun(cmd *Command) func(*cobra.Command, []string) error {
 	return func(cobraCmd *cobra.Command, rawArgsStr []string) error {
@@ -79,7 +88,7 @@ func cobraRun(cmd *Command) func(*cobra.Command, []string) error {
 			otherArgs := rawArgs.Remove(positionalArgSpec.Name)
 
 			return &CliError{
-				Err: errors.New("a positional argument is required for this command"),
+				Err: ErrPositionalArgumentRequired,
 				Hint: positionalArgHint(
 					meta.BinaryName,
 					cmd,
@@ -93,7 +102,7 @@ func cobraRun(cmd *Command) func(*cobra.Command, []string) error {
 		// If no positional arguments were provided, return an error
 		if len(positionalArgs) == 0 {
 			return &CliError{
-				Err: errors.New("a positional argument is required for this command"),
+				Err: ErrPositionalArgumentRequired,
 				Hint: positionalArgHint(
 					meta.BinaryName,
 					cmd,
@@ -261,7 +270,7 @@ func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) e
 	if ok {
 		if _, ok := errors.AsType[*args.CannotParseBoolError](cannotUnmarshalErr.Err); ok {
 			return &CliError{
-				Err: errors.New(""),
+				Err: ErrEmpty,
 				Message: fmt.Sprintf(
 					"invalid value for '%s' argument: invalid boolean value",
 					unmarshalErr.ArgName,
@@ -274,7 +283,7 @@ func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) e
 			cannotUnmarshalErr.Err,
 		); ok {
 			return &CliError{
-				Err: fmt.Errorf("date parsing error: %s", cannotParseDateErr.ArgValue),
+				Err: fmt.Errorf("%w %s", ErrDateParsingError, cannotParseDateErr.ArgValue),
 				Message: fmt.Sprintf(
 					"could not parse %s as either an absolute time (RFC3339) nor a relative time (+/-)RFC3339",
 					cannotParseDateErr.ArgValue,
@@ -288,7 +297,8 @@ Relative time error: %s
 
 		return &CliError{
 			Err: fmt.Errorf(
-				"invalid value for '%s' argument: %w",
+				"%w '%s' argument: %w",
+				ErrInvalidValueFor,
 				unmarshalErr.ArgName,
 				cannotUnmarshalErr.Err,
 			),
@@ -304,7 +314,8 @@ Relative time error: %s
 
 		return &CliError{
 			Err: fmt.Errorf(
-				"invalid argument '%s': %s",
+				"%w '%s': %s",
+				ErrInvalidArgument,
 				unmarshalErr.ArgName,
 				invalidArgNameErr.Error(),
 			),
@@ -320,7 +331,7 @@ Relative time error: %s
 		}
 
 		return &CliError{
-			Err:  fmt.Errorf("unknown argument '%s'", unmarshalErr.ArgName),
+			Err:  fmt.Errorf("%w '%s'", ErrUnknownArgument, unmarshalErr.ArgName),
 			Hint: "Valid arguments are: " + strings.Join(argNames, ", "),
 		}
 	}

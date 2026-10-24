@@ -2,6 +2,7 @@ package core
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -11,6 +12,8 @@ import (
 
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
+
+var ErrUnsupportedFieldType = errors.New("unsupported field type:")
 
 // loadArgsFileContent loads the content of the files referenced by arguments that
 // support it (ArgSpec.CanLoadFile), i.e. arguments whose value starts with "@".
@@ -195,7 +198,7 @@ func fileContentForLeaf(leaf reflect.Value) (reflect.Value, error) {
 		}
 	case nil:
 	default:
-		panic(fmt.Errorf("unsupported field type: %T", i))
+		panic(fmt.Errorf("%w %T", ErrUnsupportedFieldType, i))
 	}
 
 	return reflect.Value{}, nil

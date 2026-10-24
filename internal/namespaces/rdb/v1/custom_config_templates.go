@@ -3,6 +3,7 @@ package rdb
 import (
 	"bytes"
 	"embed"
+	"errors"
 	"fmt"
 	"strings"
 	"text/template"
@@ -14,6 +15,8 @@ import (
 var configTemplatesFS embed.FS
 
 var configTemplates = template.Must(template.ParseFS(configTemplatesFS, "templates/*.tmpl"))
+
+var ErrUnsupportedEngineFamily = errors.New("unsupported engine family")
 
 func init() {
 	for _, configType := range []rdbConfigType{
@@ -96,7 +99,7 @@ func engineTemplateSuffix(family engineFamily) (string, error) {
 	case MySQL:
 		return "mysql", nil
 	default:
-		return "", fmt.Errorf("unsupported engine family %q", family)
+		return "", fmt.Errorf("%w %q", ErrUnsupportedEngineFamily, family)
 	}
 }
 

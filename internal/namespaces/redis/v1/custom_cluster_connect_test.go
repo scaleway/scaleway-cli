@@ -1,6 +1,7 @@
 package redis_test
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"os/exec"
@@ -23,6 +24,12 @@ const (
 	connectInterruptedClusterID  = "66666666-7777-8888-9999-000000000000"
 	connectNotInstalledClusterID = "aabbccdd-eeff-0011-2233-445566778899"
 	connectPasswordArgClusterID  = "99999999-8888-7777-6666-555555555555"
+)
+
+var (
+	errUnexpectedArgs            = errors.New("unexpected args")
+	errUnexpectedRedisCliAuth    = errors.New("unexpected REDISCLI_AUTH")
+	errUnexpectedRenderedCommand = errors.New("unexpected rendered command")
 )
 
 // envRedisAuth returns the value of REDISCLI_AUTH in the child process
@@ -71,23 +78,23 @@ func Test_ClusterConnect(t *testing.T) {
 		PromptResponseMocks: []string{"P@sSw0Rd"},
 		OverrideExec: func(_ *core.ExecFuncCtx, cmd *exec.Cmd) (int, error) {
 			if len(cmd.Args) != 10 {
-				return 0, fmt.Errorf("unexpected args: %v", cmd.Args)
+				return 0, fmt.Errorf("%w: %v", errUnexpectedArgs, cmd.Args)
 			}
 			want := []string{
 				"redis-cli", "-h", "78.232.49.55", "-p", "6379",
 				"--tls", "--cacert",
 			}
 			if !slices.Equal(cmd.Args[:7], want) {
-				return 0, fmt.Errorf("unexpected args: %v", cmd.Args)
+				return 0, fmt.Errorf("%w: %v", errUnexpectedArgs, cmd.Args)
 			}
 			if _, err := os.Stat(cmd.Args[7]); err != nil {
 				return 0, fmt.Errorf("certificate file not found: %w", err)
 			}
 			if cmd.Args[8] != "--user" || cmd.Args[9] != "admin" {
-				return 0, fmt.Errorf("unexpected args: %v", cmd.Args)
+				return 0, fmt.Errorf("%w: %v", errUnexpectedArgs, cmd.Args)
 			}
 			if got := envRedisAuth(cmd); got != "P@sSw0Rd" {
-				return 0, fmt.Errorf("unexpected REDISCLI_AUTH: %q", got)
+				return 0, fmt.Errorf("%w: %q", errUnexpectedRedisCliAuth, got)
 			}
 
 			return 0, nil
@@ -107,21 +114,21 @@ func Test_ClusterConnect(t *testing.T) {
 		PromptResponseMocks: []string{"should-not-be-prompted"},
 		OverrideExec: func(_ *core.ExecFuncCtx, cmd *exec.Cmd) (int, error) {
 			if len(cmd.Args) != 10 {
-				return 0, fmt.Errorf("unexpected args: %v", cmd.Args)
+				return 0, fmt.Errorf("%w: %v", errUnexpectedArgs, cmd.Args)
 			}
 			want := []string{
 				"redis-cli", "-h", "78.232.49.55", "-p", "6379",
 				"--tls", "--cacert",
 			}
 			if !slices.Equal(cmd.Args[:7], want) {
-				return 0, fmt.Errorf("unexpected args: %v", cmd.Args)
+				return 0, fmt.Errorf("%w: %v", errUnexpectedArgs, cmd.Args)
 			}
 			if cmd.Args[8] != "--user" || cmd.Args[9] != "admin" {
-				return 0, fmt.Errorf("unexpected args: %v", cmd.Args)
+				return 0, fmt.Errorf("%w: %v", errUnexpectedArgs, cmd.Args)
 			}
 			// The prompted trap value must not leak into REDISCLI_AUTH.
 			if got := envRedisAuth(cmd); got != "P@sSw0Rd" {
-				return 0, fmt.Errorf("unexpected REDISCLI_AUTH: %q", got)
+				return 0, fmt.Errorf("%w: %q", errUnexpectedRedisCliAuth, got)
 			}
 
 			return 0, nil
@@ -142,7 +149,7 @@ func Test_ClusterConnect(t *testing.T) {
 		OverrideExec: func(_ *core.ExecFuncCtx, cmd *exec.Cmd) (int, error) {
 			want := []string{"sleep", "6379"}
 			if !slices.Equal(cmd.Args, want) {
-				return 0, fmt.Errorf("unexpected rendered command: %v", cmd.Args)
+				return 0, fmt.Errorf("%w: %v", errUnexpectedRenderedCommand, cmd.Args)
 			}
 
 			return 0, nil

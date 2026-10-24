@@ -18,6 +18,18 @@ import (
 
 const redisActionTimeout = 15 * time.Minute
 
+var (
+	ErrEndpointHasNoIPAddresses = errors.New(
+		"endpoint has no IP addresses",
+	)
+	ErrPublicEndpointNotFound = errors.New(
+		"public endpoint not found",
+	)
+	ErrPrivateEndpointNotFound = errors.New(
+		"private endpoint not found",
+	)
+)
+
 func redisClusterMigrateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 
@@ -412,12 +424,6 @@ func getLatestRedisVersion(client *scw.Client, zone scw.Zone) (string, error) {
 	return semver.LatestVersion(versions)
 }
 
-const (
-	errorMessagePublicEndpointNotFound  = "public endpoint not found"
-	errorMessagePrivateEndpointNotFound = "private endpoint not found"
-	errorMessageEndpointNotFound        = "any endpoint is associated on your cluster"
-)
-
 func getPublicEndpoint(endpoints []*redis.Endpoint) (*redis.Endpoint, error) {
 	for _, e := range endpoints {
 		if e.PublicNetwork != nil {
@@ -425,7 +431,7 @@ func getPublicEndpoint(endpoints []*redis.Endpoint) (*redis.Endpoint, error) {
 		}
 	}
 
-	return nil, fmt.Errorf("%s", errorMessagePublicEndpointNotFound)
+	return nil, ErrPublicEndpointNotFound
 }
 
 func getPrivateEndpoint(endpoints []*redis.Endpoint) (*redis.Endpoint, error) {
@@ -435,5 +441,5 @@ func getPrivateEndpoint(endpoints []*redis.Endpoint) (*redis.Endpoint, error) {
 		}
 	}
 
-	return nil, fmt.Errorf("%s", errorMessagePrivateEndpointNotFound)
+	return nil, ErrPrivateEndpointNotFound
 }

@@ -1,6 +1,7 @@
 package sentry
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 	"time"
@@ -18,6 +19,8 @@ An error occurred, we are sorry, please consider opening a ticket on github usin
 Give us as many details as possible so we can reproduce the error and fix it.
 ---------------------------------------------------------------------------------------`
 
+var ErrUnknownError = errors.New("unknown error:")
+
 // RecoverPanicAndSendReport is to be called after recover.
 // It expects tags returned by core.BuildInfo and the recovered error
 func RecoverPanicAndSendReport(tags map[string]string, version string, e any) {
@@ -30,7 +33,7 @@ func RecoverPanicAndSendReport(tags map[string]string, version string, e any) {
 	if isError {
 		logAndSentry(sentryHub, err)
 	} else {
-		logAndSentry(sentryHub, fmt.Errorf("unknown error: %v", e))
+		logAndSentry(sentryHub, fmt.Errorf("%w %v", ErrUnknownError, e))
 	}
 }
 

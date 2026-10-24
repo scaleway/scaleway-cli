@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 	"slices"
@@ -12,6 +13,12 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 	"github.com/scaleway/scaleway-sdk-go/validation"
+)
+
+var (
+	ErrCouldNotValidateArgValueFor = errors.New("could not validate arg value for")
+	ErrArguments                   = errors.New("arguments")
+	ErrAtLeastOneArgumentFromThe   = errors.New("at least one argument from the")
 )
 
 // CommandValidateFunc validates en entire command.
@@ -98,7 +105,8 @@ func validateRequiredArgs(cmd *Command, cmdArgs any, rawArgs args.RawArgs) error
 		)
 		if err != nil {
 			validationErr := fmt.Errorf(
-				"could not validate arg value for '%v': invalid field name '%v': %v",
+				"%w '%v': invalid field name '%v': %v",
+				ErrCouldNotValidateArgValueFor,
 				arg.Name,
 				fieldName,
 				err.Error(),
@@ -173,7 +181,8 @@ func validateDeprecated(
 		)
 		if err != nil {
 			validationErr := fmt.Errorf(
-				"could not validate arg value for '%v': invalid field name '%v': %v",
+				"%w '%v': invalid field name '%v': %v",
+				ErrCouldNotValidateArgValueFor,
 				arg.Name,
 				fieldName,
 				err.Error(),
@@ -343,7 +352,8 @@ func (m *OneOfGroupManager) ValidateUniqueOneOfGroups(
 			)
 			if err != nil {
 				validationErr := fmt.Errorf(
-					"could not validate arg value for '%v': invalid field name '%v': %v",
+					"%w '%v': invalid field name '%v': %v",
+					ErrCouldNotValidateArgValueFor,
 					argName,
 					fieldName,
 					err.Error(),
@@ -360,7 +370,8 @@ func (m *OneOfGroupManager) ValidateUniqueOneOfGroups(
 				if rawArgs.ExistsArgByName(argNameWithIndex) {
 					if existingArg != "" {
 						return fmt.Errorf(
-							"arguments '%s' and '%s' are mutually exclusive",
+							"%w '%s' and '%s' are mutually exclusive",
+							ErrArguments,
 							existingArg,
 							argNameWithIndex,
 						)
@@ -389,7 +400,8 @@ func (m *OneOfGroupManager) ValidateRequiredOneOfGroups(
 				)
 				if err != nil {
 					validationErr := fmt.Errorf(
-						"could not validate arg value for '%v': invalid field name '%v': %v",
+						"%w '%v': invalid field name '%v': %v",
+						ErrCouldNotValidateArgValueFor,
 						argName,
 						fieldName,
 						err.Error(),
@@ -410,7 +422,7 @@ func (m *OneOfGroupManager) ValidateRequiredOneOfGroups(
 				}
 			}
 			if !found {
-				return fmt.Errorf("at least one argument from the '%s' group is required", group)
+				return fmt.Errorf("%w '%s' group is required", ErrAtLeastOneArgumentFromThe, group)
 			}
 		}
 	}

@@ -12,6 +12,11 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var (
+	ErrInvalidAPIKey   = errors.New("invalid API key")
+	ErrNoPoliciesFound = errors.New("no policies found")
+)
+
 type apiKeyResponse struct {
 	APIKey     *iam.APIKey
 	EntityType string              `json:"entity_type"`
@@ -62,7 +67,7 @@ func (a *applicationEntity) entityType(ctx context.Context, api *iam.API) (strin
 
 func buildEntity(apiKey *iam.APIKey) (entity, error) {
 	if apiKey == nil {
-		return nil, errors.New("invalid API key")
+		return nil, ErrInvalidAPIKey
 	}
 	if apiKey.UserID != nil {
 		return &userEntity{UserID: *apiKey.UserID}, nil
@@ -71,7 +76,7 @@ func buildEntity(apiKey *iam.APIKey) (entity, error) {
 		return &applicationEntity{ApplicationID: *apiKey.ApplicationID}, nil
 	}
 
-	return nil, errors.New("invalid API key")
+	return nil, ErrInvalidAPIKey
 }
 
 func (u *userEntity) getPolicies(ctx context.Context, api *iam.API) ([]*iam.Policy, error) {
@@ -82,7 +87,7 @@ func (u *userEntity) getPolicies(ctx context.Context, api *iam.API) ([]*iam.Poli
 		return nil, err
 	}
 	if policies == nil {
-		return nil, errors.New("no policies found")
+		return nil, ErrNoPoliciesFound
 	}
 
 	return policies.Policies, nil
@@ -96,7 +101,7 @@ func (a *applicationEntity) getPolicies(ctx context.Context, api *iam.API) ([]*i
 		return nil, err
 	}
 	if policies == nil {
-		return nil, errors.New("no policies found")
+		return nil, ErrNoPoliciesFound
 	}
 
 	return policies.Policies, nil

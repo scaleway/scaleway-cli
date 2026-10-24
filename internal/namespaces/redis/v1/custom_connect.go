@@ -2,7 +2,6 @@ package redis
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -101,7 +100,7 @@ func (d *clusterConnectTemplateData) Endpoint() (*endpoint, error) {
 			return
 		}
 		if len(selected.IPs) == 0 {
-			d.endpoint, d.endpointErr = nil, errors.New("endpoint has no IP addresses")
+			d.endpoint, d.endpointErr = nil, ErrEndpointHasNoIPAddresses
 		}
 
 		d.endpoint, d.endpointErr = &endpoint{

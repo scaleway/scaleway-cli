@@ -10,6 +10,10 @@ import (
 	domain "github.com/scaleway/scaleway-sdk-go/api/domain/v2beta1"
 )
 
+var ErrAtLeastOneValuesEgValues0IsRequired = errors.New(
+	"at least one values (eg: values.0) is required",
+)
+
 type dnsRecordSetRequest struct {
 	DNSZone string
 	Values  []string
@@ -182,7 +186,7 @@ func dnsRecordSetRun(ctx context.Context, argsI any) (i any, e error) {
 	}
 
 	if len(request.Values) == 0 {
-		return nil, errors.New("at least one values (eg: values.0) is required")
+		return nil, ErrAtLeastOneValuesEgValues0IsRequired
 	}
 
 	for _, data := range request.Values {

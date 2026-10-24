@@ -34,6 +34,8 @@ var (
 		k8s.ClusterStatusLocked:       &human.EnumMarshalSpec{Attribute: color.FgRed},
 		k8s.ClusterStatusUpdating:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
 	}
+
+	ErrCouldNotRetrieveLatestK8SVersion = errors.New("could not retrieve latest K8S version")
 )
 
 const (
@@ -128,7 +130,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		if args.Version == "latest" {
 			latestVersion, err := getLatestK8SVersion(core.ExtractClient(ctx))
 			if err != nil {
-				return nil, errors.New("could not retrieve latest K8S version")
+				return nil, ErrCouldNotRetrieveLatestK8SVersion
 			}
 			args.Version = latestVersion
 		}

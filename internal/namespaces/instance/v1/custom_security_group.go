@@ -19,6 +19,10 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var ErrCannotDeleteSecurityGroupCurrentlyInUse = errors.New(
+	"cannot delete security-group currently in use",
+)
+
 //
 // Marshalers
 //
@@ -301,7 +305,7 @@ func securityGroupDeleteBuilder(c *core.Command) *core.Command {
 				api := instance.NewAPI(core.ExtractClient(ctx))
 
 				newError := &core.CliError{
-					Err: errors.New("cannot delete security-group currently in use"),
+					Err: ErrCannotDeleteSecurityGroupCurrentlyInUse,
 				}
 
 				// Get security-group.

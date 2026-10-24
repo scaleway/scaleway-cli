@@ -16,6 +16,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var ErrPolicyFilePathCannotBeEmpty = errors.New("policy file path cannot be empty")
+
 type bucketPolicyCreateArgs struct {
 	Bucket    string
 	Policy    string
@@ -50,10 +52,10 @@ func bucketPolicyCreateCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketPolicyCreateArgs)
 			if args.Bucket == "" {
-				return nil, errors.New("bucket name cannot be empty")
+				return nil, ErrBucketNameCannotBeEmpty
 			}
 			if args.Policy == "" {
-				return nil, errors.New("policy file path cannot be empty")
+				return nil, ErrPolicyFilePathCannotBeEmpty
 			}
 
 			policyBytes, err := os.ReadFile(args.Policy)
@@ -122,7 +124,7 @@ func bucketPolicyDeleteCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketPolicyDeleteArgs)
 			if args.Bucket == "" {
-				return nil, errors.New("bucket name cannot be empty")
+				return nil, ErrBucketNameCannotBeEmpty
 			}
 
 			client := newS3Client(ctx, args.Region, args.ProjectID)
@@ -171,7 +173,7 @@ func bucketPolicyGetCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketPolicyGetArgs)
 			if args.Bucket == "" {
-				return nil, errors.New("bucket name cannot be empty")
+				return nil, ErrBucketNameCannotBeEmpty
 			}
 
 			client := newS3Client(ctx, args.Region, args.ProjectID)

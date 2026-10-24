@@ -2,12 +2,15 @@ package autoscaling
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	autoscaling "github.com/scaleway/scaleway-sdk-go/api/autoscaling/v1alpha2"
 )
+
+var ErrUnexpectedResponseType = errors.New("unexpected response type")
 
 func groupMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp autoscaling.Group
@@ -78,10 +81,7 @@ func GroupListBuilder(c *core.Command) *core.Command {
 
 		groupList, ok := rawResp.(*autoscaling.ListGroupsResponse)
 		if !ok {
-			return "", fmt.Errorf(
-				"expected response of type *autoscaling.ListGroupsResponse, got %T",
-				rawResp,
-			)
+			return "", fmt.Errorf("%w: %T", ErrUnexpectedResponseType, rawResp)
 		}
 
 		return groupList.GroupSummaries, nil
@@ -165,10 +165,7 @@ func AlertsListBuilder(c *core.Command) *core.Command {
 
 		alertList, ok := rawResp.(*autoscaling.ListAlertsResponse)
 		if !ok {
-			return "", fmt.Errorf(
-				"expected response of type *autoscaling.ListAlertsResponse, got %T",
-				rawResp,
-			)
+			return "", fmt.Errorf("%w: %T", ErrUnexpectedResponseType, rawResp)
 		}
 
 		return alertList.Alerts, nil
@@ -189,10 +186,7 @@ func LogsListBuilder(c *core.Command) *core.Command {
 
 		logList, ok := rawResp.(*autoscaling.ListLogsResponse)
 		if !ok {
-			return "", fmt.Errorf(
-				"expected response of type *autoscaling.ListLogsResponse, got %T",
-				rawResp,
-			)
+			return "", fmt.Errorf("%w: %T", ErrUnexpectedResponseType, rawResp)
 		}
 
 		return logList.Logs, nil
@@ -213,10 +207,7 @@ func ServersListBuilder(c *core.Command) *core.Command {
 
 		serverList, ok := rawResp.(*autoscaling.ListServersResponse)
 		if !ok {
-			return "", fmt.Errorf(
-				"expected response of type *autoscaling.ListServersResponse, got %T",
-				rawResp,
-			)
+			return "", fmt.Errorf("%w: %T", ErrUnexpectedResponseType, rawResp)
 		}
 
 		return serverList.Servers, nil

@@ -5,19 +5,25 @@ package config
 //
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
+var (
+	ErrInvalidProfilesKeyIdentifier = errors.New("invalid profile's key identifier")
+	ErrNoProfileNamed               = errors.New("no profile named")
+)
+
 func invalidProfileKeyError(fieldName string) *core.CliError {
 	return &core.CliError{
-		Err: fmt.Errorf("invalid profile's key identifier %s", fieldName),
+		Err: fmt.Errorf("%w %s", ErrInvalidProfilesKeyIdentifier, fieldName),
 	}
 }
 
 func unknownProfileError(profileName string) *core.CliError {
 	return &core.CliError{
-		Err: fmt.Errorf("no profile named %s", profileName),
+		Err: fmt.Errorf("%w %s", ErrNoProfileNamed, profileName),
 	}
 }

@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"flag"
-	"fmt"
 	"os"
 
 	"github.com/scaleway/scaleway-cli/v2/commands"
@@ -23,7 +22,7 @@ func main() {
 	}
 
 	if !stats.IsDir() {
-		panic(fmt.Errorf("outdir %s must be a valid directory", *outDir))
+		panic(*outDir + " is not a directory")
 	}
 
 	err = docgen.GenerateDocs(cmds, *outDir)

@@ -4,10 +4,16 @@ package tasks
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"os/signal"
 	"reflect"
+)
+
+var (
+	ErrInvalidTaskDeclaredWaitFor = errors.New("invalid task declared, wait for")
+	ErrTask                       = errors.New("task")
 )
 
 type (
@@ -57,7 +63,8 @@ func Add[TaskArg any, TaskReturn any](
 		if argType != lastTask.returnType {
 			panic(
 				fmt.Errorf(
-					"invalid task declared, wait for %s, previous task returns %s",
+					"%w %s, previous task returns %s",
+					ErrInvalidTaskDeclaredWaitFor,
 					argType.Name(),
 					lastTask.returnType.Name(),
 				),
@@ -168,7 +175,7 @@ func (ts *Tasks) Execute(ctx context.Context, data any) (any, error) {
 			loggerEntry.Complete(context.Canceled)
 			ts.Cleanup(ctx, logger, i)
 
-			return nil, fmt.Errorf("task %d %q failed: context canceled", i+1, task.Name)
+			return nil, fmt.Errorf("%w %d %q failed: context canceled", ErrTask, i+1, task.Name)
 		default:
 		}
 
