@@ -1,0 +1,35 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                1fc50e67-2283-42f4-a138-71c92513b2ca
+Srn               srn://instance.scw.eu/zones/fr-par-1/private-network-interfaces/1fc50e67-2283-42f4-a138-71c92513b2ca
+PrivateNetworkID  90da081e-1f32-4d99-8690-878e8366f8fb
+ProjectID         fa1e3217-dc80-42ac-85c3-3f034b78b552
+ServerID          46cbb0fc-af76-435a-8110-8732acba3d71
+MacAddress        02:00:00:14:0a:95
+Status            available
+IPIDs.0           ebe0afce-6b5f-4886-ba67-2d5527186351
+Tags.0            cli
+Tags.1            test
+CreatedAt         few seconds ago
+UpdatedAt         few seconds ago
+Zone              fr-par-1
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "1fc50e67-2283-42f4-a138-71c92513b2ca",
+  "srn": "srn://instance.scw.eu/zones/fr-par-1/private-network-interfaces/1fc50e67-2283-42f4-a138-71c92513b2ca",
+  "private_network_id": "90da081e-1f32-4d99-8690-878e8366f8fb",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "server_id": "46cbb0fc-af76-435a-8110-8732acba3d71",
+  "mac_address": "02:00:00:14:0a:95",
+  "status": "available",
+  "ip_ids": [
+    "ebe0afce-6b5f-4886-ba67-2d5527186351"
+  ],
+  "tags": [
+    "cli",
+    "test"
+  ],
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "zone": "fr-par-1"
+}
