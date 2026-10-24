@@ -36,7 +36,7 @@ import (
 var (
 	ErrDockerBuildFailedWithErrorCode = errors.New("docker build failed with error code")
 
-	ErrUnableToDetermineApplicationNamePleaseSpecifyItWithName = errors.New(
+	ErrApplicationNameRequired = errors.New(
 		"unable to determine application name, please specify it with name=",
 	)
 )
@@ -143,7 +143,7 @@ func containerDeployRun(ctx context.Context, argsI any) (i any, e error) {
 	if args.Name == "" {
 		args.Name = filepath.Base(args.BuildSource)
 		if args.Name == "." {
-			return nil, ErrUnableToDetermineApplicationNamePleaseSpecifyItWithName
+			return nil, ErrApplicationNameRequired
 		}
 
 		args.Name = "app-" + args.Name

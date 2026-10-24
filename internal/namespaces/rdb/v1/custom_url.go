@@ -44,7 +44,7 @@ var (
 	ErrExpected1UserWithTheName = errors.New(
 		"expected 1 user with the name",
 	)
-	ErrInstanceHasNoEndpointThereforeNoURLCanBeReturned = errors.New(
+	ErrInstanceHasNoEndpoint = errors.New(
 		"instance has no endpoint therefore no url can be returned",
 	)
 )
@@ -185,7 +185,7 @@ func resolveRDBEndpoint(endpoints []*rdb.Endpoint, preferPrivate bool) (*rdb.End
 		endpoint = privateEndpoint
 	}
 	if endpoint == nil {
-		return nil, ErrInstanceHasNoEndpointThereforeNoURLCanBeReturned
+		return nil, ErrInstanceHasNoEndpoint
 	}
 
 	return endpoint, nil

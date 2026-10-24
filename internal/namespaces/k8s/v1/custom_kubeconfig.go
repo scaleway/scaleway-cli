@@ -51,25 +51,25 @@ var (
 	// defaultAuthMethod is the default choice
 	defaultAuthMethod = string(authMethodCLI)
 
-	ErrUnknownAuthMethod                               = errors.New("unknown auth method: ")
-	ErrClusterNotFound                                 = errors.New("cluster not found")
-	ErrUserNotFound                                    = errors.New("user not found")
-	ErrContextNotFound                                 = errors.New("context not found")
-	ErrClusterNotFoundByName                           = errors.New("cluster '")
-	ErrUserNotFoundByName                              = errors.New("user '")
-	ErrContextNotFoundByName                           = errors.New("context '")
-	ErrDuplicatedClusterFoundInKubeconfig              = errors.New("duplicated cluster '")
-	ErrDuplicatedUserFoundInKubeconfig                 = errors.New("duplicated user '")
-	ErrDuplicatedContextFoundInKubeconfig              = errors.New("duplicated context '")
-	ErrDuplicatedExtensionFoundInKubeconfig            = errors.New("duplicated extension '")
-	ErrLegacyMethodIsNotHandledByGenerateNamedAuthInfo = errors.New(
+	ErrUnknownAuthMethod                    = errors.New("unknown auth method: ")
+	ErrClusterNotFound                      = errors.New("cluster not found")
+	ErrUserNotFound                         = errors.New("user not found")
+	ErrContextNotFound                      = errors.New("context not found")
+	ErrClusterNotFoundByName                = errors.New("cluster '")
+	ErrUserNotFoundByName                   = errors.New("user '")
+	ErrContextNotFoundByName                = errors.New("context '")
+	ErrDuplicatedClusterFoundInKubeconfig   = errors.New("duplicated cluster '")
+	ErrDuplicatedUserFoundInKubeconfig      = errors.New("duplicated user '")
+	ErrDuplicatedContextFoundInKubeconfig   = errors.New("duplicated context '")
+	ErrDuplicatedExtensionFoundInKubeconfig = errors.New("duplicated extension '")
+	ErrLegacyAuthMethod                     = errors.New(
 		"legacy method is not handled by generateNamedAuthInfo",
 	)
-	ErrUnableToRemoveClusterStillReferencedInContext = errors.New(
-		"unable to remove cluster: cluster '",
+	ErrClusterStillReferenced = errors.New(
+		"unable to remove cluster",
 	)
-	ErrUnableToRemoveUserReferencedInContext = errors.New(
-		"unable to remove user: user '",
+	ErrUserStillReferenced = errors.New(
+		"unable to remove user",
 	)
 )
 
@@ -124,7 +124,7 @@ func generateNamedAuthInfo(ctx context.Context, method authMethods) (*api.NamedA
 	case authMethodCLI:
 		return generateCLINamedAuthInfo(ctx)
 	case authMethodLegacy:
-		return nil, ErrLegacyMethodIsNotHandledByGenerateNamedAuthInfo
+		return nil, ErrLegacyAuthMethod
 	}
 
 	return nil, fmt.Errorf("%w%s", ErrUnknownAuthMethod, method)
@@ -331,8 +331,8 @@ func (c *KubeMapConfig) RemoveCluster(name string) error {
 	for contextName, contextValue := range c.contexts {
 		if contextValue.Cluster == name {
 			return fmt.Errorf(
-				"%w'%s' still referenced in context '%s'",
-				ErrUnableToRemoveClusterStillReferencedInContext,
+				"%w: cluster '%s' still referenced in context '%s'",
+				ErrClusterStillReferenced,
 				name,
 				contextName,
 			)
@@ -373,8 +373,8 @@ func (c *KubeMapConfig) RemoveUser(name string) error {
 	for contextName, contextValue := range c.contexts {
 		if contextValue.AuthInfo == name {
 			return fmt.Errorf(
-				"%w'%s' referenced in context '%s'",
-				ErrUnableToRemoveUserReferencedInContext,
+				"%w: user '%s' referenced in context '%s'",
+				ErrUserStillReferenced,
 				name,
 				contextName,
 			)

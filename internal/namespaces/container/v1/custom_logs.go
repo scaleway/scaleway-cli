@@ -18,7 +18,7 @@ import (
 )
 
 var (
-	ErrCouldNotFindAnyCockpitDatasourceToFetchTheLogsFrom = errors.New(
+	ErrNoCockpitDatasource = errors.New(
 		"could not find any cockpit datasource to fetch the logs from",
 	)
 	ErrFailedToParseLogEntryAtIndex = errors.New("failed to parse log entry at index")
@@ -83,7 +83,7 @@ func containerLogsRun(ctx context.Context, argsI any) (any, error) {
 	}
 
 	if ds.TotalCount == 0 {
-		return nil, ErrCouldNotFindAnyCockpitDatasourceToFetchTheLogsFrom
+		return nil, ErrNoCockpitDatasource
 	}
 
 	// Setup request

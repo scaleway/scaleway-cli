@@ -16,18 +16,18 @@ import (
 
 var (
 	ErrInvalidOutputFormat = errors.New(
-		"invalid output format:",
+		"invalid output format",
 	)
 	ErrInvalidOption = errors.New(
 		"invalid option",
 	)
-	ErrCannotUseATemplateOutputWithAnEmptyTemplate = errors.New(
+	ErrEmptyTemplate = errors.New(
 		"cannot use a template output with an empty template",
 	)
 	ErrUnknownFormat = errors.New(
-		"unknown format:",
+		"unknown format",
 	)
-	ErrListOfFieldsForHumanOutputIsOnlySupportedForCommandsThatReturnAList = errors.New(
+	ErrListOfFieldsNotSupported = errors.New(
 		"list of fields for human output is only supported for commands that return a list",
 	)
 	ErrUnknownField = errors.New("unknown field")
@@ -123,7 +123,7 @@ func NewPrinter(config *PrinterConfig) (*Printer, error) {
 		}
 
 	default:
-		return nil, fmt.Errorf("%w %s", ErrInvalidOutputFormat, printerName)
+		return nil, fmt.Errorf("%w: %s", ErrInvalidOutputFormat, printerName)
 	}
 
 	return printer, nil
@@ -162,7 +162,7 @@ func setupTemplatePrinter(printer *Printer, opts string) error {
 	printer.printerType = PrinterTypeTemplate
 	if opts == "" {
 		return &CliError{
-			Err:     ErrCannotUseATemplateOutputWithAnEmptyTemplate,
+			Err:     ErrEmptyTemplate,
 			Hint:    `Try using golang template string: scw instance server list -o template="{{ .ID }} ☜(˚▽˚)☞ {{ .Name }}"`,
 			Details: `https://golang.org/pkg/text/template`,
 		}
@@ -210,7 +210,7 @@ func (p *Printer) Print(data any, opt *human.MarshalOpt) error {
 	case PrinterTypeTemplate:
 		err = p.printTemplate(data)
 	default:
-		err = fmt.Errorf("%w %s", ErrUnknownFormat, p.printerType)
+		err = fmt.Errorf("%w: %s", ErrUnknownFormat, p.printerType)
 	}
 
 	if err != nil {
@@ -233,7 +233,7 @@ func (p *Printer) printHuman(data any, opt *human.MarshalOpt) error {
 
 		if len(p.humanFields) > 0 && reflect.TypeOf(data).Kind() != reflect.Slice {
 			return p.printHuman(
-				ErrListOfFieldsForHumanOutputIsOnlySupportedForCommandsThatReturnAList,
+				ErrListOfFieldsNotSupported,
 				nil,
 			)
 		}

@@ -19,14 +19,14 @@ import (
 )
 
 var (
-	ErrInvalidSizeFormat                            = errors.New("invalid size format")
-	ErrInvalidVolumeFormat                          = errors.New("invalid volume format")
-	ErrInvalidVolumeIops                            = errors.New("invalid volume iops")
-	ErrInvalidVolumeType                            = errors.New("invalid volume type")
-	ErrRootVolumeNotFound                           = errors.New("root volume not found")
-	ErrSnapshotDoesNotExist                         = errors.New("snapshot")
-	ErrSnapshotNotCompatibleWithRequestedVolumeType = errors.New("snapshot of type")
-	ErrTriedToBuildAVolumeFromSnapshotWithAnEmptyID = errors.New(
+	ErrInvalidSizeFormat                   = errors.New("invalid size format")
+	ErrInvalidVolumeFormat                 = errors.New("invalid volume format")
+	ErrInvalidVolumeIops                   = errors.New("invalid volume iops")
+	ErrInvalidVolumeType                   = errors.New("invalid volume type")
+	ErrRootVolumeNotFound                  = errors.New("root volume not found")
+	ErrSnapshotDoesNotExist                = errors.New("snapshot")
+	ErrSnapshotNotCompatibleWithVolumeType = errors.New("snapshot not compatible with volume type")
+	ErrEmptySnapshotID                     = errors.New(
 		"tried to build a volume from snapshot with an empty ID",
 	)
 	ErrTriedToImportAVolumeWithAnEmptyID = errors.New(
@@ -739,7 +739,7 @@ func (vb *VolumeBuilder) buildSnapshotVolume(
 	blockAPI *block.API,
 ) (*instance.VolumeServerTemplate, error) {
 	if vb.SnapshotID == nil {
-		return nil, ErrTriedToBuildAVolumeFromSnapshotWithAnEmptyID
+		return nil, ErrEmptySnapshotID
 	}
 	res, err := api.GetSnapshot(&instance.GetSnapshotRequest{
 		Zone:       vb.Zone,
@@ -754,8 +754,8 @@ func (vb *VolumeBuilder) buildSnapshotVolume(
 
 		if snapshotType != instance.VolumeVolumeTypeUnified && snapshotType != vb.VolumeType {
 			return nil, fmt.Errorf(
-				"%w %s not compatible with requested volume type %s",
-				ErrSnapshotNotCompatibleWithRequestedVolumeType,
+				"%w: %s (requested: %s)",
+				ErrSnapshotNotCompatibleWithVolumeType,
 				snapshotType,
 				vb.VolumeType,
 			)

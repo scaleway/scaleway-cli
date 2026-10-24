@@ -58,10 +58,10 @@ var (
 		},
 	}
 
-	ErrMissingOrInvalidHealthCheckCheckMaxRetriesArgument = errors.New(
+	ErrInvalidHealthCheckMaxRetries = errors.New(
 		"missing or invalid 'health-check.check-max-retries' argument",
 	)
-	ErrMissingOrInvalidHealthCheckPortArgument = errors.New(
+	ErrInvalidHealthCheckPort = errors.New(
 		"missing or invalid 'health-check.port' argument",
 	)
 	ErrThereIsNoServerWithTags = errors.New("there is no server with tag(s)")
@@ -919,11 +919,11 @@ func interceptBackend() core.CommandInterceptor {
 					switch detail.ArgumentName {
 					case "Port":
 						return nil, &core.CliError{
-							Err: ErrMissingOrInvalidHealthCheckPortArgument,
+							Err: ErrInvalidHealthCheckPort,
 						}
 					case "CheckMaxRetries":
 						return nil, &core.CliError{
-							Err: ErrMissingOrInvalidHealthCheckCheckMaxRetriesArgument,
+							Err: ErrInvalidHealthCheckMaxRetries,
 						}
 					}
 				}

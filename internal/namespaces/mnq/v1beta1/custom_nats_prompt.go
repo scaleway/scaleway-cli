@@ -10,13 +10,13 @@ import (
 )
 
 var (
-	ErrFailedToCreateNatsContextMultipleNatsAccountsFoundPleaseProvideAnAccountIDExplicitlyAsTheCommandIsNotRunningInInteractiveMode = errors.New(
+	ErrMultipleNatsAccountsFound = errors.New(
 		"failed to create NATS context: Multiple NATS accounts found. Please provide an account ID explicitly as the command is not running in interactive mode",
 	)
-	ErrFileExist = errors.New(
-		"file Exist",
+	ErrCannotOverwriteFile = errors.New(
+		"cannot overwrite existing file in non-interactive mode",
 	)
-	ErrNoNatsAccountFoundPleaseCreateANatsAccountWithScwMnqNatsCreateAccount = errors.New(
+	ErrNoNatsAccountFound = errors.New(
 		"no nats account found, please create a NATS account with 'scw mnq nats create-account'",
 	)
 )
@@ -27,11 +27,11 @@ func promptNatsAccounts(
 	totalCount uint64,
 ) (*mnq.NatsAccount, error) {
 	if totalCount == 0 {
-		return nil, ErrNoNatsAccountFoundPleaseCreateANatsAccountWithScwMnqNatsCreateAccount
+		return nil, ErrNoNatsAccountFound
 	}
 
 	if !interactive.IsInteractive {
-		return nil, ErrFailedToCreateNatsContextMultipleNatsAccountsFoundPleaseProvideAnAccountIDExplicitlyAsTheCommandIsNotRunningInInteractiveMode
+		return nil, ErrMultipleNatsAccountsFound
 	}
 	if totalCount == 1 {
 		return natsAccounts[0], nil
@@ -58,7 +58,7 @@ func promptNatsAccounts(
 
 func promptOverWriteFile(ctx context.Context, filePath string) (bool, error) {
 	if !interactive.IsInteractive {
-		return false, ErrFileExist
+		return false, ErrCannotOverwriteFile
 	}
 
 	config := interactive.PromptBoolConfig{

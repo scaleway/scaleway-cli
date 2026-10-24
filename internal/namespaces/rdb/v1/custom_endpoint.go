@@ -17,7 +17,7 @@ type rdbEndpointCustomResult struct {
 	Success   core.SuccessResult
 }
 
-var ErrEndpointMustBeEitherALoadBalancerOrAPrivateNetwork = errors.New(
+var ErrInvalidEndpoint = errors.New(
 	"endpoint must be either a load-balancer or a private network",
 )
 
@@ -282,7 +282,7 @@ func endpointRequestFromCustom(
 				LoadBalancer: &rdb.EndpointSpecLoadBalancer{},
 			})
 		default:
-			return nil, ErrEndpointMustBeEitherALoadBalancerOrAPrivateNetwork
+			return nil, ErrInvalidEndpoint
 		}
 	}
 

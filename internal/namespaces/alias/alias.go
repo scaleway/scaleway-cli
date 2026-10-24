@@ -12,7 +12,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/pkg/shlex"
 )
 
-var ErrOrderByNotSupported = errors.New("order-by ")
+var ErrOrderByNotSupported = errors.New("order-by is not supported")
 
 func GetCommands() *core.Commands {
 	return core.NewCommands(
@@ -199,7 +199,7 @@ func aliasListCommand() *core.Command {
 			orderFunction, exists := aliasListOrderFunctions[args.OrderBy]
 			if !exists {
 				return nil, fmt.Errorf(
-					"%w%s is not supported",
+					"%w: %s",
 					ErrOrderByNotSupported,
 					args.OrderBy,
 				)

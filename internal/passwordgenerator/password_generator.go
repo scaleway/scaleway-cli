@@ -15,13 +15,13 @@ const (
 	allSet         = lowerLetters + upperLetters + SpecialSymbols + numbers
 )
 
-var ErrLengthIsLessThanTheSumOfMinNumbersMinLowerMinUpperAndMinSymbol = errors.New(
+var ErrPasswordLengthTooShort = errors.New(
 	"length is less than the sum of minNumbers, minLower, minUpper, and minSymbol",
 )
 
 func GeneratePassword(length, minNumbers, minLower, minUpper, minSymbol int) (string, error) {
 	if length < (minNumbers + minLower + minUpper + minSymbol) {
-		return "", ErrLengthIsLessThanTheSumOfMinNumbersMinLowerMinUpperAndMinSymbol
+		return "", ErrPasswordLengthTooShort
 	}
 
 	var password strings.Builder

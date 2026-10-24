@@ -8,10 +8,10 @@ import (
 )
 
 var (
-	ErrUnsupportedShell                                = errors.New("unsupported shell")
-	ErrUnsupportedOS                                   = errors.New("unsupported OS")
-	ErrCannotFindWhereToInstallAutocompleteScriptTried = errors.New(
-		"cannot find where to install autocomplete script (tried",
+	ErrUnsupportedShell             = errors.New("unsupported shell")
+	ErrUnsupportedOS                = errors.New("unsupported OS")
+	ErrAutocompleteLocationNotFound = errors.New(
+		"cannot find where to install autocomplete script",
 	)
 )
 
@@ -36,7 +36,7 @@ func installationCancelledError(shellName string, script string) *core.CliError 
 
 func installationNotFound(shellName string, location string, script string) *core.CliError {
 	return &core.CliError{
-		Err: fmt.Errorf("%w %s)", ErrCannotFindWhereToInstallAutocompleteScriptTried, location),
+		Err: fmt.Errorf("%w (tried %s)", ErrAutocompleteLocationNotFound, location),
 		Hint: fmt.Sprintf(
 			"You can add this line: `%s` in your %s configuration file",
 			script,

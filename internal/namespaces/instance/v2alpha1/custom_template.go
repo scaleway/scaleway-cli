@@ -11,14 +11,7 @@ import (
 	instance "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 )
 
-var (
-	ErrExpectedResponseOfTypeInstanceListTemplateUserDataKeysResponse = errors.New(
-		"expected response of type instance.ListTemplateUserDataKeysResponse",
-	)
-	ErrExpectedResponseOfTypeInstanceListTemplatesResponse = errors.New(
-		"expected response of type instance.ListTemplatesResponse",
-	)
-)
+var ErrUnexpectedResponseType = errors.New("unexpected response type")
 
 func templateMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp instance.Template
@@ -158,11 +151,7 @@ func TemplateListBuilder(c *core.Command) *core.Command {
 
 		templateList, ok := rawResp.(*instance.ListTemplatesResponse)
 		if !ok {
-			return "", fmt.Errorf(
-				"%w, got %T",
-				ErrExpectedResponseOfTypeInstanceListTemplatesResponse,
-				rawResp,
-			)
+			return "", fmt.Errorf("%w: %T", ErrUnexpectedResponseType, rawResp)
 		}
 
 		return templateList.Templates, nil
@@ -260,11 +249,7 @@ func TemplateListUserDataKeysBuilder(c *core.Command) *core.Command {
 
 		keyList, ok := rawResp.(*instance.ListTemplateUserDataKeysResponse)
 		if !ok {
-			return "", fmt.Errorf(
-				"%w, got %T",
-				ErrExpectedResponseOfTypeInstanceListTemplateUserDataKeysResponse,
-				rawResp,
-			)
+			return "", fmt.Errorf("%w: %T", ErrUnexpectedResponseType, rawResp)
 		}
 
 		return keyList.Keys, nil

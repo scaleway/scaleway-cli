@@ -12,7 +12,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var ErrYouMustProvideAPasswordWhenGeneratePasswordIsSetToFalse = errors.New(
+var ErrPasswordRequired = errors.New(
 	"you must provide a password when generate-password is set to false",
 )
 
@@ -205,7 +205,7 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 				}
 
 			case !customRequest.GeneratePassword && customRequest.Password == nil:
-				return nil, ErrYouMustProvideAPasswordWhenGeneratePasswordIsSetToFalse
+				return nil, ErrPasswordRequired
 
 			default:
 				updateUserRequest.Password = customRequest.Password
