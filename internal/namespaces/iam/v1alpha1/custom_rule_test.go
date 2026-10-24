@@ -11,6 +11,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var errExpectedTwoRulesInPolicy = errors.New("expected two rules in policy")
+
 func Test_createRule(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands: core.NewCommandsMerge(
@@ -68,7 +70,7 @@ func Test_deleteRule(t *testing.T) {
 					"Policy",
 				)
 				if len(policy.Rules) != 2 {
-					return errors.New("expected two rules in policy")
+					return errExpectedTwoRulesInPolicy
 				}
 				ctx.Meta["Rule"] = policy.Rules[0]
 

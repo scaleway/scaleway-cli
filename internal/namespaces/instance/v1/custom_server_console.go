@@ -17,6 +17,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var ErrCouldNotGetSecretKey = errors.New("could not get secret key")
+
 type instanceConsoleServerArgs struct {
 	Zone     scw.Zone
 	ServerID string
@@ -63,7 +65,7 @@ func instanceServerConsoleRun(ctx context.Context, argsI any) (i any, e error) {
 
 	secretKey, ok := client.GetSecretKey()
 	if !ok {
-		return nil, errors.New("could not get secret key")
+		return nil, ErrCouldNotGetSecretKey
 	}
 
 	ttyClient, err := gotty.NewClient(server.Zone, server.ID, secretKey)

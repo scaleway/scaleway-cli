@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -13,6 +14,8 @@ import (
 var (
 	apiKeyExpireTime        = 24 * time.Hour
 	lastChecksFileLocalName = "last-cli-checks"
+	ErrFailedCreatingPath   = errors.New("failed creating path")
+	ErrFailedCreatingFile   = errors.New("failed creating file")
 )
 
 type AfterCommandCheckFunc func(ctx context.Context)
@@ -38,11 +41,11 @@ func GetLatestVersionUpdateFilePath(cacheDir string) string {
 func CreateAndCloseFile(path string) error {
 	err := os.MkdirAll(filepath.Dir(path), 0o700)
 	if err != nil {
-		return fmt.Errorf("failed creating path %s: %w", path, err)
+		return fmt.Errorf("%w %s: %w", ErrFailedCreatingPath, path, err)
 	}
 	newFile, err := os.OpenFile(path, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0o600)
 	if err != nil {
-		return fmt.Errorf("failed creating file %s: %w", path, err)
+		return fmt.Errorf("%w %s: %w", ErrFailedCreatingFile, path, err)
 	}
 
 	return newFile.Close()

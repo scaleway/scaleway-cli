@@ -2,6 +2,7 @@ package instance
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 	"time"
@@ -14,6 +15,8 @@ import (
 	product_catalog "github.com/scaleway/scaleway-sdk-go/api/product_catalog/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
+
+var ErrExpectedExactly1PCUEntry = errors.New("expected exactly 1 PCU entry")
 
 func completeServerType(
 	ctx context.Context,
@@ -133,7 +136,8 @@ func getEndOfServiceDate(
 
 	if products.TotalCount != 1 {
 		return "", fmt.Errorf(
-			"expected exactly 1 PCU entry for %q, got %d",
+			"%w for %q, got %d",
+			ErrExpectedExactly1PCUEntry,
 			commercialType,
 			products.TotalCount,
 		)

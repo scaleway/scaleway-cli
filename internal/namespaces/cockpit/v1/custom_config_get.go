@@ -2,6 +2,7 @@ package cockpit
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/url"
 	"reflect"
@@ -28,6 +29,15 @@ var tokenScopeForDataSourceType = map[cockpit.DataSourceType]cockpit.TokenScope{
 	cockpit.DataSourceTypeLogs:    cockpit.TokenScopeWriteOnlyLogs,
 	cockpit.DataSourceTypeTraces:  cockpit.TokenScopeWriteOnlyTraces,
 }
+
+var (
+	ErrConfigType                = errors.New("config type")
+	ErrCreatedToken              = errors.New("created token")
+	ErrDataSource                = errors.New("data source")
+	ErrInvalidDataSourceURL      = errors.New("invalid data source URL")
+	ErrUnsupportedConfigType     = errors.New("unsupported config type")
+	ErrUnsupportedDataSourceType = errors.New("unsupported data source type")
+)
 
 type cockpitConfigGetRequest struct {
 	DataSourceID  string
@@ -155,7 +165,8 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 	if dataSource.Origin == cockpit.DataSourceOriginScaleway {
 		return nil, &core.CliError{
 			Err: fmt.Errorf(
-				"data source %q has origin %q and does not accept external push",
+				"%w %q has origin %q and does not accept external push",
+				ErrDataSource,
 				dataSource.ID,
 				dataSource.Origin,
 			),
@@ -181,7 +192,8 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 			cockpit.DataSourceTypeTraces:
 		default:
 			return nil, fmt.Errorf(
-				"config type %q requires a metrics, logs, or traces data source, got %q",
+				"%w %q requires a metrics, logs, or traces data source, got %q",
+				ErrConfigType,
 				args.Type,
 				dataSource.Type,
 			)
@@ -196,7 +208,7 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 			)
 		}
 	default:
-		return nil, fmt.Errorf("unsupported config type %q", args.Type)
+		return nil, fmt.Errorf("%w %q", ErrUnsupportedConfigType, args.Type)
 	}
 
 	var tokenSecretKey *string
@@ -215,7 +227,8 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 		scope, ok := tokenScopeForDataSourceType[dataSource.Type]
 		if !ok {
 			return nil, fmt.Errorf(
-				"unsupported data source type %q for token creation",
+				"%w %q for token creation",
+				ErrUnsupportedDataSourceType,
 				dataSource.Type,
 			)
 		}
@@ -230,7 +243,7 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 			return nil, err
 		}
 		if token.SecretKey == nil || *token.SecretKey == "" {
-			return nil, fmt.Errorf("created token %q has no secret key", token.ID)
+			return nil, fmt.Errorf("%w %q has no secret key", ErrCreatedToken, token.ID)
 		}
 
 		tokenSecretKey = token.SecretKey
@@ -252,7 +265,7 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 		return RenderAlloyConfig(dataSource.Type, dataSource.URL, tokenSecretKey)
 
 	default:
-		return nil, fmt.Errorf("unsupported config type %q", args.Type)
+		return nil, fmt.Errorf("%w %q", ErrUnsupportedConfigType, args.Type)
 	}
 }
 
@@ -264,7 +277,8 @@ func incompatibleDataSourceTypeError(
 ) *core.CliError {
 	return &core.CliError{
 		Err: fmt.Errorf(
-			"config type %q requires a %s data source, got %q",
+			"%w %q requires a %s data source, got %q",
+			ErrConfigType,
 			configType,
 			required,
 			got,
@@ -329,7 +343,8 @@ func ParseCockpitDataSourceEndpoint(dataSourceURL string) (cockpitDataSourceEndp
 	host := parsedURL.Hostname()
 	if host == "" {
 		return cockpitDataSourceEndpoint{}, fmt.Errorf(
-			"invalid data source URL %q: missing host",
+			"%w %q: missing host",
+			ErrInvalidDataSourceURL,
 			dataSourceURL,
 		)
 	}
@@ -346,7 +361,8 @@ func ParseCockpitDataSourceEndpoint(dataSourceURL string) (cockpitDataSourceEndp
 	portNumber, err := strconv.Atoi(port)
 	if err != nil {
 		return cockpitDataSourceEndpoint{}, fmt.Errorf(
-			"invalid data source URL %q: invalid port %q",
+			"%w %q: invalid port %q",
+			ErrInvalidDataSourceURL,
 			dataSourceURL,
 			port,
 		)

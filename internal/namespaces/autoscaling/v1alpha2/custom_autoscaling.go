@@ -2,11 +2,27 @@ package autoscaling
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	autoscaling "github.com/scaleway/scaleway-sdk-go/api/autoscaling/v1alpha2"
+)
+
+var (
+	ErrExpectedResponseOfTypeAutoscalingListAlertsResponseGot = errors.New(
+		"expected response of type *autoscaling.ListAlertsResponse, got ",
+	)
+	ErrExpectedResponseOfTypeAutoscalingListGroupsResponseGot = errors.New(
+		"expected response of type *autoscaling.ListGroupsResponse, got ",
+	)
+	ErrExpectedResponseOfTypeAutoscalingListLogsResponseGot = errors.New(
+		"expected response of type *autoscaling.ListLogsResponse, got ",
+	)
+	ErrExpectedResponseOfTypeAutoscalingListServersResponseGot = errors.New(
+		"expected response of type *autoscaling.ListServersResponse, got ",
+	)
 )
 
 func groupMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
@@ -79,7 +95,8 @@ func GroupListBuilder(c *core.Command) *core.Command {
 		groupList, ok := rawResp.(*autoscaling.ListGroupsResponse)
 		if !ok {
 			return "", fmt.Errorf(
-				"expected response of type *autoscaling.ListGroupsResponse, got %T",
+				"%w%T",
+				ErrExpectedResponseOfTypeAutoscalingListGroupsResponseGot,
 				rawResp,
 			)
 		}
@@ -166,7 +183,8 @@ func AlertsListBuilder(c *core.Command) *core.Command {
 		alertList, ok := rawResp.(*autoscaling.ListAlertsResponse)
 		if !ok {
 			return "", fmt.Errorf(
-				"expected response of type *autoscaling.ListAlertsResponse, got %T",
+				"%w%T",
+				ErrExpectedResponseOfTypeAutoscalingListAlertsResponseGot,
 				rawResp,
 			)
 		}
@@ -190,7 +208,8 @@ func LogsListBuilder(c *core.Command) *core.Command {
 		logList, ok := rawResp.(*autoscaling.ListLogsResponse)
 		if !ok {
 			return "", fmt.Errorf(
-				"expected response of type *autoscaling.ListLogsResponse, got %T",
+				"%w%T",
+				ErrExpectedResponseOfTypeAutoscalingListLogsResponseGot,
 				rawResp,
 			)
 		}
@@ -214,7 +233,8 @@ func ServersListBuilder(c *core.Command) *core.Command {
 		serverList, ok := rawResp.(*autoscaling.ListServersResponse)
 		if !ok {
 			return "", fmt.Errorf(
-				"expected response of type *autoscaling.ListServersResponse, got %T",
+				"%w%T",
+				ErrExpectedResponseOfTypeAutoscalingListServersResponseGot,
 				rawResp,
 			)
 		}

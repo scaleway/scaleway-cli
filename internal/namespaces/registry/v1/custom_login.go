@@ -3,7 +3,6 @@ package registry
 import (
 	"bytes"
 	"context"
-	"errors"
 	"os/exec"
 	"reflect"
 
@@ -47,7 +46,7 @@ func registryLoginRun(ctx context.Context, argsI any) (i any, e error) {
 
 	secretKey, ok := client.GetSecretKey()
 	if !ok {
-		return nil, errors.New("could not get secret key")
+		return nil, ErrCouldNotGetSecretKey
 	}
 
 	cmdArgs := []string{"login", "-u", "scaleway", "--password-stdin", endpoint}

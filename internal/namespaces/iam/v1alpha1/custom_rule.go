@@ -2,6 +2,7 @@ package iam
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 
@@ -9,6 +10,8 @@ import (
 	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
+
+var ErrRule = errors.New("rule")
 
 type iamRuleCreateCommandRequest struct {
 	PolicyID string
@@ -139,7 +142,7 @@ func iamRuleDeleteCommand() *core.Command {
 			}
 
 			if !found {
-				return nil, fmt.Errorf("rule %s not found for given policy", args.RuleID)
+				return nil, fmt.Errorf("%w %s not found for given policy", ErrRule, args.RuleID)
 			}
 
 			policy, err := api.SetRules(&iam.SetRulesRequest{

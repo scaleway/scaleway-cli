@@ -12,6 +12,20 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
+var (
+	ErrNoCredentialsProvided       = errors.New("no credentials provided")
+	ErrAccessKeyIsRequired         = errors.New("access key is required")
+	ErrInvalidAccessKeyFormat      = errors.New("invalid access key format")
+	ErrSecretKeyIsRequired         = errors.New("secret key is required")
+	ErrInvalidSecretKeyFormat      = errors.New("invalid secret key format")
+	ErrOrganizationIDIsRequired    = errors.New("organization ID is required")
+	ErrInvalidOrganizationIDFormat = errors.New("invalid organization ID format")
+	ErrDefaultZoneIsRequired       = errors.New("default zone is required")
+	ErrInvalidDefaultZoneFormat    = errors.New("invalid default zone format")
+	ErrDefaultRegionIsRequired     = errors.New("default region is required")
+	ErrInvalidDefaultRegionFormat  = errors.New("invalid default region format")
+)
+
 func (p *Platform) CreateClient(
 	httpClient *http.Client,
 	configPath string,
@@ -128,14 +142,14 @@ func validateClient(client *scw.Client) error {
 
 	if !accessKeyExists && !secretKeyExists {
 		return &platform.ClientError{
-			Err:     errors.New("no credentials provided"),
+			Err:     ErrNoCredentialsProvided,
 			Details: noConfigErrorDetails(),
 		}
 	}
 
 	if accessKey == "" {
 		return &platform.ClientError{
-			Err:     errors.New("access key is required"),
+			Err:     ErrAccessKeyIsRequired,
 			Details: configErrorDetails("access_key", "SCW_ACCESS_KEY"),
 		}
 	}
@@ -143,7 +157,8 @@ func validateClient(client *scw.Client) error {
 	if !validation.IsAccessKey(accessKey) {
 		return &platform.ClientError{
 			Err: fmt.Errorf(
-				"invalid access key format '%s', expected SCWXXXXXXXXXXXXXXXXX format",
+				"%w '%s', expected SCWXXXXXXXXXXXXXXXXX format",
+				ErrInvalidAccessKeyFormat,
 				accessKey,
 			),
 		}
@@ -151,7 +166,7 @@ func validateClient(client *scw.Client) error {
 
 	if secretKey == "" {
 		return &platform.ClientError{
-			Err:     errors.New("secret key is required"),
+			Err:     ErrSecretKeyIsRequired,
 			Details: configErrorDetails("secret_key", "SCW_SECRET_KEY"),
 		}
 	}
@@ -159,7 +174,8 @@ func validateClient(client *scw.Client) error {
 	if !validation.IsSecretKey(secretKey) {
 		return &platform.ClientError{
 			Err: fmt.Errorf(
-				"invalid secret key format '%s', expected a UUID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+				"%w '%s', expected a UUID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+				ErrInvalidSecretKeyFormat,
 				secretKey,
 			),
 		}
@@ -168,7 +184,7 @@ func validateClient(client *scw.Client) error {
 	defaultOrganizationID, _ := client.GetDefaultOrganizationID()
 	if defaultOrganizationID == "" {
 		return &platform.ClientError{
-			Err:     errors.New("organization ID is required"),
+			Err:     ErrOrganizationIDIsRequired,
 			Details: configErrorDetails("default_organization_id", "SCW_DEFAULT_ORGANIZATION_ID"),
 		}
 	}
@@ -176,7 +192,8 @@ func validateClient(client *scw.Client) error {
 	if !validation.IsOrganizationID(defaultOrganizationID) {
 		return &platform.ClientError{
 			Err: fmt.Errorf(
-				"invalid organization ID format '%s', expected a UUID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+				"%w '%s', expected a UUID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+				ErrInvalidOrganizationIDFormat,
 				defaultOrganizationID,
 			),
 		}
@@ -185,7 +202,7 @@ func validateClient(client *scw.Client) error {
 	defaultZone, _ := client.GetDefaultZone()
 	if defaultZone == "" {
 		return &platform.ClientError{
-			Err:     errors.New("default zone is required"),
+			Err:     ErrDefaultZoneIsRequired,
 			Details: configErrorDetails("default_zone", "SCW_DEFAULT_ZONE"),
 		}
 	}
@@ -198,7 +215,8 @@ func validateClient(client *scw.Client) error {
 
 		return &platform.ClientError{
 			Err: fmt.Errorf(
-				"invalid default zone format '%s', available zones are: %s",
+				"%w '%s', available zones are: %s",
+				ErrInvalidDefaultZoneFormat,
 				defaultZone,
 				strings.Join(zones, ", "),
 			),
@@ -208,7 +226,7 @@ func validateClient(client *scw.Client) error {
 	defaultRegion, _ := client.GetDefaultRegion()
 	if defaultRegion == "" {
 		return &platform.ClientError{
-			Err:     errors.New("default region is required"),
+			Err:     ErrDefaultRegionIsRequired,
 			Details: configErrorDetails("default_region", "SCW_DEFAULT_REGION"),
 		}
 	}
@@ -221,7 +239,8 @@ func validateClient(client *scw.Client) error {
 
 		return &platform.ClientError{
 			Err: fmt.Errorf(
-				"invalid default region format '%s', available regions are: %s",
+				"%w '%s', available regions are: %s",
+				ErrInvalidDefaultRegionFormat,
 				defaultRegion,
 				strings.Join(regions, ", "),
 			),

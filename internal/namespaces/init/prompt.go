@@ -15,6 +15,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
+var ErrInitializationCanceled = errors.New("initialization canceled")
+
 func promptOrganizationID(ctx context.Context) (string, error) {
 	_, _ = interactive.Println()
 
@@ -260,7 +262,7 @@ func promptProfileOverride(
 			return err
 		}
 		if !overrideConfig {
-			return errors.New("initialization canceled")
+			return ErrInitializationCanceled
 		}
 	}
 

@@ -17,6 +17,8 @@ import (
 	billing "github.com/scaleway/scaleway-sdk-go/api/billing/v2beta1"
 )
 
+var ErrExportFileCanceled = errors.New("export file canceled")
+
 type billingExportRequest struct {
 	billing.ExportInvoicesRequest
 	FilePath     string
@@ -81,7 +83,7 @@ func invoiceExportBuilder(command *core.Command) *core.Command {
 		if len(file) > 0 {
 			fileExtension := filepath.Ext(file)
 			if extensionOnFile := checkExportInvoiceExt(fileExtension); !extensionOnFile {
-				return errors.New("file has not supported extension")
+				return ErrFileHasNotSupportedExtension
 			}
 		}
 
@@ -133,7 +135,7 @@ func invoiceExportBuilder(command *core.Command) *core.Command {
 				return err
 			}
 			if !overrideFile {
-				return errors.New("export file canceled")
+				return ErrExportFileCanceled
 			}
 		}
 
@@ -186,7 +188,7 @@ func billingExportRun(ctx context.Context, argsI any) (any, error) {
 	if err != nil {
 		dir, file := getDirFile(fileName)
 
-		return nil, fmt.Errorf("unavailable to create file %s on directory %s", file, dir)
+		return nil, fmt.Errorf("%w %s on directory %s", ErrUnavailableToCreateFile, file, dir)
 	}
 	defer fileOutput.Close()
 

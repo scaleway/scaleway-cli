@@ -3,6 +3,7 @@ package core
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -35,6 +36,8 @@ import (
 )
 
 const TestBucketNamePrefix = "cli-test-bucket"
+
+var ErrFailedToMatchRegexInGolden = errors.New("failed to match regex in golden:")
 
 // Test flags
 // You can create a binary of each test using "go test -c -o myBinary"
@@ -792,7 +795,7 @@ func GoldenReplacePatterns(golden string, replacements ...GoldenReplacement) (st
 	}
 
 	if len(matchFailed) > 0 {
-		return changedGolden, fmt.Errorf("failed to match regex in golden: %#q", matchFailed)
+		return changedGolden, fmt.Errorf("%w %#q", ErrFailedToMatchRegexInGolden, matchFailed)
 	}
 
 	return changedGolden, nil

@@ -2,6 +2,7 @@ package marketplace
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 
@@ -10,6 +11,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
+
+var ErrImageNotFoundNoImageWithLabel = errors.New("image not found: no image with label '")
 
 func updateCommands(commands *core.Commands) {
 	updateMarketplaceGetImage(commands.MustFind("marketplace", "image", "get"))
@@ -53,5 +56,5 @@ func getImageByLabel(images []*marketplace.Image, label string) (*marketplace.Im
 		}
 	}
 
-	return nil, fmt.Errorf("image not found: no image with label '%v'", label)
+	return nil, fmt.Errorf("%w%v'", ErrImageNotFoundNoImageWithLabel, label)
 }

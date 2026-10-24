@@ -14,6 +14,10 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var ErrCannotReloadClientMetaNotFoundInContext = errors.New(
+	"cannot reload client: meta not found in context",
+)
+
 // Meta store globally available variables like sdk client or global Flags.
 type Meta struct {
 	BinaryName string
@@ -293,7 +297,7 @@ func ExtractCliConfigPath(ctx context.Context) string {
 func ReloadClient(ctx context.Context) error {
 	meta := ExtractMeta(ctx)
 	if meta == nil {
-		return errors.New("cannot reload client: meta not found in context")
+		return ErrCannotReloadClientMetaNotFoundInContext
 	}
 	var err error
 	meta.Client, err = meta.Platform.CreateClient(

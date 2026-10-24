@@ -17,6 +17,22 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var (
+	ErrCannotCreateResourceRequiredForServer = errors.New(
+		"cannot create resource required for server",
+	)
+	ErrCannotCreateTheServer             = errors.New("cannot create the server")
+	ErrFirstVolumeSizeMustBeAtLeast      = errors.New("first volume size must be at least")
+	ErrImageRootVolumeConstraint         = errors.New("image")
+	ErrTotalLocalVolumeSizeMustBeBetween = errors.New("total local volume size must be between")
+	ErrTotalLocalVolumeSizeMustBeEqualTo = errors.New(
+		"total local volume size must be equal to",
+	)
+	ErrYouCannotUseAnExistingVolumeAsARootVolume = errors.New(
+		"you cannot use an existing volume as a root volume",
+	)
+)
+
 type instanceCreateServerRequest struct {
 	Zone              scw.Zone
 	ProjectID         *string
@@ -280,7 +296,7 @@ func instanceServerCreateRun(ctx context.Context, argsI any) (i any, e error) {
 			logger.Warningf("cannot clean created resources: %s.", cleanErr)
 		}
 
-		return nil, fmt.Errorf("cannot create resource required for server: %w", err)
+		return nil, fmt.Errorf("%w: %w", ErrCannotCreateResourceRequiredForServer, err)
 	}
 
 	createReq, err := serverBuilder.Build()
@@ -290,7 +306,7 @@ func instanceServerCreateRun(ctx context.Context, argsI any) (i any, e error) {
 			logger.Warningf("cannot clean created resources: %s.", cleanErr)
 		}
 
-		return nil, fmt.Errorf("cannot create the server: %w", err)
+		return nil, fmt.Errorf("%w: %w", ErrCannotCreateTheServer, err)
 	}
 
 	//
@@ -304,7 +320,7 @@ func instanceServerCreateRun(ctx context.Context, argsI any) (i any, e error) {
 			logger.Warningf("cannot clean created resources: %s.", cleanErr)
 		}
 
-		return nil, fmt.Errorf("cannot create the server: %w", err)
+		return nil, fmt.Errorf("%w: %w", ErrCannotCreateTheServer, err)
 	}
 	server := serverRes.Server
 	logger.Debugf("server created %s", server.ID)
@@ -404,7 +420,8 @@ func validateImageServerTypeCompatibility(
 	if image.RootVolume.VolumeType == instance.VolumeVolumeTypeLSSD &&
 		image.RootVolume.Size > serverType.VolumesConstraint.MaxSize {
 		return fmt.Errorf(
-			"image %s requires %s on root volume, but root volume is constrained between %s and %s on %s",
+			"%w %s requires %s on root volume, but root volume is constrained between %s and %s on %s",
+			ErrImageRootVolumeConstraint,
 			image.ID,
 			humanize.Bytes(uint64(image.RootVolume.Size)),
 			humanize.Bytes(uint64(serverType.VolumesConstraint.MinSize)),
@@ -448,8 +465,9 @@ func validateLocalVolumeSizes(
 		computedLocal := humanize.Bytes(uint64(localVolumeTotalSize))
 		if volumeConstraint.MinSize == volumeConstraint.MaxSize {
 			return fmt.Errorf(
-				"%s total local volume size must be equal to %s, got %s",
+				"%s %w %s, got %s",
 				commercialType,
+				ErrTotalLocalVolumeSizeMustBeEqualTo,
 				minSize,
 				computedLocal,
 			)
@@ -458,8 +476,9 @@ func validateLocalVolumeSizes(
 		maxSize := humanize.Bytes(uint64(volumeConstraint.MaxSize))
 
 		return fmt.Errorf(
-			"%s total local volume size must be between %s and %s, got %s",
+			"%s %w %s and %s, got %s",
 			commercialType,
+			ErrTotalLocalVolumeSizeMustBeBetween,
 			minSize,
 			maxSize,
 			computedLocal,
@@ -479,14 +498,15 @@ func validateRootVolume(
 
 	if rootVolume.ID != nil {
 		return &core.CliError{
-			Err:     errors.New("you cannot use an existing volume as a root volume"),
+			Err:     ErrYouCannotUseAnExistingVolumeAsARootVolume,
 			Details: "You must create an image of this volume and use its ID in the 'image' argument.",
 		}
 	}
 
 	if rootVolume.Size != nil && *rootVolume.Size < imageRequiredSize {
 		return fmt.Errorf(
-			"first volume size must be at least %s for this image",
+			"%w %s for this image",
+			ErrFirstVolumeSizeMustBeAtLeast,
 			humanize.Bytes(uint64(imageRequiredSize)),
 		)
 	}

@@ -18,6 +18,13 @@ import (
 	billing "github.com/scaleway/scaleway-sdk-go/api/billing/v2beta1"
 )
 
+var (
+	ErrParseDateOnFileName          = errors.New("parse date on file name")
+	ErrFileHasNotSupportedExtension = errors.New("file has not supported extension")
+	ErrDownloadFileCanceled         = errors.New("download file canceled")
+	ErrUnavailableToCreateFile      = errors.New("unavailable to create file")
+)
+
 type billingDownloadRequest struct {
 	billing.DownloadInvoiceRequest
 	// extra arguments
@@ -77,14 +84,14 @@ func invoiceDownloadBuilder(command *core.Command) *core.Command {
 
 		date, err := trimDateFromFileName(resp.Name)
 		if err != nil {
-			return errors.New("parse date on file name")
+			return ErrParseDateOnFileName
 		}
 
 		dir, file := getDirFile(args.FilePath)
 		if len(file) > 0 {
 			fileExtension := filepath.Ext(file)
 			if extensionOnFile := checkDownloadInvoiceExt(fileExtension); !extensionOnFile {
-				return errors.New("file has not supported extension")
+				return ErrFileHasNotSupportedExtension
 			}
 		}
 
@@ -138,7 +145,7 @@ func invoiceDownloadBuilder(command *core.Command) *core.Command {
 				return err
 			}
 			if !overrideFile {
-				return errors.New("download file canceled")
+				return ErrDownloadFileCanceled
 			}
 		}
 
@@ -183,7 +190,7 @@ func billingDownloadRun(ctx context.Context, argsI any) (any, error) {
 			// case when filepath is a directory: join default name with custom path
 			date, err := trimDateFromFileName(resp.Name)
 			if err != nil {
-				return nil, errors.New("parse date on file name")
+				return nil, ErrParseDateOnFileName
 			}
 
 			defaultFileName := fmt.Sprintf(
@@ -206,7 +213,7 @@ func billingDownloadRun(ctx context.Context, argsI any) (any, error) {
 	if err != nil {
 		dir, file := getDirFile(fileName)
 
-		return nil, fmt.Errorf("unavailable to create file %s on directory %s", file, dir)
+		return nil, fmt.Errorf("%w %s on directory %s", ErrUnavailableToCreateFile, file, dir)
 	}
 	defer fileOutput.Close()
 

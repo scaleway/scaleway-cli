@@ -16,6 +16,10 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var ErrFailedToUnmarshalBucketCORSConfiguration = errors.New(
+	"failed to unmarshal bucket CORS configuration: ",
+)
+
 type bucketCorsCreateArgs struct {
 	Bucket            string
 	CorsConfiguration string
@@ -51,10 +55,10 @@ func bucketCorsCreateCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketCorsCreateArgs)
 			if args.Bucket == "" {
-				return nil, errors.New("bucket name cannot be empty")
+				return nil, ErrBucketNameCannotBeEmpty
 			}
 			if args.CorsConfiguration == "" {
-				return nil, errors.New("configuration file path cannot be empty")
+				return nil, ErrConfigurationFilePathCannotBeEmpty
 			}
 
 			configPath, err := os.ReadFile(args.CorsConfiguration)
@@ -72,7 +76,8 @@ func bucketCorsCreateCommand() *core.Command {
 			err = json.Unmarshal([]byte(configStr), &config)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"failed to unmarshal bucket CORS configuration: %w",
+					"%w%w",
+					ErrFailedToUnmarshalBucketCORSConfiguration,
 					err,
 				)
 			}
@@ -132,7 +137,7 @@ func bucketCorsDeleteCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketCorsDeleteArgs)
 			if args.Bucket == "" {
-				return nil, errors.New("bucket name cannot be empty")
+				return nil, ErrBucketNameCannotBeEmpty
 			}
 
 			client := newS3Client(ctx, args.Region, args.ProjectID)
@@ -181,7 +186,7 @@ func bucketCorsGetCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketCorsGetArgs)
 			if args.Bucket == "" {
-				return nil, errors.New("bucket name cannot be empty")
+				return nil, ErrBucketNameCannotBeEmpty
 			}
 
 			client := newS3Client(ctx, args.Region, args.ProjectID)
@@ -194,7 +199,7 @@ func bucketCorsGetCommand() *core.Command {
 				return nil, fmt.Errorf("could not get bucket configuration: %w", err)
 			}
 			if conf == nil {
-				return nil, errors.New("could not get bucket configuration (result is nil)")
+				return nil, ErrCouldNotGetBucketConfigurationResultIsNil
 			}
 
 			prettyJSONBytes, err := CleanAndIndentJSON(conf, "", "    ")

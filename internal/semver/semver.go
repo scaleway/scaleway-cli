@@ -6,6 +6,8 @@ import (
 	"github.com/hashicorp/go-version"
 )
 
+var ErrNoAvailableVersionFound = errors.New("no available version found")
+
 // LatestVersion returns the highest version string in versions.
 // Entries that do not parse as a version are ignored.
 func LatestVersion(versions []string) (string, error) {
@@ -22,7 +24,7 @@ func LatestVersion(versions []string) (string, error) {
 		}
 	}
 	if latestStr == "" {
-		return "", errors.New("no available version found")
+		return "", ErrNoAvailableVersionFound
 	}
 
 	return latestStr, nil

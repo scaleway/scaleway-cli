@@ -1,11 +1,19 @@
 package testhelpers
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
+)
+
+var (
+	ErrResultIsNot                    = errors.New("result is not")
+	ErrExpectedExactly1ImageWithName  = errors.New("expected exactly 1 image with name")
+	ErrUnexpectedNumberOfTagsForImage = errors.New("unexpected number of tags for image")
+	ErrExpectedExactly1TagWithName    = errors.New("expected exactly 1 tag with name")
 )
 
 func PushRegistryImage(dockerImage, namespaceMetaKey string) core.BeforeFunc {
@@ -39,11 +47,12 @@ func StoreImageIdentifierInMeta(
 		// Select the image
 		imageList, ok := imageListResult.([]registry.CustomImage)
 		if !ok {
-			return fmt.Errorf("result is not []registry.CustomImage but %T", imageListResult)
+			return fmt.Errorf("%w []registry.CustomImage but %T", ErrResultIsNot, imageListResult)
 		}
 		if len(imageList) != 1 {
 			return fmt.Errorf(
-				"expected exactly 1 image with name %q, got %d",
+				"%w %q, got %d",
+				ErrExpectedExactly1ImageWithName,
 				imageName,
 				len(imageList),
 			)
@@ -53,7 +62,8 @@ func StoreImageIdentifierInMeta(
 		// Build image identifier and store it in Meta
 		if len(image.Tags) != 1 {
 			return fmt.Errorf(
-				"unexpected number of tags for image %s: expected 1, got %d",
+				"%w %s: expected 1, got %d",
+				ErrUnexpectedNumberOfTagsForImage,
 				image.Name,
 				len(image.Tags),
 			)
@@ -81,11 +91,12 @@ func StoreTagIDInMeta(namespaceMetaKey, dockerImageName, tagMetaKey string) core
 		// Select the image
 		imageList, ok := imageListResult.([]registry.CustomImage)
 		if !ok {
-			return fmt.Errorf("result is not []registry.CustomImage but %T", imageListResult)
+			return fmt.Errorf("%w []registry.CustomImage but %T", ErrResultIsNot, imageListResult)
 		}
 		if len(imageList) != 1 {
 			return fmt.Errorf(
-				"expected exactly 1 image with name %q, got %d",
+				"%w %q, got %d",
+				ErrExpectedExactly1ImageWithName,
 				imageName,
 				len(imageList),
 			)
@@ -103,11 +114,12 @@ func StoreTagIDInMeta(namespaceMetaKey, dockerImageName, tagMetaKey string) core
 		// Select the tag
 		tagList, ok := tagListResult.([]registry.CustomTag)
 		if !ok {
-			return fmt.Errorf("result is not []registry.CustomTag but %T", tagListResult)
+			return fmt.Errorf("%w []registry.CustomTag but %T", ErrResultIsNot, tagListResult)
 		}
 		if len(tagList) != 1 {
 			return fmt.Errorf(
-				"expected exactly 1 tag with name %q, got %d",
+				"%w %q, got %d",
+				ErrExpectedExactly1TagWithName,
 				tagName,
 				len(tagList),
 			)

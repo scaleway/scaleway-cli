@@ -20,6 +20,11 @@ const (
 	poolMetaKey       = "DefaultPool"
 )
 
+var (
+	errExpected1PoolGot        = errors.New("expected 1 pool, got ")
+	errKubeconfigInstallFailed = errors.New("kubeconfig install failed")
+)
+
 //
 // Clusters
 //
@@ -63,7 +68,7 @@ func fetchPoolMetadata(clusterMetaKey, poolMetaKey, poolName string) core.Before
 		}
 
 		if len(poolsList.Pools) != 1 {
-			return fmt.Errorf("expected 1 pool, got %d", len(poolsList.Pools))
+			return fmt.Errorf("%w%d", errExpected1PoolGot, len(poolsList.Pools))
 		}
 
 		ctx.Meta[poolMetaKey] = poolsList.Pools[0]
@@ -118,7 +123,7 @@ func cliInstallKubeconfig() core.BeforeFunc {
 		cmd := "scw k8s kubeconfig install " + cluster.ID
 		installOut := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		if !strings.Contains(installOut.(string), "successfully written") {
-			return errors.New("kubeconfig install failed")
+			return errKubeconfigInstallFailed
 		}
 
 		return nil

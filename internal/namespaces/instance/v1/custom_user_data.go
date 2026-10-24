@@ -14,6 +14,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var ErrKeyDoesNotExist = errors.New("key does not exist")
+
 //
 // Commands
 //
@@ -44,7 +46,7 @@ func userDataGetBuilder(c *core.Command) *core.Command {
 			if err != nil {
 				if resErr, ok := errors.AsType[*scw.ResponseError](err); ok {
 					if resErr.StatusCode == http.StatusNotFound {
-						return nil, fmt.Errorf("'%s' key does not exist", req.Key)
+						return nil, fmt.Errorf("'%s' %w", req.Key, ErrKeyDoesNotExist)
 					}
 				}
 

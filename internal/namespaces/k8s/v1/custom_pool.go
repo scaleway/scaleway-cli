@@ -35,6 +35,8 @@ var (
 		k8s.PoolStatusUpgrading: &human.EnumMarshalSpec{Attribute: color.FgBlue},
 		k8s.PoolStatusWarning:   &human.EnumMarshalSpec{Attribute: color.FgHiYellow},
 	}
+
+	ErrSSHCommandFailedWithExitCode = errors.New("ssh command failed with exit code ")
 )
 
 const (
@@ -289,7 +291,7 @@ func execSSHCommand(ctx context.Context, args []string, printSeparator bool) err
 		return err
 	}
 	if exitCode != 0 {
-		return fmt.Errorf("ssh command failed with exit code %d", exitCode)
+		return fmt.Errorf("%w%d", ErrSSHCommandFailedWithExitCode, exitCode)
 	}
 	if printSeparator {
 		_, _ = interactive.Println("-----")

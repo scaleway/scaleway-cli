@@ -9,21 +9,29 @@ import (
 	mnq "github.com/scaleway/scaleway-sdk-go/api/mnq/v1beta1"
 )
 
+var (
+	ErrFailedToCreateNatsContextMultipleNatsAccountsFoundPleaseProvideAnAccountIDExplicitlyAsTheCommandIsNotRunningInInteractiveMode = errors.New(
+		"failed to create NATS context: Multiple NATS accounts found. Please provide an account ID explicitly as the command is not running in interactive mode",
+	)
+	ErrFileExist = errors.New(
+		"file Exist",
+	)
+	ErrNoNatsAccountFoundPleaseCreateANatsAccountWithScwMnqNatsCreateAccount = errors.New(
+		"no nats account found, please create a NATS account with 'scw mnq nats create-account'",
+	)
+)
+
 func promptNatsAccounts(
 	ctx context.Context,
 	natsAccounts []*mnq.NatsAccount,
 	totalCount uint64,
 ) (*mnq.NatsAccount, error) {
 	if totalCount == 0 {
-		return nil, errors.New(
-			"no nats account found, please create a NATS account with 'scw mnq nats create-account'",
-		)
+		return nil, ErrNoNatsAccountFoundPleaseCreateANatsAccountWithScwMnqNatsCreateAccount
 	}
 
 	if !interactive.IsInteractive {
-		return nil, errors.New(
-			"failed to create NATS context: Multiple NATS accounts found. Please provide an account ID explicitly as the command is not running in interactive mode",
-		)
+		return nil, ErrFailedToCreateNatsContextMultipleNatsAccountsFoundPleaseProvideAnAccountIDExplicitlyAsTheCommandIsNotRunningInInteractiveMode
 	}
 	if totalCount == 1 {
 		return natsAccounts[0], nil
@@ -50,7 +58,7 @@ func promptNatsAccounts(
 
 func promptOverWriteFile(ctx context.Context, filePath string) (bool, error) {
 	if !interactive.IsInteractive {
-		return false, errors.New("file Exist")
+		return false, ErrFileExist
 	}
 
 	config := interactive.PromptBoolConfig{

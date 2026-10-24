@@ -14,6 +14,8 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 )
 
+var ErrUnsupportedPlatform = errors.New("unsupported platform")
+
 const githubURL = "https://github.com/scaleway/scaleway-cli/issues/new"
 
 type issueTemplate string
@@ -98,7 +100,7 @@ func (i *issue) openInBrowser(ctx context.Context) error {
 	case darwin:
 		openCmd = exec.Command("open", i.getURL()) //nolint:gosec
 	default:
-		return errors.New("unsupported platform")
+		return ErrUnsupportedPlatform
 	}
 
 	exitCode, err := core.ExecCmd(ctx, openCmd)

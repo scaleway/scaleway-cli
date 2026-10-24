@@ -1,12 +1,15 @@
 package core
 
 import (
+	"errors"
 	"fmt"
 	"sort"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/alias"
 )
+
+var ErrCommandNotFound = errors.New("command")
 
 // Commands represent a list of CLI commands, with a index to allow searching.
 type Commands struct {
@@ -51,7 +54,7 @@ func (c *Commands) MustFind(path ...string) *Command {
 		return cmd
 	}
 
-	panic(fmt.Errorf("command %v not found", strings.Join(path, " ")))
+	panic(fmt.Errorf("%w %v not found", ErrCommandNotFound, strings.Join(path, " ")))
 }
 
 func (c *Commands) Find(path ...string) *Command {

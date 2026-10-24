@@ -16,6 +16,12 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var (
+	ErrFailedToUploadFunctionStatus = errors.New("failed to upload function (Status: ")
+	ErrInvalidRuntime               = errors.New("invalid runtime ")
+	ErrInvalidZipFileInvalidSize    = errors.New("invalid zip-file, invalid size")
+)
+
 type functionDeployRequest struct {
 	NamespaceID string                   `json:"namespace_id"`
 	ZipFile     string                   `json:"zip_file"`
@@ -72,7 +78,7 @@ func functionDeploy() *core.Command {
 			}
 
 			if zipFileStat.Size() < 0 {
-				return nil, errors.New("invalid zip-file, invalid size")
+				return nil, ErrInvalidZipFileInvalidSize
 			}
 
 			ts := tasks.Begin()
@@ -128,7 +134,7 @@ func validateRuntime(api *function.API, region scw.Region, runtime function.Func
 		}
 	}
 
-	return fmt.Errorf("invalid runtime %q", runtimeName)
+	return fmt.Errorf("%w%q", ErrInvalidRuntime, runtimeName)
 }
 
 func DeployStepCreateNamespace(
@@ -290,7 +296,7 @@ func DeployStepFunctionUpload(
 		defer resp.Body.Close()
 
 		if resp.StatusCode != http.StatusOK {
-			return nil, fmt.Errorf("failed to upload function (Status: %d)", resp.StatusCode)
+			return nil, fmt.Errorf("%w%d)", ErrFailedToUploadFunctionStatus, resp.StatusCode)
 		}
 
 		return fc, nil

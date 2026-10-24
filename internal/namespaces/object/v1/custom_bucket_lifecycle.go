@@ -16,6 +16,21 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var (
+	ErrBucketNameCannotBeEmpty = errors.New("bucket name cannot be empty")
+
+	ErrConfigurationFilePathCannotBeEmpty = errors.New(
+		"configuration file path cannot be empty",
+	)
+
+	ErrFailedToUnmarshalBucketLifecycleConfiguration = errors.New(
+		"failed to unmarshal bucket lifecycle configuration: ",
+	)
+	ErrCouldNotGetBucketConfigurationResultIsNil = errors.New(
+		"could not get bucket configuration (result is nil)",
+	)
+)
+
 type lifecycleCreateArgs struct {
 	Bucket                 string
 	LifecycleConfiguration string
@@ -50,10 +65,10 @@ func lifecycleCreateCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*lifecycleCreateArgs)
 			if args.Bucket == "" {
-				return nil, errors.New("bucket name cannot be empty")
+				return nil, ErrBucketNameCannotBeEmpty
 			}
 			if args.LifecycleConfiguration == "" {
-				return nil, errors.New("configuration file path cannot be empty")
+				return nil, ErrConfigurationFilePathCannotBeEmpty
 			}
 
 			configPath, err := os.ReadFile(args.LifecycleConfiguration)
@@ -71,7 +86,8 @@ func lifecycleCreateCommand() *core.Command {
 			err = json.Unmarshal([]byte(configStr), &config)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"failed to unmarshal bucket lifecycle configuration: %w",
+					"%w%w",
+					ErrFailedToUnmarshalBucketLifecycleConfiguration,
 					err,
 				)
 			}
@@ -131,7 +147,7 @@ func lifecycleDeleteCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*lifecycleDeleteArgs)
 			if args.Bucket == "" {
-				return nil, errors.New("bucket name cannot be empty")
+				return nil, ErrBucketNameCannotBeEmpty
 			}
 
 			client := newS3Client(ctx, args.Region, args.ProjectID)
@@ -180,7 +196,7 @@ func lifecycleGetCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*lifecycleGetArgs)
 			if args.Bucket == "" {
-				return nil, errors.New("bucket name cannot be empty")
+				return nil, ErrBucketNameCannotBeEmpty
 			}
 
 			client := newS3Client(ctx, args.Region, args.ProjectID)
@@ -193,7 +209,7 @@ func lifecycleGetCommand() *core.Command {
 				return nil, fmt.Errorf("could not get bucket configuration: %w", err)
 			}
 			if conf == nil {
-				return nil, errors.New("could not get bucket configuration (result is nil)")
+				return nil, ErrCouldNotGetBucketConfigurationResultIsNil
 			}
 
 			prettyJSONBytes, err := CleanAndIndentJSON(conf, "", "    ")

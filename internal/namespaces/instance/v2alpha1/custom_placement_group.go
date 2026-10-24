@@ -2,12 +2,17 @@ package instance
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	instance "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+)
+
+var ErrExpectedResponseOfTypeInstanceListPlacementGroupsResponse = errors.New(
+	"expected response of type instance.ListPlacementGroupsResponse",
 )
 
 //
@@ -92,7 +97,8 @@ func placementGroupListBuilder(c *core.Command) *core.Command {
 		pgList, ok := rawResp.(*instance.ListPlacementGroupsResponse)
 		if !ok {
 			return rawResp, fmt.Errorf(
-				"expected response of type instance.ListPlacementGroupsResponse, got %T",
+				"%w, got %T",
+				ErrExpectedResponseOfTypeInstanceListPlacementGroupsResponse,
 				rawResp,
 			)
 		}

@@ -17,6 +17,10 @@ type rdbEndpointCustomResult struct {
 	Success   core.SuccessResult
 }
 
+var ErrEndpointMustBeEitherALoadBalancerOrAPrivateNetwork = errors.New(
+	"endpoint must be either a load-balancer or a private network",
+)
+
 func rdbEndpointCustomResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	result := i.(rdbEndpointCustomResult)
 	messageStr, err := result.Success.MarshalHuman()
@@ -278,7 +282,7 @@ func endpointRequestFromCustom(
 				LoadBalancer: &rdb.EndpointSpecLoadBalancer{},
 			})
 		default:
-			return nil, errors.New("endpoint must be either a load-balancer or a private network")
+			return nil, ErrEndpointMustBeEitherALoadBalancerOrAPrivateNetwork
 		}
 	}
 

@@ -17,6 +17,18 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var (
+	ErrCouldNotFindAnyCockpitDatasourceToFetchTheLogsFrom = errors.New(
+		"could not find any cockpit datasource to fetch the logs from",
+	)
+	ErrErrorCreatingRequest         = errors.New("Error creating request")
+	ErrErrorMakingRequest           = errors.New("Error making request")
+	ErrErrorParsingJSON             = errors.New("Error parsing JSON")
+	ErrErrorReadingResponse         = errors.New("Error reading response")
+	ErrFailedToParseLogEntryAtIndex = errors.New("failed to parse log entry at index")
+	ErrNoResultsFoundForContainer   = errors.New("no results found for container")
+)
+
 type containerLogsRequest struct {
 	ContainerID string
 	Region      scw.Region
@@ -75,7 +87,7 @@ func containerLogsRun(ctx context.Context, argsI any) (any, error) {
 	}
 
 	if ds.TotalCount == 0 {
-		return nil, errors.New("could not find any cockpit datasource to fetch the logs from")
+		return nil, ErrCouldNotFindAnyCockpitDatasourceToFetchTheLogsFrom
 	}
 
 	// Setup request
@@ -107,7 +119,7 @@ func containerLogsRun(ctx context.Context, argsI any) (any, error) {
 
 	resp, err := httpClient.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("Error making request: %w\n", err)
+		return nil, fmt.Errorf("%w: %w\n", ErrErrorMakingRequest, err)
 	}
 	defer resp.Body.Close()
 
@@ -141,7 +153,7 @@ func buildLokiQuery(datasourceURL string, args *containerLogsRequest) (*http.Req
 
 	req, err := http.NewRequest(http.MethodGet, reqURL, nil)
 	if err != nil {
-		return nil, fmt.Errorf("Error creating request: %w\n", err)
+		return nil, fmt.Errorf("%w: %w\n", ErrErrorCreatingRequest, err)
 	}
 
 	req.URL.RawQuery = urlValues.Encode()
@@ -169,19 +181,20 @@ func readLokiResponseBody(
 ) ([]LogEntry, error) {
 	body, err := io.ReadAll(requestBody)
 	if err != nil {
-		return nil, fmt.Errorf("Error reading response: %w\n", err)
+		return nil, fmt.Errorf("%w: %w\n", ErrErrorReadingResponse, err)
 	}
 
 	var lokiResp LokiResponse
 
 	if err := json.Unmarshal(body, &lokiResp); err != nil {
-		return nil, fmt.Errorf("Error parsing JSON: %w\n", err)
+		return nil, fmt.Errorf("%w: %w\n", ErrErrorParsingJSON, err)
 	}
 
 	if len(lokiResp.Data.Result) == 0 ||
 		len(lokiResp.Data.Result[0].Values) == 0 {
 		return nil, fmt.Errorf(
-			"no results found for container %s in the last %s",
+			"%w %s in the last %s",
+			ErrNoResultsFoundForContainer,
 			args.ContainerID,
 			args.TimeSpan,
 		)
@@ -201,7 +214,8 @@ func readLokiResponseBody(
 
 		if len(value) < 2 {
 			return nil, fmt.Errorf(
-				"failed to parse log entry at index %d: expected 2 parts, got %d",
+				"%w %d: expected 2 parts, got %d",
+				ErrFailedToParseLogEntryAtIndex,
 				count,
 				len(value),
 			)

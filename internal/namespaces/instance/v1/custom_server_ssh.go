@@ -13,6 +13,13 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var (
+	ErrServerIsNotRunning                    = errors.New("server is not running")
+	ErrServerDoesNotHaveAPublicIPToConnectTo = errors.New(
+		"server does not have a public IP to connect to",
+	)
+)
+
 type instanceSSHServerRequest struct {
 	Zone     scw.Zone
 	ServerID string
@@ -72,7 +79,7 @@ func instanceServerSSHRun(ctx context.Context, argsI any) (i any, e error) {
 
 	if serverResp.Server.State != instance.ServerStateRunning {
 		return nil, &core.CliError{
-			Err: errors.New("server is not running"),
+			Err: ErrServerIsNotRunning,
 			Hint: fmt.Sprintf(
 				"Start the instance with: %s instance server start %s --wait",
 				core.ExtractBinaryName(ctx),
@@ -83,7 +90,7 @@ func instanceServerSSHRun(ctx context.Context, argsI any) (i any, e error) {
 
 	if serverResp.Server.PublicIP == nil {
 		return nil, &core.CliError{
-			Err: errors.New("server does not have a public IP to connect to"),
+			Err: ErrServerDoesNotHaveAPublicIPToConnectTo,
 			Hint: fmt.Sprintf(
 				"Add a public IP to the instance with: %s instance server update %s ip=<ip_id>",
 				core.ExtractBinaryName(ctx),

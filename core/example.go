@@ -2,12 +2,15 @@ package core
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 )
+
+var ErrInCommand = errors.New("in command")
 
 // Example represents an example for the usage of a CLI command.
 type Example struct {
@@ -66,7 +69,8 @@ func (e *Example) GetCommandLine(binaryName string, cmd *Command) string {
 	default:
 		panic(
 			fmt.Errorf(
-				"in command '%s' invalid example '%s', it should either have a ArgsJSON or a Raw",
+				"%w '%s' invalid example '%s', it should either have a ArgsJSON or a Raw",
+				ErrInCommand,
 				cmd.getPath(),
 				cmd.Short,
 			),

@@ -12,6 +12,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var ErrErrorLooksLikeTheIPTypeIsntCorrect = errors.New("error looks like the IP type isn't correct")
+
 type serverAddFlexibleIPRequest struct {
 	ServerID    string
 	Description string
@@ -57,7 +59,7 @@ func serverAddFlexibleIP() *core.Command {
 					}
 
 					return &core.CliError{
-						Err:  errors.New("error looks like the IP type isn't correct"),
+						Err:  ErrErrorLooksLikeTheIPTypeIsntCorrect,
 						Hint: "Two type available : IPv6 or IPv4",
 					}
 				},

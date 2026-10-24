@@ -15,6 +15,11 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var (
+	ErrCannotExtractImageIDFromTask = errors.New("cannot extract image id from task")
+	ErrUnsupportedWithBlockValue    = errors.New("unsupported with-block value")
+)
+
 func serverStartCommand() *core.Command {
 	return &core.Command{
 		Short:     `Power on server`,
@@ -198,7 +203,7 @@ Once your image is ready you will be able to create a new server based on this i
 
 			tmp := strings.Split(res.Task.HrefResult, "/")
 			if len(tmp) != 3 {
-				return nil, errors.New("cannot extract image id from task")
+				return nil, ErrCannotExtractImageIDFromTask
 			}
 
 			return api.GetImage(&instance.GetImageRequest{Zone: args.Zone, ImageID: tmp[2]})
@@ -508,7 +513,7 @@ func shouldDeleteBlockVolumes(
 
 		return false, nil
 	default:
-		return false, fmt.Errorf("unsupported with-block value %v", terminateWithBlock)
+		return false, fmt.Errorf("%w %v", ErrUnsupportedWithBlockValue, terminateWithBlock)
 	}
 }
 

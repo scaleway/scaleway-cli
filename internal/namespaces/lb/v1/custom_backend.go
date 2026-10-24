@@ -57,6 +57,14 @@ var (
 			Value:     "stopping",
 		},
 	}
+
+	ErrMissingOrInvalidHealthCheckCheckMaxRetriesArgument = errors.New(
+		"missing or invalid 'health-check.check-max-retries' argument",
+	)
+	ErrMissingOrInvalidHealthCheckPortArgument = errors.New(
+		"missing or invalid 'health-check.port' argument",
+	)
+	ErrThereIsNoServerWithTags = errors.New("there is no server with tag(s)")
 )
 
 func lbBackendMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
@@ -229,7 +237,8 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 			if len(listServersResponse.Servers) == 0 {
 				return nil, &core.CliError{
 					Err: fmt.Errorf(
-						"there is no server with tag(s) '%v'",
+						"%w '%v'",
+						ErrThereIsNoServerWithTags,
 						strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]"),
 					),
 				}
@@ -276,7 +285,8 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 			if len(listServersResponse.Servers) == 0 {
 				return nil, &core.CliError{
 					Err: fmt.Errorf(
-						"there is no server with tag(s) '%v'",
+						"%w '%v'",
+						ErrThereIsNoServerWithTags,
 						strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]"),
 					),
 				}
@@ -432,7 +442,8 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 			if len(listServersResponse.Servers) == 0 {
 				return nil, &core.CliError{
 					Err: fmt.Errorf(
-						"there is no server with tag(s) '%v'",
+						"%w '%v'",
+						ErrThereIsNoServerWithTags,
 						strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]"),
 					),
 				}
@@ -479,7 +490,8 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 			if len(listServersResponse.Servers) == 0 {
 				return nil, &core.CliError{
 					Err: fmt.Errorf(
-						"there is no server with tag(s) '%v'",
+						"%w '%v'",
+						ErrThereIsNoServerWithTags,
 						strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]"),
 					),
 				}
@@ -623,7 +635,8 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 			if len(listServersResponse.Servers) == 0 {
 				return nil, &core.CliError{
 					Err: fmt.Errorf(
-						"there is no server with tag(s) '%v'",
+						"%w '%v'",
+						ErrThereIsNoServerWithTags,
 						strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]"),
 					),
 				}
@@ -670,7 +683,8 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 			if len(listServersResponse.Servers) == 0 {
 				return nil, &core.CliError{
 					Err: fmt.Errorf(
-						"there is no server with tag(s) '%v'",
+						"%w '%v'",
+						ErrThereIsNoServerWithTags,
 						strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]"),
 					),
 				}
@@ -814,7 +828,8 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 			if len(listServersResponse.Servers) == 0 {
 				return nil, &core.CliError{
 					Err: fmt.Errorf(
-						"there is no server with tag(s) '%v'",
+						"%w '%v'",
+						ErrThereIsNoServerWithTags,
 						strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]"),
 					),
 				}
@@ -861,7 +876,8 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 			if len(listServersResponse.Servers) == 0 {
 				return nil, &core.CliError{
 					Err: fmt.Errorf(
-						"there is no server with tag(s) '%v'",
+						"%w '%v'",
+						ErrThereIsNoServerWithTags,
 						strings.Trim(strings.Join(tmpRequest.InstanceServerTag, " - "), "[]"),
 					),
 				}
@@ -903,13 +919,11 @@ func interceptBackend() core.CommandInterceptor {
 					switch detail.ArgumentName {
 					case "Port":
 						return nil, &core.CliError{
-							Err: errors.New("missing or invalid 'health-check.port' argument"),
+							Err: ErrMissingOrInvalidHealthCheckPortArgument,
 						}
 					case "CheckMaxRetries":
 						return nil, &core.CliError{
-							Err: errors.New(
-								"missing or invalid 'health-check.check-max-retries' argument",
-							),
+							Err: ErrMissingOrInvalidHealthCheckCheckMaxRetriesArgument,
 						}
 					}
 				}

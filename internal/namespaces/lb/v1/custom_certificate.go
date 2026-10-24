@@ -13,11 +13,21 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var certificateStatusMarshalSpecs = human.EnumMarshalSpecs{
-	lb.CertificateStatusError:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-	lb.CertificateStatusPending: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "pending"},
-	lb.CertificateStatusReady:   &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
-}
+var (
+	certificateStatusMarshalSpecs = human.EnumMarshalSpecs{
+		lb.CertificateStatusError: &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
+		lb.CertificateStatusPending: &human.EnumMarshalSpec{
+			Attribute: color.FgBlue,
+			Value:     "pending",
+		},
+		lb.CertificateStatusReady: &human.EnumMarshalSpec{
+			Attribute: color.FgGreen,
+			Value:     "ready",
+		},
+	}
+
+	ErrMissingRequiredArgument = errors.New("missing required argument")
+)
 
 func lbCertificateMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp lb.Certificate
@@ -115,7 +125,7 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		return nil, &core.CliError{
-			Err: errors.New("missing required argument"),
+			Err: ErrMissingRequiredArgument,
 			Hint: fmt.Sprintf(
 				"You need to specify %s or %s",
 				leCommonNameArgSpecs.Name,

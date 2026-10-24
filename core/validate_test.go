@@ -3,6 +3,7 @@ package core_test
 import (
 	"context"
 	"errors"
+	"fmt"
 	"reflect"
 	"testing"
 
@@ -10,6 +11,8 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/stretchr/testify/assert"
 )
+
+var errArgValidationCalled = errors.New("arg validation called")
 
 type Element struct {
 	ID                 int
@@ -46,7 +49,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				testCase.parsedArguments,
 				testCase.rawArgs,
 			)
-			assert.Equal(t, errors.New("arg validation called"), err)
+			assert.Equal(t, errArgValidationCalled, err)
 		}
 	}
 
@@ -56,7 +59,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				{
 					Name: "name",
 					ValidateFunc: func(_ *core.ArgSpec, _ any) error {
-						return errors.New("arg validation called")
+						return errArgValidationCalled
 					},
 				},
 			},
@@ -75,7 +78,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				{
 					Name: "elements-map.{key}.name",
 					ValidateFunc: func(_ *core.ArgSpec, _ any) error {
-						return errors.New("arg validation called")
+						return errArgValidationCalled
 					},
 				},
 			},
@@ -103,7 +106,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				{
 					Name: "elements-slice.{index}.name",
 					ValidateFunc: func(_ *core.ArgSpec, _ any) error {
-						return errors.New("arg validation called")
+						return errArgValidationCalled
 					},
 				},
 			},
@@ -131,7 +134,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				{
 					Name: "elements-slice.{index}.elements-slice.{index}.name",
 					ValidateFunc: func(_ *core.ArgSpec, _ any) error {
-						return errors.New("arg validation called")
+						return errArgValidationCalled
 					},
 				},
 			},
@@ -161,7 +164,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				{
 					Name: "short",
 					ValidateFunc: func(_ *core.ArgSpec, _ any) error {
-						return errors.New("arg validation called")
+						return errArgValidationCalled
 					},
 				},
 			},
@@ -180,7 +183,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				{
 					Name: "name",
 					ValidateFunc: func(_ *core.ArgSpec, _ any) error {
-						return errors.New("arg validation called")
+						return errArgValidationCalled
 					},
 				},
 			},
@@ -814,7 +817,11 @@ func Test_ValidateOneOf(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(1),
 				core.TestCheckError(
-					errors.New("at least one argument from the 'group1' group is required"),
+					fmt.Errorf(
+						"%w '%s' group is required",
+						core.ErrAtLeastOneArgumentFromThe,
+						"group1",
+					),
 				),
 			),
 		})(t)
@@ -845,7 +852,14 @@ func Test_ValidateOneOf(t *testing.T) {
 			Cmd: "scw oneof a=yo b=no",
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(1),
-				core.TestCheckError(errors.New("arguments 'a' and 'b' are mutually exclusive")),
+				core.TestCheckError(
+					fmt.Errorf(
+						"%w '%s' and '%s' are mutually exclusive",
+						core.ErrArguments,
+						"a",
+						"b",
+					),
+				),
 			),
 		})(t)
 	})
@@ -880,7 +894,14 @@ func Test_ValidateOneOf(t *testing.T) {
 			Cmd: "scw oneof a=yo c=no",
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(1),
-				core.TestCheckError(errors.New("arguments 'a' and 'c' are mutually exclusive")),
+				core.TestCheckError(
+					fmt.Errorf(
+						"%w '%s' and '%s' are mutually exclusive",
+						core.ErrArguments,
+						"a",
+						"c",
+					),
+				),
 			),
 		})(t)
 	})
@@ -914,7 +935,12 @@ func Test_ValidateOneOf(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(1),
 				core.TestCheckError(
-					errors.New("arguments 'ssh-key.0' and 'all-ssh-keys' are mutually exclusive"),
+					fmt.Errorf(
+						"%w '%s' and '%s' are mutually exclusive",
+						core.ErrArguments,
+						"ssh-key.0",
+						"all-ssh-keys",
+					),
 				),
 			),
 		})(t)
@@ -1047,7 +1073,11 @@ func Test_ValidateOneOf(t *testing.T) {
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(1),
 				core.TestCheckError(
-					errors.New("at least one argument from the 'ssh' group is required"),
+					fmt.Errorf(
+						"%w '%s' group is required",
+						core.ErrAtLeastOneArgumentFromThe,
+						"ssh",
+					),
 				),
 			),
 		})(t)

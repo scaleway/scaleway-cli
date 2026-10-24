@@ -10,6 +10,11 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
 
+var (
+	ErrField            = errors.New("field")
+	ErrCaseIsNotHandled = errors.New("case is not handled")
+)
+
 // newObjectWithForcedJSONTags returns a new object of the given Type with enforced JSON tag on every field.
 // E.g.:   struct{FieldName string `json:"-"`}
 // becomes struct{FieldName string `json:"field_name"`}
@@ -127,8 +132,13 @@ func GetValuesForFieldByName(
 			}
 		}
 
-		return nil, fmt.Errorf("field %v does not exist for %v", fieldName, value.Type().Name())
+		return nil, fmt.Errorf(
+			"%w %v does not exist for %v",
+			ErrField,
+			fieldName,
+			value.Type().Name(),
+		)
 	}
 
-	return nil, errors.New("case is not handled")
+	return nil, ErrCaseIsNotHandled
 }

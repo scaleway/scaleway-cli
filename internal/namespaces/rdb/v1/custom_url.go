@@ -40,6 +40,15 @@ type ConnectionInfo struct {
 	PrivateNetworkID string
 }
 
+var (
+	ErrExpected1UserWithTheName = errors.New(
+		"expected 1 user with the name",
+	)
+	ErrInstanceHasNoEndpointThereforeNoURLCanBeReturned = errors.New(
+		"instance has no endpoint therefore no url can be returned",
+	)
+)
+
 func (info *ConnectionInfo) hostPort() string {
 	return net.JoinHostPort(info.Host, strconv.Itoa(int(info.Port)))
 }
@@ -125,7 +134,8 @@ func resolveRDBConnectionInfo(
 	}
 	if users.TotalCount != 1 {
 		return nil, fmt.Errorf(
-			"expected 1 user with the name %q, got %d",
+			"%w %q, got %d",
+			ErrExpected1UserWithTheName,
 			params.User,
 			users.TotalCount,
 		)
@@ -175,7 +185,7 @@ func resolveRDBEndpoint(endpoints []*rdb.Endpoint, preferPrivate bool) (*rdb.End
 		endpoint = privateEndpoint
 	}
 	if endpoint == nil {
-		return nil, errors.New("instance has no endpoint therefore no url can be returned")
+		return nil, ErrInstanceHasNoEndpointThereforeNoURLCanBeReturned
 	}
 
 	return endpoint, nil

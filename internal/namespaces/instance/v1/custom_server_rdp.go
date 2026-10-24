@@ -19,6 +19,11 @@ import (
 	"golang.org/x/crypto/ssh"
 )
 
+var (
+	ErrExpectedRSAPrivateKey = errors.New("expected rsa private key")
+	ErrRDPPasswordIsEmpty    = errors.New("rdp password is empty")
+)
+
 type instanceServerGetRdpPasswordRequest struct {
 	ServerID string
 	Zone     scw.Zone
@@ -106,7 +111,8 @@ func instanceServerGetRdpPasswordRun(
 	rsaKey, isRSA := privateKey.(*rsa.PrivateKey)
 	if !isRSA {
 		return nil, fmt.Errorf(
-			"expected rsa private key, got %s",
+			"%w, got %s",
+			ErrExpectedRSAPrivateKey,
 			reflect.TypeOf(privateKey).String(),
 		)
 	}
@@ -123,7 +129,7 @@ func instanceServerGetRdpPasswordRun(
 	if resp.Server.AdminPasswordEncryptedValue == nil ||
 		*resp.Server.AdminPasswordEncryptedValue == "" {
 		return &core.CliError{
-			Err:     errors.New("rdp password is empty"),
+			Err:     ErrRDPPasswordIsEmpty,
 			Message: "RDP password is nil or empty in api response",
 			Details: "Your server have no RDP password available",
 			Hint:    "You may need to wait for your OS to start before having a generated RDP password, it can take more than 10 minutes.\nUse -w, --wait to wait for password to be available",

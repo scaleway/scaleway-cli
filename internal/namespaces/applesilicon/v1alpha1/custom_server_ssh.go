@@ -13,6 +13,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var ErrServerIsNotReady = errors.New("server is not ready")
+
 type serverSSHConnectRequest struct {
 	Zone     scw.Zone
 	ServerID string
@@ -73,7 +75,7 @@ func serverSSHRun(ctx context.Context, argsI any) (i any, e error) {
 
 	if serverResp.Status != applesilicon.ServerStatusReady {
 		return nil, &core.CliError{
-			Err:     errors.New("server is not ready"),
+			Err:     ErrServerIsNotReady,
 			Details: fmt.Sprintf("Server %s currently in %s", serverResp.Name, serverResp.Status),
 		}
 	}

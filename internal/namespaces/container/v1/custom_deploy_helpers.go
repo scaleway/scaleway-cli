@@ -4,6 +4,7 @@ package container
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"net"
@@ -14,6 +15,8 @@ import (
 	pack "github.com/buildpacks/pack/pkg/client"
 	docker "github.com/moby/moby/client"
 )
+
+var ErrUnexpectedStatusCode = errors.New("unexpected status code")
 
 type PackDockerClient interface {
 	pack.DockerClient
@@ -102,7 +105,7 @@ func (c *CustomDockerClient) ContainerAttach(
 		defer resp.Body.Close()
 
 		if resp.StatusCode != http.StatusSwitchingProtocols {
-			panic(fmt.Errorf("unexpected status code: %d", resp.StatusCode))
+			panic(fmt.Errorf("%w: %d", ErrUnexpectedStatusCode, resp.StatusCode))
 		}
 
 		_, err = io.Copy(writer, resp.Body)

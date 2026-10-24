@@ -1,6 +1,7 @@
 package server_test
 
 import (
+	"errors"
 	"fmt"
 	"net"
 	"net/http"
@@ -53,7 +54,7 @@ func runServer(t *testing.T) int {
 
 	// Start the HTTP server.
 	go func() {
-		if err := httpServer.Serve(listener); err != http.ErrServerClosed {
+		if err := httpServer.Serve(listener); !errors.Is(err, http.ErrServerClosed) {
 			t.Logf("Server error: %v", err)
 		}
 	}()

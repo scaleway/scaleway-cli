@@ -10,6 +10,11 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var (
+	ErrConfigNotProvided     = errors.New("config not provided")
+	ErrUnableToFindSecretKey = errors.New("unable to find secret key")
+)
+
 // GetCommands returns cluster commands.
 //
 // This function:
@@ -83,7 +88,7 @@ func extractSecretKey(ctx context.Context) (string, error) {
 		return core.ExtractEnv(ctx, scw.ScwSecretKeyEnv), nil
 	// There is no config file
 	case config == nil:
-		return "", errors.New("config not provided")
+		return "", ErrConfigNotProvided
 	// Config file with profile name
 	case config.Profiles[profileName] != nil && config.Profiles[profileName].SecretKey != nil:
 		return *config.Profiles[profileName].SecretKey, nil
@@ -92,5 +97,5 @@ func extractSecretKey(ctx context.Context) (string, error) {
 		return *config.SecretKey, nil
 	}
 
-	return "", errors.New("unable to find secret key")
+	return "", ErrUnableToFindSecretKey
 }

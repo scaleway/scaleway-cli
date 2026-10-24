@@ -10,6 +10,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var ErrNoJobRunFound = errors.New("no job run found")
+
 func definitionStartBuilder(c *core.Command) *core.Command {
 	c.WaitUsage = "Wait until the job reach a stable state, use job definition timeout"
 	c.WaitFunc = func(ctx context.Context, argsI, respI any) (any, error) {
@@ -26,7 +28,7 @@ func definitionStartBuilder(c *core.Command) *core.Command {
 		}
 
 		if len(resp.JobRuns) == 0 {
-			return nil, errors.New("no job run found")
+			return nil, ErrNoJobRunFound
 		}
 
 		return api.WaitForJobRun(&jobs.WaitForJobRunRequest{

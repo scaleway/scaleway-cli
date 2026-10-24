@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"flag"
 	"fmt"
 	"os"
@@ -9,6 +10,8 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/commands"
 	"github.com/scaleway/scaleway-cli/v2/internal/docgen"
 )
+
+var ErrOutdir = errors.New("outdir")
 
 // This command is used to generate markdown documentation for each commands (custom or generated) of the CLI
 func main() {
@@ -23,7 +26,7 @@ func main() {
 	}
 
 	if !stats.IsDir() {
-		panic(fmt.Errorf("outdir %s must be a valid directory", *outDir))
+		panic(fmt.Errorf("%w %s must be a valid directory", ErrOutdir, *outDir))
 	}
 
 	err = docgen.GenerateDocs(cmds, *outDir)

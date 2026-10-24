@@ -22,6 +22,17 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
+var (
+	ErrAccessKeyCannotBeEmpty             = errors.New("access key cannot be empty")
+	ErrDefaultOrganizationIDCannotBeEmpty = errors.New("default organization ID cannot be empty")
+	ErrDefaultProjectIDCannotBeEmpty      = errors.New("default project ID cannot be empty")
+	ErrDefaultRegionCannotBeEmpty         = errors.New("default region cannot be empty")
+	ErrDefaultZoneCannotBeEmpty           = errors.New("default zone cannot be empty")
+	ErrFailedToSaveUpdatedConfiguration   = errors.New("failed to save updated configuration")
+	ErrSecretKeyCannotBeEmpty             = errors.New("secret key cannot be empty")
+	ErrURL                                = errors.New("URL")
+)
+
 func GetCommands() *core.Commands {
 	return core.NewCommands(
 		configRoot(),
@@ -222,7 +233,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 				Short: "Scaleway API URL",
 				ValidateFunc: func(_ *core.ArgSpec, value any) error {
 					if !reflect.ValueOf(value).IsNil() && !validation.IsURL(*value.(*string)) {
-						return fmt.Errorf("%s is not a valid URL", *value.(*string))
+						return fmt.Errorf("%s is not a valid %w", *value.(*string), ErrURL)
 					}
 
 					return nil
@@ -764,7 +775,7 @@ func configImportCommand() *core.Command {
 
 			err = currentConfig.SaveTo(configPath)
 			if err != nil {
-				return nil, fmt.Errorf("failed to save updated configuration: %w", err)
+				return nil, fmt.Errorf("%w: %w", ErrFailedToSaveUpdatedConfiguration, err)
 			}
 
 			return &core.SuccessResult{
@@ -938,7 +949,7 @@ func validateAccessKey(profile *scw.Profile) error {
 	if profile.AccessKey != nil {
 		if *profile.AccessKey == "" {
 			return &core.CliError{
-				Err: errors.New("access key cannot be empty"),
+				Err: ErrAccessKeyCannotBeEmpty,
 			}
 		}
 
@@ -954,7 +965,7 @@ func validateSecretKey(profile *scw.Profile) error {
 	if profile.SecretKey != nil {
 		if *profile.SecretKey == "" {
 			return &core.CliError{
-				Err: errors.New("secret key cannot be empty"),
+				Err: ErrSecretKeyCannotBeEmpty,
 			}
 		}
 
@@ -970,7 +981,7 @@ func validateDefaultOrganizationID(profile *scw.Profile) error {
 	if profile.DefaultOrganizationID != nil {
 		if *profile.DefaultOrganizationID == "" {
 			return &core.CliError{
-				Err: errors.New("default organization ID cannot be empty"),
+				Err: ErrDefaultOrganizationIDCannotBeEmpty,
 			}
 		}
 
@@ -986,7 +997,7 @@ func validateDefaultProjectID(profile *scw.Profile) error {
 	if profile.DefaultProjectID != nil {
 		if *profile.DefaultProjectID == "" {
 			return &core.CliError{
-				Err: errors.New("default project ID cannot be empty"),
+				Err: ErrDefaultProjectIDCannotBeEmpty,
 			}
 		}
 
@@ -1002,7 +1013,7 @@ func validateDefaultRegion(profile *scw.Profile) error {
 	if profile.DefaultRegion != nil {
 		if *profile.DefaultRegion == "" {
 			return &core.CliError{
-				Err: errors.New("default region cannot be empty"),
+				Err: ErrDefaultRegionCannotBeEmpty,
 			}
 		}
 
@@ -1018,7 +1029,7 @@ func validateDefaultZone(profile *scw.Profile) error {
 	if profile.DefaultZone != nil {
 		if *profile.DefaultZone == "" {
 			return &core.CliError{
-				Err: errors.New("default zone cannot be empty"),
+				Err: ErrDefaultZoneCannotBeEmpty,
 			}
 		}
 

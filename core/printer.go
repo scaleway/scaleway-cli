@@ -14,6 +14,25 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
 )
 
+var (
+	ErrInvalidOutputFormat = errors.New(
+		"invalid output format:",
+	)
+	ErrInvalidOption = errors.New(
+		"invalid option",
+	)
+	ErrCannotUseATemplateOutputWithAnEmptyTemplate = errors.New(
+		"cannot use a template output with an empty template",
+	)
+	ErrUnknownFormat = errors.New(
+		"unknown format:",
+	)
+	ErrListOfFieldsForHumanOutputIsOnlySupportedForCommandsThatReturnAList = errors.New(
+		"list of fields for human output is only supported for commands that return a list",
+	)
+	ErrUnknownField = errors.New("unknown field")
+)
+
 // Type defines an formatter format.
 type PrinterType string
 
@@ -104,7 +123,7 @@ func NewPrinter(config *PrinterConfig) (*Printer, error) {
 		}
 
 	default:
-		return nil, fmt.Errorf("invalid output format: %s", printerName)
+		return nil, fmt.Errorf("%w %s", ErrInvalidOutputFormat, printerName)
 	}
 
 	return printer, nil
@@ -118,7 +137,8 @@ func setupJSONPrinter(printer *Printer, opts string) error {
 	case "":
 	default:
 		return fmt.Errorf(
-			"invalid option %s for json output. Valid options are: %s",
+			"%w %s for json output. Valid options are: %s",
+			ErrInvalidOption,
 			opts,
 			PrinterOptJSONPretty,
 		)
@@ -142,7 +162,7 @@ func setupTemplatePrinter(printer *Printer, opts string) error {
 	printer.printerType = PrinterTypeTemplate
 	if opts == "" {
 		return &CliError{
-			Err:     errors.New("cannot use a template output with an empty template"),
+			Err:     ErrCannotUseATemplateOutputWithAnEmptyTemplate,
 			Hint:    `Try using golang template string: scw instance server list -o template="{{ .ID }} ☜(˚▽˚)☞ {{ .Name }}"`,
 			Details: `https://golang.org/pkg/text/template`,
 		}
@@ -190,7 +210,7 @@ func (p *Printer) Print(data any, opt *human.MarshalOpt) error {
 	case PrinterTypeTemplate:
 		err = p.printTemplate(data)
 	default:
-		err = fmt.Errorf("unknown format: %s", p.printerType)
+		err = fmt.Errorf("%w %s", ErrUnknownFormat, p.printerType)
 	}
 
 	if err != nil {
@@ -213,9 +233,7 @@ func (p *Printer) printHuman(data any, opt *human.MarshalOpt) error {
 
 		if len(p.humanFields) > 0 && reflect.TypeOf(data).Kind() != reflect.Slice {
 			return p.printHuman(
-				errors.New(
-					"list of fields for human output is only supported for commands that return a list",
-				),
+				ErrListOfFieldsForHumanOutputIsOnlySupportedForCommandsThatReturnAList,
 				nil,
 			)
 		}
@@ -235,7 +253,11 @@ func (p *Printer) printHuman(data any, opt *human.MarshalOpt) error {
 	str, err := human.Marshal(data, opt)
 	if unknownFieldErr, ok := errors.AsType[*human.UnknownFieldError](err); ok {
 		return p.printHuman(&CliError{
-			Err:  fmt.Errorf("unknown field '%s' in output options", unknownFieldErr.FieldName),
+			Err: fmt.Errorf(
+				"%w '%s' in output options",
+				ErrUnknownField,
+				unknownFieldErr.FieldName,
+			),
 			Hint: "Valid fields are: " + strings.Join(unknownFieldErr.ValidFields, ", "),
 		}, nil)
 	}

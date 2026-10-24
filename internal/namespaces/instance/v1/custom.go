@@ -1,6 +1,7 @@
 package instance
 
 import (
+	"errors"
 	"fmt"
 	"reflect"
 
@@ -10,6 +11,7 @@ import (
 )
 
 var (
+	ErrMustBeAStruct         = errors.New("must be a struct")
 	oldOrganizationFieldName = "organization"
 	newOrganizationFieldName = "organization-id"
 	oldProjectFieldName      = "project"
@@ -324,7 +326,7 @@ func GetCommands() *core.Commands {
 func marshallNestedField(nestedKey string) human.MarshalerFunc {
 	return func(i any, opt *human.MarshalOpt) (s string, err error) {
 		if reflect.TypeOf(i).Kind() != reflect.Struct {
-			return "", fmt.Errorf("%T must be a struct", i)
+			return "", fmt.Errorf("%T %w", i, ErrMustBeAStruct)
 		}
 		nestedValue := reflect.ValueOf(i).FieldByName(nestedKey)
 

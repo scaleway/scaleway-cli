@@ -15,6 +15,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var errMissingAccessKey = errors.New("missing access-key")
+
 func TestCheckAPIKey(t *testing.T) {
 	testCommands := core.NewCommands(
 		&core.Command{
@@ -35,7 +37,7 @@ func TestCheckAPIKey(t *testing.T) {
 			api := iam.NewAPI(ctx.Client)
 			accessKey, exists := ctx.Client.GetAccessKey()
 			if !exists {
-				return errors.New("missing access-key")
+				return errMissingAccessKey
 			}
 
 			apiKey, err := api.GetAPIKey(&iam.GetAPIKeyRequest{

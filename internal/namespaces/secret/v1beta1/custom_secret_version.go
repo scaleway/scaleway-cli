@@ -10,6 +10,12 @@ import (
 	secret "github.com/scaleway/scaleway-sdk-go/api/secret/v1beta1"
 )
 
+var (
+	ErrCannotUnmarshalJSONData = errors.New("cannot unmarshal JSON data")
+	ErrJSONFieldIsNotPresent   = errors.New("JSON field is not present")
+	ErrJSONFieldTypeIsNotValid = errors.New("JSON field type is not valid")
+)
+
 func secretVersionCreateBuilder(c *core.Command) *core.Command {
 	*c.ArgSpecs.GetByName("data") = core.ArgSpec{
 		Name:        "data",
@@ -79,18 +85,18 @@ func secretVersionAccessBuilder(c *core.Command) *core.Command {
 func getSecretVersionField(data []byte, field string) ([]byte, error) {
 	var rawFields any
 	if err := json.Unmarshal(data, &rawFields); err != nil {
-		return nil, errors.New("cannot unmarshal JSON data")
+		return nil, ErrCannotUnmarshalJSONData
 	}
 
 	rawField, ok := rawFields.(map[string]any)[field]
 	if !ok {
-		return nil, errors.New("JSON field is not present")
+		return nil, ErrJSONFieldIsNotPresent
 	}
 
 	switch field := rawField.(type) {
 	case string:
 		return []byte(field), nil
 	default:
-		return nil, errors.New("JSON field type is not valid")
+		return nil, ErrJSONFieldTypeIsNotValid
 	}
 }

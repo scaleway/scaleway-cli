@@ -27,6 +27,8 @@ const (
 	resizeTerminalCode = '3'
 )
 
+var ErrURLMustStartWithWss = errors.New("URL must start with wss://")
+
 type Client struct {
 	wsURL     string
 	serverID  string
@@ -46,7 +48,7 @@ func NewClient(zone scw.Zone, serverID string, secretKey string) (*Client, error
 func (c *Client) SetWsURL(url string) error {
 	// Basic validation that it's a wss URL
 	if !strings.HasPrefix(url, "wss://") {
-		return errors.New("URL must start with wss://")
+		return ErrURLMustStartWithWss
 	}
 	c.wsURL = url
 

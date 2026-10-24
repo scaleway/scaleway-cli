@@ -1,6 +1,7 @@
 package args
 
 import (
+	"errors"
 	"fmt"
 	"reflect"
 	"regexp"
@@ -12,6 +13,8 @@ import (
 
 // validArgNameRegex regex to check that args words are lower-case or digit starting and ending with a letter.
 var validArgNameRegex = regexp.MustCompile(`^[a-z][a-z0-9-]*$`)
+
+var ErrCountNotFind = errors.New("count not find")
 
 const (
 	emptySliceValue  = "none"
@@ -265,7 +268,7 @@ func GetArgType(argType reflect.Type, name string) (reflect.Type, error) {
 			}
 		}
 
-		return nil, fmt.Errorf("count not find %s", name)
+		return nil, fmt.Errorf("%w %s", ErrCountNotFind, name)
 	}
 
 	return recursiveFunc(argType, strings.Split(name, "."))

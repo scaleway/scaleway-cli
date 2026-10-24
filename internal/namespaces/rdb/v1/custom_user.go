@@ -12,6 +12,10 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var ErrYouMustProvideAPasswordWhenGeneratePasswordIsSetToFalse = errors.New(
+	"you must provide a password when generate-password is set to false",
+)
+
 // userListBuilder creates a table visualization of user's permission across different database in a given RDB instance
 func userListBuilder(c *core.Command) *core.Command {
 	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
@@ -201,9 +205,7 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 				}
 
 			case !customRequest.GeneratePassword && customRequest.Password == nil:
-				return nil, errors.New(
-					"you must provide a password when generate-password is set to false",
-				)
+				return nil, ErrYouMustProvideAPasswordWhenGeneratePasswordIsSetToFalse
 
 			default:
 				updateUserRequest.Password = customRequest.Password

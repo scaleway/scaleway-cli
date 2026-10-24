@@ -2,6 +2,7 @@ package alias
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 	"sort"
@@ -10,6 +11,8 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/pkg/shlex"
 )
+
+var ErrOrderByNotSupported = errors.New("order-by ")
 
 func GetCommands() *core.Commands {
 	return core.NewCommands(
@@ -195,7 +198,11 @@ func aliasListCommand() *core.Command {
 
 			orderFunction, exists := aliasListOrderFunctions[args.OrderBy]
 			if !exists {
-				return nil, fmt.Errorf("order-by %s is not supported", args.OrderBy)
+				return nil, fmt.Errorf(
+					"%w%s is not supported",
+					ErrOrderByNotSupported,
+					args.OrderBy,
+				)
 			}
 
 			sort.Slice(aliases, orderFunction(aliases))

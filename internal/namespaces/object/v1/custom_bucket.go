@@ -4,6 +4,7 @@ package object
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/url"
 	"os"
@@ -15,6 +16,8 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
+
+var ErrACLFieldMustBeOneOf = errors.New("ACL field must be one of ")
 
 type bucketConfigArgs struct {
 	Region           scw.Region
@@ -75,7 +78,7 @@ func bucketCreateCommand() *core.Command {
 			client := newS3Client(ctx, args.Region, args.ProjectID)
 
 			if ok, possibleValues := verifyACLInput(args.ACL); !ok {
-				return nil, fmt.Errorf("ACL field must be one of %v", possibleValues)
+				return nil, fmt.Errorf("%w%v", ErrACLFieldMustBeOneOf, possibleValues)
 			}
 
 			_, err := client.CreateBucket(ctx, &s3.CreateBucketInput{

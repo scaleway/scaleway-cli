@@ -1,6 +1,7 @@
 package lb_test
 
 import (
+	"errors"
 	"fmt"
 	"os/exec"
 	"strings"
@@ -12,6 +13,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 )
+
+var errCantParseID = errors.New("can't parse ID")
 
 func createLB() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
@@ -141,7 +144,7 @@ func retrieveLBID(metaKey string) core.BeforeFunc {
 		}
 		parseID := strings.Split(string(cmd), "/")
 		if len(parseID) != 2 {
-			return fmt.Errorf("can't parse ID: %s", parseID)
+			return fmt.Errorf("%w: %s", errCantParseID, parseID)
 		}
 		lbID := parseID[1]
 

@@ -13,6 +13,8 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
+var ErrPromptCancelled = errors.New("prompt cancelled")
+
 type ListPrompt struct {
 	// Prompt that will be printed when showing the list
 	Prompt  string
@@ -100,7 +102,7 @@ func (m *ListPrompt) Execute(ctx context.Context) (int, error) {
 	}
 
 	if m.cancelled {
-		return -1, errors.New("prompt cancelled")
+		return -1, ErrPromptCancelled
 	}
 
 	return m.cursor, nil

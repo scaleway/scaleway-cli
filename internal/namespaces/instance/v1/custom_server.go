@@ -27,6 +27,11 @@ const (
 	serverActionTimeout = 10 * time.Minute
 )
 
+var (
+	ErrNoPublicIPFound = errors.New("no public ip found")
+	ErrNoServerFound   = errors.New("no server found")
+)
+
 //
 // Marshalers
 //
@@ -676,12 +681,13 @@ func serverAttachIPCommand() *core.Command {
 					IP:   args.IP,
 				})
 				if err != nil { // FIXME: isNotFoundError
-					return nil, fmt.Errorf("%s does not belong to you", args.IP)
+					return nil, fmt.Errorf("%s %w", args.IP, ErrDoesNotBelongToYou)
 				}
 				ipID = res.IP.ID
 			default:
 				return nil, fmt.Errorf(
-					`invalid IP "%s", should be either an IP address ID or a reserved flexible IP address`,
+					"%w \"%s\", should be either an IP address ID or a reserved flexible IP address",
+					ErrInvalidIP,
 					args.IP,
 				)
 			}
@@ -764,10 +770,10 @@ func serverDetachIPCommand() *core.Command {
 					return api.GetServer(&instance.GetServerRequest{ServerID: args.ServerID})
 				}
 
-				return nil, errors.New("no public ip found")
+				return nil, ErrNoPublicIPFound
 			}
 
-			return nil, errors.New("no server found")
+			return nil, ErrNoServerFound
 		},
 		Examples: []*core.Example{
 			{

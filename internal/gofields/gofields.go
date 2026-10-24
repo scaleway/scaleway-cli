@@ -1,6 +1,7 @@
 package gofields
 
 import (
+	"errors"
 	"fmt"
 	"reflect"
 	"strconv"
@@ -10,6 +11,13 @@ import (
 type NilValueError struct {
 	Path string
 }
+
+var (
+	ErrTryingToAccessArray = errors.New("trying to access array")
+	ErrTryingToAccessMap   = errors.New("trying to access map")
+	ErrField               = errors.New("field")
+	ErrCannotGet           = errors.New("cannot get")
+)
 
 func NewNilValueError(path string) *NilValueError {
 	return &NilValueError{Path: path}
@@ -49,14 +57,16 @@ func getValue(value reflect.Value, parents []string, path []string) (reflect.Val
 		idx, err := strconv.Atoi(path[0])
 		if err != nil {
 			return reflect.Value{}, fmt.Errorf(
-				"trying to access array %s but %s is not a numerical index",
+				"%w %s but %s is not a numerical index",
+				ErrTryingToAccessArray,
 				strings.Join(parents, "."),
 				path[0],
 			)
 		}
 		if idx >= value.Len() {
 			return reflect.Value{}, fmt.Errorf(
-				"trying to access array %s but %d is out of range",
+				"%w %s but %d is out of range",
+				ErrTryingToAccessArray,
 				strings.Join(parents, "."),
 				idx,
 			)
@@ -67,7 +77,8 @@ func getValue(value reflect.Value, parents []string, path []string) (reflect.Val
 		v := value.MapIndex(reflect.ValueOf(path[0]))
 		if !v.IsValid() {
 			return reflect.Value{}, fmt.Errorf(
-				"trying to access map %s but %s key does not exist",
+				"%w %s but %s key does not exist",
+				ErrTryingToAccessMap,
 				strings.Join(parents, "."),
 				path[0],
 			)
@@ -78,14 +89,16 @@ func getValue(value reflect.Value, parents []string, path []string) (reflect.Val
 		f, exist := value.Type().FieldByName(path[0])
 		if !exist {
 			return reflect.Value{}, fmt.Errorf(
-				"field %s does not exist in %s",
+				"%w %s does not exist in %s",
+				ErrField,
 				path[0],
 				strings.Join(parents, "."),
 			)
 		}
 		if !isFieldPublic(f) {
 			return reflect.Value{}, fmt.Errorf(
-				"field %s is private in %s",
+				"%w %s is private in %s",
+				ErrField,
 				path[0],
 				strings.Join(parents, "."),
 			)
@@ -95,7 +108,8 @@ func getValue(value reflect.Value, parents []string, path []string) (reflect.Val
 		return getValue(v, append(parents, path[0]), path[1:])
 	default:
 		return reflect.Value{}, fmt.Errorf(
-			"cannot get %s in field %s",
+			"%w %s in field %s",
+			ErrCannotGet,
 			strings.Join(path, "."),
 			strings.Join(parents, "."),
 		)
@@ -122,7 +136,8 @@ func getType(t reflect.Type, parents []string, path []string) (reflect.Type, err
 		_, err := strconv.Atoi(path[0])
 		if err != nil {
 			return nil, fmt.Errorf(
-				"trying to access array %s but %s is not a numerical index",
+				"%w %s but %s is not a numerical index",
+				ErrTryingToAccessArray,
 				strings.Join(parents, "."),
 				path[0],
 			)
@@ -135,19 +150,26 @@ func getType(t reflect.Type, parents []string, path []string) (reflect.Type, err
 		field, exist := t.FieldByName(path[0])
 		if !exist {
 			return nil, fmt.Errorf(
-				"field %s does not exist in %s",
+				"%w %s does not exist in %s",
+				ErrField,
 				path[0],
 				strings.Join(parents, "."),
 			)
 		}
 		if !isFieldPublic(field) {
-			return nil, fmt.Errorf("field %s is private in %s", path[0], strings.Join(parents, "."))
+			return nil, fmt.Errorf(
+				"%w %s is private in %s",
+				ErrField,
+				path[0],
+				strings.Join(parents, "."),
+			)
 		}
 
 		return getType(field.Type, append(parents, path[0]), path[1:])
 	default:
 		return nil, fmt.Errorf(
-			"cannot get %s in field %s",
+			"%w %s in field %s",
+			ErrCannotGet,
 			strings.Join(path, "."),
 			strings.Join(parents, "."),
 		)

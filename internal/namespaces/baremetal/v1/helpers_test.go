@@ -12,6 +12,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+var errNoAcceptedOffer = errors.New("no accepted offer")
+
 func getenv(key, fallback string) string {
 	value := os.Getenv(key)
 	if len(value) == 0 {
@@ -78,7 +80,7 @@ func selectOffer(zone scw.Zone, filters ...OfferFilter) core.BeforeFunc {
 			candidates = append(candidates, offer)
 		}
 		if len(candidates) == 0 {
-			return errors.New("no accepted offer")
+			return errNoAcceptedOffer
 		}
 
 		slices.SortStableFunc(candidates, func(a, b *baremetalSDK.Offer) int {
