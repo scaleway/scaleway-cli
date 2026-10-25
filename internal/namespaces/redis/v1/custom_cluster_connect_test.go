@@ -86,7 +86,9 @@ func Test_ClusterConnect(t *testing.T) {
 			if len(cmd.Args) != 10 {
 				return 0, fmt.Errorf("unexpected args: %v", cmd.Args)
 			}
-			if cmd.Args[0] != "redis-cli" || cmd.Args[1] != "-h" || net.ParseIP(cmd.Args[2]) == nil ||
+			if cmd.Args[0] != "redis-cli" ||
+				cmd.Args[1] != "-h" ||
+				net.ParseIP(cmd.Args[2]) == nil ||
 				cmd.Args[3] != "-p" ||
 				cmd.Args[4] != "6379" ||
 				cmd.Args[5] != "--tls" ||
@@ -128,7 +130,8 @@ func Test_ClusterConnect(t *testing.T) {
 			if len(cmd.Args) != 10 {
 				return 0, fmt.Errorf("unexpected args: %v", cmd.Args)
 			}
-			if cmd.Args[0] != "redis-cli" || cmd.Args[1] != "-h" || net.ParseIP(cmd.Args[2]) == nil ||
+			if cmd.Args[0] != "redis-cli" || cmd.Args[1] != "-h" ||
+				net.ParseIP(cmd.Args[2]) == nil ||
 				cmd.Args[3] != "-p" ||
 				cmd.Args[4] != "6379" ||
 				cmd.Args[5] != "--tls" ||
