@@ -12,7 +12,7 @@ import (
 
 	"github.com/dnaeon/go-vcr/cassette"
 	"github.com/dnaeon/go-vcr/recorder"
-	"github.com/scaleway/scaleway-sdk-go/vcr"
+	"github.com/scaleway/scaleway-cli/v2/internal/vcr"
 	"github.com/stretchr/testify/assert"
 )
 
