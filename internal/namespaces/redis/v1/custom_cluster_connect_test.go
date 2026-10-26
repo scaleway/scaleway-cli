@@ -13,26 +13,15 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
+	redisSDK "github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/stretchr/testify/assert"
 )
 
-// One cluster id per subtest so the temporary certificate files
-// (redis-cert-<cluster-id>.crt in os.TempDir) never clash between
-// parallel subtests.
-const (
-	connectSimpleClusterID       = "047ff1eb-5215-4bdf-bec3-26c11766bea9"
-	connectTemplateClusterID     = "11111111-2222-3333-4444-555555555555"
-	connectInterruptedClusterID  = "66666666-7777-8888-9999-000000000000"
-	connectNotInstalledClusterID = "aabbccdd-eeff-0011-2233-445566778899"
-	connectPasswordArgClusterID  = "99999999-8888-7777-6666-555555555555"
-	// The gateway subtests share a cluster: the cassette differs in the
-	// gateway state, not in the cluster.
-	connectGatewayClusterID   = "955763a4-77ed-4ce9-9380-7932e3d3592c"
-	connectGatewayID          = "a86e6447-2a9f-475f-9ef6-98f34e32b3f3"
-	connectGatewayPrivateIP   = "172.16.12.2"
-	connectGatewayBastionPort = "61000"
-	connectGatewayPublicIP    = "151.115.59.64"
-)
+// connectInterruptedClusterID is a syntactically valid uuid. The interrupted
+// subtest references no template field resolved from the API, so it never
+// calls the API and does not need a real cluster (it also passes in cassette
+// update mode).
+const connectInterruptedClusterID = "66666666-7777-8888-9999-000000000000"
 
 // envRedisAuth returns the value of REDISCLI_AUTH in the child process
 // environment, or "" if it is not set.
@@ -46,21 +35,35 @@ func envRedisAuth(cmd *exec.Cmd) string {
 	return ""
 }
 
+// createConnectCluster creates a real cluster for a connect subtest and
+// stores it in the test meta as "Cluster". TLS is enabled explicitly so the
+// default template exercises the certificate download path. In cassette
+// replay mode it replays the recorded create; in cassette update mode
+// (nightly) it creates a real cluster, so the subtest stays re-recordable.
+func createConnectCluster(name string) core.BeforeFunc {
+	return core.ExecStoreBeforeCmd("Cluster", fmt.Sprintf(baseCommand+"tls-enabled=true", name))
+}
+
+func deleteConnectCluster() core.AfterFunc {
+	return core.ExecAfterCmd("scw redis cluster delete {{ .Cluster.ID }} --wait")
+}
+
+// checkNoCertLeftover asserts the temporary TLS certificate of the given
+// cluster has been removed from os.TempDir.
+func checkNoCertLeftover(t *testing.T, clusterID string) {
+	t.Helper()
+
+	_, err := os.Stat(filepath.Join(os.TempDir(), "redis-cert-"+clusterID+".crt"))
+	assert.True(t, os.IsNotExist(err), "temporary certificate must be removed")
+}
+
 func Test_ClusterConnect(t *testing.T) {
-	checkNoCertLeftover := func(clusterID string) func(t *testing.T, _ *core.CheckFuncCtx) {
-		return func(t *testing.T, _ *core.CheckFuncCtx) {
-			t.Helper()
-
-			_, err := os.Stat(filepath.Join(os.TempDir(), "redis-cert-"+clusterID+".crt"))
-			assert.True(t, os.IsNotExist(err), "temporary certificate must be removed")
-		}
-	}
-
 	t.Run("not-installed", core.Test(&core.TestConfig{
-		Commands: redis.GetCommands(),
+		Commands:   redis.GetCommands(),
+		BeforeFunc: createConnectCluster("connect-test-not-installed"),
 		// No OverrideExec: the command really tries to exec a tool that does
 		// not exist, and the child process must fail to start.
-		Cmd: "scw redis cluster connect " + connectNotInstalledClusterID +
+		Cmd: "scw redis cluster connect {{ .Cluster.ID }}" +
 			` template="not-a-real-tool-xyz --host {{"{{"}}.Endpoint.Host{{"}}"}}"`,
 		// The password prompt always fires, even with a custom template.
 		PromptResponseMocks: []string{"P@sSw0Rd"},
@@ -68,25 +71,29 @@ func Test_ClusterConnect(t *testing.T) {
 			core.TestCheckExitCode(1),
 			core.TestCheckStderrContains(`Exec: "not-a-real-tool-xyz": executable file not found`),
 		),
+		AfterFunc: deleteConnectCluster(),
 	}))
 
 	t.Run("simple", core.Test(&core.TestConfig{
-		Commands: redis.GetCommands(),
-		Cmd:      "scw redis cluster connect " + connectSimpleClusterID,
+		Commands:   redis.GetCommands(),
+		BeforeFunc: createConnectCluster("connect-test-simple"),
 		// The default template must build the redis-cli invocation: host,
 		// port, --tls, --cacert and --user. The password is not in the
 		// command: it must be exported as REDISCLI_AUTH.
 		// No password=: the user is prompted.
+		Cmd:                 "scw redis cluster connect {{ .Cluster.ID }}",
 		PromptResponseMocks: []string{"P@sSw0Rd"},
 		OverrideExec: func(_ *core.ExecFuncCtx, cmd *exec.Cmd) (int, error) {
 			if len(cmd.Args) != 10 {
 				return 0, fmt.Errorf("unexpected args: %v", cmd.Args)
 			}
-			want := []string{
-				"redis-cli", "-h", "78.232.49.55", "-p", "6379",
-				"--tls", "--cacert",
-			}
-			if !slices.Equal(cmd.Args[:7], want) {
+			if cmd.Args[0] != "redis-cli" ||
+				cmd.Args[1] != "-h" ||
+				net.ParseIP(cmd.Args[2]) == nil ||
+				cmd.Args[3] != "-p" ||
+				cmd.Args[4] != "6379" ||
+				cmd.Args[5] != "--tls" ||
+				cmd.Args[6] != "--cacert" {
 				return 0, fmt.Errorf("unexpected args: %v", cmd.Args)
 			}
 			if _, err := os.Stat(cmd.Args[7]); err != nil {
@@ -103,13 +110,19 @@ func Test_ClusterConnect(t *testing.T) {
 		},
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
-			checkNoCertLeftover(connectSimpleClusterID),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+
+				checkNoCertLeftover(t, ctx.Meta["Cluster"].(*redisSDK.Cluster).ID)
+			},
 		),
+		AfterFunc: deleteConnectCluster(),
 	}))
 
 	t.Run("password-arg", core.Test(&core.TestConfig{
-		Commands: redis.GetCommands(),
-		Cmd:      "scw redis cluster connect " + connectPasswordArgClusterID + " password=P@sSw0Rd",
+		Commands:   redis.GetCommands(),
+		BeforeFunc: createConnectCluster("connect-test-password-arg"),
+		Cmd:        "scw redis cluster connect {{ .Cluster.ID }} password=P@sSw0Rd",
 		// The user must not be prompted when password= is provided: if the
 		// prompt fires it returns this trap value and the args assertion
 		// below fails.
@@ -118,11 +131,12 @@ func Test_ClusterConnect(t *testing.T) {
 			if len(cmd.Args) != 10 {
 				return 0, fmt.Errorf("unexpected args: %v", cmd.Args)
 			}
-			want := []string{
-				"redis-cli", "-h", "78.232.49.55", "-p", "6379",
-				"--tls", "--cacert",
-			}
-			if !slices.Equal(cmd.Args[:7], want) {
+			if cmd.Args[0] != "redis-cli" || cmd.Args[1] != "-h" ||
+				net.ParseIP(cmd.Args[2]) == nil ||
+				cmd.Args[3] != "-p" ||
+				cmd.Args[4] != "6379" ||
+				cmd.Args[5] != "--tls" ||
+				cmd.Args[6] != "--cacert" {
 				return 0, fmt.Errorf("unexpected args: %v", cmd.Args)
 			}
 			if cmd.Args[8] != "--user" || cmd.Args[9] != "admin" {
@@ -137,14 +151,20 @@ func Test_ClusterConnect(t *testing.T) {
 		},
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
-			checkNoCertLeftover(connectPasswordArgClusterID),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+
+				checkNoCertLeftover(t, ctx.Meta["Cluster"].(*redisSDK.Cluster).ID)
+			},
 		),
+		AfterFunc: deleteConnectCluster(),
 	}))
 
 	t.Run("template", core.Test(&core.TestConfig{
-		Commands: redis.GetCommands(),
+		Commands:   redis.GetCommands(),
+		BeforeFunc: createConnectCluster("connect-test-template"),
 		// The template braces are escaped so the test framework's own templating leaves them for the CLI
-		Cmd: "scw redis cluster connect " + connectTemplateClusterID +
+		Cmd: "scw redis cluster connect {{ .Cluster.ID }}" +
 			` template="sleep {{"{{"}}.Endpoint.Port{{"}}"}}"`,
 		// The password prompt always fires, even with a custom template.
 		PromptResponseMocks: []string{"P@sSw0Rd"},
@@ -159,6 +179,7 @@ func Test_ClusterConnect(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 		),
+		AfterFunc: deleteConnectCluster(),
 	}))
 
 	t.Run("interrupted", core.Test(&core.TestConfig{
@@ -172,7 +193,11 @@ func Test_ClusterConnect(t *testing.T) {
 		PromptResponseMocks: []string{"P@sSw0Rd"},
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(130),
-			checkNoCertLeftover(connectInterruptedClusterID),
+			func(t *testing.T, _ *core.CheckFuncCtx) {
+				t.Helper()
+
+				checkNoCertLeftover(t, connectInterruptedClusterID)
+			},
 		),
 	}))
 
