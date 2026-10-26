@@ -3,14 +3,61 @@ version: 2
 interactions:
     - id: 0
       request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 282
+        host: api.scaleway.com
+        body: '{"project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","name":"connect-test-not-installed","version":"8.6.6","tags":null,"node_type":"RED1-micro","user_name":"admin","password":"P@sSw0Rd","acl_rules":null,"endpoints":[{"public_network":{}}],"tls_enabled":true,"cluster_settings":null}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 616
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"provisioning", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":[], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":null, "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "616"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:43:16 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 6220f7dd-f820-4617-93a5-1f38a7c823e2
+        status: 200 OK
+        code: 200
+        duration: 1.893558375s
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
         content_length: 0
         host: api.scaleway.com
         headers:
             User-Agent:
-                - scaleway-sdk-go (go1.27.1) cli-e2e-test
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
         url: https://api.scaleway.com/metadata
         method: GET
       response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
         content_length: 59
         body: '{"platform":"external","partition":"scw","domain":"scw.eu"}'
         headers:
@@ -18,26 +65,892 @@ interactions:
                 - "59"
             Content-Type:
                 - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:43:16 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 3acdfb0c-84b2-4b55-b6a7-3ffd09d54d7e
         status: 200 OK
         code: 200
-        duration: 0s
-    - id: 1
+        duration: 15.080333ms
+    - id: 2
       request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
         content_length: 0
         host: api.scaleway.com
         headers:
             User-Agent:
-                - scaleway-sdk-go (go1.27.1) cli-e2e-test
-        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/aabbccdd-eeff-0011-2233-445566778899
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
         method: GET
       response:
-        content_length: 657
-        body: '{"id": "aabbccdd-eeff-0011-2233-445566778899", "name": "connect-test", "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "status": "ready", "version": "8.6.6", "endpoints": [{"port": 6379, "public_network": {}, "ips": ["78.232.49.55"], "id": "94cdd5cc-141b-450f-b1e5-8e787865aa00"}], "tags": [], "node_type": "RED1-micro", "created_at": "2026-10-08T07:52:58.925755Z", "updated_at": "2026-10-08T07:53:49.160568Z", "tls_enabled": false, "cluster_settings": [], "acl_rules": [], "cluster_size": 1, "user_name": "admin", "upgradable_versions": [], "zone": "fr-par-1", "srn": "srn://redis.scw.eu/zones/fr-par-1/clusters/aabbccdd-eeff-0011-2233-445566778899"}'
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 616
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"provisioning", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":[], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":null, "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
         headers:
             Content-Length:
-                - "657"
+                - "616"
             Content-Type:
                 - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:43:17 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - a3751273-7274-49ba-9bc4-8878d5d373ba
         status: 200 OK
         code: 200
-        duration: 0s
+        duration: 132.266583ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 616
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"provisioning", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":[], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":null, "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "616"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:43:32 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 3c71faf6-68fd-4531-b5fd-b7d70fcd78a0
+        status: 200 OK
+        code: 200
+        duration: 102.395042ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 616
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"provisioning", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":[], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":null, "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "616"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:43:47 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 39a9c2db-1d70-49b5-bca2-97cf88b0f9c3
+        status: 200 OK
+        code: 200
+        duration: 121.303959ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 616
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"provisioning", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":[], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":null, "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "616"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:44:02 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - b116046a-bdcf-4a9e-bade-79fc422a46d4
+        status: 200 OK
+        code: 200
+        duration: 152.596583ms
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 656
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"initializing", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":["78.232.51.109"], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":"2026-10-25T21:44:03.305969Z", "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "656"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:44:17 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - bd1e1728-ef00-4fbd-8b1b-9fc4099d0819
+        status: 200 OK
+        code: 200
+        duration: 154.292917ms
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 656
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"initializing", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":["78.232.51.109"], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":"2026-10-25T21:44:03.305969Z", "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "656"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:44:32 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 22eebdba-d4fd-41e0-907a-0be7d525c62e
+        status: 200 OK
+        code: 200
+        duration: 224.025542ms
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 656
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"initializing", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":["78.232.51.109"], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":"2026-10-25T21:44:03.305969Z", "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "656"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:44:48 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - b32cf956-0a35-4083-be1d-fc6a4c30bcbd
+        status: 200 OK
+        code: 200
+        duration: 194.041541ms
+    - id: 9
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 656
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"initializing", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":["78.232.51.109"], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":"2026-10-25T21:44:03.305969Z", "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "656"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:45:03 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 5cb7b572-b9dd-4388-b656-99596b1b641b
+        status: 200 OK
+        code: 200
+        duration: 248.539875ms
+    - id: 10
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 656
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"initializing", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":["78.232.51.109"], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":"2026-10-25T21:44:03.305969Z", "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "656"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:45:18 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - db39b67b-847c-4e2a-9ca3-24ccc6d4ebed
+        status: 200 OK
+        code: 200
+        duration: 154.027583ms
+    - id: 11
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 656
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"initializing", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":["78.232.51.109"], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":"2026-10-25T21:44:03.305969Z", "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "656"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:45:33 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - e97a240a-13a3-458d-8bbc-45b0ac05720a
+        status: 200 OK
+        code: 200
+        duration: 229.178375ms
+    - id: 12
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 656
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"initializing", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":["78.232.51.109"], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":"2026-10-25T21:44:03.305969Z", "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "656"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:45:48 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - a1549d2a-4c89-401a-b22b-98761cff6fa2
+        status: 200 OK
+        code: 200
+        duration: 171.045041ms
+    - id: 13
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 656
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"initializing", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":["78.232.51.109"], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":"2026-10-25T21:44:03.305969Z", "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "656"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:46:03 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 99d6cbdb-7c6e-496b-8eb8-6f3c02d92103
+        status: 200 OK
+        code: 200
+        duration: 177.671708ms
+    - id: 14
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 656
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"initializing", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":["78.232.51.109"], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":"2026-10-25T21:44:03.305969Z", "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "656"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:46:19 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 27e06f3e-3017-4b79-bb06-9bca559bf495
+        status: 200 OK
+        code: 200
+        duration: 130.068ms
+    - id: 15
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 656
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"initializing", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":["78.232.51.109"], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":"2026-10-25T21:44:03.305969Z", "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "656"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:46:34 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - bdd0e29a-e79b-42e3-afb8-716f97af57f9
+        status: 200 OK
+        code: 200
+        duration: 176.476375ms
+    - id: 16
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 656
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"initializing", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":["78.232.51.109"], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":"2026-10-25T21:44:03.305969Z", "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "656"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:46:49 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "48"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 068fc076-49cf-4df2-9886-3a1a41e2f83f
+        status: 200 OK
+        code: 200
+        duration: 106.6985ms
+    - id: 17
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 649
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"ready", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":["78.232.51.109"], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":"2026-10-25T21:46:52.605900Z", "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "649"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:47:04 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - dbe17f2c-2849-413c-b089-891b7ab14224
+        status: 200 OK
+        code: 200
+        duration: 143.814875ms
+    - id: 18
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 649
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"ready", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":["78.232.51.109"], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":"2026-10-25T21:46:52.605900Z", "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "649"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:47:04 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 5ed73856-83ee-43d9-a968-6ebe9f8f4770
+        status: 200 OK
+        code: 200
+        duration: 172.282542ms
+    - id: 19
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 652
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"deleting", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":["78.232.51.109"], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":"2026-10-25T21:47:04.859174Z", "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "652"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:47:05 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "48"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 8c169cd2-a0b5-467a-bc54-dff1231f2c6c
+        status: 200 OK
+        code: 200
+        duration: 713.071583ms
+    - id: 20
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 652
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"deleting", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":["78.232.51.109"], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":"2026-10-25T21:47:04.859174Z", "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "652"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:47:05 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - cfa2c1ac-049e-4fa8-8bac-95d0141b2ad2
+        status: 200 OK
+        code: 200
+        duration: 149.060125ms
+    - id: 21
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 652
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"deleting", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":["78.232.51.109"], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":"2026-10-25T21:47:04.859174Z", "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "652"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:47:20 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 979278b0-ddbc-40cc-9c3e-a984d1e30ba9
+        status: 200 OK
+        code: 200
+        duration: 153.535458ms
+    - id: 22
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 652
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"deleting", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":["78.232.51.109"], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":"2026-10-25T21:47:04.859174Z", "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "652"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:47:35 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - a4613416-fff8-4a13-881d-51ae1b6bf237
+        status: 200 OK
+        code: 200
+        duration: 126.631542ms
+    - id: 23
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 652
+        body: '{"id":"d8179192-ceef-465b-8b7d-206142586ff6", "name":"connect-test-not-installed", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"deleting", "version":"8.6.6", "endpoints":[{"port":6379, "public_network":{}, "ips":["78.232.51.109"], "id":"770c797d-86bb-422d-8680-2c98163622e0"}], "tags":[], "node_type":"RED1-micro", "created_at":"2026-10-25T21:43:16.522374Z", "updated_at":"2026-10-25T21:47:04.859174Z", "tls_enabled":true, "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin", "upgradable_versions":[], "zone":"fr-par-1", "srn":"srn://redis.scw.eu/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6"}'
+        headers:
+            Content-Length:
+                - "652"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:47:51 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 941059e3-8321-449c-8216-ee380620f30a
+        status: 200 OK
+        code: 200
+        duration: 181.076459ms
+    - id: 24
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261022121050-f666c0f2b1fc (go1.27.3; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters/d8179192-ceef-465b-8b7d-206142586ff6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 128
+        body: '{"message":"resource is not found","resource":"cluster","resource_id":"d8179192-ceef-465b-8b7d-206142586ff6","type":"not_found"}'
+        headers:
+            Content-Length:
+                - "128"
+            Content-Type:
+                - application/json
+            Date:
+                - Sun, 25 Oct 2026 21:48:06 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 2ce6a2b3-9922-4e5e-bf14-c70e4e4c3d28
+        status: 404 Not Found
+        code: 404
+        duration: 42.411959ms
