@@ -104,7 +104,6 @@ func GetCommands() *core.Commands {
 		instancePlacementGroupUpdateServers(),
 		// ServerType commands exclusive to v1
 		instanceServerTypeGet(),
-		instanceServerTypeList(), // TODO: remove when done comparing with v2
 	)
 
 	//
