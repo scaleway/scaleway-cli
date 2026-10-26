@@ -9,6 +9,8 @@ import (
 	"os/exec"
 	"strconv"
 	"time"
+
+	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
 const (
@@ -70,7 +72,10 @@ func SSHLocalForward(
 ) (*Tunnel, error) {
 	localPort, err := freeLocalPort()
 	if err != nil {
-		return nil, fmt.Errorf("failed to allocate a local port for the tunnel: %w", err)
+		return nil, &core.CliError{
+			Err:  fmt.Errorf("failed to allocate a local port for the tunnel: %w", err),
+			Hint: "the system seems to be out of local TCP ports: close idle connections or applications and retry",
+		}
 	}
 
 	t := &Tunnel{

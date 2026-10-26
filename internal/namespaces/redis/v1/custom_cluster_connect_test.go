@@ -23,6 +23,17 @@ import (
 // update mode).
 const connectInterruptedClusterID = "66666666-7777-8888-9999-000000000000"
 
+// The gateway subtests replay pre-recorded cassettes of a connect session;
+// the IDs below are the resources recorded in them, so nothing is created
+// or deleted in replay.
+const (
+	connectGatewayClusterID   = "955763a4-77ed-4ce9-9380-7932e3d3592c"
+	connectGatewayID          = "a86e6447-2a9f-475f-9ef6-98f34e32b3f3"
+	connectGatewayPrivateIP   = "172.16.12.2"
+	connectGatewayBastionPort = "61000"
+	connectGatewayPublicIP    = "151.115.59.64"
+)
+
 // envRedisAuth returns the value of REDISCLI_AUTH in the child process
 // environment, or "" if it is not set.
 func envRedisAuth(cmd *exec.Cmd) string {
@@ -216,7 +227,11 @@ func Test_ClusterConnect(t *testing.T) {
 			OverrideExec:        gatewayConnectOverride(argsFile),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
-				checkNoCertLeftover(connectGatewayClusterID),
+				func(t *testing.T, _ *core.CheckFuncCtx) {
+					t.Helper()
+
+					checkNoCertLeftover(t, connectGatewayClusterID)
+				},
 				checkTunnelStopped(argsFile),
 			),
 		})
@@ -235,7 +250,11 @@ func Test_ClusterConnect(t *testing.T) {
 			OverrideExec:        gatewayConnectOverride(argsFile),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
-				checkNoCertLeftover(connectGatewayClusterID),
+				func(t *testing.T, _ *core.CheckFuncCtx) {
+					t.Helper()
+
+					checkNoCertLeftover(t, connectGatewayClusterID)
+				},
 				checkTunnelStopped(argsFile),
 			),
 		})
@@ -249,7 +268,7 @@ func Test_ClusterConnect(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			core.TestCheckStderrContains(
-				"no VPC gateway with the SSH bastion enabled is attached to private network",
+				"No VPC gateway with the SSH bastion enabled is attached to private network",
 			),
 		),
 	}))
@@ -261,9 +280,9 @@ func Test_ClusterConnect(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
 			core.TestCheckStderrContains(
-				"multiple VPC gateways with the SSH bastion enabled are attached",
+				"Multiple VPC gateways with the SSH bastion enabled are attached",
 			),
-			core.TestCheckStderrContains("specify one with vpc-gateway-id"),
+			core.TestCheckStderrContains("Specify one with vpc-gateway-id"),
 		),
 	}))
 

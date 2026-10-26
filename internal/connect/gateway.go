@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/scaleway/scaleway-cli/v2/core"
 	vpcgw "github.com/scaleway/scaleway-sdk-go/api/vpcgw/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -45,11 +46,14 @@ func PickGatewayForPrivateNetwork(
 
 	switch len(candidates) {
 	case 0:
-		return nil, fmt.Errorf(
-			"no VPC gateway with the SSH bastion enabled is attached to private network %s in %s",
-			privateNetworkID,
-			zone,
-		)
+		return nil, &core.CliError{
+			Err: fmt.Errorf(
+				"no VPC gateway with the SSH bastion enabled is attached to private network %s in %s",
+				privateNetworkID,
+				zone,
+			),
+			Hint: "attach a running VPC gateway with the SSH bastion enabled to that private network, or specify an existing one with vpc-gateway-id",
+		}
 	case 1:
 		return candidates[0], nil
 	default:
@@ -58,11 +62,14 @@ func PickGatewayForPrivateNetwork(
 			ids = append(ids, gw.ID)
 		}
 
-		return nil, fmt.Errorf(
-			"multiple VPC gateways with the SSH bastion enabled are attached to private network %s (%s): specify one with vpc-gateway-id",
-			privateNetworkID,
-			strings.Join(ids, ", "),
-		)
+		return nil, &core.CliError{
+			Err: fmt.Errorf(
+				"multiple VPC gateways with the SSH bastion enabled are attached to private network %s (%s)",
+				privateNetworkID,
+				strings.Join(ids, ", "),
+			),
+			Hint: "specify one with vpc-gateway-id",
+		}
 	}
 }
 
