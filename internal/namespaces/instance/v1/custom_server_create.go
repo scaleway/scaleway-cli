@@ -210,6 +210,12 @@ scw instance server create image=ubuntu_focal ip=$ip`,
 
 func instanceWaitServerCreateRun() core.WaitFunc {
 	return func(ctx context.Context, argsI, respI any) (any, error) {
+		if argsI.(*instanceCreateServerRequest).Console {
+			return nil, errors.New(
+				"--wait cannot be used with --console: the console session is the output of the command",
+			)
+		}
+
 		resp := respI.(*ServerWithWarningsResponse)
 		serverID := resp.Server.ID
 
@@ -231,6 +237,12 @@ func instanceWaitServerCreateRun() core.WaitFunc {
 func instanceServerCreateRun(ctx context.Context, argsI any) (i any, e error) {
 	var err error
 	args := argsI.(*instanceCreateServerRequest)
+
+	if args.Console && args.Stopped {
+		return nil, errors.New(
+			"--console cannot be used with --stopped: the serial console of a stopped server is not available",
+		)
+	}
 
 	//
 	// STEP 1: Argument handling and API requests creation.
@@ -371,15 +383,15 @@ func instanceServerCreateRun(ctx context.Context, argsI any) (i any, e error) {
 	//
 	if args.Console {
 		if err := connectServerConsole(ctx, args.Zone, server.ID); err != nil {
-			return nil, fmt.Errorf(
-				"cannot connect to the serial console of server %s: %w",
+			logger.Warningf(
+				"cannot connect to the serial console of server %s: %s. Note that the server is successfully created.",
 				server.ID,
 				err,
 			)
+		} else {
+			// The console session is the output of this command.
+			return nil, nil
 		}
-
-		// The console session is the output of this command.
-		return nil, nil
 	}
 
 	// Display warning if server-type is deprecated
