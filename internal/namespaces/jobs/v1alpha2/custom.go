@@ -1,9 +1,9 @@
 package jobs
 
 import (
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/color"
 	jobs "github.com/scaleway/scaleway-sdk-go/api/jobs/v1alpha2"
 )
 

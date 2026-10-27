@@ -1,9 +1,9 @@
 package block
 
 import (
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/color"
 	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 )
 

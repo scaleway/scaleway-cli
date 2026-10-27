@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/fatih/color"
+	"github.com/scaleway/scaleway-cli/v2/internal/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/logger"

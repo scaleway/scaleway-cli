@@ -13,8 +13,8 @@ import (
 	"strings"
 
 	"github.com/c-bata/go-prompt"
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/cache"
+	"github.com/scaleway/scaleway-cli/v2/internal/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/sentry"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"

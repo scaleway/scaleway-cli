@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/commands"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/qa"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 )

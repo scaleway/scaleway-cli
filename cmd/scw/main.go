@@ -11,7 +11,6 @@ import (
 	"strings"
 
 	"github.com/hashicorp/go-version"
-	"github.com/mattn/go-colorable"
 	"github.com/scaleway/scaleway-cli/v2/commands"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/platform/terminal"
@@ -138,8 +137,8 @@ func mainNoExit() int {
 		Args:      os.Args,
 		Commands:  commands.GetCommands(ctx),
 		BuildInfo: buildInfo,
-		Stdout:    colorable.NewColorableStdout(),
-		Stderr:    colorable.NewColorableStderr(),
+		Stdout:    os.Stdout,
+		Stderr:    os.Stderr,
 		Stdin:     os.Stdin,
 		BetaMode:  betaMode,
 		Platform:  terminal.NewPlatform(buildInfo.GetUserAgent()),

@@ -3,8 +3,8 @@ package iot
 import (
 	"strings"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/iot/v1"
 )
