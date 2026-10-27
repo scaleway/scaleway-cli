@@ -13,20 +13,12 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 type bucketCorsCreateArgs struct {
+	S3Args
 	Bucket            string
 	CorsConfiguration string
-	Region            scw.Region
-	ProjectID         string
-	S3Endpoint        string
-	S3UsePathStyle    string
-}
-
-func (a bucketCorsCreateArgs) bucketArgsFields() (scw.Region, string, string, string) {
-	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
 }
 
 func bucketCorsCreateCommand() *core.Command {
@@ -124,15 +116,8 @@ func bucketCorsCreateCommand() *core.Command {
 }
 
 type bucketCorsDeleteArgs struct {
-	Bucket         string
-	Region         scw.Region
-	ProjectID      string
-	S3UsePathStyle string
-	S3Endpoint     string
-}
-
-func (a bucketCorsDeleteArgs) bucketArgsFields() (scw.Region, string, string, string) {
-	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
+	S3Args
+	Bucket string
 }
 
 func bucketCorsDeleteCommand() *core.Command {
@@ -187,15 +172,8 @@ func bucketCorsDeleteCommand() *core.Command {
 }
 
 type bucketCorsGetArgs struct {
-	Bucket         string
-	Region         scw.Region
-	ProjectID      string
-	S3Endpoint     string
-	S3UsePathStyle string
-}
-
-func (a bucketCorsGetArgs) bucketArgsFields() (scw.Region, string, string, string) {
-	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
+	S3Args
+	Bucket string
 }
 
 func bucketCorsGetCommand() *core.Command {

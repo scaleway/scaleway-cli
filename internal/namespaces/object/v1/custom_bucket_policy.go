@@ -13,20 +13,12 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 type bucketPolicyCreateArgs struct {
-	Bucket         string
-	Policy         string
-	Region         scw.Region
-	ProjectID      string
-	S3Endpoint     string
-	S3UsePathStyle string
-}
-
-func (a bucketPolicyCreateArgs) bucketArgsFields() (scw.Region, string, string, string) {
-	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
+	S3Args
+	Bucket string
+	Policy string
 }
 
 func bucketPolicyCreateCommand() *core.Command {
@@ -115,15 +107,8 @@ func bucketPolicyCreateCommand() *core.Command {
 }
 
 type bucketPolicyDeleteArgs struct {
-	Bucket         string
-	Region         scw.Region
-	ProjectID      string
-	S3Endpoint     string
-	S3UsePathStyle string
-}
-
-func (a bucketPolicyDeleteArgs) bucketArgsFields() (scw.Region, string, string, string) {
-	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
+	S3Args
+	Bucket string
 }
 
 func bucketPolicyDeleteCommand() *core.Command {
@@ -177,15 +162,8 @@ func bucketPolicyDeleteCommand() *core.Command {
 }
 
 type bucketPolicyGetArgs struct {
-	Bucket         string
-	Region         scw.Region
-	ProjectID      string
-	S3Endpoint     string
-	S3UsePathStyle string
-}
-
-func (a bucketPolicyGetArgs) bucketArgsFields() (scw.Region, string, string, string) {
-	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
+	S3Args
+	Bucket string
 }
 
 func bucketPolicyGetCommand() *core.Command {

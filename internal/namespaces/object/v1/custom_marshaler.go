@@ -16,6 +16,18 @@ type CustomS3ACLGrant struct {
 	Permission types.Permission
 }
 
+// S3Args holds the fields shared by every bucket-related arg struct
+type S3Args struct {
+	Region         scw.Region
+	ProjectID      string
+	S3Endpoint     string
+	S3UsePathStyle string
+}
+
+func (a S3Args) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
+}
+
 type BucketResponse struct {
 	SuccessResult *core.SuccessResult
 	BucketInfo    *bucketInfo
@@ -102,16 +114,9 @@ func bucketGetResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) 
 }
 
 type bucketGetArgs struct {
-	Region         scw.Region
-	Name           string
-	WithSize       bool `json:"with-size"`
-	ProjectID      string
-	S3Endpoint     string `json:"s3-endpoint"`
-	S3UsePathStyle string `json:"s3-use-path-style"`
-}
-
-func (a bucketGetArgs) bucketArgsFields() (scw.Region, string, string, string) {
-	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
+	S3Args
+	Name     string
+	WithSize bool `json:"with-size"`
 }
 
 func bucketMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {

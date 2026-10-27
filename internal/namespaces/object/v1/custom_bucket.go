@@ -15,7 +15,8 @@ import (
 )
 
 // bucketAutoCompleteArgs exposes the fields needed by autocompleteBucketName.
-// Every bucket-related arg struct implements it via the receiver method below.
+// Every bucket-related arg struct implements it via the embedded s3Args method
+// promotion (see custom_marshaler.go).
 type bucketAutoCompleteArgs interface {
 	bucketArgsFields() (region scw.Region, projectID, s3Endpoint, s3UsePathStyle string)
 }
@@ -35,18 +36,11 @@ func s3UsePathStyleArgSpec() *core.ArgSpec {
 }
 
 type bucketConfigArgs struct {
-	Region           scw.Region
+	S3Args
 	Name             string
 	Tags             []string
 	EnableVersioning bool `json:"enable-versioning"`
 	ACL              string
-	ProjectID        string
-	S3Endpoint       string
-	S3UsePathStyle   string
-}
-
-func (a bucketConfigArgs) bucketArgsFields() (scw.Region, string, string, string) {
-	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
 }
 
 func bucketCreateCommand() *core.Command {
@@ -148,15 +142,8 @@ func bucketCreateCommand() *core.Command {
 }
 
 type bucketDeleteArgs struct {
-	Region         scw.Region
-	Name           string
-	ProjectID      string
-	S3Endpoint     string
-	S3UsePathStyle string
-}
-
-func (a bucketDeleteArgs) bucketArgsFields() (scw.Region, string, string, string) {
-	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
+	S3Args
+	Name string
 }
 
 func bucketDeleteCommand() *core.Command {

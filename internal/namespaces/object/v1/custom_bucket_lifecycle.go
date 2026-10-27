@@ -13,20 +13,12 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 type lifecycleCreateArgs struct {
+	S3Args
 	Bucket                 string
 	LifecycleConfiguration string
-	Region                 scw.Region
-	ProjectID              string
-	S3Endpoint             string
-	S3UsePathStyle         string
-}
-
-func (a lifecycleCreateArgs) bucketArgsFields() (scw.Region, string, string, string) {
-	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
 }
 
 func lifecycleCreateCommand() *core.Command {
@@ -124,15 +116,8 @@ func lifecycleCreateCommand() *core.Command {
 }
 
 type lifecycleDeleteArgs struct {
-	Bucket         string
-	Region         scw.Region
-	ProjectID      string
-	S3Endpoint     string
-	S3UsePathStyle string
-}
-
-func (a lifecycleDeleteArgs) bucketArgsFields() (scw.Region, string, string, string) {
-	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
+	S3Args
+	Bucket string
 }
 
 func lifecycleDeleteCommand() *core.Command {
@@ -187,15 +172,8 @@ func lifecycleDeleteCommand() *core.Command {
 }
 
 type lifecycleGetArgs struct {
-	Bucket         string
-	Region         scw.Region
-	ProjectID      string
-	S3Endpoint     string
-	S3UsePathStyle string
-}
-
-func (a lifecycleGetArgs) bucketArgsFields() (scw.Region, string, string, string) {
-	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
+	S3Args
+	Bucket string
 }
 
 func lifecycleGetCommand() *core.Command {
