@@ -39,6 +39,7 @@ ARGS:
   [common-configuration.option-ids.{index}]                                                                     IDs of options to enable on server
   [common-configuration.protected]                                                                              If enabled, the server can not be deleted
   [common-configuration.user-data]                                                                              Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script
+  [common-configuration.commitment-period]                                                                      Commitment period to subscribe (unknown_period | one_month | six_months | one_year | two_years | three_years)
   [common-configuration.zone]                                                                                   
   [servers.{index}.hostname]                                                                                    
   [servers.{index}.description]                                                                                 
