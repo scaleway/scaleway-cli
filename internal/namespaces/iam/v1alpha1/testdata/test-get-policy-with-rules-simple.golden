@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Policy:
-ID                33130e9c-c0dd-4819-a959-e6d034406eec
+ID                66334cf0-2814-4cf8-8bb2-d29b7f14462a
 Name              test-cli-get-policy
 Description       -
 OrganizationID    fa1e3217-dc80-42ac-85c3-3f034b78b552
@@ -14,14 +14,14 @@ NbRules           1
 NbScopes          1
 NbPermissionSets  1
 NoPrincipal       true
-Srn               srn://iam.scw.eu/policies/33130e9c-c0dd-4819-a959-e6d034406eec
+Srn               srn://iam.scw.eu/policies/66334cf0-2814-4cf8-8bb2-d29b7f14462a
 
 Rules:
-ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  CONDITION  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID  SRN
-3e03a69f-627e-41cc-90ed-a4930a778c9d  [IPAMReadOnly]        projects                    -          [536c9155-0ce9-4a34-a8a7-de097f6c0b12]  -                -                     srn://iam.scw.eu/rules/3e03a69f-627e-41cc-90ed-a4930a778c9d
+ID                                    SRN                                                          PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  CONDITION  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID  DENY
+4a666def-0a61-4578-b547-f07081d149e7  srn://iam.scw.eu/rules/4a666def-0a61-4578-b547-f07081d149e7  [IPAMReadOnly]        projects                    -          [e78fab36-12c7-4535-99fd-85912b53c308]  -                -                     false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "33130e9c-c0dd-4819-a959-e6d034406eec",
+  "id": "66334cf0-2814-4cf8-8bb2-d29b7f14462a",
   "name": "test-cli-get-policy",
   "description": "",
   "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
@@ -35,19 +35,20 @@ ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOP
   "nb_permission_sets": 1,
   "tags": [],
   "no_principal": true,
-  "srn": "srn://iam.scw.eu/policies/33130e9c-c0dd-4819-a959-e6d034406eec",
+  "srn": "srn://iam.scw.eu/policies/66334cf0-2814-4cf8-8bb2-d29b7f14462a",
   "Rules": [
     {
-      "id": "3e03a69f-627e-41cc-90ed-a4930a778c9d",
+      "id": "4a666def-0a61-4578-b547-f07081d149e7",
+      "srn": "srn://iam.scw.eu/rules/4a666def-0a61-4578-b547-f07081d149e7",
       "permission_set_names": [
         "IPAMReadOnly"
       ],
       "permission_sets_scope_type": "projects",
       "condition": "",
       "project_ids": [
-        "536c9155-0ce9-4a34-a8a7-de097f6c0b12"
+        "e78fab36-12c7-4535-99fd-85912b53c308"
       ],
-      "srn": "srn://iam.scw.eu/rules/3e03a69f-627e-41cc-90ed-a4930a778c9d"
+      "deny": false
     }
   ]
 }
