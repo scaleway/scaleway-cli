@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 Hint:
-Private ip are assigned when the server boots, start yours with: scw instance server start 2744417a-e4fe-4979-a9fe-d9a267cf5643
+Private ip are assigned when the server boots, start yours with: scw instance server start 82350e00-048c-4708-b9bd-5f52625c7a4e
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "server 2744417a-e4fe-4979-a9fe-d9a267cf5643 (cli-srv-busy-gould) does not have a private ip",
-  "hint": "Private ip are assigned when the server boots, start yours with: scw instance server start 2744417a-e4fe-4979-a9fe-d9a267cf5643"
+  "message": "server 82350e00-048c-4708-b9bd-5f52625c7a4e (cli-srv-quirky-elion) does not have a private ip",
+  "hint": "Private ip are assigned when the server boots, start yours with: scw instance server start 82350e00-048c-4708-b9bd-5f52625c7a4e"
 }
