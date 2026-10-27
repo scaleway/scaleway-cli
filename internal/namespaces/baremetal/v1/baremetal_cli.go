@@ -27,6 +27,7 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalOptions(),
 		baremetalSettings(),
 		baremetalPartitioningSchemas(),
+		baremetalCommitment(),
 		baremetalServerList(),
 		baremetalServerGet(),
 		baremetalServerCreate(),
@@ -39,6 +40,8 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalServerStart(),
 		baremetalServerStop(),
 		baremetalServerListEvents(),
+		baremetalPartitioningSchemasGetDefault(),
+		baremetalPartitioningSchemasValidate(),
 		baremetalBmcStart(),
 		baremetalBmcGet(),
 		baremetalBmcStop(),
@@ -129,6 +132,15 @@ func baremetalPartitioningSchemas() *core.Command {
 		Long:      `Allows to customize the partitioning schemas of your servers (available on some offers and OSs).`,
 		Namespace: "baremetal",
 		Resource:  "partitioning-schemas",
+	}
+}
+
+func baremetalCommitment() *core.Command {
+	return &core.Command{
+		Short:     `Commitment management commands`,
+		Long:      `Allows to manage the commitment of your servers.`,
+		Namespace: "baremetal",
+		Resource:  "commitment",
 	}
 }
 
@@ -528,6 +540,21 @@ func baremetalServerCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "commitment-period",
+				Short:      `Commitment period to subscribe`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_period",
+					"one_month",
+					"six_months",
+					"one_year",
+					"two_years",
+					"three_years",
+				},
+			},
 			core.OrganizationIDArgSpec(),
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -816,6 +843,21 @@ func baremetalServerBatchCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "common-configuration.commitment-period",
+				Short:      `Commitment period to subscribe`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_period",
+					"one_month",
+					"six_months",
+					"one_year",
+					"two_years",
+					"three_years",
+				},
+			},
+			{
 				Name:       "common-configuration.organization-id",
 				Short:      `Organization ID with which the server will be created`,
 				Required:   false,
@@ -914,6 +956,13 @@ func baremetalServerUpdate() *core.Command {
 			{
 				Name:       "user-data",
 				Short:      `Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scheduled-deletion",
+				Short:      `Set false to cancel the scheduled deletion of the server`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1408,7 +1457,7 @@ func baremetalServerStart() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Start an Elastic Metalx server",
+				Short:    "Start an Elastic Metal server",
 				ArgsJSON: `{"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 			{
@@ -1516,6 +1565,232 @@ func baremetalServerListEvents() *core.Command {
 			}
 
 			return resp.Events, nil
+		},
+	}
+}
+
+func baremetalPartitioningSchemasGetDefault() *core.Command {
+	return &core.Command{
+		Short:     `Get default partitioning schema`,
+		Long:      `Get the default partitioning schema for the given offer ID and OS ID.`,
+		Namespace: "baremetal",
+		Resource:  "partitioning-schemas",
+		Verb:      "get-default",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[baremetal.GetDefaultPartitioningSchemaRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "offer-id",
+				Short:      `ID of the offer`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "os-id",
+				Short:      `ID of the OS`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*baremetal.GetDefaultPartitioningSchemaRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+
+			return api.GetDefaultPartitioningSchema(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func baremetalPartitioningSchemasValidate() *core.Command {
+	return &core.Command{
+		Short:     `Validate client partitioning schema`,
+		Long:      `Validate the incoming partitioning schema from a user before installing the server. Return default ErrorCode if invalid.`,
+		Namespace: "baremetal",
+		Resource:  "partitioning-schemas",
+		Verb:      "validate",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[baremetal.ValidatePartitioningSchemaRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "partitioning-schema.disks.{index}.device",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "partitioning-schema.disks.{index}.partitions.{index}.label",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_partition_label",
+					"uefi",
+					"legacy",
+					"root",
+					"boot",
+					"swap",
+					"data",
+					"home",
+					"raid",
+					"zfs",
+				},
+			},
+			{
+				Name:       "partitioning-schema.disks.{index}.partitions.{index}.number",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "partitioning-schema.disks.{index}.partitions.{index}.size",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "partitioning-schema.disks.{index}.partitions.{index}.use-all-available-space",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "partitioning-schema.raids.{index}.name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "partitioning-schema.raids.{index}.level",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_raid_level",
+					"raid_level_0",
+					"raid_level_1",
+					"raid_level_5",
+					"raid_level_6",
+					"raid_level_10",
+				},
+			},
+			{
+				Name:       "partitioning-schema.raids.{index}.devices.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "partitioning-schema.filesystems.{index}.device",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "partitioning-schema.filesystems.{index}.format",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_format",
+					"fat32",
+					"ext4",
+					"swap",
+					"zfs",
+					"xfs",
+				},
+			},
+			{
+				Name:       "partitioning-schema.filesystems.{index}.mountpoint",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "partitioning-schema.zfs.pools.{index}.name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "partitioning-schema.zfs.pools.{index}.type",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_type",
+					"no_raid",
+					"mirror",
+					"raidz1",
+					"raidz2",
+				},
+			},
+			{
+				Name:       "partitioning-schema.zfs.pools.{index}.devices.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "partitioning-schema.zfs.pools.{index}.options.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "partitioning-schema.zfs.pools.{index}.filesystem-options.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "offer-id",
+				Short:      `Offer ID of the server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "os-id",
+				Short:      `OS ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*baremetal.ValidatePartitioningSchemaRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+			e = api.ValidatePartitioningSchema(request, scw.WithContext(ctx))
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "partitioning-schemas",
+				Verb:     "validate",
+			}, nil
 		},
 	}
 }
