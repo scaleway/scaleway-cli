@@ -584,6 +584,7 @@ The name of the data source will then be used as reference to name the associate
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -618,6 +619,7 @@ func cockpitDataSourceGet() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -652,6 +654,7 @@ func cockpitDataSourceDelete() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -728,6 +731,7 @@ func cockpitDataSourceList() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -786,6 +790,7 @@ func cockpitDataSourceUpdate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -820,6 +825,7 @@ func cockpitUsageOverviewGet() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -875,6 +881,7 @@ Upon creation, your token's secret key display only once. Make sure that you sav
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -936,6 +943,7 @@ You can filter tokens by Project ID and token scopes.`,
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -980,6 +988,7 @@ func cockpitTokenGet() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1014,6 +1023,7 @@ func cockpitTokenDelete() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1050,6 +1060,7 @@ The output returned displays a URL to access the Alert manager, and whether the 
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1078,6 +1089,7 @@ func cockpitAlertManagerEnable() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1106,6 +1118,7 @@ func cockpitAlertManagerDisable() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1149,6 +1162,7 @@ If you need to receive alerts for other receivers, you can create additional con
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1177,6 +1191,7 @@ func cockpitContactPointList() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -1221,6 +1236,7 @@ func cockpitContactPointDelete() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1256,6 +1272,7 @@ func cockpitTestAlertTrigger() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
