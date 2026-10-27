@@ -2,6 +2,7 @@ package core_test
 
 import (
 	"context"
+	"errors"
 	"reflect"
 	"regexp"
 	"strings"
@@ -642,6 +643,108 @@ func TestAutocompleteArgs(t *testing.T) {
 	t.Run(
 		"scw test flower create name=",
 		run(&testCase{Suggestions: core.AutocompleteSuggestions(nil)}),
+	)
+}
+
+func TestAutocompleteRequiredListArgs(t *testing.T) {
+	type listDatabaseArgs struct {
+		InstanceID string
+		Name       string
+	}
+
+	commands := core.NewCommands(
+		&core.Command{
+			Namespace: "test",
+			Resource:  "backup",
+			Verb:      "create",
+			ArgsType: reflect.TypeOf(struct {
+				InstanceID   string
+				DatabaseName string
+				Name         string
+			}{}),
+			ArgSpecs: core.ArgSpecs{
+				{
+					Name:     "instance-id",
+					Required: true,
+				},
+				{
+					Name:     "database-name",
+					Required: true,
+				},
+				{
+					Name: "name",
+				},
+			},
+		},
+		&core.Command{
+			Namespace: "test",
+			Resource:  "database",
+			Verb:      "list",
+			ArgsType:  reflect.TypeFor[listDatabaseArgs](),
+			ArgSpecs: core.ArgSpecs{
+				{
+					Name:     "instance-id",
+					Required: true,
+				},
+				{
+					Name: "name",
+				},
+			},
+			Run: func(_ context.Context, argsI any) (any, error) {
+				listArgs := argsI.(*listDatabaseArgs)
+				if listArgs.InstanceID == "" {
+					return nil, errors.New("instance-id is required")
+				}
+				if listArgs.Name != "" {
+					return []*struct {
+						Name string
+					}{}, nil
+				}
+
+				return []*struct {
+					Name string
+				}{
+					{Name: "db1"},
+					{Name: "db2"},
+				}, nil
+			},
+		},
+	)
+	ctx := core.InjectMeta(t.Context(), &core.Meta{
+		Commands: commands,
+	})
+
+	type testCase = autoCompleteTestCase
+
+	run := func(tc *testCase) func(*testing.T) {
+		return runAutocompleteTest(ctx, tc)
+	}
+
+	t.Run(
+		"scw test backup create database-name=",
+		run(&testCase{Suggestions: core.AutocompleteSuggestions(nil)}),
+	)
+	t.Run(
+		"scw test backup create instance-id=xxx database-name=",
+		run(
+			&testCase{
+				Suggestions: core.AutocompleteSuggestions{
+					"database-name=db1",
+					"database-name=db2",
+				},
+			},
+		),
+	)
+	t.Run(
+		"scw test backup create instance-id=xxx name=ignored database-name=",
+		run(
+			&testCase{
+				Suggestions: core.AutocompleteSuggestions{
+					"database-name=db1",
+					"database-name=db2",
+				},
+			},
+		),
 	)
 }
 
