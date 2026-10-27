@@ -13,9 +13,9 @@ type ConfigureOutputConfig struct {
 
 type ConfigureOutputResponse struct{}
 
-func ConfigureOutput(cfg *ConfigureOutputConfig) (*ConfigureOutputResponse, error) {
-	terminal.Width = cfg.Width
-	terminal.SetColorEnabled(cfg.Color)
+func ConfigureOutput(config *ConfigureOutputConfig) (*ConfigureOutputResponse, error) {
+	terminal.Width = config.Width
+	terminal.SetColorEnabled(config.Color)
 
 	return &ConfigureOutputResponse{}, nil
 }
