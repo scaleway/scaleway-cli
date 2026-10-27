@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"reflect"
+	"sort"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
@@ -138,8 +139,8 @@ func AutocompleteGetArg(
 	// Has to use interceptor if it exists as ArgsType could be handled by interceptor
 	listCmdArgs := reflect.New(listCmd.ArgsType).Interface()
 
-	// Keep zone and region arguments
-	listRawArgs := listRawArgsLocalities(completedArgs, listCmd)
+	// Keep zone/region and required arguments already provided by the user
+	listRawArgs := listRawArgsFromCompletedArgs(completedArgs, listCmd)
 
 	// Apply default arguments
 	listRawArgs = ApplyDefaultValues(ctx, listCmd.ArgSpecs, listRawArgs)
@@ -190,10 +191,14 @@ func AutocompleteGetArg(
 	return values
 }
 
-func listRawArgsLocalities(completedArgs map[string]string, cmd *Command) []string {
+// listRawArgsFromCompletedArgs builds raw args for a list command from already completed args
+// It forwards zone/region localities and any argument that is required by the list command
+func listRawArgsFromCompletedArgs(completedArgs map[string]string, cmd *Command) []string {
 	listRawArgs := []string(nil)
 	specs := cmd.ArgSpecs
 	for arg, value := range completedArgs {
+		argName := strings.TrimSuffix(arg, "=")
+
 		if strings.HasPrefix(arg, "zone") {
 			if specs.GetByName("region") != nil {
 				zone, _ := scw.ParseZone(value)
@@ -203,11 +208,21 @@ func listRawArgsLocalities(completedArgs map[string]string, cmd *Command) []stri
 			if specs.GetByName("zone") != nil {
 				listRawArgs = append(listRawArgs, arg+value)
 			}
+
+			continue
 		}
 		if strings.HasPrefix(arg, "region") && specs.GetByName("region") != nil {
 			listRawArgs = append(listRawArgs, arg+value)
+
+			continue
+		}
+
+		if spec := specs.GetByName(argName); spec != nil && spec.Required {
+			listRawArgs = append(listRawArgs, arg+value)
 		}
 	}
+
+	sort.Strings(listRawArgs)
 
 	return listRawArgs
 }
