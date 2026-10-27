@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 Hint:
-Private ip are assigned when the server boots, start yours with: scw instance server start deba277a-ff16-4608-af9f-62d741b30000
+Private ip are assigned when the server boots, start yours with: scw instance server start ae9e1e4d-b364-4d18-a392-6e0d74be0d27
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "server deba277a-ff16-4608-af9f-62d741b30000 (cli-srv-trusting-murdock) does not have a private ip",
-  "hint": "Private ip are assigned when the server boots, start yours with: scw instance server start deba277a-ff16-4608-af9f-62d741b30000"
+  "message": "server ae9e1e4d-b364-4d18-a392-6e0d74be0d27 (cli-srv-silly-shamir) does not have a private ip",
+  "hint": "Private ip are assigned when the server boots, start yours with: scw instance server start ae9e1e4d-b364-4d18-a392-6e0d74be0d27"
 }
