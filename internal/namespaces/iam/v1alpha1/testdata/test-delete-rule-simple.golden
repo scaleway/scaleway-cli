@@ -1,19 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  CONDITION  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID  SRN
-abd98d0b-6f20-424d-a2f8-a26743bbd8e2  [VPCReadOnly]         projects                    -          [456076fc-5af4-45cc-bff2-d361b13cf499]  -                -                     srn://iam.scw.eu/rules/abd98d0b-6f20-424d-a2f8-a26743bbd8e2
+ID                                    SRN                                                          PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  CONDITION  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID  DENY
+f56eaab4-fb1c-47e9-b95e-82159271a32b  srn://iam.scw.eu/rules/f56eaab4-fb1c-47e9-b95e-82159271a32b  [VPCReadOnly]         projects                    -          [d9993e9a-88ce-4952-919f-08d1b853d5e5]  -                -                     false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "abd98d0b-6f20-424d-a2f8-a26743bbd8e2",
+    "id": "f56eaab4-fb1c-47e9-b95e-82159271a32b",
+    "srn": "srn://iam.scw.eu/rules/f56eaab4-fb1c-47e9-b95e-82159271a32b",
     "permission_set_names": [
       "VPCReadOnly"
     ],
     "permission_sets_scope_type": "projects",
     "condition": "",
     "project_ids": [
-      "456076fc-5af4-45cc-bff2-d361b13cf499"
+      "d9993e9a-88ce-4952-919f-08d1b853d5e5"
     ],
-    "srn": "srn://iam.scw.eu/rules/abd98d0b-6f20-424d-a2f8-a26743bbd8e2"
+    "deny": false
   }
 ]

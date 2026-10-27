@@ -1,32 +1,34 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  CONDITION  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID  SRN
-c05b281b-5432-48aa-810e-fcd41e39d373  [IPAMReadOnly]        projects                    -          [3ffd200e-8473-4073-bf38-f4c282a73857]  -                -                     srn://iam.scw.eu/rules/c05b281b-5432-48aa-810e-fcd41e39d373
-2f0b7918-5300-4122-a0f1-2d3dfd236343  [VPCReadOnly]         projects                    -          [3ffd200e-8473-4073-bf38-f4c282a73857]  -                -                     srn://iam.scw.eu/rules/2f0b7918-5300-4122-a0f1-2d3dfd236343
+ID                                    SRN                                                          PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  CONDITION  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID  DENY
+d3c41d1a-07a2-40b0-bcbe-1f89b390bed7  srn://iam.scw.eu/rules/d3c41d1a-07a2-40b0-bcbe-1f89b390bed7  [IPAMReadOnly]        projects                    -          [b545dd82-5554-4a28-a875-f339785ccd77]  -                -                     false
+8ffd545a-4e89-4115-bd78-6adf6c4e4d05  srn://iam.scw.eu/rules/8ffd545a-4e89-4115-bd78-6adf6c4e4d05  [VPCReadOnly]         projects                    -          [b545dd82-5554-4a28-a875-f339785ccd77]  -                -                     false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "c05b281b-5432-48aa-810e-fcd41e39d373",
+    "id": "d3c41d1a-07a2-40b0-bcbe-1f89b390bed7",
+    "srn": "srn://iam.scw.eu/rules/d3c41d1a-07a2-40b0-bcbe-1f89b390bed7",
     "permission_set_names": [
       "IPAMReadOnly"
     ],
     "permission_sets_scope_type": "projects",
     "condition": "",
     "project_ids": [
-      "3ffd200e-8473-4073-bf38-f4c282a73857"
+      "b545dd82-5554-4a28-a875-f339785ccd77"
     ],
-    "srn": "srn://iam.scw.eu/rules/c05b281b-5432-48aa-810e-fcd41e39d373"
+    "deny": false
   },
   {
-    "id": "2f0b7918-5300-4122-a0f1-2d3dfd236343",
+    "id": "8ffd545a-4e89-4115-bd78-6adf6c4e4d05",
+    "srn": "srn://iam.scw.eu/rules/8ffd545a-4e89-4115-bd78-6adf6c4e4d05",
     "permission_set_names": [
       "VPCReadOnly"
     ],
     "permission_sets_scope_type": "projects",
     "condition": "",
     "project_ids": [
-      "3ffd200e-8473-4073-bf38-f4c282a73857"
+      "b545dd82-5554-4a28-a875-f339785ccd77"
     ],
-    "srn": "srn://iam.scw.eu/rules/2f0b7918-5300-4122-a0f1-2d3dfd236343"
+    "deny": false
   }
 ]
