@@ -11,7 +11,7 @@ ARGS:
   name               Data source name
   type               Data source type (unknown_type | metrics | logs | traces)
   [retention-days]   Duration for which the data will be retained in the data source
-  [region=fr-par]    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
 FLAGS:
   -h, --help                help for create
