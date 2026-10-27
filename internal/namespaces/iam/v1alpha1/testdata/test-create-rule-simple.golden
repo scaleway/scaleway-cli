@@ -1,32 +1,32 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  CONDITION  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID  SRN
-fc7679c4-5d2c-4956-bea6-6d2b48f6d91f  [IPAMReadOnly]        projects                    -          [551905dd-83e8-4492-8d2d-ccaf58e65cfd]  -                -                     srn://iam.scw.eu/rules/fc7679c4-5d2c-4956-bea6-6d2b48f6d91f
-f85a14b2-4f32-4b04-aee8-ddf5c93ad95d  [VPCReadOnly]         projects                    -          [551905dd-83e8-4492-8d2d-ccaf58e65cfd]  -                -                     srn://iam.scw.eu/rules/f85a14b2-4f32-4b04-aee8-ddf5c93ad95d
+c05b281b-5432-48aa-810e-fcd41e39d373  [IPAMReadOnly]        projects                    -          [3ffd200e-8473-4073-bf38-f4c282a73857]  -                -                     srn://iam.scw.eu/rules/c05b281b-5432-48aa-810e-fcd41e39d373
+2f0b7918-5300-4122-a0f1-2d3dfd236343  [VPCReadOnly]         projects                    -          [3ffd200e-8473-4073-bf38-f4c282a73857]  -                -                     srn://iam.scw.eu/rules/2f0b7918-5300-4122-a0f1-2d3dfd236343
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "fc7679c4-5d2c-4956-bea6-6d2b48f6d91f",
+    "id": "c05b281b-5432-48aa-810e-fcd41e39d373",
     "permission_set_names": [
       "IPAMReadOnly"
     ],
     "permission_sets_scope_type": "projects",
     "condition": "",
     "project_ids": [
-      "551905dd-83e8-4492-8d2d-ccaf58e65cfd"
+      "3ffd200e-8473-4073-bf38-f4c282a73857"
     ],
-    "srn": "srn://iam.scw.eu/rules/fc7679c4-5d2c-4956-bea6-6d2b48f6d91f"
+    "srn": "srn://iam.scw.eu/rules/c05b281b-5432-48aa-810e-fcd41e39d373"
   },
   {
-    "id": "f85a14b2-4f32-4b04-aee8-ddf5c93ad95d",
+    "id": "2f0b7918-5300-4122-a0f1-2d3dfd236343",
     "permission_set_names": [
       "VPCReadOnly"
     ],
     "permission_sets_scope_type": "projects",
     "condition": "",
     "project_ids": [
-      "551905dd-83e8-4492-8d2d-ccaf58e65cfd"
+      "3ffd200e-8473-4073-bf38-f4c282a73857"
     ],
-    "srn": "srn://iam.scw.eu/rules/f85a14b2-4f32-4b04-aee8-ddf5c93ad95d"
+    "srn": "srn://iam.scw.eu/rules/2f0b7918-5300-4122-a0f1-2d3dfd236343"
   }
 ]

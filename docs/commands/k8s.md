@@ -99,14 +99,14 @@ A cluster is a fully managed Kubernetes cluster
 It is composed of different pools, each pool containing the same kind of nodes.
 
 
-### Connect to a cluster using k9s, or a custom command via --template
+### Connect to a cluster using k9s, or a custom command via template
 
 Connect to a Kubernetes Kapsule cluster.
 
 By default the command downloads the cluster kubeconfig to a temporary file,
 sets KUBECONFIG to it, and opens k9s against it.
 
-Use --template to connect with a different tool instead. Its value (default "k9s")
+Use template to connect with a different tool instead. Its value (default "k9s")
 is rendered as a Go text/template and the result is executed as the connect command.
 Available variables:
 {{.ClusterID}}, {{.Cluster}} (the cluster object, e.g. {{.Cluster.Name}}),
