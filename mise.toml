@@ -1,6 +1,7 @@
 #:schema https://mise.jdx.dev/schema/mise.json
 
 [settings]
+experimental = true
 lockfile = true
 
 [task_config]
@@ -8,11 +9,11 @@ shell = "bash -c"
 
 [tools]
 devcontainer-cli = "0.89"
-go = "1.27"
+go = "1.27.3"
 "go:github.com/boumenot/gocover-cobertura" = "1.5"
 "go:github.com/go-delve/delve/cmd/dlv" = "1.27"
 "go:gotest.tools/gotestsum" = "1.13"
-golangci-lint = "2.13"
+golangci-lint = "2.15"
 goreleaser = "2.18"
 hadolint = "2.15"
 node = "24.11.1"
@@ -77,6 +78,13 @@ if [ -n "${usage_output:-}" ]; then
 fi
 args+=(./cmd/scw)
 go "${args[@]}"
+'''
+
+[tasks.'run:cli']
+description = "build and run the cli, passing all args to the binary"
+raw_args = true
+run = '''
+go run ./cmd/scw "$@"
 '''
 
 [tasks.'build:wasm']
@@ -350,6 +358,12 @@ vitest "${args[@]}"
 # markdown-link-check -c ./.markdownlinkcheck.json -q ./docs
 # '''
 
+[tasks.'check:go-mod-tidy']
+description = "check that go.mod and go.sum are tidy"
+run = '''
+go mod tidy -diff
+'''
+
 [tasks.'check:binary-size']
 description = "check the size of the cli binary"
 depends = ["build:cli"]
@@ -446,7 +460,7 @@ depends = ["test:*", "check:*"]
 
 [tasks.default]
 description = "default task, fast local loop for the cli"
-depends = ["*:cli"]
+depends = ["build:cli", "lint:cli", "test:cli"]
 
 [tasks.ci]
 description = "meta-task for the ci"

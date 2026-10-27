@@ -1,7 +1,8 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Cannot create the server: scaleway-sdk-go: resource instance_ip with ID 23165951-13fd-4a3b-84ed-22c2e96658f2 is not found
+Cannot find resource 'instance_ip' with ID '23165951-13fd-4a3b-84ed-22c2e96658f2'
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "error": "cannot create the server: scaleway-sdk-go: resource instance_ip with ID 23165951-13fd-4a3b-84ed-22c2e96658f2 is not found"
+  "message": "cannot find resource 'instance_ip' with ID '23165951-13fd-4a3b-84ed-22c2e96658f2'",
+  "error": {}
 }

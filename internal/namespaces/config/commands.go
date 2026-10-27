@@ -764,7 +764,7 @@ func configImportCommand() *core.Command {
 
 			err = currentConfig.SaveTo(configPath)
 			if err != nil {
-				return nil, fmt.Errorf("failed to save updated configuration: %v", err)
+				return nil, fmt.Errorf("failed to save updated configuration: %w", err)
 			}
 
 			return &core.SuccessResult{

@@ -5,6 +5,7 @@ package core
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"sort"
@@ -297,7 +298,7 @@ func shellExecutor(rootCmd *cobra.Command, printer *Printer, meta *Meta) func(s 
 
 		err := rootCmd.Execute()
 		if err != nil {
-			if _, ok := err.(*interactive.InterruptError); ok {
+			if _, ok := errors.AsType[*interactive.InterruptError](err); ok {
 				return
 			}
 

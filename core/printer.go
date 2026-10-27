@@ -233,15 +233,14 @@ func (p *Printer) printHuman(data any, opt *human.MarshalOpt) error {
 	}
 
 	str, err := human.Marshal(data, opt)
-	switch e := err.(type) {
-	case *human.UnknownFieldError:
+	if unknownFieldErr, ok := errors.AsType[*human.UnknownFieldError](err); ok {
 		return p.printHuman(&CliError{
-			Err:  fmt.Errorf("unknown field '%s' in output options", e.FieldName),
-			Hint: "Valid fields are: " + strings.Join(e.ValidFields, ", "),
+			Err:  fmt.Errorf("unknown field '%s' in output options", unknownFieldErr.FieldName),
+			Hint: "Valid fields are: " + strings.Join(unknownFieldErr.ValidFields, ", "),
 		}, nil)
-	case nil:
-		// Do nothing
-	default:
+	}
+
+	if err != nil {
 		return err
 	}
 

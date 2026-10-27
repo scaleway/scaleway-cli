@@ -521,13 +521,13 @@ scw instance placement-group create [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                              | Argument Specifications                                                                                                                                 |
-|--------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| project-id   | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                         |
-| name         | Name of the placement group                                              | Default: `<generated>`                                                                                                                                  |
-| policy-type  | Policy type of the placement group                                       | Default: `max_availability`<br />One of: `unknown_policy_type`, `low_latency`, `max_availability`                                                       |
-| tags.{index} | Tags of the placement group                                              |                                                                                                                                                         |
-| zone         | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name         | Description                                                              | Argument Specifications                                                                                                                                                         |
+|--------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| project-id   | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                                                 |
+| name         | Name of the placement group                                              | Default: `<generated>`                                                                                                                                                          |
+| policy-type  | Policy type of the placement group                                       | Default: `max_availability`<br />One of: `unknown_policy_type`, `low_latency`, `max_availability`                                                                               |
+| tags.{index} | Tags of the placement group                                              |                                                                                                                                                                                 |
+| zone         | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 **Examples:**
@@ -569,10 +569,10 @@ scw instance placement-group delete <placement-group-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name               | Description                                                             | Argument Specifications                                                                                                                                 |
-|--------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| placement-group-id | UUID of the placement group you want to delete                          | Required                                                                                                                                                |
-| zone               | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name               | Description                                                             | Argument Specifications                                                                                                                                                         |
+|--------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| placement-group-id | UUID of the placement group you want to delete                          | Required                                                                                                                                                                        |
+| zone               | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 **Examples:**
@@ -604,11 +604,11 @@ scw instance placement-group get <placement-group-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name               | Description                                                             | Argument Specifications                                                                                                                                 |
-|--------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| placement-group-id | UUID of the placement group you want to get                             | Required                                                                                                                                                |
-| list-servers       | Whether to list the servers in the Placement Group or not.              | Default: `true`                                                                                                                                         |
-| zone               | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name               | Description                                                             | Argument Specifications                                                                                                                                                         |
+|--------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| placement-group-id | UUID of the placement group you want to get                             | Required                                                                                                                                                                        |
+| list-servers       | Whether to list the servers in the Placement Group or not.              | Default: `true`                                                                                                                                                                 |
+| zone               | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 **Examples:**
@@ -655,16 +655,16 @@ scw instance placement-group list [arg=value ...]
 
 **Arguments:**
 
-| Name                        | Description                                                              | Argument Specifications                                                                                                                                 |
-|-----------------------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| page-token                  | The initial pagination token to start from                               |                                                                                                                                                         |
-| page-size                   | The maximum number of placement groups to return                         |                                                                                                                                                         |
-| order-by                    | The field by which to order the result list                              | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`                                                                        |
-| project-id                  | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                         |
-| placement-group-ids.{index} | List only placement groups with these IDs                                |                                                                                                                                                         |
-| name                        | Filter placement groups by name                                          |                                                                                                                                                         |
-| tags.{index}                | List placement groups with these exact tags                              |                                                                                                                                                         |
-| zone                        | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name                        | Description                                                              | Argument Specifications                                                                                                                                                         |
+|-----------------------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| page-token                  | The initial pagination token to start from                               |                                                                                                                                                                                 |
+| page-size                   | The maximum number of placement groups to return                         |                                                                                                                                                                                 |
+| order-by                    | The field by which to order the result list                              | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`                                                                                                |
+| project-id                  | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                                                 |
+| placement-group-ids.{index} | List only placement groups with these IDs                                |                                                                                                                                                                                 |
+| name                        | Filter placement groups by name                                          |                                                                                                                                                                                 |
+| tags.{index}                | List placement groups with these exact tags                              |                                                                                                                                                                                 |
+| zone                        | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 **Examples:**
@@ -753,13 +753,13 @@ scw instance placement-group update <placement-group-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name               | Description                                                             | Argument Specifications                                                                                                                                 |
-|--------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| placement-group-id | UUID of the placement group                                             | Required                                                                                                                                                |
-| name               | Name of the placement group                                             |                                                                                                                                                         |
-| policy-type        | Policy type of the placement group                                      | One of: `unknown_policy_type`, `low_latency`, `max_availability`                                                                                        |
-| tags.{index}       | Tags of the placement group                                             |                                                                                                                                                         |
-| zone               | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name               | Description                                                             | Argument Specifications                                                                                                                                                         |
+|--------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| placement-group-id | UUID of the placement group                                             | Required                                                                                                                                                                        |
+| name               | Name of the placement group                                             |                                                                                                                                                                                 |
+| policy-type        | Policy type of the placement group                                      | One of: `unknown_policy_type`, `low_latency`, `max_availability`                                                                                                                |
+| tags.{index}       | Tags of the placement group                                             |                                                                                                                                                                                 |
+| zone               | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 **Examples:**
@@ -2793,10 +2793,10 @@ scw instance template check <template-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                             | Argument Specifications                                                                                                                                 |
-|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| template-id | Unique ID of the template to check                                      | Required                                                                                                                                                |
-| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name        | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| template-id | Unique ID of the template to check                                      | Required                                                                                                                                                                        |
+| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -2813,28 +2813,28 @@ scw instance template create [arg=value ...]
 
 **Arguments:**
 
-| Name                                        | Description                                                                            | Argument Specifications                                                                                                                                 |
-|---------------------------------------------|----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| project-id                                  | Project ID to use. If none is passed the default project ID will be used               |                                                                                                                                                         |
-| name                                        | Name of the template                                                                   | Default: `<generated>`                                                                                                                                  |
-| tags.{index}                                | Tags to associate with the template                                                    |                                                                                                                                                         |
-| server-tags.{index}                         | Tags to associate with servers created from the template                               |                                                                                                                                                         |
-| server-type                                 | Commercial type of the server defined by the template                                  | Required                                                                                                                                                |
-| security-group-id                           | Security group ID for the template                                                     |                                                                                                                                                         |
-| placement-group-id                          | Placement group ID for the template                                                    |                                                                                                                                                         |
-| volumes.{index}.volume-type                 | Type of the volume                                                                     | One of: `unknown_volume_type`, `l_ssd`, `sbs`, `scratch`                                                                                                |
-| volumes.{index}.name                        | Name of the volume                                                                     |                                                                                                                                                         |
-| volumes.{index}.tags.{index}                | Tags associated with the volume                                                        |                                                                                                                                                         |
-| volumes.{index}.size                        | Size of the volume in bytes                                                            |                                                                                                                                                         |
-| volumes.{index}.base-snapshot-id            | ID of the base snapshot for the volume                                                 |                                                                                                                                                         |
-| volumes.{index}.image-label                 | Label of the image used as base for the volume                                         |                                                                                                                                                         |
-| volumes.{index}.perf-iops                   | Performance IOPS for the volume                                                        |                                                                                                                                                         |
-| private-networks.{index}.private-network-id | ID of the private network                                                              |                                                                                                                                                         |
-| filesystem-ids.{index}                      | List of filesystem IDs to associate with the template                                  |                                                                                                                                                         |
-| public-ipv4-count                           | Number of IPv4 public IPs to attach to servers created from this template              |                                                                                                                                                         |
-| public-ipv6-count                           | Number of IPv6 public IPs to attach to servers created from this template              |                                                                                                                                                         |
-| windows-rdp-ssh-key-id                      | IAM ID of the SSH key used to encrypt the Windows `Administrator` password for RDP use |                                                                                                                                                         |
-| zone                                        | Zone to target. If none is passed will use default zone from the config                | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name                                        | Description                                                                            | Argument Specifications                                                                                                                                                         |
+|---------------------------------------------|----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| project-id                                  | Project ID to use. If none is passed the default project ID will be used               |                                                                                                                                                                                 |
+| name                                        | Name of the template                                                                   | Default: `<generated>`                                                                                                                                                          |
+| tags.{index}                                | Tags to associate with the template                                                    |                                                                                                                                                                                 |
+| server-tags.{index}                         | Tags to associate with servers created from the template                               |                                                                                                                                                                                 |
+| server-type                                 | Commercial type of the server defined by the template                                  | Required                                                                                                                                                                        |
+| security-group-id                           | Security group ID for the template                                                     |                                                                                                                                                                                 |
+| placement-group-id                          | Placement group ID for the template                                                    |                                                                                                                                                                                 |
+| volumes.{index}.volume-type                 | Type of the volume                                                                     | One of: `unknown_volume_type`, `l_ssd`, `sbs`, `scratch`                                                                                                                        |
+| volumes.{index}.name                        | Name of the volume                                                                     |                                                                                                                                                                                 |
+| volumes.{index}.tags.{index}                | Tags associated with the volume                                                        |                                                                                                                                                                                 |
+| volumes.{index}.size                        | Size of the volume in bytes                                                            |                                                                                                                                                                                 |
+| volumes.{index}.base-snapshot-id            | ID of the base snapshot for the volume                                                 |                                                                                                                                                                                 |
+| volumes.{index}.image-label                 | Label of the image used as base for the volume                                         |                                                                                                                                                                                 |
+| volumes.{index}.perf-iops                   | Performance IOPS for the volume                                                        |                                                                                                                                                                                 |
+| private-networks.{index}.private-network-id | ID of the private network                                                              |                                                                                                                                                                                 |
+| filesystem-ids.{index}                      | List of filesystem IDs to associate with the template                                  |                                                                                                                                                                                 |
+| public-ipv4-count                           | Number of IPv4 public IPs to attach to servers created from this template              |                                                                                                                                                                                 |
+| public-ipv6-count                           | Number of IPv6 public IPs to attach to servers created from this template              |                                                                                                                                                                                 |
+| windows-rdp-ssh-key-id                      | IAM ID of the SSH key used to encrypt the Windows `Administrator` password for RDP use |                                                                                                                                                                                 |
+| zone                                        | Zone to target. If none is passed will use default zone from the config                | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -2851,11 +2851,11 @@ scw instance template create-server <template-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                             | Argument Specifications                                                                                                                                 |
-|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| template-id | Unique ID of the template to use                                        | Required                                                                                                                                                |
-| name        | Name of the new server                                                  | Default: `<generated>`                                                                                                                                  |
-| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name        | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| template-id | Unique ID of the template to use                                        | Required                                                                                                                                                                        |
+| name        | Name of the new server                                                  | Default: `<generated>`                                                                                                                                                          |
+| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -2872,10 +2872,10 @@ scw instance template delete <template-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                             | Argument Specifications                                                                                                                                 |
-|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| template-id | Unique ID of the template to delete                                     | Required                                                                                                                                                |
-| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name        | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| template-id | Unique ID of the template to delete                                     | Required                                                                                                                                                                        |
+| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -2892,11 +2892,11 @@ scw instance template delete-user-data <template-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                             | Argument Specifications                                                                                                                                 |
-|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| template-id | Unique ID of the template                                               | Required                                                                                                                                                |
-| key         | Key of the user data to delete                                          | Required                                                                                                                                                |
-| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name        | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| template-id | Unique ID of the template                                               | Required                                                                                                                                                                        |
+| key         | Key of the user data to delete                                          | Required                                                                                                                                                                        |
+| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -2913,10 +2913,10 @@ scw instance template get <template-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                             | Argument Specifications                                                                                                                                 |
-|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| template-id | Unique ID of the template to retrieve                                   | Required                                                                                                                                                |
-| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name        | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| template-id | Unique ID of the template to retrieve                                   | Required                                                                                                                                                                        |
+| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -2933,10 +2933,10 @@ scw instance template get-cloud-init <template-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                             | Argument Specifications                                                                                                                                 |
-|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| template-id | Unique ID of the template                                               | Required                                                                                                                                                |
-| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name        | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| template-id | Unique ID of the template                                               | Required                                                                                                                                                                        |
+| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -2953,11 +2953,11 @@ scw instance template get-user-data <template-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                             | Argument Specifications                                                                                                                                 |
-|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| template-id | Unique ID of the template                                               | Required                                                                                                                                                |
-| key         | Key of the user data to retrieve                                        | Required                                                                                                                                                |
-| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name        | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| template-id | Unique ID of the template                                               | Required                                                                                                                                                                        |
+| key         | Key of the user data to retrieve                                        | Required                                                                                                                                                                        |
+| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -2974,19 +2974,19 @@ scw instance template list [arg=value ...]
 
 **Arguments:**
 
-| Name                        | Description                                                              | Argument Specifications                                                                                                                                 |
-|-----------------------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| page-token                  | Token for pagination                                                     |                                                                                                                                                         |
-| page-size                   | Number of items to return per page                                       |                                                                                                                                                         |
-| order-by                    | Field to sort results by                                                 | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`                                                                        |
-| project-id                  | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                         |
-| template-ids.{index}        | Filter by specific template IDs                                          |                                                                                                                                                         |
-| name                        | Filter by template name                                                  |                                                                                                                                                         |
-| tags.{index}                | Filter by tags                                                           |                                                                                                                                                         |
-| server-tags.{index}         | Filter by server tags                                                    |                                                                                                                                                         |
-| security-group-ids.{index}  | Filter by security group IDs                                             |                                                                                                                                                         |
-| placement-group-ids.{index} | Filter by placement group IDs                                            |                                                                                                                                                         |
-| zone                        | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name                        | Description                                                              | Argument Specifications                                                                                                                                                         |
+|-----------------------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| page-token                  | Token for pagination                                                     |                                                                                                                                                                                 |
+| page-size                   | Number of items to return per page                                       |                                                                                                                                                                                 |
+| order-by                    | Field to sort results by                                                 | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`                                                                                                |
+| project-id                  | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                                                 |
+| template-ids.{index}        | Filter by specific template IDs                                          |                                                                                                                                                                                 |
+| name                        | Filter by template name                                                  |                                                                                                                                                                                 |
+| tags.{index}                | Filter by tags                                                           |                                                                                                                                                                                 |
+| server-tags.{index}         | Filter by server tags                                                    |                                                                                                                                                                                 |
+| security-group-ids.{index}  | Filter by security group IDs                                             |                                                                                                                                                                                 |
+| placement-group-ids.{index} | Filter by placement group IDs                                            |                                                                                                                                                                                 |
+| zone                        | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -3003,12 +3003,12 @@ scw instance template list-user-data-keys <template-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                             | Argument Specifications                                                                                                                                 |
-|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| page-token  | Token for pagination                                                    |                                                                                                                                                         |
-| page-size   | Number of items to return per page                                      |                                                                                                                                                         |
-| template-id | Unique ID of the template                                               | Required                                                                                                                                                |
-| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name        | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| page-token  | Token for pagination                                                    |                                                                                                                                                                                 |
+| page-size   | Number of items to return per page                                      |                                                                                                                                                                                 |
+| template-id | Unique ID of the template                                               | Required                                                                                                                                                                        |
+| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -3025,11 +3025,11 @@ scw instance template set-cloud-init <template-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                             | Argument Specifications                                                                                                                                 |
-|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| template-id | Unique ID of the template                                               | Required                                                                                                                                                |
-| content     | Cloud-init configuration content                                        |                                                                                                                                                         |
-| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name        | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| template-id | Unique ID of the template                                               | Required                                                                                                                                                                        |
+| content     | Cloud-init configuration content                                        |                                                                                                                                                                                 |
+| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -3046,12 +3046,12 @@ scw instance template set-user-data <template-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                             | Argument Specifications                                                                                                                                 |
-|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| template-id | Unique ID of the template                                               | Required                                                                                                                                                |
-| key         | Key of the user data to set                                             | Required                                                                                                                                                |
-| content     | Content of the user data                                                |                                                                                                                                                         |
-| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name        | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| template-id | Unique ID of the template                                               | Required                                                                                                                                                                        |
+| key         | Key of the user data to set                                             | Required                                                                                                                                                                        |
+| content     | Content of the user data                                                |                                                                                                                                                                                 |
+| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -3068,28 +3068,28 @@ scw instance template update <template-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name                                        | Description                                                                                | Argument Specifications                                                                                                                                 |
-|---------------------------------------------|--------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name                                        | New name for the template                                                                  |                                                                                                                                                         |
-| template-id                                 | Unique ID of the template to update                                                        | Required                                                                                                                                                |
-| tags.{index}                                | New tags for the template                                                                  |                                                                                                                                                         |
-| server-tags.{index}                         | New server tags for the template                                                           |                                                                                                                                                         |
-| server-type                                 | New server type for the template                                                           |                                                                                                                                                         |
-| security-group-id                           | New security group ID for the template                                                     |                                                                                                                                                         |
-| placement-group-id                          | New placement group ID for the template                                                    |                                                                                                                                                         |
-| volumes.{index}.volume-type                 | Type of the volume                                                                         | One of: `unknown_volume_type`, `l_ssd`, `sbs`, `scratch`                                                                                                |
-| volumes.{index}.name                        | Name of the volume                                                                         |                                                                                                                                                         |
-| volumes.{index}.tags.{index}                | Tags associated with the volume                                                            |                                                                                                                                                         |
-| volumes.{index}.size                        | Size of the volume in bytes                                                                |                                                                                                                                                         |
-| volumes.{index}.base-snapshot-id            | ID of the base snapshot for the volume                                                     |                                                                                                                                                         |
-| volumes.{index}.image-label                 | Label of the image used as base for the volume                                             |                                                                                                                                                         |
-| volumes.{index}.perf-iops                   | Performance IOPS for the volume                                                            |                                                                                                                                                         |
-| private-networks.{index}.private-network-id | ID of the private network                                                                  |                                                                                                                                                         |
-| filesystem-ids.{index}                      | New list of filesystem IDs for the template                                                |                                                                                                                                                         |
-| public-ipv4-count                           | New number of IPv4 public IPs to attach to servers                                         |                                                                                                                                                         |
-| public-ipv6-count                           | New number of IPv6 public IPs to attach to servers                                         |                                                                                                                                                         |
-| windows-rdp-ssh-key-id                      | New IAM ID of the SSH key used to encrypt the Windows `Administrator` password for RDP use |                                                                                                                                                         |
-| zone                                        | Zone to target. If none is passed will use default zone from the config                    | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name                                        | Description                                                                                | Argument Specifications                                                                                                                                                         |
+|---------------------------------------------|--------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| name                                        | New name for the template                                                                  |                                                                                                                                                                                 |
+| template-id                                 | Unique ID of the template to update                                                        | Required                                                                                                                                                                        |
+| tags.{index}                                | New tags for the template                                                                  |                                                                                                                                                                                 |
+| server-tags.{index}                         | New server tags for the template                                                           |                                                                                                                                                                                 |
+| server-type                                 | New server type for the template                                                           |                                                                                                                                                                                 |
+| security-group-id                           | New security group ID for the template                                                     |                                                                                                                                                                                 |
+| placement-group-id                          | New placement group ID for the template                                                    |                                                                                                                                                                                 |
+| volumes.{index}.volume-type                 | Type of the volume                                                                         | One of: `unknown_volume_type`, `l_ssd`, `sbs`, `scratch`                                                                                                                        |
+| volumes.{index}.name                        | Name of the volume                                                                         |                                                                                                                                                                                 |
+| volumes.{index}.tags.{index}                | Tags associated with the volume                                                            |                                                                                                                                                                                 |
+| volumes.{index}.size                        | Size of the volume in bytes                                                                |                                                                                                                                                                                 |
+| volumes.{index}.base-snapshot-id            | ID of the base snapshot for the volume                                                     |                                                                                                                                                                                 |
+| volumes.{index}.image-label                 | Label of the image used as base for the volume                                             |                                                                                                                                                                                 |
+| volumes.{index}.perf-iops                   | Performance IOPS for the volume                                                            |                                                                                                                                                                                 |
+| private-networks.{index}.private-network-id | ID of the private network                                                                  |                                                                                                                                                                                 |
+| filesystem-ids.{index}                      | New list of filesystem IDs for the template                                                |                                                                                                                                                                                 |
+| public-ipv4-count                           | New number of IPv4 public IPs to attach to servers                                         |                                                                                                                                                                                 |
+| public-ipv6-count                           | New number of IPv6 public IPs to attach to servers                                         |                                                                                                                                                                                 |
+| windows-rdp-ssh-key-id                      | New IAM ID of the SSH key used to encrypt the Windows `Administrator` password for RDP use |                                                                                                                                                                                 |
+| zone                                        | Zone to target. If none is passed will use default zone from the config                    | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
