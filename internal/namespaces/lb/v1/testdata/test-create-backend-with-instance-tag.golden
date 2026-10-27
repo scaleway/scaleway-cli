@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 Hint:
-Private ip are assigned when the server boots, start yours with: scw instance server start 432380a8-5272-41cd-8b6d-cf093168357a
+Private ip are assigned when the server boots, start yours with: scw instance server start 415e7a93-bc32-45af-a9d9-17ab370a1fe8
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "server 432380a8-5272-41cd-8b6d-cf093168357a (cli-srv-romantic-driscoll) does not have a private ip",
-  "hint": "Private ip are assigned when the server boots, start yours with: scw instance server start 432380a8-5272-41cd-8b6d-cf093168357a"
+  "message": "server 415e7a93-bc32-45af-a9d9-17ab370a1fe8 (cli-srv-amazing-mirzakhani) does not have a private ip",
+  "hint": "Private ip are assigned when the server boots, start yours with: scw instance server start 415e7a93-bc32-45af-a9d9-17ab370a1fe8"
 }
