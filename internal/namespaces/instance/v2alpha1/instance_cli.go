@@ -34,6 +34,7 @@ func GetGeneratedCommands() *core.Commands {
 		instanceServerGet(),
 		instanceServerUpdate(),
 		instanceServerDelete(),
+		instanceServerGetCompatibleTypes(),
 		instanceServerTypeList(),
 		instanceServerStart(),
 		instanceServerReboot(),
@@ -223,6 +224,8 @@ func instanceResourceCountsGet() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -348,6 +351,8 @@ func instanceServerList() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -534,6 +539,8 @@ func instanceServerCreate() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -575,6 +582,8 @@ func instanceServerGet() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -692,6 +701,8 @@ func instanceServerUpdate() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -789,6 +800,8 @@ func instanceServerDelete() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -809,13 +822,13 @@ func instanceServerDelete() *core.Command {
 	}
 }
 
-func instanceServerTypeList() *core.Command {
+func instanceServerGetCompatibleTypes() *core.Command {
 	return &core.Command{
 		Short:     `List compatible Instance types`,
 		Long:      `List the Instance types that a given instance could be converted to.`,
 		Namespace: "instance",
-		Resource:  "server-type",
-		Verb:      "list",
+		Resource:  "server",
+		Verb:      "get-compatible-types",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeFor[instance.ListServerCompatibleTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
@@ -848,6 +861,8 @@ func instanceServerTypeList() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -862,6 +877,66 @@ func instanceServerTypeList() *core.Command {
 			{
 				Short:    "List the 10 first compatible server types for a given instance",
 				ArgsJSON: `{"page_size":10,"server_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
+}
+
+func instanceServerTypeList() *core.Command {
+	return &core.Command{
+		Short:     `List Instance types`,
+		Long:      `List available Instance types and their technical details.`,
+		Namespace: "instance",
+		Resource:  "server-type",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[instance.ListServerTypesRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "page-token",
+				Short:      `Token for pagination`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "page-size",
+				Short:      `Number of server types to return per page`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*instance.ListServerTypesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			return api.ListServerTypes(request, scw.WithContext(ctx))
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "List all server-types in the default zone",
+				ArgsJSON: `null`,
+			},
+			{
+				Short:    "List all server-types in fr-par-1 zone",
+				ArgsJSON: `{"zone":"fr-par-1"}`,
 			},
 		},
 	}
@@ -895,6 +970,8 @@ func instanceServerStart() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -936,6 +1013,8 @@ func instanceServerReboot() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -977,6 +1056,8 @@ func instanceServerPause() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1018,6 +1099,8 @@ func instanceServerStop() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1101,6 +1184,8 @@ func instanceServerStopAndDelete() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1169,6 +1254,8 @@ func instanceServerAttachVolume() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1217,6 +1304,8 @@ func instanceServerDetachVolume() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1265,6 +1354,8 @@ func instanceServerAttachFilesystem() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1313,6 +1404,8 @@ func instanceServerDetachFilesystem() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1375,6 +1468,8 @@ func instanceServerAttachIP() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1423,6 +1518,8 @@ func instanceServerDetachIP() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1471,6 +1568,8 @@ func instanceServerSetDefaultIP() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1519,6 +1618,8 @@ func instanceServerAttachPrivateNetworkInterface() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1567,6 +1668,8 @@ func instanceServerDetachPrivateNetworkInterface() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1626,6 +1729,13 @@ func instancePrivateNetworkInterfaceList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "security-group-ids.{index}",
+				Short:      `Filter by security group IDs`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "private-network-ids.{index}",
 				Short:      `Filter by Private Network IDs`,
 				Required:   false,
@@ -1650,6 +1760,8 @@ func instancePrivateNetworkInterfaceList() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1689,6 +1801,13 @@ func instancePrivateNetworkInterfaceCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "security-group-id",
+				Short:      `ID of the security group to associate with the interface`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "ip-ids.{index}",
 				Short:      `List of IP IDs to attach to the interface`,
 				Required:   false,
@@ -1713,6 +1832,8 @@ func instancePrivateNetworkInterfaceCreate() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1754,6 +1875,8 @@ func instancePrivateNetworkInterfaceGet() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1785,6 +1908,13 @@ func instancePrivateNetworkInterfaceUpdate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "security-group-id",
+				Short:      `New security group ID to associate with the interface`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "tags.{index}",
 				Short:      `New tags to assign to the private network interface`,
 				Required:   false,
@@ -1802,6 +1932,8 @@ func instancePrivateNetworkInterfaceUpdate() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1843,6 +1975,8 @@ func instancePrivateNetworkInterfaceDelete() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1933,6 +2067,8 @@ func instancePlacementGroupList() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2004,6 +2140,8 @@ func instancePlacementGroupCreate() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2063,6 +2201,8 @@ func instancePlacementGroupGet() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2136,6 +2276,8 @@ func instancePlacementGroupUpdate() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2191,6 +2333,8 @@ func instancePlacementGroupDelete() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2291,6 +2435,8 @@ func instanceSecurityGroupList() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2392,6 +2538,8 @@ func instanceSecurityGroupCreate() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2433,6 +2581,8 @@ func instanceSecurityGroupGet() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2540,6 +2690,8 @@ func instanceSecurityGroupUpdate() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2581,6 +2733,8 @@ func instanceSecurityGroupDelete() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2717,6 +2871,8 @@ func instanceSecurityGroupAddRules() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2846,6 +3002,8 @@ func instanceSecurityGroupSetRules() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2975,6 +3133,8 @@ func instanceSecurityGroupUpdateRule() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -3016,6 +3176,8 @@ func instanceSecurityGroupDeleteRules() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -3078,6 +3240,8 @@ func instanceUserDataList() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -3126,6 +3290,8 @@ func instanceUserDataGet() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -3181,6 +3347,8 @@ func instanceUserDataSet() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -3236,6 +3404,8 @@ func instanceUserDataDelete() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -3284,6 +3454,8 @@ func instanceUserDataGetCloudInit() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -3332,6 +3504,8 @@ func instanceUserDataSetCloudInit() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -3443,6 +3617,8 @@ func instanceTemplateList() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -3572,6 +3748,13 @@ func instanceTemplateCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "private-networks.{index}.security-group-id",
+				Short:      `ID of the security group for the private network`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "filesystem-ids.{index}",
 				Short:      `List of filesystem IDs to associate with the template`,
 				Required:   false,
@@ -3610,6 +3793,8 @@ func instanceTemplateCreate() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -3651,6 +3836,8 @@ func instanceTemplateGet() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -3786,6 +3973,13 @@ func instanceTemplateUpdate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "update-private-networks.private-networks.{index}.security-group-id",
+				Short:      `ID of the security group for the private network`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "filesystem-ids.{index}",
 				Short:      `New list of filesystem IDs for the template`,
 				Required:   false,
@@ -3824,6 +4018,8 @@ func instanceTemplateUpdate() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -3865,6 +4061,8 @@ func instanceTemplateDelete() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -3927,6 +4125,8 @@ func instanceTemplateListUserDataKeys() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -3975,6 +4175,8 @@ func instanceTemplateGetUserData() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -4030,6 +4232,8 @@ func instanceTemplateSetUserData() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -4085,6 +4289,8 @@ func instanceTemplateDeleteUserData() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -4133,6 +4339,8 @@ func instanceTemplateGetCloudInit() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -4181,6 +4389,8 @@ func instanceTemplateSetCloudInit() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -4229,6 +4439,8 @@ func instanceTemplateCheck() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -4284,6 +4496,8 @@ func instanceTemplateCreateServer() *core.Command {
 				scw.ZonePlWaw2,
 				scw.ZonePlWaw3,
 				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {

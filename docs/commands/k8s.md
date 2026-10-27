@@ -99,6 +99,62 @@ A cluster is a fully managed Kubernetes cluster
 It is composed of different pools, each pool containing the same kind of nodes.
 
 
+### Connect to a cluster using k9s, or a custom command via template
+
+Connect to a Kubernetes Kapsule cluster.
+
+By default the command downloads the cluster kubeconfig to a temporary file,
+sets KUBECONFIG to it, and opens k9s against it.
+
+Use template to connect with a different tool instead. Its value (default "k9s")
+is rendered as a Go text/template and the result is executed as the connect command.
+Available variables:
+{{.ClusterID}}, {{.Cluster}} (the cluster object, e.g. {{.Cluster.Name}}),
+{{.Region}}, {{.Organization}}, {{.Project}} and
+{{.Kubeconfig}} (path to the temporary kubeconfig file, removed when the command exits).
+
+**Usage:**
+
+```shell
+scw k8s cluster connect <cluster-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                                | Argument Specifications |
+|------------|--------------------------------------------------------------------------------------------|-------------------------|
+| cluster-id | Cluster ID to connect to                                                                   | Required                |
+| region     | Region to target. If none is passed will use default region from the config                | Default: `fr-par`       |
+| template   | Command line to run instead of the default k9s one, as a Go text/template (default: "k9s") | Default: `k9s`          |
+
+
+**Examples:**
+
+
+Connect to a cluster with k9s
+```shell
+scw k8s cluster connect 11111111-1111-1111-1111-111111111111
+```
+
+Connect to a cluster with k9s using the pulse view
+```shell
+scw k8s cluster connect 11111111-1111-1111-1111-111111111111 template="k9s -c pulses"
+```
+
+Connect to a cluster in a specific region with k9s
+```shell
+scw k8s cluster connect 11111111-1111-1111-1111-111111111111 region=fr-par
+```
+
+Connect to a cluster with an arbitrary tool via template
+```shell
+scw k8s cluster connect 11111111-1111-1111-1111-111111111111 template="kubectl --kubeconfig {{.Kubeconfig}} get pods"
+```
+
+
+
+
 ### Create a new Cluster
 
 Create a new Kubernetes cluster in a Scaleway region.
@@ -146,6 +202,7 @@ scw k8s cluster create [arg=value ...]
 | pools.{index}.startup-taints.{index}.key           | The taint key to be applied to a node                                                                                                                                                                                                                                                                                                                                                                 |                                                                                                                 |
 | pools.{index}.startup-taints.{index}.value         | The taint value corresponding to the taint key                                                                                                                                                                                                                                                                                                                                                        |                                                                                                                 |
 | pools.{index}.startup-taints.{index}.effect        | Effect defines the effects of Taint                                                                                                                                                                                                                                                                                                                                                                   | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute`                                                           |
+| pools.{index}.private-network-id                   | Private network where the nodes are attached. Should be member of the same VPC as the API Server.                                                                                                                                                                                                                                                                                                     |                                                                                                                 |
 | pools.{index}.max-termination-grace-period         | Maximum amount of time in seconds before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.                                                                                                                                                                               |                                                                                                                 |
 | pools.{index}.user-data.{key}                      | User data applied and reconciled with the pool                                                                                                                                                                                                                                                                                                                                                        |                                                                                                                 |
 | autoscaler-config.scale-down-disabled              | Forbid cluster autoscaler to scale down the cluster, defaults to false                                                                                                                                                                                                                                                                                                                                |                                                                                                                 |
@@ -985,6 +1042,7 @@ scw k8s pool create [arg=value ...]
 | startup-taints.{index}.key     | The taint key to be applied to a node                                                                                                                                                                                                                        |                                                                       |
 | startup-taints.{index}.value   | The taint value corresponding to the taint key                                                                                                                                                                                                               |                                                                       |
 | startup-taints.{index}.effect  | Effect defines the effects of Taint                                                                                                                                                                                                                          | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute`                 |
+| private-network-id             | Private network where the nodes are attached. Should be member of the same VPC as the API Server.                                                                                                                                                            |                                                                       |
 | user-data.{key}                | User data applied and reconciled with the pool                                                                                                                                                                                                               |                                                                       |
 | max-termination-grace-period   | Maximum amount of time in seconds before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.                                      |                                                                       |
 | region                         | Region to target. If none is passed will use default region from the config                                                                                                                                                                                  | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |

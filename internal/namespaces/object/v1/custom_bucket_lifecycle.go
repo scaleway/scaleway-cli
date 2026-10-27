@@ -80,7 +80,7 @@ func lifecycleCreateCommand() *core.Command {
 			err = json.Unmarshal([]byte(configStr), &config)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"failed to unmarshal bucket lifecycle configuration: %v",
+					"failed to unmarshal bucket lifecycle configuration: %w",
 					err,
 				)
 			}

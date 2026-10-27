@@ -6,20 +6,20 @@ USAGE:
   scw domain contact update [arg=value ...]
 
 ARGS:
-  contact-id                                            
-  [email]                                               
-  [email-alt]                                           
-  [phone-number]                                        
-  [fax-number]                                          
-  [address-line-1]                                      
-  [address-line-2]                                      
-  [zip]                                                 
-  [city]                                                
-  [country]                                             
-  [vat-identification-code]                             
-  [company-identification-code]                         
-  [lang]                                                 (unknown_language_code | en_US | fr_FR | de_DE)
-  [resale]                                              
+  contact-id                                            ID of the contact to update.
+  [email]                                               Email address of the contact.
+  [email-alt]                                           Alternative email address of the contact.
+  [phone-number]                                        Phone number of the contact, normalized to +CC.NationalNumber format.
+  [fax-number]                                          Fax number of the contact, normalized to +CC.NationalNumber format.
+  [address-line-1]                                      First line of the contact's address.
+  [address-line-2]                                      Second line of the contact's address.
+  [zip]                                                 Postal code of the contact.
+  [city]                                                City of the contact.
+  [country]                                             Country code of the contact (ISO 3166-1 alpha-2 format). Not updatable; returns an error if changed.
+  [vat-identification-code]                             VAT identification code of the contact.
+  [company-identification-code]                         Company identification code of the contact (SIRET/SIREN for French contacts, any format for others).
+  [lang]                                                Preferred language of the contact. (unknown_language_code | en_US | fr_FR | de_DE)
+  [resale]                                              Indicates whether the contact's information can be resold.
   [extension-fr.mode]                                    (mode_unknown | individual | company_identification_code | duns | local | association | trademark | code_auth_afnic)
   [extension-fr.individual-info.whois-opt-in]           
   [extension-fr.duns-info.duns-id]                      
@@ -32,8 +32,8 @@ ARGS:
   [extension-nl.legal-form]                              (legal_form_unknown | other | non_dutch_eu_company | non_dutch_legal_form_enterprise_subsidiary | limited_company | limited_company_in_formation | cooperative | limited_partnership | sole_company | european_economic_interest_group | religious_entity | partnership | public_company | mutual_benefit_company | residential | shipping_company | foundation | association | trading_partnership | natural_person)
   [extension-nl.legal-form-registration-number]         
   [extension-it.pin]                                    Domain name registrant's Taxcode (mandatory / only optional when the trustee is used)
-  [whois-opt-in]                                        
-  [state]                                               
+  [whois-opt-in]                                        Indicates whether the contact's information is published in the WHOIS database.
+  [state]                                               State or region of the contact.
   [questions.{index}.question]                          
   [questions.{index}.answer]                            
 
@@ -49,5 +49,6 @@ GLOBAL FLAGS:
   -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
+  -H, --no-headers       Skip headers in human output
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use

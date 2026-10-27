@@ -1,7 +1,4 @@
 name: release
-permissions:
-  contents: write
-  id-token: write # Required for OIDC (MCP and scaleway-cli-wasm)
 
 on:
   push:
@@ -11,29 +8,23 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions: {}
+
 jobs:
   release:
     runs-on: ${{ vars.RUNS_ON || 'ubuntu-latest' }}
     timeout-minutes: 20
+    permissions:
+      contents: write
     steps:
-      - name: Set git to use LF to avoid problem with goldens on windows
-        run: |
-          git config --global core.autocrlf false
-          git config --global core.eol lf
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: $/.github/actions/checkout
+      - uses: $/.github/actions/mise
         with:
-          fetch-depth: 1
-          persist-credentials: false
-      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
-        with:
-          version: 2026.9.3
           cache: false
-          experimental: true
-      - name: Login to DockerHub Registry
-        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-      - name: Release the version
-        run: mise run release --no-snapshot
+      - name: create the release draft
+        # Builds everything and uploads binaries to a draft GitHub release. The
+        # package feeds (docker, mcp, winget, chocolatey) are only touched by
+        # publish.yml once the draft has been manually reviewed and published.
+        run: mise run release --no-snapshot --skip docker,mcp,winget
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WINGET_TOKEN: ${{ secrets.WINGET_TOKEN }}
-

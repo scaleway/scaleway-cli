@@ -38,6 +38,8 @@ ARGS:
   [install.partitioning-schema.zfs.pools.{index}.devices.{index}]                          
   [install.partitioning-schema.zfs.pools.{index}.options.{index}]                          
   [install.partitioning-schema.zfs.pools.{index}.filesystem-options.{index}]               
+  [install.network-boot-url]                                                               URL of the network service to which the server should forward its boot request
+  [install.network-boot-persistent]                                                        Defines whether the network boot forwarding should be applied at every reboot or only once
   [option-ids.{index}]                                                                     IDs of options to enable on server
   [protected]                                                                              If enabled, the server can not be deleted
   [user-data]                                                                              Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script
@@ -53,6 +55,7 @@ GLOBAL FLAGS:
   -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
+  -H, --no-headers       Skip headers in human output
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
 

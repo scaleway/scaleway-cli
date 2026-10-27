@@ -6,11 +6,12 @@ USAGE:
   scw kafka cluster update <cluster-id ...> [arg=value ...]
 
 ARGS:
-  cluster-id        UUID of the Kafka Clusters to update
-  [name]            Name of the Kafka Cluster
-  [tags.{index}]    Tags of a Kafka Cluster
-  [version]         Version of Kafka
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  cluster-id            UUID of the Kafka Clusters to update
+  [name]                Name of the Kafka Cluster
+  [tags.{index}]        Tags of a Kafka Cluster
+  [version]             Version of Kafka
+  [volume-size-bytes]   New volume size for each broker, can only increase
+  [region=fr-par]       Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help                help for update
@@ -20,5 +21,6 @@ GLOBAL FLAGS:
   -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
+  -H, --no-headers       Skip headers in human output
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
