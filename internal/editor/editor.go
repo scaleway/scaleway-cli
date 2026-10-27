@@ -129,7 +129,7 @@ func updateResourceEditor(
 		updateRequestMarshaled = []byte(cfg.EditedResource)
 	}
 
-	// If TestEditedYAML is set (for integration tests), use it
+	// If EditorTestContent is set (for integration tests), use it
 	if EditorTestContent != "" {
 		updateRequestMarshaled = []byte(EditorTestContent)
 	}

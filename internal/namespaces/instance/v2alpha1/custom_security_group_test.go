@@ -210,19 +210,9 @@ func Test_SecurityGroup(t *testing.T) {
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				api := instanceSDK.NewAPI(ctx.Client)
-				sgMeta := testhelpers.MapValue[*instanceSDK.SecurityGroup](
-					t,
-					ctx.Meta,
-					"SecurityGroup",
-				)
-
-				sg, err := api.GetSecurityGroup(&instanceSDK.GetSecurityGroupRequest{
-					Zone:            "fr-par-1",
-					SecurityGroupID: sgMeta.ID,
-				}, scw.WithContext(t.Context()))
+				sg, err := refreshSecurityGroupInfo(t, ctx, "SecurityGroup")
 				if err != nil {
-					t.Error(err)
+					t.Errorf("could not get security group: %v", err)
 				}
 
 				assert.Len(t, sg.Rules, 1)
@@ -253,19 +243,9 @@ func Test_SecurityGroup(t *testing.T) {
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				api := instanceSDK.NewAPI(ctx.Client)
-				sgMeta := testhelpers.MapValue[*instanceSDK.SecurityGroup](
-					t,
-					ctx.Meta,
-					"SecurityGroup",
-				)
-
-				sg, err := api.GetSecurityGroup(&instanceSDK.GetSecurityGroupRequest{
-					Zone:            "fr-par-1",
-					SecurityGroupID: sgMeta.ID,
-				}, scw.WithContext(t.Context()))
+				sg, err := refreshSecurityGroupInfo(t, ctx, "SecurityGroup")
 				if err != nil {
-					t.Error(err)
+					t.Errorf("could not get security group: %v", err)
 				}
 
 				assert.Empty(t, sg.Rules)
@@ -360,4 +340,23 @@ func Test_SecurityGroup(t *testing.T) {
 			},
 		),
 	}))
+}
+
+func refreshSecurityGroupInfo(
+	t *testing.T,
+	ctx *core.CheckFuncCtx,
+	metaKey string,
+) (*instanceSDK.SecurityGroup, error) {
+	t.Helper()
+	api := instanceSDK.NewAPI(ctx.Client)
+	sgMeta := testhelpers.MapValue[*instanceSDK.SecurityGroup](
+		t,
+		ctx.Meta,
+		metaKey,
+	)
+
+	return api.GetSecurityGroup(&instanceSDK.GetSecurityGroupRequest{
+		Zone:            "fr-par-1",
+		SecurityGroupID: sgMeta.ID,
+	}, scw.WithContext(t.Context()))
 }
