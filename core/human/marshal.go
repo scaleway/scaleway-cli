@@ -1,7 +1,6 @@
 package human
 
 import (
-	"bytes"
 	"errors"
 	"fmt"
 	"reflect"
@@ -11,7 +10,6 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
-	"github.com/scaleway/scaleway-cli/v2/internal/tabwriter"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
@@ -225,19 +223,12 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 		return "", err
 	}
 
-	buffer := bytes.Buffer{}
-	w := tabwriter.NewWriter(&buffer, 5, 1, colPadding, ' ', tabwriter.ANSIGraphicsRendition)
-	for _, line := range data {
-		fmt.Fprintln(w, strings.Join(line, "\t"))
-	}
-
+	out := RenderGrid(data, 5)
 	if len(sectionsStrs) > 0 {
-		fmt.Fprintln(w, "\n"+strings.Join(sectionsStrs, "\n\n"))
+		out += "\n\n" + strings.Join(sectionsStrs, "\n\n")
 	}
 
-	w.Flush()
-
-	return strings.TrimSpace(buffer.String()), nil
+	return strings.TrimSpace(out), nil
 }
 
 // GetStructFieldsIndex will return a list of fieldIndex ([]int) sorted by their position in the Go struct.
@@ -375,7 +366,7 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 		return "", nil
 	}
 
-	return formatGrid(grid, !opt.DisableShrinking)
+	return formatGrid(grid, !opt.DisableShrinking), nil
 }
 
 // marshalInlineSlice transforms nested scalar slices in an inline string representation
@@ -440,19 +431,15 @@ func marshalSection(section *MarshalSection, value reflect.Value, opt *MarshalOp
 	return Marshal(field, &subOpt)
 }
 
-func formatGrid(grid [][]string, shrinkColumns bool) (string, error) {
-	buffer := bytes.Buffer{}
-	maxCols := computeMaxCols(grid)
-	w := tabwriter.NewWriter(&buffer, 5, 1, colPadding, ' ', tabwriter.ANSIGraphicsRendition)
-	for _, line := range grid {
-		if shrinkColumns {
-			line = line[:maxCols]
+func formatGrid(grid [][]string, shrinkColumns bool) string {
+	if shrinkColumns {
+		maxCols := computeMaxCols(grid)
+		for i, line := range grid {
+			grid[i] = line[:maxCols]
 		}
-		fmt.Fprintln(w, strings.Join(line, "\t"))
 	}
-	w.Flush()
 
-	return strings.TrimSpace(buffer.String()), nil
+	return strings.TrimSpace(RenderGrid(grid, 5))
 }
 
 // computeMaxCols calculates how many row we can fit in terminal width.
@@ -509,9 +496,7 @@ func getDefaultFieldsOpt(t reflect.Type) []*MarshalFieldOpt {
 }
 
 func MarshalMap(m reflect.Value, opt *MarshalOpt) (string, error) {
-	buffer := bytes.Buffer{}
-
-	w := tabwriter.NewWriter(&buffer, 5, 1, colPadding, ' ', tabwriter.ANSIGraphicsRendition)
+	rows := [][]string(nil)
 
 	mapKeys := m.MapKeys()
 	sort.Slice(mapKeys, func(i, j int) bool {
@@ -530,17 +515,15 @@ func MarshalMap(m reflect.Value, opt *MarshalOpt) (string, error) {
 			for i := range sliceLen {
 				values[i] = fmt.Sprint(mapValue.Index(i).Interface())
 			}
-			fmt.Fprintf(w, "%s\t%s\n", mapKey.String(), strings.Join(values, " "))
+			rows = append(rows, []string{mapKey.String(), strings.Join(values, " ")})
 		} else {
 			content, err := Marshal(mapValue.Interface(), opt)
 			if err != nil {
 				return "", err
 			}
-			fmt.Fprintf(w, "%s\t%s\n", mapKey.String(), content)
+			rows = append(rows, []string{mapKey.String(), content})
 		}
 	}
 
-	w.Flush()
-
-	return strings.TrimSpace(buffer.String()), nil
+	return strings.TrimSpace(RenderGrid(rows, 5)), nil
 }

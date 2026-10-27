@@ -15,7 +15,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/config"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
-	"github.com/scaleway/scaleway-cli/v2/internal/tabwriter"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
@@ -44,8 +43,7 @@ func GetCommands() *core.Commands {
 
 func configRoot() *core.Command {
 	configPath := scw.GetConfigPath()
-	envVarTable := bytes.Buffer{}
-	w := tabwriter.NewWriter(&envVarTable, 5, 1, 2, ' ', tabwriter.ANSIGraphicsRendition)
+	var envVarTable bytes.Buffer
 	for _, envVar := range [][5]string{
 		{"|", "Environment Variable", "|", "Description", "|"},
 		{"|", "--", "|", "--", "|"},
@@ -60,7 +58,7 @@ func configRoot() *core.Command {
 		{"|", scw.ScwActiveProfileEnv, "|", "Set the config profile to use", "|"},
 	} {
 		fmt.Fprintf(
-			w,
+			&envVarTable,
 			"  %s%s%s%s%s\n",
 			envVar[0],
 			terminal.Style(envVar[1], color.Bold, color.FgBlue),
@@ -69,7 +67,6 @@ func configRoot() *core.Command {
 			envVar[4],
 		)
 	}
-	w.Flush()
 
 	return &core.Command{
 		Groups: []string{"config"},
