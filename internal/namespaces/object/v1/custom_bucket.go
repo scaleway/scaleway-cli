@@ -14,11 +14,10 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-// bucketAutoCompleteArgs exposes the fields needed by autocompleteBucketName.
-// Every bucket-related arg struct implements it via the embedded s3Args method
-// promotion (see custom_marshaler.go).
+// bucketAutoCompleteArgs exposes the fields needed by autocompleteBucketName
 type bucketAutoCompleteArgs interface {
 	bucketArgsFields() (region scw.Region, projectID, s3Endpoint, s3UsePathStyle string)
+	newS3Client(ctx context.Context) (client *s3.Client, err error)
 }
 
 func s3EndpointArgSpec() *core.ArgSpec {
@@ -31,7 +30,7 @@ func s3EndpointArgSpec() *core.ArgSpec {
 func s3UsePathStyleArgSpec() *core.ArgSpec {
 	return &core.ArgSpec{
 		Name:  "s3-use-path-style",
-		Short: "Whether to use path style addressing for S3 API calls or not",
+		Short: "Whether to use path style addressing for S3 API calls or not, when relevant",
 	}
 }
 
@@ -88,9 +87,7 @@ func bucketCreateCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketConfigArgs)
 
-			client, err := newS3Client(
-				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
-			)
+			client, err := args.newS3Client(ctx)
 			if err != nil {
 				return nil, err
 			}
@@ -170,9 +167,7 @@ func bucketDeleteCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketDeleteArgs)
 
-			client, err := newS3Client(
-				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
-			)
+			client, err := args.newS3Client(ctx)
 			if err != nil {
 				return nil, err
 			}
@@ -223,9 +218,7 @@ func bucketGetCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketGetArgs)
 
-			client, err := newS3Client(
-				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
-			)
+			client, err := args.newS3Client(ctx)
 			if err != nil {
 				return nil, err
 			}
@@ -265,9 +258,7 @@ func bucketGetCommand() *core.Command {
 }
 
 type bucketListArgs struct {
-	Region     scw.Region
-	ProjectID  string
-	S3Endpoint string
+	S3Args
 }
 
 func bucketListCommand() *core.Command {
@@ -280,17 +271,14 @@ func bucketListCommand() *core.Command {
 		ArgsType:  reflect.TypeFor[bucketListArgs](),
 		ArgSpecs: core.ArgSpecs{
 			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketListArgs)
 
-			// s3UsePathStyle is not relevant to this call, we arbitrarily set
-			// it to false
-			client, err := newS3Client(
-				ctx, args.Region, args.ProjectID, args.S3Endpoint, "false",
-			)
+			client, err := args.newS3Client(ctx)
 			if err != nil {
 				return nil, err
 			}
@@ -350,9 +338,7 @@ func bucketUpdateCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketConfigArgs)
 
-			client, err := newS3Client(
-				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
-			)
+			client, err := args.newS3Client(ctx)
 			if err != nil {
 				return nil, err
 			}
@@ -505,16 +491,13 @@ func autocompleteBucketName(
 	prefix string,
 	request any,
 ) core.AutocompleteSuggestions {
-	var region scw.Region
-	var projectID, s3Endpoint, s3UsePathStyleStr string
-	if args, ok := request.(bucketAutoCompleteArgs); ok {
-		region, projectID, s3Endpoint, s3UsePathStyleStr = args.bucketArgsFields()
+	args, ok := request.(bucketAutoCompleteArgs)
+	if !ok {
+		return nil
 	}
 
 	suggestions := core.AutocompleteSuggestions(nil)
-	client, err := newS3Client(
-		ctx, region, projectID, s3Endpoint, s3UsePathStyleStr,
-	)
+	client, err := args.newS3Client(ctx)
 	if err != nil {
 		return nil
 	}

@@ -20,22 +20,28 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
+// S3Args holds the fields shared by every bucket-related arg struct
+type S3Args struct {
+	Region         scw.Region
+	ProjectID      string
+	S3Endpoint     string
+	S3UsePathStyle string
+}
+
+func (a S3Args) bucketArgsFields() (scw.Region, string, string, string) {
+	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
+}
+
 // newS3Client builds an S3 client from the CLI s3-endpoint and
 // s3-use-path-style arguments, resolving them through the same configuration
 // priority as GetS3Endpoint and GetS3UsePathStyle.
-func newS3Client(
-	ctx context.Context,
-	region scw.Region,
-	projectID string,
-	s3EndpointArg string,
-	s3UsePathStyleArg string,
-) (client *s3.Client, err error) {
-	s3UsePathStyle, err := GetS3UsePathStyle(ctx, s3UsePathStyleArg)
+func (a S3Args) newS3Client(ctx context.Context) (client *s3.Client, err error) {
+	s3UsePathStyle, err := GetS3UsePathStyle(ctx, a.S3UsePathStyle)
 	if err != nil {
 		return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
 	}
 
-	s3Endpoint := GetS3Endpoint(ctx, region.String(), s3EndpointArg)
+	s3Endpoint := GetS3Endpoint(ctx, a.Region.String(), a.S3Endpoint)
 
 	httpClient := core.ExtractHTTPClient(ctx)
 	scwClient := core.ExtractClient(ctx)
@@ -50,7 +56,7 @@ func newS3Client(
 	}
 
 	defaultProjectID, _ := scwClient.GetDefaultProjectID()
-	accessKey = FormatAccessKey(accessKey, projectID, defaultProjectID)
+	accessKey = FormatAccessKey(accessKey, a.ProjectID, defaultProjectID)
 
 	options := []func(*middleware.Stack) error{
 		func(stack *middleware.Stack) error {
@@ -71,7 +77,7 @@ func newS3Client(
 			}, nil
 		}),
 		BaseEndpoint: new(s3Endpoint),
-		Region:       region.String(),
+		Region:       a.Region.String(),
 		HTTPClient:   httpClient,
 		UsePathStyle: s3UsePathStyle,
 	}), nil
