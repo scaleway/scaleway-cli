@@ -310,6 +310,8 @@ func autocompleteCompleteBashCommand() *core.Command {
 			wordToComplete := words[wordIndex]
 			rightWords := aliases.ResolveAliases(words[wordIndex+1:])
 
+			core.ApplyProfileFlagFromWords(ctx, leftWords, rightWords)
+
 			// If the wordToComplete is an argument label (cf. `arg=`), remove
 			// this prefix for all suggestions.
 			res := core.AutoComplete(ctx, leftWords, wordToComplete, rightWords)
@@ -352,6 +354,8 @@ func autocompleteCompleteFishCommand() *core.Command {
 			// line := rawArgs[0]
 			// charIndex, _ := strconv.Atoi(rawArgs[1])
 			rightWords := []string(nil)
+
+			core.ApplyProfileFlagFromWords(ctx, leftWords, rightWords)
 
 			res := core.AutoComplete(ctx, leftWords, wordToComplete, rightWords)
 
@@ -403,6 +407,8 @@ func autocompleteCompleteZshCommand() *core.Command {
 			leftWords := aliases.ResolveAliases(words[:wordIndex])
 			wordToComplete := words[wordIndex]
 			rightWords := aliases.ResolveAliases(words[wordIndex+1:])
+
+			core.ApplyProfileFlagFromWords(ctx, leftWords, rightWords)
 
 			res := core.AutoComplete(ctx, leftWords, wordToComplete, rightWords)
 
