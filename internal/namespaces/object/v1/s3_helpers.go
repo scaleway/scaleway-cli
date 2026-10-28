@@ -4,6 +4,7 @@ package object
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/url"
 	"os"
@@ -36,11 +37,11 @@ func (a S3Args) newS3Client(ctx context.Context) (client *s3.Client, err error) 
 	buildInfo := core.ExtractBuildInfo(ctx)
 	accessKey, ok := scwClient.GetAccessKey()
 	if !ok {
-		return nil, fmt.Errorf("could not get SCW access key: %w", err)
+		return nil, errors.New("could not get SCW access key")
 	}
 	secretKey, ok := scwClient.GetSecretKey()
 	if !ok {
-		return nil, fmt.Errorf("could not get SCW secret key: %w", err)
+		return nil, errors.New("could not get SCW secret key")
 	}
 
 	defaultProjectID, _ := scwClient.GetDefaultProjectID()
