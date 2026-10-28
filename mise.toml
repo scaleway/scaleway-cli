@@ -257,6 +257,9 @@ flag "--coverprofile <file>" {
 flag "--parallel <n>" {
   help "execute n tests in parallel when allowed"
 }
+flag "--count <n>" {
+  help "execute the tests n times"
+}
 flag "--parallel-pkg <n>" {
   help "build and execute n test binaries in concurrence"
 }
@@ -298,6 +301,9 @@ if [ -n "${usage_parallel_pkg:-}" ]; then
 fi
 if [ -n "${usage_parallel:-}" ]; then
   test_args+=(-parallel "${usage_parallel?}")
+fi
+if [ -n "${usage_count:-}" ]; then
+  test_args+=(-count "${usage_count?}")
 fi
 if [ "${usage_failfast:-false}" = "true" ]; then
   test_args+=(-failfast)
