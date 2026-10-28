@@ -44,10 +44,10 @@ ID                                    NAME                                      
 e3fbb54f-ea7f-46c2-8434-a105741a8867  Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0  10 GB  sbs_5k       5K    in_use  few seconds ago  few seconds ago    false  fr-par-1
 
 Public IPs:
-ID   ADDRESS  GATEWAY  NETMASK  FAMILY  DYNAMIC  PROVISIONING MODE  TAGS  IPAM ID  STATE
+ID  ADDRESS  GATEWAY  NETMASK  FAMILY  DYNAMIC  PROVISIONING MODE  TAGS  IPAM ID  STATE
 
 Private NICs:
-ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
+ID  MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
 
 Server Filesystems:
 FILESYSTEM ID  STATE

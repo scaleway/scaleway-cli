@@ -12,26 +12,22 @@ func TestRenderGrid(t *testing.T) {
 	reset := "\x1b[0m"
 
 	cases := []struct {
-		name     string
-		minwidth int
-		grid     [][]string
-		want     string
+		name string
+		grid [][]string
+		want string
 	}{
 		{
-			name:     "simple",
-			minwidth: 5,
-			grid:     [][]string{{"ID", "NAME"}, {"123", "prod"}, {"456", "stg"}},
-			want:     "ID   NAME\n123  prod\n456  stg",
+			name: "simple",
+			grid: [][]string{{"ID", "NAME"}, {"123", "prod"}, {"456", "stg"}},
+			want: "ID   NAME\n123  prod\n456  stg",
 		},
 		{
-			name:     "short-column-minwidth",
-			minwidth: 5,
-			grid:     [][]string{{"ID", "NAME"}, {"a", "production-server-name"}},
-			want:     "ID   NAME\na    production-server-name",
+			name: "short-column",
+			grid: [][]string{{"ID", "NAME"}, {"a", "production-server-name"}},
+			want: "ID  NAME\na   production-server-name",
 		},
 		{
-			name:     "ansi-cells",
-			minwidth: 5,
+			name: "ansi-cells",
 			grid: [][]string{
 				{"NAME", "STATUS"},
 				{red + "broken" + reset, green + "active" + reset},
@@ -39,28 +35,25 @@ func TestRenderGrid(t *testing.T) {
 			want: "NAME    STATUS\n" + red + "broken" + reset + "  " + green + "active" + reset,
 		},
 		{
-			name:     "multiline-cell",
-			minwidth: 5,
-			grid:     [][]string{{"NAME", "DESC"}, {"a", "line one\nline two"}, {"b", "x"}},
-			want:     "NAME  DESC\na     line one\nline two\nb    x",
+			name: "multiline-cell",
+			grid: [][]string{{"NAME", "DESC"}, {"a", "line one\nline two"}, {"b", "x"}},
+			want: "NAME  DESC\na     line one\nline two\nb  x",
 		},
 		{
-			name:     "empty-cells",
-			minwidth: 5,
-			grid:     [][]string{{"A", "B"}, {"", ""}, {"x", ""}},
-			want:     "A    B\n     \nx    ",
+			name: "empty-cells",
+			grid: [][]string{{"A", "B"}, {"", ""}, {"x", ""}},
+			want: "A  B\n\nx",
 		},
 		{
-			name:     "single-column",
-			minwidth: 5,
-			grid:     [][]string{{"A"}, {"value"}, {"b"}},
-			want:     "A\nvalue\nb",
+			name: "single-column",
+			grid: [][]string{{"A"}, {"value"}, {"b"}},
+			want: "A\nvalue\nb",
 		},
 	}
 
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
-			if got := human.RenderGrid(tc.grid, tc.minwidth); got != tc.want {
+			if got := human.RenderGrid(tc.grid); got != tc.want {
 				t.Errorf("RenderGrid() = %q, want %q", got, tc.want)
 			}
 		})

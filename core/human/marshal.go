@@ -223,7 +223,7 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 		return "", err
 	}
 
-	out := RenderGrid(data, 5)
+	out := RenderGrid(data)
 	if len(sectionsStrs) > 0 {
 		out += "\n\n" + strings.Join(sectionsStrs, "\n\n")
 	}
@@ -439,7 +439,7 @@ func formatGrid(grid [][]string, shrinkColumns bool) string {
 		}
 	}
 
-	return strings.TrimSpace(RenderGrid(grid, 5))
+	return strings.TrimSpace(RenderGrid(grid))
 }
 
 // computeMaxCols calculates how many row we can fit in terminal width.
@@ -525,5 +525,5 @@ func MarshalMap(m reflect.Value, opt *MarshalOpt) (string, error) {
 		}
 	}
 
-	return strings.TrimSpace(RenderGrid(rows, 5)), nil
+	return strings.TrimSpace(RenderGrid(rows)), nil
 }

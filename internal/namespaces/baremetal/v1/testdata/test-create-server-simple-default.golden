@@ -22,7 +22,7 @@ ID                                    ADDRESS                                REV
 c709de1b-c074-4937-9543-4b1122685440  51.159.194.85                          -        IPv4     unknown         -
 
 Options:
-ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
+ID  NAME  STATUS  MANAGEABLE  EXPIRES AT
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "b9eb714d-2042-4895-a439-228f54f33312",

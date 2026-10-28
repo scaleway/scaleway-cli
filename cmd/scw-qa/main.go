@@ -33,6 +33,6 @@ func main() {
 		grid = append(grid, []string{strings.TrimPrefix(key, "*qa."), strconv.Itoa(count)})
 	}
 	if len(grid) > 0 {
-		fmt.Println(human.RenderGrid(grid, 0))
+		fmt.Println(human.RenderGrid(grid))
 	}
 }
