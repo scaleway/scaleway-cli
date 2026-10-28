@@ -38,14 +38,11 @@ func GetCommands() *core.Commands {
 		instanceImage(),
 		instanceIP(),
 		instanceServer(),
-		instanceServerType(),
 		instanceVolumeType(),
 		instanceSnapshot(),
 		instanceUserData(),
 		instanceVolume(),
 		instancePrivateNic(),
-		instanceServerTypeGet(),
-		instanceServerTypeList(),
 		instanceVolumeTypeList(),
 		instanceServerList(),
 		instanceServerGet(),
@@ -55,7 +52,6 @@ func GetCommands() *core.Commands {
 		instanceUserDataDelete(),
 		instanceUserDataSet(),
 		instanceUserDataGet(),
-		instanceServerGetCompatibleTypes(),
 		instanceServerAttachVolume(),
 		instanceServerDetachVolume(),
 		instanceServerAttachFilesystem(),
@@ -99,6 +95,8 @@ func GetCommands() *core.Commands {
 		instanceSecurityGroupCreateRule(),
 		instanceSecurityGroupDeleteRule(),
 		instanceSecurityGroupGetRule(),
+		// ServerType commands exclusive to v1
+		instanceServerTypeGet(),
 	)
 
 	//
@@ -143,18 +141,7 @@ func GetCommands() *core.Commands {
 	//
 	// Server-Type
 	//
-	human.RegisterMarshalerFunc(
-		instance.ServerTypesAvailability(""),
-		human.EnumMarshalFunc(serverTypesAvailabilityMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc([]*customServerType{}, serverTypesListMarshalerFunc)
-
-	cmds.MustFind("instance", "server-type", "list").Override(serverTypeListBuilder)
-
-	//
-	// Get-Compatible-Types
-	//
-	cmds.MustFind("instance", "server", "get-compatible-types").Override(getCompatibleTypesBuilder)
+	cmds.MustFind("instance", "server-type", "get").Override(serverTypeGetBuilder)
 
 	//
 	// IP

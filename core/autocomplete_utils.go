@@ -159,7 +159,12 @@ func AutocompleteGetArg(
 		}
 	}
 
-	rawCommand := fmt.Sprintf("%s %s", listCmd.getPath(), strings.Join(listRawArgs, " "))
+	rawCommand := fmt.Sprintf(
+		"%s %s %s",
+		ExtractProfileName(ctx),
+		listCmd.getPath(),
+		strings.Join(listRawArgs, " "),
+	)
 	resp := autoCompleteCache.Get(rawCommand)
 	if resp == nil {
 		resp, err = listCmd.Interceptor(ctx, listCmdArgs, listCmd.Run)
@@ -225,6 +230,49 @@ func listRawArgsFromCompletedArgs(completedArgs map[string]string, cmd *Command)
 	sort.Strings(listRawArgs)
 
 	return listRawArgs
+}
+
+// ProfileFlagFromWords returns the value of the last -p/--profile flag found in the words surrounding the word to complete
+func ProfileFlagFromWords(leftWords []string, rightWords []string) string {
+	profile := ""
+
+	for _, words := range [][]string{leftWords, rightWords} {
+		for i, word := range words {
+			switch {
+			case word == "-p" || word == "--profile":
+				if i+1 < len(words) && !strings.HasPrefix(words[i+1], "-") {
+					profile = words[i+1]
+				}
+			case strings.HasPrefix(word, "-p="):
+				profile = strings.TrimPrefix(word, "-p=")
+			case strings.HasPrefix(word, "--profile="):
+				profile = strings.TrimPrefix(word, "--profile=")
+			}
+		}
+	}
+
+	return profile
+}
+
+// ApplyProfileFlagFromWords reloads the client using the profile given in the completed command line
+// The current client is kept if the profile cannot be loaded
+func ApplyProfileFlagFromWords(ctx context.Context, leftWords []string, rightWords []string) {
+	meta := ExtractMeta(ctx)
+	if meta == nil || meta.isClientFromBootstrapConfig {
+		return
+	}
+
+	profile := ProfileFlagFromWords(leftWords, rightWords)
+	if profile == "" || profile == meta.ProfileFlag {
+		return
+	}
+
+	previousProfile, previousClient := meta.ProfileFlag, meta.Client
+	meta.ProfileFlag = profile
+
+	if err := ReloadClient(ctx); err != nil {
+		meta.ProfileFlag, meta.Client = previousProfile, previousClient
+	}
 }
 
 func flattenCompleteArgs(completedArgs map[string]string) []string {

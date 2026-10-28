@@ -17,6 +17,7 @@ func GetCommands() *core.Commands {
 	cmds := core.NewCommands(
 		instancePlacementGroup(),
 		instanceSecurityGroup(),
+		instanceServerType(),
 		instanceTemplate(),
 		instancePlacementGroupList(),
 		instancePlacementGroupCreate(),
@@ -32,6 +33,8 @@ func GetCommands() *core.Commands {
 		instanceSecurityGroupSetRules(),
 		instanceSecurityGroupUpdateRule(),
 		instanceSecurityGroupDeleteRules(),
+		instanceServerGetCompatibleTypes(),
+		instanceServerTypeList(),
 		instanceTemplateList(),
 		instanceTemplateCreate(),
 		instanceTemplateGet(),
@@ -85,6 +88,20 @@ func GetCommands() *core.Commands {
 		securityGroupClearCommand(),
 		securityGroupEditCommand(),
 	))
+	// Server-Type
+	//
+	human.RegisterMarshalerFunc(
+		instanceSDK.ServerTypeAvailability(""),
+		human.EnumMarshalFunc(serverTypesAvailabilityMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc([]*customServerType{}, serverTypesListMarshalerFunc)
+
+	cmds.MustFind("instance", "server-type", "list").Override(serverTypeListBuilder)
+
+	//
+	// Get-Compatible-Types
+	//
+	cmds.MustFind("instance", "server", "get-compatible-types").Override(getCompatibleTypesBuilder)
 
 	//
 	// Templates
