@@ -1014,6 +1014,7 @@ func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
 	str := buffer.String()
 	// In order to avoid diff in goldens we set all timestamp to the same date
 	str = uniformTimestamps(str)
+	str = uniformTimestampsWithOffSet(str)
 	// Replace Windows return carriage.
 	str = strings.ReplaceAll(str, "\r", "")
 

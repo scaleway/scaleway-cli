@@ -62,8 +62,7 @@ work_mem                         16
     "id": "e1e87bb7-3e2f-4d36-ab2f-5d74a0e8672d",
     "ip": "195.154.69.220",
     "port": 12333,
-    "name": null,
-    "load_balancer": {}
+    "name": null
   },
   "tags": [],
   "settings": [
@@ -108,8 +107,7 @@ work_mem                         16
       "id": "e1e87bb7-3e2f-4d36-ab2f-5d74a0e8672d",
       "ip": "195.154.69.220",
       "port": 12333,
-      "name": null,
-      "load_balancer": {}
+      "name": null
     }
   ],
   "logs_policy": {
