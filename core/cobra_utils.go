@@ -167,7 +167,7 @@ func run(
 	// and will be working with cmdArgs.
 	err = args.UnmarshalStruct(rawArgs, cmdArgs)
 	if err != nil {
-		if unmarshalError, ok := err.(*args.UnmarshalArgError); ok {
+		if unmarshalError, ok := errors.AsType[*args.UnmarshalArgError](err); ok {
 			return nil, handleUnmarshalErrors(cmd, unmarshalError)
 		}
 
@@ -257,10 +257,9 @@ func positionalArgHint(
 func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) error {
 	wrappedErr := errors.Unwrap(unmarshalErr)
 
-	switch e := wrappedErr.(type) {
-	case *args.CannotUnmarshalError:
-		switch e.Err.(type) { //nolint:gocritic
-		case *args.CannotParseBoolError:
+	cannotUnmarshalErr, ok := errors.AsType[*args.CannotUnmarshalError](wrappedErr)
+	if ok {
+		if _, ok := errors.AsType[*args.CannotParseBoolError](cannotUnmarshalErr.Err); ok {
 			return &CliError{
 				Err: errors.New(""),
 				Message: fmt.Sprintf(
@@ -269,26 +268,34 @@ func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) e
 				),
 				Hint: "Possible values: true, false",
 			}
-		case *args.CannotParseDateError:
-			dateErr := e.Err.(*args.CannotParseDateError)
+		}
 
+		if cannotParseDateErr, ok := errors.AsType[*args.CannotParseDateError](
+			cannotUnmarshalErr.Err,
+		); ok {
 			return &CliError{
-				Err: fmt.Errorf("date parsing error: %s", dateErr.ArgValue),
+				Err: fmt.Errorf("date parsing error: %s", cannotParseDateErr.ArgValue),
 				Message: fmt.Sprintf(
 					"could not parse %s as either an absolute time (RFC3339) nor a relative time (+/-)RFC3339",
-					dateErr.ArgValue,
+					cannotParseDateErr.ArgValue,
 				),
 				Details: fmt.Sprintf(`Absolute time error: %s
 Relative time error: %s
-`, dateErr.AbsoluteTimeParseError, dateErr.RelativeTimeParseError),
+`, cannotParseDateErr.AbsoluteTimeParseError, cannotParseDateErr.RelativeTimeParseError),
 				Hint: "Run `scw help date` to learn more about date parsing",
 			}
-		default:
-			return &CliError{
-				Err: fmt.Errorf("invalid value for '%s' argument: %s", unmarshalErr.ArgName, e.Err),
-			}
 		}
-	case *args.InvalidArgNameError:
+
+		return &CliError{
+			Err: fmt.Errorf(
+				"invalid value for '%s' argument: %w",
+				unmarshalErr.ArgName,
+				cannotUnmarshalErr.Err,
+			),
+		}
+	}
+
+	if invalidArgNameErr, ok := errors.AsType[*args.InvalidArgNameError](wrappedErr); ok {
 		argNames := []string(nil)
 		nonDeprecatedArgs := cmd.ArgSpecs.GetDeprecated(false)
 		for _, argSpec := range nonDeprecatedArgs {
@@ -296,10 +303,16 @@ Relative time error: %s
 		}
 
 		return &CliError{
-			Err:  fmt.Errorf("invalid argument '%s': %s", unmarshalErr.ArgName, e.Error()),
+			Err: fmt.Errorf(
+				"invalid argument '%s': %s",
+				unmarshalErr.ArgName,
+				invalidArgNameErr.Error(),
+			),
 			Hint: "Valid arguments are: " + strings.Join(argNames, ", "),
 		}
-	case *args.UnknownArgError:
+	}
+
+	if _, ok := errors.AsType[*args.UnknownArgError](wrappedErr); ok {
 		argNames := []string(nil)
 		nonDeprecatedArgs := cmd.ArgSpecs.GetDeprecated(false)
 		for _, argSpec := range nonDeprecatedArgs {
@@ -310,10 +323,9 @@ Relative time error: %s
 			Err:  fmt.Errorf("unknown argument '%s'", unmarshalErr.ArgName),
 			Hint: "Valid arguments are: " + strings.Join(argNames, ", "),
 		}
-
-	default:
-		return &CliError{Err: unmarshalErr}
 	}
+
+	return &CliError{Err: unmarshalErr}
 }
 
 func cobraRunHelp(cmd *Command) func(cmd *cobra.Command, args []string) error {

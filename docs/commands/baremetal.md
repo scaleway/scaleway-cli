@@ -75,6 +75,20 @@ scw baremetal bmc stop [arg=value ...]
 
 
 
+## Commitment management commands
+
+Allows to manage the commitment of your servers.
+
+Allows to manage the commitment of your servers.
+
+**Usage:**
+
+```shell
+scw baremetal commitment
+```
+
+
+
 ## Server offer management commands
 
 Server offers will answer with all different Elastic Metal server ranges available in a zone.
@@ -340,13 +354,62 @@ scw baremetal os list [arg=value ...]
 
 Allows to customize the partitioning schemas of your servers (available on some offers and OSs).
 
-Allows to customize the partitioning schemas of your servers (available on some offers and OSs).
+
+### Get default partitioning schema
+
+Get the default partitioning schema for the given offer ID and OS ID.
 
 **Usage:**
 
 ```shell
-scw baremetal partitioning-schemas
+scw baremetal partitioning-schemas get-default [arg=value ...]
 ```
+
+
+**Arguments:**
+
+| Name     | Description                                                             | Argument Specifications                                                                                 |
+|----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| offer-id | ID of the offer                                                         |                                                                                                         |
+| os-id    | ID of the OS                                                            |                                                                                                         |
+| zone     | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` |
+
+
+
+### Validate client partitioning schema
+
+Validate the incoming partitioning schema from a user before installing the server. Return default ErrorCode if invalid.
+
+**Usage:**
+
+```shell
+scw baremetal partitioning-schemas validate [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name                                                                         | Description                                                             | Argument Specifications                                                                                       |
+|------------------------------------------------------------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| partitioning-schema.disks.{index}.device                                     |                                                                         |                                                                                                               |
+| partitioning-schema.disks.{index}.partitions.{index}.label                   |                                                                         | One of: `unknown_partition_label`, `uefi`, `legacy`, `root`, `boot`, `swap`, `data`, `home`, `raid`, `zfs`    |
+| partitioning-schema.disks.{index}.partitions.{index}.number                  |                                                                         |                                                                                                               |
+| partitioning-schema.disks.{index}.partitions.{index}.size                    |                                                                         |                                                                                                               |
+| partitioning-schema.disks.{index}.partitions.{index}.use-all-available-space |                                                                         |                                                                                                               |
+| partitioning-schema.raids.{index}.name                                       |                                                                         |                                                                                                               |
+| partitioning-schema.raids.{index}.level                                      |                                                                         | One of: `unknown_raid_level`, `raid_level_0`, `raid_level_1`, `raid_level_5`, `raid_level_6`, `raid_level_10` |
+| partitioning-schema.raids.{index}.devices.{index}                            |                                                                         |                                                                                                               |
+| partitioning-schema.filesystems.{index}.device                               |                                                                         |                                                                                                               |
+| partitioning-schema.filesystems.{index}.format                               |                                                                         | One of: `unknown_format`, `fat32`, `ext4`, `swap`, `zfs`, `xfs`                                               |
+| partitioning-schema.filesystems.{index}.mountpoint                           |                                                                         |                                                                                                               |
+| partitioning-schema.zfs.pools.{index}.name                                   |                                                                         |                                                                                                               |
+| partitioning-schema.zfs.pools.{index}.type                                   |                                                                         | One of: `unknown_type`, `no_raid`, `mirror`, `raidz1`, `raidz2`                                               |
+| partitioning-schema.zfs.pools.{index}.devices.{index}                        |                                                                         |                                                                                                               |
+| partitioning-schema.zfs.pools.{index}.options.{index}                        |                                                                         |                                                                                                               |
+| partitioning-schema.zfs.pools.{index}.filesystem-options.{index}             |                                                                         |                                                                                                               |
+| offer-id                                                                     | Offer ID of the server                                                  |                                                                                                               |
+| os-id                                                                        | OS ID                                                                   |                                                                                                               |
+| zone                                                                         | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`       |
 
 
 
@@ -527,6 +590,7 @@ scw baremetal server batch-create [arg=value ...]
 | common-configuration.option-ids.{index}                                                                   | IDs of options to enable on server                                                              |                                                                                                               |
 | common-configuration.protected                                                                            | If enabled, the server can not be deleted                                                       |                                                                                                               |
 | common-configuration.user-data                                                                            | Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script |                                                                                                               |
+| common-configuration.commitment-period                                                                    | Commitment period to subscribe                                                                  | One of: `unknown_period`, `one_month`, `six_months`, `one_year`, `two_years`, `three_years`                   |
 | ~~common-configuration.organization-id~~                                                                  | Organization ID with which the server will be created                                           | Deprecated                                                                                                    |
 | common-configuration.zone                                                                                 |                                                                                                 |                                                                                                               |
 | servers.{index}.hostname                                                                                  |                                                                                                 |                                                                                                               |
@@ -584,6 +648,7 @@ scw baremetal server create [arg=value ...]
 | option-ids.{index}                                                                   | IDs of options to enable on server                                                              |                                                                                                               |
 | protected                                                                            | If enabled, the server can not be deleted                                                       |                                                                                                               |
 | user-data                                                                            | Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script |                                                                                                               |
+| commitment-period                                                                    | Commitment period to subscribe                                                                  | One of: `unknown_period`, `one_month`, `six_months`, `one_year`, `two_years`, `three_years`                   |
 | organization-id                                                                      | Organization ID to use. If none is passed the default organization ID will be used              |                                                                                                               |
 | zone                                                                                 | Zone to target. If none is passed will use default zone from the config                         | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`       |
 
@@ -856,7 +921,7 @@ scw baremetal server start <server-id ...> [arg=value ...]
 **Examples:**
 
 
-Start an Elastic Metalx server
+Start an Elastic Metal server
 ```shell
 scw baremetal server start 11111111-1111-1111-1111-111111111111
 ```
@@ -912,15 +977,16 @@ scw baremetal server update <server-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                                                     | Argument Specifications                                                                                 |
-|--------------|-------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| server-id    | ID of the server to update                                                                      | Required                                                                                                |
-| name         | Name of the server (≠hostname), not updated if null                                             |                                                                                                         |
-| description  | Description associated with the server, max 255 characters, not updated if null                 |                                                                                                         |
-| tags.{index} | Tags associated with the server, not updated if null                                            |                                                                                                         |
-| protected    | If enabled, the server can not be deleted                                                       |                                                                                                         |
-| user-data    | Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script |                                                                                                         |
-| zone         | Zone to target. If none is passed will use default zone from the config                         | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` |
+| Name               | Description                                                                                     | Argument Specifications                                                                                 |
+|--------------------|-------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| server-id          | ID of the server to update                                                                      | Required                                                                                                |
+| name               | Name of the server (≠hostname), not updated if null                                             |                                                                                                         |
+| description        | Description associated with the server, max 255 characters, not updated if null                 |                                                                                                         |
+| tags.{index}       | Tags associated with the server, not updated if null                                            |                                                                                                         |
+| protected          | If enabled, the server can not be deleted                                                       |                                                                                                         |
+| user-data          | Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script |                                                                                                         |
+| scheduled-deletion | Set false to cancel the scheduled deletion of the server                                        |                                                                                                         |
+| zone               | Zone to target. If none is passed will use default zone from the config                         | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` |
 
 
 

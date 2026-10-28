@@ -12,14 +12,12 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 type bucketPolicyCreateArgs struct {
-	Bucket    string
-	Policy    string
-	Region    scw.Region
-	ProjectID string
+	S3Args
+	Bucket string
+	Policy string
 }
 
 func bucketPolicyCreateCommand() *core.Command {
@@ -32,10 +30,11 @@ func bucketPolicyCreateCommand() *core.Command {
 		ArgsType:  reflect.TypeFor[bucketPolicyCreateArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "bucket",
-				Positional: true,
-				Required:   true,
-				Short:      "The name of the bucket to which assign the policy.",
+				Name:             "bucket",
+				Positional:       true,
+				Required:         true,
+				Short:            "The name of the bucket to which assign the policy.",
+				AutoCompleteFunc: autocompleteBucketName,
 			},
 			{
 				Name:       "policy",
@@ -43,6 +42,8 @@ func bucketPolicyCreateCommand() *core.Command {
 				Required:   true,
 				Short:      "The path to the local JSON file containing the bucket policy.",
 			},
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -66,7 +67,13 @@ func bucketPolicyCreateCommand() *core.Command {
 
 			policy := string(policyBytes)
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
+			client, err := newS3Client(
+				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
+			)
+			if err != nil {
+				return nil, err
+			}
+
 			params := s3.PutBucketPolicyInput{
 				Bucket: &args.Bucket,
 				Policy: &policy,
@@ -77,7 +84,12 @@ func bucketPolicyCreateCommand() *core.Command {
 				return nil, fmt.Errorf("could not create bucket policy: %w", err)
 			}
 
-			bucket, err := getBucketInfo(ctx, args.Region, args.Bucket, args.ProjectID)
+			bucket, err := getBucketInfo(
+				ctx,
+				args.Region,
+				args.Bucket,
+				client,
+			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
 			}
@@ -94,9 +106,8 @@ func bucketPolicyCreateCommand() *core.Command {
 }
 
 type bucketPolicyDeleteArgs struct {
-	Bucket    string
-	Region    scw.Region
-	ProjectID string
+	S3Args
+	Bucket string
 }
 
 func bucketPolicyDeleteCommand() *core.Command {
@@ -115,6 +126,8 @@ func bucketPolicyDeleteCommand() *core.Command {
 				Short:            "The unique name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -124,12 +137,17 @@ func bucketPolicyDeleteCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
+			client, err := newS3Client(
+				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
+			)
+			if err != nil {
+				return nil, err
+			}
 			params := s3.DeleteBucketPolicyInput{
 				Bucket: &args.Bucket,
 			}
 
-			_, err := client.DeleteBucketPolicy(ctx, &params)
+			_, err = client.DeleteBucketPolicy(ctx, &params)
 			if err != nil {
 				return nil, fmt.Errorf("could not delete bucket policy: %w", err)
 			}
@@ -143,9 +161,8 @@ func bucketPolicyDeleteCommand() *core.Command {
 }
 
 type bucketPolicyGetArgs struct {
-	Bucket    string
-	Region    scw.Region
-	ProjectID string
+	S3Args
+	Bucket string
 }
 
 func bucketPolicyGetCommand() *core.Command {
@@ -164,6 +181,8 @@ func bucketPolicyGetCommand() *core.Command {
 				Short:            "The unique name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -173,7 +192,13 @@ func bucketPolicyGetCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
+			client, err := newS3Client(
+				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
+			)
+			if err != nil {
+				return nil, err
+			}
+
 			params := s3.GetBucketPolicyInput{
 				Bucket: &args.Bucket,
 			}

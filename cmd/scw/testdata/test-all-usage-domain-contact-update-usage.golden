@@ -9,15 +9,15 @@ ARGS:
   contact-id                                            ID of the contact to update.
   [email]                                               Email address of the contact.
   [email-alt]                                           Alternative email address of the contact.
-  [phone-number]                                        Phone number of the contact.
-  [fax-number]                                          Fax number of the contact.
+  [phone-number]                                        Phone number of the contact, normalized to +CC.NationalNumber format.
+  [fax-number]                                          Fax number of the contact, normalized to +CC.NationalNumber format.
   [address-line-1]                                      First line of the contact's address.
   [address-line-2]                                      Second line of the contact's address.
   [zip]                                                 Postal code of the contact.
   [city]                                                City of the contact.
-  [country]                                             Country code of the contact (ISO 3166-1 alpha-2 format).
+  [country]                                             Country code of the contact (ISO 3166-1 alpha-2 format). Not updatable; returns an error if changed.
   [vat-identification-code]                             VAT identification code of the contact.
-  [company-identification-code]                         Company identification code (e.g. SIRET/SIREN) of the contact.
+  [company-identification-code]                         Company identification code of the contact (SIRET/SIREN for French contacts, any format for others).
   [lang]                                                Preferred language of the contact. (unknown_language_code | en_US | fr_FR | de_DE)
   [resale]                                              Indicates whether the contact's information can be resold.
   [extension-fr.mode]                                    (mode_unknown | individual | company_identification_code | duns | local | association | trademark | code_auth_afnic)

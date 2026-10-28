@@ -228,7 +228,7 @@ func (config *TestConfig) DebugString() string {
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
 func getTestFilePath(t *testing.T, suffix string) string {
 	t.Helper()
-	specialChars := regexp.MustCompile(`[\\?%*:|"<>. ]`)
+	specialChars := regexp.MustCompile(`[\\?%*:|"'<>. ]`)
 
 	// Replace nested tests separators.
 	fileName := strings.ReplaceAll(t.Name(), "/", "-")
@@ -317,10 +317,11 @@ var foldersUsingVCRv4 = []string{
 	"internal/namespaces/applesilicon/v1alpha1",
 	"internal/namespaces/autoscaling/v1alpha2",
 	"internal/namespaces/baremetal/v1",
-	"internal/namesapces/block/v1alpha1",
-	"internal/namesapces/config",
+	"internal/namespaces/block/v1alpha1",
+	"internal/namespaces/config",
 	"internal/namespaces/container/v1",
 	"internal/namespaces/feedback",
+	"internal/namespaces/function/v1beta1",
 	"internal/namespaces/flexibleip/v1alpha1",
 	"internal/namespaces/iam/v1alpha1",
 	"internal/namespaces/info",
@@ -444,11 +445,17 @@ func Test(config *TestConfig) func(t *testing.T) {
 			dir := t.TempDir()
 			overrideEnv["HOME"] = dir
 			overrideEnv[scw.ScwCacheDirEnv] = dir
+			// Isolate tests from the host KUBECONFIG so kubeconfig commands
+			// operate on the temporary HOME
+			if _, ok := overrideEnv["KUBECONFIG"]; !ok {
+				overrideEnv["KUBECONFIG"] = ""
+			}
 			meta["HOME"] = dir
 			meta[scw.ScwCacheDirEnv] = dir
 		}
 
-		overrideExec := defaultOverrideExec
+		// A nil OverrideExec means the child process must really be executed.
+		var overrideExec OverrideExecFunc
 		if config.OverrideExec != nil {
 			overrideExec = func(cmd *exec.Cmd) (exitCode int, err error) {
 				return config.OverrideExec(&ExecFuncCtx{

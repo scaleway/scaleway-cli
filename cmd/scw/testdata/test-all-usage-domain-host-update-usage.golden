@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   domain          The domain name of the hostname to update.
   name            The hostname to update.
-  [ips.{index}]   New list of glue IP addresses associated with the hostname.
+  [ips.{index}]   New list of glue IP addresses associated with the hostname. Optional.
 
 FLAGS:
   -h, --help                help for update

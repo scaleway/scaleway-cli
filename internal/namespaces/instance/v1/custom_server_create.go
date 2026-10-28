@@ -280,7 +280,7 @@ func instanceServerCreateRun(ctx context.Context, argsI any) (i any, e error) {
 			logger.Warningf("cannot clean created resources: %s.", cleanErr)
 		}
 
-		return nil, fmt.Errorf("cannot create resource required for server: %s", err)
+		return nil, fmt.Errorf("cannot create resource required for server: %w", err)
 	}
 
 	createReq, err := serverBuilder.Build()
@@ -290,7 +290,7 @@ func instanceServerCreateRun(ctx context.Context, argsI any) (i any, e error) {
 			logger.Warningf("cannot clean created resources: %s.", cleanErr)
 		}
 
-		return nil, fmt.Errorf("cannot create the server: %s", err)
+		return nil, fmt.Errorf("cannot create the server: %w", err)
 	}
 
 	//
@@ -304,7 +304,7 @@ func instanceServerCreateRun(ctx context.Context, argsI any) (i any, e error) {
 			logger.Warningf("cannot clean created resources: %s.", cleanErr)
 		}
 
-		return nil, fmt.Errorf("cannot create the server: %s", err)
+		return nil, fmt.Errorf("cannot create the server: %w", err)
 	}
 	server := serverRes.Server
 	logger.Debugf("server created %s", server.ID)

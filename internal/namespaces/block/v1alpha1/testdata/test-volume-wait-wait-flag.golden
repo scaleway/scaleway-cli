@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              374fe3c5-17ba-4201-80b6-02d7e8251517
-Name            cli-vol-relaxed-satoshi
+ID              6cff4627-a108-4b5e-bfe5-5684e52928ee
+Name            cli-vol-festive-swartz
 Type            sbs_5k
 Size            20 GB
 ProjectID       de2b260d-2c2e-4be9-baa0-99d8ed17f1da
@@ -13,8 +13,8 @@ Specs.PerfIops  5000
 Specs.Class     sbs
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "374fe3c5-17ba-4201-80b6-02d7e8251517",
-  "name": "cli-vol-relaxed-satoshi",
+  "id": "6cff4627-a108-4b5e-bfe5-5684e52928ee",
+  "name": "cli-vol-festive-swartz",
   "type": "sbs_5k",
   "size": 20000000000,
   "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",

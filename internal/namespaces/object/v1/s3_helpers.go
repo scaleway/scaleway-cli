@@ -4,7 +4,10 @@ package object
 
 import (
 	"context"
+	"fmt"
+	"net/url"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -17,30 +20,37 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
-// newS3Client creates a new S3 client to interact with the S3 API of the passed
-// region. If `projectID` is empty, the default one is used.
-func newS3Client(ctx context.Context, region scw.Region, projectID string) *s3.Client {
+// newS3Client builds an S3 client from the CLI s3-endpoint and
+// s3-use-path-style arguments, resolving them through the same configuration
+// priority as GetS3Endpoint and GetS3UsePathStyle.
+func newS3Client(
+	ctx context.Context,
+	region scw.Region,
+	projectID string,
+	s3EndpointArg string,
+	s3UsePathStyleArg string,
+) (client *s3.Client, err error) {
+	s3UsePathStyle, err := GetS3UsePathStyle(ctx, s3UsePathStyleArg)
+	if err != nil {
+		return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
+	}
+
+	s3Endpoint := GetS3Endpoint(ctx, region.String(), s3EndpointArg)
+
 	httpClient := core.ExtractHTTPClient(ctx)
 	scwClient := core.ExtractClient(ctx)
 	buildInfo := core.ExtractBuildInfo(ctx)
 	accessKey, ok := scwClient.GetAccessKey()
 	if !ok {
-		return nil
+		return nil, fmt.Errorf("could not get SCW access key: %w", err)
 	}
 	secretKey, ok := scwClient.GetSecretKey()
 	if !ok {
-		return nil
+		return nil, fmt.Errorf("could not get SCW secret key: %w", err)
 	}
 
 	defaultProjectID, _ := scwClient.GetDefaultProjectID()
 	accessKey = FormatAccessKey(accessKey, projectID, defaultProjectID)
-
-	var customEndpoint string
-	if ep := os.Getenv("SCW_S3_ENDPOINT"); ep != "" {
-		customEndpoint = ep
-	} else {
-		customEndpoint = "https://s3." + region.String() + ".scw.cloud"
-	}
 
 	options := []func(*middleware.Stack) error{
 		func(stack *middleware.Stack) error {
@@ -60,10 +70,11 @@ func newS3Client(ctx context.Context, region scw.Region, projectID string) *s3.C
 				SecretAccessKey: secretKey,
 			}, nil
 		}),
-		BaseEndpoint: new(customEndpoint),
+		BaseEndpoint: new(s3Endpoint),
 		Region:       region.String(),
 		HTTPClient:   httpClient,
-	})
+		UsePathStyle: s3UsePathStyle,
+	}), nil
 }
 
 // FormatAccessKey formats the access key to the <KEY>@<PROJECT_ID> format,
@@ -73,12 +84,21 @@ func FormatAccessKey(accessKey, argProjectID, defaultProjectID string) (formatte
 	// The project ID from the CLI arguments takes precedence
 	projectID := argProjectID
 
+	isAccessKeyWithProjectId := validation.IsAccessKeyWithProjectID(accessKey)
+
+	// Then the project ID in the access key, if in IAM format
+	// ACCESS_KEY@PROJECT_ID
+	if projectID == "" && isAccessKeyWithProjectId {
+		_, projectID, _ = strings.Cut(accessKey, "@")
+	}
+
+	// Otherwise, keep the default project ID
 	if projectID == "" {
 		projectID = defaultProjectID
 	}
 
 	if projectID != "" {
-		if validation.IsAccessKeyWithProjectID(accessKey) {
+		if isAccessKeyWithProjectId {
 			keySplit := strings.Split(accessKey, "@")
 			formattedAccessKey = keySplit[0] + "@" + projectID
 		} else {
@@ -153,4 +173,145 @@ func normalizeOwnerID(id *string) string {
 	}
 
 	return tab[0]
+}
+
+func getBucketInfo(
+	ctx context.Context,
+	region scw.Region,
+	name string,
+	client *s3.Client,
+) (*bucketInfo, error) {
+	bucket := &bucketInfo{
+		ID:     name,
+		Region: region,
+	}
+
+	// get versioning
+	versioningOutput, err := client.GetBucketVersioning(ctx, &s3.GetBucketVersioningInput{
+		Bucket: &name,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("could not get bucket versioning: %w", err)
+	}
+	switch versioningOutput.Status {
+	case types.BucketVersioningStatusSuspended, "":
+		bucket.EnableVersioning = false
+	case types.BucketVersioningStatusEnabled:
+		bucket.EnableVersioning = true
+	}
+
+	// get tagging
+	tagging, err := client.GetBucketTagging(ctx, &s3.GetBucketTaggingInput{
+		Bucket: &name,
+	})
+	if err != nil && !strings.Contains(err.Error(), "NoSuchTagSet") {
+		return nil, fmt.Errorf("could not get bucket tagging: %w", err)
+	} else if tagging != nil {
+		bucket.Tags = tagging.TagSet
+	}
+
+	// get ACL
+	acl, err := client.GetBucketAcl(ctx, &s3.GetBucketAclInput{
+		Bucket: &name,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("could not get bucket ACL: %w", err)
+	}
+	bucket.Owner = normalizeOwnerID(acl.Owner.ID)
+	bucket.ACL = awsACLToCustomGrants(acl)
+
+	// Get endpoints
+	bucket.APIEndpoint = *client.Options().BaseEndpoint
+	bucket.BucketEndpoint, err = buildBucketEndpoint(
+		bucket.APIEndpoint, name, client.Options().UsePathStyle,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return bucket, nil
+}
+
+// GetS3Endpoint retrieves the S3 API URL according to various configuration
+// variables. The priority is following this pattern:
+// - CLI arg (parameter of this function)
+// - SCW Environment variable
+// - AWS configuration
+// - Profile field value
+// - Default value, built with the provided region
+func GetS3Endpoint(
+	ctx context.Context, region, customEndpoint string,
+) (s3Endpoint string) {
+	if customEndpoint != "" {
+		// CLI argument
+		s3Endpoint = customEndpoint
+	} else if ep := os.Getenv(scw.ScwS3EndpointEnv); ep != "" {
+		// SCW environment variable
+		s3Endpoint = ep
+	} else if ep := scw.GetS3EndpointFromAWSConf(); ep != "" {
+		// AWS configuration, by environment variable or config file
+		s3Endpoint = ep
+	} else {
+		// Profile field value
+		scwClient := core.ExtractClient(ctx)
+		profileS3Endpoint, s3EndpointOk := scwClient.GetS3Endpoint()
+
+		if s3EndpointOk && profileS3Endpoint != "" {
+			// SDK auto-generates the profile S3 endpoint using the default region, so
+			// only trust it when it differs from that auto-generated value
+			defaultRegion, _ := scwClient.GetDefaultRegion()
+			autoGeneratedEndpoint := fmt.Sprintf("https://s3.%s.scw.cloud", defaultRegion)
+			if profileS3Endpoint != autoGeneratedEndpoint {
+				s3Endpoint = profileS3Endpoint
+			}
+		}
+	}
+
+	// Default value
+	if s3Endpoint == "" {
+		s3Endpoint = fmt.Sprintf("https://s3.%s.scw.cloud", region)
+	}
+
+	return s3Endpoint
+}
+
+// buildBucketEndpoint constructs the bucket-specific URL from a resolved S3
+// API endpoint. For path-style addressing the bucket is a path segment; for
+// virtual-hosted style it is a host label.
+func buildBucketEndpoint(s3Endpoint, bucketName string, pathStyle bool) (string, error) {
+	u, err := url.Parse(s3Endpoint)
+	if err != nil {
+		return "", fmt.Errorf("could not parse custom endpoint %s: %w", s3Endpoint, err)
+	}
+
+	if pathStyle {
+		u = u.JoinPath(bucketName)
+	} else {
+		u.Host = bucketName + "." + u.Host
+	}
+
+	return u.String(), nil
+}
+
+// GetS3UsePathStyle retrieves the S3UsePathStyle flag value from various
+// configuration variables. The priority is following this pattern:
+// - CLI arg (parameter of this function)
+// - SCW Environment variable
+// - Profile field value
+func GetS3UsePathStyle(ctx context.Context, usePathStyle string) (bool, error) {
+	// CLI argument
+	if usePathStyle != "" {
+		return strconv.ParseBool(usePathStyle)
+	}
+
+	// SCW environment variable
+	envVar := os.Getenv(scw.ScwS3UsePathStyleEnv)
+	if envVar != "" {
+		return strconv.ParseBool(envVar)
+	}
+
+	// Profile field value
+	scwClient := core.ExtractClient(ctx)
+
+	return scwClient.GetS3UsePathStyle(), nil
 }

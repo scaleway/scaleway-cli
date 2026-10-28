@@ -352,7 +352,7 @@ func DeployStepDockerBuildImage(
 		nil,
 	)
 	if err != nil {
-		if jerr, ok := err.(*jsonstream.Error); ok {
+		if jerr, ok := errors.AsType[*jsonstream.Error](err); ok {
 			// If no error code is set, default to 1
 			if jerr.Code == 0 {
 				jerr.Code = 1
@@ -460,7 +460,7 @@ func DeployStepPushImage(
 
 	err = jsonmessage.DisplayJSONMessagesStream(imagePushResponse, t.Logs, t.Logs.Fd(), true, nil)
 	if err != nil {
-		if jerr, ok := err.(*jsonstream.Error); ok {
+		if jerr, ok := errors.AsType[*jsonstream.Error](err); ok {
 			// If no error code is set, default to 1
 			if jerr.Code == 0 {
 				jerr.Code = 1

@@ -108,6 +108,11 @@ release:
   draft: true
   name_template: "{{ .Tag }}"
 
+  # The separate "publish" workflow (release: published) re-runs goreleaser to
+  # push docker/mcp/winget; it sets DISABLE_RELEASE so this run never touches the
+  # (now immutable) GitHub release again.
+  disable: "{{ envOrDefault \"DISABLE_RELEASE\" \"false\" }}"
+
 winget:
   - name: cli
     publisher: Scaleway SAS
