@@ -51,10 +51,7 @@ func cassetteMatcher(r *http.Request, i cassette.Request) bool {
 	}
 
 	// Specific handling of s3 URLs
-	// Url format is https://test-acc-scaleway-object-bucket-lifecycle-8445817190507446251.s3.fr-par.scw.cloud/?lifecycle=
-	// or path-style: https://s3.fr-par.scw.cloud/test-acc-scaleway-object-bucket-lifecycle-8445817190507446251?lifecycle=
-	match, err := regexp.MatchString(`s3\.[a-z]{2}-[a-z]{3}\.scw\.cloud`, r.URL.Host)
-	if err == nil && match {
+	if strings.HasSuffix(r.URL.Host, ".scw.cloud") {
 		return customS3Matcher(r, i)
 	}
 
@@ -64,7 +61,7 @@ func cassetteMatcher(r *http.Request, i cassette.Request) bool {
 func customS3Matcher(r *http.Request, i cassette.Request) bool {
 	expectedURL, _ := url.Parse(i.URL)
 	actualURL := r.URL
-	if !strings.HasSuffix(expectedURL.Host, "scw.cloud") {
+	if !strings.HasSuffix(expectedURL.Host, ".scw.cloud") {
 		return false
 	}
 
