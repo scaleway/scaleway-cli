@@ -8,8 +8,8 @@ import (
 	"os"
 
 	"github.com/chzyer/readline"
-	isatty "github.com/mattn/go-isatty"
 	"github.com/scaleway/scaleway-sdk-go/validation"
+	"golang.org/x/term"
 )
 
 type ValidateFunc func(string) error
@@ -37,9 +37,10 @@ func SetOutputWriter(w io.Writer) {
 
 // we should expect both Stdin and Stderr to enable interactive mode
 func isInteractive() bool {
-	return isatty.IsTerminal(os.Stdin.Fd()) && isatty.IsTerminal(os.Stderr.Fd()) ||
-		isatty.IsCygwinTerminal(os.Stdin.Fd()) &&
-			isatty.IsCygwinTerminal(os.Stderr.Fd()) // windows cygwin terminal
+	// x/term.IsTerminal uses GetConsoleMode, so Cygwin terminals on
+	// Windows (pseudo-ttys over pipes) are no longer detected as interactive.
+	// If Cygwin users report broken prompts, restore the isatty.IsCygwinTerminal check.
+	return term.IsTerminal(int(os.Stdin.Fd())) && term.IsTerminal(int(os.Stderr.Fd()))
 }
 
 func ValidateOrganizationID() ValidateFunc {
