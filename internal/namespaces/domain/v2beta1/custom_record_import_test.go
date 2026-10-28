@@ -20,7 +20,10 @@ func Test_RecordImport(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
 			path := filepath.Join(ctx.T.TempDir(), "zone.txt")
-			require.NoError(ctx.T, os.WriteFile(path, []byte("cli-import-dry IN A 1.2.3.4\n"), 0o600))
+			require.NoError(
+				ctx.T,
+				os.WriteFile(path, []byte("cli-import-dry IN A 1.2.3.4\n"), 0o600),
+			)
 			ctx.Meta["BindFile"] = path
 
 			return nil
@@ -37,7 +40,10 @@ func Test_RecordImport(t *testing.T) {
 		Commands: cmds,
 		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
 			path := filepath.Join(ctx.T.TempDir(), "zone.txt")
-			require.NoError(ctx.T, os.WriteFile(path, []byte("cli-import-simple IN A 1.2.3.4\n"), 0o600))
+			require.NoError(
+				ctx.T,
+				os.WriteFile(path, []byte("cli-import-simple IN A 1.2.3.4\n"), 0o600),
+			)
 			ctx.Meta["BindFile"] = path
 
 			return nil
