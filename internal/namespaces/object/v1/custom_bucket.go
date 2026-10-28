@@ -16,7 +16,6 @@ import (
 
 // bucketAutoCompleteArgs exposes the fields needed by autocompleteBucketName
 type bucketAutoCompleteArgs interface {
-	bucketArgsFields() (region scw.Region, projectID, s3Endpoint, s3UsePathStyle string)
 	newS3Client(ctx context.Context) (client *s3.Client, err error)
 }
 

@@ -28,10 +28,6 @@ type S3Args struct {
 	S3UsePathStyle string
 }
 
-func (a S3Args) bucketArgsFields() (scw.Region, string, string, string) {
-	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
-}
-
 // newS3Client builds an S3 client from the CLI s3-endpoint and
 // s3-use-path-style arguments, resolving them through the same configuration
 // priority as GetS3Endpoint and GetS3UsePathStyle.
