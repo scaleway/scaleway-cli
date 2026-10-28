@@ -61,7 +61,7 @@ func cassetteMatcher(r *http.Request, i cassette.Request) bool {
 func customS3Matcher(r *http.Request, i cassette.Request) bool {
 	expectedURL, _ := url.Parse(i.URL)
 	actualURL := r.URL
-	if !strings.HasSuffix(expectedURL.Host, "scw.cloud") {
+	if !strings.HasSuffix(expectedURL.Host, ".scw.cloud") {
 		return false
 	}
 
