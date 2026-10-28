@@ -20,14 +20,6 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
-// S3Args holds the fields shared by every bucket-related arg struct
-type S3Args struct {
-	Region         scw.Region
-	ProjectID      string
-	S3Endpoint     string
-	S3UsePathStyle string
-}
-
 // newS3Client builds an S3 client from the CLI s3-endpoint and
 // s3-use-path-style arguments, resolving them through the same configuration
 // priority as GetS3Endpoint and GetS3UsePathStyle.
