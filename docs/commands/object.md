@@ -27,7 +27,7 @@ scw object bucket create <name ...> [arg=value ...]
 | enable-versioning | Whether or not objects in the bucket should have multiple versions                                                            | Default: `false`        |
 | acl               | The permissions given to users (grantees) to read or write objects                                                            | Default: `private`      |
 | s3-endpoint       | Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint |                         |
-| s3-use-path-style | Whether to use path style addressing for S3 API calls or not                                                                  |                         |
+| s3-use-path-style | Whether to use path style addressing for S3 API calls or not, when relevant                                                   |                         |
 | project-id        | Project ID to use. If none is passed the default project ID will be used                                                      |                         |
 | region            | Region to target. If none is passed will use default region from the config                                                   | Default: `fr-par`       |
 
@@ -50,7 +50,7 @@ scw object bucket delete <name ...> [arg=value ...]
 |-------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------|
 | name              | The unique name of the bucket                                                                                                 | Required                |
 | s3-endpoint       | Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint |                         |
-| s3-use-path-style | Whether to use path style addressing for S3 API calls or not                                                                  |                         |
+| s3-use-path-style | Whether to use path style addressing for S3 API calls or not, when relevant                                                   |                         |
 | project-id        | Project ID to use. If none is passed the default project ID will be used                                                      |                         |
 | region            | Region to target. If none is passed will use default region from the config                                                   | Default: `fr-par`       |
 
@@ -74,7 +74,7 @@ scw object bucket get <name ...> [arg=value ...]
 | name              | The unique name of the bucket                                                                                                 | Required                |
 | with-size         | Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets.     | Default: `false`        |
 | s3-endpoint       | Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint |                         |
-| s3-use-path-style | Whether to use path style addressing for S3 API calls or not                                                                  |                         |
+| s3-use-path-style | Whether to use path style addressing for S3 API calls or not, when relevant                                                   |                         |
 | project-id        | Project ID to use. If none is passed the default project ID will be used                                                      |                         |
 | region            | Region to target. If none is passed will use default region from the config                                                   | Default: `fr-par`       |
 
@@ -93,11 +93,12 @@ scw object bucket list [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                                                                                   | Argument Specifications |
-|-------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------|
-| s3-endpoint | Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint |                         |
-| project-id  | Project ID to use. If none is passed the default project ID will be used                                                      |                         |
-| region      | Region to target. If none is passed will use default region from the config                                                   | Default: `fr-par`       |
+| Name              | Description                                                                                                                   | Argument Specifications |
+|-------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------|
+| s3-endpoint       | Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint |                         |
+| s3-use-path-style | Whether to use path style addressing for S3 API calls or not, when relevant                                                   |                         |
+| project-id        | Project ID to use. If none is passed the default project ID will be used                                                      |                         |
+| region            | Region to target. If none is passed will use default region from the config                                                   | Default: `fr-par`       |
 
 
 
@@ -121,7 +122,7 @@ scw object bucket update <name ...> [arg=value ...]
 | enable-versioning | Whether or not objects in the bucket should have multiple versions                                                            | Default: `false`        |
 | acl               | The permissions given to users (grantees) to read or write objects                                                            | Default: `private`      |
 | s3-endpoint       | Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint |                         |
-| s3-use-path-style | Whether to use path style addressing for S3 API calls or not                                                                  |                         |
+| s3-use-path-style | Whether to use path style addressing for S3 API calls or not, when relevant                                                   |                         |
 | project-id        | Project ID to use. If none is passed the default project ID will be used                                                      |                         |
 | region            | Region to target. If none is passed will use default region from the config                                                   | Default: `fr-par`       |
 
@@ -150,7 +151,7 @@ scw object bucket-cors create <bucket ...> [arg=value ...]
 | bucket             | The name of the bucket                                                                                                        | Required                |
 | cors-configuration | The path to the local JSON file containing the CORS configuration.                                                            | Required                |
 | s3-endpoint        | Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint |                         |
-| s3-use-path-style  | Whether to use path style addressing for S3 API calls or not                                                                  |                         |
+| s3-use-path-style  | Whether to use path style addressing for S3 API calls or not, when relevant                                                   |                         |
 | project-id         | Project ID to use. If none is passed the default project ID will be used                                                      |                         |
 | region             | Region to target. If none is passed will use default region from the config                                                   | Default: `fr-par`       |
 
@@ -173,7 +174,7 @@ scw object bucket-cors delete <bucket ...> [arg=value ...]
 |-------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------|
 | bucket            | The name of the bucket                                                                                                        | Required                |
 | s3-endpoint       | Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint |                         |
-| s3-use-path-style | Whether to use path style addressing for S3 API calls or not                                                                  |                         |
+| s3-use-path-style | Whether to use path style addressing for S3 API calls or not, when relevant                                                   |                         |
 | project-id        | Project ID to use. If none is passed the default project ID will be used                                                      |                         |
 | region            | Region to target. If none is passed will use default region from the config                                                   | Default: `fr-par`       |
 
@@ -196,7 +197,7 @@ scw object bucket-cors get <bucket ...> [arg=value ...]
 |-------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------|
 | bucket            | The name of the bucket                                                                                                        | Required                |
 | s3-endpoint       | Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint |                         |
-| s3-use-path-style | Whether to use path style addressing for S3 API calls or not                                                                  |                         |
+| s3-use-path-style | Whether to use path style addressing for S3 API calls or not, when relevant                                                   |                         |
 | project-id        | Project ID to use. If none is passed the default project ID will be used                                                      |                         |
 | region            | Region to target. If none is passed will use default region from the config                                                   | Default: `fr-par`       |
 
@@ -225,7 +226,7 @@ scw object bucket-lifecycle create <bucket ...> [arg=value ...]
 | bucket                  | The name of the bucket to which assign the lifecycle configuration.                                                           | Required                |
 | lifecycle-configuration | The path to the local JSON file containing the bucket lifecycle configuration.                                                | Required                |
 | s3-endpoint             | Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint |                         |
-| s3-use-path-style       | Whether to use path style addressing for S3 API calls or not                                                                  |                         |
+| s3-use-path-style       | Whether to use path style addressing for S3 API calls or not, when relevant                                                   |                         |
 | project-id              | Project ID to use. If none is passed the default project ID will be used                                                      |                         |
 | region                  | Region to target. If none is passed will use default region from the config                                                   | Default: `fr-par`       |
 
@@ -248,7 +249,7 @@ scw object bucket-lifecycle delete <bucket ...> [arg=value ...]
 |-------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------|
 | bucket            | The unique name of the bucket                                                                                                 | Required                |
 | s3-endpoint       | Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint |                         |
-| s3-use-path-style | Whether to use path style addressing for S3 API calls or not                                                                  |                         |
+| s3-use-path-style | Whether to use path style addressing for S3 API calls or not, when relevant                                                   |                         |
 | project-id        | Project ID to use. If none is passed the default project ID will be used                                                      |                         |
 | region            | Region to target. If none is passed will use default region from the config                                                   | Default: `fr-par`       |
 
@@ -271,7 +272,7 @@ scw object bucket-lifecycle get <bucket ...> [arg=value ...]
 |-------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------|
 | bucket            | The unique name of the bucket                                                                                                 | Required                |
 | s3-endpoint       | Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint |                         |
-| s3-use-path-style | Whether to use path style addressing for S3 API calls or not                                                                  |                         |
+| s3-use-path-style | Whether to use path style addressing for S3 API calls or not, when relevant                                                   |                         |
 | project-id        | Project ID to use. If none is passed the default project ID will be used                                                      |                         |
 | region            | Region to target. If none is passed will use default region from the config                                                   | Default: `fr-par`       |
 
@@ -300,7 +301,7 @@ scw object bucket-policy create <bucket ...> [arg=value ...]
 | bucket            | The name of the bucket to which assign the policy.                                                                            | Required                |
 | policy            | The path to the local JSON file containing the bucket policy.                                                                 | Required                |
 | s3-endpoint       | Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint |                         |
-| s3-use-path-style | Whether to use path style addressing for S3 API calls or not                                                                  |                         |
+| s3-use-path-style | Whether to use path style addressing for S3 API calls or not, when relevant                                                   |                         |
 | project-id        | Project ID to use. If none is passed the default project ID will be used                                                      |                         |
 | region            | Region to target. If none is passed will use default region from the config                                                   | Default: `fr-par`       |
 
@@ -323,7 +324,7 @@ scw object bucket-policy delete <bucket ...> [arg=value ...]
 |-------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------|
 | bucket            | The unique name of the bucket                                                                                                 | Required                |
 | s3-endpoint       | Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint |                         |
-| s3-use-path-style | Whether to use path style addressing for S3 API calls or not                                                                  |                         |
+| s3-use-path-style | Whether to use path style addressing for S3 API calls or not, when relevant                                                   |                         |
 | project-id        | Project ID to use. If none is passed the default project ID will be used                                                      |                         |
 | region            | Region to target. If none is passed will use default region from the config                                                   | Default: `fr-par`       |
 
@@ -346,7 +347,7 @@ scw object bucket-policy get <bucket ...> [arg=value ...]
 |-------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------|
 | bucket            | The unique name of the bucket                                                                                                 | Required                |
 | s3-endpoint       | Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint |                         |
-| s3-use-path-style | Whether to use path style addressing for S3 API calls or not                                                                  |                         |
+| s3-use-path-style | Whether to use path style addressing for S3 API calls or not, when relevant                                                   |                         |
 | project-id        | Project ID to use. If none is passed the default project ID will be used                                                      |                         |
 | region            | Region to target. If none is passed will use default region from the config                                                   | Default: `fr-par`       |
 
