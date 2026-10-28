@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"charm.land/lipgloss/v2"
+	"charm.land/lipgloss/v2/table"
 )
 
 // RenderGrid renders a grid of cells the way the previous tabwriter-based
@@ -20,6 +21,13 @@ import (
 // which is what all call sites produce. Ragged rows render with slightly
 // different padding than the old tabwriter did.
 func RenderGrid(grid [][]string, minwidth int) string {
+	if len(grid) == 0 {
+		return ""
+	}
+
+	// A multi-line cell ends the current block: tabwriter flushes its
+	// continuation lines as raw lines at column 0 and restarts the column
+	// widths from scratch after them.
 	var sb strings.Builder
 	start := 0
 	for i := range grid {
@@ -41,7 +49,13 @@ func RenderGrid(grid [][]string, minwidth int) string {
 }
 
 func hasMultilineCell(row []string) bool {
-	return strings.Contains(strings.Join(row, ""), "\n")
+	for _, c := range row {
+		if strings.Contains(c, "\n") {
+			return true
+		}
+	}
+
+	return false
 }
 
 // continuations returns the lines following the first line of a multi-line
@@ -57,48 +71,128 @@ func continuations(row []string) []string {
 	return out
 }
 
-// renderBlock renders a block of rows containing no multi-line cell, except
-// possibly the last row, whose continuation lines are flushed by the caller.
-// Each column except the last is padded with a colPadding-wide gutter to at
-// least minwidth; the last cell of a row is never padded.
 func renderBlock(block [][]string, minwidth int) string {
 	ncols := 0
 	for _, row := range block {
 		ncols = max(ncols, len(row))
 	}
 
+	if ncols <= 1 {
+		// A single-column line is a tabwriter "last cell": printed raw,
+		// without padding or minwidth.
+		lines := make([]string, len(block))
+		for i, row := range block {
+			if len(row) > 0 {
+				lines[i] = firstLine(row[0])
+			}
+		}
+
+		return strings.Join(lines, "\n")
+	}
+
+	// Collapse multi-line cells (only the last row of a block can have one):
+	// the first line participates in the block, the rest are flushed by the
+	// caller.
+	// raw keeps the unpadded cells: the last cell of a row is printed raw,
+	// without the minwidth padding.
+	cells := make([][]string, len(block))
+	raw := make([][]string, len(block))
+	for i, row := range block {
+		cells[i] = make([]string, ncols)
+		raw[i] = make([]string, len(row))
+		for j, c := range row {
+			cells[i][j] = firstLine(c)
+			raw[i][j] = cells[i][j]
+		}
+	}
+
 	// Column slots (display width), for every column except the last one:
 	// the widest cell plus the gutter, at least minwidth.
-	slots := make([]int, max(ncols-1, 0))
-	for j := range slots {
-		w := minwidth - colPadding
-		for _, row := range block {
+	slots := make([]int, ncols)
+	for j := range ncols - 1 {
+		maxW := 0
+		for _, row := range cells {
 			if j < len(row) {
-				w = max(w, lipgloss.Width(firstLine(row[j])))
+				maxW = max(maxW, lipgloss.Width(row[j]))
 			}
 		}
-		slots[j] = w + colPadding
+		if minwidth > 0 && maxW+colPadding < minwidth {
+			// lipgloss has no minimum column width, so pad the cells
+			// ourselves to reach it.
+			// ponytail: pads with plain (unstyled) spaces; a column whose
+			// cells are fully colored and shorter than minwidth gets
+			// uncolored trailing spaces. Nobody notices; remove if it ever does.
+			for r := range cells {
+				if j < len(cells[r]) {
+					cells[r][j] = padWidth(cells[r][j], minwidth-colPadding)
+				}
+			}
+			maxW = minwidth - colPadding
+		}
+		slots[j] = maxW + colPadding
 	}
 
-	var sb strings.Builder
+	t := table.New().
+		Border(lipgloss.Border{}).
+		BorderTop(false).
+		BorderBottom(false).
+		BorderLeft(false).
+		BorderRight(false).
+		BorderHeader(false).
+		BorderColumn(false).
+		BorderRow(false).
+		// Wrap(true) is required: the table only computes multi-line row
+		// heights when wrapping is enabled. Column widths equal the widest
+		// cell, so no wrapping actually happens.
+		Wrap(true).
+		// The gutter is the right padding of the non-last columns, like in
+		// tabwriter. The last column is rendered but discarded (see below).
+		StyleFunc(func(_, col int) lipgloss.Style {
+			if col == ncols-1 {
+				return lipgloss.NewStyle()
+			}
+
+			return lipgloss.NewStyle().PaddingRight(colPadding)
+		}).
+		Headers(cells[0]...)
+
+	if len(cells) > 1 {
+		t = t.Rows(cells[1:]...)
+	}
+
+	rendered := strings.Split(t.String(), "\n")
+
+	// Rebuild each line: the non-last columns exactly as rendered, then the
+	// last cell raw (tabwriter never pads the last cell of a line).
+	lines := make([]string, len(block))
 	for i, row := range block {
-		if i > 0 {
-			sb.WriteString("\n")
+		if len(row) <= 1 {
+			lines[i] = raw[i][0]
+
+			continue
 		}
-		for j, c := range row {
-			c = firstLine(c)
-			sb.WriteString(c)
-			if j < len(row)-1 {
-				sb.WriteString(strings.Repeat(" ", slots[j]-lipgloss.Width(c)))
-			}
+		offset := 0
+		for j := range len(row) - 1 {
+			offset += len(cells[i][j]) + slots[j] - lipgloss.Width(cells[i][j])
 		}
+		lines[i] = rendered[i][:offset] + raw[i][len(row)-1]
 	}
 
-	return sb.String()
+	return strings.Join(lines, "\n")
 }
 
 func firstLine(s string) string {
 	before, _, _ := strings.Cut(s, "\n")
 
 	return before
+}
+
+// padWidth appends spaces so the display width of s reaches at least w.
+func padWidth(s string, w int) string {
+	d := w - lipgloss.Width(s)
+	if d <= 0 {
+		return s
+	}
+
+	return s + strings.Repeat(" ", d)
 }
