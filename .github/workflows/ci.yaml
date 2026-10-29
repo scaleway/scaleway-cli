@@ -24,7 +24,6 @@ jobs:
         run: |
           echo "GOMODCACHE=$HOME/.cache/go-mod" >> "$GITHUB_ENV"
           echo "GOCACHE=$HOME/.cache/go-build" >> "$GITHUB_ENV"
-          echo "PNPM_HOME=$HOME/.cache/pnpm-store" >> "$GITHUB_ENV"
       - name: Restore go module cache
         if: github.event_name == 'pull_request' || github.event_name == 'merge_group'
         uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -41,14 +40,6 @@ jobs:
           key: go-build-${{ runner.os }}-${{ github.sha }}
           restore-keys: |
             go-build-${{ runner.os }}-
-      - name: Restore pnpm store cache
-        if: github.event_name == 'pull_request' || github.event_name == 'merge_group'
-        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ${{ env.PNPM_HOME }}/store
-          key: pnpm-store-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            pnpm-store-${{ runner.os }}-
       - uses: $/.github/actions/mise
         with:
           cache_save: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
@@ -75,9 +66,3 @@ jobs:
         with:
           path: ${{ env.GOCACHE }}
           key: go-build-${{ runner.os }}-${{ github.sha }}
-      - name: Save pnpm store cache
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ${{ env.PNPM_HOME }}/store
-          key: pnpm-store-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}

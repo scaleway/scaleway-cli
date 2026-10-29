@@ -4,6 +4,6 @@ export class Go {
   importObject: {
     go: { [key: string]: (sp: number) => void }
   }
-  async run(instance: WebAssembly.Instance)
-  _resume()
+  run(instance: WebAssembly.Instance): Promise<void>
+  _resume(): void
 }

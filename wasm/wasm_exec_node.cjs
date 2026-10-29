@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// Trimmed from $GOROOT/lib/wasm/wasm_exec_node.js: only the Node globals setup,
+// without the "run the wasm binary as a subprocess" logic (tests load it in-process).
 'use strict'
 
 globalThis.require = require
