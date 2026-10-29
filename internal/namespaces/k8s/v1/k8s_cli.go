@@ -553,6 +553,13 @@ func k8sClusterCreate() *core.Command {
 				},
 			},
 			{
+				Name:       "pools.{index}.private-network-id",
+				Short:      `Private network where the nodes are attached. Should be member of the same VPC as the API Server.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "pools.{index}.max-termination-grace-period",
 				Short:      `Maximum amount of time in seconds before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node. It overrides pods ` + "`" + `PodDisruptionBudget` + "`" + ` and ` + "`" + `terminationGracePeriodSeconds` + "`" + `. Defaults to 15 minutes, up to 1 hour.`,
 				Required:   false,
@@ -2015,6 +2022,13 @@ func k8sPoolCreate() *core.Command {
 					"PreferNoSchedule",
 					"NoExecute",
 				},
+			},
+			{
+				Name:       "private-network-id",
+				Short:      `Private network where the nodes are attached. Should be member of the same VPC as the API Server.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "user-data.{key}",

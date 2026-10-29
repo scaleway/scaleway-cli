@@ -11,6 +11,15 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+// S3Args holds the fields shared by every bucket-related arg struct.
+// Required here for the WASM build.
+type S3Args struct {
+	Region         scw.Region
+	ProjectID      string
+	S3Endpoint     string
+	S3UsePathStyle string
+}
+
 type CustomS3ACLGrant struct {
 	Grantee    *string
 	Permission types.Permission
@@ -102,10 +111,9 @@ func bucketGetResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) 
 }
 
 type bucketGetArgs struct {
-	Region    scw.Region
-	Name      string
-	WithSize  bool `json:"with-size"`
-	ProjectID string
+	S3Args
+	Name     string
+	WithSize bool `json:"with-size"`
 }
 
 func bucketMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {

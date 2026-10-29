@@ -8,7 +8,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   cockpit                 Open the Cockpit Grafana dashboard for this cluster
-  connect                 Connect to a cluster using k9s, or a custom command via --template
+  connect                 Connect to a cluster using k9s, or a custom command via template
   create                  Create a new Cluster
   delete                  Delete a Cluster
   get                     Get a Cluster

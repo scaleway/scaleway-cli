@@ -2,6 +2,7 @@ package human
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"reflect"
 	"sort"
@@ -424,7 +425,7 @@ func marshalSection(section *MarshalSection, value reflect.Value, opt *MarshalOp
 	field, err := gofields.GetValue(value.Interface(), section.FieldName)
 	if err != nil {
 		if section.HideIfEmpty {
-			if _, ok := err.(*gofields.NilValueError); ok {
+			if _, ok := errors.AsType[*gofields.NilValueError](err); ok {
 				return "", nil
 			}
 		}

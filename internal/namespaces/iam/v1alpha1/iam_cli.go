@@ -1828,6 +1828,13 @@ func iamPolicyCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "rules.{index}.deny",
+				Short:      `Select whether the rule should remove the permissions instead of granting them`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "rules.{index}.organization-id",
 				Short:      `ID of Organization the rule is scoped to`,
 				Required:   false,
@@ -2093,6 +2100,13 @@ func iamRuleUpdate() *core.Command {
 			{
 				Name:       "rules.{index}.project-ids.{index}",
 				Short:      `List of Project IDs the rule is scoped to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "rules.{index}.deny",
+				Short:      `Select whether the rule should remove the permissions instead of granting them`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

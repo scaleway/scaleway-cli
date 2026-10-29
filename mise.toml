@@ -1,6 +1,7 @@
 #:schema https://mise.jdx.dev/schema/mise.json
 
 [settings]
+experimental = true
 lockfile = true
 
 [task_config]
@@ -18,20 +19,15 @@ hadolint = "2.15"
 node = "24.11.1"
 "npm:actions-up" = "1.20"
 "npm:markdown-link-check" = "3.15"
-"npm:vite" = "8.2"
-"npm:vitest" = "5.0"
+"npm:oxfmt" = "0.75"
+"npm:oxlint" = "1.90"
 pnpm = "10.24.0"
-prettier = "3.9"
 rumdl = "0.2"
 typos = "1.50"
 zizmor = "1.30"
 
 [env]
 _.file = '.env'
-
-[deps.pnpm]
-auto = true
-dir = "wasm/"
 
 [deps.go]
 auto = true
@@ -86,16 +82,24 @@ run = '''
 go run ./cmd/scw "$@"
 '''
 
+[tasks.'gen:wasm']
+description = "copy the Go toolchain wasm runtime loader into the wasm package"
+run = '''
+cp "$(go env GOROOT)/lib/wasm/wasm_exec.js" wasm/wasm_exec.cjs
+'''
+
 [tasks.'build:wasm']
 description = "build the wasm wrapper"
+depends = ["gen:wasm"]
 run = '''
 GOOS=js GOARCH=wasm go build -o wasm/cli.wasm ./cmd/scw-wasm 
 '''
 
-[tasks.'build:wasm-tester']
-description = "build the wasm wrapper tester"
+[tasks.'check:wasm']
+description = "smoke-test the wasm wrapper (loads and prints version)"
+depends = ["build:wasm"]
 run = '''
-GOOS=js GOARCH=wasm go build  -o wasm/cliTester.wasm ./cmd/scw-wasm-tester
+node wasm/wasm-smoke.mjs
 '''
 
 [tasks.'gen:doc']
@@ -181,7 +185,7 @@ hadolint ${usage_dockerfile?}
 '''
 
 [tasks.'lint:wasm']
-description = "lint the wasm wrapper"
+description = "lint and format-check the wasm wrapper"
 dir = "wasm"
 usage = '''
 flag "--write" {
@@ -189,13 +193,14 @@ flag "--write" {
 }
 '''
 run = '''
-args=(.)
+set -euo pipefail
 if [ "${usage_write:-false}" = "true" ]; then
-  args+=(--write)
+  oxfmt --write .
+  oxlint --fix --config .oxlintrc.json .
 else
-  args+=(--check)
+  oxfmt --check .
+  oxlint --deny-warnings --config .oxlintrc.json .
 fi
-prettier "${args[@]}"
 '''
 
 [tasks.'lint:doc']
@@ -256,6 +261,9 @@ flag "--coverprofile <file>" {
 flag "--parallel <n>" {
   help "execute n tests in parallel when allowed"
 }
+flag "--count <n>" {
+  help "execute the tests n times"
+}
 flag "--parallel-pkg <n>" {
   help "build and execute n test binaries in concurrence"
 }
@@ -298,57 +306,15 @@ fi
 if [ -n "${usage_parallel:-}" ]; then
   test_args+=(-parallel "${usage_parallel?}")
 fi
+if [ -n "${usage_count:-}" ]; then
+  test_args+=(-count "${usage_count?}")
+fi
 if [ "${usage_failfast:-false}" = "true" ]; then
   test_args+=(-failfast)
 fi
 test_args+=("${usage_packages?}")
 
 gotestsum "${gotestsum_args[@]}" -- "${test_args[@]}"
-'''
-
-[tasks.'test:wasm']
-description = "test the wasm wrapper"
-depends = ["build:wasm", "build:wasm-tester"]
-dir = "wasm"
-usage = '''
-arg "[filters]" {
-  help "test name filters"
-  var #true
-}
-flag "--watch" {
-  help "run in watch mode"
-}
-flag "--ui" {
-  help "enable the vitest ui"
-}
-flag "--update" {
-  help "update snapshots"
-}
-flag "--coverage" {
-  help "enable coverage report"
-}
-flag "--reporter <name>" {
-  help "specify reporter (default, verbose, dot, json, junit, github-actions)"
-}
-'''
-run = '''
-args=(./src "${usage_filters[@]}")
-if [ "${usage_watch:-false}" = "true" ]; then
-  args+=(--watch)
-fi
-if [ "${usage_ui:-false}" = "true" ]; then
-  args+=(--ui)
-fi
-if [ "${usage_update:-false}" = "true" ]; then
-  args+=(--update)
-fi
-if [ "${usage_coverage:-false}" = "true" ]; then
-  args+=(--coverage)
-fi
-if [ -n "${usage_reporter:-}" ]; then
-  args+=(--reporter "${usage_reporter?}")
-fi
-vitest "${args[@]}"
 '''
 
 # [tasks.'test:doc']
@@ -476,9 +442,17 @@ depends = [
     "{% if usage.coverprofile %}--coverprofile{% endif %}",
     "{{ usage.coverprofile }}",
   ] },
-  "test:wasm",
   "check:*"
 ]
+
+[tasks.'check:cli']
+description = "smoke-test the cli binary (loads and prints version)"
+depends = ["build:cli"]
+run = '''
+out=$(./scw version) || { echo "cli smoke test failed: ./scw version exited $?"; exit 1; }
+echo "$out"
+echo "$out" | grep -qE '^Version +2\.[0-9]+\.[0-9]+' || { echo "cli smoke test failed: unexpected version output"; exit 1; }
+'''
 
 [tasks.sweep]
 run = '''

@@ -1,0 +1,46 @@
+---
+version: 1
+interactions:
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.39.1-0.20261026211111-7e4e74307d3e (go1.27.3; darwin; arm64)
+        cli-e2e-test
+    url: https://api.scaleway.com/edge-services/v1beta1/plans
+    method: GET
+  response:
+    body: '{"total_count":3, "plans":[{"plan_name":"starter", "package_gb":100, "pipeline_limit":1,
+      "waf_requests":5000000, "backend_limit":1, "wildcard_domain":false}, {"plan_name":"professional",
+      "package_gb":1000, "pipeline_limit":10, "waf_requests":5000000, "backend_limit":10,
+      "wildcard_domain":true}, {"plan_name":"advanced", "package_gb":10000, "pipeline_limit":100,
+      "waf_requests":50000000, "backend_limit":100, "wildcard_domain":true}]}'
+    headers:
+      Content-Length:
+      - "434"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 29 Oct 2026 10:26:11 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Ratelimit-Limit:
+      - 50, 50;w=1
+      X-Ratelimit-Remaining:
+      - "49"
+      X-Ratelimit-Reset:
+      - "1"
+      X-Request-Id:
+      - a5c1f81f-0433-4972-97fa-9cdc60b6eed1
+    status: 200 OK
+    code: 200
+    duration: ""

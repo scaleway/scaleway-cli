@@ -13,14 +13,12 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 type bucketCorsCreateArgs struct {
+	S3Args
 	Bucket            string
 	CorsConfiguration string
-	Region            scw.Region
-	ProjectID         string
 }
 
 func bucketCorsCreateCommand() *core.Command {
@@ -45,6 +43,8 @@ func bucketCorsCreateCommand() *core.Command {
 				Required:   true,
 				Short:      "The path to the local JSON file containing the CORS configuration.",
 			},
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -72,15 +72,19 @@ func bucketCorsCreateCommand() *core.Command {
 			err = json.Unmarshal([]byte(configStr), &config)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"failed to unmarshal bucket CORS configuration: %v",
+					"failed to unmarshal bucket CORS configuration: %w",
 					err,
 				)
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
 			params := s3.PutBucketCorsInput{
 				Bucket:            &args.Bucket,
 				CORSConfiguration: &config,
+			}
+
+			client, err := args.newS3Client(ctx)
+			if err != nil {
+				return nil, err
 			}
 
 			_, err = client.PutBucketCors(ctx, &params)
@@ -88,7 +92,12 @@ func bucketCorsCreateCommand() *core.Command {
 				return nil, fmt.Errorf("could not create bucket CORS configuration: %w", err)
 			}
 
-			bucket, err := getBucketInfo(ctx, args.Region, args.Bucket, args.ProjectID)
+			bucket, err := getBucketInfo(
+				ctx,
+				args.Region,
+				args.Bucket,
+				client,
+			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
 			}
@@ -105,9 +114,8 @@ func bucketCorsCreateCommand() *core.Command {
 }
 
 type bucketCorsDeleteArgs struct {
-	Bucket    string
-	Region    scw.Region
-	ProjectID string
+	S3Args
+	Bucket string
 }
 
 func bucketCorsDeleteCommand() *core.Command {
@@ -126,6 +134,8 @@ func bucketCorsDeleteCommand() *core.Command {
 				Short:            "The name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -135,12 +145,16 @@ func bucketCorsDeleteCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
 			params := s3.DeleteBucketCorsInput{
 				Bucket: &args.Bucket,
 			}
 
-			_, err := client.DeleteBucketCors(ctx, &params)
+			client, err := args.newS3Client(ctx)
+			if err != nil {
+				return nil, err
+			}
+
+			_, err = client.DeleteBucketCors(ctx, &params)
 			if err != nil {
 				return nil, fmt.Errorf("could not delete bucket CORS: %w", err)
 			}
@@ -154,9 +168,8 @@ func bucketCorsDeleteCommand() *core.Command {
 }
 
 type bucketCorsGetArgs struct {
-	Bucket    string
-	Region    scw.Region
-	ProjectID string
+	S3Args
+	Bucket string
 }
 
 func bucketCorsGetCommand() *core.Command {
@@ -175,6 +188,8 @@ func bucketCorsGetCommand() *core.Command {
 				Short:            "The name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			s3EndpointArgSpec(),
+			s3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -184,9 +199,13 @@ func bucketCorsGetCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
 			params := s3.GetBucketCorsInput{
 				Bucket: &args.Bucket,
+			}
+
+			client, err := args.newS3Client(ctx)
+			if err != nil {
+				return nil, err
 			}
 
 			conf, err := client.GetBucketCors(ctx, &params)

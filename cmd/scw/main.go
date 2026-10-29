@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"os/exec"
@@ -89,7 +90,7 @@ func dispatchPlugin(args []string) (exitCode int, handled bool) {
 	cmd := exec.Command(bin, args[2:]...)
 	cmd.Stdin, cmd.Stdout, cmd.Stderr = os.Stdin, os.Stdout, os.Stderr
 	if err := cmd.Run(); err != nil {
-		if exitErr, ok := err.(*exec.ExitError); ok {
+		if exitErr, ok := errors.AsType[*exec.ExitError](err); ok {
 			return exitErr.ExitCode(), true
 		}
 		_, _ = fmt.Fprintln(os.Stderr, err)

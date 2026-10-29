@@ -112,6 +112,62 @@ func Test_BucketCreate(t *testing.T) {
 		),
 		AfterFunc: deleteBucket(bucketName4),
 	}))
+
+	bucketName5 := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionCreate)
+
+	t.Run("With s3-endpoint", core.Test(&core.TestConfig{
+		Commands: object.GetCommands(),
+		Cmd: fmt.Sprintf(
+			"scw object bucket create %s s3-endpoint=https://s3.fr-par.scw.cloud",
+			bucketName5,
+		),
+		Check: core.TestCheckCombine(
+			core.TestCheckS3Golden(),
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
+				assert.Equal(t, bucketName5, bucket.ID)
+				assert.False(t, bucket.EnableVersioning)
+				assert.Equal(t, []types.Tag(nil), bucket.Tags)
+				assert.Equal(t, "https://s3.fr-par.scw.cloud", bucket.APIEndpoint)
+				assert.Equal(t,
+					fmt.Sprintf("https://%s.s3.fr-par.scw.cloud", bucketName5),
+					bucket.BucketEndpoint,
+				)
+				checkACL(t, "private", bucket.ACL, bucket.Owner)
+			},
+		),
+		AfterFunc: deleteBucket(bucketName5),
+	}))
+
+	bucketName6 := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionCreate)
+
+	t.Run("With s3-endpoint and s3-use-path-style", core.Test(&core.TestConfig{
+		Commands: object.GetCommands(),
+		Cmd: fmt.Sprintf(
+			"scw object bucket create %s s3-endpoint=https://s3.fr-par.scw.cloud s3-use-path-style=true",
+			bucketName6,
+		),
+		Check: core.TestCheckCombine(
+			core.TestCheckS3Golden(),
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
+				assert.Equal(t, bucketName6, bucket.ID)
+				assert.False(t, bucket.EnableVersioning)
+				assert.Equal(t, []types.Tag(nil), bucket.Tags)
+				assert.Equal(t, "https://s3.fr-par.scw.cloud", bucket.APIEndpoint)
+				assert.Equal(t,
+					"https://s3.fr-par.scw.cloud/"+bucketName6,
+					bucket.BucketEndpoint,
+				)
+				checkACL(t, "private", bucket.ACL, bucket.Owner)
+			},
+		),
+		AfterFunc: deleteBucket(bucketName6),
+	}))
 }
 
 func Test_BucketDelete(t *testing.T) {
@@ -172,6 +228,35 @@ func Test_BucketGet(t *testing.T) {
 			},
 		),
 		AfterFunc: deleteBucket(bucketName2),
+	}))
+
+	bucketName3 := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionGet)
+
+	t.Run("With s3-endpoint and s3-use-path-style", core.Test(&core.TestConfig{
+		Commands:   object.GetCommands(),
+		BeforeFunc: createBucket(bucketName3),
+		Cmd: fmt.Sprintf(
+			"scw object bucket get %s s3-endpoint=https://s3.fr-par.scw.cloud s3-use-path-style=true",
+			bucketName3,
+		),
+		Check: core.TestCheckCombine(
+			core.TestCheckS3Golden(),
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+				bucket := ctx.Result.(object.BucketGetResult)
+				assert.Equal(t, bucketName3, bucket.ID)
+				assert.False(t, bucket.EnableVersioning)
+				assert.Equal(t, []types.Tag(nil), bucket.Tags)
+				assert.Equal(t, "https://s3.fr-par.scw.cloud", bucket.APIEndpoint)
+				assert.Equal(t,
+					"https://s3.fr-par.scw.cloud/"+bucketName3,
+					bucket.BucketEndpoint,
+				)
+				checkACL(t, "private", bucket.ACL, bucket.Owner)
+			},
+		),
+		AfterFunc: deleteBucket(bucketName3),
 	}))
 }
 
@@ -255,6 +340,40 @@ func Test_BucketUpdate(t *testing.T) {
 			},
 		),
 		AfterFunc: deleteBucket(bucketName2),
+	}))
+
+	bucketName3 := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionUpdate)
+
+	t.Run("With s3-endpoint and s3-use-path-style", core.Test(&core.TestConfig{
+		Commands:   object.GetCommands(),
+		BeforeFunc: createBucket(bucketName3),
+		Cmd: fmt.Sprintf(
+			"scw object bucket update %s s3-endpoint=https://s3.fr-par.scw.cloud s3-use-path-style=true tags.0=\"key1=value1\"",
+			bucketName3,
+		),
+		Check: core.TestCheckCombine(
+			core.TestCheckS3Golden(),
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+				bucket := ctx.Result.(*object.BucketResponse).BucketInfo
+				assert.Equal(t, bucketName3, bucket.ID)
+				assert.False(t, bucket.EnableVersioning)
+				assert.Equal(t, []types.Tag{
+					{
+						Key:   new("key1"),
+						Value: new("value1"),
+					},
+				}, bucket.Tags)
+				assert.Equal(t, "https://s3.fr-par.scw.cloud", bucket.APIEndpoint)
+				assert.Equal(t,
+					"https://s3.fr-par.scw.cloud/"+bucketName3,
+					bucket.BucketEndpoint,
+				)
+				checkACL(t, "private", bucket.ACL, bucket.Owner)
+			},
+		),
+		AfterFunc: deleteBucket(bucketName3),
 	}))
 }
 

@@ -21,11 +21,12 @@ ARGS:
   [volumes.{index}.image-label]                   Label of the image used as base for the volume
   [volumes.{index}.perf-iops]                     Performance IOPS for the volume
   [private-networks.{index}.private-network-id]   ID of the private network
+  [private-networks.{index}.security-group-id]    ID of the security group for the private network
   [filesystem-ids.{index}]                        List of filesystem IDs to associate with the template
   [public-ipv4-count]                             Number of IPv4 public IPs to attach to servers created from this template
   [public-ipv6-count]                             Number of IPv6 public IPs to attach to servers created from this template
   [windows-rdp-ssh-key-id]                        IAM ID of the SSH key used to encrypt the Windows `Administrator` password for RDP use
-  [zone=fr-par-1]                                 Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3 | it-mil-1)
+  [zone=fr-par-1]                                 Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3 | it-mil-1 | it-mil-2 | it-mil-3)
 
 FLAGS:
   -h, --help                help for create

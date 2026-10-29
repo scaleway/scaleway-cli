@@ -1,7 +1,16 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Failed to get nats account: scaleway-sdk-go: invalid argument(s): nats_account_id does not respect constraint, value length must be 56 runes
+Invalid arguments 'nats_account_id'
+
+Details:
+- 'nats_account_id' does not respect constraints
+
+Hint:
+Value length must be 56 runes
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "error": "failed to get nats account: scaleway-sdk-go: invalid argument(s): nats_account_id does not respect constraint, value length must be 56 runes"
+  "message": "invalid arguments 'nats_account_id'",
+  "error": {},
+  "details": "- 'nats_account_id' does not respect constraints",
+  "hint": "value length must be 56 runes"
 }

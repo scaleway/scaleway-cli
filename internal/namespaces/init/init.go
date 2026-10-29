@@ -371,8 +371,7 @@ func getActiveProfile(config *scw.Config, profileName string) *scw.Profile {
 func loadConfigOrEmpty(configPath string, activeProfile string) (*scw.Config, error) {
 	config, err := scw.LoadConfigFromPath(configPath)
 	if err != nil {
-		_, ok := err.(*scw.ConfigFileNotFoundError)
-		if ok {
+		if _, ok := errors.AsType[*scw.ConfigFileNotFoundError](err); ok {
 			config = &scw.Config{}
 			if activeProfile != scw.DefaultProfileName {
 				config.ActiveProfile = &activeProfile

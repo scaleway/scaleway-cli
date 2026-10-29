@@ -4,9 +4,9 @@ go 1.27.1
 
 require (
 	github.com/aws/aws-sdk-go-v2 v1.47.3
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.114.3
-	github.com/aws/smithy-go v1.28.5
-	github.com/buildpacks/pack v0.40.9
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.114.4
+	github.com/aws/smithy-go v1.28.6
+	github.com/buildpacks/pack v0.40.10
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/charmbracelet/bubbletea v1.3.10
 	github.com/chzyer/readline v1.5.1
@@ -22,14 +22,14 @@ require (
 	github.com/karrick/tparse/v2 v2.8.2
 	github.com/mattn/go-colorable v0.1.16
 	github.com/mattn/go-isatty v0.0.24
-	github.com/moby/buildkit v0.34.0
+	github.com/moby/buildkit v0.34.1
 	github.com/moby/go-archive v0.3.3
 	github.com/moby/moby/api v1.56.1
 	github.com/moby/moby/client v0.6.2
 	github.com/modelcontextprotocol/go-sdk v1.8.0
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/opencontainers/image-spec v1.1.1
-	github.com/scaleway/scaleway-sdk-go v1.39.1-0.20261019152335-46763ab9fc78
+	github.com/scaleway/scaleway-sdk-go v1.39.1-0.20261028183912-83bfd4c89087
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
 	github.com/spf13/cobra v1.10.2
 	github.com/spf13/pflag v1.0.10
@@ -38,6 +38,7 @@ require (
 	golang.org/x/sync v0.24.0
 	golang.org/x/term v0.47.0
 	golang.org/x/text v0.43.0
+	gopkg.in/dnaeon/go-vcr.v4 v4.0.7
 )
 
 require (
@@ -59,7 +60,7 @@ require (
 	github.com/ProtonMail/go-crypto v1.4.1 // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/apex/log v1.9.0 // indirect
-	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.7.22 // indirect
+	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.7.23 // indirect
 	github.com/aws/aws-sdk-go-v2/config v1.33.4 // indirect
 	github.com/aws/aws-sdk-go-v2/credentials v1.20.4 // indirect
 	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.20.0 // indirect
@@ -205,7 +206,6 @@ require (
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260825221802-da73d73af1c5 // indirect
 	google.golang.org/grpc v1.84.0 // indirect
 	google.golang.org/protobuf v1.36.12 // indirect
-	gopkg.in/dnaeon/go-vcr.v4 v4.0.7 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
