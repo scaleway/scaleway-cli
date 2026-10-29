@@ -1,6 +1,6 @@
 // Smoke test for the wasm wrapper: boots the published package exactly like a
 // JS consumer would, then runs `scw version` and checks the output.
-import { readFile } from 'node:fs/promises'
+import { readFile, rm } from 'node:fs/promises'
 
 import './wasm_exec_node.cjs'
 import './wasm_exec.cjs'
@@ -34,6 +34,9 @@ const resp = await globalThis[TARGET].run(
   { jwt: '', defaultProjectID: '', defaultOrganizationID: '', apiUrl: '' },
   ['version'],
 )
+// WASM has no HOME/SCW_CACHE_DIR env, so scw's after-command checks write
+// their 24h throttle marker to the current directory. Do not leave it in the repo.
+await rm('last-cli-checks', { force: true })
 if (resp.exitCode !== 0) {
   console.error(`smoke test failed: exit code ${resp.exitCode}\n${resp.stderr}`)
   process.exit(1)
