@@ -51,9 +51,7 @@ func cassetteMatcher(r *http.Request, i cassette.Request) bool {
 	}
 
 	// Specific handling of s3 URLs
-	// Url format is https://test-acc-scaleway-object-bucket-lifecycle-8445817190507446251.s3.fr-par.scw.cloud/?lifecycle=
-	match, err := regexp.MatchString(".s3.[a-z]{2}-[a-z]{3}.scw.cloud", r.URL.Host)
-	if err == nil && match {
+	if strings.HasSuffix(r.URL.Host, ".scw.cloud") {
 		return customS3Matcher(r, i)
 	}
 
@@ -63,17 +61,26 @@ func cassetteMatcher(r *http.Request, i cassette.Request) bool {
 func customS3Matcher(r *http.Request, i cassette.Request) bool {
 	expectedURL, _ := url.Parse(i.URL)
 	actualURL := r.URL
-	if !strings.HasSuffix(expectedURL.Host, "scw.cloud") {
+	if !strings.HasSuffix(expectedURL.Host, ".scw.cloud") {
 		return false
 	}
 
 	actualS3Host := strings.Split(actualURL.Host, ".")
 	expectedS3Host := strings.Split(expectedURL.Host, ".")
-	if len(actualS3Host) < 1 || len(expectedS3Host) < 1 {
+
+	// Extract the bucket name and remaining path, handling both
+	// virtual-hosted style (bucket in host) and path style (bucket in path).
+	actualBucket, actualPath := extractS3BucketAndPath(actualS3Host, actualURL.Path)
+	expectedBucket, expectedPath := extractS3BucketAndPath(expectedS3Host, expectedURL.Path)
+
+	// When no bucket is present (e.g. ListBuckets), fall back to the
+	// default matcher which compares the full URL.
+	if actualBucket == "" && expectedBucket == "" {
+		return cassette.DefaultMatcher(r, i)
+	}
+	if actualBucket == "" || expectedBucket == "" {
 		return false
 	}
-	actualBucket := actualS3Host[0]
-	expectedBucket := expectedS3Host[0]
 
 	// Compare bucket names without the random number at the end
 	if strings.Contains(actualBucket, "-") {
@@ -92,8 +99,24 @@ func customS3Matcher(r *http.Request, i cassette.Request) bool {
 	expectedURL.RawQuery = expectedURLValues.Encode()
 	actualURL.RawQuery = actualURLValues.Encode()
 
-	return r.Method == i.Method && r.URL.Path == expectedURL.Path &&
+	return r.Method == i.Method && actualPath == expectedPath &&
 		actualURL.RawQuery == expectedURL.RawQuery
+}
+
+// extractS3BucketAndPath extracts the bucket name and remaining path from
+// either a virtual-hosted style URL (bucket in host, e.g.
+// "bucket.s3.fr-par.scw.cloud") or a path style URL (bucket in path, e.g.
+// "s3.fr-par.scw.cloud/bucket").
+func extractS3BucketAndPath(hostParts []string, path string) (bucket, remainingPath string) {
+	if len(hostParts) > 4 {
+		// Virtual-hosted style: bucket is the first label of the host
+		return hostParts[0], path
+	}
+
+	// Path style: bucket is the first segment of the path
+	bucket, remainingPath, _ = strings.Cut(strings.TrimPrefix(path, "/"), "/")
+
+	return bucket, remainingPath
 }
 
 // getHTTPRecoder creates a new httpClient that records all HTTP requests in a cassette.
