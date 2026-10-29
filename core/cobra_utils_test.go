@@ -101,6 +101,15 @@ func testGetCommands() *core.Commands {
 				return a.Date, nil
 			},
 		},
+		&core.Command{
+			// No ArgsType, as generated for API methods without a request type.
+			Namespace:            "test",
+			Resource:             "no-args-type",
+			AllowAnonymousClient: true,
+			Run: func(_ context.Context, _ any) (i any, e error) {
+				return "ok", nil
+			},
+		},
 	)
 }
 
@@ -165,6 +174,17 @@ func Test_RawArgs(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckStdout("blabla foo bar\n"),
+		),
+	}))
+}
+
+func Test_NoArgsType(t *testing.T) {
+	t.Run("nil-args-type", core.Test(&core.TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test no-args-type",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckStdout("ok\n"),
 		),
 	}))
 }
