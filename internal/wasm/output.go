@@ -3,7 +3,6 @@
 package wasm
 
 import (
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 )
 
@@ -14,9 +13,9 @@ type ConfigureOutputConfig struct {
 
 type ConfigureOutputResponse struct{}
 
-func ConfigureOutput(cfg *ConfigureOutputConfig) (*ConfigureOutputResponse, error) {
-	terminal.Width = cfg.Width
-	color.NoColor = !cfg.Color
+func ConfigureOutput(config *ConfigureOutputConfig) (*ConfigureOutputResponse, error) {
+	terminal.Width = config.Width
+	terminal.SetColorEnabled(config.Color)
 
 	return &ConfigureOutputResponse{}, nil
 }

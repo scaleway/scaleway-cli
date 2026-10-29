@@ -9,9 +9,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
@@ -145,7 +145,9 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 	// For inboundRulesView and outboundRulesView, this function must be called for every
 	// concatenated part of the string because of the color package escaping at the end of
 	// a color resulting in a non-bold format after the default{In|Out}boundPolicy.
-	b := color.New(color.Bold).SprintFunc()
+	b := func(s string) string {
+		return terminal.Style(s, color.Bold)
+	}
 
 	inboundRulesContent, err := human.Marshal(inboundRules, nil)
 	if err != nil {

@@ -3,13 +3,13 @@ package main
 import (
 	"context"
 	"fmt"
-	"os"
+	"strconv"
 	"strings"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/commands"
+	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/qa"
-	"github.com/scaleway/scaleway-cli/v2/internal/tabwriter"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 )
 
@@ -28,9 +28,11 @@ func main() {
 	}
 
 	fmt.Println(terminal.Style("\nSummary:", color.Bold))
-	w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
+	grid := make([][]string, 0, len(errorCounts))
 	for key, count := range errorCounts {
-		_, _ = fmt.Fprintf(w, "%s\t%d\n", strings.TrimPrefix(key, "*qa."), count)
+		grid = append(grid, []string{strings.TrimPrefix(key, "*qa."), strconv.Itoa(count)})
 	}
-	_ = w.Flush()
+	if len(grid) > 0 {
+		fmt.Println(human.RenderGrid(grid))
+	}
 }

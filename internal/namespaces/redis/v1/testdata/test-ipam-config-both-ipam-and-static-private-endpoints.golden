@@ -20,7 +20,7 @@ ID                                    Port  IPs
 bf610fa0-80a4-47d0-af4d-4220d73104c7  6379  [10.16.4.1]
 
 ACLRules:
-ID   IP CIDR  DESCRIPTION
+ID  IP CIDR  DESCRIPTION
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "945a253e-55de-4c30-b389-cc8747cdb430",

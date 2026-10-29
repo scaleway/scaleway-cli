@@ -15,7 +15,7 @@ ModificationDate       few seconds ago
 Stateful               true
 
 Inbound Rules (default policy accept):
-ID   DIRECTION  PROTOCOL  ACTION  IP RANGE  DEST
+ID  DIRECTION  PROTOCOL  ACTION  IP RANGE  DEST
 
 Outbound Rules (default policy accept):
 ID                                    DIRECTION  PROTOCOL  ACTION  IP RANGE   DEST
@@ -27,7 +27,7 @@ ID                                    DIRECTION  PROTOCOL  ACTION  IP RANGE   DE
 11111111-2222-4333-8444-000000000006  outbound   TCP       drop    ::/0       587
 
 Servers:
-ID   NAME
+ID  NAME
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "6bbed5ce-6b01-4841-9adb-c18fc2b80774",
