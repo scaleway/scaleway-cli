@@ -6,12 +6,20 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	instanceV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v2alpha1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
 //
 // Server
 //
+
+func instanceV1AndV2Commands() *core.Commands {
+	cmds := instance.GetCommands()
+	cmds.Merge(instanceV2.GetCommands())
+
+	return cmds
+}
 
 // createServer creates a stopped ubuntu server without IP and
 // register it in the context Meta at given metaKey

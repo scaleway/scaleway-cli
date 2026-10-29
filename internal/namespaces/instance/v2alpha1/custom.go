@@ -20,6 +20,7 @@ func GetCommands() *core.Commands {
 		instanceSecurityGroup(),
 		instanceServerType(),
 		instanceTemplate(),
+		instanceUserData(),
 		instancePlacementGroupList(),
 		instancePlacementGroupCreate(),
 		instancePlacementGroupGet(),
@@ -54,6 +55,12 @@ func GetCommands() *core.Commands {
 		instanceTemplateSetCloudInit(),
 		instanceTemplateCheck(),
 		instanceTemplateCreateServer(),
+		instanceUserDataList(),
+		instanceUserDataSet(),
+		instanceUserDataGet(),
+		instanceUserDataDelete(),
+		instanceUserDataGetCloudInit(),
+		instanceUserDataSetCloudInit(),
 	)
 
 	//
@@ -152,6 +159,17 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("instance", "template", "set-cloud-init").Override(TemplateSetCloudInitBuilder)
 	cmds.MustFind("instance", "template", "get-cloud-init").Override(TemplateGetCloudInitBuilder)
+
+	//
+	// User Data
+	//
+	cmds.MustFind("instance", "user-data", "set").Override(userDataSetBuilder)
+	cmds.MustFind("instance", "user-data", "get").Override(userDataGetBuilder)
+	cmds.MustFind("instance", "user-data", "list").Override(userDataListBuilder)
+	cmds.MustFind("instance", "user-data", "delete").Override(userDataDeleteBuilder)
+
+	cmds.MustFind("instance", "user-data", "set-cloud-init").Override(userDataSetCloudInitBuilder)
+	cmds.MustFind("instance", "user-data", "get-cloud-init").Override(userDataGetCloudInitBuilder)
 
 	// Web URLs (--web)
 
