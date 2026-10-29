@@ -25,6 +25,8 @@ func GetGeneratedCommands() *core.Commands {
 		interlinkConnection(),
 		interlinkLink(),
 		interlinkRoutingPolicy(),
+		interlinkConnectionList(),
+		interlinkConnectionGet(),
 		interlinkPartnerList(),
 		interlinkPartnerGet(),
 		interlinkPopList(),
@@ -98,6 +100,155 @@ func interlinkRoutingPolicy() *core.Command {
 		Long:      `Routing policy commands.`,
 		Namespace: "interlink",
 		Resource:  "routing-policy",
+	}
+}
+
+func interlinkConnectionList() *core.Command {
+	return &core.Command{
+		Short:     `List dedicated connections`,
+		Long:      `For self-hosted users, list their dedicated physical connections in a given region. By default, the connections returned in the list are ordered by name in ascending order, though this can be modified via the ` + "`" + `order_by` + "`" + ` field.`,
+		Namespace: "interlink",
+		Resource:  "connection",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[interlink.ListDedicatedConnectionsRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Order in which to return results`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"updated_at_asc",
+					"updated_at_desc",
+					"name_asc",
+					"name_desc",
+					"status_asc",
+					"status_desc",
+				},
+			},
+			{
+				Name:       "project-id",
+				Short:      `Project ID to filter for`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `Link name to filter for`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags to filter for`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "status",
+				Short:      `Connection status to filter for`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_status",
+					"created",
+					"configuring",
+					"failed",
+					"active",
+					"disabled",
+					"deleted",
+					"locked",
+				},
+			},
+			{
+				Name:       "bandwidth-mbps",
+				Short:      `Filter for dedicated connections with this bandwidth size.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "pop-id",
+				Short:      `Filter for dedicated connections present in this PoP`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-id",
+				Short:      `Organization ID to filter for`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*interlink.ListDedicatedConnectionsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := interlink.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListDedicatedConnections(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.Connections, nil
+		},
+	}
+}
+
+func interlinkConnectionGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a dedicated connection`,
+		Long:      `For self-hosted users, get a dedicated physical connection corresponding to the given ID. The response object includes information such as the connection's name, status and total bandwidth.`,
+		Namespace: "interlink",
+		Resource:  "connection",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[interlink.GetDedicatedConnectionRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "connection-id",
+				Short:      `ID of connection to get`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*interlink.GetDedicatedConnectionRequest)
+
+			client := core.ExtractClient(ctx)
+			api := interlink.NewAPI(client)
+
+			return api.GetDedicatedConnection(request, scw.WithContext(ctx))
+		},
 	}
 }
 
