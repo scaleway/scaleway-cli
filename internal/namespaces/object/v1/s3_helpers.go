@@ -4,6 +4,7 @@ package object
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/url"
 	"os"
@@ -23,34 +24,28 @@ import (
 // newS3Client builds an S3 client from the CLI s3-endpoint and
 // s3-use-path-style arguments, resolving them through the same configuration
 // priority as GetS3Endpoint and GetS3UsePathStyle.
-func newS3Client(
-	ctx context.Context,
-	region scw.Region,
-	projectID string,
-	s3EndpointArg string,
-	s3UsePathStyleArg string,
-) (client *s3.Client, err error) {
-	s3UsePathStyle, err := GetS3UsePathStyle(ctx, s3UsePathStyleArg)
+func (a S3Args) newS3Client(ctx context.Context) (client *s3.Client, err error) {
+	s3UsePathStyle, err := GetS3UsePathStyle(ctx, a.S3UsePathStyle)
 	if err != nil {
 		return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
 	}
 
-	s3Endpoint := GetS3Endpoint(ctx, region.String(), s3EndpointArg)
+	s3Endpoint := GetS3Endpoint(ctx, a.Region.String(), a.S3Endpoint)
 
 	httpClient := core.ExtractHTTPClient(ctx)
 	scwClient := core.ExtractClient(ctx)
 	buildInfo := core.ExtractBuildInfo(ctx)
 	accessKey, ok := scwClient.GetAccessKey()
 	if !ok {
-		return nil, fmt.Errorf("could not get SCW access key: %w", err)
+		return nil, errors.New("could not get SCW access key")
 	}
 	secretKey, ok := scwClient.GetSecretKey()
 	if !ok {
-		return nil, fmt.Errorf("could not get SCW secret key: %w", err)
+		return nil, errors.New("could not get SCW secret key")
 	}
 
 	defaultProjectID, _ := scwClient.GetDefaultProjectID()
-	accessKey = FormatAccessKey(accessKey, projectID, defaultProjectID)
+	accessKey = FormatAccessKey(accessKey, a.ProjectID, defaultProjectID)
 
 	options := []func(*middleware.Stack) error{
 		func(stack *middleware.Stack) error {
@@ -71,7 +66,7 @@ func newS3Client(
 			}, nil
 		}),
 		BaseEndpoint: new(s3Endpoint),
-		Region:       region.String(),
+		Region:       a.Region.String(),
 		HTTPClient:   httpClient,
 		UsePathStyle: s3UsePathStyle,
 	}), nil
