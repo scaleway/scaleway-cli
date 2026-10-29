@@ -3108,14 +3108,11 @@ scw instance template update <template-id ...> [arg=value ...]
 
 ## User data management commands
 
-User data is a key/value store you can use to provide your instance with introspective data.
-
-As an example of use, Scaleway images contain the `scw-generate-ssh-keys` script, which generates the SSH server’s host keys, then stores their fingerprints as user data under the `ssh-host-fingerprints` key.
-This way, before connecting to the instance using SSH, one can query the fingerprints to ensure that the remote host is the expected one, thus avoiding any man-in-the-middle attack.
+User data is a key/value store you can use to provide your Instance with introspective data.
 
 There are two ways of accessing user data:
  - **From within a running Instance**, by requesting the Metadata API at http://169.254.42.42/user_data (or http://[fd00:42::42]/user_data using IPv6).
-   The `scaleway-ecosystem` package, installed by default on all OS images provided by Scaleway, ships with the `scw-userdata` helper command that allows you to easily query the user data from the instance.
+   The `scaleway-ecosystem` package, installed by default on all OS images provided by Scaleway, ships with the `scw-userdata` helper command that allows you to easily query the user data from the Instance.
    For security reasons, viewing and editing user data is only allowed to queries originating from a port below 1024 (by default, only the super-user can bind to ports below 1024).
    To specify the source port with cURL, use the `--local-port` option (e.g. `curl --local-port 1-1023 http://169.254.42.42/user_data`).
  - **From the Instance API** by using the methods described below.
@@ -3123,85 +3120,128 @@ There are two ways of accessing user data:
 
 ### Delete user data
 
-Delete the specified key from an Instance's user data.
+Delete a specified key from an Instance's user data.
 
 **Usage:**
 
 ```shell
-scw instance user-data delete [arg=value ...]
+scw instance user-data delete <server-id ...> [arg=value ...]
 ```
 
 
 **Arguments:**
 
-| Name      | Description                                                             | Argument Specifications                                                                                                                                 |
-|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| server-id | UUID of the Instance                                                    | Required                                                                                                                                                |
-| key       | Key of the user data to delete                                          | Required                                                                                                                                                |
-| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name      | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| server-id | The ID of the server                                                    | Required                                                                                                                                                                        |
+| key       | The key of the user data to delete                                      | Required                                                                                                                                                                        |
+| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
 ### Get user data
 
-Get the content of a user data with the specified key on an Instance.
+Get the content of a user data with a specified key on an Instance.
 
 **Usage:**
 
 ```shell
-scw instance user-data get [arg=value ...]
+scw instance user-data get <server-id ...> [arg=value ...]
 ```
 
 
 **Arguments:**
 
-| Name      | Description                                                             | Argument Specifications                                                                                                                                 |
-|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| server-id | UUID of the Instance                                                    | Required                                                                                                                                                |
-| key       | Key of the user data to get                                             | Required                                                                                                                                                |
-| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name      | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| server-id | The ID of the server                                                    | Required                                                                                                                                                                        |
+| key       | The key of the user data to retrieve                                    | Required                                                                                                                                                                        |
+| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
-### List user data
+### Get cloud-init user data
+
+Get the cloud-init configuration of a specified Instance.
+
+**Usage:**
+
+```shell
+scw instance user-data get-cloud-init <server-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name      | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| server-id | The ID of the server                                                    | Required                                                                                                                                                                        |
+| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
+
+
+
+### List user data keys
 
 List all user data keys registered on a specified Instance.
 
 **Usage:**
 
 ```shell
-scw instance user-data list [arg=value ...]
+scw instance user-data list <server-id ...> [arg=value ...]
 ```
 
 
 **Arguments:**
 
-| Name      | Description                                                             | Argument Specifications                                                                                                                                 |
-|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| server-id | UUID of the Instance                                                    | Required                                                                                                                                                |
-| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name       | Description                                                             | Argument Specifications                                                                                                                                                         |
+|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| page-token | Page token for pagination                                               |                                                                                                                                                                                 |
+| page-size  | Number of items to return per page                                      |                                                                                                                                                                                 |
+| server-id  | The ID of the server                                                    | Required                                                                                                                                                                        |
+| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
 ### Add/set user data
 
-Add or update a user data with the specified key on an Instance.
+Add or update a user data with a specified key on an Instance.
 
 **Usage:**
 
 ```shell
-scw instance user-data set [arg=value ...]
+scw instance user-data set <server-id ...> [arg=value ...]
 ```
 
 
 **Arguments:**
 
-| Name      | Description                                                             | Argument Specifications                                                                                                                                 |
-|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| server-id | UUID of the Instance                                                    | Required                                                                                                                                                |
-| key       | Key of the user data to set                                             | Required                                                                                                                                                |
-| content   | Content of the user data                                                | Required                                                                                                                                                |
-| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name      | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| server-id | The ID of the server                                                    | Required                                                                                                                                                                        |
+| key       | The key of the user data to set                                         | Required                                                                                                                                                                        |
+| content   | The content to set for the user data                                    | Required                                                                                                                                                                        |
+| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
+
+
+
+### Set cloud-init user data
+
+Set the cloud-init configuration for a specified Instance.
+
+**Usage:**
+
+```shell
+scw instance user-data set-cloud-init <server-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name      | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| server-id | The ID of the server                                                    | Required                                                                                                                                                                        |
+| content   | The cloud-init configuration content                                    | Required                                                                                                                                                                        |
+| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 

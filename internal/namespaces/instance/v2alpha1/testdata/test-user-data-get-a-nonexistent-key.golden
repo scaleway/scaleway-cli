@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-'happy' key does not exist
+'happy' key does not exist in 'user_data'
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "error": "'happy' key does not exist"
+  "error": "'happy' key does not exist in 'user_data'"
 }
