@@ -143,8 +143,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
@@ -369,8 +368,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
@@ -399,8 +397,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "9ce714f1-ed03-4e3b-8c69-d46957ab0ebb",
@@ -544,8 +541,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
@@ -606,8 +602,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       }
     ],
     "private_bandwidth": 1000000000,
@@ -731,8 +726,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       }
     ],
     "private_bandwidth": 1000000000,
@@ -930,8 +924,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
@@ -1066,8 +1059,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
@@ -1112,8 +1104,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
@@ -1275,8 +1266,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "31f5cddb-8217-4eb0-ac6a-96dbcb080b88",
@@ -1385,8 +1375,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
@@ -1603,8 +1592,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
@@ -1633,8 +1621,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "4b5723e9-5dcc-42e9-afbb-7ee556027051",
@@ -1899,8 +1886,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "931df052-d713-4674-8b58-96a63244c8e2",
@@ -1913,8 +1899,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
@@ -2060,8 +2045,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "e0063872-115b-413e-bbf9-fff7eeca1065",
@@ -2106,8 +2090,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "4b5723e9-5dcc-42e9-afbb-7ee556027051",
@@ -2363,8 +2346,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "9e3498b1-45ef-4c55-b699-efd66d658cca",
@@ -2425,8 +2407,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
@@ -2663,8 +2644,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "31f78309-e6e0-4005-99b3-b3de3958ca7d",
@@ -2677,8 +2657,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
@@ -2808,8 +2787,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "4b5723e9-5dcc-42e9-afbb-7ee556027051",
@@ -2854,8 +2832,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
@@ -3199,8 +3176,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "31f78309-e6e0-4005-99b3-b3de3958ca7d",
@@ -3213,8 +3189,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
@@ -3413,8 +3388,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
@@ -3459,8 +3433,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
@@ -3697,8 +3670,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
@@ -3775,8 +3747,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "4b5723e9-5dcc-42e9-afbb-7ee556027051",
@@ -3987,8 +3958,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
@@ -4145,8 +4115,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       }
     ],
     "private_bandwidth": 10000000000,
@@ -4282,8 +4251,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "9e3498b1-45ef-4c55-b699-efd66d658cca",
@@ -4440,8 +4408,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
@@ -4651,8 +4618,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "31f78309-e6e0-4005-99b3-b3de3958ca7d",
@@ -4665,8 +4631,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "b37af8cf-8b18-4349-a063-64e9c3d50124",
@@ -4850,8 +4815,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "9e3498b1-45ef-4c55-b699-efd66d658cca",
@@ -4896,8 +4860,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "a905e3e8-690a-4822-9c90-21418a44aa76",
@@ -5251,8 +5214,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "b37af8cf-8b18-4349-a063-64e9c3d50124",
@@ -5313,8 +5275,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
@@ -5562,8 +5523,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "931df052-d713-4674-8b58-96a63244c8e2",
@@ -5576,8 +5536,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
@@ -5771,8 +5730,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
@@ -5897,8 +5855,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
@@ -6092,8 +6049,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "4b5723e9-5dcc-42e9-afbb-7ee556027051",
@@ -6218,8 +6174,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "9e3498b1-45ef-4c55-b699-efd66d658cca",
@@ -6520,8 +6475,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "b92d36c0-9754-4678-9efd-096e4244e798",
@@ -6582,8 +6536,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
@@ -6791,8 +6744,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
@@ -6885,8 +6837,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "b37af8cf-8b18-4349-a063-64e9c3d50124",
@@ -7078,8 +7029,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
@@ -7332,8 +7282,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "31f5cddb-8217-4eb0-ac6a-96dbcb080b88",
@@ -7394,8 +7343,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "9e3498b1-45ef-4c55-b699-efd66d658cca",
@@ -7632,8 +7580,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "b37af8cf-8b18-4349-a063-64e9c3d50124",
@@ -7678,8 +7625,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "9e3498b1-45ef-4c55-b699-efd66d658cca",
@@ -8160,8 +8106,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
@@ -8510,8 +8455,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
@@ -8556,8 +8500,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       }
     ],
     "private_bandwidth": 25000000000,
@@ -8771,8 +8714,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "e0063872-115b-413e-bbf9-fff7eeca1065",
@@ -9153,8 +9095,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
@@ -9231,8 +9172,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       }
     ],
     "private_bandwidth": 25000000000,
@@ -9438,8 +9378,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
@@ -9596,8 +9535,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       }
     ],
     "private_bandwidth": 25000000000,
@@ -9763,8 +9701,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "b92d36c0-9754-4678-9efd-096e4244e798",
@@ -10025,8 +9962,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "4ce8bd16-0c16-479d-83bb-492b5f9072fa",
@@ -10199,8 +10135,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "00000000-0000-0000-0000-000000000000"
       },
       {
         "id": "ad1b86f2-4ae4-49f9-a826-a782e8d492f3",

@@ -2,7 +2,7 @@ package core
 
 import (
 	"bytes"
-	"encoding/json"
+	"encoding/json/v2"
 	"flag"
 	"fmt"
 	"io"
@@ -325,7 +325,6 @@ var foldersUsingVCRv4 = []string{
 	"internal/namespaces/flexibleip/v1alpha1",
 	"internal/namespaces/iam/v1alpha1",
 	"internal/namespaces/info",
-	"internal/namespaces/init",
 	"internal/namespaces/instance/v1",
 	"internal/namespaces/instance/v2alpha1",
 	"internal/namespaces/iot/v1",
@@ -433,6 +432,13 @@ func Test(config *TestConfig) func(t *testing.T) {
 		overrideEnv := config.OverrideEnv
 		if overrideEnv == nil {
 			overrideEnv = map[string]string{}
+		}
+
+		// Scrub ambient KUBECONFIG so tests relying on the default $HOME/.kube/config
+		// path are not affected by the host environment. Tests that need it set it
+		// explicitly via TestConfig.OverrideEnv.
+		if _, ok := overrideEnv["KUBECONFIG"]; !ok {
+			overrideEnv["KUBECONFIG"] = ""
 		}
 
 		if config.TmpHomeDir {
@@ -1008,6 +1014,7 @@ func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
 	str := buffer.String()
 	// In order to avoid diff in goldens we set all timestamp to the same date
 	str = uniformTimestamps(str)
+	str = uniformTimestampsWithOffSet(str)
 	// Replace Windows return carriage.
 	str = strings.ReplaceAll(str, "\r", "")
 

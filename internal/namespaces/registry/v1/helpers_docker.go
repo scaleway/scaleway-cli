@@ -2,7 +2,8 @@ package registry
 
 import (
 	"context"
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"errors"
 	"fmt"
 	"io"
@@ -98,14 +99,12 @@ func setupDockerConfigFile(ctx context.Context, registries []string, binaryName 
 		return err
 	}
 
-	encoder := json.NewEncoder(f)
-	encoder.SetIndent("", "  ")
-	err = encoder.Encode(dockerConfig)
-	if err != nil {
+	if err := json.MarshalWrite(f, dockerConfig, jsontext.WithIndent("  ")); err != nil {
 		return err
 	}
+	_, err = f.WriteString("\n")
 
-	return nil
+	return err
 }
 
 func getRegistryEndpoint(region scw.Region) string {

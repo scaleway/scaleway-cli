@@ -62,8 +62,7 @@ work_mem                         4
     "id": "2684cb6f-6aa4-497b-8b93-216d4f4e0339",
     "ip": "195.154.75.244",
     "port": 18952,
-    "name": null,
-    "load_balancer": {}
+    "name": null
   },
   "tags": [],
   "settings": [
@@ -108,8 +107,7 @@ work_mem                         4
       "id": "2684cb6f-6aa4-497b-8b93-216d4f4e0339",
       "ip": "195.154.75.244",
       "port": 18952,
-      "name": null,
-      "load_balancer": {}
+      "name": null
     }
   ],
   "logs_policy": {
