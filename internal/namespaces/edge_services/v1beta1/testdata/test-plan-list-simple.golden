@@ -1,0 +1,33 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+PLAN NAME     PACKAGE GB  PIPELINE LIMIT  WAF REQUESTS  BACKEND LIMIT  WILDCARD DOMAIN
+starter       100         1               5000000       1              false
+professional  1000        10              5000000       10             true
+advanced      10000       100             50000000      100            true
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "plan_name": "starter",
+    "package_gb": 100,
+    "pipeline_limit": 1,
+    "waf_requests": 5000000,
+    "backend_limit": 1,
+    "wildcard_domain": false
+  },
+  {
+    "plan_name": "professional",
+    "package_gb": 1000,
+    "pipeline_limit": 10,
+    "waf_requests": 5000000,
+    "backend_limit": 10,
+    "wildcard_domain": true
+  },
+  {
+    "plan_name": "advanced",
+    "package_gb": 10000,
+    "pipeline_limit": 100,
+    "waf_requests": 50000000,
+    "backend_limit": 100,
+    "wildcard_domain": true
+  }
+]
