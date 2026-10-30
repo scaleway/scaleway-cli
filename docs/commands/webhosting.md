@@ -163,14 +163,14 @@ scw webhosting database create [arg=value ...]
 
 **Arguments:**
 
-| Name              | Description                                                                 | Argument Specifications                                     |
-|-------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| hosting-id        | UUID of the hosting plan where the database will be created                 | Required                                                    |
-| database-name     | Name of the database to be created                                          |                                                             |
-| new-user.username |                                                                             |                                                             |
-| new-user.password |                                                                             |                                                             |
-| existing-username | (Optional) Username to link an existing user to the database                |                                                             |
-| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name              | Description                                                                                                                                                                                                                             | Argument Specifications                                     |
+|-------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id        | UUID of the hosting plan where the database will be created                                                                                                                                                                             | Required                                                    |
+| database-name     | Name of the database to be created. If it is not already prefixed with the hosting's cPanel username followed by an underscore (e.g. `cpe1234_`), this prefix is automatically added. The resulting name must not exceed 64 characters. |                                                             |
+| new-user.username |                                                                                                                                                                                                                                         |                                                             |
+| new-user.password |                                                                                                                                                                                                                                         |                                                             |
+| existing-username | (Optional) Username to link an existing user to the database                                                                                                                                                                            |                                                             |
+| region            | Region to target. If none is passed will use default region from the config                                                                                                                                                             | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -299,12 +299,12 @@ scw webhosting database-user create [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                                 | Argument Specifications                                     |
-|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| hosting-id | UUID of the hosting plan                                                    | Required                                                    |
-| username   | Name of the user to create                                                  |                                                             |
-| password   | Password of the user to create                                              |                                                             |
-| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name       | Description                                                                                                                                                                                                                     | Argument Specifications                                     |
+|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id | UUID of the hosting plan                                                                                                                                                                                                        | Required                                                    |
+| username   | Name of the user to create. If it is not already prefixed with the hosting's cPanel username followed by an underscore (e.g. `cpe1234_`), this prefix is automatically added. The resulting name must not exceed 32 characters. |                                                             |
+| password   | Password of the user to create                                                                                                                                                                                                  |                                                             |
+| region     | Region to target. If none is passed will use default region from the config                                                                                                                                                     | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
