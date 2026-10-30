@@ -132,3 +132,42 @@ func GetValuesForFieldByName(
 
 	return nil, errors.New("case is not handled")
 }
+
+// ResponseField is a top-level field of a command response type.
+type ResponseField struct {
+	Name string
+	Type reflect.Type
+}
+
+// responseTypeStruct unwraps pointers and slices to find the underlying struct type.
+// List responses like []*instance.Server resolve to instance.Server.
+// ponytail: unwraps any number of pointer/slice levels but ignores maps and arrays;
+// upgrade if a command response uses another wrapper kind.
+func responseTypeStruct(t reflect.Type) (reflect.Type, bool) {
+	for t.Kind() == reflect.Pointer || t.Kind() == reflect.Slice {
+		t = t.Elem()
+	}
+
+	return t, t.Kind() == reflect.Struct
+}
+
+// ResponseTypeFields returns the top-level (non-embedded) fields of a command
+// response type. It returns nil if the type is not (a pointer or slice of) a struct.
+func ResponseTypeFields(t reflect.Type) []ResponseField {
+	structType, ok := responseTypeStruct(t)
+	if !ok {
+		return nil
+	}
+
+	fields := make([]ResponseField, 0, structType.NumField())
+	for i := range structType.NumField() {
+		field := structType.Field(i)
+		if field.Anonymous {
+			continue
+		}
+
+		fields = append(fields, ResponseField{Name: field.Name, Type: field.Type})
+	}
+
+	return fields
+}
