@@ -30,6 +30,7 @@ type instanceCreateServerRequest struct {
 	Tags              []string
 	IPv6              bool
 	Stopped           bool
+	Console           bool
 	SecurityGroupID   string
 	PlacementGroupID  string
 
@@ -110,6 +111,11 @@ func serverCreateCommand() *core.Command {
 				Short: "Do not start server after its creation",
 			},
 			{
+				Name:    "console",
+				Short:   "Connect to the serial console of the server after its creation to follow its boot logs (quit with Ctrl+q)",
+				Default: core.DefaultValueSetter("false"),
+			},
+			{
 				Name:  "security-group-id",
 				Short: "The security group ID used for this server",
 			},
@@ -185,6 +191,10 @@ func serverCreateCommand() *core.Command {
 				Raw: `ip=$(scw instance ip create | grep id | awk '{ print $2 }')
 scw instance server create image=ubuntu_focal ip=$ip`,
 			},
+			{
+				Short:    "Create and start an instance, then connect to its serial console to follow boot logs",
+				ArgsJSON: `{"image":"ubuntu_jammy","type":"GP1-XS","console":true}`,
+			},
 		},
 		View: &core.View{
 			Sections: []*core.ViewSection{
@@ -200,6 +210,12 @@ scw instance server create image=ubuntu_focal ip=$ip`,
 
 func instanceWaitServerCreateRun() core.WaitFunc {
 	return func(ctx context.Context, argsI, respI any) (any, error) {
+		if argsI.(*instanceCreateServerRequest).Console {
+			return nil, errors.New(
+				"--wait cannot be used with --console: the console session is the output of the command",
+			)
+		}
+
 		resp := respI.(*ServerWithWarningsResponse)
 		serverID := resp.Server.ID
 
@@ -221,6 +237,12 @@ func instanceWaitServerCreateRun() core.WaitFunc {
 func instanceServerCreateRun(ctx context.Context, argsI any) (i any, e error) {
 	var err error
 	args := argsI.(*instanceCreateServerRequest)
+
+	if args.Console && args.Stopped {
+		return nil, errors.New(
+			"--console cannot be used with --stopped: the serial console of a stopped server is not available",
+		)
+	}
 
 	//
 	// STEP 1: Argument handling and API requests creation.
@@ -353,6 +375,22 @@ func instanceServerCreateRun(ctx context.Context, argsI any) (i any, e error) {
 			)
 		} else {
 			logger.Debugf("server started")
+		}
+	}
+
+	//
+	// Connect to the serial console if requested
+	//
+	if args.Console {
+		if err := connectServerConsole(ctx, args.Zone, server.ID); err != nil {
+			logger.Warningf(
+				"cannot connect to the serial console of server %s: %s. Note that the server is successfully created.",
+				server.ID,
+				err,
+			)
+		} else {
+			// The console session is the output of this command.
+			return nil, nil
 		}
 	}
 
