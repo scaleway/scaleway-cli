@@ -304,6 +304,8 @@ func GetCommands() *core.Commands {
 
 	addWebUrls(cmds)
 
+	cmds.Merge(core.NewCommands(serverCockpitCommand()))
+
 	return cmds
 }
 

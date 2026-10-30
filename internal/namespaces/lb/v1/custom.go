@@ -79,5 +79,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("lb", "certificate", "update").Override(certificateUpdateBuilder)
 	cmds.MustFind("lb", "certificate", "delete").Override(certificateDeleteBuilder)
 
+	cmds.Merge(core.NewCommands(loadBalancerCockpitCommand()))
+
 	return cmds
 }

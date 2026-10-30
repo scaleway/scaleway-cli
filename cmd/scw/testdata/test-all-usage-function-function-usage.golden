@@ -6,6 +6,7 @@ USAGE:
   scw function function <command>
 
 AVAILABLE COMMANDS:
+  cockpit          Open the Cockpit Grafana dashboard for this function
   create           Create a new function
   delete           Delete a function
   deploy           Deploy a function

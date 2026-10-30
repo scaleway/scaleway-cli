@@ -30,5 +30,7 @@ func GetCommands() *core.Commands {
 		instanceWaitCommand(),
 	))
 
+	cmds.Merge(core.NewCommands(instanceCockpitCommand()))
+
 	return cmds
 }

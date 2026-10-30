@@ -13,6 +13,7 @@ AVAILABLE COMMANDS:
   attach-ip            Attach an IP to a server
   attach-volume        Attach a volume to an Instance
   backup               Backup server
+  cockpit              Open the Cockpit Grafana dashboard for this server
   console              Connect to the serial console of an instance
   create               Create server
   delete               Delete server
