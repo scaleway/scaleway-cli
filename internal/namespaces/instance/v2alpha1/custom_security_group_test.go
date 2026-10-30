@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v2alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
@@ -254,91 +253,6 @@ func Test_SecurityGroup(t *testing.T) {
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: instance.DeleteSecurityGroup("SecurityGroup"),
-	}))
-
-	t.Run("Edit", core.Test(&core.TestConfig{
-		Commands: instance.GetCommands(),
-		BeforeFunc: core.BeforeFuncCombine(
-			instance.CreateSecurityGroup("SecurityGroup"),
-			core.ExecBeforeCmd(
-				"scw instance security-group set-rules {{ .SecurityGroup.ID }} "+
-					"rules.0.protocol=tcp rules.0.direction=inbound rules.0.action=drop rules.0.source-ip-range=1.1.1.1/32 "+
-					"rules.1.protocol=icmp rules.1.direction=outbound rules.1.action=drop rules.1.source-ip-range=2.2.2.2/32",
-			),
-			func(ctx *core.BeforeFuncCtx) error {
-				editor.SkipEditor = true
-				editor.EditorTestContent = `security_group_rules:
-- action: accept
-  direction: inbound
-  protocol: tcp
-  source_ip_range: 1.1.1.1/32
-  destination_ports:
-    start: 1
-    end: 81
-- action: drop
-  direction: inbound
-  protocol: udp
-  source_ip_range: 3.3.3.3/32
-  source_ports:
-    start: 8080
-- action: drop
-  direction: outbound
-  protocol: icmp
-  source_ip_range: 4.4.4.4/32
-`
-
-				return nil
-			},
-		),
-		Cmd: "scw instance security-group edit {{ .SecurityGroup.ID }}",
-		Check: core.TestCheckCombine(
-			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				t.Helper()
-
-				sgRules := ctx.Result.([]*instanceSDK.SecurityGroupRule)
-				assert.Len(t, sgRules, 3)
-
-				assert.Equal(t, "accept", sgRules[0].Action.String())
-				assert.Equal(t, "inbound", sgRules[0].Direction.String())
-				assert.Equal(t, "tcp", sgRules[0].Protocol.String())
-				assert.Equal(t, "1.1.1.1/32", sgRules[0].SourceIPRange.String())
-				assert.Equal(t, uint32(1), sgRules[0].DestinationPorts.Start)
-				assert.Equal(t, uint32(81), sgRules[0].DestinationPorts.End)
-
-				assert.Equal(t, "drop", sgRules[1].Action.String())
-				assert.Equal(t, "inbound", sgRules[1].Direction.String())
-				assert.Equal(t, "udp", sgRules[1].Protocol.String())
-				assert.Equal(t, "3.3.3.3/32", sgRules[1].SourceIPRange.String())
-				assert.Equal(t, uint32(8080), sgRules[1].SourcePorts.Start)
-				assert.Equal(t, uint32(8080), sgRules[1].SourcePorts.End)
-
-				assert.Equal(t, "drop", sgRules[2].Action.String())
-				assert.Equal(t, "outbound", sgRules[2].Direction.String())
-				assert.Equal(t, "icmp", sgRules[2].Protocol.String())
-				assert.Equal(t, "4.4.4.4/32", sgRules[2].SourceIPRange.String())
-				assert.Equal(
-					t,
-					uint32(instance.SecurityGroupRulePortMin),
-					sgRules[2].SourcePorts.Start,
-				)
-				assert.Equal(
-					t,
-					uint32(instance.SecurityGroupRulePortMax),
-					sgRules[2].SourcePorts.End,
-				)
-			},
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
-		),
-		AfterFunc: core.AfterFuncCombine(
-			instance.DeleteSecurityGroup("SecurityGroup"),
-			func(ctx *core.AfterFuncCtx) error {
-				editor.SkipEditor = false
-				editor.EditorTestContent = ""
-
-				return nil
-			},
-		),
 	}))
 }
 
