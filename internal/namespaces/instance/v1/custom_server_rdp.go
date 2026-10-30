@@ -194,11 +194,14 @@ func completeSSHKeyID(ctx context.Context, prefix string, _ any) core.Autocomple
 		return nil
 	}
 
-	suggestion := make([]string, 0, len(resp.SSHKeys))
+	suggestion := make(core.AutocompleteSuggestions, 0, len(resp.SSHKeys))
 
 	for _, sshKey := range resp.SSHKeys {
 		if strings.HasPrefix(sshKey.ID, prefix) {
-			suggestion = append(suggestion, sshKey.ID)
+			suggestion = append(
+				suggestion,
+				core.Suggestion{Value: sshKey.ID, Description: sshKey.Name},
+			)
 		}
 	}
 

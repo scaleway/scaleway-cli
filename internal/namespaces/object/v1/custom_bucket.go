@@ -495,7 +495,7 @@ func autocompleteBucketName(
 		return nil
 	}
 
-	suggestions := core.AutocompleteSuggestions(nil)
+	suggestions := core.AutocompleteSuggestions{}
 	client, err := args.newS3Client(ctx)
 	if err != nil {
 		return nil
@@ -511,7 +511,7 @@ func autocompleteBucketName(
 
 	for _, bucket := range completeListBucketsCache {
 		if strings.HasPrefix(*bucket.Name, prefix) {
-			suggestions = append(suggestions, *bucket.Name)
+			suggestions = append(suggestions, core.Suggestion{Value: *bucket.Name})
 		}
 	}
 
