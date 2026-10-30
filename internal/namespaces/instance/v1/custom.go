@@ -41,7 +41,6 @@ func GetCommands() *core.Commands {
 		instanceServer(),
 		instanceVolumeType(),
 		instanceSnapshot(),
-		instanceUserData(),
 		instanceVolume(),
 		instancePrivateNic(),
 		instanceVolumeTypeList(),
@@ -49,10 +48,6 @@ func GetCommands() *core.Commands {
 		instanceServerGet(),
 		instanceServerUpdate(),
 		instanceServerListActions(),
-		instanceUserDataList(),
-		instanceUserDataDelete(),
-		instanceUserDataSet(),
-		instanceUserDataGet(),
 		instanceServerAttachVolume(),
 		instanceServerDetachVolume(),
 		instanceServerAttachFilesystem(),
@@ -267,14 +262,6 @@ func GetCommands() *core.Commands {
 		Override(placementGroupGetServersBuilder)
 	cmds.MustFind("instance", "placement-group", "update-servers").
 		Override(placementGroupUpdateServersBuilder)
-
-	//
-	// User Data
-	//
-	cmds.MustFind("instance", "user-data", "delete").Override(userDataDeleteBuilder)
-	cmds.MustFind("instance", "user-data", "set").Override(userDataSetBuilder)
-	cmds.MustFind("instance", "user-data", "get").Override(userDataGetBuilder)
-	cmds.MustFind("instance", "user-data", "list").Override(userDataListBuilder)
 
 	//
 	// Private NICs
