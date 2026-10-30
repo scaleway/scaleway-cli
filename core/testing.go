@@ -320,6 +320,7 @@ var foldersUsingVCRv4 = []string{
 	"internal/namespaces/block/v1alpha1",
 	"internal/namespaces/config",
 	"internal/namespaces/container/v1",
+	"internal/namespaces/domain/v2beta1",
 	"internal/namespaces/feedback",
 	"internal/namespaces/function/v1beta1",
 	"internal/namespaces/flexibleip/v1alpha1",
