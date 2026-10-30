@@ -115,8 +115,12 @@ func autocompleteScripts(ctx context.Context, basename string) map[string]autoco
 			// If you are using an alias for scw, such as :
 			// 		alias scw='go run "$HOME"/scaleway-cli/cmd/scw/main.go'
 			// you might want to run 'compdef _scw go' during development.
+			//
+			// The #compdef header lets compinit register this script when it is installed as an
+			// autoloaded _scw file in $fpath (e.g. by a package manager). When it is eval'd instead,
+			// the function is registered explicitly.
 			CompleteFunc: fmt.Sprintf(`
-			autoload -U compinit && compinit
+			#compdef %[1]s
 			_%[1]s () {
 				output=($(%[1]s autocomplete complete zsh -- ${CURRENT} ${words}))
 				opts=('-S' ' ')
@@ -125,7 +129,12 @@ func autocompleteScripts(ctx context.Context, basename string) map[string]autoco
 				fi
 				compadd "${opts[@]}" -- "${output[@]}"
 			}
-			compdef _%[1]s %[1]s
+			if [[ "$funcstack[1]" == "_%[1]s" ]]; then
+				_%[1]s "$@"
+			else
+				autoload -U compinit && compinit
+				compdef _%[1]s %[1]s
+			fi
 		`, basename),
 			CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=zsh)"`, basename),
 			ShellConfigurationFile: map[string]string{
@@ -134,6 +143,18 @@ func autocompleteScripts(ctx context.Context, basename string) map[string]autoco
 			},
 		},
 	}
+}
+
+// defaultBasename returns the name the completion scripts are generated for. The binary may have
+// been invoked through a path (e.g. /opt/homebrew/Cellar/scw/x.y.z/bin/scw), but function and
+// command names in the scripts must only use the file name.
+func defaultBasename(ctx context.Context) string {
+	binaryName := core.ExtractBinaryName(ctx)
+	if binaryName == "" {
+		return "scw"
+	}
+
+	return filepath.Base(binaryName)
 }
 
 type InstallArgs struct {
@@ -155,7 +176,7 @@ func autocompleteInstallCommand() *core.Command {
 			{
 				Name: "basename",
 				Default: func(ctx context.Context) (value string, doc string) {
-					resp := core.ExtractBinaryName(ctx)
+					resp := defaultBasename(ctx)
 
 					return resp, resp
 				},
@@ -438,7 +459,7 @@ func autocompleteScriptCommand() *core.Command {
 			{
 				Name: "basename",
 				Default: func(ctx context.Context) (value string, doc string) {
-					resp := core.ExtractBinaryName(ctx)
+					resp := defaultBasename(ctx)
 
 					return resp, resp
 				},
