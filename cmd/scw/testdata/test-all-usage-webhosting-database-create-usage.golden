@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   hosting-id            UUID of the hosting plan where the database will be created
-  [database-name]       Name of the database to be created
+  [database-name]       Name of the database to be created. If it is not already prefixed with the hosting's cPanel username followed by an underscore (e.g. `cpe1234_`), this prefix is automatically added. The resulting name must not exceed 64 characters.
   [new-user.username]   
   [new-user.password]   
   [existing-username]   (Optional) Username to link an existing user to the database

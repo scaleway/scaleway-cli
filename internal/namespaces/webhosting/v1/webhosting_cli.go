@@ -576,7 +576,7 @@ func webhostingDatabaseCreate() *core.Command {
 			},
 			{
 				Name:       "database-name",
-				Short:      `Name of the database to be created. If it is not already prefixed with the hosting's cPanel username followed by an underscore (e.g. ` + "`" + `cpe1234_` + "`" + `), this prefix is automatically added. The resulting name must not exceed 64 characters.`,
+				Short:      `Name of the database to be created`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -773,7 +773,7 @@ func webhostingDatabaseUserCreate() *core.Command {
 			},
 			{
 				Name:       "username",
-				Short:      `Name of the user to create. If it is not already prefixed with the hosting's cPanel username followed by an underscore (e.g. ` + "`" + `cpe1234_` + "`" + `), this prefix is automatically added. The resulting name must not exceed 32 characters.`,
+				Short:      `Name of the user to create`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
