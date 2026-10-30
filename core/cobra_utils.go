@@ -12,6 +12,27 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// createAuthenticatedClient creates a new client and overwrites the existing one
+// if command requires authentication and the client was not directly provided in the bootstrap config
+func createAuthenticatedClient(ctx context.Context, cmd *Command) error {
+	meta := ExtractMeta(ctx)
+	if cmd.AllowAnonymousClient || meta.isClientFromBootstrapConfig {
+		return nil
+	}
+
+	client, err := meta.Platform.CreateClient(
+		meta.httpClient,
+		ExtractConfigPath(ctx),
+		ExtractProfileName(ctx),
+	)
+	if err != nil {
+		return err
+	}
+	meta.Client = client
+
+	return nil
+}
+
 // cobraRun returns a cobraRun command that wrap a CommandRunner function.
 func cobraRun(cmd *Command) func(*cobra.Command, []string) error {
 	return func(cobraCmd *cobra.Command, rawArgsStr []string) error {
@@ -33,17 +54,9 @@ func cobraRun(cmd *Command) func(*cobra.Command, []string) error {
 
 		sentry.AddCommandContext(cmd.GetCommandLine("scw"))
 
-		// If command requires authentication and the client was not directly provided in the bootstrap config, we create a new client and overwrite the existing one
-		if !cmd.AllowAnonymousClient && !meta.isClientFromBootstrapConfig {
-			client, err := meta.Platform.CreateClient(
-				meta.httpClient,
-				ExtractConfigPath(ctx),
-				ExtractProfileName(ctx),
-			)
-			if err != nil {
-				return createClientError(err)
-			}
-			meta.Client = client
+		err = createAuthenticatedClient(ctx, cmd)
+		if err != nil {
+			return createClientError(err)
 		}
 
 		// If command has no Run method there is nothing to do.
