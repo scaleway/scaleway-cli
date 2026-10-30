@@ -21,7 +21,6 @@ require (
 	github.com/hashicorp/go-version v1.9.0
 	github.com/karrick/tparse/v2 v2.8.2
 	github.com/mattn/go-colorable v0.1.16
-	github.com/mattn/go-isatty v0.0.24
 	github.com/moby/buildkit v0.34.1
 	github.com/moby/go-archive v0.3.3
 	github.com/moby/moby/api v1.56.1
@@ -140,6 +139,7 @@ require (
 	github.com/klauspost/compress v1.20.1 // indirect
 	github.com/klauspost/cpuid/v2 v2.3.0 // indirect
 	github.com/lucasb-eyer/go-colorful v1.3.0 // indirect
+	github.com/mattn/go-isatty v0.0.24 // indirect
 	github.com/mattn/go-localereader v0.0.1 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect
 	github.com/mattn/go-tty v0.0.4 // indirect
