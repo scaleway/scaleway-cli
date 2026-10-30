@@ -29,6 +29,13 @@ func RenderCommand(tmpl string, data any) ([]string, error) {
 
 	var rendered strings.Builder
 	if err := t.Execute(&rendered, data); err != nil {
+		// A template function may return a *core.CliError (with a hint):
+		// surface it unwrapped so the CLI prints it as a native error
+		// instead of burying it in the render context.
+		if cliErr, ok := errors.AsType[*core.CliError](err); ok {
+			return nil, cliErr
+		}
+
 		return nil, fmt.Errorf("failed to render connect template: %w", err)
 	}
 

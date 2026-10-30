@@ -127,9 +127,11 @@ The command prompts for the password (unless password= is provided), downloads t
 
 The password is not on the command line, where it would be visible in the process list: it is exported to the connect command as the REDISCLI_AUTH environment variable (the standard redis-cli auth variable). Any REDISCLI_AUTH already set in the environment is replaced by it.
 
+A private endpoint is only reachable from inside the private network: the connection is routed through the SSH bastion of a VPC gateway attached to the same private network (or advertising its route) with the bastion enabled. The command starts an SSH port-forward through the gateway bastion, connects to the local port it opens, and stops the tunnel when it exits. The local ssh configuration (keys, ~/.ssh/config) is used to authenticate to the bastion. The gateway is auto-detected from the cluster's private network; when several candidates exist, one must be given explicitly with vpc-gateway-id. When the cluster has no public endpoint, the private one is used.
+
 Use template to connect with a different tool instead. Its value (default: the redis-cli command below) is rendered as a Go text/template and the result is executed as the connect command.
 Available variables:
-{{.ClusterID}}, {{.Cluster}} (the cluster object, e.g. {{.Cluster.Name}}), {{.Endpoint}} (the resolved connect address: {{.Endpoint.Host}}, {{.Endpoint.Port}}), {{.Zone}}, {{.Password}}, {{.CACert}} (path to the temporary certificate), {{.Organization}} and {{.Project}}.
+{{.ClusterID}}, {{.Cluster}} (the cluster object, e.g. {{.Cluster.Name}}), {{.Endpoint}} (the resolved connect address: {{.Endpoint.Host}}, {{.Endpoint.Port}}), {{.Gateway}} (the VPC gateway, when vpc-gateway-id is set), {{.Zone}}, {{.Password}}, {{.CACert}} (path to the temporary certificate), {{.Organization}} and {{.Project}}.
 
 **Usage:**
 
@@ -140,13 +142,14 @@ scw redis cluster connect <cluster-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                                                                                       | Argument Specifications                                                                                                                                   |
-|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| private-network | Connect by the private network endpoint attached.                                                                                                 | Default: `false`                                                                                                                                          |
-| cluster-id      | UUID of the cluster                                                                                                                               | Required                                                                                                                                                  |
-| template        | Command line to run instead of the default redis-cli one, as a Go text/template                                                                   | Default: `redis-cli -h {{.Endpoint.Host}} -p {{.Endpoint.Port}}{{if .Cluster.TLSEnabled}} --tls --cacert {{.CACert}}{{end}} --user {{.Cluster.UserName}}` |
-| password        | Password to connect with. If not provided, the user is prompted for it. Exported to the connect command as the REDISCLI_AUTH environment variable |                                                                                                                                                           |
-| zone            | Zone to target. If none is passed will use default zone from the config                                                                           | Default: `fr-par-1`                                                                                                                                       |
+| Name            | Description                                                                                                                                                                                  | Argument Specifications                                                                                                                                   |
+|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| private-network | Connect by the private network endpoint attached.                                                                                                                                            | Default: `false`                                                                                                                                          |
+| vpc-gateway-id  | UUID of the VPC gateway whose SSH bastion is used to reach the private endpoint. When not set, the gateway is auto-detected from the cluster's private network. Implies private-network=true |                                                                                                                                                           |
+| cluster-id      | UUID of the cluster                                                                                                                                                                          | Required                                                                                                                                                  |
+| template        | Command line to run instead of the default redis-cli one, as a Go text/template                                                                                                              | Default: `redis-cli -h {{.Endpoint.Host}} -p {{.Endpoint.Port}}{{if .Cluster.TLSEnabled}} --tls --cacert {{.CACert}}{{end}} --user {{.Cluster.UserName}}` |
+| password        | Password to connect with. If not provided, the user is prompted for it. Exported to the connect command as the REDISCLI_AUTH environment variable                                            |                                                                                                                                                           |
+| zone            | Zone to target. If none is passed will use default zone from the config                                                                                                                      | Default: `fr-par-1`                                                                                                                                       |
 
 
 **Examples:**
@@ -160,6 +163,11 @@ scw redis cluster connect 11111111-1111-1111-1111-111111111111
 Connect to a Redis cluster via private network
 ```shell
 scw redis cluster connect 11111111-1111-1111-1111-111111111111 private-network=true
+```
+
+Connect to a Redis cluster private endpoint through a VPC gateway SSH bastion
+```shell
+scw redis cluster connect 11111111-1111-1111-1111-111111111111 vpc-gateway-id=22222222-2222-2222-2222-222222222222
 ```
 
 Connect to a Redis cluster with a custom command

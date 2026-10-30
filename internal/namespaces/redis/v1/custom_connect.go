@@ -15,6 +15,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/connect"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	redisSDK "github.com/scaleway/scaleway-sdk-go/api/redis/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -31,6 +32,7 @@ type clusterConnectArgs struct {
 	Template       string
 	Password       string
 	PrivateNetwork bool
+	VpcGatewayID   string
 }
 
 // endpoint is the connect address of a session, resolved lazily from the
@@ -63,6 +65,19 @@ type clusterConnectTemplateData struct {
 	endpointErr  error
 	certOnce     sync.Once
 	certErr      error
+
+	// stderr receives the output of the ssh tunnel process.
+	stderr io.Writer
+
+	// vpcGatewayID, when set, routes the private endpoint through the SSH
+	// bastion of the given VPC gateway. When empty, the gateway is
+	// auto-detected from the gateways attached to the private network.
+	vpcGatewayID     string
+	privateNetworkID string
+	gateway          *vpcgw.Gateway
+	gatewayOnce      sync.Once
+	gatewayErr       error
+	tunnel           *connect.Tunnel
 }
 
 // Cluster returns the cluster, resolved lazily.
@@ -79,7 +94,9 @@ func (d *clusterConnectTemplateData) Cluster() (*redisSDK.Cluster, error) {
 
 // Endpoint returns the connect address, resolved lazily from the cluster:
 // the first IP and the port of the public endpoint, or of the attached
-// private network endpoint when private-network=true.
+// private network endpoint when private-network=true. When a VPC gateway is
+// selected, the private endpoint is reached through the gateway SSH bastion
+// and the returned address is the local loopback port of the tunnel.
 func (d *clusterConnectTemplateData) Endpoint() (*endpoint, error) {
 	d.endpointOnce.Do(func() {
 		cluster, err := d.Cluster()
@@ -94,6 +111,11 @@ func (d *clusterConnectTemplateData) Endpoint() (*endpoint, error) {
 			selected, err = getPrivateEndpoint(cluster.Endpoints)
 		} else {
 			selected, err = getPublicEndpoint(cluster.Endpoints)
+			if err != nil {
+				// No public endpoint: the private one is the only way in,
+				// it will be reached through a VPC gateway.
+				selected, err = getPrivateEndpoint(cluster.Endpoints)
+			}
 		}
 		if err != nil {
 			d.endpoint, d.endpointErr = nil, err
@@ -104,15 +126,95 @@ func (d *clusterConnectTemplateData) Endpoint() (*endpoint, error) {
 			d.endpoint, d.endpointErr = nil, errors.New("endpoint has no IP addresses")
 		}
 
-		d.endpoint, d.endpointErr = &endpoint{
+		ep := &endpoint{
 			Host: selected.IPs[0].String(),
 			Port: selected.Port,
-		}, nil
+		}
+
+		// A private endpoint is only reachable from inside the private
+		// network: route it through a VPC gateway SSH bastion. An ssh
+		// port-forward opens a local port and the connect command targets
+		// it instead of the private IP.
+		if selected.PrivateNetwork != nil {
+			d.privateNetworkID = selected.PrivateNetwork.ID
+
+			gw, err := d.Gateway()
+			if err != nil {
+				d.endpoint, d.endpointErr = nil, err
+
+				return
+			}
+			tunnel, err := connect.SSHLocalForward(
+				d.stderr,
+				gw.IPv4.Address.String(),
+				gw.BastionPort,
+				ep.Host,
+				ep.Port,
+			)
+			if err != nil {
+				d.endpoint, d.endpointErr = nil, err
+
+				return
+			}
+			d.tunnel = tunnel
+			ep = &endpoint{
+				Host: "127.0.0.1",
+				Port: uint32(tunnel.LocalPort()),
+			}
+		}
+
+		d.endpoint, d.endpointErr = ep, nil
 
 		return
 	})
 
 	return d.endpoint, d.endpointErr
+}
+
+// Gateway returns the VPC gateway whose SSH bastion is used to reach the
+// private endpoint, resolved lazily. When vpc-gateway-id is set the gateway
+// is fetched and validated; otherwise it is auto-detected from the gateways
+// attached to the private network of the selected endpoint.
+func (d *clusterConnectTemplateData) Gateway() (*vpcgw.Gateway, error) {
+	d.gatewayOnce.Do(func() {
+		if d.vpcGatewayID == "" {
+			if d.privateNetworkID == "" {
+				d.gatewayErr = errors.New(
+					"no private endpoint selected, cannot auto-detect the VPC gateway",
+				)
+
+				return
+			}
+
+			d.gateway, d.gatewayErr = connect.PickGatewayForPrivateNetwork(
+				d.client,
+				d.Zone,
+				d.privateNetworkID,
+			)
+
+			return
+		}
+
+		gw, err := vpcgw.NewAPI(d.client).GetGateway(&vpcgw.GetGatewayRequest{
+			GatewayID: d.vpcGatewayID,
+			Zone:      d.Zone,
+		})
+		if err != nil {
+			d.gatewayErr = err
+
+			return
+		}
+		switch {
+		case !gw.BastionEnabled:
+			d.gatewayErr = fmt.Errorf("the SSH bastion is not enabled on gateway %s", gw.ID)
+		case gw.IPv4 == nil:
+			d.gatewayErr = errors.New("the gateway has no public IPv4 address")
+		default:
+			d.gateway = gw
+		}
+	})
+
+	return d.gateway, d.gatewayErr
 }
 
 // CACert returns the path of the temporary file holding the cluster TLS
@@ -170,15 +272,21 @@ The command prompts for the password (unless password= is provided), downloads t
 
 The password is not on the command line, where it would be visible in the process list: it is exported to the connect command as the REDISCLI_AUTH environment variable (the standard redis-cli auth variable). Any REDISCLI_AUTH already set in the environment is replaced by it.
 
+A private endpoint is only reachable from inside the private network: the connection is routed through the SSH bastion of a VPC gateway attached to the same private network (or advertising its route) with the bastion enabled. The command starts an SSH port-forward through the gateway bastion, connects to the local port it opens, and stops the tunnel when it exits. The local ssh configuration (keys, ~/.ssh/config) is used to authenticate to the bastion. The gateway is auto-detected from the cluster's private network; when several candidates exist, one must be given explicitly with vpc-gateway-id. When the cluster has no public endpoint, the private one is used.
+
 Use template to connect with a different tool instead. Its value (default: the redis-cli command below) is rendered as a Go text/template and the result is executed as the connect command.
 Available variables:
-{{.ClusterID}}, {{.Cluster}} (the cluster object, e.g. {{.Cluster.Name}}), {{.Endpoint}} (the resolved connect address: {{.Endpoint.Host}}, {{.Endpoint.Port}}), {{.Zone}}, {{.Password}}, {{.CACert}} (path to the temporary certificate), {{.Organization}} and {{.Project}}.`,
+{{.ClusterID}}, {{.Cluster}} (the cluster object, e.g. {{.Cluster.Name}}), {{.Endpoint}} (the resolved connect address: {{.Endpoint.Host}}, {{.Endpoint.Port}}), {{.Gateway}} (the VPC gateway, when vpc-gateway-id is set), {{.Zone}}, {{.Password}}, {{.CACert}} (path to the temporary certificate), {{.Organization}} and {{.Project}}.`,
 		ArgsType: reflect.TypeFor[clusterConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:    "private-network",
 				Short:   `Connect by the private network endpoint attached.`,
 				Default: core.DefaultValueSetter("false"),
+			},
+			{
+				Name:  "vpc-gateway-id",
+				Short: `UUID of the VPC gateway whose SSH bastion is used to reach the private endpoint. When not set, the gateway is auto-detected from the cluster's private network. Implies private-network=true`,
 			},
 			{
 				Name:       "cluster-id",
@@ -199,6 +307,12 @@ Available variables:
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*clusterConnectArgs)
+
+			// A VPC gateway only reaches private addresses: selecting one
+			// means connecting through the private endpoint.
+			if args.VpcGatewayID != "" {
+				args.PrivateNetwork = true
+			}
 
 			// The password is exported to the child process as REDISCLI_AUTH,
 			// the standard redis-cli auth environment variable, instead of
@@ -227,8 +341,10 @@ Available variables:
 				ClusterID:      args.ClusterID,
 				Zone:           args.Zone,
 				privateNetwork: args.PrivateNetwork,
+				vpcGatewayID:   args.VpcGatewayID,
 				Password:       password,
 				client:         core.ExtractClient(ctx),
+				stderr:         core.ExtractStderr(ctx),
 			}
 			// Remove the temporary certificate, downloaded while rendering
 			// the template, when the command exits.
@@ -238,6 +354,16 @@ Available variables:
 				}
 				if err := os.Remove(templateData.certPath); err != nil {
 					core.ExtractLogger(ctx).Debugf("failed to remove certificate file: %v", err)
+				}
+			}()
+			// Stop the ssh tunnel, opened while resolving the endpoint, when
+			// the command exits.
+			defer func() {
+				if templateData.tunnel == nil {
+					return
+				}
+				if err := templateData.tunnel.Stop(); err != nil {
+					core.ExtractLogger(ctx).Debugf("failed to stop the ssh tunnel: %v", err)
 				}
 			}()
 
@@ -268,6 +394,10 @@ Available variables:
 			{
 				Short: "Connect to a Redis cluster via private network",
 				Raw:   `scw redis cluster connect 11111111-1111-1111-1111-111111111111 private-network=true`,
+			},
+			{
+				Short: "Connect to a Redis cluster private endpoint through a VPC gateway SSH bastion",
+				Raw:   `scw redis cluster connect 11111111-1111-1111-1111-111111111111 vpc-gateway-id=22222222-2222-2222-2222-222222222222`,
 			},
 			{
 				Short: "Connect to a Redis cluster with a custom command",
