@@ -1,5 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Command "delete" is deprecated, private-nic is a term only used in v1, please use private-network-interface instead.
 Delete a private NIC.
 
 USAGE:

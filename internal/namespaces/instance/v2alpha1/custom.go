@@ -16,6 +16,7 @@ import (
 func GetCommands() *core.Commands {
 	cmds := core.NewCommands(
 		instancePlacementGroup(),
+		instancePrivateNetworkInterface(),
 		instanceServerType(),
 		instanceTemplate(),
 		instancePlacementGroupList(),
@@ -23,6 +24,11 @@ func GetCommands() *core.Commands {
 		instancePlacementGroupGet(),
 		instancePlacementGroupUpdate(),
 		instancePlacementGroupDelete(),
+		instancePrivateNetworkInterfaceList(),
+		instancePrivateNetworkInterfaceCreate(),
+		instancePrivateNetworkInterfaceGet(),
+		instancePrivateNetworkInterfaceUpdate(),
+		instancePrivateNetworkInterfaceDelete(),
 		instanceServerGetCompatibleTypes(),
 		instanceServerTypeList(),
 		instanceTemplateList(),
@@ -47,6 +53,25 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "placement-group", "create").Override(placementGroupCreateBuilder)
 	cmds.MustFind("instance", "placement-group", "get").Override(placementGroupGetBuilder)
 	cmds.MustFind("instance", "placement-group", "list").Override(placementGroupListBuilder)
+
+	//
+	// Private Network Interfaces
+	//
+	human.RegisterMarshalerFunc(
+		instanceSDK.PrivateNetworkInterfaceStatus(""),
+		human.EnumMarshalFunc(privateNetworkInterfaceStateMarshalSpecs),
+	)
+
+	cmds.MustFind("instance", "private-network-interface", "create").
+		Override(privateNetworkInterfaceCreateBuilder)
+	cmds.MustFind("instance", "private-network-interface", "get").
+		Override(privateNetworkInterfaceGetBuilder)
+	cmds.MustFind("instance", "private-network-interface", "list").
+		Override(privateNetworkInterfaceListBuilder)
+	cmds.MustFind("instance", "private-network-interface", "update").
+		Override(privateNetworkInterfaceUpdateBuilder)
+	cmds.MustFind("instance", "private-network-interface", "delete").
+		Override(privateNetworkInterfaceDeleteBuilder)
 
 	//
 	// Server-Type

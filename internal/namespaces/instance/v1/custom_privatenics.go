@@ -43,11 +43,19 @@ func privateNicGetBuilder(c *core.Command) *core.Command {
 		return runner(ctx, tmpRequest)
 	}
 
-	return c
+	return deprecatePrivateNicCommand(c)
 }
 
 func isMacAddress(address string) bool {
 	_, err := net.ParseMAC(address)
 
 	return err == nil
+}
+
+func deprecatePrivateNicCommand(c *core.Command) *core.Command {
+	c.Hidden = true
+	c.Deprecated = true
+	c.DeprecationMessage = "private-nic is a term only used in v1, please use private-network-interface instead."
+
+	return c
 }

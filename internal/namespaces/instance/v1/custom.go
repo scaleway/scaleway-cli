@@ -43,7 +43,6 @@ func GetCommands() *core.Commands {
 		instanceSnapshot(),
 		instanceUserData(),
 		instanceVolume(),
-		instancePrivateNic(),
 		instanceVolumeTypeList(),
 		instanceServerList(),
 		instanceServerGet(),
@@ -73,6 +72,8 @@ func GetCommands() *core.Commands {
 		instanceVolumeGet(),
 		instanceVolumeUpdate(),
 		instanceVolumeDelete(),
+		instanceVolumePlanMigration(),
+		instanceVolumeApplyMigration(),
 		instanceSecurityGroupList(),
 		instanceSecurityGroupCreate(),
 		instanceSecurityGroupGet(),
@@ -90,18 +91,18 @@ func GetCommands() *core.Commands {
 		instanceIPGet(),
 		instanceIPUpdate(),
 		instanceIPDelete(),
-		instancePrivateNicList(),
-		instancePrivateNicCreate(),
-		instancePrivateNicGet(),
-		instancePrivateNicUpdate(),
-		instancePrivateNicDelete(),
-		instanceVolumePlanMigration(),
-		instanceVolumeApplyMigration(),
 		// PlacementGroup commands exclusive to v1
 		instancePlacementGroupSet(),
 		instancePlacementGroupGetServers(),
 		instancePlacementGroupSetServers(),
 		instancePlacementGroupUpdateServers(),
+		// PrivateNIC commands exclusive to v1
+		instancePrivateNic(),
+		instancePrivateNicList(),
+		instancePrivateNicCreate(),
+		instancePrivateNicGet(),
+		instancePrivateNicUpdate(),
+		instancePrivateNicDelete(),
 		// ServerType commands exclusive to v1
 		instanceServerTypeGet(),
 	)
@@ -284,6 +285,11 @@ func GetCommands() *core.Commands {
 		human.EnumMarshalFunc(privateNICStateMarshalSpecs),
 	)
 
+	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic"))
+	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "create"))
+	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "list"))
+	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "update"))
+	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "delete"))
 	cmds.MustFind("instance", "private-nic", "get").Override(privateNicGetBuilder)
 
 	// SSH Utilities
