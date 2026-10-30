@@ -3,7 +3,7 @@
 Get config values from the config file for the current profile
 
 USAGE:
-  scw config info
+  scw config info [arg=value ...]
 
 EXAMPLES:
   Get the default config values
@@ -11,6 +11,12 @@ EXAMPLES:
 
   Get the config values of the profile 'prod'
     scw -p prod config info
+
+  Get the config values, revealing the secret key
+    scw config info show-secret=true
+
+ARGS:
+  [show-secret=false]   Reveal secret key
 
 FLAGS:
   -h, --help                help for info
