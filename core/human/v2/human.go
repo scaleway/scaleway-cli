@@ -210,22 +210,38 @@ func writeSection(b *strings.Builder, section Section, data any, claimed map[str
 
 	switch value.Kind() {
 	case reflect.Slice, reflect.Array:
-		elem := value.Type().Elem()
+		itemType := value.Type().Elem()
+		for itemType.Kind() == reflect.Pointer {
+			itemType = itemType.Elem()
+		}
 
 		w := tabwriter.NewWriter(b, 5, 1, 2, ' ', tabwriter.ANSIGraphicsRendition)
-		for fieldIndex := range elem.NumField() {
+		for fieldIndex := range itemType.NumField() {
 			if fieldIndex != 0 {
 				fmt.Fprint(w, "\t")
 			}
-			fmt.Fprint(w, elem.Field(fieldIndex).Name)
+			fmt.Fprint(w, itemType.Field(fieldIndex).Name)
 		}
 		fmt.Fprint(w, "\n")
+		var err error
 		for index := range value.Len() {
-			for fieldIndex := range value.Index(index).NumField() {
+			item := value.Index(index)
+			for (item.Kind() == reflect.Pointer || item.Kind() == reflect.Interface) && !item.IsNil() {
+				item = item.Elem()
+			}
+			isNil := item.Kind() == reflect.Pointer || item.Kind() == reflect.Interface
+			for fieldIndex := range itemType.NumField() {
 				if fieldIndex != 0 {
 					fmt.Fprint(w, "\t")
 				}
-				fmt.Fprint(w, value.Index(index).Field(fieldIndex).Interface())
+				str := "-"
+				if !isNil {
+					str, err = Format(item.Field(fieldIndex).Interface())
+					if err != nil {
+						return err
+					}
+				}
+				fmt.Fprint(w, str)
 			}
 			fmt.Fprint(w, "\n")
 		}

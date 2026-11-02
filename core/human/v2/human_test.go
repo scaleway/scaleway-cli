@@ -182,6 +182,37 @@ bar  2
 `,
 		},
 		{
+			name: "slice of pointer to struct",
+			data: []*FirstLevelDummyStruct{
+				{FirstLevelFieldA: "a", FirstLevelFieldB: "b"},
+				{FirstLevelFieldA: "c", FirstLevelFieldB: "d"},
+			},
+			want: `FirstLevelFieldA  FirstLevelFieldB
+a                 b
+c                 d
+`,
+		},
+		{
+			name: "slice with nil struct item",
+			data: []*FirstLevelDummyStruct{
+				nil,
+				{FirstLevelFieldA: "c", FirstLevelFieldB: "d"},
+			},
+			want: `FirstLevelFieldA  FirstLevelFieldB
+-                 -
+c                 d
+`,
+		},
+		{
+			name: "empty string cell formatted",
+			data: []DummyStruct{
+				{Foo: "", Bar: 1},
+			},
+			want: `Foo  Bar
+-    1
+`,
+		},
+		{
 			name: "struct default layout",
 			data: DummyStruct{Foo: "foo", Bar: 1},
 			// no explicit section: only the default pathless section.
