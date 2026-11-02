@@ -135,6 +135,26 @@ func TestFormat(t *testing.T) {
 			data: (*scw.Size)(nil),
 			want: "-",
 		},
+		{
+			name: "duration",
+			data: scw.Duration{Seconds: 604800},
+			want: "7 days",
+		},
+		{
+			name: "duration combined",
+			data: scw.Duration{Seconds: 9000},
+			want: "2 hours 30 minutes",
+		},
+		{
+			name: "duration zero",
+			data: scw.Duration{},
+			want: "0 seconds",
+		},
+		{
+			name: "duration pointer",
+			data: &scw.Duration{Seconds: 30},
+			want: "30 seconds",
+		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			got, err := human.Format(tc.data)

@@ -3,6 +3,7 @@ package human
 import (
 	"fmt"
 	"reflect"
+	"strings"
 	"time"
 
 	"github.com/dustin/go-humanize"
@@ -49,7 +50,44 @@ func Format(data any) (string, error) {
 		}
 
 		return humanize.Bytes(uint64(v)), nil
+	case scw.Duration:
+		return formatDuration(v), nil
 	}
 
 	return fmt.Sprint(data), nil
+}
+
+// formatDuration renders a duration as its joined non-zero components,
+// matching v1's registered marshaler for scw.Duration.
+func formatDuration(v scw.Duration) string {
+	const (
+		minutes = int64(60)
+		hours   = 60 * minutes
+		days    = 24 * hours
+	)
+	d := v.Seconds / days
+	h := (v.Seconds - d*days) / hours
+	m := (v.Seconds - (d*days + h*hours)) / minutes
+	s := v.Seconds % 60
+	res := []string(nil)
+	if d != 0 {
+		res = append(res, fmt.Sprintf("%d days", d))
+	}
+	if h != 0 {
+		res = append(res, fmt.Sprintf("%d hours", h))
+	}
+	if m != 0 {
+		res = append(res, fmt.Sprintf("%d minutes", m))
+	}
+	if s != 0 {
+		res = append(res, fmt.Sprintf("%d seconds", s))
+	}
+	if v.Nanos != 0 {
+		res = append(res, fmt.Sprintf("%d nanoseconds", v.Nanos))
+	}
+	if len(res) == 0 {
+		return "0 seconds"
+	}
+
+	return strings.Join(res, " ")
 }
