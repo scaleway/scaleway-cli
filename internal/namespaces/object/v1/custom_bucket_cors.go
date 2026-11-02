@@ -82,9 +82,7 @@ func bucketCorsCreateCommand() *core.Command {
 				CORSConfiguration: &config,
 			}
 
-			client, err := newS3Client(
-				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
-			)
+			client, err := args.newS3Client(ctx)
 			if err != nil {
 				return nil, err
 			}
@@ -151,9 +149,7 @@ func bucketCorsDeleteCommand() *core.Command {
 				Bucket: &args.Bucket,
 			}
 
-			client, err := newS3Client(
-				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
-			)
+			client, err := args.newS3Client(ctx)
 			if err != nil {
 				return nil, err
 			}
@@ -207,9 +203,7 @@ func bucketCorsGetCommand() *core.Command {
 				Bucket: &args.Bucket,
 			}
 
-			client, err := newS3Client(
-				ctx, args.Region, args.ProjectID, args.S3Endpoint, args.S3UsePathStyle,
-			)
+			client, err := args.newS3Client(ctx)
 			if err != nil {
 				return nil, err
 			}

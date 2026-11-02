@@ -131,6 +131,8 @@ func searchResourceSearch() *core.Command {
 					"autoscaling_group",
 					"wofl_definition",
 					"wofl_run",
+					"kvdb_instance",
+					"kvdb_snapshot",
 				},
 			},
 			{

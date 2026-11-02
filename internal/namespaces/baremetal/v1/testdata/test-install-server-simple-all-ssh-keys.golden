@@ -1,25 +1,26 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              34a239b0-1191-4ffd-9666-973f5e07a224
-OrganizationID  de2b260d-2c2e-4be9-baa0-99d8ed17f1da
-ProjectID       de2b260d-2c2e-4be9-baa0-99d8ed17f1da
-Name            cli-bm-busy-euler
-Description     -
-UpdatedAt       few seconds ago
-CreatedAt       few seconds ago
-Status          ready
-OfferID         7e81d4d4-a84b-4dd0-9f44-f0ac34a09e3a
-OfferName       EM-I210E-NVME
-Domain          34a239b0-1191-4ffd-9666-973f5e07a224.fr-par-2.baremetal.scw.cloud
-BootType        normal
-Zone            fr-par-2
-PingStatus      up
-Protected       false
+ID                 1c215c35-6ebb-4ce7-ad8b-1ba9f6a70de9
+OrganizationID     564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ProjectID          564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+Name               cli-bm-jolly-wozniak
+Description        -
+UpdatedAt          few seconds ago
+CreatedAt          few seconds ago
+Status             ready
+OfferID            66cdd2c4-664c-47af-b0ad-a70e12999f0e
+OfferName          EM-I320E-NVME
+Domain             1c215c35-6ebb-4ce7-ad8b-1ba9f6a70de9.fr-par-2.baremetal.scw.cloud
+BootType           normal
+Zone               fr-par-2
+PingStatus         up
+Protected          false
+ScheduledDeletion  false
 
 IPs:
 ID                                    ADDRESS                                REVERSE  VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
-43d3e95f-37de-497c-9da4-91508da4f7cb  2001:bc8:1201:51c:b683:51ff:fe06:71c4  -        IPv6     unknown         -
-fdfd7dbf-9020-4433-8545-f41f631e69c4  51.158.55.166                          -        IPv4     unknown         -
+27198fb8-9b9b-4d94-a0e1-5a450d83f889  195.154.218.24                         -        IPv4     unknown         -
+8ffde507-fb75-4e29-968b-cd278d581766  2001:bc8:1201:a2c:d604:e6ff:fee8:6290  -        IPv6     unknown         -
 
 Options:
 ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
@@ -27,8 +28,18 @@ ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
 Install:
 OsID                                                          b9a016fc-947f-4bbc-bf95-343c8524535a
 Hostname                                                      test-install-server
-SSHKeyIDs.0                                                   f191a0b4-9b78-4eec-84c9-c465ba1fae9d
-SSHKeyIDs.1                                                   ff078044-5e26-4b7b-a3d9-98bfea5b6568
+SSHKeyIDs.0                                                   1e271c03-3cfc-4fcf-a157-f71829091486
+SSHKeyIDs.1                                                   6320195c-021b-41dc-b7c8-9d3e84cb873b
+SSHKeyIDs.2                                                   442e1f23-89f3-4e0e-8c8c-f7596d938349
+SSHKeyIDs.3                                                   cd2d8d74-4d75-4329-8101-0be05227b3d8
+SSHKeyIDs.4                                                   532f9de1-10ed-4dc7-9b2e-5d0ae88e8e1d
+SSHKeyIDs.5                                                   d1d261fc-248a-4fd0-851c-591e1d16da09
+SSHKeyIDs.6                                                   39d430d6-0dc4-4fdb-b067-170864123a00
+SSHKeyIDs.7                                                   434a36d8-f95d-490f-97d5-357c4ba96154
+SSHKeyIDs.8                                                   9889ed76-e762-43a7-95df-e0e008330291
+SSHKeyIDs.9                                                   fc9e37da-3a1b-47c7-a405-468bb1bc0b98
+SSHKeyIDs.10                                                  8daadcd5-a964-49cc-b971-e5223ab78d1f
+SSHKeyIDs.11                                                  2bd2f98e-a211-4d51-bd36-126128dca921
 Status                                                        completed
 User                                                          ubuntu
 ServiceUser                                                   -
@@ -84,44 +95,54 @@ NetworkBootURL                                                -
 NetworkBootPersistent                                         false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "34a239b0-1191-4ffd-9666-973f5e07a224",
-  "organization_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
-  "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
-  "name": "cli-bm-busy-euler",
+  "id": "1c215c35-6ebb-4ce7-ad8b-1ba9f6a70de9",
+  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "name": "cli-bm-jolly-wozniak",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
   "status": "ready",
-  "offer_id": "7e81d4d4-a84b-4dd0-9f44-f0ac34a09e3a",
-  "offer_name": "EM-I210E-NVME",
+  "offer_id": "66cdd2c4-664c-47af-b0ad-a70e12999f0e",
+  "offer_name": "EM-I320E-NVME",
   "tags": [],
   "ips": [
     {
-      "id": "43d3e95f-37de-497c-9da4-91508da4f7cb",
-      "address": "2001:bc8:1201:51c:b683:51ff:fe06:71c4",
-      "reverse": "",
-      "version": "IPv6",
-      "reverse_status": "unknown",
-      "reverse_status_message": ""
-    },
-    {
-      "id": "fdfd7dbf-9020-4433-8545-f41f631e69c4",
-      "address": "51.158.55.166",
+      "id": "27198fb8-9b9b-4d94-a0e1-5a450d83f889",
+      "address": "195.154.218.24",
       "reverse": "",
       "version": "IPv4",
       "reverse_status": "unknown",
       "reverse_status_message": ""
+    },
+    {
+      "id": "8ffde507-fb75-4e29-968b-cd278d581766",
+      "address": "2001:bc8:1201:a2c:d604:e6ff:fee8:6290",
+      "reverse": "",
+      "version": "IPv6",
+      "reverse_status": "unknown",
+      "reverse_status_message": ""
     }
   ],
-  "domain": "34a239b0-1191-4ffd-9666-973f5e07a224.fr-par-2.baremetal.scw.cloud",
+  "domain": "1c215c35-6ebb-4ce7-ad8b-1ba9f6a70de9.fr-par-2.baremetal.scw.cloud",
   "boot_type": "normal",
   "zone": "fr-par-2",
   "install": {
     "os_id": "b9a016fc-947f-4bbc-bf95-343c8524535a",
     "hostname": "test-install-server",
     "ssh_key_ids": [
-      "f191a0b4-9b78-4eec-84c9-c465ba1fae9d",
-      "ff078044-5e26-4b7b-a3d9-98bfea5b6568"
+      "1e271c03-3cfc-4fcf-a157-f71829091486",
+      "6320195c-021b-41dc-b7c8-9d3e84cb873b",
+      "442e1f23-89f3-4e0e-8c8c-f7596d938349",
+      "cd2d8d74-4d75-4329-8101-0be05227b3d8",
+      "532f9de1-10ed-4dc7-9b2e-5d0ae88e8e1d",
+      "d1d261fc-248a-4fd0-851c-591e1d16da09",
+      "39d430d6-0dc4-4fdb-b067-170864123a00",
+      "434a36d8-f95d-490f-97d5-357c4ba96154",
+      "9889ed76-e762-43a7-95df-e0e008330291",
+      "fc9e37da-3a1b-47c7-a405-468bb1bc0b98",
+      "8daadcd5-a964-49cc-b971-e5223ab78d1f",
+      "2bd2f98e-a211-4d51-bd36-126128dca921"
     ],
     "status": "completed",
     "user": "ubuntu",
@@ -153,7 +174,7 @@ NetworkBootPersistent                                         false
             {
               "label": "root",
               "number": 4,
-              "size": 1915003863040,
+              "size": 1914630569984,
               "use_all_available_space": false
             }
           ]
@@ -176,7 +197,7 @@ NetworkBootPersistent                                         false
             {
               "label": "root",
               "number": 3,
-              "size": 1915003863040,
+              "size": 1914630569984,
               "use_all_available_space": false
             }
           ]
@@ -228,5 +249,8 @@ NetworkBootPersistent                                         false
   "options": [],
   "rescue_server": null,
   "protected": false,
-  "user_data": null
+  "user_data": null,
+  "commitment": null,
+  "scheduled_deletion_at": null,
+  "scheduled_deletion": false
 }

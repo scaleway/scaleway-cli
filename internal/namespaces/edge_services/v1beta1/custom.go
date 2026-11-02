@@ -7,6 +7,8 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("edge-services").Groups = []string{"network"}
 
+	cmds.MustFind("edge-services", "plan", "list").Override(planListBuilder)
+
 	cmds.Merge(core.NewCommands(
 		edgeServicesRouteRulesEditCommand(),
 	))

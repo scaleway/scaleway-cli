@@ -10,21 +10,9 @@
     "url": "https://github.com/scaleway/scaleway-cli",
     "directory": "wasm"
   },
-  "scripts": {
-    "test": "vitest src",
-    "lint": "prettier --check ."
-  },
   "types": "index.d.ts",
   "keywords": [],
   "author": "Scaleway",
-  "devDependencies": {
-    "@codecov/vite-plugin": "^2.0.1",
-    "@vitest/browser": "^5.0.0",
-    "prettier": "3.9.9",
-    "typescript": "^7.0.2",
-    "vite": "^8.0.13",
-    "vitest": "^5.0.0"
-  },
   "files": [
     "cli.wasm",
     "cli.d.ts",

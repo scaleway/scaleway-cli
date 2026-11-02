@@ -6,13 +6,51 @@ This API allows you to manage your InterLink services.
 
 Connection commands.
 
-Connection commands.
+
+### Get a dedicated connection
+
+For self-hosted users, get a dedicated physical connection corresponding to the given ID. The response object includes information such as the connection's name, status and total bandwidth.
 
 **Usage:**
 
 ```shell
-scw interlink connection
+scw interlink connection get <connection-id ...> [arg=value ...]
 ```
+
+
+**Arguments:**
+
+| Name          | Description                                                                 | Argument Specifications                                               |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| connection-id | ID of connection to get                                                     | Required                                                              |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+
+
+
+### List dedicated connections
+
+For self-hosted users, list their dedicated physical connections in a given region. By default, the connections returned in the list are ordered by name in ascending order, though this can be modified via the `order_by` field.
+
+**Usage:**
+
+```shell
+scw interlink connection list [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name            | Description                                                                 | Argument Specifications                                                                                                                |
+|-----------------|-----------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| order-by        | Order in which to return results                                            | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc` |
+| project-id      | Project ID to filter for                                                    |                                                                                                                                        |
+| name            | Link name to filter for                                                     |                                                                                                                                        |
+| tags.{index}    | Tags to filter for                                                          |                                                                                                                                        |
+| status          | Connection status to filter for                                             | One of: `unknown_status`, `created`, `configuring`, `failed`, `active`, `disabled`, `deleted`, `locked`                                |
+| bandwidth-mbps  | Filter for dedicated connections with this bandwidth size.                  |                                                                                                                                        |
+| pop-id          | Filter for dedicated connections present in this PoP                        |                                                                                                                                        |
+| organization-id | Organization ID to filter for                                               |                                                                                                                                        |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all`                                                           |
 
 
 

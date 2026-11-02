@@ -2,6 +2,6 @@
   "name": "mise-npm-install",
   "private": true,
   "dependencies": {
-    "vite": "8.2.2"
+    "oxlint": "1.90.0"
   }
 }

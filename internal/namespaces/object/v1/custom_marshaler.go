@@ -11,12 +11,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-type CustomS3ACLGrant struct {
-	Grantee    *string
-	Permission types.Permission
-}
-
-// S3Args holds the fields shared by every bucket-related arg struct
+// S3Args holds the fields shared by every bucket-related arg struct.
+// Required here for the WASM build.
 type S3Args struct {
 	Region         scw.Region
 	ProjectID      string
@@ -24,8 +20,9 @@ type S3Args struct {
 	S3UsePathStyle string
 }
 
-func (a S3Args) bucketArgsFields() (scw.Region, string, string, string) {
-	return a.Region, a.ProjectID, a.S3Endpoint, a.S3UsePathStyle
+type CustomS3ACLGrant struct {
+	Grantee    *string
+	Permission types.Permission
 }
 
 type BucketResponse struct {
