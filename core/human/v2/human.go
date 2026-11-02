@@ -71,7 +71,7 @@ func Render(data any, layout Layout) (string, error) {
 		}
 
 		var b strings.Builder
-		err := writeSection(&b, sections[0], data)
+		err := writeSection(&b, sections[0], data, nil)
 		if err != nil {
 			return "", fmt.Errorf("rendering section: %w", err)
 		}
@@ -86,35 +86,45 @@ func Render(data any, layout Layout) (string, error) {
 			fields[value.Type().Field(i).Name] = value.Field(i).Interface()
 		}
 
-		fieldsBySection := make(map[int]any, len(sections))
-		for i, section := range sections {
+		// claimed tracks the top-level fields rendered as their own section so
+		// they are skipped in the main (pathless) section, keeping declaration
+		// order.
+		claimed := make(map[string]bool, len(sections))
+		for _, section := range sections {
 			if section.Path == "" {
-				fieldsBySection[i] = fields
+				continue
 			}
-			if field, ok := fields[section.Path]; ok {
-				fieldsBySection[i] = field
-				delete(fields, section.Path)
-			} else {
+			if _, ok := fields[section.Path]; !ok {
 				return "", fmt.Errorf("path %q not found in %T", section.Path, data)
 			}
+			claimed[section.Path] = true
 		}
 
 		var b strings.Builder
 		for i, section := range sections {
-			err := writeSection(&b, section, fieldsBySection[i])
+			data := data
+			if section.Path != "" {
+				data = fields[section.Path]
+			}
+			err := writeSection(&b, section, data, claimed)
 			if err != nil {
 				return "", fmt.Errorf("rendering section %d: %w", i, err)
 			}
 			b.WriteRune('\n')
 		}
 
-		return b.String(), nil
+		return strings.TrimSpace(b.String()), nil
 	}
 
 	return "", nil
 }
 
-func writeSection(b *strings.Builder, section Section, data any) error {
+// writeSection data to the given string builder, with a map of the already
+// claimed paths so we can skip the extracted sections from being rendered in
+// the default section. This is necessary because the section data must be
+// rendered in declaration order, so we can't convert the original data to
+// a map without having to add additional complexity.
+func writeSection(b *strings.Builder, section Section, data any, claimed map[string]bool) error {
 	if section.Title != "" {
 		b.WriteString(section.Title)
 		b.WriteRune(':')
@@ -143,6 +153,17 @@ func writeSection(b *strings.Builder, section Section, data any) error {
 				fmt.Fprint(w, value.Index(index).Field(fieldIndex).Interface())
 			}
 			fmt.Fprint(w, "\n")
+		}
+		w.Flush()
+
+	case reflect.Struct:
+		w := tabwriter.NewWriter(b, 5, 1, 2, ' ', tabwriter.ANSIGraphicsRendition)
+		for i := range value.NumField() {
+			field := value.Type().Field(i)
+			if claimed[field.Name] {
+				continue
+			}
+			fmt.Fprintf(w, "%s\t%v\n", field.Name, value.Field(i).Interface())
 		}
 		w.Flush()
 

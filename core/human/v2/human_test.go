@@ -71,6 +71,17 @@ type DummyStruct struct {
 	Bar int
 }
 
+type RootLevelDummyStruct struct {
+	RootLevelFieldA   string
+	RootLevelFieldB   string
+	FirstLevelSection FirstLevelDummyStruct
+}
+
+type FirstLevelDummyStruct struct {
+	FirstLevelFieldA string
+	FirstLevelFieldB string
+}
+
 func TestRender(t *testing.T) {
 	for _, tc := range []struct {
 		name    string
@@ -89,6 +100,36 @@ func TestRender(t *testing.T) {
 foo  1
 bar  2
 `,
+		},
+		{
+			name: "struct default layout",
+			data: DummyStruct{Foo: "foo", Bar: 1},
+			// no explicit section: only the default pathless section.
+			layout: human.Layout{},
+			want: `Foo  foo
+Bar  1`,
+		},
+		{
+			name: "struct with titled struct section",
+			data: RootLevelDummyStruct{
+				RootLevelFieldA: "AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA",
+				RootLevelFieldB: "aaaaaaaa-aaaaaa-aaaaaa",
+				FirstLevelSection: FirstLevelDummyStruct{
+					FirstLevelFieldA: "BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB",
+					FirstLevelFieldB: "BBBBB",
+				},
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Path: "FirstLevelSection", Title: "First Level"},
+				},
+			},
+			want: `RootLevelFieldA  AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA
+RootLevelFieldB  aaaaaaaa-aaaaaa-aaaaaa
+
+First Level:
+FirstLevelFieldA  BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB
+FirstLevelFieldB  BBBBB`,
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
