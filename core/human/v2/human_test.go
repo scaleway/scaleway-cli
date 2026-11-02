@@ -110,6 +110,26 @@ bar  2
 Bar  1`,
 		},
 		{
+			name:   "pointer to struct",
+			data:   &DummyStruct{Foo: "foo", Bar: 1},
+			layout: human.Layout{},
+			want: `Foo  foo
+Bar  1`,
+		},
+		{
+			name:   "nil pointer",
+			data:   (*DummyStruct)(nil),
+			layout: human.Layout{},
+			want:   `-`,
+		},
+		{
+			name:   "multi-level pointer to struct",
+			data:   new(new(&DummyStruct{Foo: "foo", Bar: 1})),
+			layout: human.Layout{},
+			want: `Foo  foo
+Bar  1`,
+		},
+		{
 			name: "struct with titled struct section",
 			data: RootLevelDummyStruct{
 				RootLevelFieldA: "AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA",

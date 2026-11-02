@@ -58,6 +58,15 @@ func Render(data any, layout Layout) (string, error) {
 	sections := layout.ResolveSections()
 	value := reflect.ValueOf(data)
 
+	// Dereference pointers until the underlying value is reached.
+	for value.Kind() == reflect.Pointer {
+		if value.IsNil() {
+			return "-", nil
+		}
+		value = value.Elem()
+	}
+	data = value.Interface()
+
 	switch value.Kind() {
 	// If the value is a slice or array, we ensure that the layout is a single
 	// pathless section and write it.
