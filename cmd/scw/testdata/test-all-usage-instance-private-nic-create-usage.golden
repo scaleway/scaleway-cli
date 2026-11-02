@@ -1,5 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Command "create" is deprecated, private-nic is a term only used in v1, please use private-network-interface instead.
 Create a private NIC connecting an Instance to a Private Network.
 Some private NICs, such as those in deleting, detaching, or in error state are
 not listed in v1.
