@@ -97,6 +97,14 @@ type ScalarSliceDummyStruct struct {
 	Fields []string
 }
 
+type MapDummyStruct struct {
+	Fields map[string]string
+}
+
+type MapListDummyStruct struct {
+	Fields map[string][]string
+}
+
 func init() {
 	// Registered once for the whole table; only the two registry cases use
 	// RegistryDummyStruct, so no other case is affected.
@@ -254,6 +262,34 @@ FirstLevelFieldA  FirstLevelFieldB`,
 			},
 			want: `Allowed:
 [poweron backup]`,
+		},
+		{
+			name: "map section",
+			data: MapDummyStruct{
+				Fields: map[string]string{"b": "two", "a": "one"},
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Path: "Fields", Title: "Fields"},
+				},
+			},
+			want: `Fields:
+a    one
+b    two`,
+		},
+		{
+			name: "map section with slice value",
+			data: MapListDummyStruct{
+				Fields: map[string][]string{"b": {"y", "x"}, "a": {"one"}},
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Path: "Fields", Title: "Fields"},
+				},
+			},
+			want: `Fields:
+a    one
+b    x y`,
 		},
 		{
 			name: "registry layout",

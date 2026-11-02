@@ -76,6 +76,9 @@ func isFormattable(t reflect.Type) bool {
 			elem = elem.Elem()
 		}
 		return elem.Kind() != reflect.Struct
+	// A map is a key-value table.
+	case t.Kind() == reflect.Map:
+		return false
 	default:
 		return true
 	}
@@ -220,6 +223,33 @@ func writeSection(b *strings.Builder, section Section, data any, claimed map[str
 				fmt.Fprint(w, value.Index(index).Field(fieldIndex).Interface())
 			}
 			fmt.Fprint(w, "\n")
+		}
+		w.Flush()
+
+	case reflect.Map:
+		w := tabwriter.NewWriter(b, 5, 1, 2, ' ', tabwriter.ANSIGraphicsRendition)
+		keys := value.MapKeys()
+		slices.SortFunc(keys, func(i, j reflect.Value) int {
+			return strings.Compare(i.String(), j.String())
+		})
+		for _, key := range keys {
+			mapValue := value.MapIndex(key)
+			var str string
+			if mapValue.Kind() == reflect.Slice || mapValue.Kind() == reflect.Array {
+				values := make([]string, mapValue.Len())
+				for i := range mapValue.Len() {
+					values[i] = fmt.Sprint(mapValue.Index(i).Interface())
+				}
+				slices.Sort(values)
+				str = strings.Join(values, " ")
+			} else {
+				var err error
+				str, err = Format(mapValue.Interface())
+				if err != nil {
+					return err
+				}
+			}
+			fmt.Fprintf(w, "%s\t%s\n", key.String(), str)
 		}
 		w.Flush()
 
