@@ -10,7 +10,7 @@ Status       active
 CurrentSize  0
 TargetSize   0
 TemplateID   cca81e91-dce9-43fd-bf35-81572e1f4554
-Zone         
+Zone
 
 Tags:
 [cli-test-asg]
@@ -23,9 +23,6 @@ ScaleInCooldown                1 minutes
 ScaleInStep                    2
 ScaleOutStep                   1
 MemoryTarget.TargetAvgPercent  80
-
-Open Alerts:
-TYPE  OPENED AT  CLOSED AT  GROUP ID  FAILING QUOTAS
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "srn": "",

@@ -8,6 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -33,7 +34,7 @@ type BucketResponse struct {
 func bucketResponseMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	resp := i.(BucketResponse)
 
-	messageStr, err := resp.SuccessResult.MarshalHuman()
+	messageStr, err := humanv2.Format(resp.SuccessResult)
 	if err != nil {
 		return "", err
 	}
@@ -135,6 +136,30 @@ func bucketMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	}
 
 	return str, nil
+}
+
+// v2 ports: the success banner + flat bucket fields + Tags/Acl sections.
+// ACL must be claimed by a section so the main walk omits the ACL.0.* rows.
+var bucketInfoLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{Path: "Tags", Title: "Tags", Omittable: true},
+		{Path: "ACL", Title: "Acl", Omittable: true},
+	},
+}
+
+var bucketGetResultLayout = humanv2.Layout{Sections: bucketInfoLayout.Sections}
+
+func bucketResponseView(v BucketResponse) (string, error) {
+	messageStr, err := humanv2.Format(v.SuccessResult)
+	if err != nil {
+		return "", err
+	}
+	bucketStr, err := humanv2.Render(*v.BucketInfo, bucketInfoLayout)
+	if err != nil {
+		return "", err
+	}
+
+	return strings.Join([]string{messageStr, bucketStr}, "\n"), nil
 }
 
 // CleanAndIndentJSON takes any struct or data, marshals it,

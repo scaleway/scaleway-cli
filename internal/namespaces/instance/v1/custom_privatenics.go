@@ -6,14 +6,14 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
-var privateNICStateMarshalSpecs = human.EnumMarshalSpecs{
-	instance.PrivateNICStateAvailable:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
-	instance.PrivateNICStateSyncing:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	instance.PrivateNICStateSyncingError: &human.EnumMarshalSpec{Attribute: color.FgRed},
+var privateNICStateFormat = humanv2.EnumFormats[instance.PrivateNICState]{
+	instance.PrivateNICStateAvailable:    humanv2.EnumFormat{Color: color.FgGreen},
+	instance.PrivateNICStateSyncing:      humanv2.EnumFormat{Color: color.FgBlue},
+	instance.PrivateNICStateSyncingError: humanv2.EnumFormat{Color: color.FgRed},
 }
 
 func privateNicGetBuilder(c *core.Command) *core.Command {

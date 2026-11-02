@@ -8,33 +8,21 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var certificateStatusMarshalSpecs = human.EnumMarshalSpecs{
-	lb.CertificateStatusError:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-	lb.CertificateStatusPending: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "pending"},
-	lb.CertificateStatusReady:   &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
+var certificateStatusFormat = humanv2.EnumFormats[lb.CertificateStatus]{
+	lb.CertificateStatusError:   humanv2.EnumFormat{Color: color.FgRed, Value: "error"},
+	lb.CertificateStatusPending: humanv2.EnumFormat{Color: color.FgBlue, Value: "pending"},
+	lb.CertificateStatusReady:   humanv2.EnumFormat{Color: color.FgGreen, Value: "ready"},
 }
 
-func lbCertificateMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp lb.Certificate
-	certificate := tmp(i.(lb.Certificate))
-
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "LB",
-		},
-	}
-
-	str, err := human.Marshal(certificate, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
+var lbCertificateLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{Path: "LB"},
+	},
 }
 
 func certificateCreateBuilder(c *core.Command) *core.Command {

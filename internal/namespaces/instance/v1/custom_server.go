@@ -15,6 +15,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
@@ -31,18 +32,18 @@ const (
 // Marshalers
 //
 
-// serverStateMarshalSpecs allows to override the displayed instance.ServerState.
+// serverStateFormat allows to override the displayed instance.ServerState.
 var (
-	serverStateMarshalSpecs = human.EnumMarshalSpecs{
-		instance.ServerStateRunning: &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		instance.ServerStateStopped: &human.EnumMarshalSpec{
-			Attribute: color.Faint,
-			Value:     "archived",
+	serverStateFormat = humanv2.EnumFormats[instance.ServerState]{
+		instance.ServerStateRunning: humanv2.EnumFormat{Color: color.FgGreen},
+		instance.ServerStateStopped: humanv2.EnumFormat{
+			Color: color.Faint,
+			Value: "archived",
 		},
-		instance.ServerStateStoppedInPlace: &human.EnumMarshalSpec{Attribute: color.Faint},
-		instance.ServerStateStarting:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		instance.ServerStateStopping:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		instance.ServerStateLocked:         &human.EnumMarshalSpec{Attribute: color.FgRed},
+		instance.ServerStateStoppedInPlace: humanv2.EnumFormat{Color: color.Faint},
+		instance.ServerStateStarting:       humanv2.EnumFormat{Color: color.FgBlue},
+		instance.ServerStateStopping:       humanv2.EnumFormat{Color: color.FgBlue},
+		instance.ServerStateLocked:         humanv2.EnumFormat{Color: color.FgRed},
 	}
 )
 
@@ -57,72 +58,37 @@ func serverLocationMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 	return string(zone), nil
 }
 
-// serversMarshalerFunc marshals a Server.
-func serversMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	// humanServerInList is the custom Server type used for list view.
-	type humanServerInList struct {
-		ID                string
-		Name              string
-		Type              string
-		State             instance.ServerState
-		Zone              scw.Zone
-		PublicIP          net.IP
-		PrivateIP         *string
-		Tags              []string
-		ImageName         string
-		RoutedIPEnabled   *bool
-		PlacementGroup    *instance.PlacementGroup
-		ModificationDate  *time.Time
-		CreationDate      *time.Time
-		Volumes           int
-		Protected         bool
-		SecurityGroupName string
-		SecurityGroupID   string
-		StateDetail       string
-		Arch              instance.Arch
-		ImageID           string
-		ProjectID         string
-	}
-
-	servers := i.([]*instance.Server)
-	humanServers := make([]*humanServerInList, 0, len(servers))
-	for _, server := range servers {
-		publicIPAddress := net.IP(nil)
-		if server.PublicIP != nil {
-			publicIPAddress = server.PublicIP.Address
-		}
-		serverImageID := ""
-		serverImageName := ""
-		if server.Image != nil {
-			serverImageID = server.Image.ID
-			serverImageName = server.Image.Name
-		}
-		humanServers = append(humanServers, &humanServerInList{
-			ID:                server.ID,
-			Name:              server.Name,
-			Type:              server.CommercialType,
-			State:             server.State,
-			Zone:              server.Zone,
-			PublicIP:          publicIPAddress,
-			PrivateIP:         server.PrivateIP,
-			Tags:              server.Tags,
-			ImageName:         serverImageName,
-			RoutedIPEnabled:   server.RoutedIPEnabled, //nolint: staticcheck // Field is deprecated but still supported
-			PlacementGroup:    server.PlacementGroup,
-			ModificationDate:  server.ModificationDate,
-			CreationDate:      server.CreationDate,
-			Volumes:           len(server.Volumes),
-			Protected:         server.Protected,
-			SecurityGroupName: server.SecurityGroup.Name,
-			SecurityGroupID:   server.SecurityGroup.ID,
-			StateDetail:       server.StateDetail,
-			Arch:              server.Arch,
-			ImageID:           serverImageID,
-			ProjectID:         server.Project,
-		})
-	}
-
-	return human.Marshal(humanServers, opt)
+// serverListLayout selects the server list table columns, mirroring the
+// field set of the v1 serversMarshalerFunc view (PlacementGroup is skipped
+// because v1's isMarshalable filter excludes it).
+var serverListLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{
+			Path: "",
+			Fields: []humanv2.Field{
+				{Path: "ID"},
+				{Path: "Name"},
+				{Path: "CommercialType", Label: "TYPE"},
+				{Path: "State"},
+				{Path: "Zone"},
+				{Path: "PublicIP.Address", Label: "PUBLIC IP"},
+				{Path: "PrivateIP"},
+				{Path: "Tags"},
+				{Path: "Image.Name", Label: "IMAGE NAME"},
+				{Path: "RoutedIPEnabled", Label: "ROUTED IP ENABLED"},
+				{Path: "ModificationDate"},
+				{Path: "CreationDate"},
+				{Path: "Volumes"},
+				{Path: "Protected"},
+				{Path: "SecurityGroup.Name", Label: "SECURITY GROUP NAME"},
+				{Path: "SecurityGroup.ID", Label: "SECURITY GROUP ID"},
+				{Path: "StateDetail"},
+				{Path: "Arch"},
+				{Path: "Image.ID", Label: "IMAGE ID"},
+				{Path: "Project", Label: "PROJECT ID"},
+			},
+		},
+	},
 }
 
 type customVolume struct {
@@ -170,6 +136,15 @@ func bootscriptMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 // Builders
 //
 
+// serverListEntry embeds the SDK server (JSON unchanged) and projects the
+// Volumes map to its count, mirroring v1's serversMarshalerFunc field (v1
+// had no marshaler for map[string]*VolumeServer, so the len came from the
+// projection struct, not from a map registration).
+type serverListEntry struct {
+	*instance.Server
+	Volumes int `json:"-"`
+}
+
 func serverListBuilder(c *core.Command) *core.Command {
 	type customListServersRequest struct {
 		*instance.ListServersRequest
@@ -201,7 +176,21 @@ func serverListBuilder(c *core.Command) *core.Command {
 				request.State = &stoppedInPlace
 			}
 
-			return runner(ctx, request)
+			res, err := runner(ctx, request)
+			if err != nil {
+				return nil, err
+			}
+
+			servers := res.([]*instance.Server)
+			entries := make([]serverListEntry, 0, len(servers))
+			for _, server := range servers {
+				entries = append(entries, serverListEntry{
+					Server:  server,
+					Volumes: len(server.Volumes),
+				})
+			}
+
+			return entries, nil
 		},
 	)
 

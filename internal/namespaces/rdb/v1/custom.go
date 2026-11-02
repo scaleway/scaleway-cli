@@ -1,8 +1,11 @@
 package rdb
 
 import (
+	"reflect"
+
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 )
 
@@ -11,35 +14,23 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("rdb").Groups = []string{"database"}
 
-	human.RegisterMarshalerFunc(rdb.Instance{}, instanceMarshalerFunc)
+	humanv2.RegisterLayout(reflect.TypeFor[rdb.Instance](), instanceLayout)
+	humanv2.RegisterFormatFunc(backupScheduleView)
+	humanv2.RegisterFormatFunc(createInstanceResultView)
 	human.RegisterMarshalerFunc(rdb.BackupSchedule{}, backupScheduleMarshalerFunc)
 	human.RegisterMarshalerFunc(backupDownloadResult{}, backupResultMarshallerFunc)
-	human.RegisterMarshalerFunc(CreateInstanceResult{}, createInstanceResultMarshalerFunc)
 	human.RegisterMarshalerFunc(CustomACLResult{}, rdbACLCustomResultMarshalerFunc)
 	human.RegisterMarshalerFunc(rdbEndpointCustomResult{}, rdbEndpointCustomResultMarshalerFunc)
 	human.RegisterMarshalerFunc(logDownloadResult{}, logDownloadResultMarshalerFunc)
+	humanv2.RegisterFormatFunc(rdbACLResultView)
+	humanv2.RegisterFormatFunc(rdbEndpointCustomResultView)
+	humanv2.RegisterFormatFunc(backupDownloadResultView)
 
-	human.RegisterMarshalerFunc(
-		rdb.InstanceStatus(""),
-		human.EnumMarshalFunc(instanceStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		rdb.DatabaseBackupStatus(""),
-		human.EnumMarshalFunc(backupStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		rdb.InstanceLogStatus(""),
-		human.EnumMarshalFunc(logStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		rdb.NodeTypeStock(""),
-		human.EnumMarshalFunc(nodeTypeStockMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		rdb.ACLRuleAction(""),
-		human.EnumMarshalFunc(aclRuleActionMarshalSpecs),
-	)
-
+	humanv2.RegisterEnumFormat(instanceStatusFormat)
+	humanv2.RegisterEnumFormat(backupStatusFormat)
+	humanv2.RegisterEnumFormat(logStatusFormat)
+	humanv2.RegisterEnumFormat(nodeTypeStockFormat)
+	humanv2.RegisterEnumFormat(aclRuleActionFormat)
 	cmds.Merge(core.NewCommands(
 		rdbConfigRoot(),
 		rdbConfigGetCommand(),
@@ -54,6 +45,8 @@ func GetCommands() *core.Commands {
 		userGetURLCommand(),
 		instanceEditSettingsCommand(),
 	))
+	cmds.MustFind("rdb", "instance", "list").Override(instanceListBuilder)
+
 	cmds.MustFind("rdb", "acl", "add").Override(aclAddBuilder)
 	cmds.MustFind("rdb", "acl", "delete").Override(aclDeleteBuilder)
 	cmds.MustFind("rdb", "acl", "set").Override(aclSetBuilder)
@@ -65,6 +58,7 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("rdb", "endpoint", "create").Override(endpointCreateBuilder)
 	cmds.MustFind("rdb", "endpoint", "delete").Override(endpointDeleteBuilder)
+	cmds.MustFind("rdb", "endpoint", "list").Override(endpointListBuilder)
 	cmds.MustFind("rdb", "endpoint", "get").Override(endpointGetBuilder)
 
 	cmds.MustFind("rdb", "engine", "list").Override(engineListBuilder)

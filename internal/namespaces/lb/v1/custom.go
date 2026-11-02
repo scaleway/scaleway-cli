@@ -1,9 +1,11 @@
 package lb
 
 import (
+	"reflect"
+
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 )
@@ -18,27 +20,18 @@ func warningKapsuleTaggedMessageView() string {
 }
 
 func GetCommands() *core.Commands {
-	human.RegisterMarshalerFunc(lb.LBTypeStock(""), human.EnumMarshalFunc(lbTypeStockMarshalSpecs))
-	human.RegisterMarshalerFunc(lb.LBStatus(""), human.EnumMarshalFunc(lbStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(
-		lb.CertificateStatus(""),
-		human.EnumMarshalFunc(certificateStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(lb.ACLActionType(""), human.EnumMarshalFunc(aclMarshalSpecs))
-	human.RegisterMarshalerFunc(
-		lb.BackendServerStatsHealthCheckStatus(""),
-		human.EnumMarshalFunc(backendServerStatsHealthCheckStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		lb.BackendServerStatsServerState(""),
-		human.EnumMarshalFunc(backendServerStatsServerStateMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(lb.LB{}, lbMarshalerFunc)
-	human.RegisterMarshalerFunc(lb.Backend{}, lbBackendMarshalerFunc)
-	human.RegisterMarshalerFunc(lb.Frontend{}, lbFrontendMarshalerFunc)
-	human.RegisterMarshalerFunc(lb.Certificate{}, lbCertificateMarshalerFunc)
-	human.RegisterMarshalerFunc(lb.ACL{}, lbACLMarshalerFunc)
-	human.RegisterMarshalerFunc([]*lb.PrivateNetwork{}, lbPrivateNetworksMarshalerFunc)
+	humanv2.RegisterEnumFormat(lbTypeStockFormat)
+	humanv2.RegisterEnumFormat(lbStatusFormat)
+	humanv2.RegisterEnumFormat(certificateStatusFormat)
+	humanv2.RegisterEnumFormat(aclFormat)
+	humanv2.RegisterEnumFormat(backendServerStatsHealthCheckStatusFormat)
+	humanv2.RegisterEnumFormat(backendServerStatsServerStateFormat)
+	humanv2.RegisterLayout(reflect.TypeFor[lb.LB](), lbLayout)
+	humanv2.RegisterLayout(reflect.TypeFor[lb.Backend](), lbBackendLayout)
+	humanv2.RegisterLayout(reflect.TypeFor[lb.Frontend](), lbFrontendLayout)
+	humanv2.RegisterLayout(reflect.TypeFor[lb.Certificate](), lbCertificateLayout)
+	humanv2.RegisterLayout(reflect.TypeFor[lb.ACL](), lbACLLayout)
+	humanv2.RegisterLayout(reflect.TypeFor[[]*lb.PrivateNetwork](), lbPrivateNetworkListLayout)
 
 	cmds := GetGeneratedCommands()
 

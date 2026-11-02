@@ -9,6 +9,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -17,14 +18,14 @@ import (
 // Marshalers
 //
 
-var volumeStateMarshalSpecs = human.EnumMarshalSpecs{
-	instance.VolumeStateAvailable:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
-	instance.VolumeStateError:        &human.EnumMarshalSpec{Attribute: color.FgRed},
-	instance.VolumeStateFetching:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	instance.VolumeStateHotsyncing:   &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	instance.VolumeStateResizing:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	instance.VolumeStateSaving:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	instance.VolumeStateSnapshotting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
+var volumeStateFormat = humanv2.EnumFormats[instance.VolumeState]{
+	instance.VolumeStateAvailable:    humanv2.EnumFormat{Color: color.FgGreen},
+	instance.VolumeStateError:        humanv2.EnumFormat{Color: color.FgRed},
+	instance.VolumeStateFetching:     humanv2.EnumFormat{Color: color.FgBlue},
+	instance.VolumeStateHotsyncing:   humanv2.EnumFormat{Color: color.FgBlue},
+	instance.VolumeStateResizing:     humanv2.EnumFormat{Color: color.FgBlue},
+	instance.VolumeStateSaving:       humanv2.EnumFormat{Color: color.FgBlue},
+	instance.VolumeStateSnapshotting: humanv2.EnumFormat{Color: color.FgBlue},
 }
 
 // serversMarshalerFunc marshals a VolumeSummary.

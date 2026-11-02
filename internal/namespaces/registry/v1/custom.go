@@ -2,8 +2,7 @@ package registry
 
 import (
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
-	"github.com/scaleway/scaleway-sdk-go/api/registry/v1"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 )
 
 // GetCommands returns registry commands.
@@ -34,18 +33,9 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("registry", "image", "get").Override(imageGetBuilder)
 	cmds.MustFind("registry", "image", "list").Override(imageListBuilder)
 
-	human.RegisterMarshalerFunc(
-		registry.NamespaceStatus(""),
-		human.EnumMarshalFunc(namespaceStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		registry.ImageStatus(""),
-		human.EnumMarshalFunc(imageStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		registry.TagStatus(""),
-		human.EnumMarshalFunc(tagStatusMarshalSpecs),
-	)
+	humanv2.RegisterEnumFormat(namespaceStatusFormat)
+	humanv2.RegisterEnumFormat(imageStatusFormat)
+	humanv2.RegisterEnumFormat(tagStatusFormat)
 
 	return cmds
 }

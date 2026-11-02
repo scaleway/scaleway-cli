@@ -6,45 +6,18 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	instance "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 )
 
-func templateMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp instance.Template
-	template := tmp(i.(instance.Template))
-
-	// Convert empty slices to nil so HideIfEmpty works correctly
-	if len(template.Tags) == 0 {
-		template.Tags = nil
-	}
-	if len(template.ServerTags) == 0 {
-		template.ServerTags = nil
-	}
-	if len(template.Volumes) == 0 {
-		template.Volumes = nil
-	}
-	if len(template.PrivateNetworks) == 0 {
-		template.PrivateNetworks = nil
-	}
-	if len(template.FilesystemIDs) == 0 {
-		template.FilesystemIDs = nil
-	}
-
-	opt.Sections = []*human.MarshalSection{
-		{FieldName: "Tags", HideIfEmpty: true},
-		{FieldName: "ServerTags", HideIfEmpty: true, Title: "Server Tags"},
-		{FieldName: "Volumes", HideIfEmpty: true},
-		{FieldName: "PrivateNetworks", HideIfEmpty: true, Title: "Private Networks"},
-		{FieldName: "FilesystemIDs", HideIfEmpty: true, Title: "Filesystems"},
-	}
-
-	str, err := human.Marshal(template, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
+var templateLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{Path: "Tags", Omittable: true},
+		{Path: "ServerTags", Title: "Server Tags", Omittable: true},
+		{Path: "Volumes", Omittable: true},
+		{Path: "PrivateNetworks", Title: "Private Networks", Omittable: true},
+		{Path: "FilesystemIDs", Title: "Filesystems", Omittable: true},
+	},
 }
 
 type customCreateTemplateRequest struct {

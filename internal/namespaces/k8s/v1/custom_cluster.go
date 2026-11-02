@@ -11,7 +11,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -27,12 +27,12 @@ const (
 
 // clusterStatusMarshalerFunc marshals a k8s.ClusterStatus.
 var (
-	clusterStatusMarshalSpecs = human.EnumMarshalSpecs{
-		k8s.ClusterStatusCreating:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		k8s.ClusterStatusReady:        &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		k8s.ClusterStatusPoolRequired: &human.EnumMarshalSpec{Attribute: color.FgRed},
-		k8s.ClusterStatusLocked:       &human.EnumMarshalSpec{Attribute: color.FgRed},
-		k8s.ClusterStatusUpdating:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	clusterStatusFormat = humanv2.EnumFormats[k8s.ClusterStatus]{
+		k8s.ClusterStatusCreating:     humanv2.EnumFormat{Color: color.FgBlue},
+		k8s.ClusterStatusReady:        humanv2.EnumFormat{Color: color.FgGreen},
+		k8s.ClusterStatusPoolRequired: humanv2.EnumFormat{Color: color.FgRed},
+		k8s.ClusterStatusLocked:       humanv2.EnumFormat{Color: color.FgRed},
+		k8s.ClusterStatusUpdating:     humanv2.EnumFormat{Color: color.FgBlue},
 	}
 )
 
@@ -43,52 +43,18 @@ const (
 	clusterActionDelete
 )
 
-func clusterMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type humanCluster k8s.Cluster
-	cluster := humanCluster(i.(k8s.Cluster))
-
-	// Sections
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "AutoscalerConfig",
-			Title:     "Autoscaler configuration",
-		},
-		{
-			FieldName: "AutoUpgrade",
-			Title:     "Auto-upgrade settings",
-		},
-		{
-			FieldName: "OpenIDConnectConfig",
-			Title:     "Open ID Connect configuration",
-		},
-	}
-
-	str, err := human.Marshal(cluster, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
+var clusterLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{Path: "AutoscalerConfig", Title: "Autoscaler configuration"},
+		{Path: "AutoUpgrade", Title: "Auto-upgrade settings"},
+		{Path: "OpenIDConnectConfig", Title: "Open ID Connect configuration"},
+	},
 }
 
-func clusterAvailableTypesListMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type humanResponse k8s.ListClusterAvailableTypesResponse
-	types := humanResponse(i.(k8s.ListClusterAvailableTypesResponse))
-
-	// Sections
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "ClusterTypes",
-			Title:     "Cluster Types",
-		},
-	}
-
-	str, err := human.Marshal(types, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
+var clusterAvailableTypesListLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{Path: "ClusterTypes", Title: "Cluster Types"},
+	},
 }
 
 func clusterAvailableVersionsListBuilder(c *core.Command) *core.Command {

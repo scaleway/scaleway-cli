@@ -47,7 +47,6 @@ sU7v8RgPD3Zxdn84khQfnJaum7EmyVxTDTO5ctiC1rvD0Ex+s1ZexNEV+pVn5zs2
 w0s=
 -----END CERTIFICATE-----
 
-
 Private Key:
 -----BEGIN RSA PRIVATE KEY-----
 MIIEogIBAAKCAQEA2hc/Mlw28hZwwdQc7lVPVIlaUcHrZ01WiaG7Y3B6auxLkuGT
@@ -76,7 +75,6 @@ yc11AoGADf9q8dO61Teg4s9H3PVbHcPaTXvFN2JFwPnVmbPiS2zu1bFdvpD4oc8F
 LOT70kPXzLiDIQZcOP4S0slD18KBqQktptV1Xhrk19cBeoQZS3pIfDVaLwwbew/g
 tt9tTsr8X4whr3JplJImd8yQ9qB+KOentBLfwMRrwhOMmXrlAY0=
 -----END RSA PRIVATE KEY-----
-
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "device": {

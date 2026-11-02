@@ -10,7 +10,7 @@ import (
 	"text/template"
 
 	"github.com/ghodss/yaml"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
 )
 
@@ -169,7 +169,7 @@ func setupWidePrinter(printer *Printer, opts string) {
 	printer.printerType = PrinterTypeWide
 }
 
-func (p *Printer) Print(data any, opt *human.MarshalOpt) error {
+func (p *Printer) Print(data any, opt *humanv2.Layout) error {
 	// No matter the printer type if data is a RawResult we should print it as is.
 	if rawResult, isRawResult := data.(RawResult); isRawResult {
 		_, err := p.stdout.Write(rawResult)
@@ -203,14 +203,14 @@ func (p *Printer) Print(data any, opt *human.MarshalOpt) error {
 	return nil
 }
 
-func (p *Printer) printHuman(data any, opt *human.MarshalOpt) error {
+func (p *Printer) printHuman(data any, opt *humanv2.Layout) error {
 	_, isError := data.(error)
 
-	if !isError {
-		if opt == nil {
-			opt = &human.MarshalOpt{}
-		}
+	if opt == nil {
+		opt = &humanv2.Layout{}
+	}
 
+	if !isError {
 		if len(p.humanFields) > 0 && reflect.TypeOf(data).Kind() != reflect.Slice {
 			return p.printHuman(
 				errors.New(
@@ -221,19 +221,26 @@ func (p *Printer) printHuman(data any, opt *human.MarshalOpt) error {
 		}
 
 		if len(p.humanFields) > 0 {
-			opt.Fields = []*human.MarshalFieldOpt(nil)
+			fields := make([]humanv2.Field, 0, len(p.humanFields))
 			for _, field := range p.humanFields {
-				opt.Fields = append(opt.Fields, &human.MarshalFieldOpt{
-					FieldName: field,
-				})
+				fields = append(fields, humanv2.Field{Path: field})
 			}
+			// v1's MarshalOpt.Fields only applied to the default (pathless)
+			// section; mirror that by replacing the main section's fields.
+			sections := []humanv2.Section{{Path: "", Fields: fields}}
+			for _, s := range opt.Sections {
+				if s.Path != "" {
+					sections = append(sections, s)
+				}
+			}
+			opt.Sections = sections
 		}
 
 		opt.NoHeaders = p.noHeaders
 	}
 
-	str, err := human.Marshal(data, opt)
-	if unknownFieldErr, ok := errors.AsType[*human.UnknownFieldError](err); ok {
+	str, err := humanv2.Render(data, *opt)
+	if unknownFieldErr, ok := errors.AsType[*humanv2.UnknownFieldError](err); ok {
 		return p.printHuman(&CliError{
 			Err:  fmt.Errorf("unknown field '%s' in output options", unknownFieldErr.FieldName),
 			Hint: "Valid fields are: " + strings.Join(unknownFieldErr.ValidFields, ", "),
@@ -258,12 +265,12 @@ func (p *Printer) printHuman(data any, opt *human.MarshalOpt) error {
 	return err
 }
 
-func (p *Printer) printWide(data any, opt *human.MarshalOpt) error {
+func (p *Printer) printWide(data any, opt *humanv2.Layout) error {
 	if opt != nil {
-		opt.DisableShrinking = true
+		opt.NoShrinking = true
 	} else {
-		opt = &human.MarshalOpt{
-			DisableShrinking: true,
+		opt = &humanv2.Layout{
+			NoShrinking: true,
 		}
 	}
 

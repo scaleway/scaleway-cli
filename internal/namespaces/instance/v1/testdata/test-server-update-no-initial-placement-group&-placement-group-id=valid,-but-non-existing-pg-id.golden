@@ -3,7 +3,7 @@
 Invalid arguments 'placement_group.id'
 
 Details:
-- 'placement_group.id' 
+- 'placement_group.id'
 
 Hint:
 No instance_placement_group found with ID 11111111-1111-1111-1111-111111111111.

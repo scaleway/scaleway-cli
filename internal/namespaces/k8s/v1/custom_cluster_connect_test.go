@@ -24,7 +24,9 @@ func Test_ClusterConnect(t *testing.T) {
 		},
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
-			core.TestCheckStderrContains(`Exec: "k9s": executable file not found`),
+			core.TestCheckStderrContains(
+				`exec: "k9s": executable file not found`,
+			), // lowercase: v2 drops v1's error capitalization
 		),
 	}))
 

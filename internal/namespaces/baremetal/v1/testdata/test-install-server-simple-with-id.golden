@@ -23,9 +23,6 @@ ID                                    ADDRESS                               REVE
 024f645b-776f-4ba8-87fb-7cdeca0cfdca  2001:bc8:1201:a2c:d604:e6ff:fed9:810  -        IPv6     unknown         -
 dd054664-8ac6-4623-9c70-c548b6b1682d  195.154.218.61                        -        IPv4     unknown         -
 
-Options:
-ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
-
 Install:
 OsID                                                          b9a016fc-947f-4bbc-bf95-343c8524535a
 Hostname                                                      test-install-server

@@ -1,11 +1,11 @@
 package instance
 
 import (
-	"fmt"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
@@ -95,17 +95,20 @@ func GetCommands() *core.Commands {
 		instanceServerTypeGet(),
 	)
 
-	//
 	// Server
 	//
-	human.RegisterMarshalerFunc(instance.CreateServerResponse{}, marshallNestedField("Server"))
-	human.RegisterMarshalerFunc(
-		instance.ServerState(""),
-		human.EnumMarshalFunc(serverStateMarshalSpecs),
+	humanv2.RegisterLayout(
+		reflect.TypeFor[instance.CreateServerResponse](),
+		nestedResponseLayout("Server"),
 	)
-	human.RegisterMarshalerFunc(instance.ServerLocation{}, serverLocationMarshalerFunc)
-	human.RegisterMarshalerFunc([]*instance.Server{}, serversMarshalerFunc)
-	human.RegisterMarshalerFunc(instance.Bootscript{}, bootscriptMarshalerFunc)
+	humanv2.RegisterEnumFormat(serverStateFormat)
+	humanv2.RegisterFormatFunc(func(v instance.ServerLocation) (string, error) {
+		return serverLocationMarshalerFunc(v, nil)
+	})
+	humanv2.RegisterLayout(reflect.TypeFor[[]serverListEntry](), serverListLayout)
+	humanv2.RegisterFormatFunc(func(v instance.Bootscript) (string, error) {
+		return bootscriptMarshalerFunc(v, nil)
+	})
 
 	cmds.MustFind("instance").Groups = []string{"compute"}
 
@@ -139,10 +142,9 @@ func GetCommands() *core.Commands {
 	//
 	cmds.MustFind("instance", "server-type", "get").Override(serverTypeGetBuilder)
 
-	//
 	// IP
 	//
-	human.RegisterMarshalerFunc(instance.CreateIPResponse{}, marshallNestedField("IP"))
+	humanv2.RegisterLayout(reflect.TypeFor[instance.CreateIPResponse](), nestedResponseLayout("IP"))
 
 	cmds.MustFind("instance", "ip", "create").Override(ipCreateBuilder)
 	cmds.MustFind("instance", "ip", "list").Override(ipListBuilder)
@@ -151,16 +153,14 @@ func GetCommands() *core.Commands {
 		ipDetachCommand(),
 	))
 
-	//
 	// Image
 	//
-	human.RegisterMarshalerFunc(instance.CreateImageResponse{}, marshallNestedField("Image"))
-	human.RegisterMarshalerFunc([]*imageListItem{}, imagesMarshalerFunc)
-	human.RegisterMarshalerFunc(
-		instance.ImageState(""),
-		human.EnumMarshalFunc(imageStateMarshalSpecs),
+	humanv2.RegisterLayout(
+		reflect.TypeFor[instance.CreateImageResponse](),
+		nestedResponseLayout("Image"),
 	)
-
+	humanv2.RegisterLayout(reflect.TypeFor[[]*imageListItem](), imageListLayout)
+	humanv2.RegisterEnumFormat(imageStateFormat)
 	cmds.MustFind("instance", "image", "create").Override(imageCreateBuilder)
 	cmds.MustFind("instance", "image", "list").Override(imageListBuilder)
 	cmds.MustFind("instance", "image", "delete").Override(imageDeleteBuilder)
@@ -168,10 +168,12 @@ func GetCommands() *core.Commands {
 		imageWaitCommand(),
 	))
 
-	//
 	// Snapshot
 	//
-	human.RegisterMarshalerFunc(instance.CreateSnapshotResponse{}, marshallNestedField("Snapshot"))
+	humanv2.RegisterLayout(
+		reflect.TypeFor[instance.CreateSnapshotResponse](),
+		nestedResponseLayout("Snapshot"),
+	)
 
 	cmds.MustFind("instance", "snapshot", "create").Override(snapshotCreateBuilder)
 	cmds.MustFind("instance", "snapshot", "list").Override(snapshotListBuilder)
@@ -182,16 +184,19 @@ func GetCommands() *core.Commands {
 		snapshotApplyMigrationCommand(),
 	))
 
-	//
 	// Volume
 	//
-	human.RegisterMarshalerFunc(instance.CreateVolumeResponse{}, marshallNestedField("Volume"))
-	human.RegisterMarshalerFunc(
-		instance.VolumeState(""),
-		human.EnumMarshalFunc(volumeStateMarshalSpecs),
+	humanv2.RegisterLayout(
+		reflect.TypeFor[instance.CreateVolumeResponse](),
+		nestedResponseLayout("Volume"),
 	)
-	human.RegisterMarshalerFunc(instance.VolumeSummary{}, volumeSummaryMarshalerFunc)
-	human.RegisterMarshalerFunc(map[string]*instance.Volume{}, volumeMapMarshalerFunc)
+	humanv2.RegisterEnumFormat(volumeStateFormat)
+	humanv2.RegisterFormatFunc(func(v instance.VolumeSummary) (string, error) {
+		return volumeSummaryMarshalerFunc(v, nil)
+	})
+	humanv2.RegisterFormatFunc(func(v map[string]*instance.Volume) (string, error) {
+		return volumeMapMarshalerFunc(v, nil)
+	})
 
 	cmds.MustFind("instance", "volume", "create").Override(volumeCreateBuilder)
 	cmds.MustFind("instance", "volume", "list").Override(volumeListBuilder)
@@ -206,17 +211,31 @@ func GetCommands() *core.Commands {
 	//
 	cmds.MustFind("instance", "volume-type", "list").Override(volumeTypeListBuilder)
 
+	// Security Group
 	//
+	humanv2.RegisterLayout(
+		reflect.TypeFor[instance.CreateSecurityGroupResponse](),
+		nestedResponseLayout("SecurityGroup"),
+	)
+	humanv2.RegisterEnumFormat(securityGroupPolicyFormat)
+	humanv2.RegisterEnumFormat(securityGroupStateFormat)
+	cmds.MustFind("instance", "security-group", "create").Override(securityGroupCreateBuilder)
+	cmds.MustFind("instance", "security-group", "get").Override(securityGroupGetBuilder)
+	cmds.MustFind("instance", "security-group", "list").Override(securityGroupListBuilder)
+	cmds.MustFind("instance", "security-group", "delete").Override(securityGroupDeleteBuilder)
+
+	cmds.Merge(core.NewCommands(
+		securityGroupClearCommand(),
+		securityGroupEditCommand(),
+	))
+
 	// Security Group Rule
 	//
-	human.RegisterMarshalerFunc(
-		instance.CreateSecurityGroupRuleResponse{},
-		marshallNestedField("Rule"),
+	humanv2.RegisterLayout(
+		reflect.TypeFor[instance.CreateSecurityGroupRuleResponse](),
+		nestedResponseLayout("Rule"),
 	)
-	human.RegisterMarshalerFunc(
-		instance.SecurityGroupRuleAction(""),
-		human.EnumMarshalFunc(securityGroupRuleActionMarshalSpecs),
-	)
+	humanv2.RegisterEnumFormat(securityGroupRuleActionFormat)
 	human.RegisterMarshalerFunc([]*instance.SecurityGroupRule{}, marshalSecurityGroupRules)
 
 	cmds.MustFind("instance", "security-group", "list-default-rules").
@@ -255,11 +274,18 @@ func GetCommands() *core.Commands {
 	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "list"))
 	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "update"))
 	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "delete"))
+
+	humanv2.RegisterEnumFormat(privateNICStateFormat)
 	cmds.MustFind("instance", "private-nic", "get").Override(privateNicGetBuilder)
 
 	// SSH Utilities
 
+	// The v1 registration feeds the "Removed keys" success message, which is
+	// built through human.Marshal in sshRemoveKeyCommand.
 	human.RegisterMarshalerFunc([]*SSHKeyFormat(nil), marshalSSHKeys)
+	humanv2.RegisterFormatFunc(func(v []*SSHKeyFormat) (string, error) {
+		return marshalSSHKeys(v, nil)
+	})
 
 	cmds.Merge(core.NewCommands(
 		instanceSSH(),
@@ -280,14 +306,9 @@ func GetCommands() *core.Commands {
 	return cmds
 }
 
-// marshallNestedField will marshal only the given field of a struct.
-func marshallNestedField(nestedKey string) human.MarshalerFunc {
-	return func(i any, opt *human.MarshalOpt) (s string, err error) {
-		if reflect.TypeOf(i).Kind() != reflect.Struct {
-			return "", fmt.Errorf("%T must be a struct", i)
-		}
-		nestedValue := reflect.ValueOf(i).FieldByName(nestedKey)
-
-		return human.Marshal(nestedValue.Interface(), opt)
-	}
+// nestedResponseLayout renders a Create*Response wrapper flat by resolving
+// its single nested field as the payload: the v2 port of the v1
+// marshallNestedField registrations below.
+func nestedResponseLayout(path string) humanv2.Layout {
+	return humanv2.Layout{Sections: []humanv2.Section{{Path: path, Main: true}}}
 }

@@ -1,9 +1,12 @@
 package object
 
 import (
+	"reflect"
+
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 )
 
 func GetCommands() *core.Commands {
@@ -13,6 +16,8 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(bucketInfo{}, bucketInfoMarshalerFunc)
 	human.RegisterMarshalerFunc(BucketGetResult{}, bucketGetResultMarshalerFunc)
 	human.RegisterMarshalerFunc(s3.ListBucketsOutput{}.Buckets, bucketMarshalerFunc)
+	humanv2.RegisterFormatFunc(bucketResponseView)
+	humanv2.RegisterLayout(reflect.TypeFor[BucketGetResult](), bucketGetResultLayout)
 
 	if cmdObjectRoot := objectRoot(); cmdObjectRoot != nil {
 		cmds.Add(cmdObjectRoot)

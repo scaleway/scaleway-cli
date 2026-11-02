@@ -9,7 +9,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -19,18 +19,18 @@ const (
 	ServerActionTimeout = 20 * time.Minute
 )
 
-var serverPingStatusMarshalSpecs = human.EnumMarshalSpecs{
-	baremetal.ServerPingStatusPingStatusDown: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
-		Value:     "down",
+var pingStatusFormat = humanv2.EnumFormats[baremetal.ServerPingStatus]{
+	baremetal.ServerPingStatusPingStatusDown: humanv2.EnumFormat{
+		Color: color.FgRed,
+		Value: "down",
 	},
-	baremetal.ServerPingStatusPingStatusUp: &human.EnumMarshalSpec{
-		Attribute: color.FgGreen,
-		Value:     "up",
+	baremetal.ServerPingStatusPingStatusUp: humanv2.EnumFormat{
+		Color: color.FgGreen,
+		Value: "up",
 	},
-	baremetal.ServerPingStatusPingStatusUnknown: &human.EnumMarshalSpec{
-		Attribute: color.Faint,
-		Value:     "unknown",
+	baremetal.ServerPingStatusPingStatusUnknown: humanv2.EnumFormat{
+		Color: color.Faint,
+		Value: "unknown",
 	},
 }
 
@@ -236,29 +236,10 @@ func serverListBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-func serverMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp baremetal.Server
-	baremetalServer := tmp(i.(baremetal.Server))
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "IPs",
-			Title:     "IPs",
-		},
-		{
-			FieldName:   "Options",
-			Title:       "Options",
-			HideIfEmpty: true,
-		},
-		{
-			FieldName:   "Install",
-			Title:       "Install",
-			HideIfEmpty: true,
-		},
-	}
-	str, err := human.Marshal(baremetalServer, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
+var serverLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{Path: "IPs", Title: "IPs"},
+		{Path: "Options", Title: "Options", Omittable: true},
+		{Path: "Install", Title: "Install", Omittable: true},
+	},
 }

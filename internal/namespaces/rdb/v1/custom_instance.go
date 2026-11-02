@@ -17,6 +17,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
@@ -32,50 +33,50 @@ const (
 	errorMessageEndpointNotFound        = "any endpoint is associated on your instance"
 )
 
-var instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
-	rdbSDK.InstanceStatusUnknown: &human.EnumMarshalSpec{
-		Attribute: color.Faint,
-		Value:     "unknown",
+var instanceStatusFormat = humanv2.EnumFormats[rdbSDK.InstanceStatus]{
+	rdbSDK.InstanceStatusUnknown: humanv2.EnumFormat{
+		Color: color.Faint,
+		Value: "unknown",
 	},
-	rdbSDK.InstanceStatusReady: &human.EnumMarshalSpec{
-		Attribute: color.FgGreen,
-		Value:     "ready",
+	rdbSDK.InstanceStatusReady: humanv2.EnumFormat{
+		Color: color.FgGreen,
+		Value: "ready",
 	},
-	rdbSDK.InstanceStatusProvisioning: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "provisioning",
+	rdbSDK.InstanceStatusProvisioning: humanv2.EnumFormat{
+		Color: color.FgBlue,
+		Value: "provisioning",
 	},
-	rdbSDK.InstanceStatusConfiguring: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "configuring",
+	rdbSDK.InstanceStatusConfiguring: humanv2.EnumFormat{
+		Color: color.FgBlue,
+		Value: "configuring",
 	},
-	rdbSDK.InstanceStatusDeleting: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "deleting",
+	rdbSDK.InstanceStatusDeleting: humanv2.EnumFormat{
+		Color: color.FgBlue,
+		Value: "deleting",
 	},
-	rdbSDK.InstanceStatusError: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
-		Value:     "error",
+	rdbSDK.InstanceStatusError: humanv2.EnumFormat{
+		Color: color.FgRed,
+		Value: "error",
 	},
-	rdbSDK.InstanceStatusAutohealing: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "auto-healing",
+	rdbSDK.InstanceStatusAutohealing: humanv2.EnumFormat{
+		Color: color.FgBlue,
+		Value: "auto-healing",
 	},
-	rdbSDK.InstanceStatusLocked: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
-		Value:     "locked",
+	rdbSDK.InstanceStatusLocked: humanv2.EnumFormat{
+		Color: color.FgRed,
+		Value: "locked",
 	},
-	rdbSDK.InstanceStatusInitializing: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "initialized",
+	rdbSDK.InstanceStatusInitializing: humanv2.EnumFormat{
+		Color: color.FgBlue,
+		Value: "initialized",
 	},
-	rdbSDK.InstanceStatusDiskFull: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
-		Value:     "disk_full",
+	rdbSDK.InstanceStatusDiskFull: humanv2.EnumFormat{
+		Color: color.FgRed,
+		Value: "disk_full",
 	},
-	rdbSDK.InstanceStatusBackuping: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "backuping",
+	rdbSDK.InstanceStatusBackuping: humanv2.EnumFormat{
+		Color: color.FgBlue,
+		Value: "backuping",
 	},
 }
 
@@ -96,62 +97,80 @@ type rdbCreateInstanceRequestCustom struct {
 	GeneratePassword bool
 }
 
-func createInstanceResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	instanceResult := i.(CreateInstanceResult)
+var instanceLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{Path: "Endpoint", Title: "Endpoint"},
+		{Path: "Volume", Title: "Volume"},
+		{Path: "BackupSchedule", Title: "Backup Schedule"},
+		{Path: "Settings", Title: "Settings"},
+	},
+}
 
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "Endpoint",
-		},
-		{
-			FieldName: "Volume",
-		},
-		{
-			FieldName: "BackupSchedule",
-		},
-		{
-			FieldName: "Settings",
-		},
-	}
-
-	instanceStr, err := human.Marshal(instanceResult.Instance, opt)
+// createInstanceResultView renders the fresh instance then appends the
+// generated password on its own block, mirroring v1's createInstanceResult-
+// MarshalerFunc which joined the two with "\n\n" and is why Password never
+// appears as a dotted row in the main walk (v1 marshaled instance.Instance).
+func createInstanceResultView(v CreateInstanceResult) (string, error) {
+	instanceStr, err := humanv2.Render(v.Instance, instanceLayout)
 	if err != nil {
 		return "", err
 	}
 
 	return strings.Join([]string{
 		instanceStr,
-		terminal.Style("Password: ", color.Bold) + "\n" + instanceResult.Password,
+		terminal.Style("Password: ", color.Bold) + "\n" + v.Password,
 	}, "\n\n"), nil
 }
 
-func instanceMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	// To avoid recursion of human.Marshal we create a dummy type
-	type tmp rdbSDK.Instance
-	instance := tmp(i.(rdbSDK.Instance))
+// rdbInstanceListEntry embeds the SDK instance (JSON unchanged) and adds a
+// compact BackupSchedule cell for the list table, mirroring v1's
+// backupScheduleMarshalerFunc TableCell branch that v2's single-format model
+// cannot express on rdb.BackupSchedule itself (the section keeps the block).
+type rdbInstanceListEntry struct {
+	*rdbSDK.Instance
+	BackupScheduleCompact string `json:"-"`
+}
 
-	// Sections
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "Endpoint",
-		},
-		{
-			FieldName: "Volume",
-		},
-		{
-			FieldName: "BackupSchedule",
-		},
-		{
-			FieldName: "Settings",
+func instanceListBuilder(c *core.Command) *core.Command {
+	originalRun := c.Run
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
+		respI, err := originalRun(ctx, argsI)
+		if err != nil {
+			return nil, err
+		}
+
+		instances := respI.([]*rdbSDK.Instance)
+		entries := make([]rdbInstanceListEntry, 0, len(instances))
+		for _, inst := range instances {
+			schedule := "Enabled"
+			if inst.BackupSchedule != nil && inst.BackupSchedule.Disabled {
+				schedule = "Disabled"
+			}
+			entries = append(entries, rdbInstanceListEntry{
+				Instance:              inst,
+				BackupScheduleCompact: schedule,
+			})
+		}
+
+		return entries, nil
+	}
+
+	c.View = &core.View{
+		Fields: []*core.ViewField{
+			{FieldName: "ID"},
+			{FieldName: "Name"},
+			{FieldName: "NodeType"},
+			{FieldName: "Status"},
+			{FieldName: "Engine"},
+			{FieldName: "Region"},
+			{FieldName: "Tags"},
+			{FieldName: "IsHaCluster"},
+			{FieldName: "BackupScheduleCompact", Label: "BACKUP SCHEDULE"},
+			{FieldName: "CreatedAt"},
 		},
 	}
 
-	str, err := human.Marshal(instance, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
+	return c
 }
 
 func backupScheduleMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
@@ -189,6 +208,26 @@ func backupScheduleMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	}
 
 	return str, nil
+}
+
+// backupScheduleView renders a BackupSchedule the way v1 did: Disabled and
+// NextRunAt first, then Frequency/Retention restated as durations so they
+// print "1 days"/"7 days". A registered format func owns the single
+// representation, so the same block also fills the list's BACKUP SCHEDULE cell.
+func backupScheduleView(v rdbSDK.BackupSchedule) (string, error) {
+	type tmp struct {
+		Disabled  bool          `json:"disabled"`
+		NextRunAt *time.Time    `json:"next_run_at"`
+		Frequency *scw.Duration `json:"frequency"`
+		Retention *scw.Duration `json:"retention"`
+	}
+
+	return humanv2.Render(tmp{
+		Disabled:  v.Disabled,
+		NextRunAt: v.NextRunAt,
+		Frequency: &scw.Duration{Seconds: int64(v.Frequency) * 3600},
+		Retention: &scw.Duration{Seconds: int64(v.Retention) * 24 * 3600},
+	}, humanv2.Layout{})
 }
 
 func instanceCloneBuilder(c *core.Command) *core.Command {

@@ -5,31 +5,17 @@ import (
 	"fmt"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	autoscaling "github.com/scaleway/scaleway-sdk-go/api/autoscaling/v1alpha2"
 )
 
-func groupMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp autoscaling.Group
-	template := tmp(i.(autoscaling.Group))
-
-	opt.Sections = []*human.MarshalSection{
-		{FieldName: "Tags", HideIfEmpty: true},
-		{FieldName: "ScalingPolicy", Title: "Scaling Policy"},
-		{FieldName: "OpenAlerts", HideIfEmpty: true, Title: "Open Alerts"},
-		{
-			FieldName:   "LoadBalancerConfiguration",
-			HideIfEmpty: true,
-			Title:       "LoadBalancer Configuration",
-		},
-	}
-
-	str, err := human.Marshal(template, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
+var groupLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{Path: "Tags", Omittable: true},
+		{Path: "ScalingPolicy", Title: "Scaling Policy"},
+		{Path: "OpenAlerts", Omittable: true, Title: "Open Alerts"},
+		{Path: "LoadBalancerConfiguration", Omittable: true, Title: "LoadBalancer Configuration"},
+	},
 }
 
 func GroupCreateBuilder(c *core.Command) *core.Command {

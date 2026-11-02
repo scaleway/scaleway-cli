@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Failed to create root volume builder: invalid volume format '20GB'
+failed to create root volume builder: invalid volume format '20GB'
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
   "error": "failed to create root volume builder: invalid volume format '20GB'"
