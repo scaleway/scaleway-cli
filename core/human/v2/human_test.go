@@ -97,6 +97,45 @@ type ScalarSliceDummyStruct struct {
 	Fields []string
 }
 
+type NestedDummyStruct struct {
+	X string
+	Y string
+}
+
+type RootDummyStruct struct {
+	RootA string
+	Sub   NestedDummyStruct
+	RootB string
+}
+
+type RootSliceDummyStruct struct {
+	RootA   string
+	Strings []string
+}
+
+type RootMapDummyStruct struct {
+	RootA  string
+	Labels map[string]string
+}
+
+type NestedFormatterDummyStruct struct {
+	RootA string
+	Sub   FormatterStruct
+}
+
+type pointerRecvFormatter struct {
+	Foo string
+}
+
+func (s *pointerRecvFormatter) FormatHuman() (string, error) {
+	return "pointer-formatted", nil
+}
+
+type NestedPointerFormatterDummyStruct struct {
+	RootA string
+	Sub   *pointerRecvFormatter
+}
+
 type MapDummyStruct struct {
 	Fields map[string]string
 }
@@ -288,8 +327,114 @@ b    two`,
 				},
 			},
 			want: `Fields:
-a    one
-b    x y`,
+a.0  one
+b.0  y
+b.1  x`,
+		},
+		{
+			name: "flattened struct fields",
+			data: RootDummyStruct{
+				RootA: "aaa",
+				Sub:   NestedDummyStruct{X: "one", Y: "two"},
+				RootB: "bbb",
+			},
+			layout: human.Layout{},
+			want: `RootA  aaa
+Sub.X  one
+Sub.Y  two
+RootB  bbb`,
+		},
+		{
+			name: "dotted section path",
+			data: RootDummyStruct{
+				RootA: "aaa",
+				Sub:   NestedDummyStruct{X: "one", Y: "two"},
+				RootB: "bbb",
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Path: "Sub.Y", Title: "Y"},
+				},
+			},
+			// Sub.Y is claimed by the section, Sub.X keeps flattening into
+			// the main block.
+			want: `RootA  aaa
+Sub.X  one
+RootB  bbb
+
+Y:
+two`,
+		},
+		{
+			name: "nested formatter struct rendered inline",
+			data: NestedFormatterDummyStruct{
+				RootA: "aaa",
+				Sub:   FormatterStruct{Foo: "ignored"},
+			},
+			layout: human.Layout{},
+			want: `RootA  aaa
+Sub    cell-formatted`,
+		},
+		{
+			name: "nested pointer-receiver formatter rendered inline",
+			data: NestedPointerFormatterDummyStruct{
+				RootA: "aaa",
+				Sub:   &pointerRecvFormatter{Foo: "x"},
+			},
+			layout: human.Layout{},
+			want: `RootA  aaa
+Sub    pointer-formatted`,
+		},
+		{
+			name: "dotted section path for a whole struct",
+			data: RootDummyStruct{
+				RootA: "aaa",
+				Sub:   NestedDummyStruct{X: "one", Y: "two"},
+				RootB: "bbb",
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Path: "Sub", Title: "Sub"},
+				},
+			},
+			// Claiming the whole Sub struct also prunes its leaves from the main
+			// block, not just the exact dotted path.
+			want: `RootA  aaa
+RootB  bbb
+
+Sub:
+X    one
+Y    two`,
+		},
+		{
+			name: "flattened slice fields",
+			data: RootSliceDummyStruct{
+				RootA:   "aaa",
+				Strings: []string{"s1", "s2"},
+			},
+			layout: human.Layout{},
+			want: `RootA      aaa
+Strings.0  s1
+Strings.1  s2`,
+		},
+		{
+			name: "flattened map fields",
+			data: RootMapDummyStruct{
+				RootA:  "aaa",
+				Labels: map[string]string{"b": "two", "a": "one"},
+			},
+			layout: human.Layout{},
+			want: `RootA     aaa
+Labels.a  one
+Labels.b  two`,
+		},
+		{
+			name: "nil composite field dropped",
+			data: RootSliceDummyStruct{
+				RootA: "aaa",
+			},
+			layout: human.Layout{},
+			want:   `RootA  aaa`,
 		},
 		{
 			name: "registry layout",

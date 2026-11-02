@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"reflect"
 	"slices"
+	"strconv"
 	"strings"
 	"sync"
 
@@ -62,7 +63,12 @@ type Renderer interface {
 // isFormattable reports whether t should be rendered inline by Format rather
 // than as a composite table.
 func isFormattable(t reflect.Type) bool {
+	// A formatter at any pointer level escapes through Format, which checks
+	// each level in its deref loop, so mirror it here.
 	for t.Kind() == reflect.Pointer {
+		if t.Implements(reflect.TypeFor[Formatter]()) {
+			return true
+		}
 		t = t.Elem()
 	}
 	switch {
@@ -75,6 +81,7 @@ func isFormattable(t reflect.Type) bool {
 		for elem.Kind() == reflect.Pointer {
 			elem = elem.Elem()
 		}
+
 		return elem.Kind() != reflect.Struct
 	// A map is a key-value table.
 	case t.Kind() == reflect.Map:
@@ -135,35 +142,33 @@ func Render(data any, layout Layout) (string, error) {
 
 		return b.String(), nil
 
-	// If the value is a struct, we initialize a map of the data fields, then
-	// split them by section.
+	// If the value is a struct, we resolve the sections from the data, then
+	// split them by section. claimed tracks the dotted paths rendered as their
+	// own section so the flattening of the main block skips them, keeping
+	// declaration order.
 	case reflect.Struct:
-		fields := make(map[string]any, value.NumField())
-		for i := range value.NumField() {
-			fields[value.Type().Field(i).Name] = value.Field(i).Interface()
-		}
-
-		// claimed tracks the top-level fields rendered as their own section so
-		// they are skipped in the main (pathless) section, keeping declaration
-		// order.
 		claimed := make(map[string]bool, len(sections))
 		for _, section := range sections {
 			if section.Path == "" {
 				continue
 			}
-			if _, ok := fields[section.Path]; !ok {
-				return "", fmt.Errorf("path %q not found in %T", section.Path, data)
+			if _, err := valueAtPath(data, section.Path); err != nil {
+				return "", fmt.Errorf("path %q not found in %T: %w", section.Path, data, err)
 			}
 			claimed[section.Path] = true
 		}
 
 		var b strings.Builder
 		for i, section := range sections {
-			data := data
+			sectionData := data
 			if section.Path != "" {
-				data = fields[section.Path]
+				var err error
+				sectionData, err = valueAtPath(data, section.Path)
+				if err != nil {
+					return "", fmt.Errorf("path %q not found in %T: %w", section.Path, data, err)
+				}
 			}
-			err := writeSection(&b, section, data, claimed)
+			err := writeSection(&b, section, sectionData, claimed)
 			if err != nil {
 				return "", fmt.Errorf("rendering section %d: %w", i, err)
 			}
@@ -226,44 +231,152 @@ func writeSection(b *strings.Builder, section Section, data any, claimed map[str
 		}
 		w.Flush()
 
-	case reflect.Map:
+	// A struct and a map render the same: one walk flattens composites into
+	// dotted rows, renders formattable leaves in place, and skips paths claimed
+	// by other sections. Maps are just walked as keyed leaves.
+	case reflect.Map, reflect.Struct:
 		w := tabwriter.NewWriter(b, 5, 1, 2, ' ', tabwriter.ANSIGraphicsRendition)
-		keys := value.MapKeys()
-		slices.SortFunc(keys, func(i, j reflect.Value) int {
-			return strings.Compare(i.String(), j.String())
-		})
-		for _, key := range keys {
-			mapValue := value.MapIndex(key)
-			var str string
-			if mapValue.Kind() == reflect.Slice || mapValue.Kind() == reflect.Array {
-				values := make([]string, mapValue.Len())
-				for i := range mapValue.Len() {
-					values[i] = fmt.Sprint(mapValue.Index(i).Interface())
-				}
-				slices.Sort(values)
-				str = strings.Join(values, " ")
-			} else {
-				var err error
-				str, err = Format(mapValue.Interface())
-				if err != nil {
-					return err
-				}
+		err := walk(value, "", func(keys string, node reflect.Value) (bool, error) {
+			if claimed[keys] {
+				return false, nil
 			}
-			fmt.Fprintf(w, "%s\t%s\n", key.String(), str)
-		}
-		w.Flush()
 
-	case reflect.Struct:
-		w := tabwriter.NewWriter(b, 5, 1, 2, ' ', tabwriter.ANSIGraphicsRendition)
-		for i := range value.NumField() {
-			field := value.Type().Field(i)
-			if claimed[field.Name] {
-				continue
+			// Scalars, formatter structs (and pointers to them) render in place.
+			// Everything else descends into dotted leaves. isFormattable reports
+			// scalar slices as inline for section bodies, but a walk always
+			// flattens slices into indexed rows.
+			t := node.Type()
+			for t.Kind() == reflect.Pointer {
+				t = t.Elem()
 			}
-			fmt.Fprintf(w, "%s\t%v\n", field.Name, value.Field(i).Interface())
+			if isFormattable(node.Type()) && t.Kind() != reflect.Slice && t.Kind() != reflect.Array {
+				str, err := Format(node.Interface())
+				if err != nil {
+					return false, err
+				}
+				fmt.Fprintf(w, "%s\t%s\n", keys, str)
+
+				return false, nil
+			}
+
+			return true, nil
+		})
+		if err != nil {
+			return err
 		}
 		w.Flush()
 	}
 
 	return nil
+}
+
+// walk represents value and its nodes to f; f installs its own walk logic:
+// it's called for every node with its dotted-path keys (Sub.X, Strings.0,
+// Map.key) and returns whether to keep descending after it. Nil pointers and
+// interfaces yield no node at all.
+func walk(value reflect.Value, keys string, f func(keys string, value reflect.Value) (bool, error)) error {
+	if (value.Kind() == reflect.Pointer || value.Kind() == reflect.Interface) && value.IsNil() {
+		return nil
+	}
+
+	descend, err := f(keys, value)
+	if err != nil {
+		return err
+	}
+	if !descend {
+		return nil
+	}
+
+	switch value.Kind() {
+	case reflect.Pointer, reflect.Interface:
+		return walk(value.Elem(), keys, f)
+
+	case reflect.Struct:
+		for i := range value.NumField() {
+			name := value.Type().Field(i).Name
+			if keys != "" {
+				name = keys + "." + name
+			}
+			err := walk(value.Field(i), name, f)
+			if err != nil {
+				return err
+			}
+		}
+
+		return nil
+
+	case reflect.Slice, reflect.Array:
+		prefix := keys
+		if keys != "" {
+			prefix += "."
+		}
+		for i := range value.Len() {
+			err := walk(value.Index(i), prefix+strconv.Itoa(i), f)
+			if err != nil {
+				return err
+			}
+		}
+
+		return nil
+
+	case reflect.Map:
+		mapKeys := value.MapKeys()
+		slices.SortFunc(mapKeys, func(i, j reflect.Value) int {
+			return strings.Compare(i.String(), j.String())
+		})
+		prefix := keys
+		if keys != "" {
+			prefix += "."
+		}
+		for _, mapKey := range mapKeys {
+			err := walk(value.MapIndex(mapKey), prefix+mapKey.String(), f)
+			if err != nil {
+				return err
+			}
+		}
+
+		return nil
+
+	default:
+		// Leaf: f already decided whether to descend.
+		return nil
+	}
+}
+
+// valueAtPath returns the value at the given dotted path, dereferencing
+// pointers and interfaces along the way.
+func valueAtPath(data any, path string) (any, error) {
+	value := reflect.ValueOf(data)
+
+	for part := range strings.SplitSeq(path, ".") {
+		for value.Kind() == reflect.Pointer || value.Kind() == reflect.Interface {
+			if value.IsNil() {
+				return nil, fmt.Errorf("path %q not found in %T: nil value", path, data)
+			}
+			value = value.Elem()
+		}
+
+		switch value.Kind() {
+		case reflect.Struct:
+			value = value.FieldByName(part)
+			if !value.IsValid() || !value.CanInterface() {
+				return nil, fmt.Errorf("path %q not found in %T", path, data)
+			}
+		case reflect.Slice, reflect.Array:
+			index, err := strconv.Atoi(part)
+			if err != nil || index < 0 || index >= value.Len() {
+				return nil, fmt.Errorf("path %q not found in %T", path, data)
+			}
+			value = value.Index(index)
+		case reflect.Map:
+			value = value.MapIndex(reflect.ValueOf(part))
+			if !value.IsValid() {
+				return nil, fmt.Errorf("path %q not found in %T", path, data)
+			}
+		default:
+			return nil, fmt.Errorf("path %q not found in %T", path, data)
+		}
+	}
+
+	return value.Interface(), nil
 }
