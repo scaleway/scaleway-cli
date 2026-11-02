@@ -376,6 +376,26 @@ Sub.Y  two
 RootB  bbb`,
 		},
 		{
+			name: "omittable skipped between two sections",
+			data: RootDummyStruct{
+				RootA: "aaa",
+				// Sub zero -> omitted
+				RootB: "bbb",
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Path: "Sub", Title: "B", Omittable: true},
+					{Path: "RootB", Title: "C"},
+				},
+			},
+			// The skipped omittable section must not leave an orphan blank line
+			// between the two rendered ones.
+			want: `RootA  aaa
+
+C:
+bbb`,
+		},
+		{
 			name: "dotted section path",
 			data: RootDummyStruct{
 				RootA: "aaa",

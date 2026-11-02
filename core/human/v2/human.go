@@ -135,7 +135,7 @@ func Render(data any, layout Layout) (string, error) {
 		}
 
 		var b strings.Builder
-		err := writeSection(&b, sections[0], data, nil)
+		_, err := writeSection(&b, sections[0], data, nil)
 		if err != nil {
 			return "", fmt.Errorf("rendering section: %w", err)
 		}
@@ -168,11 +168,15 @@ func Render(data any, layout Layout) (string, error) {
 					return "", fmt.Errorf("path %q not found in %T: %w", section.Path, data, err)
 				}
 			}
-			err := writeSection(&b, section, sectionData, claimed)
+			wrote, err := writeSection(&b, section, sectionData, claimed)
 			if err != nil {
 				return "", fmt.Errorf("rendering section %d: %w", i, err)
 			}
-			b.WriteRune('\n')
+			// Only separate sections that wrote content, so a skipped omittable
+			// section leaves no orphan blank line.
+			if wrote {
+				b.WriteRune('\n')
+			}
 		}
 
 		return strings.TrimSpace(b.String()), nil
@@ -185,11 +189,12 @@ func Render(data any, layout Layout) (string, error) {
 // claimed paths so we can skip the extracted sections from being rendered in
 // the default section. This is necessary because the section data must be
 // rendered in declaration order, so we can't convert the original data to
-// a map without having to add additional complexity.
-func writeSection(b *strings.Builder, section Section, data any, claimed map[string]bool) error {
+// a map without having to add additional complexity. It returns whether
+// anything was written.
+func writeSection(b *strings.Builder, section Section, data any, claimed map[string]bool) (bool, error) {
 	value := reflect.ValueOf(data)
 	if (!value.IsValid() || value.IsZero()) && section.Omittable {
-		return nil
+		return false, nil
 	}
 
 	if section.Title != "" {
@@ -201,11 +206,11 @@ func writeSection(b *strings.Builder, section Section, data any, claimed map[str
 	if !value.IsValid() || isFormattable(value.Type()) {
 		str, err := Format(data)
 		if err != nil {
-			return err
+			return false, err
 		}
 		b.WriteString(str)
 
-		return nil
+		return true, nil
 	}
 
 	switch value.Kind() {
@@ -238,7 +243,7 @@ func writeSection(b *strings.Builder, section Section, data any, claimed map[str
 				if !isNil {
 					str, err = Format(item.Field(fieldIndex).Interface())
 					if err != nil {
-						return err
+						return false, err
 					}
 				}
 				fmt.Fprint(w, str)
@@ -246,6 +251,8 @@ func writeSection(b *strings.Builder, section Section, data any, claimed map[str
 			fmt.Fprint(w, "\n")
 		}
 		w.Flush()
+
+		return true, nil
 
 	// A struct and a map render the same: one walk flattens composites into
 	// dotted rows, renders formattable leaves in place, and skips paths claimed
@@ -278,12 +285,14 @@ func writeSection(b *strings.Builder, section Section, data any, claimed map[str
 			return true, nil
 		})
 		if err != nil {
-			return err
+			return false, err
 		}
 		w.Flush()
+
+		return true, nil
 	}
 
-	return nil
+	return false, nil
 }
 
 // walk represents value and its nodes to f; f installs its own walk logic:
