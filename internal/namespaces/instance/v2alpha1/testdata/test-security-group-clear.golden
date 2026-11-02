@@ -1,0 +1,8 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+✅ Successful reset of the security group rules.
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "message": "Successful reset of the security group rules",
+  "details": ""
+}
