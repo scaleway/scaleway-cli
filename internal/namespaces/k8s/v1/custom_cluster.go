@@ -447,7 +447,7 @@ func autocompleteClusterType(
 	request any,
 ) core.AutocompleteSuggestions {
 	req := request.(*k8s.CreateClusterRequest)
-	suggestions := core.AutocompleteSuggestions(nil)
+	suggestions := core.AutocompleteSuggestions{}
 
 	client := core.ExtractClient(ctx)
 	api := k8s.NewAPI(client)
@@ -464,7 +464,7 @@ func autocompleteClusterType(
 
 	for _, clusterType := range completeListClusterTypesCache.ClusterTypes {
 		if strings.HasPrefix(clusterType.Name, prefix) {
-			suggestions = append(suggestions, clusterType.Name)
+			suggestions = append(suggestions, core.Suggestion{Value: clusterType.Name})
 		}
 	}
 
@@ -480,7 +480,7 @@ func autocompleteK8SVersion(
 	request any,
 ) core.AutocompleteSuggestions {
 	req := request.(*k8s.CreateClusterRequest)
-	suggestions := core.AutocompleteSuggestions(nil)
+	suggestions := core.AutocompleteSuggestions{}
 
 	client := core.ExtractClient(ctx)
 	api := k8s.NewAPI(client)
@@ -497,7 +497,7 @@ func autocompleteK8SVersion(
 
 	for _, version := range completeListK8SVersionsCache.Versions {
 		if strings.HasPrefix(version.Name, prefix) {
-			suggestions = append(suggestions, version.Name)
+			suggestions = append(suggestions, core.Suggestion{Value: version.Name})
 		}
 	}
 
