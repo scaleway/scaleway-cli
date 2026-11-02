@@ -14,7 +14,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
-	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -101,27 +101,27 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 			server, err := api.GetServer(&instance.GetServerRequest{
 				Zone:     args.Zone,
 				ServerID: args.ServerID,
-			})
+			}, scw.WithContext(ctx))
 			if err != nil {
 				return nil, fmt.Errorf("failed to fetch server: %w", err)
 			}
 
 			formattedKey := FormatSSHKeyToTag(args.PublicKey)
 
-			for i, tag := range server.Server.Tags {
+			for i, tag := range server.Tags {
 				if tag == formattedKey {
 					return nil, fmt.Errorf("key already exists (tags.%d)", i)
 				}
 			}
 
-			tags := server.Server.Tags
+			tags := server.Tags
 			tags = append(tags, formattedKey)
 
 			_, err = api.UpdateServer(&instance.UpdateServerRequest{
 				Zone:     args.Zone,
 				ServerID: args.ServerID,
 				Tags:     &tags,
-			})
+			}, scw.WithContext(ctx))
 			if err != nil {
 				return nil, fmt.Errorf("failed to update server: %w", err)
 			}
@@ -173,7 +173,7 @@ Keep in mind that SSH keys are scoped by project.`,
 				Zone: args.Zone,
 			}
 			if args.ProjectID != "" {
-				listServersRequest.Project = &args.ProjectID
+				listServersRequest.ProjectID = args.ProjectID
 			}
 			servers, err := api.ListServers(
 				listServersRequest,
@@ -184,29 +184,46 @@ Keep in mind that SSH keys are scoped by project.`,
 				return nil, fmt.Errorf("failed to fetch servers: %w", err)
 			}
 
-			for i, server := range servers.Servers {
-				msg := fmt.Sprintf("Loading SSH keys on server %q", server.Name)
+			for i, serverSummary := range servers.Servers {
+				msg := fmt.Sprintf("Loading SSH keys on server %q", serverSummary.Name)
 				if i == 0 {
 					_, _ = interactive.Println(">", msg)
 				} else {
 					_, _ = interactive.Println("\n>", msg)
 				}
 
-				if server.State != instance.ServerStateRunning {
-					_, _ = interactive.Printf("Failed: server %q is not running", server.Name)
+				if serverSummary.Status != instance.ServerStatusStarted {
+					_, _ = interactive.Printf(
+						"Failed: unexpected status for server %q, expected %q, got %q",
+						serverSummary.Name,
+						instance.ServerStatusStarted,
+						serverSummary.Status,
+					)
 
 					continue
 				}
 
-				if len(server.PublicIPs) == 0 {
-					_, _ = interactive.Printf("Failed: server %q has no public IP", server.Name)
+				server, err := api.GetServer(&instance.GetServerRequest{
+					Zone:     args.Zone,
+					ServerID: args.ProjectID,
+				}, scw.WithContext(ctx))
+				if err != nil {
+					return nil, fmt.Errorf("failed to get server: %w", err)
+				}
+
+				if server.PublicNetworkInterface == nil ||
+					len(server.PublicNetworkInterface.IPs) == 0 {
+					_, _ = interactive.Printf(
+						"Failed: server %q has no public IP",
+						serverSummary.Name,
+					)
 
 					continue
 				}
 
-				for _, publicIP := range server.PublicIPs {
+				for _, publicIP := range server.PublicNetworkInterface.IPs {
 					sshArgs := []string{
-						publicIP.Address.String(),
+						publicIP.ProvisionedAddress.String(),
 						"-t",
 						"-l", args.Username,
 						"/usr/sbin/scw-fetch-ssh-keys",
@@ -270,14 +287,14 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 			server, err := api.GetServer(&instance.GetServerRequest{
 				Zone:     args.Zone,
 				ServerID: args.ServerID,
-			})
+			}, scw.WithContext(ctx))
 			if err != nil {
 				return nil, fmt.Errorf("failed to fetch server: %w", err)
 			}
 
 			keys := []*SSHKeyFormat(nil)
 
-			for _, tag := range server.Server.Tags {
+			for _, tag := range server.Tags {
 				if !isSSHKeyTag(tag) {
 					continue
 				}
@@ -332,14 +349,14 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 			server, err := api.GetServer(&instance.GetServerRequest{
 				Zone:     args.Zone,
 				ServerID: args.ServerID,
-			})
+			}, scw.WithContext(ctx))
 			if err != nil {
 				return nil, fmt.Errorf("failed to fetch server: %w", err)
 			}
 
-			newTags := make([]string, 0, len(server.Server.Tags))
+			newTags := make([]string, 0, len(server.Tags))
 			removedKeys := []*SSHKeyFormat(nil)
-			for _, tag := range server.Server.Tags {
+			for _, tag := range server.Tags {
 				if !isSSHKeyTag(tag) {
 					continue
 				}
@@ -359,7 +376,7 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 				Zone:     args.Zone,
 				ServerID: args.ServerID,
 				Tags:     &newTags,
-			})
+			}, scw.WithContext(ctx))
 			if err != nil {
 				return nil, fmt.Errorf("failed to update server: %w", err)
 			}

@@ -2731,11 +2731,11 @@ scw instance ssh add-key [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                             | Argument Specifications                                                                                                                                 |
-|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| server-id  | Server to add your key to                                               |                                                                                                                                                         |
-| public-key | Public key you want to add to your server                               |                                                                                                                                                         |
-| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name       | Description                                                             | Argument Specifications                                                                                                                                                         |
+|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| server-id  | Server to add your key to                                               |                                                                                                                                                                                 |
+| public-key | Public key you want to add to your server                               |                                                                                                                                                                                 |
+| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -2755,11 +2755,11 @@ scw instance ssh fetch-keys [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                             | Argument Specifications                                                                                                                                 |
-|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| project-id | Fetch the keys on all servers in the given Project                      |                                                                                                                                                         |
-| username   | Username used for the SSH connection                                    | Default: `root`                                                                                                                                         |
-| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name       | Description                                                             | Argument Specifications                                                                                                                                                         |
+|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| project-id | Fetch the keys on all servers in the given Project                      |                                                                                                                                                                                 |
+| username   | Username used for the SSH connection                                    | Default: `root`                                                                                                                                                                 |
+| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -2777,10 +2777,10 @@ scw instance ssh install-config [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                              | Argument Specifications                                                                                                                                        |
-|------------|--------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| project-id | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                                |
-| zone       | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `all` |
+| Name       | Description                                                              | Argument Specifications                                                                                                                                                                |
+|------------|--------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                                                        |
+| zone       | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3`, `all` |
 
 
 
@@ -2799,10 +2799,10 @@ scw instance ssh list-keys <server-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name      | Description                                                             | Argument Specifications                                                                                                                                 |
-|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| server-id | Server which keys are to be listed                                      | Required                                                                                                                                                |
-| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name      | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| server-id | Server which keys are to be listed                                      | Required                                                                                                                                                                        |
+| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -2821,12 +2821,12 @@ scw instance ssh remove-key [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                                | Argument Specifications                                                                                                                                 |
-|------------|----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| server-id  | Server to add your key to                                                  | Required                                                                                                                                                |
-| name       | Name of the key you want to remove, has to be the key comment or the index |                                                                                                                                                         |
-| public-key | Public key you want to remove                                              |                                                                                                                                                         |
-| zone       | Zone to target. If none is passed will use default zone from the config    | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name       | Description                                                                | Argument Specifications                                                                                                                                                         |
+|------------|----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| server-id  | Server to add your key to                                                  | Required                                                                                                                                                                        |
+| name       | Name of the key you want to remove, has to be the key comment or the index |                                                                                                                                                                                 |
+| public-key | Public key you want to remove                                              |                                                                                                                                                                                 |
+| zone       | Zone to target. If none is passed will use default zone from the config    | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 

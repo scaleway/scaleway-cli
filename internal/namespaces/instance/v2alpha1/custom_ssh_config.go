@@ -13,7 +13,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/sshconfig"
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
-	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v2"
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -173,29 +173,44 @@ func sshConfigListServers(
 		args.Zone = ""
 	}
 
-	listServers, err := instanceAPI.ListServers(&instance.ListServersRequest{
-		Zone:    args.Zone,
-		Project: args.ProjectID,
-	}, reqOpts...)
+	req := &instance.ListServersRequest{
+		Zone: args.Zone,
+	}
+
+	if args.ProjectID != nil {
+		req.ProjectID = *args.ProjectID
+	}
+
+	listServers, err := instanceAPI.ListServers(req, reqOpts...)
 	if err != nil {
 		return nil, err
 	}
 
 	servers := make([]sshConfigServer, len(listServers.Servers))
 
-	for i, server := range listServers.Servers {
-		pnIDs := make([]string, len(server.PrivateNics))
-		for j, nic := range server.PrivateNics {
+	for i, serverSummary := range listServers.Servers {
+		serverFull, err := instanceAPI.GetServer(&instance.GetServerRequest{
+			Zone:     serverSummary.Zone,
+			ServerID: serverSummary.ID,
+		}, scw.WithContext(ctx))
+		if err != nil {
+			return nil, err
+		}
+
+		pnIDs := make([]string, len(serverFull.PrivateNetworkInterfaces))
+		for j, nic := range serverFull.PrivateNetworkInterfaces {
 			pnIDs[j] = nic.PrivateNetworkID
 		}
 
 		serverAddress := ""
-		if server.PublicIP != nil {
-			serverAddress = server.PublicIP.Address.String()
+		if serverFull.PublicNetworkInterface != nil {
+			for _, publicIP := range serverFull.PublicNetworkInterface.IPs {
+				serverAddress = publicIP.ProvisionedAddress.String()
+			}
 		}
 
 		servers[i] = sshConfigServer{
-			Name:              server.Name,
+			Name:              serverSummary.Name,
 			Address:           serverAddress,
 			PrivateNetworksID: pnIDs,
 		}

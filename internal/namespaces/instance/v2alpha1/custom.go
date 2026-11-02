@@ -137,6 +137,19 @@ func GetCommands() *core.Commands {
 	//
 	cmds.MustFind("instance", "server", "get-compatible-types").Override(getCompatibleTypesBuilder)
 
+	// SSH Utilities
+
+	human.RegisterMarshalerFunc([]*SSHKeyFormat(nil), marshalSSHKeys)
+
+	cmds.Merge(core.NewCommands(
+		instanceSSH(),
+		sshAddKeyCommand(),
+		sshConfigInstallCommand(),
+		sshFetchKeysCommand(),
+		sshListKeysCommand(),
+		sshRemoveKeyCommand(),
+	))
+
 	//
 	// Templates
 	//
