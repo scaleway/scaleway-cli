@@ -93,6 +93,10 @@ type RegistryDummyStruct struct {
 	RegistrySection FirstLevelDummyStruct
 }
 
+type ScalarSliceDummyStruct struct {
+	Fields []string
+}
+
 func init() {
 	// Registered once for the whole table; only the two registry cases use
 	// RegistryDummyStruct, so no other case is affected.
@@ -237,6 +241,19 @@ x                 y
 
 Required List:
 FirstLevelFieldA  FirstLevelFieldB`,
+		},
+		{
+			name: "scalar slice section",
+			data: ScalarSliceDummyStruct{
+				Fields: []string{"poweron", "backup"},
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Path: "Fields", Title: "Allowed"},
+				},
+			},
+			want: `Allowed:
+[poweron backup]`,
 		},
 		{
 			name: "registry layout",

@@ -7,7 +7,6 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/kr/pretty"
 	"github.com/scaleway/scaleway-cli/v2/internal/tabwriter"
 )
 
@@ -58,6 +57,28 @@ func SetLayout(t reflect.Type, l Layout) {
 // for callers.
 type Renderer interface {
 	RenderHuman() (string, error)
+}
+
+// isFormattable reports whether t should be rendered inline by Format rather
+// than as a composite table.
+func isFormattable(t reflect.Type) bool {
+	for t.Kind() == reflect.Pointer {
+		t = t.Elem()
+	}
+	switch {
+	// A struct is a table, unless it escapes through Formatter.
+	case t.Kind() == reflect.Struct:
+		return t.Implements(reflect.TypeFor[Formatter]())
+	// A slice of structs breaks into a table; a scalar slice is inline.
+	case t.Kind() == reflect.Slice || t.Kind() == reflect.Array:
+		elem := t.Elem()
+		for elem.Kind() == reflect.Pointer {
+			elem = elem.Elem()
+		}
+		return elem.Kind() != reflect.Struct
+	default:
+		return true
+	}
 }
 
 // Render data into a specific layout.
@@ -169,6 +190,16 @@ func writeSection(b *strings.Builder, section Section, data any, claimed map[str
 		b.WriteRune('\n')
 	}
 
+	if !value.IsValid() || isFormattable(value.Type()) {
+		str, err := Format(data)
+		if err != nil {
+			return err
+		}
+		b.WriteString(str)
+
+		return nil
+	}
+
 	switch value.Kind() {
 	case reflect.Slice, reflect.Array:
 		elem := value.Type().Elem()
@@ -202,9 +233,6 @@ func writeSection(b *strings.Builder, section Section, data any, claimed map[str
 			fmt.Fprintf(w, "%s\t%v\n", field.Name, value.Field(i).Interface())
 		}
 		w.Flush()
-
-	default:
-		b.WriteString(pretty.Sprint(data))
 	}
 
 	return nil
