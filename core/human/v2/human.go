@@ -62,11 +62,9 @@ type Renderer interface {
 
 // Render data into a specific layout.
 func Render(data any, layout Layout) (string, error) {
-	sections := layout.ResolveSections()
-	value := reflect.ValueOf(data)
-
 	// Dereference pointers until the underlying value is reached, letting any
 	// value in the chain escape through RenderHuman.
+	value := reflect.ValueOf(data)
 	for value.Kind() == reflect.Pointer {
 		if value.IsNil() {
 			return "-", nil
@@ -82,6 +80,15 @@ func Render(data any, layout Layout) (string, error) {
 		}
 	}
 	data = value.Interface()
+
+	// Fall back to a per-type registered layout when the caller gave none,
+	// then apply the default pathless section if needed.
+	if reflect.ValueOf(layout).IsZero() {
+		if l, ok := layouts.Load(value.Type()); ok {
+			layout = l.(Layout)
+		}
+	}
+	sections := layout.ResolveSections()
 
 	switch value.Kind() {
 	// If the value is a slice or array, we ensure that the layout is a single
@@ -150,13 +157,16 @@ func Render(data any, layout Layout) (string, error) {
 // rendered in declaration order, so we can't convert the original data to
 // a map without having to add additional complexity.
 func writeSection(b *strings.Builder, section Section, data any, claimed map[string]bool) error {
+	value := reflect.ValueOf(data)
+	if (!value.IsValid() || value.IsZero()) && section.Omittable {
+		return nil
+	}
+
 	if section.Title != "" {
 		b.WriteString(section.Title)
 		b.WriteRune(':')
 		b.WriteRune('\n')
 	}
-
-	value := reflect.ValueOf(data)
 
 	switch value.Kind() {
 	case reflect.Slice, reflect.Array:

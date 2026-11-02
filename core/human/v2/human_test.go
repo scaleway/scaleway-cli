@@ -1,6 +1,7 @@
 package human_test
 
 import (
+	"reflect"
 	"testing"
 
 	human "github.com/scaleway/scaleway-cli/v2/core/human/v2"
@@ -80,6 +81,26 @@ type RootLevelDummyStruct struct {
 type FirstLevelDummyStruct struct {
 	FirstLevelFieldA string
 	FirstLevelFieldB string
+}
+
+type ListDummyStruct struct {
+	OmittableList []FirstLevelDummyStruct
+	RequiredList  []FirstLevelDummyStruct
+}
+
+type RegistryDummyStruct struct {
+	RegistryField   string
+	RegistrySection FirstLevelDummyStruct
+}
+
+func init() {
+	// Registered once for the whole table; only the two registry cases use
+	// RegistryDummyStruct, so no other case is affected.
+	human.SetLayout(reflect.TypeFor[RegistryDummyStruct](), human.Layout{
+		Sections: []human.Section{
+			{Path: "RegistrySection", Title: "Custom"},
+		},
+	})
 }
 
 type RendererStruct struct {
@@ -176,6 +197,71 @@ RootLevelFieldB  aaaaaaaa-aaaaaa-aaaaaa
 First Level:
 FirstLevelFieldA  BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB
 FirstLevelFieldB  BBBBB`,
+		},
+		{
+			name: "omittable empty section",
+			data: ListDummyStruct{},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Path: "OmittableList", Title: "Omittable List", Omittable: true},
+					{Path: "RequiredList", Title: "Required List", Omittable: false},
+				},
+			},
+			// The omittable section is empty so it is skipped, the required one
+			// keeps its header-only table.
+			want: `Required List:
+FirstLevelFieldA  FirstLevelFieldB`,
+		},
+		{
+			name: "omittable non-empty section",
+			data: ListDummyStruct{
+				OmittableList: []FirstLevelDummyStruct{
+					{FirstLevelFieldA: "x", FirstLevelFieldB: "y"},
+				},
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Path: "OmittableList", Title: "Omittable List", Omittable: true},
+					{Path: "RequiredList", Title: "Required List", Omittable: false},
+				},
+			},
+			want: `Omittable List:
+FirstLevelFieldA  FirstLevelFieldB
+x                 y
+
+Required List:
+FirstLevelFieldA  FirstLevelFieldB`,
+		},
+		{
+			name: "registry layout",
+			data: RegistryDummyStruct{
+				RegistryField:   "value",
+				RegistrySection: FirstLevelDummyStruct{FirstLevelFieldA: "aaa", FirstLevelFieldB: "bbb"},
+			},
+			// No layout given: the one registered for the type applies.
+			layout: human.Layout{},
+			want: `RegistryField  value
+
+Custom:
+FirstLevelFieldA  aaa
+FirstLevelFieldB  bbb`,
+		},
+		{
+			name: "explicit layout overrides registry",
+			data: RegistryDummyStruct{
+				RegistryField:   "value",
+				RegistrySection: FirstLevelDummyStruct{FirstLevelFieldA: "aaa", FirstLevelFieldB: "bbb"},
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Path: "RegistrySection", Title: "Explicit"},
+				},
+			},
+			want: `RegistryField  value
+
+Explicit:
+FirstLevelFieldA  aaa
+FirstLevelFieldB  bbb`,
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
