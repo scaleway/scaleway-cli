@@ -74,10 +74,11 @@ func Render(data any, layout Layout) (string, error) {
 		}
 		value = value.Elem()
 	}
-	if value.IsValid() {
-		if h, ok := reflect.TypeAssert[Renderer](value); ok {
-			return h.RenderHuman()
-		}
+	if !value.IsValid() {
+		return "-", nil
+	}
+	if h, ok := reflect.TypeAssert[Renderer](value); ok {
+		return h.RenderHuman()
 	}
 	data = value.Interface()
 

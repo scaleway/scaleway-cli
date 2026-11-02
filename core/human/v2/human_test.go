@@ -152,6 +152,12 @@ Bar  1`,
 			want:   `-`,
 		},
 		{
+			name:   "nil",
+			data:   nil,
+			layout: human.Layout{},
+			want:   `-`,
+		},
+		{
 			name:   "multi-level pointer to struct",
 			data:   new(new(&DummyStruct{Foo: "foo", Bar: 1})),
 			layout: human.Layout{},
