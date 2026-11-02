@@ -1,0 +1,10 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+dry-run: parsed 1 record(s); would perform 1 API request(s) (replace=false)
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "dry_run": true,
+  "record_count": 1,
+  "api_requests": 1,
+  "replaced_zone": false
+}
