@@ -53,17 +53,33 @@ func SetLayout(t reflect.Type, l Layout) {
 	layouts.Store(t, l)
 }
 
+// Renderer is implemented by types that want full control over their own
+// rendering, bypassing the layout-based default. It acts as an escape hatch
+// for callers.
+type Renderer interface {
+	RenderHuman() (string, error)
+}
+
 // Render data into a specific layout.
 func Render(data any, layout Layout) (string, error) {
 	sections := layout.ResolveSections()
 	value := reflect.ValueOf(data)
 
-	// Dereference pointers until the underlying value is reached.
+	// Dereference pointers until the underlying value is reached, letting any
+	// value in the chain escape through RenderHuman.
 	for value.Kind() == reflect.Pointer {
 		if value.IsNil() {
 			return "-", nil
 		}
+		if h, ok := reflect.TypeAssert[Renderer](value); ok {
+			return h.RenderHuman()
+		}
 		value = value.Elem()
+	}
+	if value.IsValid() {
+		if h, ok := reflect.TypeAssert[Renderer](value); ok {
+			return h.RenderHuman()
+		}
 	}
 	data = value.Interface()
 

@@ -82,6 +82,14 @@ type FirstLevelDummyStruct struct {
 	FirstLevelFieldB string
 }
 
+type RendererStruct struct {
+	Foo string
+}
+
+func (RendererStruct) RenderHuman() (string, error) {
+	return "custom-rendered", nil
+}
+
 func TestRender(t *testing.T) {
 	for _, tc := range []struct {
 		name    string
@@ -128,6 +136,24 @@ Bar  1`,
 			layout: human.Layout{},
 			want: `Foo  foo
 Bar  1`,
+		},
+		{
+			name:   "renderer value",
+			data:   RendererStruct{Foo: "ignored"},
+			layout: human.Layout{},
+			want:   "custom-rendered",
+		},
+		{
+			name:   "renderer pointer",
+			data:   &RendererStruct{Foo: "ignored"},
+			layout: human.Layout{},
+			want:   "custom-rendered",
+		},
+		{
+			name:   "renderer nil pointer",
+			data:   (*RendererStruct)(nil),
+			layout: human.Layout{},
+			want:   `-`,
 		},
 		{
 			name: "struct with titled struct section",
