@@ -316,6 +316,12 @@ func (s Section) resolveTable(value reflect.Value, block Block) (Block, error) {
 		}
 	}
 
+	if itemType.Kind() == reflect.Struct {
+		if err := validateFields(itemType, fields); err != nil {
+			return Block{}, err
+		}
+	}
+
 	block.Header = make([]string, len(fields))
 	for fieldIndex, field := range fields {
 		block.Header[fieldIndex] = field.getLabel()
@@ -340,7 +346,11 @@ func (s Section) resolveTable(value reflect.Value, block Block) (Block, error) {
 
 			cell, err := valueAtPath(item.Interface(), field.Path)
 			if err != nil {
-				return Block{}, err
+				// Field paths are pre-validated, so only per-item missing values
+				// (nil intermediate, absent map key) land here: degrade to "-"
+				// like v1 instead of failing the whole table.
+				row[fieldIndex] = "-"
+				continue
 			}
 
 			str, err := Format(cell)
@@ -360,6 +370,16 @@ func (s Section) resolveTable(value reflect.Value, block Block) (Block, error) {
 // place, and skips paths claimed by other sections. Maps are just walked as
 // keyed leaves.
 func (s Section) resolveList(value reflect.Value, block Block, claimed map[string]bool) (Block, error) {
+	valueType := value.Type()
+	for valueType.Kind() == reflect.Pointer {
+		valueType = valueType.Elem()
+	}
+	if valueType.Kind() == reflect.Struct {
+		if err := validateFields(valueType, s.Fields); err != nil {
+			return Block{}, err
+		}
+	}
+
 	err := walk(value, "", func(keys string, node reflect.Value) (bool, error) {
 		if claimed[keys] {
 			return false, nil
@@ -411,6 +431,77 @@ func (s Section) resolveList(value reflect.Value, block Block, claimed map[strin
 	}
 
 	return block, nil
+}
+
+// validateFields returns an UnknownFieldError for the first selected field
+// whose path does not resolve through fields of t.
+func validateFields(t reflect.Type, fields []Field) error {
+	for _, field := range fields {
+		if !hasField(t, field.Path) {
+			return &UnknownFieldError{FieldName: field.Path, ValidFields: listFields(t)}
+		}
+	}
+
+	return nil
+}
+
+// hasField reports whether the dotted path resolves through t's fields.
+func hasField(t reflect.Type, path string) bool {
+	for part := range strings.SplitSeq(path, ".") {
+		for t.Kind() == reflect.Pointer {
+			t = t.Elem()
+		}
+		if t.Kind() != reflect.Struct {
+			return false
+		}
+
+		field, ok := t.FieldByName(part)
+		if !ok {
+			return false
+		}
+		t = field.Type
+	}
+
+	return true
+}
+
+// listFields returns the selectable dotted field paths of t: structs recurse,
+// other leaves (scalars, slices, maps) contribute their own path.
+func listFields(t reflect.Type) []string {
+	for t.Kind() == reflect.Pointer {
+		t = t.Elem()
+	}
+
+	res := []string(nil)
+	collectFields(t, "", &res)
+
+	return res
+}
+
+func collectFields(t reflect.Type, prefix string, res *[]string) {
+	for t.Kind() == reflect.Pointer {
+		t = t.Elem()
+	}
+
+	if t.Kind() == reflect.Struct {
+		for field := range t.Fields() {
+			if field.PkgPath != "" {
+				continue
+			}
+
+			parent := prefix
+			if !field.Anonymous {
+				parent = joinKeys(prefix, field.Name)
+			}
+			collectFields(field.Type, parent, res)
+		}
+
+		return
+	}
+
+	if prefix != "" {
+		*res = append(*res, prefix)
+	}
 }
 
 // Draw renders the block to text: an optional title line followed by its

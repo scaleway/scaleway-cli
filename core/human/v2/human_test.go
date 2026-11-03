@@ -540,6 +540,22 @@ func TestLayout_Resolve(t *testing.T) {
 			},
 		},
 		{
+			name: "table column with nil intermediate",
+			data: []NestedPointerFormatterDummyStruct{
+				{RootA: "a"},
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Fields: []human.Field{{Path: "Sub.Foo"}}},
+				},
+			},
+			// The path is valid, but this item's Sub is nil: the cell degrades
+			// to "-" instead of failing the whole table, like v1.
+			want: []human.Block{
+				{Header: []string{"SUB FOO"}, Rows: [][]string{{"-"}}},
+			},
+		},
+		{
 			name: "struct lines filtered",
 			data: RootDummyStruct{
 				RootA: "aaa",
@@ -599,6 +615,45 @@ func TestLayout_Resolve(t *testing.T) {
 
 			require.NoError(t, err)
 			require.Equal(t, tc.want, got)
+		})
+	}
+}
+
+func TestResolveUnknownField(t *testing.T) {
+	for _, tc := range []struct {
+		name   string
+		data   any
+		layout human.Layout
+	}{
+		{
+			name: "table column",
+			data: []DummyStruct{{Foo: "f", Bar: 1}},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Fields: []human.Field{{Path: "Nope"}}},
+				},
+			},
+		},
+		{
+			name: "struct line",
+			data: DummyStruct{Foo: "f", Bar: 1},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Fields: []human.Field{{Path: "Nope"}}},
+				},
+			},
+		},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			_, err := tc.layout.Resolve(tc.data)
+			require.Error(t, err)
+
+			unknownFieldErr := &human.UnknownFieldError{}
+			require.ErrorAs(t, err, &unknownFieldErr)
+			require.Equal(t, "Nope", unknownFieldErr.FieldName)
+			require.Contains(t, unknownFieldErr.ValidFields, "Foo")
+			require.Contains(t, unknownFieldErr.ValidFields, "Bar")
+			require.NotContains(t, unknownFieldErr.ValidFields, "Nope")
 		})
 	}
 }
