@@ -273,6 +273,7 @@ func GetCommands() *core.Commands {
 	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "update"))
 	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "delete"))
 	cmds.MustFind("instance", "private-nic", "get").Override(privateNicGetBuilder)
+	cmds.MustFind("instance", "private-nic", "list").Override(core.ListViewBuilder("ID", "ServerID", "PrivateNetworkID", "MacAddress", "State", "Tags", "CreationDate", "Zone", "IpamIPIDs"))
 
 	// SSH Utilities
 

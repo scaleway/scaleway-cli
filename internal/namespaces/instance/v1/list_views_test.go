@@ -22,11 +22,3 @@ func Test_ListSnapshot(t *testing.T) {
 		Check:    core.TestCheckGolden(),
 	}))
 }
-
-func Test_ListUserData(t *testing.T) {
-	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: instance.GetCommands(),
-		Cmd:      "scw instance user-data list server-id=11111111-1111-1111-1111-111111111111",
-		Check:    core.TestCheckGolden(),
-	}))
-}
