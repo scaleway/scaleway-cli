@@ -9,6 +9,7 @@ import (
 	"sync"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/tabwriter"
+	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
 
 // Layout describes the structure of the rendered data. Sections define
@@ -34,7 +35,29 @@ type Section struct {
 	// Fields limits the section to the selected dotted field paths: for a
 	// table it selects the columns, for a struct or map it selects the lines.
 	// Empty means all fields.
-	Fields []string
+	Fields []Field
+}
+
+// Field selects one column of a table or one line of a struct or map.
+type Field struct {
+	// Path is the dotted path of the field in the data.
+	Path string
+
+	// Label overrides the derived column header. Empty derives it from Path.
+	Label string
+}
+
+// getLabel returns the field's display label: the explicit Label if set,
+// otherwise the Path derived like v1 (bash-arg spaced and uppercased).
+func (f Field) getLabel() string {
+	if f.Label != "" {
+		return f.Label
+	}
+
+	label := strings.ReplaceAll(f.Path, ".", " ")
+	label = strcase.ToBashArg(label)
+	label = strings.ReplaceAll(label, "-", " ")
+	return strings.ToUpper(label)
 }
 
 // ResolveSections return the final list of sections, with any default applied
@@ -279,13 +302,17 @@ func (s Section) resolveTable(value reflect.Value, block Block) (Block, error) {
 	// list with the item's fields.
 	fields := s.Fields
 	if len(s.Fields) == 0 {
-		fields = make([]string, itemType.NumField())
+		fields = make([]Field, itemType.NumField())
 		for fieldIndex := range itemType.NumField() {
-			fields[fieldIndex] = itemType.Field(fieldIndex).Name
+			fields[fieldIndex] = Field{Path: itemType.Field(fieldIndex).Name}
 		}
 	}
 
-	block.Header = fields
+	block.Header = make([]string, len(fields))
+	for fieldIndex, field := range fields {
+		block.Header[fieldIndex] = field.getLabel()
+	}
+
 	for index := range value.Len() {
 		item := value.Index(index)
 
@@ -303,7 +330,7 @@ func (s Section) resolveTable(value reflect.Value, block Block) (Block, error) {
 				continue
 			}
 
-			cell, err := valueAtPath(item.Interface(), field)
+			cell, err := valueAtPath(item.Interface(), field.Path)
 			if err != nil {
 				return Block{}, err
 			}
@@ -335,14 +362,14 @@ func (s Section) resolveList(value reflect.Value, block Block, claimed map[strin
 		if len(s.Fields) > 0 && keys != "" {
 			under := false
 			for _, f := range s.Fields {
-				if keys == f || strings.HasPrefix(keys, f+".") {
+				if keys == f.Path || strings.HasPrefix(keys, f.Path+".") {
 					under = true
 					break
 				}
 			}
 			if !under {
 				for _, f := range s.Fields {
-					if strings.HasPrefix(f, keys+".") {
+					if strings.HasPrefix(f.Path, keys+".") {
 						return true, nil
 					}
 				}

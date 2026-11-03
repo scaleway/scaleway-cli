@@ -170,7 +170,7 @@ func TestLayout_Resolve(t *testing.T) {
 			},
 			want: []human.Block{
 				{
-					Header: []string{"Foo", "Bar"},
+					Header: []string{"FOO", "BAR"},
 					Rows:   [][]string{{"foo", "1"}, {"bar", "2"}},
 				},
 			},
@@ -183,7 +183,7 @@ func TestLayout_Resolve(t *testing.T) {
 			},
 			want: []human.Block{
 				{
-					Header: []string{"FirstLevelFieldA", "FirstLevelFieldB"},
+					Header: []string{"FIRST LEVEL FIELD A", "FIRST LEVEL FIELD B"},
 					Rows:   [][]string{{"a", "b"}, {"c", "d"}},
 				},
 			},
@@ -196,7 +196,7 @@ func TestLayout_Resolve(t *testing.T) {
 			},
 			want: []human.Block{
 				{
-					Header: []string{"FirstLevelFieldA", "FirstLevelFieldB"},
+					Header: []string{"FIRST LEVEL FIELD A", "FIRST LEVEL FIELD B"},
 					Rows:   [][]string{{"-", "-"}, {"c", "d"}},
 				},
 			},
@@ -208,7 +208,7 @@ func TestLayout_Resolve(t *testing.T) {
 			},
 			want: []human.Block{
 				{
-					Header: []string{"Foo", "Bar"},
+					Header: []string{"FOO", "BAR"},
 					Rows:   [][]string{{"-", "1"}},
 				},
 			},
@@ -305,7 +305,7 @@ func TestLayout_Resolve(t *testing.T) {
 			// The omittable section is empty so it is dropped, the required one
 			// keeps its header-only table.
 			want: []human.Block{
-				{Title: "Required List", Header: []string{"FirstLevelFieldA", "FirstLevelFieldB"}},
+				{Title: "Required List", Header: []string{"FIRST LEVEL FIELD A", "FIRST LEVEL FIELD B"}},
 			},
 		},
 		{
@@ -324,10 +324,10 @@ func TestLayout_Resolve(t *testing.T) {
 			want: []human.Block{
 				{
 					Title:  "Omittable List",
-					Header: []string{"FirstLevelFieldA", "FirstLevelFieldB"},
+					Header: []string{"FIRST LEVEL FIELD A", "FIRST LEVEL FIELD B"},
 					Rows:   [][]string{{"x", "y"}},
 				},
-				{Title: "Required List", Header: []string{"FirstLevelFieldA", "FirstLevelFieldB"}},
+				{Title: "Required List", Header: []string{"FIRST LEVEL FIELD A", "FIRST LEVEL FIELD B"}},
 			},
 		},
 		{
@@ -503,11 +503,26 @@ func TestLayout_Resolve(t *testing.T) {
 			},
 			layout: human.Layout{
 				Sections: []human.Section{
-					{Fields: []string{"Bar"}},
+					{Fields: []human.Field{{Path: "Bar"}}},
 				},
 			},
 			want: []human.Block{
-				{Header: []string{"Bar"}, Rows: [][]string{{"1"}, {"2"}}},
+				{Header: []string{"BAR"}, Rows: [][]string{{"1"}, {"2"}}},
+			},
+		},
+		{
+			name: "table column with explicit label",
+			data: []DummyStruct{
+				{Foo: "f", Bar: 1},
+				{Foo: "b", Bar: 2},
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Fields: []human.Field{{Path: "Bar", Label: "Size"}}},
+				},
+			},
+			want: []human.Block{
+				{Header: []string{"Size"}, Rows: [][]string{{"1"}, {"2"}}},
 			},
 		},
 		{
@@ -517,11 +532,11 @@ func TestLayout_Resolve(t *testing.T) {
 			},
 			layout: human.Layout{
 				Sections: []human.Section{
-					{Fields: []string{"RootA", "Sub.X"}},
+					{Fields: []human.Field{{Path: "RootA"}, {Path: "Sub.X"}}},
 				},
 			},
 			want: []human.Block{
-				{Header: []string{"RootA", "Sub.X"}, Rows: [][]string{{"a", "x"}}},
+				{Header: []string{"ROOT A", "SUB X"}, Rows: [][]string{{"a", "x"}}},
 			},
 		},
 		{
@@ -533,7 +548,7 @@ func TestLayout_Resolve(t *testing.T) {
 			},
 			layout: human.Layout{
 				Sections: []human.Section{
-					{Fields: []string{"RootA", "Sub.X"}},
+					{Fields: []human.Field{{Path: "RootA"}, {Path: "Sub.X"}}},
 				},
 			},
 			want: []human.Block{
@@ -548,7 +563,7 @@ func TestLayout_Resolve(t *testing.T) {
 			},
 			layout: human.Layout{
 				Sections: []human.Section{
-					{Fields: []string{"Strings"}},
+					{Fields: []human.Field{{Path: "Strings"}}},
 				},
 			},
 			want: []human.Block{
@@ -696,7 +711,7 @@ Bar  1`,
 				{Foo: "bar", Bar: 2},
 			},
 			layout: human.Layout{},
-			want: `Foo  Bar
+			want: `FOO  BAR
 foo  1
 bar  2`,
 		},
