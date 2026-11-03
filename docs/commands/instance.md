@@ -1598,6 +1598,26 @@ scw instance server backup 11111111-1111-1111-1111-111111111111
 
 
 
+### Open the Cockpit Grafana dashboard for this server
+
+
+
+**Usage:**
+
+```shell
+scw instance server cockpit <server-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name      | Description                                                             | Argument Specifications |
+|-----------|-------------------------------------------------------------------------|-------------------------|
+| server-id | Server ID                                                               | Required                |
+| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`     |
+
+
+
 ### Connect to the serial console of an instance
 
 
