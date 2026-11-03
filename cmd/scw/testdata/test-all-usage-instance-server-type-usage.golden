@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 All Instance types available in a specified zone.
-Each type contains all the features of the Instance (CPU, RAM, Storage) as well as their associated pricing.
+Each type contains all the features of the Instance (CPU, RAM, storage).
 
 USAGE:
   scw instance server-type <command>
 
 AVAILABLE COMMANDS:
-  get         Get availability
   list        List Instance types
+  get         Get availability (Deprecated)
 
 FLAGS:
   -h, --help                help for server-type

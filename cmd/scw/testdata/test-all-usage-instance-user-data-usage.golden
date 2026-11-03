@@ -1,13 +1,10 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-User data is a key/value store you can use to provide your instance with introspective data.
-
-As an example of use, Scaleway images contain the `scw-generate-ssh-keys` script, which generates the SSH server’s host keys, then stores their fingerprints as user data under the `ssh-host-fingerprints` key.
-This way, before connecting to the instance using SSH, one can query the fingerprints to ensure that the remote host is the expected one, thus avoiding any man-in-the-middle attack.
+User data is a key/value store you can use to provide your Instance with introspective data.
 
 There are two ways of accessing user data:
  - **From within a running Instance**, by requesting the Metadata API at http://169.254.42.42/user_data (or http://[fd00:42::42]/user_data using IPv6).
-   The `scaleway-ecosystem` package, installed by default on all OS images provided by Scaleway, ships with the `scw-userdata` helper command that allows you to easily query the user data from the instance.
+   The `scaleway-ecosystem` package, installed by default on all OS images provided by Scaleway, ships with the `scw-userdata` helper command that allows you to easily query the user data from the Instance.
    For security reasons, viewing and editing user data is only allowed to queries originating from a port below 1024 (by default, only the super-user can bind to ports below 1024).
    To specify the source port with cURL, use the `--local-port` option (e.g. `curl --local-port 1-1023 http://169.254.42.42/user_data`).
  - **From the Instance API** by using the methods described below.
@@ -16,10 +13,12 @@ USAGE:
   scw instance user-data <command>
 
 AVAILABLE COMMANDS:
-  delete      Delete user data
-  get         Get user data
-  list        List user data
-  set         Add/set user data
+  delete         Delete user data
+  get            Get user data
+  get-cloud-init Get cloud-init user data
+  list           List user data keys
+  set            Add/set user data
+  set-cloud-init Set cloud-init user data
 
 FLAGS:
   -h, --help                help for user-data

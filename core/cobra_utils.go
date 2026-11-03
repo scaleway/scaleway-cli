@@ -158,7 +158,13 @@ func run(
 
 	// create a new Args interface{}
 	// unmarshalled arguments will be store in this interface
-	cmdArgs := reflect.New(cmd.ArgsType).Interface()
+	argsType := cmd.ArgsType
+	if argsType == nil {
+		// Zero-argument commands may have no ArgsType (e.g. generated
+		// commands wrapping an API method without a request type).
+		argsType = reflect.TypeFor[struct{}]()
+	}
+	cmdArgs := reflect.New(argsType).Interface()
 
 	sentry.AddArgumentsContext(args.SplitRaw(rawArgs))
 

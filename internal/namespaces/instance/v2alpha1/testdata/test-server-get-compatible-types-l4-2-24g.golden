@@ -1,0 +1,86 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Current Server Type:
+NAME      HOURLY PRICE  SUPPORTED STORAGE  CPU  GPU  RAM     ARCH    BANDWIDTH  AVAILABILITY  MAX FILE SYSTEMS
+L4-2-24G  € 0.02625     Block              16   2    96 GiB  x86_64  5.0 GB     out_of_stock  4
+
+Compatible Server Types:
+NAME      HOURLY PRICE  SUPPORTED STORAGE  CPU  GPU  RAM      ARCH    BANDWIDTH  AVAILABILITY  MAX FILE SYSTEMS
+L4-4-24G  € 0.0525      Block              32   4    192 GiB  x86_64  10 GB      out_of_stock  8
+L4-1-24G  € 0.013125    Block              8    1    48 GiB   x86_64  2.5 GB     low_stock     2
+L4-8-24G  € 0.105       Block              64   8    384 GiB  x86_64  20 GB      out_of_stock  16
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "CurrentServerType": [
+    {
+      "name": "L4-2-24G",
+      "hourly_price": {
+        "currency_code": "EUR",
+        "units": 0,
+        "nanos": 26250000
+      },
+      "local_volume_max_size": 0,
+      "supported_storage": "Block",
+      "cpu": 16,
+      "gpu": 2,
+      "ram": 103079215104,
+      "arch": "x86_64",
+      "bandwidth": 5000000000,
+      "availability": "out_of_stock",
+      "max_file_systems": 4
+    }
+  ],
+  "CompatibleServerTypes": [
+    {
+      "name": "L4-4-24G",
+      "hourly_price": {
+        "currency_code": "EUR",
+        "units": 0,
+        "nanos": 52500000
+      },
+      "local_volume_max_size": 0,
+      "supported_storage": "Block",
+      "cpu": 32,
+      "gpu": 4,
+      "ram": 206158430208,
+      "arch": "x86_64",
+      "bandwidth": 10000000000,
+      "availability": "out_of_stock",
+      "max_file_systems": 8
+    },
+    {
+      "name": "L4-1-24G",
+      "hourly_price": {
+        "currency_code": "EUR",
+        "units": 0,
+        "nanos": 13125000
+      },
+      "local_volume_max_size": 0,
+      "supported_storage": "Block",
+      "cpu": 8,
+      "gpu": 1,
+      "ram": 51539607552,
+      "arch": "x86_64",
+      "bandwidth": 2500000000,
+      "availability": "low_stock",
+      "max_file_systems": 2
+    },
+    {
+      "name": "L4-8-24G",
+      "hourly_price": {
+        "currency_code": "EUR",
+        "units": 0,
+        "nanos": 105000000
+      },
+      "local_volume_max_size": 0,
+      "supported_storage": "Block",
+      "cpu": 64,
+      "gpu": 8,
+      "ram": 412316860416,
+      "arch": "x86_64",
+      "bandwidth": 20000000000,
+      "availability": "out_of_stock",
+      "max_file_systems": 16
+    }
+  ]
+}

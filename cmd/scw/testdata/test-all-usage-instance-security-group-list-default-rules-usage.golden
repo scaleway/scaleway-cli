@@ -1,5 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Command "list-default-rules" is deprecated, it is not available in v2 of the API and will be removed when v1 reaches end of support. Default rules can be listed using "scw instance security-group get <security-group-id>".
 Lists the default rules applied to all the security groups.
 
 USAGE:

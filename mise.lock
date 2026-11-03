@@ -263,23 +263,17 @@ specifiers = [
     "latest",
 ]
 
-[[tools."npm:vite"]]
-version = "8.2.2"
-aube = { path = ".mise/locks/npm-vite/8.2.2", digest = "sha256:da6f388b747413f1045f9633cfc3bfa240f54f0718ae2219739df32e4ba469dc" }
-backend = "npm:vite"
-specifiers = [
-    "8.2",
-    "latest",
-]
+[[tools."npm:oxfmt"]]
+version = "0.75.0"
+aube = { path = ".mise/locks/npm-oxfmt/0.75.0", digest = "sha256:1d4f470a5dbba272218132db6ff9ba1911075d29dcd3253a0e02b4a5037a8a23" }
+backend = "npm:oxfmt"
+specifiers = ["0.75"]
 
-[[tools."npm:vitest"]]
-version = "5.0.0"
-aube = { path = ".mise/locks/npm-vitest/5.0.0", digest = "sha256:0cd81898ebdfaac007e9ef852529323986379ec3054ffdb19a883d2802a8613f" }
-backend = "npm:vitest"
-specifiers = [
-    "5.0",
-    "latest",
-]
+[[tools."npm:oxlint"]]
+version = "1.90.0"
+aube = { path = ".mise/locks/npm-oxlint/1.90.0", digest = "sha256:4163816792e9d3e4029fb300623b5cba67e87afddadca29181c64acf83188ffa" }
+backend = "npm:oxlint"
+specifiers = ["1.90"]
 
 [[tools.pnpm]]
 version = "10.24.0"
@@ -323,15 +317,6 @@ url_api = "https://api.github.com/repos/pnpm/pnpm/releases/assets/321514952"
 checksum = "sha256:e966e249a55c5d56d5d1844d220861b801c892148e763c66e95dadb9bd257d3f"
 url = "https://github.com/pnpm/pnpm/releases/download/v10.24.0/pnpm-win-x64.exe"
 url_api = "https://api.github.com/repos/pnpm/pnpm/releases/assets/321514954"
-
-[[tools.prettier]]
-version = "3.9.6"
-aube = { path = ".mise/locks/prettier/3.9.6", digest = "sha256:2713c3c98701fa080a728710d5ffc1fd688e231373b202ebfedd8997711157e5" }
-backend = "npm:prettier"
-specifiers = [
-    "3.9",
-    "latest",
-]
 
 [[tools.rumdl]]
 version = "0.2.70"

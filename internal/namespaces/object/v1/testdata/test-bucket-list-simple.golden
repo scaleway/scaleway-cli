@@ -1,20 +1,48 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Name                                      Creation Date
-cli-test-bucket-list-8501647004036398711  few seconds ago
-cli-test-bucket-list-9206072663127448888  few seconds ago
+Name                                                        Creation Date
+cli-test-bucket-list-4604638214134008110                    few seconds ago
+cli-test-bucket-list-6511365779812087840                    few seconds ago
+geoffreyjount01                                             few seconds ago
+geoffreyjount02                                             few seconds ago
+tf-test-acc-7291120209694216651                             few seconds ago
+tf-test-scaleway-export-block-snapshot-8484367840926241880  few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
     "BucketArn": null,
     "BucketRegion": null,
-    "CreationDate": "2024-04-30T16:43:46Z",
-    "Name": "cli-test-bucket-list-8501647004036398711"
+    "CreationDate": "2026-10-12T12:30:41Z",
+    "Name": "cli-test-bucket-list-4604638214134008110"
   },
   {
     "BucketArn": null,
     "BucketRegion": null,
-    "CreationDate": "2024-04-30T16:43:46Z",
-    "Name": "cli-test-bucket-list-9206072663127448888"
+    "CreationDate": "2026-10-12T12:30:36Z",
+    "Name": "cli-test-bucket-list-6511365779812087840"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-10-01T09:28:46Z",
+    "Name": "geoffreyjount01"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-10-01T13:35:33Z",
+    "Name": "geoffreyjount02"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-10-09T07:36:28Z",
+    "Name": "tf-test-acc-7291120209694216651"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-10-08T15:51:30Z",
+    "Name": "tf-test-scaleway-export-block-snapshot-8484367840926241880"
   }
 ]

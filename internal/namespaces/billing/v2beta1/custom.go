@@ -26,6 +26,7 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("billing", "invoice", "download").Override(invoiceDownloadBuilder)
 	cmds.MustFind("billing", "invoice", "export").Override(invoiceExportBuilder)
+	cmds.MustFind("billing", "charge", "list").Override(chargeListBuilder)
 
 	return cmds
 }

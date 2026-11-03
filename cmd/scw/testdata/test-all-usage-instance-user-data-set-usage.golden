@@ -1,15 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Add or update a user data with the specified key on an Instance.
+Add or update a user data with a specified key on an Instance.
 
 USAGE:
-  scw instance user-data set [arg=value ...]
+  scw instance user-data set <server-id ...> [arg=value ...]
 
 ARGS:
-  server-id         UUID of the Instance
-  key               Key of the user data to set
-  content           Content of the user data (Support file loading with @/path/to/file)
-  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3 | it-mil-1)
+  server-id         The ID of the server
+  key               The key of the user data to set
+  content           The content to set for the user data (Support file loading with @/path/to/file)
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3 | it-mil-1 | it-mil-2 | it-mil-3)
 
 FLAGS:
   -h, --help                help for set

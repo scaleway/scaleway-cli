@@ -224,7 +224,7 @@ func autoCompleteNodeType(
 		region = req.Region
 	}
 
-	suggestions := core.AutocompleteSuggestions(nil)
+	suggestions := core.AutocompleteSuggestions{}
 
 	client := core.ExtractClient(ctx)
 	api := rdbSDK.NewAPI(client)
@@ -241,7 +241,7 @@ func autoCompleteNodeType(
 
 	for _, nodeType := range completeListNodeTypeCache.NodeTypes {
 		if strings.HasPrefix(nodeType.Name, prefix) {
-			suggestions = append(suggestions, nodeType.Name)
+			suggestions = append(suggestions, core.Suggestion{Value: nodeType.Name})
 		}
 	}
 
@@ -259,7 +259,7 @@ func autoCompleteDatabaseEngines(
 		region = req.CreateInstanceRequest.Region
 	}
 
-	suggestion := core.AutocompleteSuggestions(nil)
+	suggestion := core.AutocompleteSuggestions{}
 	client := core.ExtractClient(ctx)
 	api := rdbSDK.NewAPI(client)
 
@@ -276,7 +276,7 @@ func autoCompleteDatabaseEngines(
 	for _, engine := range completeListEngineCache.Engines {
 		for _, version := range engine.Versions {
 			if !version.Disabled && strings.HasPrefix(version.Name, prefix) {
-				suggestion = append(suggestion, version.Name)
+				suggestion = append(suggestion, core.Suggestion{Value: version.Name})
 			}
 		}
 	}

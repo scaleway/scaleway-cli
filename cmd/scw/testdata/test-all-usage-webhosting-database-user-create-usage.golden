@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   hosting-id        UUID of the hosting plan
-  [username]        Name of the user to create
+  [username]        Name of the user to create. If it is not already prefixed with the hosting's cPanel username followed by an underscore (e.g. `cpe1234_`), this prefix is automatically added. The resulting name must not exceed 32 characters.
   [password]        Password of the user to create
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 

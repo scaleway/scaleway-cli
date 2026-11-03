@@ -1,0 +1,200 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 261
+        host: api.scaleway.com
+        body: '{"name":"cli-sg-affectionate-jennings","description":"","disable_default_rules":false,"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","tags":null,"project_default":false,"inbound_default_action":"accept","outbound_default_action":"accept","stateless":false}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.37.0.20261005125851-bba713c8ec7e (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/security-groups
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 2039
+        body: '{"srn":"srn://instance.scw.eu/zones/fr-par-1/security-groups/c778cb06-3629-4f55-b1c6-f7acd82c4088","id":"c778cb06-3629-4f55-b1c6-f7acd82c4088","name":"cli-sg-affectionate-jennings","description":"","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","tags":[],"disable_default_rules":false,"project_default":false,"inbound_default_action":"accept","outbound_default_action":"accept","stateless":false,"created_at":"2026-10-15T11:34:30.893198Z","updated_at":"2026-10-15T11:34:30.893198Z","default_rules":[{"id":"11111111-2222-4333-8444-000000000001","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":1},{"id":"11111111-2222-4333-8444-000000000002","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":2},{"id":"11111111-2222-4333-8444-000000000003","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":3},{"id":"11111111-2222-4333-8444-000000000004","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":4},{"id":"11111111-2222-4333-8444-000000000005","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":5},{"id":"11111111-2222-4333-8444-000000000006","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":6}],"rules":[],"zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "2039"
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 15 Oct 2026 11:34:30 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge01)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "47"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 58f5a71a-9e0b-42a6-b945-a6866c8a1972
+        status: 200 OK
+        code: 200
+        duration: 267.984513ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.37.0.20261005125851-bba713c8ec7e (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/metadata
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 59
+        body: '{"platform":"external","partition":"scw","domain":"scw.eu"}'
+        headers:
+            Content-Length:
+                - "59"
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 15 Oct 2026 11:34:30 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge01)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "43"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 76bf6302-fb16-424d-9f96-22dfc40bb281
+        status: 200 OK
+        code: 200
+        duration: 10.560074ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 257
+        host: api.scaleway.com
+        body: '{"security_group_id":"c778cb06-3629-4f55-b1c6-f7acd82c4088","security_group_rules":[{"protocol":"udp","direction":"inbound","action":"drop","source_ip_range":"1.1.1.1/32","destination_ip_range":"","source_ports":null,"destination_ports":null,"position":0}]}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.37.0.20261005125851-bba713c8ec7e (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/security-group-rules
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 2581
+        body: '{"security_group":{"srn":"srn://instance.scw.eu/zones/fr-par-1/security-groups/c778cb06-3629-4f55-b1c6-f7acd82c4088","id":"c778cb06-3629-4f55-b1c6-f7acd82c4088","name":"cli-sg-affectionate-jennings","description":"","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","tags":[],"disable_default_rules":false,"project_default":false,"inbound_default_action":"accept","outbound_default_action":"accept","stateless":false,"created_at":"2026-10-15T11:34:30.893198Z","updated_at":"2026-10-15T11:34:30.985776Z","default_rules":[{"id":"11111111-2222-4333-8444-000000000001","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":1},{"id":"11111111-2222-4333-8444-000000000002","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":2},{"id":"11111111-2222-4333-8444-000000000003","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":3},{"id":"11111111-2222-4333-8444-000000000004","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":4},{"id":"11111111-2222-4333-8444-000000000005","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":5},{"id":"11111111-2222-4333-8444-000000000006","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":6}],"rules":[{"id":"94db220a-4e45-4a6c-a152-2c8b23e9b4fb","protocol":"udp","direction":"inbound","action":"drop","source_ip_range":"1.1.1.1/32","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":1,"end":65536},"position":1}],"zone":"fr-par-1"},"added_rules":[{"id":"94db220a-4e45-4a6c-a152-2c8b23e9b4fb","protocol":"udp","direction":"inbound","action":"drop","source_ip_range":"1.1.1.1/32","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":1,"end":65536},"position":1}]}'
+        headers:
+            Content-Length:
+                - "2581"
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 15 Oct 2026 11:34:31 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge01)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "44"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 761a9176-c005-47ad-836a-1a01ff04ad40
+        status: 200 OK
+        code: 200
+        duration: 186.463834ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 89
+        host: api.scaleway.com
+        body: '{"protocol":"icmp","direction":"outbound","action":"drop","source_ip_range":"2.2.2.2/32"}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.37.0.20261005125851-bba713c8ec7e (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/security-group-rules/94db220a-4e45-4a6c-a152-2c8b23e9b4fb
+        method: PATCH
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 2294
+        body: '{"srn":"srn://instance.scw.eu/zones/fr-par-1/security-groups/c778cb06-3629-4f55-b1c6-f7acd82c4088","id":"c778cb06-3629-4f55-b1c6-f7acd82c4088","name":"cli-sg-affectionate-jennings","description":"","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","tags":[],"disable_default_rules":false,"project_default":false,"inbound_default_action":"accept","outbound_default_action":"accept","stateless":false,"created_at":"2026-10-15T11:34:30.893198Z","updated_at":"2026-10-15T11:34:31.192133Z","default_rules":[{"id":"11111111-2222-4333-8444-000000000001","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":1},{"id":"11111111-2222-4333-8444-000000000002","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":2},{"id":"11111111-2222-4333-8444-000000000003","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"0.0.0.0/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":3},{"id":"11111111-2222-4333-8444-000000000004","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":25,"end":25},"position":4},{"id":"11111111-2222-4333-8444-000000000005","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":465,"end":465},"position":5},{"id":"11111111-2222-4333-8444-000000000006","protocol":"tcp","direction":"outbound","action":"drop","source_ip_range":"::/0","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":587,"end":587},"position":6}],"rules":[{"id":"94db220a-4e45-4a6c-a152-2c8b23e9b4fb","protocol":"icmp","direction":"outbound","action":"drop","source_ip_range":"2.2.2.2/32","destination_ip_range":"","source_ports":{"start":1,"end":65536},"destination_ports":{"start":1,"end":65536},"position":1}],"zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "2294"
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 15 Oct 2026 11:34:31 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge01)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "41"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 271c1abf-aa40-4d2e-97bb-9525ce435286
+        status: 200 OK
+        code: 200
+        duration: 129.769594ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.37.0.20261005125851-bba713c8ec7e (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/security-groups/c778cb06-3629-4f55-b1c6-f7acd82c4088
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 15 Oct 2026 11:34:31 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge01)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "35"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - ad882450-0788-44e6-85ca-3e6cb42e82e3
+        status: 204 No Content
+        code: 204
+        duration: 105.820817ms
