@@ -152,7 +152,7 @@ func init() {
 			{Path: "RegistrySection", Title: "Custom"},
 		},
 	})
-	human.RegisterFormatFunc[RegistryFormatted](func(v RegistryFormatted) (string, error) {
+	human.RegisterFormatFunc(func(v RegistryFormatted) (string, error) {
 		return "registered-" + v.Foo, nil
 	})
 }

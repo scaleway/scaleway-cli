@@ -283,7 +283,6 @@ func (l Layout) Resolve(data any) ([]Block, error) {
 				claimed[section.Path] = true
 			}
 		}
-
 		blocks := make([]Block, 0, len(sections))
 		for i, section := range sections {
 			sectionData := data
@@ -323,6 +322,9 @@ func (l Layout) Resolve(data any) ([]Block, error) {
 // keyed rows.
 func (s Section) Resolve(data any, claimed map[string]bool) (Block, error) {
 	value := reflect.ValueOf(data)
+	for value.Kind() == reflect.Pointer {
+		value = value.Elem()
+	}
 	if (!value.IsValid() || value.IsZero()) && s.Omittable {
 		return Block{}, nil
 	}
@@ -347,9 +349,9 @@ func (s Section) Resolve(data any, claimed map[string]bool) (Block, error) {
 		return s.resolveTable(value, block)
 	case reflect.Map, reflect.Struct:
 		return s.resolveList(value, block, claimed)
+	default:
+		return block, fmt.Errorf("unresolvable type %T", value.Interface(), value.Kind().String())
 	}
-
-	return block, nil
 }
 
 // resolveTable renders a slice or array section as a table. With no selected
