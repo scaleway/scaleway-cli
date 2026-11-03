@@ -36,7 +36,8 @@ func OpenDashboard(
 		return nil, err
 	}
 
-	q := url.Values{}
+	u, _ := url.Parse(dash.URL)
+	q := u.Query()
 	q.Set("from", "now-1h")
 	q.Set("to", "now")
 	q.Set("timezone", "browser")
@@ -45,7 +46,9 @@ func OpenDashboard(
 			q.Set("var-"+key, value)
 		}
 	}
-	fullURL := dash.URL + "?" + q.Encode()
+
+	u.RawQuery = q.Encode()
+	fullURL := u.String()
 
 	if err := open.Start(fullURL); err != nil {
 		return nil, &core.CliError{
