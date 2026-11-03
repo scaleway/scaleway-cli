@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
@@ -83,7 +83,7 @@ type MultiResults []any
 func (mr *MultiResults) MarshalHuman() (string, error) {
 	strs := []string(nil)
 	for _, r := range *mr {
-		str, err := human.Marshal(r, nil)
+		str, err := humanv2.Render(r, humanv2.Layout{})
 		if err != nil {
 			return "", err
 		}

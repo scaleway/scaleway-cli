@@ -318,7 +318,7 @@ func shellExecutor(rootCmd *cobra.Command, printer *Printer, meta *Meta) func(s 
 
 		autoCompleteCache.Update(meta.command.Namespace)
 
-		printErr := printer.Print(meta.result, meta.command.getHumanMarshalerOpt())
+		printErr := printer.Print(meta.result, meta.command.getHumanLayout())
 		if printErr != nil {
 			_, _ = fmt.Fprintln(os.Stderr, printErr)
 		}

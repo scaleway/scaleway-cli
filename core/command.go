@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/alias"
 )
 
@@ -262,9 +262,9 @@ func (c *Command) signature() string {
 	return c.Namespace + " " + c.Resource + " " + c.Verb + " " + c.Short
 }
 
-func (c *Command) getHumanMarshalerOpt() *human.MarshalOpt {
+func (c *Command) getHumanLayout() *humanv2.Layout {
 	if c.View != nil {
-		return c.View.getHumanMarshalerOpt()
+		return c.View.getHumanLayout()
 	}
 
 	return nil

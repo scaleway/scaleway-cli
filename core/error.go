@@ -4,8 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"strings"
+	"unicode"
 
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 )
 
 // CliError is an all-in-one error structure that can be used in commands to return useful errors to the user.
@@ -44,7 +45,7 @@ func (s *CliError) MarshalHuman() (string, error) {
 		if s.Message != "" {
 			humanError = fmt.Errorf("%s", s.Message)
 		}
-		str, err := human.Marshal(humanError, nil)
+		str, err := humanv2.Render(humanError, humanv2.Layout{})
 		if err != nil {
 			return "", err
 		}
@@ -52,7 +53,7 @@ func (s *CliError) MarshalHuman() (string, error) {
 	}
 
 	if s.Details != "" {
-		str, err := human.Marshal(human.Capitalize(s.Details), &human.MarshalOpt{Title: "Details"})
+		str, err := humanv2.Render(capitalize(s.Details), humanv2.Layout{Title: "Details"})
 		if err != nil {
 			return "", err
 		}
@@ -60,7 +61,7 @@ func (s *CliError) MarshalHuman() (string, error) {
 	}
 
 	if s.Hint != "" {
-		str, err := human.Marshal(human.Capitalize(s.Hint), &human.MarshalOpt{Title: "Hint"})
+		str, err := humanv2.Render(capitalize(s.Hint), humanv2.Layout{Title: "Hint"})
 		if err != nil {
 			return "", err
 		}
@@ -95,4 +96,19 @@ func (s *CliError) MarshalJSON() ([]byte, error) {
 		Details: s.Details,
 		Hint:    s.Hint,
 	})
+}
+
+// capitalize returns the given string with a first character in uppercase.
+func capitalize(s string) string {
+	words := strings.Fields(s)
+	if len(words) > 0 && strings.Contains(words[0], "-") {
+		// First word is probably an id, don't capitalize
+		return s
+	}
+
+	for i, c := range s {
+		return string(unicode.ToUpper(c)) + s[i+1:]
+	}
+
+	return ""
 }
