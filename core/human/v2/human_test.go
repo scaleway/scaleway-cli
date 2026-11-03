@@ -152,6 +152,9 @@ func init() {
 			{Path: "RegistrySection", Title: "Custom"},
 		},
 	})
+	human.RegisterFormatFunc[RegistryFormatted](func(v RegistryFormatted) (string, error) {
+		return "registered-" + v.Foo, nil
+	})
 }
 
 func TestLayout_Resolve(t *testing.T) {
@@ -975,6 +978,20 @@ Y    two`,
 			},
 			want: `Details:
 text`,
+		},
+		{
+			// A registered struct escapes through Format at the top level instead
+			// of flattening into its raw fields.
+			name: "registered format func top-level",
+			data: RegistryFormatted{Foo: "x"},
+			want: "registered-x",
+		},
+		{
+			// Nested as a struct field, it formats in place rather than
+			// flattening.
+			name: "registered format func nested",
+			data: RegistryNestedStruct{Root: "r", Sub: RegistryFormatted{Foo: "s"}},
+			want: "Root  r\nSub   registered-s",
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {

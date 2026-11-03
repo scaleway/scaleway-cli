@@ -110,29 +110,42 @@ func SetLayout(t reflect.Type, l Layout) {
 // isFormattable reports whether t should be rendered inline by Format rather
 // than as a composite table.
 func isFormattable(t reflect.Type) bool {
-	// A formatter at any pointer level escapes through Format, which checks
-	// each level in its deref loop, so mirror it here.
+	// A formatter or registered format function at any pointer level escapes
+	// through Format, which checks each level in its deref loop, so mirror it
+	// here.
 	for t.Kind() == reflect.Pointer {
 		if t.Implements(reflect.TypeFor[Formatter]()) {
+			return true
+		}
+		if _, ok := getFormatFunc(t); ok {
 			return true
 		}
 		t = t.Elem()
 	}
 	switch {
-	// A struct is a table, unless it escapes through Formatter.
+	// A struct is a table, unless it escapes through Formatter or a
+	// registered format function.
 	case t.Kind() == reflect.Struct:
-		return t.Implements(reflect.TypeFor[Formatter]())
-	// A slice of structs breaks into a table; a scalar slice is inline.
+		_, hasFormatFunc := getFormatFunc(t)
+
+		return t.Implements(reflect.TypeFor[Formatter]()) || hasFormatFunc
+	// A slice of structs breaks into a table, unless the slice type itself
+	// has a registered format function; a scalar slice is inline.
 	case t.Kind() == reflect.Slice || t.Kind() == reflect.Array:
+		if _, ok := getFormatFunc(t); ok {
+			return true
+		}
 		elem := t.Elem()
 		for elem.Kind() == reflect.Pointer {
 			elem = elem.Elem()
 		}
 
 		return elem.Kind() != reflect.Struct
-	// A map is a key-value table.
+	// A map is a key-value table, unless it has a registered format function.
 	case t.Kind() == reflect.Map:
-		return false
+		_, hasFormatFunc := getFormatFunc(t)
+
+		return hasFormatFunc
 	default:
 		return true
 	}

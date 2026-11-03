@@ -1,14 +1,26 @@
 package human_test
 
 import (
+	"net"
 	"testing"
 	"time"
 
 	"github.com/dustin/go-humanize"
+	version "github.com/hashicorp/go-version"
 	human "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
 )
+
+// makeIPNet parses a CIDR into a scw.IPNet for tests.
+func makeIPNet(cidr string) scw.IPNet {
+	_, ipNet, err := net.ParseCIDR(cidr)
+	if err != nil {
+		panic(err)
+	}
+
+	return scw.IPNet{IPNet: *ipNet}
+}
 
 type FormatterStruct struct {
 	Foo string
@@ -28,6 +40,64 @@ type ErrorStruct struct{}
 
 func (ErrorStruct) Error() string {
 	return "something broke"
+}
+
+// Registry test types are distinct per test: the registry is global, so
+// sharing a type between tests would couple their run order.
+
+type RegistryFormatted struct {
+	Foo string
+}
+
+type RegistryPointerFormatted struct {
+	Foo string
+}
+
+type RegistryPrecedenceFormatted struct{}
+
+func (RegistryPrecedenceFormatted) FormatHuman() (string, error) {
+	return "interface-formatted", nil
+}
+
+type RegistryNestedStruct struct {
+	Root string
+	Sub  RegistryFormatted
+}
+
+func TestFormatRegistered(t *testing.T) {
+	human.RegisterFormatFunc[RegistryFormatted](func(v RegistryFormatted) (string, error) {
+		return "registered-" + v.Foo, nil
+	})
+
+	got, err := human.Format(RegistryFormatted{Foo: "a"})
+	require.NoError(t, err)
+	require.Equal(t, "registered-a", got)
+
+	// A pointer derefs to the registered value type.
+	got, err = human.Format(&RegistryFormatted{Foo: "b"})
+	require.NoError(t, err)
+	require.Equal(t, "registered-b", got)
+}
+
+func TestFormatRegisteredPointer(t *testing.T) {
+	human.RegisterFormatFunc[*RegistryPointerFormatted](func(v *RegistryPointerFormatted) (string, error) {
+		return "pointer-" + v.Foo, nil
+	})
+
+	got, err := human.Format(&RegistryPointerFormatted{Foo: "c"})
+	require.NoError(t, err)
+	require.Equal(t, "pointer-c", got)
+}
+
+func TestFormatRegisteredPrecedence(t *testing.T) {
+	human.RegisterFormatFunc[RegistryPrecedenceFormatted](func(RegistryPrecedenceFormatted) (string, error) {
+		return "registered", nil
+	})
+
+	// Like v1, a registered format function wins over Formatter.
+	got, err := human.Format(RegistryPrecedenceFormatted{})
+	require.NoError(t, err)
+	require.Equal(t, "registered", got)
 }
 
 func TestFormat(t *testing.T) {
@@ -154,6 +224,46 @@ func TestFormat(t *testing.T) {
 			name: "duration pointer",
 			data: &scw.Duration{Seconds: 30},
 			want: "30 seconds",
+		},
+		{
+			name: "sizes",
+			data: []scw.Size{13200, 52428800},
+			want: "13 kB, 50 MiB",
+		},
+		{
+			name: "ip",
+			data: net.ParseIP("1.2.3.4"),
+			want: "1.2.3.4",
+		},
+		{
+			name: "ips",
+			data: []net.IP{net.ParseIP("1.2.3.4")},
+			want: "[1.2.3.4]",
+		},
+		{
+			name: "ipnet",
+			data: makeIPNet("10.0.0.0/24"),
+			want: "10.0.0.0/24",
+		},
+		{
+			name: "nil ipnet",
+			data: scw.IPNet{},
+			want: "-",
+		},
+		{
+			name: "version",
+			data: version.Must(version.NewVersion("1.2.3")),
+			want: "1.2.3",
+		},
+		{
+			name: "json object",
+			data: scw.JSONObject{"a": 1},
+			want: `{"a":1}`,
+		},
+		{
+			name: "bytes",
+			data: []byte{0, 1},
+			want: "AAE=",
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
