@@ -1,9 +1,12 @@
 package core_test
 
 import (
+	"bytes"
 	"context"
+	"net/netip"
 	"reflect"
 	"testing"
+	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 )
@@ -238,5 +241,68 @@ func Test_TemplatePrinter(t *testing.T) {
 			"scw", "NilSlice", "-o", "template={{ .ID }}",
 		},
 		Check: core.TestCheckGolden(),
+	}))
+}
+
+func Test_JSONPrinter(t *testing.T) {
+	type Empty struct{}
+	type Endpoint struct {
+		ID           string `json:"id"`
+		LoadBalancer *Empty `json:"load_balancer,omitempty"`
+	}
+
+	commands := core.NewCommands(
+		&core.Command{
+			Namespace: "time",
+			ArgsType:  reflect.TypeOf(struct{}{}),
+			Run: func(_ context.Context, _ any) (any, error) {
+				return time.Date(2026, 11, 3, 12, 0, 0, 0, time.UTC), nil
+			},
+		},
+		&core.Command{
+			Namespace: "addr",
+			ArgsType:  reflect.TypeOf(struct{}{}),
+			Run: func(_ context.Context, _ any) (any, error) {
+				return netip.MustParseAddr("127.0.0.1"), nil
+			},
+		},
+		&core.Command{
+			Namespace: "buffer",
+			ArgsType:  reflect.TypeOf(struct{}{}),
+			Run: func(_ context.Context, _ any) (any, error) {
+				return &bytes.Buffer{}, nil
+			},
+		},
+		&core.Command{
+			Namespace: "endpoint",
+			ArgsType:  reflect.TypeOf(struct{}{}),
+			Run: func(_ context.Context, _ any) (any, error) {
+				return Endpoint{ID: "111111111", LoadBalancer: &Empty{}}, nil
+			},
+		},
+	)
+
+	t.Run("time", core.Test(&core.TestConfig{
+		Commands: commands,
+		Cmd:      "scw time -o json",
+		Check:    core.TestCheckGolden(),
+	}))
+
+	t.Run("addr", core.Test(&core.TestConfig{
+		Commands: commands,
+		Cmd:      "scw addr -o json",
+		Check:    core.TestCheckGolden(),
+	}))
+
+	t.Run("buffer", core.Test(&core.TestConfig{
+		Commands: commands,
+		Cmd:      "scw buffer -o json",
+		Check:    core.TestCheckGolden(),
+	}))
+
+	t.Run("union-marker", core.Test(&core.TestConfig{
+		Commands: commands,
+		Cmd:      "scw endpoint -o json",
+		Check:    core.TestCheckGolden(),
 	}))
 }

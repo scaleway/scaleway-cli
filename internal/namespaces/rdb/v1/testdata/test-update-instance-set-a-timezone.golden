@@ -63,7 +63,8 @@ work_mem                         4
     "id": "65012218-d264-479f-9bbc-c2974b7bd257",
     "ip": "51.159.8.181",
     "port": 19874,
-    "name": null
+    "name": null,
+    "load_balancer": {}
   },
   "tags": [],
   "settings": [
@@ -112,7 +113,8 @@ work_mem                         4
       "id": "65012218-d264-479f-9bbc-c2974b7bd257",
       "ip": "51.159.8.181",
       "port": 19874,
-      "name": null
+      "name": null,
+      "load_balancer": {}
     }
   ],
   "logs_policy": {

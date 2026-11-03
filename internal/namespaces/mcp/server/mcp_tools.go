@@ -231,7 +231,11 @@ func (ct *CommandTool) Execute(
 			result = reflect.MakeSlice(v.Type(), 0, 0).Interface()
 		}
 
-		if data, err := json.Marshal(result, jsontext.WithIndent("  ")); err == nil {
+		if data, err := json.Marshal(
+			result,
+			core.OmitEmptyLegacy,
+			jsontext.WithIndent("  "),
+		); err == nil {
 			resultStr = string(data)
 		} else {
 			resultStr = fmt.Sprintf("%v", result)

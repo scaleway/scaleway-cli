@@ -1,6 +1,8 @@
 package core
 
 import (
+	"encoding"
+	jsonv1 "encoding/json"
 	"encoding/json/jsontext"
 	"encoding/json/v2"
 	"errors"
@@ -14,6 +16,12 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
 )
+
+// OmitEmptyLegacy is an encoding/json/v2 option that preserves the legacy
+// (v1) omitempty semantics: a non-nil pointer to an empty struct is not
+// considered empty. This keeps SDK union markers such as
+// "load_balancer": {} or "public_network": {} in the JSON output.
+var OmitEmptyLegacy = jsonv1.OmitEmptyWithLegacySemantics(true)
 
 // Type defines an formatter format.
 type PrinterType string
@@ -290,6 +298,7 @@ func (p *Printer) printJSON(data any) error {
 		json.FormatNilSliceAsNull(true),
 		json.FormatNilMapAsNull(true),
 		jsontext.EscapeForHTML(true),
+		OmitEmptyLegacy,
 	}
 	if p.jsonPretty {
 		opts = append(opts, jsontext.WithIndent("  "))
@@ -318,7 +327,13 @@ func (p *Printer) printJSON(data any) error {
 	return err
 }
 
-// noExportedFields reports whether v (or the value it points to) is a struct with no exported fields.
+var (
+	marshalJSONType = reflect.TypeOf((*json.Marshaler)(nil)).Elem()
+	marshalTextType = reflect.TypeOf((*encoding.TextMarshaler)(nil)).Elem()
+)
+
+// noExportedFields reports whether v (or the value it points to) is a struct
+// with no exported fields and no JSON or text marshaling hook.
 func noExportedFields(v any) bool {
 	rv := reflect.ValueOf(v)
 	for rv.Kind() == reflect.Pointer || rv.Kind() == reflect.Interface {
@@ -335,6 +350,15 @@ func noExportedFields(v any) bool {
 		if f.PkgPath == "" {
 			return false
 		}
+	}
+
+	// encoding/json v2 can still marshal such a struct when a JSON or text
+	// marshaling hook is available (e.g. time.Time, netip.Addr),
+	// so only fall back to {} when no hook exists.
+	if t.Implements(marshalJSONType) || t.Implements(marshalTextType) ||
+		reflect.PointerTo(t).Implements(marshalJSONType) ||
+		reflect.PointerTo(t).Implements(marshalTextType) {
+		return false
 	}
 
 	return true

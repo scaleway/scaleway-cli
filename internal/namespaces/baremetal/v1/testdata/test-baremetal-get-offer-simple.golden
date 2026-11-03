@@ -149,7 +149,8 @@ PrivateBandwidth(Mbit/s):
         "nanos": 0
       },
       "manageable": false,
-      "os_id": "00000000-0000-0000-0000-000000000000"
+      "os_id": "00000000-0000-0000-0000-000000000000",
+      "certification": {}
     },
     {
       "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
@@ -178,7 +179,8 @@ PrivateBandwidth(Mbit/s):
         "nanos": 0
       },
       "manageable": true,
-      "os_id": "00000000-0000-0000-0000-000000000000"
+      "os_id": "00000000-0000-0000-0000-000000000000",
+      "remote_access": {}
     },
     {
       "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",

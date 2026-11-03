@@ -63,7 +63,8 @@ work_mem                         4
     "id": "67f04d0a-5b9e-4bc2-8346-7f271b34d12b",
     "ip": "51.159.74.117",
     "port": 11119,
-    "name": null
+    "name": null,
+    "load_balancer": {}
   },
   "tags": [
     "a"
@@ -110,7 +111,8 @@ work_mem                         4
       "id": "67f04d0a-5b9e-4bc2-8346-7f271b34d12b",
       "ip": "51.159.74.117",
       "port": 11119,
-      "name": null
+      "name": null,
+      "load_balancer": {}
     }
   ],
   "logs_policy": {

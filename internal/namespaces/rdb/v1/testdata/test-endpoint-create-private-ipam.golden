@@ -11,7 +11,8 @@ b15296de-3c6a-4f83-afcc-11b624ec5ffd  172.16.0.2      5432   -     -
       "id": "424247b7-0231-43c5-89e5-9f8f1abc9447",
       "ip": "51.159.114.202",
       "port": 23524,
-      "name": null
+      "name": null,
+      "load_balancer": {}
     },
     {
       "id": "b15296de-3c6a-4f83-afcc-11b624ec5ffd",

@@ -190,7 +190,11 @@ func (cr *CommandResource) Execute(
 	// Format the result
 	var resultStr string
 	if result != nil {
-		if data, err := json.Marshal(result, jsontext.WithIndent("  ")); err == nil {
+		if data, err := json.Marshal(
+			result,
+			core.OmitEmptyLegacy,
+			jsontext.WithIndent("  "),
+		); err == nil {
 			resultStr = string(data)
 		} else {
 			resultStr = fmt.Sprintf("%v", result)

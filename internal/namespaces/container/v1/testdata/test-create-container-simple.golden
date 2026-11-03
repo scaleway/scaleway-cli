@@ -58,7 +58,8 @@ Region                                     fr-par
   "liveness_probe": {
     "failure_threshold": 30,
     "interval": "10.000000000s",
-    "timeout": "1.000000000s"
+    "timeout": "1.000000000s",
+    "tcp": {}
   },
   "startup_probe": null,
   "tags": [],
