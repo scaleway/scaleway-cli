@@ -58,13 +58,6 @@ func SetLayout(t reflect.Type, l Layout) {
 	layouts.Store(t, l)
 }
 
-// Renderer is implemented by types that want full control over their own
-// rendering, bypassing the layout-based default. It acts as an escape hatch
-// for callers.
-type Renderer interface {
-	RenderHuman() (string, error)
-}
-
 // isFormattable reports whether t should be rendered inline by Format rather
 // than as a composite table.
 func isFormattable(t reflect.Type) bool {
@@ -98,23 +91,16 @@ func isFormattable(t reflect.Type) bool {
 
 // Render data into a specific layout.
 func Render(data any, layout Layout) (string, error) {
-	// Dereference pointers until the underlying value is reached, letting any
-	// value in the chain escape through RenderHuman.
+	// Dereference pointers until the underlying value is reached.
 	value := reflect.ValueOf(data)
 	for value.Kind() == reflect.Pointer {
 		if value.IsNil() {
 			return "-", nil
 		}
-		if h, ok := reflect.TypeAssert[Renderer](value); ok {
-			return h.RenderHuman()
-		}
 		value = value.Elem()
 	}
 	if !value.IsValid() {
 		return "-", nil
-	}
-	if h, ok := reflect.TypeAssert[Renderer](value); ok {
-		return h.RenderHuman()
 	}
 	data = value.Interface()
 
@@ -152,15 +138,14 @@ func Render(data any, layout Layout) (string, error) {
 	// own section so the flattening of the main block skips them, keeping
 	// declaration order.
 	case reflect.Struct:
+		// claimed tracks the dotted paths rendered as their own section so
+		// the flattening of the main block skips them, keeping declaration
+		// order. Paths are validated when they are resolved below.
 		claimed := make(map[string]bool, len(sections))
 		for _, section := range sections {
-			if section.Path == "" {
-				continue
+			if section.Path != "" {
+				claimed[section.Path] = true
 			}
-			if _, err := valueAtPath(data, section.Path); err != nil {
-				return "", fmt.Errorf("path %q not found in %T: %w", section.Path, data, err)
-			}
-			claimed[section.Path] = true
 		}
 
 		var b strings.Builder
@@ -187,7 +172,7 @@ func Render(data any, layout Layout) (string, error) {
 		return strings.TrimSpace(b.String()), nil
 	}
 
-	return "", nil
+	return Format(data)
 }
 
 // writeSection data to the given string builder, with a map of the already
@@ -369,10 +354,7 @@ func walk(value reflect.Value, keys string, f func(keys string, value reflect.Va
 	case reflect.Struct:
 		for i := range value.NumField() {
 			name := value.Type().Field(i).Name
-			if keys != "" {
-				name = keys + "." + name
-			}
-			err := walk(value.Field(i), name, f)
+			err := walk(value.Field(i), joinKeys(keys, name), f)
 			if err != nil {
 				return err
 			}
@@ -381,12 +363,8 @@ func walk(value reflect.Value, keys string, f func(keys string, value reflect.Va
 		return nil
 
 	case reflect.Slice, reflect.Array:
-		prefix := keys
-		if keys != "" {
-			prefix += "."
-		}
 		for i := range value.Len() {
-			err := walk(value.Index(i), prefix+strconv.Itoa(i), f)
+			err := walk(value.Index(i), joinKeys(keys, strconv.Itoa(i)), f)
 			if err != nil {
 				return err
 			}
@@ -399,12 +377,8 @@ func walk(value reflect.Value, keys string, f func(keys string, value reflect.Va
 		slices.SortFunc(mapKeys, func(i, j reflect.Value) int {
 			return strings.Compare(i.String(), j.String())
 		})
-		prefix := keys
-		if keys != "" {
-			prefix += "."
-		}
 		for _, mapKey := range mapKeys {
-			err := walk(value.MapIndex(mapKey), prefix+mapKey.String(), f)
+			err := walk(value.MapIndex(mapKey), joinKeys(keys, mapKey.String()), f)
 			if err != nil {
 				return err
 			}
@@ -416,6 +390,15 @@ func walk(value reflect.Value, keys string, f func(keys string, value reflect.Va
 		// Leaf: f already decided whether to descend.
 		return nil
 	}
+}
+
+// joinKeys appends part to keys, dropping the separator at the root.
+func joinKeys(keys, part string) string {
+	if keys == "" {
+		return part
+	}
+
+	return keys + "." + part
 }
 
 // valueAtPath returns the value at the given dotted path, dereferencing
@@ -434,24 +417,26 @@ func valueAtPath(data any, path string) (any, error) {
 		switch value.Kind() {
 		case reflect.Struct:
 			value = value.FieldByName(part)
-			if !value.IsValid() || !value.CanInterface() {
-				return nil, fmt.Errorf("path %q not found in %T", path, data)
-			}
 		case reflect.Slice, reflect.Array:
 			index, err := strconv.Atoi(part)
 			if err != nil || index < 0 || index >= value.Len() {
-				return nil, fmt.Errorf("path %q not found in %T", path, data)
+				return nil, pathNotFound(path, data)
 			}
 			value = value.Index(index)
 		case reflect.Map:
 			value = value.MapIndex(reflect.ValueOf(part))
-			if !value.IsValid() {
-				return nil, fmt.Errorf("path %q not found in %T", path, data)
-			}
 		default:
-			return nil, fmt.Errorf("path %q not found in %T", path, data)
+			return nil, pathNotFound(path, data)
+		}
+		if !value.IsValid() || !value.CanInterface() {
+			return nil, pathNotFound(path, data)
 		}
 	}
 
 	return value.Interface(), nil
+}
+
+// pathNotFound reports a dotted path component that does not resolve in data.
+func pathNotFound(path string, data any) error {
+	return fmt.Errorf("path %q not found in %T", path, data)
 }

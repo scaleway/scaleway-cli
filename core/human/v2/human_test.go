@@ -154,14 +154,6 @@ func init() {
 	})
 }
 
-type RendererStruct struct {
-	Foo string
-}
-
-func (RendererStruct) RenderHuman() (string, error) {
-	return "custom-rendered", nil
-}
-
 func TestRender(t *testing.T) {
 	for _, tc := range []struct {
 		name    string
@@ -247,22 +239,16 @@ Bar  1`,
 Bar  1`,
 		},
 		{
-			name:   "renderer value",
-			data:   RendererStruct{Foo: "ignored"},
+			name:   "formatter value",
+			data:   FormatterStruct{Foo: "ignored"},
 			layout: human.Layout{},
-			want:   "custom-rendered",
+			want:   "cell-formatted",
 		},
 		{
-			name:   "renderer pointer",
-			data:   &RendererStruct{Foo: "ignored"},
+			name:   "scalar",
+			data:   42,
 			layout: human.Layout{},
-			want:   "custom-rendered",
-		},
-		{
-			name:   "renderer nil pointer",
-			data:   (*RendererStruct)(nil),
-			layout: human.Layout{},
-			want:   `-`,
+			want:   "42",
 		},
 		{
 			name: "struct with titled struct section",
