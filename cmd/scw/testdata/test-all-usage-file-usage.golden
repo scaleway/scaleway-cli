@@ -9,6 +9,7 @@ AVAILABLE COMMANDS:
   attachment      Attachment management
   filesystem      Filesystem management
   filesystem-type Filesystem-type management
+  snapshot        Snapshot management
 
 FLAGS:
   -h, --help                help for file
