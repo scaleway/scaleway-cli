@@ -502,6 +502,65 @@ FirstLevelFieldA  aaa
 FirstLevelFieldB  bbb`,
 		},
 		{
+			name: "flat table with fields",
+			data: []DummyStruct{
+				{Foo: "f", Bar: 1},
+				{Foo: "b", Bar: 2},
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Fields: []string{"Bar"}},
+				},
+			},
+			want: `Bar
+1
+2
+`,
+		},
+		{
+			name: "table column with dotted path",
+			data: []RootDummyStruct{
+				{RootA: "a", Sub: NestedDummyStruct{X: "x", Y: "y"}},
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Fields: []string{"RootA", "Sub.X"}},
+				},
+			},
+			want: `RootA  Sub.X
+a      x
+`,
+		},
+		{
+			name: "struct lines filtered",
+			data: RootDummyStruct{
+				RootA: "aaa",
+				Sub:   NestedDummyStruct{X: "one", Y: "two"},
+				RootB: "bbb",
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Fields: []string{"RootA", "Sub.X"}},
+				},
+			},
+			want: `RootA  aaa
+Sub.X  one`,
+		},
+		{
+			name: "selected composite subtree flattens",
+			data: RootSliceDummyStruct{
+				RootA:   "a",
+				Strings: []string{"s1", "s2"},
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Fields: []string{"Strings"}},
+				},
+			},
+			want: `Strings.0  s1
+Strings.1  s2`,
+		},
+		{
 			name: "explicit layout overrides registry",
 			data: RegistryDummyStruct{
 				RegistryField:   "value",

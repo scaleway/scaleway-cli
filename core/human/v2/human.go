@@ -30,6 +30,11 @@ type Section struct {
 
 	// Omittable controls whether the section should be rendered if empty.
 	Omittable bool
+
+	// Fields limits the section to the selected dotted field paths: for a
+	// table it selects the columns, for a struct or map it selects the lines.
+	// Empty means all fields.
+	Fields []string
 }
 
 // ResolveSections return the final list of sections, with any default applied
@@ -214,38 +219,62 @@ func writeSection(b *strings.Builder, section Section, data any, claimed map[str
 	}
 
 	switch value.Kind() {
+	// Slices and arrays renders as table.
 	case reflect.Slice, reflect.Array:
 		itemType := value.Type().Elem()
 		for itemType.Kind() == reflect.Pointer {
 			itemType = itemType.Elem()
 		}
 
+		// Resolve the selected fields. If no field was selected, initialize the list
+		// with the item's fields.
+		fields := section.Fields
+		if len(section.Fields) == 0 {
+			fields = make([]string, itemType.NumField())
+			for fieldIndex := range itemType.NumField() {
+				fields[fieldIndex] = itemType.Field(fieldIndex).Name
+			}
+		}
+
 		w := tabwriter.NewWriter(b, 5, 1, 2, ' ', tabwriter.ANSIGraphicsRendition)
-		for fieldIndex := range itemType.NumField() {
+		for fieldIndex, field := range fields {
 			if fieldIndex != 0 {
 				fmt.Fprint(w, "\t")
 			}
-			fmt.Fprint(w, itemType.Field(fieldIndex).Name)
+			fmt.Fprint(w, field)
 		}
 		fmt.Fprint(w, "\n")
-		var err error
+
 		for index := range value.Len() {
 			item := value.Index(index)
+
+			// Dereference the item's value until it is either nil or not a pointer so
+			// we can access the underlying's fields.
 			for (item.Kind() == reflect.Pointer || item.Kind() == reflect.Interface) && !item.IsNil() {
 				item = item.Elem()
 			}
 			isNil := item.Kind() == reflect.Pointer || item.Kind() == reflect.Interface
-			for fieldIndex := range itemType.NumField() {
+
+			for fieldIndex, field := range fields {
 				if fieldIndex != 0 {
 					fmt.Fprint(w, "\t")
 				}
-				str := "-"
-				if !isNil {
-					str, err = Format(item.Field(fieldIndex).Interface())
-					if err != nil {
-						return false, err
-					}
+
+				if isNil {
+					fmt.Fprint(w, "-")
+					continue
 				}
+
+				cell, err := valueAtPath(item.Interface(), field)
+				if err != nil {
+					return false, err
+				}
+
+				str, err := Format(cell)
+				if err != nil {
+					return false, err
+				}
+
 				fmt.Fprint(w, str)
 			}
 			fmt.Fprint(w, "\n")
@@ -262,6 +291,27 @@ func writeSection(b *strings.Builder, section Section, data any, claimed map[str
 		err := walk(value, "", func(keys string, node reflect.Value) (bool, error) {
 			if claimed[keys] {
 				return false, nil
+			}
+
+			// Field selection keeps only the selected subtrees: a node above
+			// one still descends, a branch without selection is pruned.
+			if len(section.Fields) > 0 && keys != "" {
+				under := false
+				for _, f := range section.Fields {
+					if keys == f || strings.HasPrefix(keys, f+".") {
+						under = true
+						break
+					}
+				}
+				if !under {
+					for _, f := range section.Fields {
+						if strings.HasPrefix(f, keys+".") {
+							return true, nil
+						}
+					}
+
+					return false, nil
+				}
 			}
 
 			// Scalars, formatter structs (and pointers to them) render in place.
