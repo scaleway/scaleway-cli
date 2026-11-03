@@ -7,26 +7,6 @@ Object-storage utils
 Manage S3 buckets creation, deletion and updates to properties like tags, ACL and versioning.
 
 
-### Open the Cockpit Grafana dashboard for this bucket
-
-
-
-**Usage:**
-
-```shell
-scw object bucket cockpit <name ...> [arg=value ...]
-```
-
-
-**Arguments:**
-
-| Name   | Description                                                                 | Argument Specifications |
-|--------|-----------------------------------------------------------------------------|-------------------------|
-| name   | Bucket name                                                                 | Required                |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
-
-
-
 ### Create an S3 bucket
 
 Create an Object Storage Bucket with the S3 protocol. The namespace is shared between all S3 users, so its name must be unique.

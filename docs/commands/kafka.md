@@ -7,26 +7,6 @@ This API allows you to manage your Clusters for Apache Kafka®.
 A Kafka cluster is composed of one or multiple dedicated compute nodes running a single Kafka broker.
 
 
-### Open the Cockpit Grafana dashboard for this cluster
-
-
-
-**Usage:**
-
-```shell
-scw kafka cluster cockpit <cluster-id ...> [arg=value ...]
-```
-
-
-**Arguments:**
-
-| Name       | Description                                                                 | Argument Specifications |
-|------------|-----------------------------------------------------------------------------|-------------------------|
-| cluster-id | Cluster ID                                                                  | Required                |
-| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
-
-
-
 ### Create a Kafka cluster
 
 Create a new Kafka cluster.
