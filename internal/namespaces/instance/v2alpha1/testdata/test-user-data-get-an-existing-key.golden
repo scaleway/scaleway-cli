@@ -1,5 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-true
+Key      happy
+Content  dHJ1ZQ==
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
-{}
+{
+  "key": "happy",
+  "content": "dHJ1ZQ=="
+}

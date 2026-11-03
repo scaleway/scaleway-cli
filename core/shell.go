@@ -253,7 +253,10 @@ func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
 	acr := c.shellAutoComplete(leftWords, currentArg, rightWords)
 
 	suggestions := []prompt.Suggest(nil)
-	rawSuggestions := []string(acr.Suggestions)
+	rawSuggestions := make([]string, 0, len(acr.Suggestions))
+	for _, suggestion := range acr.Suggestions {
+		rawSuggestions = append(rawSuggestions, suggestion.Value)
+	}
 
 	// if first suggestion is an option, all suggestions should be options
 	// we sort them
