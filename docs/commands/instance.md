@@ -529,7 +529,7 @@ scw instance placement-group create [arg=value ...]
 | name         | Name of the placement group                                              | Default: `<generated>`                                                                                                                                                          |
 | policy-type  | Policy type of the placement group                                       | Default: `max_availability`<br />One of: `unknown_policy_type`, `low_latency`, `max_availability`                                                                               |
 | tags.{index} | Tags of the placement group                                              |                                                                                                                                                                                 |
-| zone         | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
+| zone         | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
 **Examples:**
