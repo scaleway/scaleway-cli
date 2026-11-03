@@ -86,6 +86,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("rdb", "log", "prepare").Override(logPrepareBuilder)
 	cmds.Merge(core.NewCommands(
 		logDownloadCommand(),
+		instanceCockpitCommand(),
 	))
 
 	return cmds

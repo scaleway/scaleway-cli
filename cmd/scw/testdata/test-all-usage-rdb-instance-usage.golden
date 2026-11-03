@@ -11,6 +11,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   clone             Clone a Database Instance
+  cockpit           Open the Cockpit Grafana dashboard for this database instance
   connect           Connect to an instance using locally installed CLI
   create            Create a Database Instance
   delete            Delete a Database Instance

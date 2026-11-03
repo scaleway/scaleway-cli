@@ -6,6 +6,7 @@ USAGE:
   scw lb lb <command>
 
 AVAILABLE COMMANDS:
+  cockpit     Open the Cockpit Grafana dashboard for this load-balancer
   create      Create a Load Balancer
   delete      Delete a Load Balancer
   get         Get a Load Balancer

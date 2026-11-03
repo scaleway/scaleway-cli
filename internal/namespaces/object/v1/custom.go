@@ -81,5 +81,7 @@ func GetCommands() *core.Commands {
 		cmds.Add(cmdBucketPolicyGet)
 	}
 
+	cmds.Add(bucketCockpitCommand())
+
 	return cmds
 }

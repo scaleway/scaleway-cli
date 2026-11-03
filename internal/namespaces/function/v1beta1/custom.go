@@ -28,5 +28,7 @@ func GetCommands() *core.Commands {
 		cmds.Add(cmdDeploy)
 	}
 
+	cmds.Add(functionCockpitCommand())
+
 	return cmds
 }
