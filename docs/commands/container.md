@@ -7,6 +7,26 @@ This API allows you to manage your Serverless Containers.
 Container management commands.
 
 
+### Open the Cockpit Grafana dashboard for this container
+
+
+
+**Usage:**
+
+```shell
+scw container container cockpit <container-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name         | Description                                                                 | Argument Specifications |
+|--------------|-----------------------------------------------------------------------------|-------------------------|
+| container-id | Container ID                                                                | Required                |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Create a new container in a namespace.
 
 Name must be unique inside the given namespace.

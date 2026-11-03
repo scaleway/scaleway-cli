@@ -838,6 +838,26 @@ scw lb ip update <ip-id ...> [arg=value ...]
 Load balancer management commands.
 
 
+### Open the Cockpit Grafana dashboard for this load-balancer
+
+
+
+**Usage:**
+
+```shell
+scw lb lb cockpit <lb-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name  | Description                                                             | Argument Specifications |
+|-------|-------------------------------------------------------------------------|-------------------------|
+| lb-id | Load Balancer ID                                                        | Required                |
+| zone  | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`     |
+
+
+
 ### Create a Load Balancer
 
 Create a new Load Balancer. Note that the Load Balancer will be created without frontends or backends; these must be created separately via the dedicated endpoints.

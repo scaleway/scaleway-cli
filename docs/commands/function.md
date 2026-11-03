@@ -232,6 +232,26 @@ scw function domain list [arg=value ...]
 Function management commands.
 
 
+### Open the Cockpit Grafana dashboard for this function
+
+
+
+**Usage:**
+
+```shell
+scw function function cockpit <function-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name        | Description                                                                 | Argument Specifications |
+|-------------|-----------------------------------------------------------------------------|-------------------------|
+| function-id | Function ID                                                                 | Required                |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Create a new function
 
 Create a new function in the specified region for a specified Organization or Project.

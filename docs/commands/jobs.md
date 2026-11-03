@@ -7,6 +7,26 @@ This API allows you to manage your Serverless Jobs.
 
 
 
+### Open the Cockpit Grafana dashboard for this job definition
+
+
+
+**Usage:**
+
+```shell
+scw jobs definition cockpit <job-definition-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name              | Description                                                                 | Argument Specifications |
+|-------------------|-----------------------------------------------------------------------------|-------------------------|
+| job-definition-id | Job Definition ID                                                           | Required                |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Create a new job definition in a specified Project
 
 Create a new job definition in a specified Project.

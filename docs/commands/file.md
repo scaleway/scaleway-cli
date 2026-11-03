@@ -38,7 +38,7 @@ Filesystem management.
 
 ### Create a new filesystem
 
-To create a new filesystem, you must specify a name, a size, and a project ID.
+To create a new filesystem, you must specify a name, a project ID, and either a size (`from_empty`) or a source snapshot (`from_snapshot`).
 
 **Usage:**
 
@@ -49,14 +49,17 @@ scw file filesystem create [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                                 | Argument Specifications                 |
-|--------------|-----------------------------------------------------------------------------|-----------------------------------------|
-| name         | Name of the filesystem                                                      | Required                                |
-| project-id   | Project ID to use. If none is passed the default project ID will be used    |                                         |
-| size         | Filesystem size in bytes, with a granularity in GB (10^9 bytes).            | Required                                |
-| type         | Type of the filesystem                                                      |                                         |
-| tags.{index} | List of tags assigned to the filesystem                                     |                                         |
-| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+| Name                      | Description                                                                 | Argument Specifications                 |
+|---------------------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| name                      | Name of the filesystem                                                      | Required                                |
+| project-id                | Project ID to use. If none is passed the default project ID will be used    |                                         |
+| ~~size~~                  | Deprecated: use `from_empty.size` instead.                                  | Deprecated                              |
+| from-empty.size           | Filesystem size in bytes, with a granularity in GB (10^9 bytes).            |                                         |
+| from-snapshot.size        | Filesystem size in bytes, with a granularity in GB (10^9 bytes).            |                                         |
+| from-snapshot.snapshot-id | Source snapshot from which the filesystem will be created                   |                                         |
+| type                      | Type of the filesystem                                                      |                                         |
+| tags.{index}              | List of tags assigned to the filesystem                                     |                                         |
+| region                    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -170,6 +173,20 @@ scw file filesystem-type list [arg=value ...]
 | Name   | Description                                                                 | Argument Specifications                        |
 |--------|-----------------------------------------------------------------------------|------------------------------------------------|
 | region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
+
+
+
+## Snapshot management
+
+Snapshot management.
+
+Snapshot management.
+
+**Usage:**
+
+```shell
+scw file snapshot
+```
 
 
 
