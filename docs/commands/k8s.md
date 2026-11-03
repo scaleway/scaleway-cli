@@ -99,6 +99,26 @@ A cluster is a fully managed Kubernetes cluster
 It is composed of different pools, each pool containing the same kind of nodes.
 
 
+### Open the Cockpit Grafana dashboard for this cluster
+
+
+
+**Usage:**
+
+```shell
+scw k8s cluster cockpit <cluster-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| cluster-id | Cluster ID                                                                  | Required                |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Connect to a cluster using k9s, or a custom command via template
 
 Connect to a Kubernetes Kapsule cluster.

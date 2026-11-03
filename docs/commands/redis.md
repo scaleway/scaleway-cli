@@ -119,6 +119,26 @@ scw redis acl update <acl-id ...> [arg=value ...]
 A Redis™ Database Instance, also known as a Redis™ cluster, consists of either one standalone node or a cluster composed of three to six nodes. The cluster uses partitioning to split the keyspace. Each partition is replicated and can be reassigned or elected as the primary when necessary. Standalone mode creates a standalone database provisioned on a single node.
 
 
+### Open the Cockpit Grafana dashboard for this cluster
+
+
+
+**Usage:**
+
+```shell
+scw redis cluster cockpit <cluster-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                             | Argument Specifications |
+|------------|-------------------------------------------------------------------------|-------------------------|
+| cluster-id | Cluster ID                                                              | Required                |
+| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`     |
+
+
+
 ### Connect to a Redis cluster using locally installed redis-cli, or a custom command via template
 
 Connect to a Redis cluster using locally installed redis-cli.

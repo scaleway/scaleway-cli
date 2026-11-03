@@ -28,6 +28,26 @@ scw secret secret add-owner <secret-id ...> [arg=value ...]
 
 
 
+### Open the Cockpit Grafana dashboard for this secret
+
+
+
+**Usage:**
+
+```shell
+scw secret secret cockpit <secret-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name      | Description                                                                 | Argument Specifications |
+|-----------|-----------------------------------------------------------------------------|-------------------------|
+| secret-id | Secret ID                                                                   | Required                |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Create a secret
 
 Create a secret in a given region specified by the `region` parameter.

@@ -704,6 +704,26 @@ scw rdb instance clone <instance-id ...> [arg=value ...]
 
 
 
+### Open the Cockpit Grafana dashboard for this database instance
+
+
+
+**Usage:**
+
+```shell
+scw rdb instance cockpit <instance-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name        | Description                                                                 | Argument Specifications |
+|-------------|-----------------------------------------------------------------------------|-------------------------|
+| instance-id | Database Instance ID                                                        | Required                |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Connect to an instance using locally installed CLI
 
 Connect to an instance using locally installed CLI such as psql or mysql.
