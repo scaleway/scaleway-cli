@@ -62,6 +62,16 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("iam", "api-key", "list").Override(iamApiKeyListCustomBuilder)
 
+	cmds.MustFind("iam", "application", "list").Override(core.ListViewBuilder("ID", "Name", "Description", "CreatedAt", "UpdatedAt", "OrganizationID", "Editable", "Deletable", "Managed", "NbAPIKeys", "Tags"))
+	cmds.MustFind("iam", "log", "list").Override(core.ListViewBuilder("ID", "CreatedAt", "IP", "UserAgent", "Action", "BearerID", "OrganizationID", "ResourceType", "ResourceID"))
+	cmds.MustFind("iam", "permission-set", "list").Override(core.ListViewBuilder("ID", "Name", "ScopeType", "Description", "Categories"))
+	cmds.MustFind("iam", "policy", "list").Override(core.ListViewBuilder("ID", "Name", "Description", "OrganizationID", "CreatedAt", "UpdatedAt", "Editable", "Deletable", "Managed", "NbRules", "NbScopes", "NbPermissionSets", "Tags", "UserID", "GroupID", "ApplicationID", "NoPrincipal"))
+	cmds.MustFind("iam", "user", "list").Override(core.ListViewBuilder("ID", "Email", "Username", "FirstName", "LastName", "PhoneNumber", "Locale", "CreatedAt", "UpdatedAt", "OrganizationID", "Deletable", "LastLoginAt", "Type", "TwoFactorEnabled", "Status", "Mfa", "AccountRootUserID", "Tags", "Locked"))
+
+	cmds.MustFind("iam", "jwt", "list").Override(core.ListViewBuilder("Jti", "IssuerID", "AudienceID", "CreatedAt", "UpdatedAt", "ExpiresAt", "IP", "UserAgent"))
+	cmds.MustFind("iam", "rule", "list").Override(core.ListViewBuilder("ID", "PermissionSetNames", "PermissionSetsScopeType", "Condition", "ProjectIDs", "OrganizationID", "AccountRootUserID", "Deny"))
+	cmds.MustFind("iam", "scim-tokens", "list").Override(core.ListViewBuilder("ID", "ScimID", "CreatedAt", "ExpiresAt"))
+
 	return cmds
 }
 

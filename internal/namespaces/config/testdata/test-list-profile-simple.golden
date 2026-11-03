@@ -1,0 +1,116 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+NAME                  DEFAULT ZONE  DEFAULT REGION  DEFAULT PROJECT ID                    DEFAULT ORGANIZATION ID               APIURL                                          S3 ENDPOINT  S3 USE PATH STYLE
+admin                 fr-par-1      fr-par          951df375-e094-4d26-97c1-ba548eeb9c42  951df375-e094-4d26-97c1-ba548eeb9c42  https://agw.prd.fr-par.internal.scaleway.com    -            -
+agw                   fr-par-1      fr-par          32f707c5-df07-43c7-8b57-6e09b687dd03  32f707c5-df07-43c7-8b57-6e09b687dd03  -                                               -            -
+cli                   fr-par-1      fr-par          5ebc0159-7cb7-406c-9521-9347d1987fb2  5ebc0159-7cb7-406c-9521-9347d1987fb2  -                                               -            -
+clix_interne          -             -               6c048747-f4b0-4821-8b36-643dd0e58a0b  3dfab553-de8a-46f5-b2fb-6d64c9dfb058  https://internal-api.agwx.fr-par.0x55.fr        -            -
+devtools              fr-par-1      fr-par          c0d61be5-d02f-48fa-82ba-2b2f605aa6d6  1674d6de-aab2-49ce-9038-1f24713998f2  -                                               -            -
+devtools_staging      fr-srr-1      fr-srr          61affd9e-c15f-4cde-9a44-61132443b81f  61affd9e-c15f-4cde-9a44-61132443b81f  https://agw.stg.fr-par-2.internal.scaleway.com  -            -
+hashicorp             fr-par-1      fr-par          105bdce1-64c0-48ab-899d-868455867ecf  105bdce1-64c0-48ab-899d-868455867ecf  -                                               -            -
+lz-scw-scaleway-clix  fr-par-4      fr-par          6c048747-f4b0-4821-8b36-643dd0e58a0b  3dfab553-de8a-46f5-b2fb-6d64c9dfb058  https://internal-api.agwx.fr-par.0x55.fr        -            -
+lz-scw-scaleway-tfpx  fr-par-4      fr-par          73595739-3281-4046-b723-6d41810f1a38  3dfab553-de8a-46f5-b2fb-6d64c9dfb058  https://internal-api.agwx.fr-par.0x55.fr        -            -
+staging               fr-srr-1      fr-srr          951df375-e094-4d26-97c1-ba548eeb9c42  951df375-e094-4d26-97c1-ba548eeb9c42  https://agw.stg.fr-par-2.internal.scaleway.com  -            -
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "Name": "admin",
+    "DefaultZone": "fr-par-1",
+    "DefaultRegion": "fr-par",
+    "DefaultProjectID": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "DefaultOrganizationID": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "APIURL": "https://agw.prd.fr-par.internal.scaleway.com",
+    "S3Endpoint": null,
+    "S3UsePathStyle": null
+  },
+  {
+    "Name": "agw",
+    "DefaultZone": "fr-par-1",
+    "DefaultRegion": "fr-par",
+    "DefaultProjectID": "32f707c5-df07-43c7-8b57-6e09b687dd03",
+    "DefaultOrganizationID": "32f707c5-df07-43c7-8b57-6e09b687dd03",
+    "APIURL": null,
+    "S3Endpoint": null,
+    "S3UsePathStyle": null
+  },
+  {
+    "Name": "cli",
+    "DefaultZone": "fr-par-1",
+    "DefaultRegion": "fr-par",
+    "DefaultProjectID": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+    "DefaultOrganizationID": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+    "APIURL": null,
+    "S3Endpoint": null,
+    "S3UsePathStyle": null
+  },
+  {
+    "Name": "clix_interne",
+    "DefaultZone": null,
+    "DefaultRegion": null,
+    "DefaultProjectID": "6c048747-f4b0-4821-8b36-643dd0e58a0b",
+    "DefaultOrganizationID": "3dfab553-de8a-46f5-b2fb-6d64c9dfb058",
+    "APIURL": "https://internal-api.agwx.fr-par.0x55.fr",
+    "S3Endpoint": null,
+    "S3UsePathStyle": null
+  },
+  {
+    "Name": "devtools",
+    "DefaultZone": "fr-par-1",
+    "DefaultRegion": "fr-par",
+    "DefaultProjectID": "c0d61be5-d02f-48fa-82ba-2b2f605aa6d6",
+    "DefaultOrganizationID": "1674d6de-aab2-49ce-9038-1f24713998f2",
+    "APIURL": null,
+    "S3Endpoint": null,
+    "S3UsePathStyle": null
+  },
+  {
+    "Name": "devtools_staging",
+    "DefaultZone": "fr-srr-1",
+    "DefaultRegion": "fr-srr",
+    "DefaultProjectID": "61affd9e-c15f-4cde-9a44-61132443b81f",
+    "DefaultOrganizationID": "61affd9e-c15f-4cde-9a44-61132443b81f",
+    "APIURL": "https://agw.stg.fr-par-2.internal.scaleway.com",
+    "S3Endpoint": null,
+    "S3UsePathStyle": null
+  },
+  {
+    "Name": "hashicorp",
+    "DefaultZone": "fr-par-1",
+    "DefaultRegion": "fr-par",
+    "DefaultProjectID": "105bdce1-64c0-48ab-899d-868455867ecf",
+    "DefaultOrganizationID": "105bdce1-64c0-48ab-899d-868455867ecf",
+    "APIURL": null,
+    "S3Endpoint": null,
+    "S3UsePathStyle": null
+  },
+  {
+    "Name": "lz-scw-scaleway-clix",
+    "DefaultZone": "fr-par-4",
+    "DefaultRegion": "fr-par",
+    "DefaultProjectID": "6c048747-f4b0-4821-8b36-643dd0e58a0b",
+    "DefaultOrganizationID": "3dfab553-de8a-46f5-b2fb-6d64c9dfb058",
+    "APIURL": "https://internal-api.agwx.fr-par.0x55.fr",
+    "S3Endpoint": null,
+    "S3UsePathStyle": null
+  },
+  {
+    "Name": "lz-scw-scaleway-tfpx",
+    "DefaultZone": "fr-par-4",
+    "DefaultRegion": "fr-par",
+    "DefaultProjectID": "73595739-3281-4046-b723-6d41810f1a38",
+    "DefaultOrganizationID": "3dfab553-de8a-46f5-b2fb-6d64c9dfb058",
+    "APIURL": "https://internal-api.agwx.fr-par.0x55.fr",
+    "S3Endpoint": null,
+    "S3UsePathStyle": null
+  },
+  {
+    "Name": "staging",
+    "DefaultZone": "fr-srr-1",
+    "DefaultRegion": "fr-srr",
+    "DefaultProjectID": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "DefaultOrganizationID": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "APIURL": "https://agw.stg.fr-par-2.internal.scaleway.com",
+    "S3Endpoint": null,
+    "S3UsePathStyle": null
+  }
+]

@@ -9,5 +9,7 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("partner").Groups = []string{"security"}
 
+	cmds.MustFind("partner", "organization", "list").Override(core.ListViewBuilder("ID", "Name", "Email", "Status", "OwnerFirstname", "OwnerLastname", "CreatedAt", "PhoneNumber", "CustomerID", "LockReasonMessage", "LockedBy", "LockedAt", "PictureLink", "Comment"))
+
 	return cmds
 }

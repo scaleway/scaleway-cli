@@ -70,6 +70,10 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("k8s", "version", "list").Override(versionListBuilder)
 
+	cmds.MustFind("k8s", "cluster-type", "list").Override(core.ListViewBuilder("Name", "Availability", "MaxNodes", "CommitmentDelay", "SLA", "Resiliency", "Memory", "Dedicated", "AuditLogsSupported", "MaxEtcdSize", "Region"))
+
+	cmds.MustFind("k8s", "acl", "list").Override(core.ListViewBuilder("ID", "IP", "ScalewayRanges", "Description", "Region"))
+
 	return cmds
 }
 

@@ -5,7 +5,9 @@ import "github.com/scaleway/scaleway-cli/v2/core"
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
-	cmds.MustFind("product-catalog", "product", "list").Override(productListBuilder)
+	listCmd := cmds.MustFind("product-catalog", "product", "list")
+	listCmd.Override(productListBuilder)
+	listCmd.Override(core.ListViewBuilder("Sku", "ServiceCategory", "ProductCategory", "Product", "Variant", "Description", "Status", "EndOfLifeAt", "EndOfGrowthAt", "EndOfSaleAt", "Badges"))
 
 	return cmds
 }

@@ -23,5 +23,9 @@ func GetCommands() *core.Commands {
 
 	cmds.Add(listServerlessModels())
 
+	cmds.MustFind("inference", "deployment", "list").Override(core.ListViewBuilder("ID", "Name", "ProjectID", "Status", "Tags", "NodeTypeName", "Endpoints", "Size", "MinSize", "MaxSize", "ErrorMessage", "ModelID", "ModelName", "CreatedAt", "UpdatedAt", "Region"))
+	cmds.MustFind("inference", "model", "list").Override(core.ListViewBuilder("ID", "Name", "ProjectID", "Tags", "Status", "Description", "ErrorMessage", "HasEula", "CreatedAt", "UpdatedAt", "Region", "NodesSupport", "ParameterSizeBits", "SizeBytes"))
+	cmds.MustFind("inference", "node-type", "list").Override(core.ListViewBuilder("Name", "StockStatus", "Description", "Vcpus", "Memory", "Vram", "Disabled", "Beta", "CreatedAt", "UpdatedAt", "Gpus", "Region"))
+
 	return cmds
 }

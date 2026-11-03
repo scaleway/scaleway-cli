@@ -42,5 +42,11 @@ func GetCommands() *core.Commands {
 
 	cmds.MergeAll(baremetalV3.GetCommands())
 
+	cmds.MustFind("baremetal", "options", "list").Override(core.ListViewBuilder("ID", "Name", "Manageable"))
+	cmds.MustFind("baremetal", "os", "list").Override(core.ListViewBuilder("ID", "Name", "Version", "LogoURL", "Enabled", "LicenseRequired", "Allowed", "CustomPartitioningSupported", "CloudInitSupported", "CloudInitVersion", "NetworkBootPersistentEditable", "Zone"))
+	cmds.MustFind("baremetal", "private-network", "list").Override(core.ListViewBuilder("ID", "ProjectID", "ServerID", "PrivateNetworkID", "Vlan", "Status", "CreatedAt", "UpdatedAt", "IpamIPIDs"))
+
+	cmds.MustFind("baremetal", "settings", "list").Override(core.ListViewBuilder("ID", "Type", "ProjectID", "Enabled"))
+
 	return cmds
 }

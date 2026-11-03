@@ -179,7 +179,9 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(instance.CreateSnapshotResponse{}, marshallNestedField("Snapshot"))
 
 	cmds.MustFind("instance", "snapshot", "create").Override(snapshotCreateBuilder)
-	cmds.MustFind("instance", "snapshot", "list").Override(snapshotListBuilder)
+	listCmd := cmds.MustFind("instance", "snapshot", "list")
+	listCmd.Override(snapshotListBuilder)
+	listCmd.Override(core.ListViewBuilder("ID", "Name", "Organization", "Project", "Tags", "VolumeType", "Size", "State", "CreationDate", "ModificationDate", "Zone", "ErrorReason"))
 	cmds.MustFind("instance", "snapshot", "update").Override(snapshotUpdateBuilder)
 	cmds.Merge(core.NewCommands(
 		snapshotWaitCommand(),
@@ -253,7 +255,10 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "user-data", "delete").Override(userDataDeleteBuilder)
 	cmds.MustFind("instance", "user-data", "set").Override(userDataSetBuilder)
 	cmds.MustFind("instance", "user-data", "get").Override(userDataGetBuilder)
-	cmds.MustFind("instance", "user-data", "list").Override(userDataListBuilder)
+	userDataListCmd := cmds.MustFind("instance", "user-data", "list")
+	userDataListCmd.Override(userDataListBuilder)
+	userDataListCmd.Override(core.ListViewBuilder("Key", "Value"))
+	cmds.MustFind("instance", "private-nic", "list").Override(core.ListViewBuilder("ID", "ServerID", "PrivateNetworkID", "MacAddress", "State", "Tags", "CreationDate", "Zone", "IpamIPIDs"))
 
 	//
 	// Private NICs

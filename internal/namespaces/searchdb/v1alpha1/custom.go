@@ -84,5 +84,11 @@ func GetCommands() *core.Commands {
 		human.EnumMarshalFunc(nodeStatusMarshalSpecs),
 	)
 
+	cmds.MustFind("searchdb", "deployment", "list").Override(core.ListViewBuilder("ID", "Name", "OrganizationID", "ProjectID", "Status", "Tags", "NodeAmount", "NodeCount", "NodeType", "Endpoints", "CreatedAt", "UpdatedAt", "Version", "Region"))
+	cmds.MustFind("searchdb", "node-types", "list").Override(core.ListViewBuilder("StockStatus", "Name", "Description", "Vcpus", "MemoryBytes", "Disabled", "Beta", "InstanceRange", "AvailableVolumeTypes", "Region"))
+	cmds.MustFind("searchdb", "versions", "list").Override(core.ListViewBuilder("Version", "EndOfLife", "Disabled", "Beta", "Region"))
+
+	cmds.MustFind("searchdb", "user", "list").Override(core.ListViewBuilder("Username", "DeploymentID", "Region"))
+
 	return cmds
 }

@@ -16,6 +16,8 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("keymanager", "key", "decrypt").Override(cipherDecrypt)
 	cmds.MustFind("keymanager", "key", "encrypt").Override(plaintextEncrypt)
 
+	cmds.MustFind("keymanager", "key", "list").Override(core.ListViewBuilder("ID", "ProjectID", "Name", "State", "RotationCount", "CreatedAt", "UpdatedAt", "Protected", "Locked", "Description", "Tags", "RotatedAt", "Origin", "DeletionRequestedAt", "ProtectionLevel", "Region"))
+
 	return cmds
 }
 

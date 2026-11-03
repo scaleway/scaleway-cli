@@ -18,5 +18,8 @@ func GetCommands() *core.Commands {
 
 	marketplaceCommands.MustFind("marketplace").Groups = []string{"compute"}
 
+	marketplaceCommands.MustFind("marketplace", "category", "list").Override(core.ListViewBuilder("ID", "Name", "Description"))
+	marketplaceCommands.MustFind("marketplace", "version", "list").Override(core.ListViewBuilder("ID", "Name", "CreatedAt", "UpdatedAt", "PublishedAt"))
+
 	return marketplaceCommands
 }

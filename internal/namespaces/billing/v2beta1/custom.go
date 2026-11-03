@@ -28,5 +28,9 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("billing", "invoice", "export").Override(invoiceExportBuilder)
 	cmds.MustFind("billing", "charge", "list").Override(chargeListBuilder)
 
+	cmds.MustFind("billing", "consumption", "list").Override(core.ListViewBuilder("Value", "ProductName", "ResourceName", "Sku", "ProjectID", "CategoryName", "Unit", "BilledQuantity", "ConsumerID", "ProjectName", "OrganizationName"))
+	cmds.MustFind("billing", "discount", "list").Override(core.ListViewBuilder("ID", "CreationDate", "OrganizationID", "Description", "Value", "ValueUsed", "ValueRemaining", "Mode", "StartDate", "StopDate", "Filters"))
+	cmds.MustFind("billing", "invoice", "list").Override(core.ListViewBuilder("ID", "OrganizationID", "OrganizationName", "StartDate", "StopDate", "BillingPeriod", "IssuedDate", "DueDate", "TotalUntaxed", "TotalTaxed", "TotalTax", "TotalDiscount", "TotalUndiscount", "Type", "State", "Number", "SellerName"))
+
 	return cmds
 }

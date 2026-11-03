@@ -62,5 +62,9 @@ func GetCommands() *core.Commands {
 		human.EnumMarshalFunc(sdbSQLDatabaseBackupStatusMarshalSpecs),
 	)
 
+	cmds.MustFind("sdb-sql", "database", "list").Override(core.ListViewBuilder("ID", "Name", "Status", "Endpoint", "OrganizationID", "ProjectID", "Region", "CreatedAt", "CPUMin", "CPUMax", "CPUCurrent", "Started", "EngineMajorVersion"))
+
+	cmds.MustFind("sdb-sql", "backup", "list").Override(core.ListViewBuilder("ID", "Status", "OrganizationID", "ProjectID", "DatabaseID", "CreatedAt", "ExpiresAt", "Size", "DbSize", "DownloadURL", "DownloadURLExpiresAt", "Region"))
+
 	return cmds
 }

@@ -123,7 +123,9 @@ func GetCommands() *core.Commands {
 	)
 	human.RegisterMarshalerFunc([]*customServerType{}, serverTypesListMarshalerFunc)
 
-	cmds.MustFind("instance", "server-type", "list").Override(serverTypeListBuilder)
+	listCmd := cmds.MustFind("instance", "server-type", "list")
+	listCmd.Override(serverTypeListBuilder)
+	listCmd.Override(core.ListViewBuilder("Name", "HourlyPrice", "SupportedStorage", "CPU", "GPU", "RAM", "Arch", "Bandwidth", "Availability", "MaxFileSystems"))
 
 	//
 	// Get-Compatible-Types

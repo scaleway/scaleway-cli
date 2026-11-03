@@ -17,9 +17,15 @@ func GetCommands() *core.Commands {
 	commands.MustFind("autoscaling", "group", "get").Override(GroupGetBuilder)
 	commands.MustFind("autoscaling", "group", "delete").Override(GroupDeleteBuilder)
 
-	commands.MustFind("autoscaling", "alerts", "list").Override(AlertsListBuilder)
-	commands.MustFind("autoscaling", "logs", "list").Override(LogsListBuilder)
-	commands.MustFind("autoscaling", "servers", "list").Override(ServersListBuilder)
+	listCmd := commands.MustFind("autoscaling", "alerts", "list")
+	listCmd.Override(AlertsListBuilder)
+	listCmd.Override(core.ListViewBuilder("Type", "OpenedAt", "ClosedAt", "GroupID", "FailingQuotas"))
+	logsListCmd := commands.MustFind("autoscaling", "logs", "list")
+	logsListCmd.Override(LogsListBuilder)
+	logsListCmd.Override(core.ListViewBuilder("Timestamp", "Level", "Message"))
+	serversListCmd := commands.MustFind("autoscaling", "servers", "list")
+	serversListCmd.Override(ServersListBuilder)
+	serversListCmd.Override(core.ListViewBuilder("ServerID"))
 
 	return commands
 }

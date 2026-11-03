@@ -13,5 +13,7 @@ func GetCommands() *core.Commands {
 		listResources(),
 	))
 
+	commands.MustFind("account", "project", "list").Override(core.ListViewBuilder("ID", "Name", "OrganizationID", "CreatedAt", "UpdatedAt", "Description", "Status"))
+
 	return commands
 }

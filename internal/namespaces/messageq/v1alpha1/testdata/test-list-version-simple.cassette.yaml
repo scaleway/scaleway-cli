@@ -1,0 +1,30 @@
+---
+version: 2
+interactions:
+- id: 0
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 0
+    host: api.scaleway.com
+    headers:
+      User-Agent:
+      - "scaleway-sdk-go/v1.39.1-0.20261102104634-52f2d4fed62d (go1.27.3; darwin; arm64) cli-e2e-test"
+    url: https://api.scaleway.com/messageq/v1alpha1/regions/fr-par/versions?order_by=version_asc&page=1
+    method: GET
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 2
+    body: "{}"
+    headers:
+      Content-Length:
+      - "2"
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 04 Nov 2025 10:25:40 GMT
+    status: 200 OK
+    code: 200

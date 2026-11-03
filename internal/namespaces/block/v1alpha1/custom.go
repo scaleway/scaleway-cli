@@ -66,5 +66,9 @@ func GetCommands() *core.Commands {
 		human.EnumMarshalFunc(referenceStatusMarshalSpecs),
 	)
 
+	cmds.MustFind("block", "snapshot", "list").Override(core.ListViewBuilder("ID", "Name", "Size", "ProjectID", "CreatedAt", "UpdatedAt", "References", "Status", "Tags", "Zone", "Class"))
+	cmds.MustFind("block", "volume", "list").Override(core.ListViewBuilder("ID", "Name", "Type", "Size", "ProjectID", "CreatedAt", "UpdatedAt", "References", "ParentSnapshotID", "Status", "Tags", "Zone", "LastDetachedAt"))
+	cmds.MustFind("block", "volume-type", "list").Override(core.ListViewBuilder("Type", "Pricing", "SnapshotPricing"))
+
 	return cmds
 }
