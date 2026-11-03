@@ -10,6 +10,8 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/internal/tabwriter"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 // Layout describes the structure of the rendered data. Sections define
@@ -62,9 +64,16 @@ func (f Field) getLabel() string {
 		return f.Label
 	}
 
-	label := strings.ReplaceAll(f.Path, ".", " ")
+	return deriveLabel(f.Path)
+}
+
+// deriveLabel renders a path as an ALL-CAPS column header, mirroring v1's
+// getDefaultFieldsOpt label derivation.
+func deriveLabel(path string) string {
+	label := strings.ReplaceAll(path, ".", " ")
 	label = strcase.ToBashArg(label)
 	label = strings.ReplaceAll(label, "-", " ")
+
 	return strings.ToUpper(label)
 }
 
@@ -287,6 +296,9 @@ func (s Section) Resolve(data any, claimed map[string]bool) (Block, error) {
 	}
 
 	block := Block{Title: s.Title}
+	if block.Title == "" && s.Path != "" {
+		block.Title = deriveTitle(s.Path)
+	}
 
 	if !value.IsValid() || isFormattable(value.Type()) {
 		str, err := Format(data)
@@ -512,6 +524,14 @@ func collectFields(t reflect.Type, prefix string, res *[]string) {
 	if prefix != "" {
 		*res = append(*res, prefix)
 	}
+}
+
+// deriveTitle renders a section's dotted path as a titled section header,
+// mirroring v1's marshalSection title derivation.
+func deriveTitle(path string) string {
+	title := strings.ReplaceAll(strcase.ToBashArg(path), "-", " ")
+
+	return cases.Title(language.English).String(strings.ReplaceAll(title, ".", " - "))
 }
 
 // Draw renders the block to text: an optional title line followed by its

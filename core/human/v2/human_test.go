@@ -435,6 +435,42 @@ func TestLayout_Resolve(t *testing.T) {
 			},
 		},
 		{
+			name: "section derives title from path",
+			data: RootDummyStruct{
+				RootA: "aaa",
+				RootB: "bbb",
+				Sub:   NestedDummyStruct{X: "one", Y: "two"},
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Path: "RootB"}, // no Title: derived like v1
+				},
+			},
+			// Layout.ResolveSections prepends the main block; only the selected
+			// path is claimed, the rest flattens into it.
+			want: []human.Block{
+				{Rows: [][]string{{"RootA", "aaa"}, {"Sub.X", "one"}, {"Sub.Y", "two"}}},
+				{Title: "Root B", Rows: [][]string{{"bbb"}}},
+			},
+		},
+		{
+			name: "section derives dotted title from path",
+			data: RootDummyStruct{
+				RootA: "aaa",
+				RootB: "bbb",
+				Sub:   NestedDummyStruct{X: "one", Y: "two"},
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Path: "Sub.X"},
+				},
+			},
+			want: []human.Block{
+				{Rows: [][]string{{"RootA", "aaa"}, {"Sub.Y", "two"}, {"RootB", "bbb"}}},
+				{Title: "Sub - X", Rows: [][]string{{"one"}}},
+			},
+		},
+		{
 			name: "nested formatter struct rendered inline",
 			data: NestedFormatterDummyStruct{
 				RootA: "aaa",
