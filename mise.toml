@@ -323,6 +323,18 @@ gotestsum "${gotestsum_args[@]}" -- "${test_args[@]}"
 # markdown-link-check -c ./.markdownlinkcheck.json -q ./docs
 # '''
 
+[tasks.'check:doc']
+description = "check that the documentation is up to date"
+depends = ["fmt:doc"]
+run = '''
+status=$(git status --porcelain -- ./docs)
+if [ -n "$status" ]; then
+  echo "error: ./docs is out of date, run 'mise run gen:doc' and commit the generated files"
+  echo "$status"
+  exit 1
+fi
+'''
+
 [tasks.'check:go-mod-tidy']
 description = "check that go.mod and go.sum are tidy"
 run = '''
