@@ -7,14 +7,13 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	domain "github.com/scaleway/scaleway-cli/v2/internal/namespaces/domain/v2beta1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	"github.com/stretchr/testify/require"
 )
 
-// Private DNS zone used when recording cassettes (must have default name servers).
-const testRecordImportDNSZone = "3d910824-710e-4ece-92ad-3a96f59fe943.b1972fa8-5349-4d37-8777-f4f205bbd322.privatedns"
-
 func Test_RecordImport(t *testing.T) {
 	cmds := domain.GetCommands()
+	cmds.Merge(vpc.GetCommands())
 
 	t.Run("DryRun", core.Test(&core.TestConfig{
 		Commands: cmds,
@@ -28,8 +27,8 @@ func Test_RecordImport(t *testing.T) {
 
 			return nil
 		},
-		Cmd: "scw dns record import " + testRecordImportDNSZone +
-			" content=@{{ .BindFile }} dry-run=true",
+		// dry-run never calls the API; any zone name is fine for parse context
+		Cmd: "scw dns record import example.privatedns content=@{{ .BindFile }} dry-run=true",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -38,24 +37,33 @@ func Test_RecordImport(t *testing.T) {
 
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: cmds,
-		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			path := filepath.Join(ctx.T.TempDir(), "zone.txt")
-			require.NoError(
-				ctx.T,
-				os.WriteFile(path, []byte("cli-import-simple IN A 1.2.3.4\n"), 0o600),
-			)
-			ctx.Meta["BindFile"] = path
+		BeforeFunc: core.BeforeFuncCombine(
+			core.ExecStoreBeforeCmd(
+				"PN",
+				"scw vpc private-network create name=cli-dns-import",
+			),
+			func(ctx *core.BeforeFuncCtx) error {
+				path := filepath.Join(ctx.T.TempDir(), "zone.txt")
+				require.NoError(
+					ctx.T,
+					os.WriteFile(path, []byte("cli-import-simple IN A 1.2.3.4\n"), 0o600),
+				)
+				ctx.Meta["BindFile"] = path
 
-			return nil
-		},
-		Cmd: "scw dns record import " + testRecordImportDNSZone + " content=@{{ .BindFile }}",
+				return nil
+			},
+		),
+		Cmd: "scw dns record import {{ .PN.ID }}.{{ .PN.VpcID }}.privatedns content=@{{ .BindFile }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: core.ExecAfterCmd(
-			"scw dns record delete " + testRecordImportDNSZone +
-				" name=cli-import-simple type=A data=1.2.3.4",
+		AfterFunc: core.AfterFuncCombine(
+			core.ExecAfterCmd(
+				"scw dns record delete {{ .PN.ID }}.{{ .PN.VpcID }}.privatedns"+
+					" name=cli-import-simple type=A data=1.2.3.4",
+			),
+			core.ExecAfterCmd("scw vpc private-network delete {{ .PN.ID }}"),
 		),
 	}))
 }
