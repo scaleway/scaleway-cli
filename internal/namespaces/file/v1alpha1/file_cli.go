@@ -21,7 +21,6 @@ func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		fileRoot(),
 		fileFilesystem(),
-		fileSnapshot(),
 		fileAttachment(),
 		fileFilesystemType(),
 		fileFilesystemTypeList(),
@@ -48,15 +47,6 @@ func fileFilesystem() *core.Command {
 		Long:      `Filesystem management.`,
 		Namespace: "file",
 		Resource:  "filesystem",
-	}
-}
-
-func fileSnapshot() *core.Command {
-	return &core.Command{
-		Short:     `Snapshot management`,
-		Long:      `Snapshot management.`,
-		Namespace: "file",
-		Resource:  "snapshot",
 	}
 }
 
@@ -304,7 +294,7 @@ By default, the attachments listed are ordered by creation date in ascending ord
 func fileFilesystemCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new filesystem`,
-		Long:      `To create a new filesystem, you must specify a name, a project ID, and either a size (` + "`" + `from_empty` + "`" + `) or a source snapshot (` + "`" + `from_snapshot` + "`" + `).`,
+		Long:      `To create a new filesystem, you must specify a name, a size, and a project ID.`,
 		Namespace: "file",
 		Resource:  "filesystem",
 		Verb:      "create",
@@ -321,29 +311,8 @@ func fileFilesystemCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "size",
-				Short:      `Deprecated: use ` + "`" + `from_empty.size` + "`" + ` instead.`,
-				Required:   false,
-				Deprecated: true,
-				Positional: false,
-			},
-			{
-				Name:       "from-empty.size",
 				Short:      `Filesystem size in bytes, with a granularity in GB (10^9 bytes).`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "from-snapshot.size",
-				Short:      `Filesystem size in bytes, with a granularity in GB (10^9 bytes).`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "from-snapshot.snapshot-id",
-				Short:      `Source snapshot from which the filesystem will be created`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
