@@ -6,7 +6,6 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -25,23 +24,6 @@ func GetCommands() *core.Commands {
 type infoResult struct {
 	BuildInfo *core.BuildInfo `json:"build_info"`
 	Settings  []*setting      `json:"settings"`
-}
-
-func (i *infoResult) MarshalHuman() (string, error) {
-	type tmp infoResult
-
-	return human.Marshal(tmp(*i), &human.MarshalOpt{
-		Sections: []*human.MarshalSection{
-			{
-				FieldName: "BuildInfo",
-				Title:     "Build Info",
-			},
-			{
-				FieldName: "Settings",
-				Title:     "Settings",
-			},
-		},
-	})
 }
 
 type setting struct {
@@ -87,6 +69,20 @@ func infosRoot() *core.Command {
 					secretKey(ctx, config, profileName, req.ShowSecret),
 				},
 			}, nil
+		},
+		View: &core.View{
+			Title:  "",
+			Fields: []*core.ViewField{},
+			Sections: []*core.ViewSection{
+				{
+					FieldName: "BuildInfo",
+					Title:     "Build Info",
+				},
+				{
+					FieldName: "Settings",
+					Title:     "Settings",
+				},
+			},
 		},
 	}
 }

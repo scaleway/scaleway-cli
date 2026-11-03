@@ -350,7 +350,7 @@ func (s Section) Resolve(data any, claimed map[string]bool) (Block, error) {
 	case reflect.Map, reflect.Struct:
 		return s.resolveList(value, block, claimed)
 	default:
-		return block, fmt.Errorf("unresolvable type %T", value.Interface(), value.Kind().String())
+		return block, fmt.Errorf("unresolvable type %T", value.Interface())
 	}
 }
 
