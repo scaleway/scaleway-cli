@@ -469,7 +469,7 @@ func autocompleteScriptCommand() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:    "shell",
-				Default: core.DefaultValueSetter(os.Getenv("SHELL")),
+				Default: core.DefaultValueSetterWithFallback("SHELL", "/bin/bash"),
 			},
 			{
 				Name: "basename",
