@@ -790,6 +790,46 @@ B:
 C:
 bbb`,
 		},
+		{
+			name: "layout title before main section",
+			data: DummyStruct{Foo: "foo", Bar: 1},
+			layout: human.Layout{
+				Title: "Policy",
+			},
+			want: `Policy:
+Foo  foo
+Bar  1`,
+		},
+		{
+			name: "layout title wraps sections",
+			data: RootDummyStruct{
+				RootA: "aaa",
+				Sub:   NestedDummyStruct{X: "one", Y: "two"},
+				RootB: "bbb",
+			},
+			layout: human.Layout{
+				Title: "Details",
+				Sections: []human.Section{
+					{Path: "Sub", Title: "Sub"},
+				},
+			},
+			want: `Details:
+RootA  aaa
+RootB  bbb
+
+Sub:
+X    one
+Y    two`,
+		},
+		{
+			name: "layout title wraps leaf",
+			data: "text",
+			layout: human.Layout{
+				Title: "Details",
+			},
+			want: `Details:
+text`,
+		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			got, err := human.Render(tc.data, tc.layout)

@@ -18,6 +18,10 @@ import (
 // an empty path and no title by default. Sections order is conserved, with
 // the main section being prepended if it isn't found in the list.
 type Layout struct {
+	// Title, when set, is rendered on its own line above the whole output,
+	// wrapping all sections like v1's MarshalOpt.Title.
+	Title string
+
 	Sections []Section
 }
 
@@ -166,6 +170,10 @@ func Render(data any, layout Layout) (string, error) {
 			b.WriteString("\n\n")
 		}
 		b.WriteString(block.Draw())
+	}
+
+	if layout.Title != "" {
+		return layout.Title + ":\n" + b.String(), nil
 	}
 
 	return b.String(), nil
