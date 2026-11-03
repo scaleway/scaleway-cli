@@ -7,5 +7,8 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("billing", "budget", "list").
+		Override(core.ListViewBuilder("ID", "CreatedAt", "UpdatedAt", "OrganizationID", "Enabled", "ConsumptionLimit", "Alerts"))
+
 	return cmds
 }

@@ -80,13 +80,31 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("rdb", "database", "create").Override(databaseCreateBuilder)
 
 	cmds.MustFind("rdb", "user", "create").Override(userCreateBuilder)
-	cmds.MustFind("rdb", "user", "list").Override(userListBuilder)
+	userListCmd := cmds.MustFind("rdb", "user", "list")
+	userListCmd.Override(userListBuilder)
+	userListCmd.Override(
+		core.ListViewBuilder("Name", "IsAdmin", "ReadOnly", "ReadWrite", "All", "Custom", "None"),
+	)
 	cmds.MustFind("rdb", "user", "update").Override(userUpdateBuilder)
 
 	cmds.MustFind("rdb", "log", "prepare").Override(logPrepareBuilder)
 	cmds.Merge(core.NewCommands(
 		logDownloadCommand(),
 	))
+
+	cmds.MustFind("rdb", "node-type", "list").
+		Override(core.ListViewBuilder("Name", "StockStatus", "Description", "Vcpus", "Memory", "IsBssdCompatible", "Disabled", "Beta", "AvailableVolumeTypes", "IsHaRequired", "Generation", "InstanceRange", "Region"))
+	cmds.MustFind("rdb", "snapshot", "list").
+		Override(core.ListViewBuilder("ID", "InstanceID", "Name", "Status", "Size", "ExpiresAt", "CreatedAt", "UpdatedAt", "InstanceName", "NodeType", "Region"))
+
+	cmds.MustFind("rdb", "acl", "list").
+		Override(core.ListViewBuilder("IP", "Protocol", "Direction", "Action", "Description", "Port"))
+	cmds.MustFind("rdb", "database", "list").
+		Override(core.ListViewBuilder("Name", "Owner", "Managed", "Size"))
+	cmds.MustFind("rdb", "endpoint", "list").
+		Override(core.ListViewBuilder("ID", "IP", "Port", "Name", "Hostname"))
+	cmds.MustFind("rdb", "privilege", "list").
+		Override(core.ListViewBuilder("Permission", "DatabaseName", "UserName"))
 
 	return cmds
 }

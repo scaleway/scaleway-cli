@@ -26,5 +26,23 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("webhosting", "offer", "list").Override(webhostingOfferListBuilder)
 
+	cmds.MustFind("webhosting", "control-panel", "list").
+		Override(core.ListViewBuilder("Name", "Available", "LogoURL", "AvailableLanguages"))
+	cmds.MustFind("webhosting", "hosting", "list").
+		Override(core.ListViewBuilder("ID", "ProjectID", "CreatedAt", "UpdatedAt", "Status", "Domain", "Protected", "DNSStatus", "OfferName", "DomainStatus", "Region"))
+
+	cmds.MustFind("webhosting", "backup", "list").
+		Override(core.ListViewBuilder("ID", "Size", "CreatedAt", "Status", "TotalItems"))
+	cmds.MustFind("webhosting", "database", "list").
+		Override(core.ListViewBuilder("DatabaseName", "Users"))
+	cmds.MustFind("webhosting", "database-user", "list").
+		Override(core.ListViewBuilder("Username", "Databases"))
+	cmds.MustFind("webhosting", "ftp-account", "list").
+		Override(core.ListViewBuilder("Username", "Path"))
+	cmds.MustFind("webhosting", "mail-account", "list").
+		Override(core.ListViewBuilder("Domain", "Username"))
+	cmds.MustFind("webhosting", "website", "list").
+		Override(core.ListViewBuilder("Domain", "Path", "SslStatus"))
+
 	return cmds
 }

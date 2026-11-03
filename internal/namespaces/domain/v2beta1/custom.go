@@ -58,5 +58,19 @@ func GetCommands() *core.Commands {
 		human.EnumMarshalFunc(certificateStatusMarshalSpecs),
 	)
 
+	cmds.MustFind("domain", "contact", "list").
+		Override(core.ListViewBuilder("Contact.ID", "Contact.Firstname", "Contact.Lastname", "Contact.CompanyName", "Contact.Email", "Contact.EmailStatus", "Contact.Status"))
+	cmds.MustFind("domain", "domain", "list").
+		Override(core.ListViewBuilder("Domain", "ProjectID", "OrganizationID", "AutoRenewStatus", "DnssecStatus", "EppCode", "ExpiredAt", "UpdatedAt", "CreatedAt", "Registrar", "IsExternal", "Status", "PendingTrade"))
+	cmds.MustFind("domain", "task", "list").
+		Override(core.ListViewBuilder("ID", "ProjectID", "OrganizationID", "Domain", "Type", "Status", "StartedAt", "UpdatedAt", "Message", "ContactIDentifier"))
+	cmds.MustFind("domain", "tld", "list").
+		Override(core.ListViewBuilder("Name", "DnssecSupport", "DurationInYearsMin", "DurationInYearsMax", "IDnSupport"))
+
+	cmds.MustFind("dns", "certificate", "list").
+		Override(core.ListViewBuilder("DNSZone", "AlternativeDNSZones", "Status", "PrivateKey", "CertificateChain", "CreatedAt", "ExpiredAt"))
+	cmds.MustFind("domain", "host", "list").
+		Override(core.ListViewBuilder("Domain", "Name", "IPs", "Status"))
+
 	return cmds
 }

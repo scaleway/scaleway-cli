@@ -130,7 +130,22 @@ func GetCommands() *core.Commands {
 	)
 	human.RegisterMarshalerFunc([]*customServerType{}, serverTypesListMarshalerFunc)
 
-	cmds.MustFind("instance", "server-type", "list").Override(serverTypeListBuilder)
+	listCmd := cmds.MustFind("instance", "server-type", "list")
+	listCmd.Override(serverTypeListBuilder)
+	listCmd.Override(
+		core.ListViewBuilder(
+			"Name",
+			"HourlyPrice",
+			"SupportedStorage",
+			"CPU",
+			"GPU",
+			"RAM",
+			"Arch",
+			"Bandwidth",
+			"Availability",
+			"MaxFileSystems",
+		),
+	)
 
 	//
 	// Get-Compatible-Types
@@ -165,7 +180,9 @@ func GetCommands() *core.Commands {
 	//
 	cmds.MustFind("instance", "user-data", "set").Override(userDataSetBuilder)
 	cmds.MustFind("instance", "user-data", "get").Override(userDataGetBuilder)
-	cmds.MustFind("instance", "user-data", "list").Override(userDataListBuilder)
+	userDataListCmd := cmds.MustFind("instance", "user-data", "list")
+	userDataListCmd.Override(userDataListBuilder)
+	userDataListCmd.Override(core.ListViewBuilder("Key", "Value"))
 	cmds.MustFind("instance", "user-data", "delete").Override(userDataDeleteBuilder)
 
 	cmds.MustFind("instance", "user-data", "set-cloud-init").Override(userDataSetCloudInitBuilder)

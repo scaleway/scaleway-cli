@@ -174,7 +174,24 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(instance.CreateSnapshotResponse{}, marshallNestedField("Snapshot"))
 
 	cmds.MustFind("instance", "snapshot", "create").Override(snapshotCreateBuilder)
-	cmds.MustFind("instance", "snapshot", "list").Override(snapshotListBuilder)
+	listCmd := cmds.MustFind("instance", "snapshot", "list")
+	listCmd.Override(snapshotListBuilder)
+	listCmd.Override(
+		core.ListViewBuilder(
+			"ID",
+			"Name",
+			"Organization",
+			"Project",
+			"Tags",
+			"VolumeType",
+			"Size",
+			"State",
+			"CreationDate",
+			"ModificationDate",
+			"Zone",
+			"ErrorReason",
+		),
+	)
 	cmds.MustFind("instance", "snapshot", "update").Override(snapshotUpdateBuilder)
 	cmds.Merge(core.NewCommands(
 		snapshotWaitCommand(),
@@ -256,6 +273,7 @@ func GetCommands() *core.Commands {
 	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "update"))
 	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "delete"))
 	cmds.MustFind("instance", "private-nic", "get").Override(privateNicGetBuilder)
+	cmds.MustFind("instance", "private-nic", "list").Override(core.ListViewBuilder("ID", "ServerID", "PrivateNetworkID", "MacAddress", "State", "Tags", "CreationDate", "Zone", "IpamIPIDs"))
 
 	// SSH Utilities
 

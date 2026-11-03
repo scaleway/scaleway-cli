@@ -35,5 +35,13 @@ func GetCommands() *core.Commands {
 
 	definitionStartBuilder(cmds.MustFind("jobs", "definition", "start"))
 
+	cmds.MustFind("jobs", "definition", "list").
+		Override(core.ListViewBuilder("ID", "Name", "ProjectID", "CreatedAt", "UpdatedAt", "CPULimit", "MemoryLimit", "LocalStorageCapacity", "ImageURI", "Command", "JobTimeout", "Description", "StartupCommand", "Args", "Region"))
+	cmds.MustFind("jobs", "run", "list").
+		Override(core.ListViewBuilder("ID", "JobDefinitionID", "CreatedAt", "UpdatedAt", "StartedAt", "TerminatedAt", "RunDuration", "State", "Reason", "ExitCode", "ErrorMessage", "CPULimit", "MemoryLimit", "LocalStorageCapacity", "Command", "StartupCommand", "Args", "Attempts", "Region"))
+
+	cmds.MustFind("jobs", "trigger", "list").
+		Override(core.ListViewBuilder("ID", "JobDefinitionID", "Name", "CreatedAt", "UpdatedAt", "Region"))
+
 	return cmds
 }

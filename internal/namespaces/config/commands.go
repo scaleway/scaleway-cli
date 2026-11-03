@@ -23,7 +23,7 @@ import (
 )
 
 func GetCommands() *core.Commands {
-	return core.NewCommands(
+	cmds := core.NewCommands(
 		configRoot(),
 		configGetCommand(),
 		configSetCommand(),
@@ -40,6 +40,11 @@ func GetCommands() *core.Commands {
 		configValidateCommand(),
 		configEditCommand(),
 	)
+
+	cmds.MustFind("config", "profile", "list").
+		Override(core.ListViewBuilder("Name", "DefaultZone", "DefaultRegion", "DefaultProjectID", "DefaultOrganizationID", "APIURL", "S3Endpoint", "S3UsePathStyle"))
+
+	return cmds
 }
 
 func configRoot() *core.Command {

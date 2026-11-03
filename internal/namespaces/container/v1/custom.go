@@ -45,5 +45,14 @@ func GetCommands() *core.Commands {
 		cmds.Add(cmdDeploy)
 	}
 
+	cmds.MustFind("container", "container", "list").
+		Override(core.ListViewBuilder("ID", "Name", "NamespaceID", "Description", "Status", "ErrorMessage", "CreatedAt", "UpdatedAt", "MinScale", "MaxScale", "MemoryLimitBytes", "MvcpuLimit", "LocalStorageLimitBytes", "Timeout", "Privacy", "Image", "Protocol", "Port", "HTTPSConnectionsOnly", "Sandbox", "Tags", "PrivateNetworkID", "Command", "Args", "PublicEndpoint", "PrivateEndpoint", "DefaultPublicEndpointEnabled", "Region"))
+	cmds.MustFind("container", "domain", "list").
+		Override(core.ListViewBuilder("ID", "ContainerID", "Hostname", "Status", "ErrorMessage", "CreatedAt", "UpdatedAt", "Tags", "Region"))
+	cmds.MustFind("container", "namespace", "list").
+		Override(core.ListViewBuilder("ID", "Name", "OrganizationID", "ProjectID", "Description", "Status", "ErrorMessage", "Tags", "CreatedAt", "UpdatedAt", "Region"))
+	cmds.MustFind("container", "trigger", "list").
+		Override(core.ListViewBuilder("ID", "Name", "Description", "Tags", "Status", "ErrorMessage", "ContainerID", "SourceType", "CreatedAt", "UpdatedAt", "Region"))
+
 	return cmds
 }

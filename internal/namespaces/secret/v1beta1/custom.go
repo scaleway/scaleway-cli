@@ -19,5 +19,11 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("secret", "version", "create").Override(secretVersionCreateBuilder)
 	cmds.MustFind("secret", "version", "access").Override(secretVersionAccessBuilder)
 
+	cmds.MustFind("secret", "secret", "list").
+		Override(core.ListViewBuilder("ID", "ProjectID", "Name", "Status", "CreatedAt", "UpdatedAt", "Tags", "VersionCount", "Description", "Managed", "Protected", "Type", "Path", "UsedBy", "DeletionRequestedAt", "KeyID", "Region"))
+
+	cmds.MustFind("secret", "version", "list").
+		Override(core.ListViewBuilder("Revision", "SecretID", "Status", "CreatedAt", "UpdatedAt", "DeletedAt", "Description", "Latest", "DeletionRequestedAt", "Region"))
+
 	return cmds
 }
