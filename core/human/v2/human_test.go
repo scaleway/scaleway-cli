@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestLayout_resolveSections(t *testing.T) {
+func TestLayout_ResolveSections(t *testing.T) {
 	for _, tc := range []struct {
 		name   string
 		layout human.Layout
@@ -154,12 +154,12 @@ func init() {
 	})
 }
 
-func TestRender(t *testing.T) {
+func TestLayout_Resolve(t *testing.T) {
 	for _, tc := range []struct {
 		name    string
 		data    any
 		layout  human.Layout
-		want    string
+		want    []human.Block
 		wantErr string // substring of the expected error, empty to expect success
 	}{
 		{
@@ -168,10 +168,12 @@ func TestRender(t *testing.T) {
 				{Foo: "foo", Bar: 1},
 				{Foo: "bar", Bar: 2},
 			},
-			want: `Foo  Bar
-foo  1
-bar  2
-`,
+			want: []human.Block{
+				{
+					Header: []string{"Foo", "Bar"},
+					Rows:   [][]string{{"foo", "1"}, {"bar", "2"}},
+				},
+			},
 		},
 		{
 			name: "slice of pointer to struct",
@@ -179,10 +181,12 @@ bar  2
 				{FirstLevelFieldA: "a", FirstLevelFieldB: "b"},
 				{FirstLevelFieldA: "c", FirstLevelFieldB: "d"},
 			},
-			want: `FirstLevelFieldA  FirstLevelFieldB
-a                 b
-c                 d
-`,
+			want: []human.Block{
+				{
+					Header: []string{"FirstLevelFieldA", "FirstLevelFieldB"},
+					Rows:   [][]string{{"a", "b"}, {"c", "d"}},
+				},
+			},
 		},
 		{
 			name: "slice with nil struct item",
@@ -190,65 +194,73 @@ c                 d
 				nil,
 				{FirstLevelFieldA: "c", FirstLevelFieldB: "d"},
 			},
-			want: `FirstLevelFieldA  FirstLevelFieldB
--                 -
-c                 d
-`,
+			want: []human.Block{
+				{
+					Header: []string{"FirstLevelFieldA", "FirstLevelFieldB"},
+					Rows:   [][]string{{"-", "-"}, {"c", "d"}},
+				},
+			},
 		},
 		{
 			name: "empty string cell formatted",
 			data: []DummyStruct{
 				{Foo: "", Bar: 1},
 			},
-			want: `Foo  Bar
--    1
-`,
+			want: []human.Block{
+				{
+					Header: []string{"Foo", "Bar"},
+					Rows:   [][]string{{"-", "1"}},
+				},
+			},
 		},
 		{
 			name: "struct default layout",
 			data: DummyStruct{Foo: "foo", Bar: 1},
 			// no explicit section: only the default pathless section.
 			layout: human.Layout{},
-			want: `Foo  foo
-Bar  1`,
+			want: []human.Block{
+				{Rows: [][]string{{"Foo", "foo"}, {"Bar", "1"}}},
+			},
 		},
 		{
 			name:   "pointer to struct",
 			data:   &DummyStruct{Foo: "foo", Bar: 1},
 			layout: human.Layout{},
-			want: `Foo  foo
-Bar  1`,
+			want: []human.Block{
+				{Rows: [][]string{{"Foo", "foo"}, {"Bar", "1"}}},
+			},
 		},
 		{
 			name:   "nil pointer",
 			data:   (*DummyStruct)(nil),
 			layout: human.Layout{},
-			want:   `-`,
+			want:   []human.Block{{Rows: [][]string{{"-"}}}},
 		},
 		{
 			name:   "nil",
 			data:   nil,
 			layout: human.Layout{},
-			want:   `-`,
+			want:   []human.Block{{Rows: [][]string{{"-"}}}},
 		},
 		{
 			name:   "multi-level pointer to struct",
 			data:   new(new(&DummyStruct{Foo: "foo", Bar: 1})),
 			layout: human.Layout{},
-			want: `Foo  foo
-Bar  1`,
+			want: []human.Block{
+				{Rows: [][]string{{"Foo", "foo"}, {"Bar", "1"}}},
+			},
 		},
 		{
 			name:   "formatter value",
 			data:   FormatterStruct{Foo: "ignored"},
 			layout: human.Layout{},
-			want:   "cell-formatted",
+			want:   []human.Block{{Rows: [][]string{{"cell-formatted"}}}},
 		},
 		{
 			name:   "scalar",
 			data:   42,
 			layout: human.Layout{},
-			want:   "42",
+			want:   []human.Block{{Rows: [][]string{{"42"}}}},
 		},
 		{
 			name: "struct with titled struct section",
@@ -265,12 +277,21 @@ Bar  1`,
 					{Path: "FirstLevelSection", Title: "First Level"},
 				},
 			},
-			want: `RootLevelFieldA  AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA
-RootLevelFieldB  aaaaaaaa-aaaaaa-aaaaaa
-
-First Level:
-FirstLevelFieldA  BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB
-FirstLevelFieldB  BBBBB`,
+			want: []human.Block{
+				{
+					Rows: [][]string{
+						{"RootLevelFieldA", "AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA"},
+						{"RootLevelFieldB", "aaaaaaaa-aaaaaa-aaaaaa"},
+					},
+				},
+				{
+					Title: "First Level",
+					Rows: [][]string{
+						{"FirstLevelFieldA", "BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB"},
+						{"FirstLevelFieldB", "BBBBB"},
+					},
+				},
+			},
 		},
 		{
 			name: "omittable empty section",
@@ -281,10 +302,11 @@ FirstLevelFieldB  BBBBB`,
 					{Path: "RequiredList", Title: "Required List", Omittable: false},
 				},
 			},
-			// The omittable section is empty so it is skipped, the required one
+			// The omittable section is empty so it is dropped, the required one
 			// keeps its header-only table.
-			want: `Required List:
-FirstLevelFieldA  FirstLevelFieldB`,
+			want: []human.Block{
+				{Title: "Required List", Header: []string{"FirstLevelFieldA", "FirstLevelFieldB"}},
+			},
 		},
 		{
 			name: "omittable non-empty section",
@@ -299,12 +321,14 @@ FirstLevelFieldA  FirstLevelFieldB`,
 					{Path: "RequiredList", Title: "Required List", Omittable: false},
 				},
 			},
-			want: `Omittable List:
-FirstLevelFieldA  FirstLevelFieldB
-x                 y
-
-Required List:
-FirstLevelFieldA  FirstLevelFieldB`,
+			want: []human.Block{
+				{
+					Title:  "Omittable List",
+					Header: []string{"FirstLevelFieldA", "FirstLevelFieldB"},
+					Rows:   [][]string{{"x", "y"}},
+				},
+				{Title: "Required List", Header: []string{"FirstLevelFieldA", "FirstLevelFieldB"}},
+			},
 		},
 		{
 			name: "scalar slice section",
@@ -316,8 +340,9 @@ FirstLevelFieldA  FirstLevelFieldB`,
 					{Path: "Fields", Title: "Allowed"},
 				},
 			},
-			want: `Allowed:
-[poweron backup]`,
+			want: []human.Block{
+				{Title: "Allowed", Rows: [][]string{{"[poweron backup]"}}},
+			},
 		},
 		{
 			name: "map section",
@@ -329,9 +354,9 @@ FirstLevelFieldA  FirstLevelFieldB`,
 					{Path: "Fields", Title: "Fields"},
 				},
 			},
-			want: `Fields:
-a    one
-b    two`,
+			want: []human.Block{
+				{Title: "Fields", Rows: [][]string{{"a", "one"}, {"b", "two"}}},
+			},
 		},
 		{
 			name: "map section with slice value",
@@ -343,10 +368,9 @@ b    two`,
 					{Path: "Fields", Title: "Fields"},
 				},
 			},
-			want: `Fields:
-a.0  one
-b.0  y
-b.1  x`,
+			want: []human.Block{
+				{Title: "Fields", Rows: [][]string{{"a.0", "one"}, {"b.0", "y"}, {"b.1", "x"}}},
+			},
 		},
 		{
 			name: "flattened struct fields",
@@ -356,10 +380,9 @@ b.1  x`,
 				RootB: "bbb",
 			},
 			layout: human.Layout{},
-			want: `RootA  aaa
-Sub.X  one
-Sub.Y  two
-RootB  bbb`,
+			want: []human.Block{
+				{Rows: [][]string{{"RootA", "aaa"}, {"Sub.X", "one"}, {"Sub.Y", "two"}, {"RootB", "bbb"}}},
+			},
 		},
 		{
 			name: "omittable skipped between two sections",
@@ -374,12 +397,11 @@ RootB  bbb`,
 					{Path: "RootB", Title: "C"},
 				},
 			},
-			// The skipped omittable section must not leave an orphan blank line
-			// between the two rendered ones.
-			want: `RootA  aaa
-
-C:
-bbb`,
+			// The skipped omittable section leaves no block at all.
+			want: []human.Block{
+				{Rows: [][]string{{"RootA", "aaa"}}},
+				{Title: "C", Rows: [][]string{{"bbb"}}},
+			},
 		},
 		{
 			name: "dotted section path",
@@ -395,12 +417,10 @@ bbb`,
 			},
 			// Sub.Y is claimed by the section, Sub.X keeps flattening into
 			// the main block.
-			want: `RootA  aaa
-Sub.X  one
-RootB  bbb
-
-Y:
-two`,
+			want: []human.Block{
+				{Rows: [][]string{{"RootA", "aaa"}, {"Sub.X", "one"}, {"RootB", "bbb"}}},
+				{Title: "Y", Rows: [][]string{{"two"}}},
+			},
 		},
 		{
 			name: "nested formatter struct rendered inline",
@@ -409,8 +429,9 @@ two`,
 				Sub:   FormatterStruct{Foo: "ignored"},
 			},
 			layout: human.Layout{},
-			want: `RootA  aaa
-Sub    cell-formatted`,
+			want: []human.Block{
+				{Rows: [][]string{{"RootA", "aaa"}, {"Sub", "cell-formatted"}}},
+			},
 		},
 		{
 			name: "nested pointer-receiver formatter rendered inline",
@@ -419,8 +440,9 @@ Sub    cell-formatted`,
 				Sub:   &pointerRecvFormatter{Foo: "x"},
 			},
 			layout: human.Layout{},
-			want: `RootA  aaa
-Sub    pointer-formatted`,
+			want: []human.Block{
+				{Rows: [][]string{{"RootA", "aaa"}, {"Sub", "pointer-formatted"}}},
+			},
 		},
 		{
 			name: "dotted section path for a whole struct",
@@ -436,12 +458,10 @@ Sub    pointer-formatted`,
 			},
 			// Claiming the whole Sub struct also prunes its leaves from the main
 			// block, not just the exact dotted path.
-			want: `RootA  aaa
-RootB  bbb
-
-Sub:
-X    one
-Y    two`,
+			want: []human.Block{
+				{Rows: [][]string{{"RootA", "aaa"}, {"RootB", "bbb"}}},
+				{Title: "Sub", Rows: [][]string{{"X", "one"}, {"Y", "two"}}},
+			},
 		},
 		{
 			name: "flattened slice fields",
@@ -450,9 +470,9 @@ Y    two`,
 				Strings: []string{"s1", "s2"},
 			},
 			layout: human.Layout{},
-			want: `RootA      aaa
-Strings.0  s1
-Strings.1  s2`,
+			want: []human.Block{
+				{Rows: [][]string{{"RootA", "aaa"}, {"Strings.0", "s1"}, {"Strings.1", "s2"}}},
+			},
 		},
 		{
 			name: "flattened map fields",
@@ -461,9 +481,9 @@ Strings.1  s2`,
 				Labels: map[string]string{"b": "two", "a": "one"},
 			},
 			layout: human.Layout{},
-			want: `RootA     aaa
-Labels.a  one
-Labels.b  two`,
+			want: []human.Block{
+				{Rows: [][]string{{"RootA", "aaa"}, {"Labels.a", "one"}, {"Labels.b", "two"}}},
+			},
 		},
 		{
 			name: "nil composite field dropped",
@@ -471,21 +491,9 @@ Labels.b  two`,
 				RootA: "aaa",
 			},
 			layout: human.Layout{},
-			want:   `RootA  aaa`,
-		},
-		{
-			name: "registry layout",
-			data: RegistryDummyStruct{
-				RegistryField:   "value",
-				RegistrySection: FirstLevelDummyStruct{FirstLevelFieldA: "aaa", FirstLevelFieldB: "bbb"},
+			want: []human.Block{
+				{Rows: [][]string{{"RootA", "aaa"}}},
 			},
-			// No layout given: the one registered for the type applies.
-			layout: human.Layout{},
-			want: `RegistryField  value
-
-Custom:
-FirstLevelFieldA  aaa
-FirstLevelFieldB  bbb`,
 		},
 		{
 			name: "flat table with fields",
@@ -498,10 +506,9 @@ FirstLevelFieldB  bbb`,
 					{Fields: []string{"Bar"}},
 				},
 			},
-			want: `Bar
-1
-2
-`,
+			want: []human.Block{
+				{Header: []string{"Bar"}, Rows: [][]string{{"1"}, {"2"}}},
+			},
 		},
 		{
 			name: "table column with dotted path",
@@ -513,9 +520,9 @@ FirstLevelFieldB  bbb`,
 					{Fields: []string{"RootA", "Sub.X"}},
 				},
 			},
-			want: `RootA  Sub.X
-a      x
-`,
+			want: []human.Block{
+				{Header: []string{"RootA", "Sub.X"}, Rows: [][]string{{"a", "x"}}},
+			},
 		},
 		{
 			name: "struct lines filtered",
@@ -529,8 +536,9 @@ a      x
 					{Fields: []string{"RootA", "Sub.X"}},
 				},
 			},
-			want: `RootA  aaa
-Sub.X  one`,
+			want: []human.Block{
+				{Rows: [][]string{{"RootA", "aaa"}, {"Sub.X", "one"}}},
+			},
 		},
 		{
 			name: "selected composite subtree flattens",
@@ -543,8 +551,9 @@ Sub.X  one`,
 					{Fields: []string{"Strings"}},
 				},
 			},
-			want: `Strings.0  s1
-Strings.1  s2`,
+			want: []human.Block{
+				{Rows: [][]string{{"Strings.0", "s1"}, {"Strings.1", "s2"}}},
+			},
 		},
 		{
 			name: "explicit layout overrides registry",
@@ -557,15 +566,14 @@ Strings.1  s2`,
 					{Path: "RegistrySection", Title: "Explicit"},
 				},
 			},
-			want: `RegistryField  value
-
-Explicit:
-FirstLevelFieldA  aaa
-FirstLevelFieldB  bbb`,
+			want: []human.Block{
+				{Rows: [][]string{{"RegistryField", "value"}}},
+				{Title: "Explicit", Rows: [][]string{{"FirstLevelFieldA", "aaa"}, {"FirstLevelFieldB", "bbb"}}},
+			},
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
-			got, err := human.Render(tc.data, tc.layout)
+			got, err := tc.layout.Resolve(tc.data)
 
 			if tc.wantErr != "" {
 				require.Error(t, err)
@@ -574,6 +582,202 @@ FirstLevelFieldB  bbb`,
 				return
 			}
 
+			require.NoError(t, err)
+			require.Equal(t, tc.want, got)
+		})
+	}
+}
+
+func TestBlock_Draw(t *testing.T) {
+	for _, tc := range []struct {
+		name  string
+		block human.Block
+		want  string
+	}{
+		{
+			name: "table",
+			block: human.Block{
+				Header: []string{"Foo", "Bar"},
+				Rows:   [][]string{{"foo", "1"}, {"bar", "2"}},
+			},
+			want: `Foo  Bar
+foo  1
+bar  2`,
+		},
+		{
+			name: "key value lines",
+			block: human.Block{
+				Rows: [][]string{{"Foo", "foo"}, {"Bar", "1"}},
+			},
+			want: `Foo  foo
+Bar  1`,
+		},
+		{
+			name: "title and table",
+			block: human.Block{
+				Title:  "Required List",
+				Header: []string{"FirstLevelFieldA", "FirstLevelFieldB"},
+			},
+			want: `Required List:
+FirstLevelFieldA  FirstLevelFieldB`,
+		},
+		{
+			name: "title and lines",
+			block: human.Block{
+				Title: "Fields",
+				Rows:  [][]string{{"a", "one"}, {"b", "two"}},
+			},
+			want: `Fields:
+a    one
+b    two`,
+		},
+		{
+			name: "single cell",
+			block: human.Block{
+				Rows: [][]string{{"-"}},
+			},
+			want: `-`,
+		},
+		{
+			name:  "empty block draws nothing",
+			block: human.Block{},
+			want:  ``,
+		},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			require.Equal(t, tc.want, tc.block.Draw())
+		})
+	}
+}
+
+func TestRender(t *testing.T) {
+	for _, tc := range []struct {
+		name   string
+		data   any
+		layout human.Layout
+		want   string
+	}{
+		{
+			name:   "nil",
+			data:   nil,
+			layout: human.Layout{},
+			want:   "-",
+		},
+		{
+			name:   "nil pointer",
+			data:   (*DummyStruct)(nil),
+			layout: human.Layout{},
+			want:   "-",
+		},
+		{
+			name:   "pointer to struct",
+			data:   &DummyStruct{Foo: "foo", Bar: 1},
+			layout: human.Layout{},
+			want: `Foo  foo
+Bar  1`,
+		},
+		{
+			name:   "multi-level pointer to struct",
+			data:   new(new(&DummyStruct{Foo: "foo", Bar: 1})),
+			layout: human.Layout{},
+			want: `Foo  foo
+Bar  1`,
+		},
+		{
+			name:   "scalar",
+			data:   42,
+			layout: human.Layout{},
+			want:   "42",
+		},
+		{
+			name: "table",
+			data: []DummyStruct{
+				{Foo: "foo", Bar: 1},
+				{Foo: "bar", Bar: 2},
+			},
+			layout: human.Layout{},
+			want: `Foo  Bar
+foo  1
+bar  2`,
+		},
+		{
+			name:   "plain struct",
+			data:   DummyStruct{Foo: "foo", Bar: 1},
+			layout: human.Layout{},
+			want: `Foo  foo
+Bar  1`,
+		},
+		{
+			name: "registry layout fallback",
+			data: RegistryDummyStruct{
+				RegistryField:   "value",
+				RegistrySection: FirstLevelDummyStruct{FirstLevelFieldA: "aaa", FirstLevelFieldB: "bbb"},
+			},
+			// Zero layout: Render falls back to the one registered for the type.
+			layout: human.Layout{},
+			want: `RegistryField  value
+
+Custom:
+FirstLevelFieldA  aaa
+FirstLevelFieldB  bbb`,
+		},
+		{
+			name: "joined sections",
+			data: RootDummyStruct{
+				RootA: "aaa",
+				Sub:   NestedDummyStruct{X: "one", Y: "two"},
+				RootB: "bbb",
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Path: "Sub", Title: "Sub"},
+				},
+			},
+			want: `RootA  aaa
+RootB  bbb
+
+Sub:
+X    one
+Y    two`,
+		},
+		{
+			name: "scalar sections joined with blank line",
+			data: DummyStruct{Foo: "foo", Bar: 1},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Path: "Foo", Title: "A"},
+					{Path: "Bar", Title: "B"},
+				},
+			},
+			// v1 separates consecutive scalar sections with a blank line too.
+			want: `A:
+foo
+
+B:
+1`,
+		},
+		{
+			name: "omittable skipped between two sections",
+			data: RootDummyStruct{
+				RootA: "aaa",
+				// Sub zero -> omitted
+				RootB: "bbb",
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Path: "Sub", Title: "B", Omittable: true},
+					{Path: "RootB", Title: "C"},
+				},
+			},
+			// The skipped omittable section leaves no orphan blank line.
+			want: `RootA  aaa
+
+C:
+bbb`,
+		},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			got, err := human.Render(tc.data, tc.layout)
 			require.NoError(t, err)
 			require.Equal(t, tc.want, got)
 		})

@@ -89,9 +89,28 @@ func isFormattable(t reflect.Type) bool {
 	}
 }
 
-// Render data into a specific layout.
+// Block is the resolved content of one section, free of any rendering
+// concern. It is either a table (Header non-empty, Rows are cells) or a set
+// of lines (Header empty, Rows are [key, value] pairs or a single cell).
+type Block struct {
+	Title  string
+	Header []string
+	Rows   [][]string
+}
+
+// Empty reports whether block draws nothing at all.
+func (b Block) Empty() bool {
+	return b.Title == "" && len(b.Header) == 0 && len(b.Rows) == 0
+}
+
+// Render resolves data into its layout blocks and draws them, separating the
+// blocks with a blank line. Pointers are dereferenced at the top level, and a
+// zero layout falls back to the layout registered for the concrete type of
+// data.
 func Render(data any, layout Layout) (string, error) {
-	// Dereference pointers until the underlying value is reached.
+	// Dereference pointers until the underlying value is reached, so the nil
+	// shortcut and the concrete type keying the fallback apply to the same
+	// value.
 	value := reflect.ValueOf(data)
 	for value.Kind() == reflect.Pointer {
 		if value.IsNil() {
@@ -104,43 +123,79 @@ func Render(data any, layout Layout) (string, error) {
 	}
 	data = value.Interface()
 
-	// Fall back to a per-type registered layout when the caller gave none,
-	// then apply the default pathless section if needed.
 	if reflect.ValueOf(layout).IsZero() {
 		if l, ok := layouts.Load(value.Type()); ok {
 			layout = l.(Layout)
 		}
 	}
-	sections := layout.ResolveSections()
+
+	blocks, err := layout.Resolve(data)
+	if err != nil {
+		return "", err
+	}
+
+	var b strings.Builder
+	for _, block := range blocks {
+		if block.Empty() {
+			continue
+		}
+		if b.Len() > 0 {
+			b.WriteString("\n\n")
+		}
+		b.WriteString(block.Draw())
+	}
+
+	return b.String(), nil
+}
+
+// Resolve splits data into the content blocks of the layout, without any
+// rendering. It is exposed so tests and a future layout engine can reuse the
+// resolution part of Render. Pointers are dereferenced first, so direct
+// callers can pass them too; leaves and nil values fold into single-cell
+// blocks.
+func (l Layout) Resolve(data any) ([]Block, error) {
+	// Dereference pointers until the underlying value is reached.
+	value := reflect.ValueOf(data)
+	for value.Kind() == reflect.Pointer {
+		if value.IsNil() {
+			return []Block{{Rows: [][]string{{"-"}}}}, nil
+		}
+		value = value.Elem()
+	}
+	if !value.IsValid() {
+		return []Block{{Rows: [][]string{{"-"}}}}, nil
+	}
+	data = value.Interface()
+
+	// Apply the default pathless section if needed.
+	sections := l.ResolveSections()
 
 	switch value.Kind() {
-	// If the value is a slice or array, we ensure that the layout is a single
-	// pathless section and write it.
+	// A slice or array is a single pathless section, rendered as a table.
 	case reflect.Slice, reflect.Array:
 		if len(sections) != 1 {
-			return "", fmt.Errorf("found %d sections for %T payload", len(sections), data)
+			return nil, fmt.Errorf("found %d sections for %T payload", len(sections), data)
 		}
 
 		if sections[0].Path != "" {
-			return "", fmt.Errorf("unknown path %q for %T payload", sections[0].Path, data)
+			return nil, fmt.Errorf("unknown path %q for %T payload", sections[0].Path, data)
 		}
 
-		var b strings.Builder
-		_, err := writeSection(&b, sections[0], data, nil)
+		block, err := sections[0].Resolve(data, nil)
 		if err != nil {
-			return "", fmt.Errorf("rendering section: %w", err)
+			return nil, fmt.Errorf("rendering section: %w", err)
+		}
+		if block.Empty() {
+			return nil, nil
 		}
 
-		return b.String(), nil
+		return []Block{block}, nil
 
-	// If the value is a struct, we resolve the sections from the data, then
-	// split them by section. claimed tracks the dotted paths rendered as their
-	// own section so the flattening of the main block skips them, keeping
-	// declaration order.
+	// A struct resolves into one block per section. claimed tracks the dotted
+	// paths rendered as their own section so the flattening of the main block
+	// skips them, keeping declaration order. Paths are validated here, when
+	// they are resolved.
 	case reflect.Struct:
-		// claimed tracks the dotted paths rendered as their own section so
-		// the flattening of the main block skips them, keeping declaration
-		// order. Paths are validated when they are resolved below.
 		claimed := make(map[string]bool, len(sections))
 		for _, section := range sections {
 			if section.Path != "" {
@@ -148,186 +203,204 @@ func Render(data any, layout Layout) (string, error) {
 			}
 		}
 
-		var b strings.Builder
+		blocks := make([]Block, 0, len(sections))
 		for i, section := range sections {
 			sectionData := data
 			if section.Path != "" {
 				var err error
 				sectionData, err = valueAtPath(data, section.Path)
 				if err != nil {
-					return "", fmt.Errorf("path %q not found in %T: %w", section.Path, data, err)
+					return nil, fmt.Errorf("path %q not found in %T: %w", section.Path, data, err)
 				}
 			}
-			wrote, err := writeSection(&b, section, sectionData, claimed)
+			block, err := section.Resolve(sectionData, claimed)
 			if err != nil {
-				return "", fmt.Errorf("rendering section %d: %w", i, err)
+				return nil, fmt.Errorf("rendering section %d: %w", i, err)
 			}
-			// Only separate sections that wrote content, so a skipped omittable
-			// section leaves no orphan blank line.
-			if wrote {
-				b.WriteRune('\n')
+			if !block.Empty() {
+				blocks = append(blocks, block)
 			}
 		}
 
-		return strings.TrimSpace(b.String()), nil
+		return blocks, nil
 	}
 
-	return Format(data)
+	// A leaf (a scalar or any other kind) renders inline through its formatter.
+	str, err := Format(data)
+	if err != nil {
+		return nil, err
+	}
+
+	return []Block{{Rows: [][]string{{str}}}}, nil
 }
 
-// writeSection data to the given string builder, with a map of the already
-// claimed paths so we can skip the extracted sections from being rendered in
-// the default section. This is necessary because the section data must be
-// rendered in declaration order, so we can't convert the original data to
-// a map without having to add additional complexity. It returns whether
-// anything was written.
-func writeSection(b *strings.Builder, section Section, data any, claimed map[string]bool) (bool, error) {
+// Resolve renders section into a block from data, without drawing. claimed
+// tracks the dotted paths resolved as their own section so the flattening of
+// the default block skips them. An omitted or empty section resolves to an
+// empty block, a slice or array to a table, and a struct or map to a list of
+// keyed rows.
+func (s Section) Resolve(data any, claimed map[string]bool) (Block, error) {
 	value := reflect.ValueOf(data)
-	if (!value.IsValid() || value.IsZero()) && section.Omittable {
-		return false, nil
+	if (!value.IsValid() || value.IsZero()) && s.Omittable {
+		return Block{}, nil
 	}
 
-	if section.Title != "" {
-		b.WriteString(section.Title)
-		b.WriteRune(':')
-		b.WriteRune('\n')
-	}
+	block := Block{Title: s.Title}
 
 	if !value.IsValid() || isFormattable(value.Type()) {
 		str, err := Format(data)
 		if err != nil {
-			return false, err
+			return Block{}, err
 		}
-		b.WriteString(str)
+		block.Rows = [][]string{{str}}
 
-		return true, nil
+		return block, nil
 	}
 
 	switch value.Kind() {
-	// Slices and arrays renders as table.
 	case reflect.Slice, reflect.Array:
-		itemType := value.Type().Elem()
-		for itemType.Kind() == reflect.Pointer {
-			itemType = itemType.Elem()
-		}
-
-		// Resolve the selected fields. If no field was selected, initialize the list
-		// with the item's fields.
-		fields := section.Fields
-		if len(section.Fields) == 0 {
-			fields = make([]string, itemType.NumField())
-			for fieldIndex := range itemType.NumField() {
-				fields[fieldIndex] = itemType.Field(fieldIndex).Name
-			}
-		}
-
-		w := tabwriter.NewWriter(b, 5, 1, 2, ' ', tabwriter.ANSIGraphicsRendition)
-		for fieldIndex, field := range fields {
-			if fieldIndex != 0 {
-				fmt.Fprint(w, "\t")
-			}
-			fmt.Fprint(w, field)
-		}
-		fmt.Fprint(w, "\n")
-
-		for index := range value.Len() {
-			item := value.Index(index)
-
-			// Dereference the item's value until it is either nil or not a pointer so
-			// we can access the underlying's fields.
-			for (item.Kind() == reflect.Pointer || item.Kind() == reflect.Interface) && !item.IsNil() {
-				item = item.Elem()
-			}
-			isNil := item.Kind() == reflect.Pointer || item.Kind() == reflect.Interface
-
-			for fieldIndex, field := range fields {
-				if fieldIndex != 0 {
-					fmt.Fprint(w, "\t")
-				}
-
-				if isNil {
-					fmt.Fprint(w, "-")
-					continue
-				}
-
-				cell, err := valueAtPath(item.Interface(), field)
-				if err != nil {
-					return false, err
-				}
-
-				str, err := Format(cell)
-				if err != nil {
-					return false, err
-				}
-
-				fmt.Fprint(w, str)
-			}
-			fmt.Fprint(w, "\n")
-		}
-		w.Flush()
-
-		return true, nil
-
-	// A struct and a map render the same: one walk flattens composites into
-	// dotted rows, renders formattable leaves in place, and skips paths claimed
-	// by other sections. Maps are just walked as keyed leaves.
+		return s.resolveTable(value, block)
 	case reflect.Map, reflect.Struct:
-		w := tabwriter.NewWriter(b, 5, 1, 2, ' ', tabwriter.ANSIGraphicsRendition)
-		err := walk(value, "", func(keys string, node reflect.Value) (bool, error) {
-			if claimed[keys] {
-				return false, nil
-			}
-
-			// Field selection keeps only the selected subtrees: a node above
-			// one still descends, a branch without selection is pruned.
-			if len(section.Fields) > 0 && keys != "" {
-				under := false
-				for _, f := range section.Fields {
-					if keys == f || strings.HasPrefix(keys, f+".") {
-						under = true
-						break
-					}
-				}
-				if !under {
-					for _, f := range section.Fields {
-						if strings.HasPrefix(f, keys+".") {
-							return true, nil
-						}
-					}
-
-					return false, nil
-				}
-			}
-
-			// Scalars, formatter structs (and pointers to them) render in place.
-			// Everything else descends into dotted leaves. isFormattable reports
-			// scalar slices as inline for section bodies, but a walk always
-			// flattens slices into indexed rows.
-			t := node.Type()
-			for t.Kind() == reflect.Pointer {
-				t = t.Elem()
-			}
-			if isFormattable(node.Type()) && t.Kind() != reflect.Slice && t.Kind() != reflect.Array {
-				str, err := Format(node.Interface())
-				if err != nil {
-					return false, err
-				}
-				fmt.Fprintf(w, "%s\t%s\n", keys, str)
-
-				return false, nil
-			}
-
-			return true, nil
-		})
-		if err != nil {
-			return false, err
-		}
-		w.Flush()
-
-		return true, nil
+		return s.resolveList(value, block, claimed)
 	}
 
-	return false, nil
+	return block, nil
+}
+
+// resolveTable renders a slice or array section as a table. With no selected
+// Fields the item's fields become the columns; values are formatted per cell.
+func (s Section) resolveTable(value reflect.Value, block Block) (Block, error) {
+	itemType := value.Type().Elem()
+	for itemType.Kind() == reflect.Pointer {
+		itemType = itemType.Elem()
+	}
+
+	// Resolve the selected fields. If no field was selected, initialize the
+	// list with the item's fields.
+	fields := s.Fields
+	if len(s.Fields) == 0 {
+		fields = make([]string, itemType.NumField())
+		for fieldIndex := range itemType.NumField() {
+			fields[fieldIndex] = itemType.Field(fieldIndex).Name
+		}
+	}
+
+	block.Header = fields
+	for index := range value.Len() {
+		item := value.Index(index)
+
+		// Dereference the item's value until it is either nil or not a
+		// pointer so we can access the underlying's fields.
+		for (item.Kind() == reflect.Pointer || item.Kind() == reflect.Interface) && !item.IsNil() {
+			item = item.Elem()
+		}
+		isNil := item.Kind() == reflect.Pointer || item.Kind() == reflect.Interface
+
+		row := make([]string, len(fields))
+		for fieldIndex, field := range fields {
+			if isNil {
+				row[fieldIndex] = "-"
+				continue
+			}
+
+			cell, err := valueAtPath(item.Interface(), field)
+			if err != nil {
+				return Block{}, err
+			}
+
+			str, err := Format(cell)
+			if err != nil {
+				return Block{}, err
+			}
+			row[fieldIndex] = str
+		}
+		block.Rows = append(block.Rows, row)
+	}
+
+	return block, nil
+}
+
+// resolveList renders a struct or map section into dotted keyed rows: one walk
+// flattens composite values into dotted keys, formats formattable leaves in
+// place, and skips paths claimed by other sections. Maps are just walked as
+// keyed leaves.
+func (s Section) resolveList(value reflect.Value, block Block, claimed map[string]bool) (Block, error) {
+	err := walk(value, "", func(keys string, node reflect.Value) (bool, error) {
+		if claimed[keys] {
+			return false, nil
+		}
+
+		// Field selection keeps only the selected subtrees: a node above
+		// one still descends, a branch without selection is pruned.
+		if len(s.Fields) > 0 && keys != "" {
+			under := false
+			for _, f := range s.Fields {
+				if keys == f || strings.HasPrefix(keys, f+".") {
+					under = true
+					break
+				}
+			}
+			if !under {
+				for _, f := range s.Fields {
+					if strings.HasPrefix(f, keys+".") {
+						return true, nil
+					}
+				}
+
+				return false, nil
+			}
+		}
+
+		// Scalars, formatter structs (and pointers to them) render in place.
+		// Everything else descends into dotted leaves. isFormattable reports
+		// scalar slices as inline for section bodies, but a walk always
+		// flattens slices into indexed rows.
+		t := node.Type()
+		for t.Kind() == reflect.Pointer {
+			t = t.Elem()
+		}
+		if isFormattable(node.Type()) && t.Kind() != reflect.Slice && t.Kind() != reflect.Array {
+			str, err := Format(node.Interface())
+			if err != nil {
+				return false, err
+			}
+			block.Rows = append(block.Rows, []string{keys, str})
+
+			return false, nil
+		}
+
+		return true, nil
+	})
+	if err != nil {
+		return Block{}, err
+	}
+
+	return block, nil
+}
+
+// Draw renders the block to text: an optional title line followed by its
+// lines or table, aligned to columns. It is the layout hook of the package:
+// column alignment today, terminal-width shrinking and lipgloss styling
+// later, so swapping the layout engine only touches this method. An empty
+// block draws nothing, and accumulated whitespace is trimmed.
+func (b Block) Draw() string {
+	var s strings.Builder
+	if b.Title != "" {
+		s.WriteString(b.Title)
+		s.WriteRune(':')
+		s.WriteRune('\n')
+	}
+
+	w := tabwriter.NewWriter(&s, 5, 1, 2, ' ', tabwriter.ANSIGraphicsRendition)
+	if len(b.Header) > 0 {
+		fmt.Fprintln(w, strings.Join(b.Header, "\t"))
+	}
+	for _, row := range b.Rows {
+		fmt.Fprintln(w, strings.Join(row, "\t"))
+	}
+	w.Flush()
+
+	return strings.TrimSpace(s.String())
 }
 
 // walk represents value and its nodes to f; f installs its own walk logic:
