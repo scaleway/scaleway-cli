@@ -9,6 +9,7 @@ import (
 	"sync"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/tabwriter"
+	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
@@ -27,6 +28,14 @@ type Layout struct {
 	// NoHeaders skips the header row of table blocks, like v1's
 	// MarshalOpt.NoHeaders.
 	NoHeaders bool
+
+	// NoShrinking keeps every table column regardless of the terminal width,
+	// like v1's MarshalOpt.DisableShrinking.
+	NoShrinking bool
+
+	// ColPadding is the number of spaces between table columns; 0 uses the
+	// default of 2, like v1's colPadding.
+	ColPadding int
 
 	Sections []Section
 }
@@ -178,6 +187,16 @@ func Render(data any, layout Layout) (string, error) {
 	}
 
 	var b strings.Builder
+	// Width-driven shrinking only applies to tables and only when the output
+	// is a terminal; disabling it (wide output) or a missing width keeps
+	// every column.
+	width := 0
+	if !layout.NoShrinking {
+		if w := terminal.GetWidth(); w > 0 {
+			width = w
+		}
+	}
+
 	for _, block := range blocks {
 		if block.Empty() {
 			continue
@@ -185,7 +204,7 @@ func Render(data any, layout Layout) (string, error) {
 		if b.Len() > 0 {
 			b.WriteString("\n\n")
 		}
-		b.WriteString(block.Draw())
+		b.WriteString(block.Draw(width, layout.ColPadding))
 	}
 
 	if layout.Title != "" {
@@ -538,8 +557,14 @@ func deriveTitle(path string) string {
 // lines or table, aligned to columns. It is the layout hook of the package:
 // column alignment today, terminal-width shrinking and lipgloss styling
 // later, so swapping the layout engine only touches this method. An empty
-// block draws nothing, and accumulated whitespace is trimmed.
-func (b Block) Draw() string {
+// Draw renders the block to text: an optional title line followed by its
+// lines, table columns shrunk to fit the given width (0 or negative keeps
+// every column). Only table blocks shrink, like v1's formatGrid.
+func (b Block) Draw(width, colPadding int) string {
+	if colPadding == 0 {
+		colPadding = 2 // v1 default
+	}
+
 	var s strings.Builder
 	if b.Title != "" {
 		s.WriteString(b.Title)
@@ -547,16 +572,56 @@ func (b Block) Draw() string {
 		s.WriteRune('\n')
 	}
 
-	w := tabwriter.NewWriter(&s, 5, 1, 2, ' ', tabwriter.ANSIGraphicsRendition)
+	lines := make([][]string, 0, len(b.Rows)+1)
 	if len(b.Header) > 0 && !b.NoHeaders {
-		fmt.Fprintln(w, strings.Join(b.Header, "\t"))
+		lines = append(lines, b.Header)
 	}
-	for _, row := range b.Rows {
-		fmt.Fprintln(w, strings.Join(row, "\t"))
+	lines = append(lines, b.Rows...)
+
+	cols := len(b.Header)
+	if cols == 0 && len(b.Rows) > 0 {
+		cols = len(b.Rows[0])
+	}
+	if cols > 0 && width > 0 && len(b.Header) > 0 {
+		if fit := MaxCols(lines, width, colPadding); fit < cols {
+			cols = fit
+		}
+	}
+
+	w := tabwriter.NewWriter(&s, 5, 1, colPadding, ' ', tabwriter.ANSIGraphicsRendition)
+	for _, line := range lines {
+		if cols > 0 && len(line) > cols {
+			line = line[:cols]
+		}
+		fmt.Fprintln(w, strings.Join(line, "\t"))
 	}
 	w.Flush()
 
 	return strings.TrimSpace(s.String())
+}
+
+// MaxCols returns the number of columns that fit within width, mirroring v1:
+// each column takes its widest cell plus colPadding, and the first column
+// whose running width exceeds width is dropped.
+func MaxCols(lines [][]string, width, colPadding int) int {
+	cols := len(lines[0])
+	colMaxSize := make([]int, len(lines[0]))
+
+	for _, line := range lines {
+		lineSize := 0
+		for j := 0; j < cols; j++ {
+			size := len(line[j]) + colPadding
+			if size >= colMaxSize[j] {
+				colMaxSize[j] = size
+			}
+			lineSize += colMaxSize[j]
+			if lineSize > width {
+				cols = j
+			}
+		}
+	}
+
+	return cols
 }
 
 // walk represents value and its nodes to f; f installs its own walk logic:

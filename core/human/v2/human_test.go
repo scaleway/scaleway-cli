@@ -710,6 +710,7 @@ func TestBlock_Draw(t *testing.T) {
 	for _, tc := range []struct {
 		name  string
 		block human.Block
+		width int
 		want  string
 	}{
 		{
@@ -767,13 +768,35 @@ b    two`,
 bar  2`,
 		},
 		{
+			name: "table shrinks to fit width",
+			block: human.Block{
+				Header: []string{"ID", "NAME", "TYPE"},
+				Rows:   [][]string{{"1", "xavier", "instance"}},
+			},
+			// Columns beyond the second drop once the running column width
+			// exceeds the given width; tabwriter pads 2-char cells to 5.
+			want: `ID   NAME
+1    xavier`,
+			width: 12,
+		},
+		{
+			name: "no-headers table shrinks data rows",
+			block: human.Block{
+				Header:    []string{"ID", "NAME", "TYPE"},
+				Rows:      [][]string{{"1", "xavier", "instance"}},
+				NoHeaders: true,
+			},
+			want:  `1    xavier`,
+			width: 12,
+		},
+		{
 			name:  "empty block draws nothing",
 			block: human.Block{},
 			want:  ``,
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
-			require.Equal(t, tc.want, tc.block.Draw())
+			require.Equal(t, tc.want, tc.block.Draw(tc.width, 0))
 		})
 	}
 }
@@ -959,5 +982,28 @@ text`,
 			require.NoError(t, err)
 			require.Equal(t, tc.want, got)
 		})
+	}
+}
+
+func TestMaxCols(t *testing.T) {
+	grid := [][]string{
+		{"ID", "NAME", "TYPE", "STATE", "ZONE", "PUBLIC IP"},
+		{"1", "xavier", "instance", "running", "fr-par-1", "1.2.3.4"},
+	}
+	for _, tc := range []struct {
+		width      int
+		colPadding int
+		want       int
+	}{
+		{width: 3, colPadding: 2, want: 0},
+		{width: 30, colPadding: 2, want: 3},
+		{width: 40, colPadding: 2, want: 4},
+		{width: 51, colPadding: 2, want: 5},
+		{width: 60, colPadding: 2, want: 6},
+		// colPadding is part of each column's estimated width: without it the
+		// same width fits every column.
+		{width: 40, colPadding: 0, want: 6},
+	} {
+		require.Equal(t, tc.want, human.MaxCols(grid, tc.width, tc.colPadding))
 	}
 }
