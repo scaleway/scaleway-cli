@@ -33,6 +33,7 @@ func GetCommands() *core.Commands {
 
 	cmds.Merge(core.NewCommands(
 		vpcgwPATRulesEditCommand(),
+		gatewayChargeCommand(),
 	))
 
 	return cmds

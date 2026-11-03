@@ -7,6 +7,26 @@ Cloud Essentials for Opensearch API.
 Manage your Cloud Essentials for OpenSearch deployment.
 
 
+### List all the charges of this deployment since its creation
+
+
+
+**Usage:**
+
+```shell
+scw searchdb deployment charge <deployment-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name          | Description                                                                 | Argument Specifications |
+|---------------|-----------------------------------------------------------------------------|-------------------------|
+| deployment-id | Deployment ID                                                               | Required                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Create a new Cloud Essentials for OpenSearch deployment
 
 Create a new Cloud Essentials for OpenSearch deployment.

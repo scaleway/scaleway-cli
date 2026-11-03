@@ -101,6 +101,26 @@ scw interlink link attach_vpc <link-id ...> [arg=value ...]
 
 
 
+### List all the charges of this dedicated connection since its creation
+
+
+
+**Usage:**
+
+```shell
+scw interlink link charge <connection-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name          | Description                                                                 | Argument Specifications |
+|---------------|-----------------------------------------------------------------------------|-------------------------|
+| connection-id | Dedicated Connection ID                                                     | Required                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Create a link
 
 Create a link (InterLink session / logical InterLink resource) in a given PoP, specifying its various configuration details. Links can either be hosted (facilitated by partners' shared physical connections) or self-hosted (for users who have purchased a dedicated physical connection).

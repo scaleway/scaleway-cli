@@ -232,6 +232,26 @@ scw function domain list [arg=value ...]
 Function management commands.
 
 
+### List all the charges of this function since its creation
+
+
+
+**Usage:**
+
+```shell
+scw function function charge <function-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name        | Description                                                                 | Argument Specifications |
+|-------------|-----------------------------------------------------------------------------|-------------------------|
+| function-id | Function ID                                                                 | Required                |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Open the Cockpit Grafana dashboard for this function
 
 

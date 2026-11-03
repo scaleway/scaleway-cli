@@ -99,6 +99,26 @@ A cluster is a fully managed Kubernetes cluster
 It is composed of different pools, each pool containing the same kind of nodes.
 
 
+### List all the charges of this cluster since its creation
+
+
+
+**Usage:**
+
+```shell
+scw k8s cluster charge <cluster-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| cluster-id | Cluster ID                                                                  | Required                |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Open the Cockpit Grafana dashboard for this cluster
 
 
@@ -1018,6 +1038,26 @@ scw k8s pool add-external-node [arg=value ...]
 | pool-id  | ID of the Pool the node should be added to                                  | Required                |
 | username | Username used for the SSH connection                                        | Default: `root`         |
 | region   | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
+### List all the charges of this pool since its creation
+
+
+
+**Usage:**
+
+```shell
+scw k8s pool charge <pool-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name    | Description                                                                 | Argument Specifications |
+|---------|-----------------------------------------------------------------------------|-------------------------|
+| pool-id | Pool ID                                                                     | Required                |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 

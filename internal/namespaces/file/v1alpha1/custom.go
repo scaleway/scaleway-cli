@@ -7,5 +7,7 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("file").Groups = []string{"storage"}
 
+	cmds.Add(filesystemChargeCommand())
+
 	return cmds
 }

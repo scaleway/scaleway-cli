@@ -46,6 +46,7 @@ func GetCommands() *core.Commands {
 	}
 
 	cmds.Add(containerCockpitCommand())
+	cmds.Add(containerChargeCommand())
 
 	return cmds
 }

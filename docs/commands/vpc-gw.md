@@ -7,6 +7,26 @@ This API allows you to manage your Public Gateways.
 Public Gateways are building blocks for your infrastructure on Scaleway's shared public cloud. They provide a set of managed network services and features for Scaleway's Private Networks such NAT and PAT rules.
 
 
+### List all the charges of this gateway since its creation
+
+
+
+**Usage:**
+
+```shell
+scw vpc-gw gateway charge <gateway-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                             | Argument Specifications |
+|------------|-------------------------------------------------------------------------|-------------------------|
+| gateway-id | Gateway ID                                                              | Required                |
+| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`     |
+
+
+
 ### Create a Public Gateway
 
 Create a new Public Gateway in the specified Scaleway Project, defining its **name**, **type** and other configuration details such as whether to enable SSH bastion.

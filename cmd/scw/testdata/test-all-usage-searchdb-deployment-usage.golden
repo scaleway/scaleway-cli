@@ -6,6 +6,7 @@ USAGE:
   scw searchdb deployment <command>
 
 AVAILABLE COMMANDS:
+  charge      List all the charges of this deployment since its creation
   create      Create a new Cloud Essentials for OpenSearch deployment
   delete      Delete a Cloud Essentials for OpenSearch deployment
   get         Retrieve a specific Cloud Essentials for OpenSearch deployment

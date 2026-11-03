@@ -32,6 +32,26 @@ scw datalab cluster-version list [arg=value ...]
 Manage your clusters.
 
 
+### List all the charges of this datalab since its creation
+
+
+
+**Usage:**
+
+```shell
+scw datalab datalab charge <datalab-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| datalab-id | Datalab ID                                                                  | Required                |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Create datalab resources
 
 Create datalab resources.

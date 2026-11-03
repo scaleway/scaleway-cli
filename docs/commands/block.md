@@ -204,6 +204,26 @@ scw block snapshot wait 11111111-1111-1111-1111-111111111111 terminal-status=ava
 Block volumes can be snapshotted, mounted or unmounted.
 
 
+### List all the charges of this volume since its creation
+
+
+
+**Usage:**
+
+```shell
+scw block volume charge <volume-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name      | Description                                                             | Argument Specifications |
+|-----------|-------------------------------------------------------------------------|-------------------------|
+| volume-id | Volume ID                                                               | Required                |
+| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`     |
+
+
+
 ### Create a volume
 
 To create a new volume from scratch, you must specify `from_empty` and the `size`.

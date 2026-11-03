@@ -76,6 +76,26 @@ scw datawarehouse database list [arg=value ...]
 A deployment is composed of one or multiple replicas.
 
 
+### List all the charges of this data warehouse since its creation
+
+
+
+**Usage:**
+
+```shell
+scw datawarehouse deployment charge <deployment-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name          | Description                                                                 | Argument Specifications |
+|---------------|-----------------------------------------------------------------------------|-------------------------|
+| deployment-id | Deployment ID                                                               | Required                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Open the Cockpit Grafana dashboard for this data warehouse
 
 

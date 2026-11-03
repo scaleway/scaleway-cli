@@ -6,6 +6,7 @@ USAGE:
   scw inference deployment <command>
 
 AVAILABLE COMMANDS:
+  charge          List all the charges of this deployment since its creation
   create          Create a deployment
   delete          Delete a deployment
   get             Get a deployment

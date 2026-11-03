@@ -20,5 +20,7 @@ func GetCommands() *core.Commands {
 		human.EnumMarshalFunc(linkStatusMarshalSpecs),
 	)
 
+	cmds.Add(linkChargeCommand())
+
 	return cmds
 }

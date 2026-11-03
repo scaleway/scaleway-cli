@@ -6,6 +6,7 @@ USAGE:
   scw mongodb instance <command>
 
 AVAILABLE COMMANDS:
+  charge          List all the charges of this instance since its creation
   cockpit         Open the Cockpit Grafana dashboard for this instance
   create          Create a MongoDB® Database Instance
   delete          Delete a MongoDB® Database Instance

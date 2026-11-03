@@ -6,6 +6,7 @@ USAGE:
   scw datalab datalab <command>
 
 AVAILABLE COMMANDS:
+  charge      List all the charges of this datalab since its creation
   create      Create datalab resources
   delete      Delete datalab resources
   get         Get datalab resources
