@@ -80,3 +80,13 @@ func DefaultValueSetter(defaultValue string) DefaultFunc {
 		return defaultValue, defaultValue
 	}
 }
+
+func DefaultValueSetterWithFallback(envKey, fallback string) DefaultFunc {
+	return func(ctx context.Context) (value string, doc string) {
+		if v := ExtractEnv(ctx, envKey); v != "" {
+			return v, v
+		}
+
+		return fallback, fallback
+	}
+}
