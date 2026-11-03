@@ -22,6 +22,10 @@ type Layout struct {
 	// wrapping all sections like v1's MarshalOpt.Title.
 	Title string
 
+	// NoHeaders skips the header row of table blocks, like v1's
+	// MarshalOpt.NoHeaders.
+	NoHeaders bool
+
 	Sections []Section
 }
 
@@ -123,6 +127,9 @@ type Block struct {
 	Title  string
 	Header []string
 	Rows   [][]string
+
+	// NoHeaders skips the header row when drawing a table block.
+	NoHeaders bool
 }
 
 // Empty reports whether block draws nothing at all.
@@ -220,6 +227,8 @@ func (l Layout) Resolve(data any) ([]Block, error) {
 			return nil, nil
 		}
 
+		block.NoHeaders = l.NoHeaders
+
 		return []Block{block}, nil
 
 	// A struct resolves into one block per section. claimed tracks the dotted
@@ -249,6 +258,7 @@ func (l Layout) Resolve(data any) ([]Block, error) {
 				return nil, fmt.Errorf("rendering section %d: %w", i, err)
 			}
 			if !block.Empty() {
+				block.NoHeaders = l.NoHeaders
 				blocks = append(blocks, block)
 			}
 		}
@@ -518,7 +528,7 @@ func (b Block) Draw() string {
 	}
 
 	w := tabwriter.NewWriter(&s, 5, 1, 2, ' ', tabwriter.ANSIGraphicsRendition)
-	if len(b.Header) > 0 {
+	if len(b.Header) > 0 && !b.NoHeaders {
 		fmt.Fprintln(w, strings.Join(b.Header, "\t"))
 	}
 	for _, row := range b.Rows {

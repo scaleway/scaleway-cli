@@ -176,6 +176,18 @@ func TestLayout_Resolve(t *testing.T) {
 			},
 		},
 		{
+			name:   "simple struct without headers",
+			data:   []DummyStruct{{Foo: "foo", Bar: 1}},
+			layout: human.Layout{NoHeaders: true},
+			want: []human.Block{
+				{
+					Header:    []string{"FOO", "BAR"},
+					Rows:      [][]string{{"foo", "1"}},
+					NoHeaders: true,
+				},
+			},
+		},
+		{
 			name: "slice of pointer to struct",
 			data: []*FirstLevelDummyStruct{
 				{FirstLevelFieldA: "a", FirstLevelFieldB: "b"},
@@ -709,6 +721,16 @@ b    two`,
 			want: `-`,
 		},
 		{
+			name: "table without headers",
+			block: human.Block{
+				Header:    []string{"Foo", "Bar"},
+				Rows:      [][]string{{"foo", "1"}, {"bar", "2"}},
+				NoHeaders: true,
+			},
+			want: `foo  1
+bar  2`,
+		},
+		{
 			name:  "empty block draws nothing",
 			block: human.Block{},
 			want:  ``,
@@ -758,6 +780,16 @@ Bar  1`,
 			data:   42,
 			layout: human.Layout{},
 			want:   "42",
+		},
+		{
+			name: "table without headers",
+			data: []DummyStruct{
+				{Foo: "foo", Bar: 1},
+				{Foo: "bar", Bar: 2},
+			},
+			layout: human.Layout{NoHeaders: true},
+			want: `foo  1
+bar  2`,
 		},
 		{
 			name: "table",
