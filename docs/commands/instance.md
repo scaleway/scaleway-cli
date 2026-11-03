@@ -951,20 +951,20 @@ scw instance security-group add-rules <security-group-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name                                  | Description                                                             | Argument Specifications                                                                                                                                 |
-|---------------------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| security-group-id                     | ID of the security group to add rules to                                | Required                                                                                                                                                |
-| rules.{index}.protocol                | Protocol for the rule                                                   | One of: `unknown_protocol`, `tcp`, `udp`, `icmp`, `any`                                                                                                 |
-| rules.{index}.direction               | Direction of traffic for the rule                                       | One of: `unknown_direction`, `inbound`, `outbound`, `both`                                                                                              |
-| rules.{index}.action                  | Action to take when the rule matches                                    | One of: `unknown_action`, `accept`, `drop`                                                                                                              |
-| rules.{index}.source-ip-range         | Source IP range for the rule                                            |                                                                                                                                                         |
-| rules.{index}.destination-ip-range    | Destination IP range for the rule                                       |                                                                                                                                                         |
-| rules.{index}.source-ports.start      | Start of the port range                                                 |                                                                                                                                                         |
-| rules.{index}.source-ports.end        | End of the port range                                                   |                                                                                                                                                         |
-| rules.{index}.destination-ports.start | Start of the port range                                                 |                                                                                                                                                         |
-| rules.{index}.destination-ports.end   | End of the port range                                                   |                                                                                                                                                         |
-| rules.{index}.position                | Position of this rule in the rule list, starting at 1                   |                                                                                                                                                         |
-| zone                                  | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name                                  | Description                                                             | Argument Specifications                                                                                                                                                         |
+|---------------------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| security-group-id                     | ID of the security group to add rules to                                | Required                                                                                                                                                                        |
+| rules.{index}.protocol                | Protocol for the rule                                                   | One of: `unknown_protocol`, `tcp`, `udp`, `icmp`, `any`                                                                                                                         |
+| rules.{index}.direction               | Direction of traffic for the rule                                       | One of: `unknown_direction`, `inbound`, `outbound`, `both`                                                                                                                      |
+| rules.{index}.action                  | Action to take when the rule matches                                    | One of: `unknown_action`, `accept`, `drop`                                                                                                                                      |
+| rules.{index}.source-ip-range         | Source IP range for the rule                                            |                                                                                                                                                                                 |
+| rules.{index}.destination-ip-range    | Destination IP range for the rule                                       |                                                                                                                                                                                 |
+| rules.{index}.source-ports.start      | Start of the port range                                                 |                                                                                                                                                                                 |
+| rules.{index}.source-ports.end        | End of the port range                                                   |                                                                                                                                                                                 |
+| rules.{index}.destination-ports.start | Start of the port range                                                 |                                                                                                                                                                                 |
+| rules.{index}.destination-ports.end   | End of the port range                                                   |                                                                                                                                                                                 |
+| rules.{index}.position                | Position of this rule in the rule list, starting at 1                   |                                                                                                                                                                                 |
+| zone                                  | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -981,10 +981,10 @@ scw instance security-group clear <security-group-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name              | Description                                                             | Argument Specifications                                                                                                                                 |
-|-------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| security-group-id | ID of the security group to reset.                                      | Required                                                                                                                                                |
-| zone              | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name              | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| security-group-id | ID of the security group to reset.                                      | Required                                                                                                                                                                        |
+| zone              | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 **Examples:**
@@ -1011,18 +1011,48 @@ scw instance security-group create [arg=value ...]
 
 **Arguments:**
 
-| Name                    | Description                                                              | Argument Specifications                                                                                                                                 |
-|-------------------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name                    | Name of the security group                                               | Required<br />Default: `<generated>`                                                                                                                    |
-| description             | Description of the security group                                        |                                                                                                                                                         |
-| disable-default-rules   | Whether to disable default rules                                         | Default: `false`                                                                                                                                        |
-| project-id              | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                         |
-| tags.{index}            | Tags for the security group                                              |                                                                                                                                                         |
-| project-default         | Whether this should be the default security group for the project        |                                                                                                                                                         |
-| inbound-default-action  | Default action for inbound rules                                         | Default: `accept`<br />One of: `unknown_action`, `accept`, `drop`                                                                                       |
-| outbound-default-action | Default action for outbound rules                                        | Default: `accept`<br />One of: `unknown_action`, `accept`, `drop`                                                                                       |
-| stateless               | Whether the security group should be stateless                           | Default: `false`                                                                                                                                        |
-| zone                    | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name                    | Description                                                              | Argument Specifications                                                                                                                                                         |
+|-------------------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| name                    | Name of the security group                                               | Required<br />Default: `<generated>`                                                                                                                                            |
+| description             | Description of the security group                                        |                                                                                                                                                                                 |
+| disable-default-rules   | Whether to disable default rules                                         | Default: `false`                                                                                                                                                                |
+| project-id              | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                                                 |
+| tags.{index}            | Tags for the security group                                              |                                                                                                                                                                                 |
+| project-default         | Whether this should be the default security group for the project        |                                                                                                                                                                                 |
+| inbound-default-action  | Default action for inbound rules                                         | Default: `accept`<br />One of: `unknown_action`, `accept`, `drop`                                                                                                               |
+| outbound-default-action | Default action for outbound rules                                        | Default: `accept`<br />One of: `unknown_action`, `accept`, `drop`                                                                                                               |
+| stateless               | Whether the security group should be stateless                           | Default: `false`                                                                                                                                                                |
+| zone                    | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
+
+
+**Examples:**
+
+
+Create a security group with a specified name and description
+```shell
+scw instance security-group create name=foobar description="foobar foobar"
+```
+
+Create a security group that will be applied as default on all Instances of this Project
+```shell
+scw instance security-group create project-default=true
+```
+
+Create a security group that will have a default drop inbound policy (traffic your Instance receives)
+```shell
+scw instance security-group create inbound-default-action=drop
+```
+
+Create a security group that will have a default drop outbound policy (traffic your Instance transmits)
+```shell
+scw instance security-group create outbound-default-action=drop
+```
+
+Create a stateless security group
+```shell
+scw instance security-group create stateless=true
+```
+
 
 
 
@@ -1097,10 +1127,20 @@ scw instance security-group delete <security-group-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name              | Description                                                             | Argument Specifications                                                                                                                                 |
-|-------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| security-group-id | ID of the security group to delete                                      | Required                                                                                                                                                |
-| zone              | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name              | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| security-group-id | ID of the security group to delete                                      | Required                                                                                                                                                                        |
+| zone              | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
+
+
+**Examples:**
+
+
+Delete the security group with the specified ID
+```shell
+scw instance security-group delete 11111111-1111-1111-1111-111111111111
+```
+
 
 
 
@@ -1148,10 +1188,10 @@ scw instance security-group delete-rules [arg=value ...]
 
 **Arguments:**
 
-| Name                            | Description                                                             | Argument Specifications                                                                                                                                 |
-|---------------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| security-group-rule-ids.{index} | List of rule IDs to delete                                              |                                                                                                                                                         |
-| zone                            | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name                            | Description                                                             | Argument Specifications                                                                                                                                                         |
+|---------------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| security-group-rule-ids.{index} | List of rule IDs to delete                                              |                                                                                                                                                                                 |
+| zone                            | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -1169,11 +1209,11 @@ scw instance security-group edit <security-group-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name              | Description                                                             | Argument Specifications                                                                                                                                 |
-|-------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| security-group-id | ID of the security group to reset.                                      | Required                                                                                                                                                |
-| mode              | marshaling used when editing data                                       | Default: `yaml`<br />One of: `yaml`, `json`                                                                                                             |
-| zone              | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name              | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| security-group-id | ID of the security group to reset.                                      | Required                                                                                                                                                                        |
+| mode              | marshaling used when editing data                                       | Default: `yaml`<br />One of: `yaml`, `json`                                                                                                                                     |
+| zone              | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -1190,10 +1230,20 @@ scw instance security-group get <security-group-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name              | Description                                                             | Argument Specifications                                                                                                                                 |
-|-------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| security-group-id | ID of the security group to retrieve                                    | Required                                                                                                                                                |
-| zone              | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name              | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| security-group-id | ID of the security group to retrieve                                    | Required                                                                                                                                                                        |
+| zone              | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
+
+
+**Examples:**
+
+
+Get a security group with the specified ID
+```shell
+scw instance security-group get 11111111-1111-1111-1111-111111111111
+```
+
 
 
 
@@ -1241,16 +1291,26 @@ scw instance security-group list [arg=value ...]
 
 **Arguments:**
 
-| Name                       | Description                                                              | Argument Specifications                                                                                                                                 |
-|----------------------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| page-token                 | Token for pagination                                                     |                                                                                                                                                         |
-| page-size                  | Number of items to return per page                                       |                                                                                                                                                         |
-| order-by                   | Field and direction to sort by                                           | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`                                                                        |
-| project-id                 | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                         |
-| name                       | Filter by name                                                           |                                                                                                                                                         |
-| tags.{index}               | Filter by tags                                                           |                                                                                                                                                         |
-| security-group-ids.{index} | Filter by specific security group IDs                                    |                                                                                                                                                         |
-| zone                       | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name                       | Description                                                              | Argument Specifications                                                                                                                                                         |
+|----------------------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| page-token                 | Token for pagination                                                     |                                                                                                                                                                                 |
+| page-size                  | Number of items to return per page                                       |                                                                                                                                                                                 |
+| order-by                   | Field and direction to sort by                                           | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`                                                                                                |
+| project-id                 | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                                                 |
+| name                       | Filter by name                                                           |                                                                                                                                                                                 |
+| tags.{index}               | Filter by tags                                                           |                                                                                                                                                                                 |
+| security-group-ids.{index} | Filter by specific security group IDs                                    |                                                                                                                                                                                 |
+| zone                       | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
+
+
+**Examples:**
+
+
+List all security groups that match the specified name
+```shell
+scw instance security-group list name=foobar
+```
+
 
 
 
@@ -1306,20 +1366,20 @@ scw instance security-group set-rules <security-group-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name                                  | Description                                                             | Argument Specifications                                                                                                                                 |
-|---------------------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| security-group-id                     | ID of the security group to set rules for                               | Required                                                                                                                                                |
-| rules.{index}.protocol                | Protocol for the rule                                                   | One of: `unknown_protocol`, `tcp`, `udp`, `icmp`, `any`                                                                                                 |
-| rules.{index}.direction               | Direction of traffic for the rule                                       | One of: `unknown_direction`, `inbound`, `outbound`, `both`                                                                                              |
-| rules.{index}.action                  | Action to take when the rule matches                                    | One of: `unknown_action`, `accept`, `drop`                                                                                                              |
-| rules.{index}.source-ip-range         | Source IP range for the rule                                            |                                                                                                                                                         |
-| rules.{index}.destination-ip-range    | Destination IP range for the rule                                       |                                                                                                                                                         |
-| rules.{index}.source-ports.start      | Start of the port range                                                 |                                                                                                                                                         |
-| rules.{index}.source-ports.end        | End of the port range                                                   |                                                                                                                                                         |
-| rules.{index}.destination-ports.start | Start of the port range                                                 |                                                                                                                                                         |
-| rules.{index}.destination-ports.end   | End of the port range                                                   |                                                                                                                                                         |
-| rules.{index}.position                | Position of this rule in the rule list, starting at 1                   |                                                                                                                                                         |
-| zone                                  | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name                                  | Description                                                             | Argument Specifications                                                                                                                                                         |
+|---------------------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| security-group-id                     | ID of the security group to set rules for                               | Required                                                                                                                                                                        |
+| rules.{index}.protocol                | Protocol for the rule                                                   | One of: `unknown_protocol`, `tcp`, `udp`, `icmp`, `any`                                                                                                                         |
+| rules.{index}.direction               | Direction of traffic for the rule                                       | One of: `unknown_direction`, `inbound`, `outbound`, `both`                                                                                                                      |
+| rules.{index}.action                  | Action to take when the rule matches                                    | One of: `unknown_action`, `accept`, `drop`                                                                                                                                      |
+| rules.{index}.source-ip-range         | Source IP range for the rule                                            |                                                                                                                                                                                 |
+| rules.{index}.destination-ip-range    | Destination IP range for the rule                                       |                                                                                                                                                                                 |
+| rules.{index}.source-ports.start      | Start of the port range                                                 |                                                                                                                                                                                 |
+| rules.{index}.source-ports.end        | End of the port range                                                   |                                                                                                                                                                                 |
+| rules.{index}.destination-ports.start | Start of the port range                                                 |                                                                                                                                                                                 |
+| rules.{index}.destination-ports.end   | End of the port range                                                   |                                                                                                                                                                                 |
+| rules.{index}.position                | Position of this rule in the rule list, starting at 1                   |                                                                                                                                                                                 |
+| zone                                  | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -1336,18 +1396,18 @@ scw instance security-group update <security-group-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name                    | Description                                                             | Argument Specifications                                                                                                                                 |
-|-------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| security-group-id       | ID of the security group to update                                      | Required                                                                                                                                                |
-| name                    | New name for the security group                                         |                                                                                                                                                         |
-| description             | New description for the security group                                  |                                                                                                                                                         |
-| disable-default-rules   | Whether to disable default rules                                        |                                                                                                                                                         |
-| tags.{index}            | New tags for the security group                                         |                                                                                                                                                         |
-| project-default         | Whether this should be the default security group for the project       |                                                                                                                                                         |
-| inbound-default-action  | New default action for inbound rules                                    | One of: `unknown_action`, `accept`, `drop`                                                                                                              |
-| outbound-default-action | New default action for outbound rules                                   | One of: `unknown_action`, `accept`, `drop`                                                                                                              |
-| stateless               | Whether the security group should be stateless                          |                                                                                                                                                         |
-| zone                    | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name                    | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| security-group-id       | ID of the security group to update                                      | Required                                                                                                                                                                        |
+| name                    | New name for the security group                                         |                                                                                                                                                                                 |
+| description             | New description for the security group                                  |                                                                                                                                                                                 |
+| disable-default-rules   | Whether to disable default rules                                        |                                                                                                                                                                                 |
+| tags.{index}            | New tags for the security group                                         |                                                                                                                                                                                 |
+| project-default         | Whether this should be the default security group for the project       |                                                                                                                                                                                 |
+| inbound-default-action  | New default action for inbound rules                                    | One of: `unknown_action`, `accept`, `drop`                                                                                                                                      |
+| outbound-default-action | New default action for outbound rules                                   | One of: `unknown_action`, `accept`, `drop`                                                                                                                                      |
+| stateless               | Whether the security group should be stateless                          |                                                                                                                                                                                 |
+| zone                    | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
@@ -1364,20 +1424,20 @@ scw instance security-group update-rule [arg=value ...]
 
 **Arguments:**
 
-| Name                    | Description                                                             | Argument Specifications                                                                                                                                 |
-|-------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| security-group-rule-id  | ID of the rule to update                                                | Required                                                                                                                                                |
-| protocol                | New protocol for the rule                                               | One of: `unknown_protocol`, `tcp`, `udp`, `icmp`, `any`                                                                                                 |
-| direction               | New direction for the rule                                              | One of: `unknown_direction`, `inbound`, `outbound`, `both`                                                                                              |
-| action                  | New action for the rule                                                 | One of: `unknown_action`, `accept`, `drop`                                                                                                              |
-| source-ip-range         | New source IP range for the rule                                        |                                                                                                                                                         |
-| destination-ip-range    | New destination IP range for the rule                                   |                                                                                                                                                         |
-| source-ports.start      | Start of the port range                                                 |                                                                                                                                                         |
-| source-ports.end        | End of the port range                                                   |                                                                                                                                                         |
-| destination-ports.start | Start of the port range                                                 |                                                                                                                                                         |
-| destination-ports.end   | End of the port range                                                   |                                                                                                                                                         |
-| position                | New position for the rule                                               |                                                                                                                                                         |
-| zone                    | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name                    | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| security-group-rule-id  | ID of the rule to update                                                | Required                                                                                                                                                                        |
+| protocol                | New protocol for the rule                                               | One of: `unknown_protocol`, `tcp`, `udp`, `icmp`, `any`                                                                                                                         |
+| direction               | New direction for the rule                                              | One of: `unknown_direction`, `inbound`, `outbound`, `both`                                                                                                                      |
+| action                  | New action for the rule                                                 | One of: `unknown_action`, `accept`, `drop`                                                                                                                                      |
+| source-ip-range         | New source IP range for the rule                                        |                                                                                                                                                                                 |
+| destination-ip-range    | New destination IP range for the rule                                   |                                                                                                                                                                                 |
+| source-ports.start      | Start of the port range                                                 |                                                                                                                                                                                 |
+| source-ports.end        | End of the port range                                                   |                                                                                                                                                                                 |
+| destination-ports.start | Start of the port range                                                 |                                                                                                                                                                                 |
+| destination-ports.end   | End of the port range                                                   |                                                                                                                                                                                 |
+| position                | New position for the rule                                               |                                                                                                                                                                                 |
+| zone                    | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
