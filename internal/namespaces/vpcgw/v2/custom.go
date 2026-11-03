@@ -37,10 +37,14 @@ func GetCommands() *core.Commands {
 		vpcgwPATRulesEditCommand(),
 	))
 
-	cmds.MustFind("vpc-gw", "gateway", "list").Override(core.ListViewBuilder("ID", "OrganizationID", "ProjectID", "CreatedAt", "UpdatedAt", "Type", "Bandwidth", "Status", "Name", "Tags", "GatewayNetworks", "Version", "CanUpgradeTo", "BastionEnabled", "BastionPort", "SMTPEnabled", "IsLegacy", "BastionAllowedIPs", "Zone"))
-	cmds.MustFind("vpc-gw", "gateway-network", "list").Override(core.ListViewBuilder("ID", "CreatedAt", "UpdatedAt", "GatewayID", "PrivateNetworkID", "MacAddress", "MasqueradeEnabled", "Status", "PushDefaultRoute", "IpamIPID", "Zone"))
-	cmds.MustFind("vpc-gw", "ip", "list").Override(core.ListViewBuilder("ID", "OrganizationID", "ProjectID", "CreatedAt", "UpdatedAt", "Tags", "Address", "Reverse", "GatewayID", "Zone"))
-	cmds.MustFind("vpc-gw", "pat-rule", "list").Override(core.ListViewBuilder("ID", "GatewayID", "CreatedAt", "UpdatedAt", "PublicPort", "PrivateIP", "PrivatePort", "Protocol", "Zone"))
+	cmds.MustFind("vpc-gw", "gateway", "list").
+		Override(core.ListViewBuilder("ID", "OrganizationID", "ProjectID", "CreatedAt", "UpdatedAt", "Type", "Bandwidth", "Status", "Name", "Tags", "GatewayNetworks", "Version", "CanUpgradeTo", "BastionEnabled", "BastionPort", "SMTPEnabled", "IsLegacy", "BastionAllowedIPs", "Zone"))
+	cmds.MustFind("vpc-gw", "gateway-network", "list").
+		Override(core.ListViewBuilder("ID", "CreatedAt", "UpdatedAt", "GatewayID", "PrivateNetworkID", "MacAddress", "MasqueradeEnabled", "Status", "PushDefaultRoute", "IpamIPID", "Zone"))
+	cmds.MustFind("vpc-gw", "ip", "list").
+		Override(core.ListViewBuilder("ID", "OrganizationID", "ProjectID", "CreatedAt", "UpdatedAt", "Tags", "Address", "Reverse", "GatewayID", "Zone"))
+	cmds.MustFind("vpc-gw", "pat-rule", "list").
+		Override(core.ListViewBuilder("ID", "GatewayID", "CreatedAt", "UpdatedAt", "PublicPort", "PrivateIP", "PrivatePort", "Protocol", "Zone"))
 
 	return cmds
 }

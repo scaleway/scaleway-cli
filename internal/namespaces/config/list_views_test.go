@@ -9,8 +9,10 @@ import (
 
 func Test_ListProfile(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: config.GetCommands(),
-		Cmd:      "scw config profile list",
-		Check:    core.TestCheckGolden(),
+		Commands:   config.GetCommands(),
+		BeforeFunc: beforeFuncCreateFullConfig(),
+		Cmd:        "scw config profile list",
+		Check:      core.TestCheckGolden(),
+		TmpHomeDir: true,
 	}))
 }

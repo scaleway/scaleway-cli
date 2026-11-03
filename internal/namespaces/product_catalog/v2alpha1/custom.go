@@ -7,7 +7,21 @@ func GetCommands() *core.Commands {
 
 	listCmd := cmds.MustFind("product-catalog", "product", "list")
 	listCmd.Override(productListBuilder)
-	listCmd.Override(core.ListViewBuilder("Sku", "ServiceCategory", "ProductCategory", "Product", "Variant", "Description", "Status", "EndOfLifeAt", "EndOfGrowthAt", "EndOfSaleAt", "Badges"))
+	listCmd.Override(
+		core.ListViewBuilder(
+			"Sku",
+			"ServiceCategory",
+			"ProductCategory",
+			"Product",
+			"Variant",
+			"Description",
+			"Status",
+			"EndOfLifeAt",
+			"EndOfGrowthAt",
+			"EndOfSaleAt",
+			"Badges",
+		),
+	)
 
 	return cmds
 }

@@ -176,7 +176,22 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "snapshot", "create").Override(snapshotCreateBuilder)
 	listCmd := cmds.MustFind("instance", "snapshot", "list")
 	listCmd.Override(snapshotListBuilder)
-	listCmd.Override(core.ListViewBuilder("ID", "Name", "Organization", "Project", "Tags", "VolumeType", "Size", "State", "CreationDate", "ModificationDate", "Zone", "ErrorReason"))
+	listCmd.Override(
+		core.ListViewBuilder(
+			"ID",
+			"Name",
+			"Organization",
+			"Project",
+			"Tags",
+			"VolumeType",
+			"Size",
+			"State",
+			"CreationDate",
+			"ModificationDate",
+			"Zone",
+			"ErrorReason",
+		),
+	)
 	cmds.MustFind("instance", "snapshot", "update").Override(snapshotUpdateBuilder)
 	cmds.Merge(core.NewCommands(
 		snapshotWaitCommand(),

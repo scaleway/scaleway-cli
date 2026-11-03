@@ -132,7 +132,20 @@ func GetCommands() *core.Commands {
 
 	listCmd := cmds.MustFind("instance", "server-type", "list")
 	listCmd.Override(serverTypeListBuilder)
-	listCmd.Override(core.ListViewBuilder("Name", "HourlyPrice", "SupportedStorage", "CPU", "GPU", "RAM", "Arch", "Bandwidth", "Availability", "MaxFileSystems"))
+	listCmd.Override(
+		core.ListViewBuilder(
+			"Name",
+			"HourlyPrice",
+			"SupportedStorage",
+			"CPU",
+			"GPU",
+			"RAM",
+			"Arch",
+			"Bandwidth",
+			"Availability",
+			"MaxFileSystems",
+		),
+	)
 
 	//
 	// Get-Compatible-Types

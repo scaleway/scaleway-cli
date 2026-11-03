@@ -41,7 +41,8 @@ func GetCommands() *core.Commands {
 		configEditCommand(),
 	)
 
-	cmds.MustFind("config", "profile", "list").Override(core.ListViewBuilder("Name", "DefaultZone", "DefaultRegion", "DefaultProjectID", "DefaultOrganizationID", "APIURL", "S3Endpoint", "S3UsePathStyle"))
+	cmds.MustFind("config", "profile", "list").
+		Override(core.ListViewBuilder("Name", "DefaultZone", "DefaultRegion", "DefaultProjectID", "DefaultOrganizationID", "APIURL", "S3Endpoint", "S3UsePathStyle"))
 
 	return cmds
 }

@@ -20,11 +20,16 @@ func GetCommands() *core.Commands {
 		vpcACLEditCommand(),
 	))
 
-	cmds.MustFind("vpc", "ingress-rule", "list").Override(core.ListViewBuilder("ID", "VpcID", "CreatedAt", "UpdatedAt", "IsIPv6", "Source", "NexthopResourceIP", "NexthopPrivateNetworkID", "Description", "Tags", "OrganizationID", "ProjectID", "Region"))
-	cmds.MustFind("vpc", "private-network", "list").Override(core.ListViewBuilder("ID", "Name", "OrganizationID", "ProjectID", "Region", "Tags", "CreatedAt", "UpdatedAt", "Subnets", "VpcID", "DHCPEnabled", "DefaultRoutePropagationEnabled", "HasObjectStoragePrivateAccess"))
-	cmds.MustFind("vpc", "route", "list").Override(core.ListViewBuilder("NexthopIP", "NexthopName", "NexthopResourceType"))
-	cmds.MustFind("vpc", "vpc", "list").Override(core.ListViewBuilder("ID", "Name", "OrganizationID", "ProjectID", "Region", "Tags", "IsDefault", "CreatedAt", "UpdatedAt", "PrivateNetworkCount", "RoutingEnabled", "CustomRoutesPropagationEnabled", "TransitivityEnabled", "ObjectStoragePrivateAccessEnabled"))
-	cmds.MustFind("vpc", "vpc-connector", "list").Override(core.ListViewBuilder("ID", "Name", "OrganizationID", "ProjectID", "VpcID", "TargetVpcID", "Status", "Region", "Tags", "CreatedAt", "UpdatedAt"))
+	cmds.MustFind("vpc", "ingress-rule", "list").
+		Override(core.ListViewBuilder("ID", "VpcID", "CreatedAt", "UpdatedAt", "IsIPv6", "Source", "NexthopResourceIP", "NexthopPrivateNetworkID", "Description", "Tags", "OrganizationID", "ProjectID", "Region"))
+	cmds.MustFind("vpc", "private-network", "list").
+		Override(core.ListViewBuilder("ID", "Name", "OrganizationID", "ProjectID", "Region", "Tags", "CreatedAt", "UpdatedAt", "Subnets", "VpcID", "DHCPEnabled", "DefaultRoutePropagationEnabled", "HasObjectStoragePrivateAccess"))
+	cmds.MustFind("vpc", "route", "list").
+		Override(core.ListViewBuilder("NexthopIP", "NexthopName", "NexthopResourceType"))
+	cmds.MustFind("vpc", "vpc", "list").
+		Override(core.ListViewBuilder("ID", "Name", "OrganizationID", "ProjectID", "Region", "Tags", "IsDefault", "CreatedAt", "UpdatedAt", "PrivateNetworkCount", "RoutingEnabled", "CustomRoutesPropagationEnabled", "TransitivityEnabled", "ObjectStoragePrivateAccessEnabled"))
+	cmds.MustFind("vpc", "vpc-connector", "list").
+		Override(core.ListViewBuilder("ID", "Name", "OrganizationID", "ProjectID", "VpcID", "TargetVpcID", "Status", "Region", "Tags", "CreatedAt", "UpdatedAt"))
 
 	return cmds
 }

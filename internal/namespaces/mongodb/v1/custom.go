@@ -30,11 +30,16 @@ func GetCommands() *core.Commands {
 		instanceWaitCommand(),
 	))
 
-	cmds.MustFind("mongodb", "instance", "list").Override(core.ListViewBuilder("ID", "Name", "ProjectID", "OrganizationID", "Status", "Version", "Tags", "NodeAmount", "NodeType", "Endpoints", "CreatedAt", "Region", "Settings", "Maintenances", "UpgradableVersions"))
-	cmds.MustFind("mongodb", "maintenance", "list").Override(core.ListViewBuilder("ID", "InstanceID", "CreatedAt", "StartsAt", "StopsAt", "Status", "ForcedAt", "AppliedAt", "AppliedBy", "Reason", "Region"))
-	cmds.MustFind("mongodb", "node-type", "list").Override(core.ListViewBuilder("Name", "StockStatus", "Description", "Vcpus", "MemoryBytes", "AvailableVolumeTypes", "Disabled", "Beta", "InstanceRange"))
-	cmds.MustFind("mongodb", "snapshot", "list").Override(core.ListViewBuilder("ID", "InstanceID", "Name", "Status", "SizeBytes", "ExpiresAt", "CreatedAt", "UpdatedAt", "InstanceName", "NodeType", "VolumeType", "Region"))
-	cmds.MustFind("mongodb", "version", "list").Override(core.ListViewBuilder("Version", "EndOfLifeAt", "ReleasedAt"))
+	cmds.MustFind("mongodb", "instance", "list").
+		Override(core.ListViewBuilder("ID", "Name", "ProjectID", "OrganizationID", "Status", "Version", "Tags", "NodeAmount", "NodeType", "Endpoints", "CreatedAt", "Region", "Settings", "Maintenances", "UpgradableVersions"))
+	cmds.MustFind("mongodb", "maintenance", "list").
+		Override(core.ListViewBuilder("ID", "InstanceID", "CreatedAt", "StartsAt", "StopsAt", "Status", "ForcedAt", "AppliedAt", "AppliedBy", "Reason", "Region"))
+	cmds.MustFind("mongodb", "node-type", "list").
+		Override(core.ListViewBuilder("Name", "StockStatus", "Description", "Vcpus", "MemoryBytes", "AvailableVolumeTypes", "Disabled", "Beta", "InstanceRange"))
+	cmds.MustFind("mongodb", "snapshot", "list").
+		Override(core.ListViewBuilder("ID", "InstanceID", "Name", "Status", "SizeBytes", "ExpiresAt", "CreatedAt", "UpdatedAt", "InstanceName", "NodeType", "VolumeType", "Region"))
+	cmds.MustFind("mongodb", "version", "list").
+		Override(core.ListViewBuilder("Version", "EndOfLifeAt", "ReleasedAt"))
 
 	cmds.MustFind("mongodb", "database", "list").Override(core.ListViewBuilder("Name"))
 	cmds.MustFind("mongodb", "user", "list").Override(core.ListViewBuilder("Name", "Roles"))

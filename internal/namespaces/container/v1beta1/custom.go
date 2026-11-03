@@ -9,7 +9,8 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("container").Groups = []string{"serverless"}
 
-	cmds.MustFind("container", "token", "list").Override(core.ListViewBuilder("ID", "Token", "ContainerID", "NamespaceID", "PublicKey", "Status", "Description", "ExpiresAt"))
+	cmds.MustFind("container", "token", "list").
+		Override(core.ListViewBuilder("ID", "Token", "ContainerID", "NamespaceID", "PublicKey", "Status", "Description", "ExpiresAt"))
 
 	return cmds
 }

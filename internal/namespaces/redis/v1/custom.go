@@ -23,9 +23,12 @@ func GetCommands() *core.Commands {
 	cmds.Merge(core.NewCommands(redisACLUpdateCommand()))
 	cmds.Merge(core.NewCommands(redisVersionSettingsCommand()))
 
-	cmds.MustFind("redis", "cluster", "list").Override(core.ListViewBuilder("ID", "Name", "ProjectID", "Status", "Version", "Endpoints", "Tags", "NodeType", "CreatedAt", "UpdatedAt", "TLSEnabled", "ClusterSettings", "ACLRules", "ClusterSize", "Zone", "UserName", "UpgradableVersions"))
-	cmds.MustFind("redis", "node-type", "list").Override(core.ListViewBuilder("Name", "StockStatus", "Description", "Vcpus", "Memory", "Disabled", "Beta", "Zone"))
-	cmds.MustFind("redis", "version", "list").Override(core.ListViewBuilder("Version", "EndOfLifeAt", "AvailableSettings", "LogoURL", "ReleasedAt", "Zone"))
+	cmds.MustFind("redis", "cluster", "list").
+		Override(core.ListViewBuilder("ID", "Name", "ProjectID", "Status", "Version", "Endpoints", "Tags", "NodeType", "CreatedAt", "UpdatedAt", "TLSEnabled", "ClusterSettings", "ACLRules", "ClusterSize", "Zone", "UserName", "UpgradableVersions"))
+	cmds.MustFind("redis", "node-type", "list").
+		Override(core.ListViewBuilder("Name", "StockStatus", "Description", "Vcpus", "Memory", "Disabled", "Beta", "Zone"))
+	cmds.MustFind("redis", "version", "list").
+		Override(core.ListViewBuilder("Version", "EndOfLifeAt", "AvailableSettings", "LogoURL", "ReleasedAt", "Zone"))
 
 	return cmds
 }

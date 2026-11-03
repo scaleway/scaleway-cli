@@ -19,7 +19,9 @@ func GetCommands() *core.Commands {
 
 	listCmd := commands.MustFind("autoscaling", "alerts", "list")
 	listCmd.Override(AlertsListBuilder)
-	listCmd.Override(core.ListViewBuilder("Type", "OpenedAt", "ClosedAt", "GroupID", "FailingQuotas"))
+	listCmd.Override(
+		core.ListViewBuilder("Type", "OpenedAt", "ClosedAt", "GroupID", "FailingQuotas"),
+	)
 	logsListCmd := commands.MustFind("autoscaling", "logs", "list")
 	logsListCmd.Override(LogsListBuilder)
 	logsListCmd.Override(core.ListViewBuilder("Timestamp", "Level", "Message"))

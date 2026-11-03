@@ -36,11 +36,15 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("apple-silicon", "server-type", "list").Override(serverTypeBuilder)
 
-	cmds.MustFind("apple-silicon", "os", "list").Override(core.ListViewBuilder("ID", "Name", "Label", "ImageURL", "Family", "IsBeta", "Version", "XcodeVersion", "CompatibleServerTypes", "ReleaseNotesURL", "Description", "Tags", "SupportedServerTypes", "Zone"))
-	cmds.MustFind("apple-silicon", "private-network", "list").Override(core.ListViewBuilder("ID", "ProjectID", "ServerID", "PrivateNetworkID", "Vlan", "Status", "CreatedAt", "UpdatedAt", "IpamIPIDs"))
-	cmds.MustFind("apple-silicon", "server", "list").Override(core.ListViewBuilder("ID", "Type", "Name", "ProjectID", "OrganizationID", "IP", "VncURL", "SSHUsername", "SudoPassword", "VncPort", "Os", "FullOsVersion", "Status", "CreatedAt", "UpdatedAt", "DeletableAt", "DeletionScheduled", "Zone", "Delivered", "VpcStatus", "PublicBandwidthBps", "Tags", "AppliedRunnerConfigurationIDs", "KextEnabled"))
+	cmds.MustFind("apple-silicon", "os", "list").
+		Override(core.ListViewBuilder("ID", "Name", "Label", "ImageURL", "Family", "IsBeta", "Version", "XcodeVersion", "CompatibleServerTypes", "ReleaseNotesURL", "Description", "Tags", "SupportedServerTypes", "Zone"))
+	cmds.MustFind("apple-silicon", "private-network", "list").
+		Override(core.ListViewBuilder("ID", "ProjectID", "ServerID", "PrivateNetworkID", "Vlan", "Status", "CreatedAt", "UpdatedAt", "IpamIPIDs"))
+	cmds.MustFind("apple-silicon", "server", "list").
+		Override(core.ListViewBuilder("ID", "Type", "Name", "ProjectID", "OrganizationID", "IP", "VncURL", "SSHUsername", "SudoPassword", "VncPort", "Os", "FullOsVersion", "Status", "CreatedAt", "UpdatedAt", "DeletableAt", "DeletionScheduled", "Zone", "Delivered", "VpcStatus", "PublicBandwidthBps", "Tags", "AppliedRunnerConfigurationIDs", "KextEnabled"))
 
-	cmds.MustFind("apple-silicon", "runner", "list").Override(core.ListViewBuilder("ID", "Status", "ErrorMessage", "Zone"))
+	cmds.MustFind("apple-silicon", "runner", "list").
+		Override(core.ListViewBuilder("ID", "Status", "ErrorMessage", "Zone"))
 
 	return cmds
 }

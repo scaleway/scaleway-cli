@@ -79,14 +79,21 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("lb", "certificate", "update").Override(certificateUpdateBuilder)
 	cmds.MustFind("lb", "certificate", "delete").Override(certificateDeleteBuilder)
 
-	cmds.MustFind("lb", "ip", "list").Override(core.ListViewBuilder("ID", "IPAddress", "OrganizationID", "ProjectID", "LBID", "Reverse", "Tags", "Region", "Zone"))
-	cmds.MustFind("lb", "lb", "list").Override(core.ListViewBuilder("ID", "Name", "Description", "Status", "Instances", "OrganizationID", "ProjectID", "IP", "Tags", "FrontendCount", "BackendCount", "Type", "SslCompatibilityLevel", "CreatedAt", "UpdatedAt", "PrivateNetworkCount", "RouteCount", "Region", "Zone"))
-	cmds.MustFind("lb", "lb-types", "list").Override(core.ListViewBuilder("Name", "StockStatus", "Bandwidth", "Multicloud", "Description", "Region", "Zone"))
-	cmds.MustFind("lb", "route", "list").Override(core.ListViewBuilder("ID", "FrontendID", "BackendID", "CreatedAt", "UpdatedAt", "Zone"))
+	cmds.MustFind("lb", "ip", "list").
+		Override(core.ListViewBuilder("ID", "IPAddress", "OrganizationID", "ProjectID", "LBID", "Reverse", "Tags", "Region", "Zone"))
+	cmds.MustFind("lb", "lb", "list").
+		Override(core.ListViewBuilder("ID", "Name", "Description", "Status", "Instances", "OrganizationID", "ProjectID", "IP", "Tags", "FrontendCount", "BackendCount", "Type", "SslCompatibilityLevel", "CreatedAt", "UpdatedAt", "PrivateNetworkCount", "RouteCount", "Region", "Zone"))
+	cmds.MustFind("lb", "lb-types", "list").
+		Override(core.ListViewBuilder("Name", "StockStatus", "Bandwidth", "Multicloud", "Description", "Region", "Zone"))
+	cmds.MustFind("lb", "route", "list").
+		Override(core.ListViewBuilder("ID", "FrontendID", "BackendID", "CreatedAt", "UpdatedAt", "Zone"))
 
-	cmds.MustFind("lb", "acl", "list").Override(core.ListViewBuilder("ID", "Name", "Frontend", "Index", "CreatedAt", "UpdatedAt", "Description", "Zone"))
-	cmds.MustFind("lb", "backend", "list").Override(core.ListViewBuilder("ID", "Name", "ForwardProtocol", "ForwardPort", "ForwardPortAlgorithm", "StickySessions", "StickySessionsCookieName", "Pool", "LB", "SendProxyV2", "TimeoutServer", "TimeoutConnect", "TimeoutTunnel", "OnMarkedDownAction", "ProxyProtocol", "CreatedAt", "UpdatedAt", "FailoverHost", "SslBridging", "IgnoreSslServerVerify", "RedispatchAttemptCount", "MaxRetries", "MaxConnections", "TimeoutQueue", "Host", "Zone"))
-	cmds.MustFind("lb", "frontend", "list").Override(core.ListViewBuilder("ID", "Name", "InboundPort", "Backend", "LB", "TimeoutClient", "Certificate", "CertificateIDs", "CreatedAt", "UpdatedAt", "EnableHTTP3", "ConnectionRateLimit", "EnableAccessLogs", "Zone"))
+	cmds.MustFind("lb", "acl", "list").
+		Override(core.ListViewBuilder("ID", "Name", "Frontend", "Index", "CreatedAt", "UpdatedAt", "Description", "Zone"))
+	cmds.MustFind("lb", "backend", "list").
+		Override(core.ListViewBuilder("ID", "Name", "ForwardProtocol", "ForwardPort", "ForwardPortAlgorithm", "StickySessions", "StickySessionsCookieName", "Pool", "LB", "SendProxyV2", "TimeoutServer", "TimeoutConnect", "TimeoutTunnel", "OnMarkedDownAction", "ProxyProtocol", "CreatedAt", "UpdatedAt", "FailoverHost", "SslBridging", "IgnoreSslServerVerify", "RedispatchAttemptCount", "MaxRetries", "MaxConnections", "TimeoutQueue", "Host", "Zone"))
+	cmds.MustFind("lb", "frontend", "list").
+		Override(core.ListViewBuilder("ID", "Name", "InboundPort", "Backend", "LB", "TimeoutClient", "Certificate", "CertificateIDs", "CreatedAt", "UpdatedAt", "EnableHTTP3", "ConnectionRateLimit", "EnableAccessLogs", "Zone"))
 	cmds.MustFind("lb", "subscriber", "list").Override(core.ListViewBuilder("ID", "Name", "Zone"))
 
 	return cmds

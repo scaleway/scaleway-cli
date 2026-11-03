@@ -6,10 +6,9 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/stretchr/testify/require"
-
 	"github.com/scaleway/scaleway-cli/v2/commands"
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/stretchr/testify/require"
 )
 
 // listViewExceptions documents the list commands that must not have an
@@ -60,5 +59,10 @@ func Test_ListCommandsHaveView(t *testing.T) {
 	}
 
 	sort.Strings(missing)
-	require.Empty(t, missing, "list commands without an explicit view; add a view or a documented exception: %v", missing)
+	require.Empty(
+		t,
+		missing,
+		"list commands without an explicit view; add a view or a documented exception: %v",
+		missing,
+	)
 }

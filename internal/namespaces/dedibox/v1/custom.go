@@ -37,15 +37,24 @@ func GetCommands() *core.Commands {
 		cmds.MustFind(commandPath...).Override(setProjectDefaultValue)
 	}
 
-	cmds.MustFind("dedibox", "fip", "list").Override(core.ListViewBuilder("ID", "Address", "Reverse", "IPVersion", "Cidr", "Netmask", "GatewayIP", "Mac", "ServerID", "Status", "Type", "ServerZone"))
-	cmds.MustFind("dedibox", "offer", "list").Override(core.ListViewBuilder("ID", "Name", "Catalog", "PaymentFrequency", "Pricing", "OfferID", "Commitments", "AvailableOs"))
-	cmds.MustFind("dedibox", "os", "list").Override(core.ListViewBuilder("ID", "Name", "Type", "Version", "Arch", "AllowCustomPartitioning", "AllowSSHKeys", "RequiresUser", "RequiresAdminPassword", "RequiresPanelPassword", "AllowedFilesystems", "RequiresLicense", "LicenseOffers", "MaxPartitions", "DisplayName", "PasswordRegex", "PanelPasswordRegex", "RequiresValidHostname", "HostnameRegex", "HostnameMaxLength", "ReleasedAt", "Beta", "Description", "OfficialWebsite"))
-	cmds.MustFind("dedibox", "rpn-info", "list").Override(core.ListViewBuilder("ID", "Hostname", "DatacenterName", "Zone", "IPAddress", "RpnVersion", "CompatibleQinq", "CanJoinQinqGroup", "Rpnv1GroupCount", "Rpnv2GroupCount", "CanJoinRpnv2Group"))
-	cmds.MustFind("dedibox", "rpn-v1", "list").Override(core.ListViewBuilder("ID", "Name", "Type", "Active", "CreatedAt", "Owner", "MembersCount", "OrganizationID", "ProjectID"))
-	cmds.MustFind("dedibox", "rpn-v2", "list").Override(core.ListViewBuilder("ID", "Name", "CompatibleRpnv1", "OrganizationID", "ProjectID", "Type", "Status", "Owner", "MembersCount", "Gateway"))
-	cmds.MustFind("dedibox", "san", "list").Override(core.ListViewBuilder("ID", "DatacenterName", "OrganizationID", "ProjectID", "ServerHostname", "IqnSuffix", "CreatedAt", "OfferID", "OfferName", "Status", "StorageSize", "Rpnv1Compatible", "Rpnv1Implicit", "DeliveredAt", "TerminatedAt", "ExpiresAt"))
-	cmds.MustFind("dedibox", "server", "list").Override(core.ListViewBuilder("ID", "DatacenterName", "OrganizationID", "ProjectID", "Hostname", "CreatedAt", "UpdatedAt", "ExpiredAt", "OfferID", "OfferName", "Status", "OsID", "Interfaces", "Zone", "IsOutsourced", "Qinq", "RpnVersion", "IsHds"))
-	cmds.MustFind("dedibox", "service", "list").Override(core.ListViewBuilder("ID", "ResourceID", "ProvisioningStatus", "CreatedAt", "DeliveredAt", "TerminatedAt", "ExpiresAt", "Type"))
+	cmds.MustFind("dedibox", "fip", "list").
+		Override(core.ListViewBuilder("ID", "Address", "Reverse", "IPVersion", "Cidr", "Netmask", "GatewayIP", "Mac", "ServerID", "Status", "Type", "ServerZone"))
+	cmds.MustFind("dedibox", "offer", "list").
+		Override(core.ListViewBuilder("ID", "Name", "Catalog", "PaymentFrequency", "Pricing", "OfferID", "Commitments", "AvailableOs"))
+	cmds.MustFind("dedibox", "os", "list").
+		Override(core.ListViewBuilder("ID", "Name", "Type", "Version", "Arch", "AllowCustomPartitioning", "AllowSSHKeys", "RequiresUser", "RequiresAdminPassword", "RequiresPanelPassword", "AllowedFilesystems", "RequiresLicense", "LicenseOffers", "MaxPartitions", "DisplayName", "PasswordRegex", "PanelPasswordRegex", "RequiresValidHostname", "HostnameRegex", "HostnameMaxLength", "ReleasedAt", "Beta", "Description", "OfficialWebsite"))
+	cmds.MustFind("dedibox", "rpn-info", "list").
+		Override(core.ListViewBuilder("ID", "Hostname", "DatacenterName", "Zone", "IPAddress", "RpnVersion", "CompatibleQinq", "CanJoinQinqGroup", "Rpnv1GroupCount", "Rpnv2GroupCount", "CanJoinRpnv2Group"))
+	cmds.MustFind("dedibox", "rpn-v1", "list").
+		Override(core.ListViewBuilder("ID", "Name", "Type", "Active", "CreatedAt", "Owner", "MembersCount", "OrganizationID", "ProjectID"))
+	cmds.MustFind("dedibox", "rpn-v2", "list").
+		Override(core.ListViewBuilder("ID", "Name", "CompatibleRpnv1", "OrganizationID", "ProjectID", "Type", "Status", "Owner", "MembersCount", "Gateway"))
+	cmds.MustFind("dedibox", "san", "list").
+		Override(core.ListViewBuilder("ID", "DatacenterName", "OrganizationID", "ProjectID", "ServerHostname", "IqnSuffix", "CreatedAt", "OfferID", "OfferName", "Status", "StorageSize", "Rpnv1Compatible", "Rpnv1Implicit", "DeliveredAt", "TerminatedAt", "ExpiresAt"))
+	cmds.MustFind("dedibox", "server", "list").
+		Override(core.ListViewBuilder("ID", "DatacenterName", "OrganizationID", "ProjectID", "Hostname", "CreatedAt", "UpdatedAt", "ExpiredAt", "OfferID", "OfferName", "Status", "OsID", "Interfaces", "Zone", "IsOutsourced", "Qinq", "RpnVersion", "IsHds"))
+	cmds.MustFind("dedibox", "service", "list").
+		Override(core.ListViewBuilder("ID", "ResourceID", "ProvisioningStatus", "CreatedAt", "DeliveredAt", "TerminatedAt", "ExpiresAt", "Type"))
 
 	return cmds
 }
