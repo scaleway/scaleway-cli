@@ -10,10 +10,10 @@ Version          14.4
 XcodeVersion     15
 ReleaseNotesURL  -
 Description      -
-Zone             
+Zone
 
-CompatibleServerTypes:
-[M1-M M2-M M2-L]
+Compatible Server Types:
+3
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "e08d1e5d-b4b9-402a-9f9a-97732d17e374",

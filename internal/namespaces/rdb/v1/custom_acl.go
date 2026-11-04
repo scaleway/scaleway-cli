@@ -8,6 +8,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -39,7 +40,7 @@ type CustomACLResult struct {
 
 func rdbACLCustomResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	result := i.(CustomACLResult)
-	messageStr, err := result.Success.MarshalHuman()
+	messageStr, err := humanv2.Format(result.Success)
 	if err != nil {
 		return "", err
 	}

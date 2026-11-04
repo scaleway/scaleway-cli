@@ -1,10 +1,10 @@
 package core
 
 import (
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 )
 
-// View hydrates human.MarshalOpt
+// View hydrates humanv2.Layout
 type View struct {
 	Title    string
 	Fields   []*ViewField
@@ -25,25 +25,29 @@ type ViewSection struct {
 	HideIfEmpty bool
 }
 
-func (v *View) getHumanMarshalerOpt() *human.MarshalOpt {
+func (v *View) getHumanLayout() *humanv2.Layout {
 	if v == nil {
 		return nil
 	}
-	opt := &human.MarshalOpt{}
-	for _, field := range v.Fields {
-		opt.Fields = append(opt.Fields, &human.MarshalFieldOpt{
-			FieldName: field.FieldName,
-			Label:     field.Label,
-		})
-	}
-	for _, section := range v.Sections {
-		opt.Sections = append(opt.Sections, &human.MarshalSection{
-			Title:       section.Title,
-			FieldName:   section.FieldName,
-			HideIfEmpty: section.HideIfEmpty,
-		})
-	}
-	opt.Title = v.Title
 
-	return opt
+	main := humanv2.Section{Path: ""}
+	for _, field := range v.Fields {
+		main.Fields = append(main.Fields, humanv2.Field{
+			Path:  field.FieldName,
+			Label: field.Label,
+		})
+	}
+	sections := []humanv2.Section{main}
+	for _, section := range v.Sections {
+		sections = append(sections, humanv2.Section{
+			Title:     section.Title,
+			Path:      section.FieldName,
+			Omittable: section.HideIfEmpty,
+		})
+	}
+
+	return &humanv2.Layout{
+		Title:    v.Title,
+		Sections: sections,
+	}
 }

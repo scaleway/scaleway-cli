@@ -23,7 +23,7 @@ ID                                    ADDRESS                                REV
 8ffde507-fb75-4e29-968b-cd278d581766  2001:bc8:1201:a2c:d604:e6ff:fee8:6290  -        IPv6     unknown         -
 
 Options:
-ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
+ID   NAME  STATUS  MANAGEABLE  EXPIRES AT  LICENSE  PUBLIC BANDWIDTH  PRIVATE NETWORK  REMOTE ACCESS  CERTIFICATION
 
 Install:
 OsID                                                          b9a016fc-947f-4bbc-bf95-343c8524535a
