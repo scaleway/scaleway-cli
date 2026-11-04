@@ -457,7 +457,7 @@ func containerContainerCreate() *core.Command {
 			},
 			{
 				Name:       "image",
-				Short:      `Image reference (e.g. "rg.fr-par.scw.cloud/my-registry-namespace/image:tag").`,
+				Short:      `Image reference (e.g. with sample image: "rg.fr-par.scw.cloud/serverless-catalog/sample-website:latest").`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -860,7 +860,7 @@ func containerContainerUpdate() *core.Command {
 			},
 			{
 				Name:       "image",
-				Short:      `Image reference (e.g. "rg.fr-par.scw.cloud/my-registry-namespace/image:tag").`,
+				Short:      `Image reference (e.g. with sample image: "rg.fr-par.scw.cloud/serverless-catalog/sample-website:latest").`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1209,7 +1209,7 @@ func containerDomainList() *core.Command {
 	return &core.Command{
 		Short: `List all custom domains the caller can access (read permission).`,
 		Long: `By default, the custom domains listed are ordered by creation date in ascending order. This can be modified via the ` + "`" + `order_by` + "`" + ` field.
-    
+
 Additional parameters can be set in the query to filter the output, such as ` + "`" + `organization_id` + "`" + `, ` + "`" + `project_id` + "`" + `, ` + "`" + `namespace_id` + "`" + `, or ` + "`" + `container_id` + "`" + `.`,
 		Namespace: "container",
 		Resource:  "domain",
