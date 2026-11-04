@@ -10,6 +10,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
@@ -17,44 +18,44 @@ import (
 )
 
 var (
-	backendServerStatsHealthCheckStatusMarshalSpecs = human.EnumMarshalSpecs{
-		lb.BackendServerStatsHealthCheckStatusPassed: &human.EnumMarshalSpec{
-			Attribute: color.FgGreen,
-			Value:     "passed",
+	backendServerStatsHealthCheckStatusFormat = humanv2.EnumFormats[lb.BackendServerStatsHealthCheckStatus]{
+		lb.BackendServerStatsHealthCheckStatusPassed: humanv2.EnumFormat{
+			Color: color.FgGreen,
+			Value: "passed",
 		},
-		lb.BackendServerStatsHealthCheckStatusFailed: &human.EnumMarshalSpec{
-			Attribute: color.FgRed,
-			Value:     "failed",
+		lb.BackendServerStatsHealthCheckStatusFailed: humanv2.EnumFormat{
+			Color: color.FgRed,
+			Value: "failed",
 		},
-		lb.BackendServerStatsHealthCheckStatusUnknown: &human.EnumMarshalSpec{
-			Attribute: color.Faint,
-			Value:     "unknown",
+		lb.BackendServerStatsHealthCheckStatusUnknown: humanv2.EnumFormat{
+			Color: color.Faint,
+			Value: "unknown",
 		},
-		lb.BackendServerStatsHealthCheckStatusNeutral: &human.EnumMarshalSpec{
-			Attribute: color.Faint,
-			Value:     "neutral",
+		lb.BackendServerStatsHealthCheckStatusNeutral: humanv2.EnumFormat{
+			Color: color.Faint,
+			Value: "neutral",
 		},
-		lb.BackendServerStatsHealthCheckStatusCondpass: &human.EnumMarshalSpec{
-			Attribute: color.FgBlue,
-			Value:     "condition passed",
+		lb.BackendServerStatsHealthCheckStatusCondpass: humanv2.EnumFormat{
+			Color: color.FgBlue,
+			Value: "condition passed",
 		},
 	}
-	backendServerStatsServerStateMarshalSpecs = human.EnumMarshalSpecs{
-		lb.BackendServerStatsServerStateStopped: &human.EnumMarshalSpec{
-			Attribute: color.FgRed,
-			Value:     "stopped",
+	backendServerStatsServerStateFormat = humanv2.EnumFormats[lb.BackendServerStatsServerState]{
+		lb.BackendServerStatsServerStateStopped: humanv2.EnumFormat{
+			Color: color.FgRed,
+			Value: "stopped",
 		},
-		lb.BackendServerStatsServerStateStarting: &human.EnumMarshalSpec{
-			Attribute: color.FgBlue,
-			Value:     "starting",
+		lb.BackendServerStatsServerStateStarting: humanv2.EnumFormat{
+			Color: color.FgBlue,
+			Value: "starting",
 		},
-		lb.BackendServerStatsServerStateRunning: &human.EnumMarshalSpec{
-			Attribute: color.FgGreen,
-			Value:     "running",
+		lb.BackendServerStatsServerStateRunning: humanv2.EnumFormat{
+			Color: color.FgGreen,
+			Value: "running",
 		},
-		lb.BackendServerStatsServerStateStopping: &human.EnumMarshalSpec{
-			Attribute: color.FgBlue,
-			Value:     "stopping",
+		lb.BackendServerStatsServerStateStopping: humanv2.EnumFormat{
+			Color: color.FgBlue,
+			Value: "stopping",
 		},
 	}
 )

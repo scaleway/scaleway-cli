@@ -6,6 +6,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -43,12 +44,9 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(k8s.Version{}, versionMarshalerFunc)
 	human.RegisterMarshalerFunc(k8s.Cluster{}, clusterMarshalerFunc)
 	human.RegisterMarshalerFunc(k8s.Pool{}, poolMarshalerFunc)
-	human.RegisterMarshalerFunc(
-		k8s.ClusterStatus(""),
-		human.EnumMarshalFunc(clusterStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(k8s.PoolStatus(""), human.EnumMarshalFunc(poolStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(k8s.NodeStatus(""), human.EnumMarshalFunc(nodeStatusMarshalSpecs))
+	humanv2.RegisterEnumFormat(clusterStatusFormat)
+	humanv2.RegisterEnumFormat(poolStatusFormat)
+	humanv2.RegisterEnumFormat(nodeStatusFormat)
 	human.RegisterMarshalerFunc(
 		k8s.ListClusterAvailableTypesResponse{},
 		clusterAvailableTypesListMarshalerFunc,

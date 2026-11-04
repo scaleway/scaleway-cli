@@ -5,29 +5,30 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/iot/v1"
 )
 
 var (
-	deviceMessageFiltersRulePolicyMarshalSpecs = human.EnumMarshalSpecs{
-		iot.DeviceMessageFiltersRulePolicyAccept: &human.EnumMarshalSpec{
-			Attribute: color.FgGreen,
-			Value:     "accept",
+	deviceMessageFiltersRulePolicyFormat = humanv2.EnumFormats[iot.DeviceMessageFiltersRulePolicy]{
+		iot.DeviceMessageFiltersRulePolicyAccept: humanv2.EnumFormat{
+			Color: color.FgGreen,
+			Value: "accept",
 		},
-		iot.DeviceMessageFiltersRulePolicyReject: &human.EnumMarshalSpec{
-			Attribute: color.FgRed,
-			Value:     "reject",
+		iot.DeviceMessageFiltersRulePolicyReject: humanv2.EnumFormat{
+			Color: color.FgRed,
+			Value: "reject",
 		},
 	}
 
-	deviceStatusMarshalSpecs = human.EnumMarshalSpecs{
-		iot.DeviceStatusEnabled: &human.EnumMarshalSpec{
-			Attribute: color.FgGreen,
-			Value:     "enabled",
+	deviceStatusFormat = humanv2.EnumFormats[iot.DeviceStatus]{
+		iot.DeviceStatusEnabled: humanv2.EnumFormat{
+			Color: color.FgGreen,
+			Value: "enabled",
 		},
-		iot.DeviceStatusDisabled: &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "disabled"},
-		iot.DeviceStatusError:    &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
+		iot.DeviceStatusDisabled: humanv2.EnumFormat{Color: color.FgRed, Value: "disabled"},
+		iot.DeviceStatusError:    humanv2.EnumFormat{Color: color.FgRed, Value: "error"},
 	}
 )
 

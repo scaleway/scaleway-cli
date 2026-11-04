@@ -17,6 +17,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
@@ -32,50 +33,50 @@ const (
 	errorMessageEndpointNotFound        = "any endpoint is associated on your instance"
 )
 
-var instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
-	rdbSDK.InstanceStatusUnknown: &human.EnumMarshalSpec{
-		Attribute: color.Faint,
-		Value:     "unknown",
+var instanceStatusFormat = humanv2.EnumFormats[rdbSDK.InstanceStatus]{
+	rdbSDK.InstanceStatusUnknown: humanv2.EnumFormat{
+		Color: color.Faint,
+		Value: "unknown",
 	},
-	rdbSDK.InstanceStatusReady: &human.EnumMarshalSpec{
-		Attribute: color.FgGreen,
-		Value:     "ready",
+	rdbSDK.InstanceStatusReady: humanv2.EnumFormat{
+		Color: color.FgGreen,
+		Value: "ready",
 	},
-	rdbSDK.InstanceStatusProvisioning: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "provisioning",
+	rdbSDK.InstanceStatusProvisioning: humanv2.EnumFormat{
+		Color: color.FgBlue,
+		Value: "provisioning",
 	},
-	rdbSDK.InstanceStatusConfiguring: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "configuring",
+	rdbSDK.InstanceStatusConfiguring: humanv2.EnumFormat{
+		Color: color.FgBlue,
+		Value: "configuring",
 	},
-	rdbSDK.InstanceStatusDeleting: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "deleting",
+	rdbSDK.InstanceStatusDeleting: humanv2.EnumFormat{
+		Color: color.FgBlue,
+		Value: "deleting",
 	},
-	rdbSDK.InstanceStatusError: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
-		Value:     "error",
+	rdbSDK.InstanceStatusError: humanv2.EnumFormat{
+		Color: color.FgRed,
+		Value: "error",
 	},
-	rdbSDK.InstanceStatusAutohealing: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "auto-healing",
+	rdbSDK.InstanceStatusAutohealing: humanv2.EnumFormat{
+		Color: color.FgBlue,
+		Value: "auto-healing",
 	},
-	rdbSDK.InstanceStatusLocked: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
-		Value:     "locked",
+	rdbSDK.InstanceStatusLocked: humanv2.EnumFormat{
+		Color: color.FgRed,
+		Value: "locked",
 	},
-	rdbSDK.InstanceStatusInitializing: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "initialized",
+	rdbSDK.InstanceStatusInitializing: humanv2.EnumFormat{
+		Color: color.FgBlue,
+		Value: "initialized",
 	},
-	rdbSDK.InstanceStatusDiskFull: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
-		Value:     "disk_full",
+	rdbSDK.InstanceStatusDiskFull: humanv2.EnumFormat{
+		Color: color.FgRed,
+		Value: "disk_full",
 	},
-	rdbSDK.InstanceStatusBackuping: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "backuping",
+	rdbSDK.InstanceStatusBackuping: humanv2.EnumFormat{
+		Color: color.FgBlue,
+		Value: "backuping",
 	},
 }
 

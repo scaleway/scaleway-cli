@@ -13,6 +13,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -26,14 +27,14 @@ const (
 // Marshalers
 //
 
-// poolStatusMarshalSpecs marshals a k8s.PoolStatus.
+// poolStatusFormat marshals a k8s.PoolStatus.
 var (
-	poolStatusMarshalSpecs = human.EnumMarshalSpecs{
-		k8s.PoolStatusScaling:   &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		k8s.PoolStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		k8s.PoolStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed},
-		k8s.PoolStatusUpgrading: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		k8s.PoolStatusWarning:   &human.EnumMarshalSpec{Attribute: color.FgHiYellow},
+	poolStatusFormat = humanv2.EnumFormats[k8s.PoolStatus]{
+		k8s.PoolStatusScaling:   humanv2.EnumFormat{Color: color.FgBlue},
+		k8s.PoolStatusReady:     humanv2.EnumFormat{Color: color.FgGreen},
+		k8s.PoolStatusLocked:    humanv2.EnumFormat{Color: color.FgRed},
+		k8s.PoolStatusUpgrading: humanv2.EnumFormat{Color: color.FgBlue},
+		k8s.PoolStatusWarning:   humanv2.EnumFormat{Color: color.FgHiYellow},
 	}
 )
 
@@ -305,7 +306,6 @@ set -e
 sudo wget -O /usr/local/bin/k8s-agent https://github.com/scaleway/k8s-agent/releases/latest/download/k8s-agent_linux_amd64
 sudo chmod +x /usr/local/bin/k8s-agent
 export POOL_ID=%s POOL_REGION=%s SCW_SECRET_KEY=\$SCW_SECRET_KEY
-echo "Launching k8s-agent..."
 sudo --preserve-env=POOL_ID,POOL_REGION,SCW_SECRET_KEY /usr/local/bin/k8s-agent -kosmos
 EOF`, poolID, region.String())
 }

@@ -1,4 +1,4 @@
-package human
+package humanv2
 
 import (
 	"fmt"
@@ -98,12 +98,12 @@ func (l Layout) ResolveSections() []Section {
 
 var layouts sync.Map
 
-// SetLayout stores a custom layout for a particular type. This custom layout
+// RegisterLayout stores a custom layout for a particular type. This custom layout
 // will override the default one, and be eventually overridden by the render
 // options themselves. This is useful because we don't want to have to
 // maintain the layouts in the SDK itself, nor wrap the types to implement
 // an interface.
-func SetLayout(t reflect.Type, l Layout) {
+func RegisterLayout(t reflect.Type, l Layout) {
 	layouts.Store(t, l)
 }
 
@@ -123,15 +123,30 @@ func isFormattable(t reflect.Type) bool {
 		if t.Implements(reflect.TypeFor[error]()) {
 			return true
 		}
+		if t.Implements(reflect.TypeFor[fmt.Stringer]()) {
+			return true
+		}
 		t = t.Elem()
 	}
 	switch {
 	// A struct is a table, unless it escapes through Formatter, a registered
 	// format function or error.Error.
 	case t.Kind() == reflect.Struct:
-		_, hasFormatFunc := getFormatFunc(t)
+		if t.Implements(reflect.TypeFor[Formatter]()) {
+			return true
+		}
+		if _, ok := getFormatFunc(t); ok {
+			return true
+		}
+		if t.Implements(reflect.TypeFor[error]()) {
+			return true
+		}
+		if t.Implements(reflect.TypeFor[fmt.Stringer]()) {
+			return true
+		}
 
-		return t.Implements(reflect.TypeFor[Formatter]()) || hasFormatFunc || t.Implements(reflect.TypeFor[error]())
+		return false
+
 	// A slice of structs breaks into a table, unless the slice type itself
 	// has a registered format function; a scalar slice is inline.
 	case t.Kind() == reflect.Slice || t.Kind() == reflect.Array:
@@ -415,6 +430,7 @@ func (s Section) resolveTable(value reflect.Value, block Block) (Block, error) {
 		for fieldIndex, field := range fields {
 			if isNil {
 				row[fieldIndex] = "-"
+
 				continue
 			}
 
@@ -424,6 +440,7 @@ func (s Section) resolveTable(value reflect.Value, block Block) (Block, error) {
 				// (nil intermediate, absent map key) land here: degrade to "-"
 				// like v1 instead of failing the whole table.
 				row[fieldIndex] = "-"
+
 				continue
 			}
 
@@ -443,7 +460,11 @@ func (s Section) resolveTable(value reflect.Value, block Block) (Block, error) {
 // flattens composite values into dotted keys, formats formattable leaves in
 // place, and skips paths claimed by other sections. Maps are just walked as
 // keyed leaves.
-func (s Section) resolveList(value reflect.Value, block Block, claimed map[string]bool) (Block, error) {
+func (s Section) resolveList(
+	value reflect.Value,
+	block Block,
+	claimed map[string]bool,
+) (Block, error) {
 	valueType := value.Type()
 	for valueType.Kind() == reflect.Pointer {
 		valueType = valueType.Elem()
@@ -466,6 +487,7 @@ func (s Section) resolveList(value reflect.Value, block Block, claimed map[strin
 			for _, f := range s.Fields {
 				if keys == f.Path || strings.HasPrefix(keys, f.Path+".") {
 					under = true
+
 					break
 				}
 			}
@@ -661,7 +683,11 @@ func MaxCols(lines [][]string, width, colPadding int) int {
 // it's called for every node with its dotted-path keys (Sub.X, Strings.0,
 // Map.key) and returns whether to keep descending after it. Nil pointers and
 // interfaces yield no node at all.
-func walk(value reflect.Value, keys string, f func(keys string, value reflect.Value) (bool, error)) error {
+func walk(
+	value reflect.Value,
+	keys string,
+	f func(keys string, value reflect.Value) (bool, error),
+) error {
 	if (value.Kind() == reflect.Pointer || value.Kind() == reflect.Interface) && value.IsNil() {
 		return nil
 	}

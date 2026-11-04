@@ -11,20 +11,21 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 var (
-	defaultLBTimeout     = 10 * time.Minute
-	lbStatusMarshalSpecs = human.EnumMarshalSpecs{
-		lb.LBStatusError:     &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-		lb.LBStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
-		lb.LBStatusMigrating: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "migrating"},
-		lb.LBStatusPending:   &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "pending"},
-		lb.LBStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
-		lb.LBStatusStopped:   &human.EnumMarshalSpec{Attribute: color.Faint, Value: "stopped"},
-		lb.LBStatusUnknown:   &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
+	defaultLBTimeout = 10 * time.Minute
+	lbStatusFormat   = humanv2.EnumFormats[lb.LBStatus]{
+		lb.LBStatusError:     humanv2.EnumFormat{Color: color.FgRed, Value: "error"},
+		lb.LBStatusLocked:    humanv2.EnumFormat{Color: color.FgRed, Value: "locked"},
+		lb.LBStatusMigrating: humanv2.EnumFormat{Color: color.FgBlue, Value: "migrating"},
+		lb.LBStatusPending:   humanv2.EnumFormat{Color: color.FgBlue, Value: "pending"},
+		lb.LBStatusReady:     humanv2.EnumFormat{Color: color.FgGreen, Value: "ready"},
+		lb.LBStatusStopped:   humanv2.EnumFormat{Color: color.Faint, Value: "stopped"},
+		lb.LBStatusUnknown:   humanv2.EnumFormat{Color: color.Faint, Value: "unknown"},
 	}
 )
 

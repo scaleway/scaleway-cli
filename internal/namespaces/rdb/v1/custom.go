@@ -3,6 +3,7 @@ package rdb
 import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 )
 
@@ -19,27 +20,11 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(rdbEndpointCustomResult{}, rdbEndpointCustomResultMarshalerFunc)
 	human.RegisterMarshalerFunc(logDownloadResult{}, logDownloadResultMarshalerFunc)
 
-	human.RegisterMarshalerFunc(
-		rdb.InstanceStatus(""),
-		human.EnumMarshalFunc(instanceStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		rdb.DatabaseBackupStatus(""),
-		human.EnumMarshalFunc(backupStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		rdb.InstanceLogStatus(""),
-		human.EnumMarshalFunc(logStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		rdb.NodeTypeStock(""),
-		human.EnumMarshalFunc(nodeTypeStockMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		rdb.ACLRuleAction(""),
-		human.EnumMarshalFunc(aclRuleActionMarshalSpecs),
-	)
-
+	humanv2.RegisterEnumFormat(instanceStatusFormat)
+	humanv2.RegisterEnumFormat(backupStatusFormat)
+	humanv2.RegisterEnumFormat(logStatusFormat)
+	humanv2.RegisterEnumFormat(nodeTypeStockFormat)
+	humanv2.RegisterEnumFormat(aclRuleActionFormat)
 	cmds.Merge(core.NewCommands(
 		rdbConfigRoot(),
 		rdbConfigGetCommand(),

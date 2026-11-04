@@ -3,47 +3,47 @@ package serverless_sqldb
 import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	serverless_sqldb "github.com/scaleway/scaleway-sdk-go/api/serverless_sqldb/v1alpha1"
 )
 
 var (
-	sdbSQLDatabaseStatusMarshalSpecs = human.EnumMarshalSpecs{
-		serverless_sqldb.DatabaseStatusUnknownStatus: &human.EnumMarshalSpec{
-			Attribute: color.Faint,
+	sdbSQLDatabaseStatusFormat = humanv2.EnumFormats[serverless_sqldb.DatabaseStatus]{
+		serverless_sqldb.DatabaseStatusUnknownStatus: humanv2.EnumFormat{
+			Color: color.Faint,
 		},
-		serverless_sqldb.DatabaseStatusError: &human.EnumMarshalSpec{
-			Attribute: color.FgRed,
+		serverless_sqldb.DatabaseStatusError: humanv2.EnumFormat{
+			Color: color.FgRed,
 		},
-		serverless_sqldb.DatabaseStatusCreating: &human.EnumMarshalSpec{
-			Attribute: color.FgBlue,
+		serverless_sqldb.DatabaseStatusCreating: humanv2.EnumFormat{
+			Color: color.FgBlue,
 		},
-		serverless_sqldb.DatabaseStatusReady: &human.EnumMarshalSpec{
-			Attribute: color.FgGreen,
+		serverless_sqldb.DatabaseStatusReady: humanv2.EnumFormat{
+			Color: color.FgGreen,
 		},
-		serverless_sqldb.DatabaseStatusDeleting: &human.EnumMarshalSpec{
-			Attribute: color.FgBlue,
+		serverless_sqldb.DatabaseStatusDeleting: humanv2.EnumFormat{
+			Color: color.FgBlue,
 		},
-		serverless_sqldb.DatabaseStatusRestoring: &human.EnumMarshalSpec{
-			Attribute: color.FgBlue,
+		serverless_sqldb.DatabaseStatusRestoring: humanv2.EnumFormat{
+			Color: color.FgBlue,
 		},
-		serverless_sqldb.DatabaseStatusLocked: &human.EnumMarshalSpec{
-			Attribute: color.FgRed,
+		serverless_sqldb.DatabaseStatusLocked: humanv2.EnumFormat{
+			Color: color.FgRed,
 		},
 	}
 
-	sdbSQLDatabaseBackupStatusMarshalSpecs = human.EnumMarshalSpecs{
-		serverless_sqldb.DatabaseBackupStatusUnknownStatus: &human.EnumMarshalSpec{
-			Attribute: color.Faint,
+	sdbSQLDatabaseBackupStatusFormat = humanv2.EnumFormats[serverless_sqldb.DatabaseBackupStatus]{
+		serverless_sqldb.DatabaseBackupStatusUnknownStatus: humanv2.EnumFormat{
+			Color: color.Faint,
 		},
-		serverless_sqldb.DatabaseBackupStatusError: &human.EnumMarshalSpec{
-			Attribute: color.FgRed,
+		serverless_sqldb.DatabaseBackupStatusError: humanv2.EnumFormat{
+			Color: color.FgRed,
 		},
-		serverless_sqldb.DatabaseBackupStatusReady: &human.EnumMarshalSpec{
-			Attribute: color.FgGreen,
+		serverless_sqldb.DatabaseBackupStatusReady: humanv2.EnumFormat{
+			Color: color.FgGreen,
 		},
-		serverless_sqldb.DatabaseBackupStatusLocked: &human.EnumMarshalSpec{
-			Attribute: color.FgRed,
+		serverless_sqldb.DatabaseBackupStatusLocked: humanv2.EnumFormat{
+			Color: color.FgRed,
 		},
 	}
 )
@@ -53,14 +53,8 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("sdb-sql").Groups = []string{"database"}
 
-	human.RegisterMarshalerFunc(
-		serverless_sqldb.DatabaseStatus(""),
-		human.EnumMarshalFunc(sdbSQLDatabaseStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		serverless_sqldb.DatabaseBackupStatus(""),
-		human.EnumMarshalFunc(sdbSQLDatabaseBackupStatusMarshalSpecs),
-	)
+	humanv2.RegisterEnumFormat(sdbSQLDatabaseStatusFormat)
+	humanv2.RegisterEnumFormat(sdbSQLDatabaseBackupStatusFormat)
 
 	return cmds
 }

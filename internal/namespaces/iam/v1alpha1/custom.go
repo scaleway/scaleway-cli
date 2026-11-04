@@ -10,17 +10,18 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var logActionMarshalSpecs = human.EnumMarshalSpecs{
-	iam.LogActionUnknownAction: &human.EnumMarshalSpec{Attribute: color.Faint},
-	iam.LogActionCreated:       &human.EnumMarshalSpec{Attribute: color.FgGreen},
-	iam.LogActionUpdated:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	iam.LogActionDeleted:       &human.EnumMarshalSpec{Attribute: color.FgRed},
+var logActionFormat = humanv2.EnumFormats[iam.LogAction]{
+	iam.LogActionUnknownAction: humanv2.EnumFormat{Color: color.Faint},
+	iam.LogActionCreated:       humanv2.EnumFormat{Color: color.FgGreen},
+	iam.LogActionUpdated:       humanv2.EnumFormat{Color: color.FgBlue},
+	iam.LogActionDeleted:       humanv2.EnumFormat{Color: color.FgRed},
 }
 
 func GetCommands() *core.Commands {
@@ -28,8 +29,7 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("iam").Groups = []string{"security"}
 
-	human.RegisterMarshalerFunc(iam.LogAction(""), human.EnumMarshalFunc(logActionMarshalSpecs))
-
+	humanv2.RegisterEnumFormat(logActionFormat)
 	cmds.Merge(core.NewCommands(
 		initWithSSHCommand(),
 		iamRuleCreateCommand(),

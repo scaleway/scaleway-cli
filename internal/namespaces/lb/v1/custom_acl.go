@@ -6,12 +6,13 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 )
 
-var aclMarshalSpecs = human.EnumMarshalSpecs{
-	lb.ACLActionTypeAllow: &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "allow"},
-	lb.ACLActionTypeDeny:  &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "deny"},
+var aclFormat = humanv2.EnumFormats[lb.ACLActionType]{
+	lb.ACLActionTypeAllow: humanv2.EnumFormat{Color: color.FgGreen, Value: "allow"},
+	lb.ACLActionTypeDeny:  humanv2.EnumFormat{Color: color.FgRed, Value: "deny"},
 }
 
 func lbACLMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {

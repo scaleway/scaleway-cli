@@ -3,17 +3,17 @@ package tem
 import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	tem "github.com/scaleway/scaleway-sdk-go/api/tem/v1alpha1"
 )
 
-var domainStatusMarshalSpecs = human.EnumMarshalSpecs{
-	tem.DomainStatusChecked:   &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "checked"},
-	tem.DomainStatusInvalid:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "invalid"},
-	tem.DomainStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
-	tem.DomainStatusPending:   &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "pending"},
-	tem.DomainStatusRevoked:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "revoked"},
-	tem.DomainStatusUnchecked: &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "unchecked"},
+var domainStatusFormat = humanv2.EnumFormats[tem.DomainStatus]{
+	tem.DomainStatusChecked:   humanv2.EnumFormat{Color: color.FgGreen, Value: "checked"},
+	tem.DomainStatusInvalid:   humanv2.EnumFormat{Color: color.FgRed, Value: "invalid"},
+	tem.DomainStatusLocked:    humanv2.EnumFormat{Color: color.FgRed, Value: "locked"},
+	tem.DomainStatusPending:   humanv2.EnumFormat{Color: color.FgBlue, Value: "pending"},
+	tem.DomainStatusRevoked:   humanv2.EnumFormat{Color: color.FgRed, Value: "revoked"},
+	tem.DomainStatusUnchecked: humanv2.EnumFormat{Color: color.FgRed, Value: "unchecked"},
 }
 
 func domainGetBuilder(c *core.Command) *core.Command {

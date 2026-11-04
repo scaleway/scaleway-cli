@@ -12,6 +12,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
@@ -24,20 +25,20 @@ import (
 //
 
 var (
-	securityGroupPolicyMarshalSpecs = human.EnumMarshalSpecs{
-		instance.SecurityGroupPolicyDrop:   &human.EnumMarshalSpec{Attribute: color.FgRed},
-		instance.SecurityGroupPolicyAccept: &human.EnumMarshalSpec{Attribute: color.FgGreen},
+	securityGroupPolicyFormat = humanv2.EnumFormats[instance.SecurityGroupPolicy]{
+		instance.SecurityGroupPolicyDrop:   humanv2.EnumFormat{Color: color.FgRed},
+		instance.SecurityGroupPolicyAccept: humanv2.EnumFormat{Color: color.FgGreen},
 	}
 
-	securityGroupRuleActionMarshalSpecs = human.EnumMarshalSpecs{
-		instance.SecurityGroupRuleActionDrop:   &human.EnumMarshalSpec{Attribute: color.FgRed},
-		instance.SecurityGroupRuleActionAccept: &human.EnumMarshalSpec{Attribute: color.FgGreen},
+	securityGroupRuleActionFormat = humanv2.EnumFormats[instance.SecurityGroupRuleAction]{
+		instance.SecurityGroupRuleActionDrop:   humanv2.EnumFormat{Color: color.FgRed},
+		instance.SecurityGroupRuleActionAccept: humanv2.EnumFormat{Color: color.FgGreen},
 	}
 
-	securityGroupStateMarshalSpecs = human.EnumMarshalSpecs{
-		instance.SecurityGroupStateAvailable:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		instance.SecurityGroupStateSyncing:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		instance.SecurityGroupStateSyncingError: &human.EnumMarshalSpec{Attribute: color.FgRed},
+	securityGroupStateFormat = humanv2.EnumFormats[instance.SecurityGroupState]{
+		instance.SecurityGroupStateAvailable:    humanv2.EnumFormat{Color: color.FgGreen},
+		instance.SecurityGroupStateSyncing:      humanv2.EnumFormat{Color: color.FgBlue},
+		instance.SecurityGroupStateSyncingError: humanv2.EnumFormat{Color: color.FgRed},
 	}
 )
 

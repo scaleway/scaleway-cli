@@ -3,6 +3,7 @@ package instance
 import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 )
 
@@ -51,10 +52,7 @@ func GetCommands() *core.Commands {
 	//
 	// Server-Type
 	//
-	human.RegisterMarshalerFunc(
-		instanceSDK.ServerTypeAvailability(""),
-		human.EnumMarshalFunc(serverTypesAvailabilityMarshalSpecs),
-	)
+	humanv2.RegisterEnumFormat(serverTypesAvailabilityFormat)
 	human.RegisterMarshalerFunc([]*customServerType{}, serverTypesListMarshalerFunc)
 
 	cmds.MustFind("instance", "server-type", "list").Override(serverTypeListBuilder)

@@ -3,6 +3,7 @@ package iot
 import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/iot/v1"
 )
 
@@ -11,15 +12,9 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("iot").Groups = []string{"integration"}
 
-	human.RegisterMarshalerFunc(iot.HubStatus(""), human.EnumMarshalFunc(hubStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(
-		iot.DeviceMessageFiltersRulePolicy(""),
-		human.EnumMarshalFunc(deviceMessageFiltersRulePolicyMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		iot.DeviceStatus(""),
-		human.EnumMarshalFunc(deviceStatusMarshalSpecs),
-	)
+	humanv2.RegisterEnumFormat(hubStatusFormat)
+	humanv2.RegisterEnumFormat(deviceMessageFiltersRulePolicyFormat)
+	humanv2.RegisterEnumFormat(deviceStatusFormat)
 	human.RegisterMarshalerFunc(
 		&iot.CreateNetworkResponse{},
 		iotNetworkCreateResponseMarshalerFunc,

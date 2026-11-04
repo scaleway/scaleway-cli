@@ -7,6 +7,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v2"
 )
 
@@ -14,16 +15,16 @@ const (
 	gatewayActionTimeout = 60 * time.Minute
 )
 
-var gatewayStatusMarshalSpecs = human.EnumMarshalSpecs{
-	vpcgw.GatewayStatusUnknownStatus: &human.EnumMarshalSpec{Attribute: color.Faint},
-	vpcgw.GatewayStatusAllocating:    &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	vpcgw.GatewayStatusConfiguring:   &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	vpcgw.GatewayStatusDeleting:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	vpcgw.GatewayStatusFailed:        &human.EnumMarshalSpec{Attribute: color.FgRed},
-	vpcgw.GatewayStatusRunning:       &human.EnumMarshalSpec{Attribute: color.FgGreen},
-	vpcgw.GatewayStatusStopped:       &human.EnumMarshalSpec{Attribute: color.FgRed},
-	vpcgw.GatewayStatusLocked:        &human.EnumMarshalSpec{Attribute: color.FgRed},
-	vpcgw.GatewayStatusStopping:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
+var gatewayStatusFormat = humanv2.EnumFormats[vpcgw.GatewayStatus]{
+	vpcgw.GatewayStatusUnknownStatus: humanv2.EnumFormat{Color: color.Faint},
+	vpcgw.GatewayStatusAllocating:    humanv2.EnumFormat{Color: color.FgBlue},
+	vpcgw.GatewayStatusConfiguring:   humanv2.EnumFormat{Color: color.FgBlue},
+	vpcgw.GatewayStatusDeleting:      humanv2.EnumFormat{Color: color.FgBlue},
+	vpcgw.GatewayStatusFailed:        humanv2.EnumFormat{Color: color.FgRed},
+	vpcgw.GatewayStatusRunning:       humanv2.EnumFormat{Color: color.FgGreen},
+	vpcgw.GatewayStatusStopped:       humanv2.EnumFormat{Color: color.FgRed},
+	vpcgw.GatewayStatusLocked:        humanv2.EnumFormat{Color: color.FgRed},
+	vpcgw.GatewayStatusStopping:      humanv2.EnumFormat{Color: color.FgBlue},
 }
 
 func gatewayCreateBuilder(c *core.Command) *core.Command {

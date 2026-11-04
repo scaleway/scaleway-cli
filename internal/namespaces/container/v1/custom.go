@@ -2,8 +2,7 @@ package container
 
 import (
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
-	"github.com/scaleway/scaleway-sdk-go/api/container/v1"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 )
 
 func GetCommands() *core.Commands {
@@ -11,23 +10,10 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("container").Groups = []string{"serverless"}
 
-	human.RegisterMarshalerFunc(
-		container.NamespaceStatus(""),
-		human.EnumMarshalFunc(namespaceStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		container.ContainerStatus(""),
-		human.EnumMarshalFunc(containerStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		container.DomainStatus(""),
-		human.EnumMarshalFunc(domainStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		container.TriggerStatus(""),
-		human.EnumMarshalFunc(triggerStatusMarshalSpecs),
-	)
-
+	humanv2.RegisterEnumFormat(namespaceStatusFormat)
+	humanv2.RegisterEnumFormat(containerStatusFormat)
+	humanv2.RegisterEnumFormat(domainStatusFormat)
+	humanv2.RegisterEnumFormat(triggerStatusFormat)
 	cmds.MustFind("container", "container", "redeploy").Override(containerContainerRedeployBuilder)
 	cmds.MustFind("container", "container", "create").Override(containerContainerCreateBuilder)
 	cmds.MustFind("container", "container", "update").Override(containerContainerUpdateBuilder)

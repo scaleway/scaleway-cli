@@ -2,8 +2,7 @@ package tem
 
 import (
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
-	tem "github.com/scaleway/scaleway-sdk-go/api/tem/v1alpha1"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 )
 
 func GetCommands() *core.Commands {
@@ -11,14 +10,8 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("tem").Groups = []string{"Domain & WebHosting"}
 
-	human.RegisterMarshalerFunc(
-		tem.DomainStatus(""),
-		human.EnumMarshalFunc(domainStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		tem.EmailStatus(""),
-		human.EnumMarshalFunc(emailStatusMarshalSpecs))
-
+	humanv2.RegisterEnumFormat(domainStatusFormat)
+	humanv2.RegisterEnumFormat(emailStatusFormat)
 	cmds.MustFind("tem", "domain", "get").Override(domainGetBuilder)
 
 	return cmds

@@ -11,6 +11,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -24,12 +25,12 @@ const (
 // Marshalers
 //
 
-// imageStateMarshalSpecs allows to override the displayed instance.ImageState.
+// imageStateFormat allows to override the displayed instance.ImageState.
 var (
-	imageStateMarshalSpecs = human.EnumMarshalSpecs{
-		instance.ImageStateCreating:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		instance.ImageStateAvailable: &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		instance.ImageStateError:     &human.EnumMarshalSpec{Attribute: color.FgRed},
+	imageStateFormat = humanv2.EnumFormats[instance.ImageState]{
+		instance.ImageStateCreating:  humanv2.EnumFormat{Color: color.FgBlue},
+		instance.ImageStateAvailable: humanv2.EnumFormat{Color: color.FgGreen},
+		instance.ImageStateError:     humanv2.EnumFormat{Color: color.FgRed},
 	}
 )
 

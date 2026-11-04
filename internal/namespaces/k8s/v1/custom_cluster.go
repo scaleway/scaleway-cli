@@ -12,6 +12,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -27,12 +28,12 @@ const (
 
 // clusterStatusMarshalerFunc marshals a k8s.ClusterStatus.
 var (
-	clusterStatusMarshalSpecs = human.EnumMarshalSpecs{
-		k8s.ClusterStatusCreating:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		k8s.ClusterStatusReady:        &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		k8s.ClusterStatusPoolRequired: &human.EnumMarshalSpec{Attribute: color.FgRed},
-		k8s.ClusterStatusLocked:       &human.EnumMarshalSpec{Attribute: color.FgRed},
-		k8s.ClusterStatusUpdating:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	clusterStatusFormat = humanv2.EnumFormats[k8s.ClusterStatus]{
+		k8s.ClusterStatusCreating:     humanv2.EnumFormat{Color: color.FgBlue},
+		k8s.ClusterStatusReady:        humanv2.EnumFormat{Color: color.FgGreen},
+		k8s.ClusterStatusPoolRequired: humanv2.EnumFormat{Color: color.FgRed},
+		k8s.ClusterStatusLocked:       humanv2.EnumFormat{Color: color.FgRed},
+		k8s.ClusterStatusUpdating:     humanv2.EnumFormat{Color: color.FgBlue},
 	}
 )
 

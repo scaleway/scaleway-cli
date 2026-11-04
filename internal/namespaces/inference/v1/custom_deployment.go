@@ -11,6 +11,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/inference/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -21,13 +22,13 @@ const (
 	deploymentActionDelete  = 2
 )
 
-var deploymentStateMarshalSpecs = human.EnumMarshalSpecs{
-	inference.DeploymentStatusCreating:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	inference.DeploymentStatusDeploying: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	inference.DeploymentStatusDeleting:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	inference.DeploymentStatusError:     &human.EnumMarshalSpec{Attribute: color.FgRed},
-	inference.DeploymentStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen},
-	inference.DeploymentStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed},
+var deploymentStateFormat = humanv2.EnumFormats[inference.DeploymentStatus]{
+	inference.DeploymentStatusCreating:  humanv2.EnumFormat{Color: color.FgBlue},
+	inference.DeploymentStatusDeploying: humanv2.EnumFormat{Color: color.FgBlue},
+	inference.DeploymentStatusDeleting:  humanv2.EnumFormat{Color: color.FgBlue},
+	inference.DeploymentStatusError:     humanv2.EnumFormat{Color: color.FgRed},
+	inference.DeploymentStatusReady:     humanv2.EnumFormat{Color: color.FgGreen},
+	inference.DeploymentStatusLocked:    humanv2.EnumFormat{Color: color.FgRed},
 }
 
 func DeploymentMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {

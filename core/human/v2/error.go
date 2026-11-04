@@ -1,4 +1,4 @@
-package human
+package humanv2
 
 import "fmt"
 

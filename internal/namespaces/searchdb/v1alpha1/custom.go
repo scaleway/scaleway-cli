@@ -3,7 +3,7 @@ package searchdb
 import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	searchdb "github.com/scaleway/scaleway-sdk-go/api/searchdb/v1alpha1"
 )
 
@@ -12,77 +12,70 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("searchdb").Groups = []string{"database"}
 
-	deploymentStatusMarshalSpecs := human.EnumMarshalSpecs{
-		searchdb.DeploymentStatusUnknownStatus: &human.EnumMarshalSpec{
-			Attribute: color.Faint,
-			Value:     "unknown",
+	deploymentStatusFormat := humanv2.EnumFormats[searchdb.DeploymentStatus]{
+		searchdb.DeploymentStatusUnknownStatus: humanv2.EnumFormat{
+			Color: color.Faint,
+			Value: "unknown",
 		},
 		searchdb.DeploymentStatusReady: {
-			Attribute: color.FgGreen,
-			Value:     "ready",
+			Color: color.FgGreen,
+			Value: "ready",
 		},
 		searchdb.DeploymentStatusCreating: {
-			Attribute: color.FgBlue,
-			Value:     "creating",
+			Color: color.FgBlue,
+			Value: "creating",
 		},
 		searchdb.DeploymentStatusInitializing: {
-			Attribute: color.FgBlue,
-			Value:     "initializing",
+			Color: color.FgBlue,
+			Value: "initializing",
 		},
 		searchdb.DeploymentStatusUpgrading: {
-			Attribute: color.FgBlue,
-			Value:     "upgrading",
+			Color: color.FgBlue,
+			Value: "upgrading",
 		},
 		searchdb.DeploymentStatusDeleting: {
-			Attribute: color.FgBlue,
-			Value:     "deleting",
+			Color: color.FgBlue,
+			Value: "deleting",
 		},
 		searchdb.DeploymentStatusError: {
-			Attribute: color.FgRed,
-			Value:     "error",
+			Color: color.FgRed,
+			Value: "error",
 		},
 		searchdb.DeploymentStatusLocked: {
-			Attribute: color.FgRed,
-			Value:     "locked",
+			Color: color.FgRed,
+			Value: "locked",
 		},
 		searchdb.DeploymentStatusLocking: {
-			Attribute: color.FgBlue,
-			Value:     "locking",
+			Color: color.FgBlue,
+			Value: "locking",
 		},
 		searchdb.DeploymentStatusUnlocking: {
-			Attribute: color.FgBlue,
-			Value:     "unlocking",
+			Color: color.FgBlue,
+			Value: "unlocking",
 		},
 	}
 
-	nodeStatusMarshalSpecs := human.EnumMarshalSpecs{
-		searchdb.NodeTypeStockStatusUnknownStock: &human.EnumMarshalSpec{
-			Attribute: color.Faint,
-			Value:     "unknown",
+	nodeStatusFormat := humanv2.EnumFormats[searchdb.NodeTypeStockStatus]{
+		searchdb.NodeTypeStockStatusUnknownStock: humanv2.EnumFormat{
+			Color: color.Faint,
+			Value: "unknown",
 		},
-		searchdb.NodeTypeStockStatusLowStock: &human.EnumMarshalSpec{
-			Attribute: color.FgYellow,
-			Value:     "low_stock",
+		searchdb.NodeTypeStockStatusLowStock: humanv2.EnumFormat{
+			Color: color.FgYellow,
+			Value: "low_stock",
 		},
-		searchdb.NodeTypeStockStatusOutOfStock: &human.EnumMarshalSpec{
-			Attribute: color.FgRed,
-			Value:     "out_of_stock",
+		searchdb.NodeTypeStockStatusOutOfStock: humanv2.EnumFormat{
+			Color: color.FgRed,
+			Value: "out_of_stock",
 		},
-		searchdb.NodeTypeStockStatusAvailable: &human.EnumMarshalSpec{
-			Attribute: color.FgGreen,
-			Value:     "available",
+		searchdb.NodeTypeStockStatusAvailable: humanv2.EnumFormat{
+			Color: color.FgGreen,
+			Value: "available",
 		},
 	}
 
-	human.RegisterMarshalerFunc(
-		searchdb.DeploymentStatus(""),
-		human.EnumMarshalFunc(deploymentStatusMarshalSpecs),
-	)
-
-	human.RegisterMarshalerFunc(
-		searchdb.NodeTypeStockStatus(""),
-		human.EnumMarshalFunc(nodeStatusMarshalSpecs),
-	)
+	humanv2.RegisterEnumFormat(deploymentStatusFormat)
+	humanv2.RegisterEnumFormat(nodeStatusFormat)
 
 	return cmds
 }

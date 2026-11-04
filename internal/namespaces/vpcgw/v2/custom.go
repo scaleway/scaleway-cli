@@ -3,6 +3,7 @@ package vpcgw
 import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v2"
 )
 
@@ -16,12 +17,8 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("vpc-gw").Groups = []string{"network"}
 
-	human.RegisterMarshalerFunc(
-		vpcgw.GatewayNetworkStatus(""),
-		human.EnumMarshalFunc(gatewayNetworkStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(
-		vpcgw.GatewayStatus(""),
-		human.EnumMarshalFunc(gatewayStatusMarshalSpecs))
+	humanv2.RegisterEnumFormat(gatewayNetworkStatusFormat)
+	humanv2.RegisterEnumFormat(gatewayStatusFormat)
 	human.RegisterMarshalerFunc(
 		vpcgw.Gateway{},
 		gatewayMarshalerFunc)

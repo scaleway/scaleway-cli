@@ -15,6 +15,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
@@ -31,18 +32,18 @@ const (
 // Marshalers
 //
 
-// serverStateMarshalSpecs allows to override the displayed instance.ServerState.
+// serverStateFormat allows to override the displayed instance.ServerState.
 var (
-	serverStateMarshalSpecs = human.EnumMarshalSpecs{
-		instance.ServerStateRunning: &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		instance.ServerStateStopped: &human.EnumMarshalSpec{
-			Attribute: color.Faint,
-			Value:     "archived",
+	serverStateFormat = humanv2.EnumFormats[instance.ServerState]{
+		instance.ServerStateRunning: humanv2.EnumFormat{Color: color.FgGreen},
+		instance.ServerStateStopped: humanv2.EnumFormat{
+			Color: color.Faint,
+			Value: "archived",
 		},
-		instance.ServerStateStoppedInPlace: &human.EnumMarshalSpec{Attribute: color.Faint},
-		instance.ServerStateStarting:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		instance.ServerStateStopping:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		instance.ServerStateLocked:         &human.EnumMarshalSpec{Attribute: color.FgRed},
+		instance.ServerStateStoppedInPlace: humanv2.EnumFormat{Color: color.Faint},
+		instance.ServerStateStarting:       humanv2.EnumFormat{Color: color.FgBlue},
+		instance.ServerStateStopping:       humanv2.EnumFormat{Color: color.FgBlue},
+		instance.ServerStateLocked:         humanv2.EnumFormat{Color: color.FgRed},
 	}
 )
 

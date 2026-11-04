@@ -9,6 +9,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 	pcu "github.com/scaleway/scaleway-sdk-go/api/product_catalog/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -18,21 +19,21 @@ import (
 // Marshalers
 //
 
-var serverTypesAvailabilityMarshalSpecs = human.EnumMarshalSpecs{
-	instance.ServerTypeAvailabilityAvailable: &human.EnumMarshalSpec{
-		Attribute: color.FgGreen,
+var serverTypesAvailabilityFormat = humanv2.EnumFormats[instance.ServerTypeAvailability]{
+	instance.ServerTypeAvailabilityAvailable: humanv2.EnumFormat{
+		Color: color.FgGreen,
 	},
-	instance.ServerTypeAvailabilityLowStock: &human.EnumMarshalSpec{
-		Attribute: color.FgYellow,
+	instance.ServerTypeAvailabilityLowStock: humanv2.EnumFormat{
+		Color: color.FgYellow,
 	},
-	instance.ServerTypeAvailabilityOutOfStock: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
+	instance.ServerTypeAvailabilityOutOfStock: humanv2.EnumFormat{
+		Color: color.FgRed,
 	},
-	instance.ServerTypeAvailabilityUnavailable: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
+	instance.ServerTypeAvailabilityUnavailable: humanv2.EnumFormat{
+		Color: color.FgRed,
 	},
-	instance.ServerTypeAvailabilityUnknownAvailability: &human.EnumMarshalSpec{
-		Attribute: color.Faint,
+	instance.ServerTypeAvailabilityUnknownAvailability: humanv2.EnumFormat{
+		Color: color.Faint,
 	},
 }
 
