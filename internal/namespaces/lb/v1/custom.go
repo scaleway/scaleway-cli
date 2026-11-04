@@ -1,6 +1,8 @@
 package lb
 
 import (
+	"reflect"
+
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
@@ -26,10 +28,10 @@ func GetCommands() *core.Commands {
 	humanv2.RegisterEnumFormat(backendServerStatsHealthCheckStatusFormat)
 	humanv2.RegisterEnumFormat(backendServerStatsServerStateFormat)
 	human.RegisterMarshalerFunc(lb.LB{}, lbMarshalerFunc)
-	human.RegisterMarshalerFunc(lb.Backend{}, lbBackendMarshalerFunc)
-	human.RegisterMarshalerFunc(lb.Frontend{}, lbFrontendMarshalerFunc)
-	human.RegisterMarshalerFunc(lb.Certificate{}, lbCertificateMarshalerFunc)
-	human.RegisterMarshalerFunc(lb.ACL{}, lbACLMarshalerFunc)
+	humanv2.RegisterLayout(reflect.TypeFor[lb.Backend](), lbBackendLayout)
+	humanv2.RegisterLayout(reflect.TypeFor[lb.Frontend](), lbFrontendLayout)
+	humanv2.RegisterLayout(reflect.TypeFor[lb.Certificate](), lbCertificateLayout)
+	humanv2.RegisterLayout(reflect.TypeFor[lb.ACL](), lbACLLayout)
 	human.RegisterMarshalerFunc([]*lb.PrivateNetwork{}, lbPrivateNetworksMarshalerFunc)
 
 	cmds := GetGeneratedCommands()

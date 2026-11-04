@@ -9,7 +9,6 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
@@ -60,28 +59,12 @@ var (
 	}
 )
 
-func lbBackendMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp lb.Backend
-	backend := tmp(i.(lb.Backend))
-
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "HealthCheck",
-		},
-		{
-			FieldName: "Pool",
-		},
-		{
-			FieldName: "LB",
-		},
-	}
-
-	str, err := human.Marshal(backend, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
+var lbBackendLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{Path: "HealthCheck"},
+		{Path: "Pool"},
+		{Path: "LB"},
+	},
 }
 
 func backendGetBuilder(c *core.Command) *core.Command {

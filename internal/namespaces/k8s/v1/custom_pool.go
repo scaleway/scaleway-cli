@@ -12,7 +12,6 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
@@ -45,37 +44,13 @@ const (
 	poolActionDelete
 )
 
-func poolMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type humanPool k8s.Pool
-	pool := humanPool(i.(k8s.Pool))
-
-	// Sections
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "UpgradePolicy",
-			Title:     "Upgrade Policy",
-		},
-		{
-			FieldName: "Labels",
-			Title:     "Node labels",
-		},
-		{
-			FieldName: "Taints",
-			Title:     "Node taints",
-		},
-
-		{
-			FieldName: "StartupTaints",
-			Title:     "Node startup taints",
-		},
-	}
-
-	str, err := human.Marshal(pool, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
+var poolLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{Path: "UpgradePolicy", Title: "Upgrade Policy"},
+		{Path: "Labels", Title: "Node labels"},
+		{Path: "Taints", Title: "Node taints"},
+		{Path: "StartupTaints", Title: "Node startup taints"},
+	},
 }
 
 func poolCreateBuilder(c *core.Command) *core.Command {

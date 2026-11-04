@@ -5,7 +5,6 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 )
@@ -15,22 +14,10 @@ var aclFormat = humanv2.EnumFormats[lb.ACLActionType]{
 	lb.ACLActionTypeDeny:  humanv2.EnumFormat{Color: color.FgRed, Value: "deny"},
 }
 
-func lbACLMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp lb.ACL
-	acl := tmp(i.(lb.ACL))
-
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "Frontend",
-		},
-	}
-
-	str, err := human.Marshal(acl, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
+var lbACLLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{Path: "Frontend"},
+	},
 }
 
 func ACLGetBuilder(c *core.Command) *core.Command {

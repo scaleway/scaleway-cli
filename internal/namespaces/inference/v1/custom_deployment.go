@@ -10,7 +10,6 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/inference/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -31,21 +30,10 @@ var deploymentStateFormat = humanv2.EnumFormats[inference.DeploymentStatus]{
 	inference.DeploymentStatusLocked:    humanv2.EnumFormat{Color: color.FgRed},
 }
 
-func DeploymentMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp inference.Deployment
-	deployment := tmp(i.(inference.Deployment))
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "Endpoints",
-			Title:     "Endpoints",
-		},
-	}
-	str, err := human.Marshal(deployment, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
+var deploymentLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{Path: "Endpoints", Title: "Endpoints"},
+	},
 }
 
 func deploymentDeleteBuilder(c *core.Command) *core.Command {

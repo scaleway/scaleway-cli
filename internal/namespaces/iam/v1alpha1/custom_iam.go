@@ -7,7 +7,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -166,24 +166,12 @@ func getApiKey(
 	return response, nil
 }
 
-func apiKeyMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp apiKeyResponse
-	resp := tmp(i.(apiKeyResponse))
-
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "EntityType",
-		},
-		{
-			FieldName: "APIKey",
-		},
-		{
-			FieldName:   "Policies",
-			HideIfEmpty: true,
-		},
-	}
-
-	return human.Marshal(resp, opt)
+var apiKeyLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{Path: "EntityType"},
+		{Path: "APIKey"},
+		{Path: "Policies", Omittable: true},
+	},
 }
 
 var iamApiKeyCustomBuilder = struct {

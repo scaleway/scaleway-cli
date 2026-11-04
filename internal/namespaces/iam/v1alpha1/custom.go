@@ -9,7 +9,6 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
@@ -58,7 +57,7 @@ func GetCommands() *core.Commands {
 	iamCmd.ArgsType = iamApiKeyCustomBuilder.argType
 	iamCmd.ArgSpecs = iamApiKeyCustomBuilder.argSpecs
 	iamCmd.Run = iamApiKeyCustomBuilder.run
-	human.RegisterMarshalerFunc(apiKeyResponse{}, apiKeyMarshalerFunc)
+	humanv2.RegisterLayout(reflect.TypeFor[apiKeyResponse](), apiKeyLayout)
 
 	cmds.MustFind("iam", "api-key", "list").Override(iamApiKeyListCustomBuilder)
 

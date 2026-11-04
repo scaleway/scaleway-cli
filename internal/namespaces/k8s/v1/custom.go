@@ -3,9 +3,9 @@ package k8s
 import (
 	"context"
 	"errors"
+	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -41,15 +41,15 @@ func GetCommands() *core.Commands {
 		k8sPoolRemoveLabelCommand(),
 	))
 
-	human.RegisterMarshalerFunc(k8s.Version{}, versionMarshalerFunc)
-	human.RegisterMarshalerFunc(k8s.Cluster{}, clusterMarshalerFunc)
-	human.RegisterMarshalerFunc(k8s.Pool{}, poolMarshalerFunc)
+	humanv2.RegisterLayout(reflect.TypeFor[k8s.Version](), versionLayout)
+	humanv2.RegisterLayout(reflect.TypeFor[k8s.Cluster](), clusterLayout)
+	humanv2.RegisterLayout(reflect.TypeFor[k8s.Pool](), poolLayout)
 	humanv2.RegisterEnumFormat(clusterStatusFormat)
 	humanv2.RegisterEnumFormat(poolStatusFormat)
 	humanv2.RegisterEnumFormat(nodeStatusFormat)
-	human.RegisterMarshalerFunc(
-		k8s.ListClusterAvailableTypesResponse{},
-		clusterAvailableTypesListMarshalerFunc,
+	humanv2.RegisterLayout(
+		reflect.TypeFor[k8s.ListClusterAvailableTypesResponse](),
+		clusterAvailableTypesListLayout,
 	)
 
 	cmds.MustFind("k8s", "cluster", "list-available-versions").
