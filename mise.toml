@@ -104,7 +104,6 @@ node wasm/wasm-smoke.mjs
 
 [tasks.'gen:doc']
 description = "generate the documentation"
-depends_post = ["fmt:doc"]
 env = { SHELL="/bin/bash" }
 usage = '''
 flag "--outdir <path>" {
@@ -112,9 +111,10 @@ flag "--outdir <path>" {
   default "./docs/commands"
 }
 '''
-run = '''
-go run ./cmd/scw-doc-gen -outdir "${usage_outdir?}"
-'''
+run = [
+  "go run ./cmd/scw-doc-gen -outdir \"${usage_outdir?}\"",
+  { task = "fmt:doc" },
+]
 
 [tasks.'fmt:doc']
 description = "format the documentation"
@@ -325,7 +325,7 @@ gotestsum "${gotestsum_args[@]}" -- "${test_args[@]}"
 
 [tasks.'check:doc']
 description = "check that the documentation is up to date"
-depends = ["fmt:doc"]
+depends = ["gen:doc"]
 run = '''
 status=$(git status --porcelain -- ./docs)
 if [ -n "$status" ]; then
