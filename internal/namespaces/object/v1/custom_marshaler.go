@@ -8,6 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -33,7 +34,7 @@ type BucketResponse struct {
 func bucketResponseMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	resp := i.(BucketResponse)
 
-	messageStr, err := resp.SuccessResult.MarshalHuman()
+	messageStr, err := humanv2.Format(resp.SuccessResult)
 	if err != nil {
 		return "", err
 	}

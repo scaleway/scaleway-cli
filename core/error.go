@@ -2,11 +2,12 @@ package core
 
 import (
 	"encoding/json"
-	"fmt"
 	"strings"
 	"unicode"
 
+	"github.com/fatih/color"
 	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
+	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 )
 
 // CliError is an all-in-one error structure that can be used in commands to return useful errors to the user.
@@ -35,21 +36,19 @@ func (s *CliError) Error() string {
 	return s.Err.Error()
 }
 
-func (s *CliError) MarshalHuman() (string, error) {
+// FormatHuman lets humanv2 render a CliError as a leaf: a value receiver so
+// the pointer is dereferenced before isFormattable sees the value type.
+func (s CliError) FormatHuman() (string, error) {
 	if s.Empty {
 		return "", nil
 	}
 	sections := []string(nil)
 	if s.Err != nil {
-		humanError := s.Err
+		message := s.Err.Error()
 		if s.Message != "" {
-			humanError = fmt.Errorf("%s", s.Message)
+			message = s.Message
 		}
-		str, err := humanv2.Render(humanError, humanv2.Layout{})
-		if err != nil {
-			return "", err
-		}
-		sections = append(sections, str)
+		sections = append(sections, terminal.Style(capitalize(message), color.FgRed))
 	}
 
 	if s.Details != "" {

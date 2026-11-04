@@ -149,7 +149,8 @@ func init() {
 
 func Format(data any) (string, error) {
 	// Dereference pointers until the underlying value is reached, letting any
-	// value in the chain escape through a registered function or FormatHuman.
+	// value in the chain escape through a registered function, FormatHuman or
+	// error.Error.
 	value := reflect.ValueOf(data)
 	for value.Kind() == reflect.Pointer {
 		if value.IsNil() {
@@ -161,6 +162,9 @@ func Format(data any) (string, error) {
 		if f, ok := reflect.TypeAssert[Formatter](value); ok {
 			return f.FormatHuman()
 		}
+		if err, ok := value.Interface().(error); ok {
+			return err.Error(), nil
+		}
 		value = value.Elem()
 	}
 	if !value.IsValid() {
@@ -171,6 +175,9 @@ func Format(data any) (string, error) {
 	}
 	if f, ok := reflect.TypeAssert[Formatter](value); ok {
 		return f.FormatHuman()
+	}
+	if err, ok := data.(error); ok {
+		return err.Error(), nil
 	}
 	data = value.Interface()
 

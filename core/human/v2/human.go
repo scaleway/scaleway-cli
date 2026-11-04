@@ -120,15 +120,18 @@ func isFormattable(t reflect.Type) bool {
 		if _, ok := getFormatFunc(t); ok {
 			return true
 		}
+		if t.Implements(reflect.TypeFor[error]()) {
+			return true
+		}
 		t = t.Elem()
 	}
 	switch {
-	// A struct is a table, unless it escapes through Formatter or a
-	// registered format function.
+	// A struct is a table, unless it escapes through Formatter, a registered
+	// format function or error.Error.
 	case t.Kind() == reflect.Struct:
 		_, hasFormatFunc := getFormatFunc(t)
 
-		return t.Implements(reflect.TypeFor[Formatter]()) || hasFormatFunc
+		return t.Implements(reflect.TypeFor[Formatter]()) || hasFormatFunc || t.Implements(reflect.TypeFor[error]())
 	// A slice of structs breaks into a table, unless the slice type itself
 	// has a registered format function; a scalar slice is inline.
 	case t.Kind() == reflect.Slice || t.Kind() == reflect.Array:
@@ -186,7 +189,6 @@ func Render(data any, layout Layout) (string, error) {
 	if !value.IsValid() {
 		return "-", nil
 	}
-	data = value.Interface()
 
 	if reflect.ValueOf(layout).IsZero() {
 		if l, ok := layouts.Load(value.Type()); ok {
@@ -194,6 +196,8 @@ func Render(data any, layout Layout) (string, error) {
 		}
 	}
 
+	// Pass the raw data through: Resolve checks isFormattable on the pointer
+	// type, whose error and Formatter methods are often pointer-receiver.
 	blocks, err := layout.Resolve(data)
 	if err != nil {
 		return "", err
@@ -233,6 +237,18 @@ func Render(data any, layout Layout) (string, error) {
 // callers can pass them too; leaves and nil values fold into single-cell
 // blocks.
 func (l Layout) Resolve(data any) ([]Block, error) {
+	// A formattable value on its raw type escapes to a single-cell block:
+	// error and Formatter methods often hang on the pointer, so this has to
+	// run before pointers are dereferenced.
+	if reflect.ValueOf(data).IsValid() && isFormattable(reflect.TypeOf(data)) {
+		str, err := Format(data)
+		if err != nil {
+			return nil, err
+		}
+
+		return []Block{{Rows: [][]string{{str}}}}, nil
+	}
+
 	// Dereference pointers until the underlying value is reached.
 	value := reflect.ValueOf(data)
 	for value.Kind() == reflect.Pointer {
@@ -334,7 +350,9 @@ func (s Section) Resolve(data any, claimed map[string]bool) (Block, error) {
 		block.Title = deriveTitle(s.Path)
 	}
 
-	if !value.IsValid() || isFormattable(value.Type()) {
+	// isFormattable on the raw data type, not the dereferenced one: errors and
+	// Formatter methods often hang on the pointer.
+	if !value.IsValid() || isFormattable(reflect.TypeOf(data)) {
 		str, err := Format(data)
 		if err != nil {
 			return Block{}, err
@@ -662,6 +680,11 @@ func walk(value reflect.Value, keys string, f func(keys string, value reflect.Va
 
 	case reflect.Struct:
 		for i := range value.NumField() {
+			// Unexported fields cannot be turned into an interface by the
+			// visitor; reflect would panic on Interface().
+			if !value.Field(i).CanInterface() {
+				continue
+			}
 			name := value.Type().Field(i).Name
 			err := walk(value.Field(i), joinKeys(keys, name), f)
 			if err != nil {

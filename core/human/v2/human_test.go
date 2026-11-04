@@ -1,6 +1,8 @@
 package human_test
 
 import (
+	"errors"
+	"fmt"
 	"reflect"
 	"testing"
 
@@ -70,6 +72,20 @@ func TestLayout_ResolveSections(t *testing.T) {
 type DummyStruct struct {
 	Foo string
 	Bar int
+}
+
+type UnexportedFieldStruct struct {
+	Exported string
+	hidden   string
+}
+
+type UnexportedFieldError struct {
+	Message string
+	hidden  string
+}
+
+func (e UnexportedFieldError) Error() string {
+	return e.Message
 }
 
 type RootLevelDummyStruct struct {
@@ -992,6 +1008,32 @@ text`,
 			name: "registered format func nested",
 			data: RegistryNestedStruct{Root: "r", Sub: RegistryFormatted{Foo: "s"}},
 			want: "Root  r\nSub   registered-s",
+		},
+		{
+			// Unexported fields are skipped by walk: reflect panics if a visitor
+			// calls Interface() on them.
+			name: "unexported struct field skipped",
+			data: UnexportedFieldStruct{Exported: "v", hidden: "secret"},
+			want: "Exported  v",
+		},
+		{
+			// Same for error values: an error struct is a leaf rendering its
+			// message, so unexported fields aren't the point here anymore.
+			name: "error struct with unexported field",
+			data: UnexportedFieldError{Message: "boom", hidden: "secret"},
+			want: "boom",
+		},
+		{
+			// A plain error renders its message through the error case.
+			name: "error message",
+			data: errors.New("boom"),
+			want: "boom",
+		},
+		{
+			// Wrapped errors keep the chain in the message.
+			name: "wrapped error message",
+			data: fmt.Errorf("could not open file: %w", errors.New("no such file")),
+			want: "could not open file: no such file",
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
