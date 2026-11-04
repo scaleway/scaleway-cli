@@ -16,7 +16,7 @@ ARGS:
   [timeout]                                        Processing time limit for the container.
   [privacy]                                        Privacy policy of the container. (unknown_privacy | public | private)
   [description]                                    Container description.
-  [image]                                          Image reference (e.g. "rg.fr-par.scw.cloud/my-registry-namespace/image:tag").
+  [image]                                          Image reference (e.g. with sample image: "rg.fr-par.scw.cloud/serverless-catalog/sample-website:latest").
   [protocol]                                       Protocol the container uses. (unknown_protocol | http1 | h2c)
   [port]                                           Port the container listens on.
   [https-connection-only]                          If true, it will allow only HTTPS connections to access your container to prevent it from being triggered by insecure connections (HTTP).
