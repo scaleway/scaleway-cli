@@ -23,7 +23,7 @@ ID                                    ADDRESS                               REVE
 dd054664-8ac6-4623-9c70-c548b6b1682d  195.154.218.61                        -        IPv4     unknown         -
 
 Options:
-ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
+ID   NAME  STATUS  MANAGEABLE  EXPIRES AT  LICENSE  PUBLIC BANDWIDTH  PRIVATE NETWORK  REMOTE ACCESS  CERTIFICATION
 
 Install:
 OsID                                                          b9a016fc-947f-4bbc-bf95-343c8524535a

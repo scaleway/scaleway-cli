@@ -3,22 +3,19 @@ package autoscaling
 import (
 	"context"
 	"fmt"
-	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	autoscaling "github.com/scaleway/scaleway-sdk-go/api/autoscaling/v1alpha2"
 )
 
-func init() {
-	humanv2.SetLayout(reflect.TypeFor[autoscaling.Group](), humanv2.Layout{
-		Sections: []humanv2.Section{
-			{Path: "Tags", Omittable: true},
-			{Path: "ScalingPolicy", Title: "Scaling Policy"},
-			{Path: "OpenAlerts", Omittable: true, Title: "Open Alerts"},
-			{Path: "LoadBalancerConfiguration", Omittable: true, Title: "LoadBalancer Configuration"},
-		},
-	})
+var groupLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{Path: "Tags", Omittable: true},
+		{Path: "ScalingPolicy", Title: "Scaling Policy"},
+		{Path: "OpenAlerts", Omittable: true, Title: "Open Alerts"},
+		{Path: "LoadBalancerConfiguration", Omittable: true, Title: "LoadBalancer Configuration"},
+	},
 }
 
 func GroupCreateBuilder(c *core.Command) *core.Command {

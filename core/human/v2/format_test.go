@@ -1,4 +1,4 @@
-package human_test
+package humanv2_test
 
 import (
 	"net"
@@ -65,7 +65,7 @@ type RegistryNestedStruct struct {
 }
 
 func TestFormatRegistered(t *testing.T) {
-	human.RegisterFormatFunc[RegistryFormatted](func(v RegistryFormatted) (string, error) {
+	human.RegisterFormatFunc(func(v RegistryFormatted) (string, error) {
 		return "registered-" + v.Foo, nil
 	})
 
@@ -80,7 +80,7 @@ func TestFormatRegistered(t *testing.T) {
 }
 
 func TestFormatRegisteredPointer(t *testing.T) {
-	human.RegisterFormatFunc[*RegistryPointerFormatted](func(v *RegistryPointerFormatted) (string, error) {
+	human.RegisterFormatFunc(func(v *RegistryPointerFormatted) (string, error) {
 		return "pointer-" + v.Foo, nil
 	})
 
@@ -90,7 +90,7 @@ func TestFormatRegisteredPointer(t *testing.T) {
 }
 
 func TestFormatRegisteredPrecedence(t *testing.T) {
-	human.RegisterFormatFunc[RegistryPrecedenceFormatted](func(RegistryPrecedenceFormatted) (string, error) {
+	human.RegisterFormatFunc(func(RegistryPrecedenceFormatted) (string, error) {
 		return "registered", nil
 	})
 
@@ -264,6 +264,11 @@ func TestFormat(t *testing.T) {
 			name: "bytes",
 			data: []byte{0, 1},
 			want: "AAE=",
+		},
+		{
+			name: "slices",
+			data: []int{1, 2, 3},
+			want: "3",
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {

@@ -1,4 +1,4 @@
-package human
+package humanv2
 
 import (
 	"fmt"
@@ -98,12 +98,12 @@ func (l Layout) ResolveSections() []Section {
 
 var layouts sync.Map
 
-// SetLayout stores a custom layout for a particular type. This custom layout
+// RegisterLayout stores a custom layout for a particular type. This custom layout
 // will override the default one, and be eventually overridden by the render
 // options themselves. This is useful because we don't want to have to
 // maintain the layouts in the SDK itself, nor wrap the types to implement
 // an interface.
-func SetLayout(t reflect.Type, l Layout) {
+func RegisterLayout(t reflect.Type, l Layout) {
 	layouts.Store(t, l)
 }
 
@@ -123,15 +123,30 @@ func isFormattable(t reflect.Type) bool {
 		if t.Implements(reflect.TypeFor[error]()) {
 			return true
 		}
+		if t.Implements(reflect.TypeFor[fmt.Stringer]()) {
+			return true
+		}
 		t = t.Elem()
 	}
 	switch {
 	// A struct is a table, unless it escapes through Formatter, a registered
 	// format function or error.Error.
 	case t.Kind() == reflect.Struct:
-		_, hasFormatFunc := getFormatFunc(t)
+		if t.Implements(reflect.TypeFor[Formatter]()) {
+			return true
+		}
+		if _, ok := getFormatFunc(t); ok {
+			return true
+		}
+		if t.Implements(reflect.TypeFor[error]()) {
+			return true
+		}
+		if t.Implements(reflect.TypeFor[fmt.Stringer]()) {
+			return true
+		}
 
-		return t.Implements(reflect.TypeFor[Formatter]()) || hasFormatFunc || t.Implements(reflect.TypeFor[error]())
+		return false
+
 	// A slice of structs breaks into a table, unless the slice type itself
 	// has a registered format function; a scalar slice is inline.
 	case t.Kind() == reflect.Slice || t.Kind() == reflect.Array:

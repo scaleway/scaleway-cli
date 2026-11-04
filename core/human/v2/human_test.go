@@ -1,4 +1,4 @@
-package human_test
+package humanv2_test
 
 import (
 	"errors"
@@ -163,7 +163,7 @@ type MapListDummyStruct struct {
 func init() {
 	// Registered once for the whole table; only the two registry cases use
 	// RegistryDummyStruct, so no other case is affected.
-	human.SetLayout(reflect.TypeFor[RegistryDummyStruct](), human.Layout{
+	human.RegisterLayout(reflect.TypeFor[RegistryDummyStruct](), human.Layout{
 		Sections: []human.Section{
 			{Path: "RegistrySection", Title: "Custom"},
 		},
@@ -372,7 +372,7 @@ func TestLayout_Resolve(t *testing.T) {
 				},
 			},
 			want: []human.Block{
-				{Title: "Allowed", Rows: [][]string{{"[poweron backup]"}}},
+				{Title: "Allowed", Rows: [][]string{{"2"}}},
 			},
 		},
 		{

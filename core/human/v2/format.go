@@ -1,16 +1,19 @@
-package human
+package humanv2
 
 import (
 	"encoding/json"
 	"fmt"
 	"net"
 	"reflect"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
 
 	"github.com/dustin/go-humanize"
+	"github.com/fatih/color"
 	version "github.com/hashicorp/go-version"
+	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -31,6 +34,29 @@ var formatFuncs sync.Map
 func RegisterFormatFunc[T any](f func(T) (string, error)) {
 	formatFuncs.Store(reflect.TypeFor[T](), func(i any) (string, error) {
 		return f(i.(T))
+	})
+}
+
+type (
+	EnumFormats[T comparable] map[T]EnumFormat
+	EnumFormat                struct {
+		Color color.Attribute
+		Value string
+	}
+)
+
+func RegisterEnumFormat[T comparable](formats EnumFormats[T]) {
+	RegisterFormatFunc(func(v T) (string, error) {
+		format, ok := formats[v]
+		if !ok {
+			return fmt.Sprint(v), nil
+		}
+		s := fmt.Sprint(v)
+		if format.Value != "" {
+			s = format.Value
+		}
+
+		return terminal.Style(s, format.Color), nil
 	})
 }
 
@@ -162,7 +188,7 @@ func Format(data any) (string, error) {
 		if f, ok := reflect.TypeAssert[Formatter](value); ok {
 			return f.FormatHuman()
 		}
-		if err, ok := value.Interface().(error); ok {
+		if err, ok := reflect.TypeAssert[error](value); ok {
 			return err.Error(), nil
 		}
 		value = value.Elem()
@@ -176,8 +202,18 @@ func Format(data any) (string, error) {
 	if f, ok := reflect.TypeAssert[Formatter](value); ok {
 		return f.FormatHuman()
 	}
-	if err, ok := data.(error); ok {
+	if err, ok := reflect.TypeAssert[error](value); ok {
 		return err.Error(), nil
+	}
+	if stringer, ok := reflect.TypeAssert[fmt.Stringer](value); ok {
+		return stringer.String(), nil
+	}
+
+	// This case isn't ported to the isFormattable function intentionally, as this
+	// implements v1's behavior of printing the number of elements in a slice rather
+	// than the slice itself in table cells.
+	if value.Kind() == reflect.Slice || value.Kind() == reflect.Array {
+		return strconv.Itoa(value.Len()), nil
 	}
 	data = value.Interface()
 
