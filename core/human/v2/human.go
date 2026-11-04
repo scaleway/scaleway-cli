@@ -21,20 +21,16 @@ import (
 // an empty path and no title by default. Sections order is conserved, with
 // the main section being prepended if it isn't found in the list.
 type Layout struct {
-	// Title, when set, is rendered on its own line above the whole output,
-	// wrapping all sections like v1's MarshalOpt.Title.
+	// Title, when set, is rendered on its own line above the whole output.
 	Title string
 
-	// NoHeaders skips the header row of table blocks, like v1's
-	// MarshalOpt.NoHeaders.
+	// NoHeaders skips the header row of table blocks.
 	NoHeaders bool
 
-	// NoShrinking keeps every table column regardless of the terminal width,
-	// like v1's MarshalOpt.DisableShrinking.
+	// NoShrinking keeps every table column regardless of the terminal width.
 	NoShrinking bool
 
-	// ColPadding is the number of spaces between table columns; 0 uses the
-	// default of 2, like v1's colPadding.
+	// ColPadding is the number of spaces between table columns, 0 means default.
 	ColPadding int
 
 	Sections []Section
@@ -48,7 +44,7 @@ type Section struct {
 	// Title is the string for the section's header. It will be omitted if empty.
 	Title string
 
-	// Omittable controls whether the section should be rendered if empty.
+	// Omittable controls whether the section is rendered when empty.
 	Omittable bool
 
 	// Fields limits the section to the selected dotted field paths: for a
@@ -67,7 +63,7 @@ type Field struct {
 }
 
 // getLabel returns the field's display label: the explicit Label if set,
-// otherwise the Path derived like v1 (bash-arg spaced and uppercased).
+// otherwise the Path bash-arg spaced and uppercased.
 func (f Field) getLabel() string {
 	if f.Label != "" {
 		return f.Label
@@ -76,8 +72,7 @@ func (f Field) getLabel() string {
 	return deriveLabel(f.Path)
 }
 
-// deriveLabel renders a path as an ALL-CAPS column header, mirroring v1's
-// getDefaultFieldsOpt label derivation.
+// deriveLabel renders a path as an ALL-CAPS column header.
 func deriveLabel(path string) string {
 	label := strings.ReplaceAll(path, ".", " ")
 	label = strcase.ToBashArg(label)
@@ -100,73 +95,9 @@ var layouts sync.Map
 
 // RegisterLayout stores a custom layout for a particular type. This custom layout
 // will override the default one, and be eventually overridden by the render
-// options themselves. This is useful because we don't want to have to
-// maintain the layouts in the SDK itself, nor wrap the types to implement
-// an interface.
+// options themselves.
 func RegisterLayout(t reflect.Type, l Layout) {
 	layouts.Store(t, l)
-}
-
-// isFormattable reports whether t should be rendered inline by Format rather
-// than as a composite table.
-func isFormattable(t reflect.Type) bool {
-	// A formatter or registered format function at any pointer level escapes
-	// through Format, which checks each level in its deref loop, so mirror it
-	// here.
-	for t.Kind() == reflect.Pointer {
-		if t.Implements(reflect.TypeFor[Formatter]()) {
-			return true
-		}
-		if _, ok := getFormatFunc(t); ok {
-			return true
-		}
-		if t.Implements(reflect.TypeFor[error]()) {
-			return true
-		}
-		if t.Implements(reflect.TypeFor[fmt.Stringer]()) {
-			return true
-		}
-		t = t.Elem()
-	}
-	switch {
-	// A struct is a table, unless it escapes through Formatter, a registered
-	// format function or error.Error.
-	case t.Kind() == reflect.Struct:
-		if t.Implements(reflect.TypeFor[Formatter]()) {
-			return true
-		}
-		if _, ok := getFormatFunc(t); ok {
-			return true
-		}
-		if t.Implements(reflect.TypeFor[error]()) {
-			return true
-		}
-		if t.Implements(reflect.TypeFor[fmt.Stringer]()) {
-			return true
-		}
-
-		return false
-
-	// A slice of structs breaks into a table, unless the slice type itself
-	// has a registered format function; a scalar slice is inline.
-	case t.Kind() == reflect.Slice || t.Kind() == reflect.Array:
-		if _, ok := getFormatFunc(t); ok {
-			return true
-		}
-		elem := t.Elem()
-		for elem.Kind() == reflect.Pointer {
-			elem = elem.Elem()
-		}
-
-		return elem.Kind() != reflect.Struct
-	// A map is a key-value table, unless it has a registered format function.
-	case t.Kind() == reflect.Map:
-		_, hasFormatFunc := getFormatFunc(t)
-
-		return hasFormatFunc
-	default:
-		return true
-	}
 }
 
 // Block is the resolved content of one section, free of any rendering
@@ -346,6 +277,22 @@ func (l Layout) Resolve(data any) ([]Block, error) {
 	return []Block{{Rows: [][]string{{str}}}}, nil
 }
 
+// isOmittable reports whether v is empty per encoding/json's omitempty:
+// an invalid or zero value, or a length-zero slice, array or map.
+func isOmittable(v reflect.Value) bool {
+	// IsZero and Len panic on invalid values or non-container kinds.
+	if !v.IsValid() || v.IsZero() {
+		return true
+	}
+
+	switch v.Kind() {
+	case reflect.Slice, reflect.Array, reflect.Map:
+		return v.Len() == 0
+	default:
+		return false
+	}
+}
+
 // Resolve renders section into a block from data, without drawing. claimed
 // tracks the dotted paths resolved as their own section so the flattening of
 // the default block skips them. An omitted or empty section resolves to an
@@ -356,7 +303,7 @@ func (s Section) Resolve(data any, claimed map[string]bool) (Block, error) {
 	for value.Kind() == reflect.Pointer {
 		value = value.Elem()
 	}
-	if (!value.IsValid() || value.IsZero()) && s.Omittable {
+	if s.Omittable && isOmittable(value) {
 		return Block{}, nil
 	}
 

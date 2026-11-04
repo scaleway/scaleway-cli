@@ -9,7 +9,6 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -243,31 +242,4 @@ var serverLayout = humanv2.Layout{
 		{Path: "Options", Title: "Options", Omittable: true},
 		{Path: "Install", Title: "Install", Omittable: true},
 	},
-}
-
-func serverMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp baremetal.Server
-	baremetalServer := tmp(i.(baremetal.Server))
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "IPs",
-			Title:     "IPs",
-		},
-		{
-			FieldName:   "Options",
-			Title:       "Options",
-			HideIfEmpty: true,
-		},
-		{
-			FieldName:   "Install",
-			Title:       "Install",
-			HideIfEmpty: true,
-		},
-	}
-	str, err := human.Marshal(baremetalServer, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
 }

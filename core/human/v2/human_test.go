@@ -340,6 +340,23 @@ func TestLayout_Resolve(t *testing.T) {
 			},
 		},
 		{
+			name: "omittable empty but allocated slice section",
+			data: ListDummyStruct{
+				OmittableList: []FirstLevelDummyStruct{},
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Path: "OmittableList", Title: "Omittable List", Omittable: true},
+					{Path: "RequiredList", Title: "Required List", Omittable: false},
+				},
+			},
+			// An empty-but-allocated slice is still empty for an omittable
+			// section (encoding/json omitempty), so it is dropped like the nil one.
+			want: []human.Block{
+				{Title: "Required List", Header: []string{"FIRST LEVEL FIELD A", "FIRST LEVEL FIELD B"}},
+			},
+		},
+		{
 			name: "omittable non-empty section",
 			data: ListDummyStruct{
 				OmittableList: []FirstLevelDummyStruct{

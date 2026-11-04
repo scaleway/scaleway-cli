@@ -219,3 +219,65 @@ func Format(data any) (string, error) {
 
 	return fmt.Sprint(data), nil
 }
+
+// isFormattable reports whether t should be rendered inline by Format rather
+// than as a composite table.
+func isFormattable(t reflect.Type) bool {
+	// A formatter or registered format function at any pointer level escapes
+	// through Format, which checks each level in its deref loop, so mirror it
+	// here.
+	for t.Kind() == reflect.Pointer {
+		if t.Implements(reflect.TypeFor[Formatter]()) {
+			return true
+		}
+		if _, ok := getFormatFunc(t); ok {
+			return true
+		}
+		if t.Implements(reflect.TypeFor[error]()) {
+			return true
+		}
+		if t.Implements(reflect.TypeFor[fmt.Stringer]()) {
+			return true
+		}
+		t = t.Elem()
+	}
+	switch {
+	// A struct is a table, unless it escapes through Formatter, a registered
+	// format function or error.Error.
+	case t.Kind() == reflect.Struct:
+		if t.Implements(reflect.TypeFor[Formatter]()) {
+			return true
+		}
+		if _, ok := getFormatFunc(t); ok {
+			return true
+		}
+		if t.Implements(reflect.TypeFor[error]()) {
+			return true
+		}
+		if t.Implements(reflect.TypeFor[fmt.Stringer]()) {
+			return true
+		}
+
+		return false
+
+	// A slice of structs breaks into a table, unless the slice type itself
+	// has a registered format function; a scalar slice is inline.
+	case t.Kind() == reflect.Slice || t.Kind() == reflect.Array:
+		if _, ok := getFormatFunc(t); ok {
+			return true
+		}
+		elem := t.Elem()
+		for elem.Kind() == reflect.Pointer {
+			elem = elem.Elem()
+		}
+
+		return elem.Kind() != reflect.Struct
+	// A map is a key-value table, unless it has a registered format function.
+	case t.Kind() == reflect.Map:
+		_, hasFormatFunc := getFormatFunc(t)
+
+		return hasFormatFunc
+	default:
+		return true
+	}
+}
