@@ -580,6 +580,34 @@ The name of the data source will then be used as reference to name the associate
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "metrics-limits.ingestion-rate-limit-samples-per-second",
+				Short:      `Maximum number of samples ingested per second`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "metrics-limits.max-series",
+				Short:      `Maximum number of active series`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "logs-limits.ingestion-rate-limit-bytes-per-second",
+				Short:      `Maximum number of bytes ingested per second`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "traces-limits.ingestion-rate-limit-bytes-per-second",
+				Short:      `Maximum number of bytes ingested per second`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -758,7 +786,7 @@ func cockpitDataSourceList() *core.Command {
 func cockpitDataSourceUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a data source`,
-		Long:      `Update a given data source attributes (name and/or retention_days).`,
+		Long:      `Update a given data source attributes (name, retention_days and/or limits).`,
 		Namespace: "cockpit",
 		Resource:  "data-source",
 		Verb:      "update",
@@ -782,6 +810,34 @@ func cockpitDataSourceUpdate() *core.Command {
 			{
 				Name:       "retention-days",
 				Short:      `Duration for which the data will be retained in the data source`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "metrics-limits.ingestion-rate-limit-samples-per-second",
+				Short:      `Maximum number of samples ingested per second`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "metrics-limits.max-series",
+				Short:      `Maximum number of active series`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "logs-limits.ingestion-rate-limit-bytes-per-second",
+				Short:      `Maximum number of bytes ingested per second`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "traces-limits.ingestion-rate-limit-bytes-per-second",
+				Short:      `Maximum number of bytes ingested per second`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

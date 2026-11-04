@@ -234,13 +234,17 @@ scw cockpit data-source create [arg=value ...]
 
 **Arguments:**
 
-| Name           | Description                                                                 | Argument Specifications                                               |
-|----------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| project-id     | Project ID to use. If none is passed the default project ID will be used    |                                                                       |
-| name           | Data source name                                                            | Required                                                              |
-| type           | Data source type                                                            | Required<br />One of: `unknown_type`, `metrics`, `logs`, `traces`     |
-| retention-days | Duration for which the data will be retained in the data source             |                                                                       |
-| region         | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
+| Name                                                   | Description                                                                 | Argument Specifications                                               |
+|--------------------------------------------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| project-id                                             | Project ID to use. If none is passed the default project ID will be used    |                                                                       |
+| name                                                   | Data source name                                                            | Required                                                              |
+| type                                                   | Data source type                                                            | Required<br />One of: `unknown_type`, `metrics`, `logs`, `traces`     |
+| retention-days                                         | Duration for which the data will be retained in the data source             |                                                                       |
+| metrics-limits.ingestion-rate-limit-samples-per-second | Maximum number of samples ingested per second                               |                                                                       |
+| metrics-limits.max-series                              | Maximum number of active series                                             |                                                                       |
+| logs-limits.ingestion-rate-limit-bytes-per-second      | Maximum number of bytes ingested per second                                 |                                                                       |
+| traces-limits.ingestion-rate-limit-bytes-per-second    | Maximum number of bytes ingested per second                                 |                                                                       |
+| region                                                 | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -309,7 +313,7 @@ scw cockpit data-source list [arg=value ...]
 
 ### Update a data source
 
-Update a given data source attributes (name and/or retention_days).
+Update a given data source attributes (name, retention_days and/or limits).
 
 **Usage:**
 
@@ -320,12 +324,16 @@ scw cockpit data-source update <data-source-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name           | Description                                                                 | Argument Specifications                                               |
-|----------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| data-source-id | ID of the data source to update                                             | Required                                                              |
-| name           | Updated name of the data source                                             |                                                                       |
-| retention-days | Duration for which the data will be retained in the data source             |                                                                       |
-| region         | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
+| Name                                                   | Description                                                                 | Argument Specifications                                               |
+|--------------------------------------------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| data-source-id                                         | ID of the data source to update                                             | Required                                                              |
+| name                                                   | Updated name of the data source                                             |                                                                       |
+| retention-days                                         | Duration for which the data will be retained in the data source             |                                                                       |
+| metrics-limits.ingestion-rate-limit-samples-per-second | Maximum number of samples ingested per second                               |                                                                       |
+| metrics-limits.max-series                              | Maximum number of active series                                             |                                                                       |
+| logs-limits.ingestion-rate-limit-bytes-per-second      | Maximum number of bytes ingested per second                                 |                                                                       |
+| traces-limits.ingestion-rate-limit-bytes-per-second    | Maximum number of bytes ingested per second                                 |                                                                       |
+| region                                                 | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
