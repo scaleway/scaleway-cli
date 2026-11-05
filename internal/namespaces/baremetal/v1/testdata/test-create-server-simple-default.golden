@@ -16,6 +16,7 @@ Zone               fr-par-2
 PingStatus         unknown
 Protected          false
 ScheduledDeletion  false
+Srn                -
 
 IPs:
 ID                                    ADDRESS                                REVERSE  VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
@@ -66,5 +67,6 @@ ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
   "user_data": null,
   "commitment": null,
   "scheduled_deletion_at": null,
-  "scheduled_deletion": false
+  "scheduled_deletion": false,
+  "srn": ""
 }

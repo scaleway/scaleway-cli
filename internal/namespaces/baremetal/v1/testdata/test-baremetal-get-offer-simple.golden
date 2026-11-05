@@ -30,6 +30,7 @@ Tags.1                cloud-init
 MonthlyOfferID        3b36516b-34e5-4ab1-8b05-0cda2adbc84c
 Zone                  fr-par-1
 DualAttach            false
+Srn                   -
 
 Disks:
 CAPACITY  TYPE
@@ -257,5 +258,6 @@ PrivateBandwidth(Mbit/s):
   "monthly_offer_id": "3b36516b-34e5-4ab1-8b05-0cda2adbc84c",
   "commitments_available": [],
   "zone": "fr-par-1",
-  "dual_attach": false
+  "dual_attach": false,
+  "srn": ""
 }
