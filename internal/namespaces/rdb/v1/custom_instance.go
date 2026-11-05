@@ -97,62 +97,28 @@ type rdbCreateInstanceRequestCustom struct {
 	GeneratePassword bool
 }
 
-func createInstanceResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	instanceResult := i.(CreateInstanceResult)
-
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "Endpoint",
-		},
-		{
-			FieldName: "Volume",
-		},
-		{
-			FieldName: "BackupSchedule",
-		},
-		{
-			FieldName: "Settings",
-		},
-	}
-
-	instanceStr, err := human.Marshal(instanceResult.Instance, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return strings.Join([]string{
-		instanceStr,
-		terminal.Style("Password: ", color.Bold) + "\n" + instanceResult.Password,
-	}, "\n\n"), nil
+var instanceLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{Path: "Endpoints.0", Title: "Endpoint"},
+		{Path: "Volume", Title: "Volume"},
+		{Path: "BackupSchedule", Title: "Backup Schedule"},
+		{Path: "Settings", Title: "Settings"},
+	},
 }
 
-func instanceMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	// To avoid recursion of human.Marshal we create a dummy type
-	type tmp rdbSDK.Instance
-	instance := tmp(i.(rdbSDK.Instance))
-
-	// Sections
-	opt.Sections = []*human.MarshalSection{
+var createInstanceResultLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{Path: "Endpoints.0", Title: "Endpoint"},
+		{Path: "Volume", Title: "Volume"},
+		{Path: "BackupSchedule", Title: "Backup Schedule"},
 		{
-			FieldName: "Endpoint",
+			Path:  "Settings",
+			Title: "Settings",
+			FooterFunc: func(data any) (string, error) {
+				return terminal.Style("Password: ", color.Bold) + "\n" + data.(CreateInstanceResult).Password, nil
+			},
 		},
-		{
-			FieldName: "Volume",
-		},
-		{
-			FieldName: "BackupSchedule",
-		},
-		{
-			FieldName: "Settings",
-		},
-	}
-
-	str, err := human.Marshal(instance, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
+	},
 }
 
 func backupScheduleMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {

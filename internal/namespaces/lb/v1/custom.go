@@ -27,7 +27,7 @@ func GetCommands() *core.Commands {
 	humanv2.RegisterEnumFormat(aclFormat)
 	humanv2.RegisterEnumFormat(backendServerStatsHealthCheckStatusFormat)
 	humanv2.RegisterEnumFormat(backendServerStatsServerStateFormat)
-	human.RegisterMarshalerFunc(lb.LB{}, lbMarshalerFunc)
+	humanv2.RegisterLayout(reflect.TypeFor[lb.LB](), lbLayout)
 	humanv2.RegisterLayout(reflect.TypeFor[lb.Backend](), lbBackendLayout)
 	humanv2.RegisterLayout(reflect.TypeFor[lb.Frontend](), lbFrontendLayout)
 	humanv2.RegisterLayout(reflect.TypeFor[lb.Certificate](), lbCertificateLayout)

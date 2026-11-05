@@ -51,6 +51,11 @@ type Section struct {
 	// table it selects the columns, for a struct or map it selects the lines.
 	// Empty means all fields.
 	Fields []Field
+
+	// Footer is free text drawn below the block, after a blank line.
+	// FooterFunc, when set, computes it from the rendered payload instead.
+	Footer     string
+	FooterFunc func(any) (string, error)
 }
 
 // Field selects one column of a table or one line of a struct or map.
@@ -110,11 +115,14 @@ type Block struct {
 
 	// NoHeaders skips the header row when drawing a table block.
 	NoHeaders bool
+
+	// Footer is free text drawn below the block, after a blank line.
+	Footer string
 }
 
 // Empty reports whether block draws nothing at all.
 func (b Block) Empty() bool {
-	return b.Title == "" && len(b.Header) == 0 && len(b.Rows) == 0
+	return b.Title == "" && len(b.Header) == 0 && len(b.Rows) == 0 && b.Footer == ""
 }
 
 // Render resolves data into its layout blocks and draws them, separating the
@@ -222,7 +230,7 @@ func (l Layout) Resolve(data any) ([]Block, error) {
 			return nil, fmt.Errorf("unknown path %q for %T payload", sections[0].Path, data)
 		}
 
-		block, err := sections[0].Resolve(data, nil)
+		block, err := sections[0].Resolve(data, data, nil)
 		if err != nil {
 			return nil, fmt.Errorf("rendering section: %w", err)
 		}
@@ -255,7 +263,7 @@ func (l Layout) Resolve(data any) ([]Block, error) {
 					return nil, fmt.Errorf("path %q not found in %T: %w", section.Path, data, err)
 				}
 			}
-			block, err := section.Resolve(sectionData, claimed)
+			block, err := section.Resolve(sectionData, data, claimed)
 			if err != nil {
 				return nil, fmt.Errorf("rendering section %d: %w", i, err)
 			}
@@ -298,7 +306,7 @@ func isOmittable(v reflect.Value) bool {
 // the default block skips them. An omitted or empty section resolves to an
 // empty block, a slice or array to a table, and a struct or map to a list of
 // keyed rows.
-func (s Section) Resolve(data any, claimed map[string]bool) (Block, error) {
+func (s Section) Resolve(data, root any, claimed map[string]bool) (Block, error) {
 	value := reflect.ValueOf(data)
 	for value.Kind() == reflect.Pointer {
 		value = value.Elem()
@@ -314,29 +322,40 @@ func (s Section) Resolve(data any, claimed map[string]bool) (Block, error) {
 
 	// isFormattable on the raw data type, not the dereferenced one: errors and
 	// Formatter methods often hang on the pointer.
+	var err error
 	if !value.IsValid() || isFormattable(reflect.TypeOf(data)) {
-		str, err := Format(data)
-		if err != nil {
-			return Block{}, err
-		}
+		var str string
+		str, err = Format(data)
 		block.Rows = [][]string{{str}}
-
-		return block, nil
+	} else {
+		switch value.Kind() {
+		case reflect.Slice, reflect.Array:
+			block.Header, block.Rows, err = s.resolveTable(value)
+		case reflect.Map, reflect.Struct:
+			block.Rows, err = s.resolveList(value, claimed)
+		default:
+			return block, fmt.Errorf("unresolvable type %T", value.Interface())
+		}
+	}
+	if err != nil {
+		return Block{}, err
 	}
 
-	switch value.Kind() {
-	case reflect.Slice, reflect.Array:
-		return s.resolveTable(value, block)
-	case reflect.Map, reflect.Struct:
-		return s.resolveList(value, block, claimed)
-	default:
-		return block, fmt.Errorf("unresolvable type %T", value.Interface())
+	if s.FooterFunc != nil {
+		block.Footer, err = s.FooterFunc(root)
+	} else {
+		block.Footer = s.Footer
 	}
+	if err != nil {
+		return Block{}, err
+	}
+
+	return block, nil
 }
 
 // resolveTable renders a slice or array section as a table. With no selected
 // Fields the item's fields become the columns; values are formatted per cell.
-func (s Section) resolveTable(value reflect.Value, block Block) (Block, error) {
+func (s Section) resolveTable(value reflect.Value) ([]string, [][]string, error) {
 	itemType := value.Type().Elem()
 	for itemType.Kind() == reflect.Pointer {
 		itemType = itemType.Elem()
@@ -354,15 +373,16 @@ func (s Section) resolveTable(value reflect.Value, block Block) (Block, error) {
 
 	if itemType.Kind() == reflect.Struct {
 		if err := validateFields(itemType, fields); err != nil {
-			return Block{}, err
+			return nil, nil, err
 		}
 	}
 
-	block.Header = make([]string, len(fields))
+	header := make([]string, len(fields))
 	for fieldIndex, field := range fields {
-		block.Header[fieldIndex] = field.getLabel()
+		header[fieldIndex] = field.getLabel()
 	}
 
+	var rows [][]string
 	for index := range value.Len() {
 		item := value.Index(index)
 
@@ -393,35 +413,32 @@ func (s Section) resolveTable(value reflect.Value, block Block) (Block, error) {
 
 			str, err := Format(cell)
 			if err != nil {
-				return Block{}, err
+				return nil, nil, err
 			}
 			row[fieldIndex] = str
 		}
-		block.Rows = append(block.Rows, row)
+		rows = append(rows, row)
 	}
 
-	return block, nil
+	return header, rows, nil
 }
 
 // resolveList renders a struct or map section into dotted keyed rows: one walk
 // flattens composite values into dotted keys, formats formattable leaves in
 // place, and skips paths claimed by other sections. Maps are just walked as
 // keyed leaves.
-func (s Section) resolveList(
-	value reflect.Value,
-	block Block,
-	claimed map[string]bool,
-) (Block, error) {
+func (s Section) resolveList(value reflect.Value, claimed map[string]bool) ([][]string, error) {
 	valueType := value.Type()
 	for valueType.Kind() == reflect.Pointer {
 		valueType = valueType.Elem()
 	}
 	if valueType.Kind() == reflect.Struct {
 		if err := validateFields(valueType, s.Fields); err != nil {
-			return Block{}, err
+			return nil, err
 		}
 	}
 
+	var rows [][]string
 	err := walk(value, "", func(keys string, node reflect.Value) (bool, error) {
 		if claimed[keys] {
 			return false, nil
@@ -462,7 +479,7 @@ func (s Section) resolveList(
 			if err != nil {
 				return false, err
 			}
-			block.Rows = append(block.Rows, []string{keys, str})
+			rows = append(rows, []string{keys, str})
 
 			return false, nil
 		}
@@ -470,10 +487,10 @@ func (s Section) resolveList(
 		return true, nil
 	})
 	if err != nil {
-		return Block{}, err
+		return nil, err
 	}
 
-	return block, nil
+	return rows, nil
 }
 
 // validateFields returns an UnknownFieldError for the first selected field
@@ -599,7 +616,15 @@ func (b Block) Draw(width, colPadding int) string {
 	}
 	w.Flush()
 
-	return strings.TrimSpace(s.String())
+	out := strings.TrimSpace(s.String())
+	if b.Footer != "" {
+		if out != "" {
+			out += "\n\n"
+		}
+		out += b.Footer
+	}
+
+	return out
 }
 
 // MaxCols returns the number of columns that fit within width, mirroring v1:

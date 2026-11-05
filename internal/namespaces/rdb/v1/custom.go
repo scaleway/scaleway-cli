@@ -1,6 +1,8 @@
 package rdb
 
 import (
+	"reflect"
+
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
@@ -12,10 +14,10 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("rdb").Groups = []string{"database"}
 
-	human.RegisterMarshalerFunc(rdb.Instance{}, instanceMarshalerFunc)
+	humanv2.RegisterLayout(reflect.TypeFor[rdb.Instance](), instanceLayout)
+	humanv2.RegisterLayout(reflect.TypeFor[CreateInstanceResult](), createInstanceResultLayout)
 	human.RegisterMarshalerFunc(rdb.BackupSchedule{}, backupScheduleMarshalerFunc)
 	human.RegisterMarshalerFunc(backupDownloadResult{}, backupResultMarshallerFunc)
-	human.RegisterMarshalerFunc(CreateInstanceResult{}, createInstanceResultMarshalerFunc)
 	human.RegisterMarshalerFunc(CustomACLResult{}, rdbACLCustomResultMarshalerFunc)
 	human.RegisterMarshalerFunc(rdbEndpointCustomResult{}, rdbEndpointCustomResultMarshalerFunc)
 	human.RegisterMarshalerFunc(logDownloadResult{}, logDownloadResultMarshalerFunc)

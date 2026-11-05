@@ -452,6 +452,54 @@ func TestLayout_Resolve(t *testing.T) {
 			},
 		},
 		{
+			name: "section footer drawn below the block",
+			data: RootDummyStruct{
+				RootA: "aaa",
+				Sub:   NestedDummyStruct{X: "one", Y: "two"},
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Path: "RootA", Title: "A", Footer: "WARNING: shown only once"},
+				},
+			},
+			want: []human.Block{
+				{Rows: [][]string{{"RootA", "aaa"}, {"Sub.X", "one"}, {"Sub.Y", "two"}}},
+				{Title: "A", Rows: [][]string{{"aaa"}}, Footer: "WARNING: shown only once"},
+			},
+		},
+		{
+			name: "section footerfunc computed from data",
+			data: RootDummyStruct{
+				RootA: "aaa",
+				RootB: "bbb",
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Path: "RootA", Title: "A", FooterFunc: func(d any) (string, error) {
+						return "RootB is " + d.(RootDummyStruct).RootB, nil
+					}},
+				},
+			},
+			want: []human.Block{
+				{Rows: [][]string{{"RootB", "bbb"}}},
+				{Title: "A", Rows: [][]string{{"aaa"}}, Footer: "RootB is bbb"},
+			},
+		},
+		{
+			name: "section footerfunc empty string draws nothing",
+			data: RootDummyStruct{
+				RootA: "aaa",
+			},
+			layout: human.Layout{
+				Sections: []human.Section{
+					{Path: "RootA", Title: "A", FooterFunc: func(any) (string, error) { return "", nil }},
+				},
+			},
+			want: []human.Block{
+				{Title: "A", Rows: [][]string{{"aaa"}}},
+			},
+		},
+		{
 			name: "dotted section path",
 			data: RootDummyStruct{
 				RootA: "aaa",
