@@ -31,7 +31,7 @@ func BeginningOfMonth(d *time.Time) *time.Time {
 	if d == nil {
 		return nil
 	}
-	start := time.Date(d.Year(), d.Month(), 1, 0, 0, 0, 0, d.Location())
+	start := time.Date(d.Year(), d.Month(), 1, 0, 0, 0, 0, time.UTC)
 
 	return &start
 }
