@@ -27,6 +27,15 @@ func ChargesView() *core.View {
 	}
 }
 
+func BeginningOfMonth(d *time.Time) *time.Time {
+	if d == nil {
+		return nil
+	}
+	start := time.Date(d.Year(), d.Month(), 1, 0, 0, 0, 0, d.Location())
+
+	return &start
+}
+
 // ListChargesForResource returns all the charges of a resource, following
 // pagination. Since, when non-nil (typically the resource's created_at),
 // restricts the result to charges starting after that date.
@@ -45,7 +54,7 @@ func ListChargesForResource(
 		request.OrganizationID = orgID
 	}
 	if since != nil {
-		request.StartDateAfter = since
+		request.StartDateAfter = BeginningOfMonth(since)
 		// Clamp so a charge overlapping the period (e.g. the first one, which
 		// may start before the resource's created_at) is still returned.
 		clampToTimeRange := true
