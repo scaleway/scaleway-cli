@@ -16,6 +16,7 @@ Zone               fr-par-2
 PingStatus         up
 Protected          false
 ScheduledDeletion  false
+Srn                srn://elastic-metal.scw.eu/zones/fr-par-2/servers/1c215c35-6ebb-4ce7-ad8b-1ba9f6a70de9
 
 IPs:
 ID                                    ADDRESS                                REVERSE  VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
@@ -252,5 +253,6 @@ NetworkBootPersistent                                         false
   "user_data": null,
   "commitment": null,
   "scheduled_deletion_at": null,
-  "scheduled_deletion": false
+  "scheduled_deletion": false,
+  "srn": "srn://elastic-metal.scw.eu/zones/fr-par-2/servers/1c215c35-6ebb-4ce7-ad8b-1ba9f6a70de9"
 }
