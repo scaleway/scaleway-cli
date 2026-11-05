@@ -175,6 +175,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": 0.01281002,
     "m3_water_usage": 5.890525e-7,
     "cloud_init_supported": true
@@ -434,6 +435,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -626,6 +628,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": 0.0155900745,
     "m3_water_usage": 7.3156525e-7,
     "cloud_init_supported": true
@@ -753,6 +756,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": 0.015545019,
     "m3_water_usage": 7.695686e-7,
     "cloud_init_supported": true
@@ -970,6 +974,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": 0.015003014,
     "m3_water_usage": 6.650593e-7,
     "cloud_init_supported": true
@@ -1170,6 +1175,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": 0.016983224,
     "m3_water_usage": 7.600678e-7,
     "cloud_init_supported": true
@@ -1461,6 +1467,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -1711,6 +1718,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": 0.022749875,
     "m3_water_usage": 0.0000011115991,
     "cloud_init_supported": true
@@ -1961,6 +1969,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": 0.02332065,
     "m3_water_usage": 0.0000011115991,
     "cloud_init_supported": true
@@ -2252,6 +2261,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -2490,6 +2500,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": 0.024065403,
     "m3_water_usage": 0.0000010450932,
     "cloud_init_supported": false
@@ -2731,6 +2742,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": 0.026313491,
     "m3_water_usage": 0.0000012351102,
     "cloud_init_supported": true
@@ -3022,6 +3034,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -3335,6 +3348,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -3535,6 +3549,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": 0.016983224,
     "m3_water_usage": 7.600678e-7,
     "cloud_init_supported": true
@@ -3902,6 +3917,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -4193,6 +4209,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -4506,6 +4523,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -4797,6 +4815,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -5110,6 +5129,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -5401,6 +5421,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -5714,6 +5735,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -6005,6 +6027,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -6296,6 +6319,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -6663,6 +6687,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -6967,6 +6992,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -7274,6 +7300,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -7592,6 +7619,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -7959,6 +7987,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -8266,6 +8295,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -8633,6 +8663,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -8945,6 +8976,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -9312,6 +9344,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -9679,6 +9712,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -9991,6 +10025,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -10366,6 +10401,7 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+    "srn": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
