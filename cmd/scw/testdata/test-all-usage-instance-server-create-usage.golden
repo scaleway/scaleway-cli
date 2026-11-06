@@ -34,6 +34,9 @@ EXAMPLES:
     ip=$(scw instance ip create | grep id | awk '{ print $2 }')
     scw instance server create image=ubuntu_focal ip=$ip
 
+  Create and start an instance, then connect to its serial console to follow boot logs
+    scw instance server create image=ubuntu_jammy type=GP1-XS console=true
+
 ARGS:
   image=ubuntu_jammy                       Image ID or label of the server
   type                                     Server commercial type (help: https://www.scaleway.com/en/docs/compute/instances/reference-content/choosing-instance-type/)
@@ -45,6 +48,7 @@ ARGS:
   [tags.{index}]                           Server tags
   [ipv6]                                   Enable IPv6, to be used with routed-ip-enabled=false
   [stopped]                                Do not start server after its creation
+  [console=false]                          Connect to the serial console of the server after its creation to follow its boot logs (quit with Ctrl+q)
   [security-group-id]                      The security group ID used for this server
   [placement-group-id]                     The placement group ID in which the server has to be created
   [cloud-init]                             The cloud-init script to use (Support file loading with @/path/to/file)
