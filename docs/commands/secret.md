@@ -2,7 +2,7 @@
 # Documentation for `scw secret`
 This API allows you to manage your Secret Manager services, for storing, accessing and sharing sensitive data such as passwords, API keys and certificates.
   
-- [Inject Scaleway secrets into a template file](#inject-scaleway-secrets-into-a-template-file)
+- [Inject Scaleway secrets into a template](#inject-scaleway-secrets-into-a-template)
 - [Secret management commands](#secret-management-commands)
   - [Allow a product to use the secret](#allow-a-product-to-use-the-secret)
   - [Create a secret](#create-a-secret)
@@ -24,51 +24,25 @@ This API allows you to manage your Secret Manager services, for storing, accessi
   - [Update metadata of a version](#update-metadata-of-a-version)
 
   
-## Inject Scaleway secrets into a template file
+## Inject Scaleway secrets into a template
 
-Substitute secret references in a template file with their actual values.
+Render a Go template (text/template) in which the `secret` function resolves secret references.
 
-References use the syntax `{{ scw://REFERENCE }}` where REFERENCE can be:
+  {{ secret "REFERENCE" }}                    secret value
+  {{ secret "REFERENCE" | jsonField "KEY" }}  string field of a JSON-encoded secret
 
-  UUID                       secret ID, latest revision
-  UUID@REVISION              secret ID, specific revision
-  UUID:FIELD                 secret ID, latest revision, JSON field
-  UUID@REVISION:FIELD        secret ID, specific revision, JSON field
-  NAME                       secret name, latest revision
-  PATH/NAME                  secret by path and name, latest revision
-  PATH/NAME@REVISION:FIELD   path/name with revision and field
+REFERENCE is (UUID|[PATH/]NAME)[@REVISION], REVISION being an integer, "latest" (default) or "latest_enabled".
 
-REVISION can be an integer, "latest", or "latest_enabled".
+The rendered template is written to stdout.
 
-FIELD extracts a string field from a JSON-encoded secret.
+Render a Go template (text/template) in which the `secret` function resolves secret references.
 
-Examples:
+  {{ secret "REFERENCE" }}                    secret value
+  {{ secret "REFERENCE" | jsonField "KEY" }}  string field of a JSON-encoded secret
 
-  {{ scw://11111111-1111-1111-1111-111111111111 }}
-  {{ scw://11111111-1111-1111-1111-111111111111@2:api-key }}
-  {{ scw://my-app/db-password@latest }}
+REFERENCE is (UUID|[PATH/]NAME)[@REVISION], REVISION being an integer, "latest" (default) or "latest_enabled".
 
-Substitute secret references in a template file with their actual values.
-
-References use the syntax `{{ scw://REFERENCE }}` where REFERENCE can be:
-
-  UUID                       secret ID, latest revision
-  UUID@REVISION              secret ID, specific revision
-  UUID:FIELD                 secret ID, latest revision, JSON field
-  UUID@REVISION:FIELD        secret ID, specific revision, JSON field
-  NAME                       secret name, latest revision
-  PATH/NAME                  secret by path and name, latest revision
-  PATH/NAME@REVISION:FIELD   path/name with revision and field
-
-REVISION can be an integer, "latest", or "latest_enabled".
-
-FIELD extracts a string field from a JSON-encoded secret.
-
-Examples:
-
-  {{ scw://11111111-1111-1111-1111-111111111111 }}
-  {{ scw://11111111-1111-1111-1111-111111111111@2:api-key }}
-  {{ scw://my-app/db-password@latest }}
+The rendered template is written to stdout.
 
 **Usage:**
 
@@ -81,28 +55,26 @@ scw secret inject [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| in-file |  | Template file to read from (default: stdin) |
-| out-file |  | Output file (default: stdout) |
-| file-mode | Default: `0600` | Permissions of the output file, in octal (only used with --out-file) |
+| template |  | Template to render (default: stdin) |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
 
 
-Render a template from stdin to stdout
+Render a template from stdin
 ```
-echo "password: {{ scw://11111111-1111-1111-1111-111111111111 }}" | scw secret inject
-```
-
-Render a template file to an output file
-```
-scw secret inject in-file=config.tpl out-file=config.yaml
+echo 'password: {{ secret "11111111-1111-1111-1111-111111111111" }}' | scw secret inject
 ```
 
-Extract a JSON field and write to a file with custom permissions
+Render a template file into another file
 ```
-scw secret inject in-file=config.tpl out-file=config.yaml file-mode=0640
+scw secret inject template=@config.tpl > config.yaml
+```
+
+Extract a JSON field from a secret referenced by path, name and revision
+```
+scw secret inject template='{{ secret "my-app/db@2" | jsonField "password" }}'
 ```
 
 
