@@ -19,9 +19,9 @@ Zone                   fr-par-1
 Srn                    srn://lb.scw.eu/zones/fr-par-1/lbs/968abaa0-e6dd-4e6f-8226-d805d3872ae2
 
 IPs:
-ID                                    IP ADDRESS           ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                                                                              TAGS  REGION  ZONE      SRN
-48d5d5f0-dddc-42f4-becf-eef2813feb19  51.159.25.214        564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  968abaa0-e6dd-4e6f-8226-d805d3872ae2  51-159-25-214.lb.fr-par.scw.cloud                                                    []    fr-par  fr-par-1  -
-918776ed-0d08-4a23-a279-03928da5da27  2001:bc8:711:644d::  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  968abaa0-e6dd-4e6f-8226-d805d3872ae2  0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.d.4.4.6.1.1.7.0.8.c.b.0.1.0.0.2.lb.fr-par.scw.cloud  []    fr-par  fr-par-1  -
+ID                                    IP ADDRESS           ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                                                                              TAGS  IPAM IPID  REGION  ZONE      SRN
+48d5d5f0-dddc-42f4-becf-eef2813feb19  51.159.25.214        564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  968abaa0-e6dd-4e6f-8226-d805d3872ae2  51-159-25-214.lb.fr-par.scw.cloud                                                    []    -          fr-par  fr-par-1  -
+918776ed-0d08-4a23-a279-03928da5da27  2001:bc8:711:644d::  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  968abaa0-e6dd-4e6f-8226-d805d3872ae2  0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.d.4.4.6.1.1.7.0.8.c.b.0.1.0.0.2.lb.fr-par.scw.cloud  []    -          fr-par  fr-par-1  -
 
 LB Instances:
 ID                                    STATUS   IP ADDRESS  CREATED AT       UPDATED AT       REGION  ZONE
@@ -54,6 +54,7 @@ ID                                    STATUS   IP ADDRESS  CREATED AT       UPDA
       "lb_id": "968abaa0-e6dd-4e6f-8226-d805d3872ae2",
       "reverse": "51-159-25-214.lb.fr-par.scw.cloud",
       "tags": [],
+      "ipam_ip_id": null,
       "region": "fr-par",
       "zone": "fr-par-1",
       "srn": ""
@@ -66,11 +67,13 @@ ID                                    STATUS   IP ADDRESS  CREATED AT       UPDA
       "lb_id": "968abaa0-e6dd-4e6f-8226-d805d3872ae2",
       "reverse": "0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.d.4.4.6.1.1.7.0.8.c.b.0.1.0.0.2.lb.fr-par.scw.cloud",
       "tags": [],
+      "ipam_ip_id": null,
       "region": "fr-par",
       "zone": "fr-par-1",
       "srn": ""
     }
   ],
+  "ipam_ips": null,
   "tags": [],
   "frontend_count": 0,
   "backend_count": 0,
