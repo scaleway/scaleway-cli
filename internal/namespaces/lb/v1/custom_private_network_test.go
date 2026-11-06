@@ -20,7 +20,7 @@ func Test_ListLBPrivateNetwork(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			createLB(),
 			createPN(),
-			ipam.CreateIPAMIPFromPrivateNetwork(),
+			ipam.CreateIPFromPrivateNetwork(),
 			attachPN(),
 		),
 		Cmd:   "scw lb private-network list {{ .LB.ID }}",
@@ -42,7 +42,7 @@ func Test_ListLBPrivateNetwork(t *testing.T) {
 					return nil
 				},
 			),
-			ipam.DeleteIPAMIP(),
+			ipam.DeleteIP(),
 			deletePN(),
 			deleteLBFlexibleIP(),
 		),
