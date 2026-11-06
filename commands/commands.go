@@ -20,6 +20,8 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1"
 	containerBeta "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
 	datalab "github.com/scaleway/scaleway-cli/v2/internal/namespaces/datalab/v1beta1"
+	dataorchestrator "github.com/scaleway/scaleway-cli/v2/internal/namespaces/dataorchestrator/v1alpha2"
+	dataviz "github.com/scaleway/scaleway-cli/v2/internal/namespaces/dataviz/v1alpha1"
 	datawarehouse "github.com/scaleway/scaleway-cli/v2/internal/namespaces/datawarehouse/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/dedibox/v1"
 	domain "github.com/scaleway/scaleway-cli/v2/internal/namespaces/domain/v2beta1"
@@ -138,6 +140,8 @@ func GetCommands(ctx context.Context) *core.Commands {
 		kafka.GetCommands(),
 		autoscaling.GetCommands(),
 		messageq.GetCommands(),
+		dataorchestrator.GetCommands(),
+		dataviz.GetCommands(),
 	)
 
 	if core.ExtractBetaMode(ctx) {
