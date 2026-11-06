@@ -15,6 +15,7 @@ AVAILABLE COMMANDS:
   kafka                   This API allows you to manage your Clusters for Apache Kafka®.
   messageq                MessageQ API
   product-catalog         Product Catalog API
+  workflows               This API is a boilerplate for products
 
 BAREMETAL COMMANDS:
   apple-silicon           Apple silicon API
