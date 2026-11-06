@@ -28,6 +28,9 @@ func GetGeneratedCommands() *core.Commands {
 		instanceSecurityGroup(),
 		instanceUserData(),
 		instanceTemplate(),
+		instanceVolumeType(),
+		instanceVolume(),
+		instanceSnapshot(),
 		instanceResourceCountsGet(),
 		instanceServerList(),
 		instanceServerCreate(),
@@ -88,6 +91,19 @@ func GetGeneratedCommands() *core.Commands {
 		instanceTemplateSetCloudInit(),
 		instanceTemplateCheck(),
 		instanceTemplateCreateServer(),
+		instanceVolumeTypeList(),
+		instanceVolumeList(),
+		instanceVolumeCreate(),
+		instanceVolumeGet(),
+		instanceVolumeUpdate(),
+		instanceVolumeDelete(),
+		instanceSnapshotList(),
+		instanceSnapshotCreate(),
+		instanceSnapshotGet(),
+		instanceSnapshotUpdate(),
+		instanceSnapshotDelete(),
+		instanceSnapshotImportFromObjectStorage(),
+		instanceSnapshotExportToObjectStorage(),
 	)
 }
 
@@ -198,6 +214,56 @@ A template includes specifications such as Instance type, attached volumes, secu
 Using templates allows you to standardize and automate Instance deployment across your infrastructure.`,
 		Namespace: "instance",
 		Resource:  "template",
+	}
+}
+
+func instanceVolumeType() *core.Command {
+	return &core.Command{
+		Short: `Volume type management commands`,
+		Long: `All volume types available in a specified zone.
+Each of these types will contain all the capabilities and constraints of the volume (min size, max size, snapshot).`,
+		Namespace: "instance",
+		Resource:  "volume-type",
+	}
+}
+
+func instanceVolume() *core.Command {
+	return &core.Command{
+		Short: `Volume management commands`,
+		Long: `A volume is where you store your data inside your Instance. It
+appears as a block device on Linux that you can use to create
+a filesystem and mount it.
+
+The Instance API only supports ` + "`" + `l_ssd` + "`" + ` and ` + "`" + `scratch` + "`" + ` volume types.
+Block storage volumes can also be attached to Instances, these volumes are
+managed by the SBS API (https://www.scaleway.com/en/developers/api/block/).
+
+Minimum and maximum volume sizes for each volume type can be queried
+from the zone ` + "`" + `/volume-types` + "`" + ` API endpoint.
+
+Each type of volume is also subject to a global quota for the sum of all the
+volumes. This quota depends on the level of support and may be
+changed on demand.
+
+When using multiple block devices, it's advised to mount them by
+using their UUID instead of their device name. A device name is
+subject to change depending on the volumes order. Block devices
+UUIDs can be found in ` + "`" + `/dev/disk/by-id/` + "`" + `.`,
+		Namespace: "instance",
+		Resource:  "volume",
+	}
+}
+
+func instanceSnapshot() *core.Command {
+	return &core.Command{
+		Short: `Snapshot management commands`,
+		Long: `Snapshots contain the data of a specified l_ssd volume at a particular point in time.
+The data can include the Instance's operating system,
+configuration information and/or files stored on the volume.
+
+l_ssd volumes can be created from snapshots.`,
+		Namespace: "instance",
+		Resource:  "snapshot",
 	}
 }
 
@@ -4507,6 +4573,933 @@ func instanceTemplateCreateServer() *core.Command {
 			api := instance.NewAPI(client)
 
 			return api.CreateServerFromTemplate(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func instanceVolumeTypeList() *core.Command {
+	return &core.Command{
+		Short:     `List volume types`,
+		Long:      `List all volume types and their technical details.`,
+		Namespace: "instance",
+		Resource:  "volume-type",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[instance.VolumeAPIListVolumeTypesRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "page-token",
+				Short:      `Token for pagination`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "page-size",
+				Short:      `Number of items to return per page`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.ZoneItMil1,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*instance.VolumeAPIListVolumeTypesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewVolumeAPI(client)
+
+			return api.ListVolumeTypes(request, scw.WithContext(ctx))
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "List all volume-types in the default zone",
+				ArgsJSON: `null`,
+			},
+			{
+				Short:    "List all volume-types in fr-par-1 zone",
+				ArgsJSON: `{"zone":"fr-par-1"}`,
+			},
+		},
+	}
+}
+
+func instanceVolumeList() *core.Command {
+	return &core.Command{
+		Short:     `List volumes`,
+		Long:      `List volumes.`,
+		Namespace: "instance",
+		Resource:  "volume",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[instance.VolumeAPIListVolumesRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "page-token",
+				Short:      `Token for pagination`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "page-size",
+				Short:      `Number of items to return per page`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "order-by",
+				Short:      `Field to order the results by`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"created_at_desc",
+					"created_at_asc",
+					"updated_at_desc",
+					"updated_at_asc",
+				},
+			},
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "volume-ids.{index}",
+				Short:      `Filter by specific volume IDs`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `Filter by volume name`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Filter by tags`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "volume-type",
+				Short:      `Filter by volume type`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_volume_type",
+					"l_ssd",
+					"scratch",
+				},
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.ZoneItMil1,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*instance.VolumeAPIListVolumesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewVolumeAPI(client)
+
+			return api.ListVolumes(request, scw.WithContext(ctx))
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "List all volumes",
+				ArgsJSON: `null`,
+			},
+			{
+				Short:    "List all volumes that match a name",
+				ArgsJSON: `{"name":"foobar"}`,
+			},
+		},
+	}
+}
+
+func instanceVolumeCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a volume`,
+		Long:      `Create a volume of a specified type.`,
+		Namespace: "instance",
+		Resource:  "volume",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[instance.VolumeAPICreateVolumeRequest](),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "name",
+				Short:      `Volume name`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags associated with the volume`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "size",
+				Short:      `Volume size in bytes`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "base-snapshot-id",
+				Short:      `ID of the base snapshot used for this volume`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "volume-type",
+				Short:      `Type of the volume`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_volume_type",
+					"l_ssd",
+					"scratch",
+				},
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.ZoneItMil1,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*instance.VolumeAPICreateVolumeRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewVolumeAPI(client)
+
+			return api.CreateVolume(request, scw.WithContext(ctx))
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Create a volume called 'my-volume'",
+				ArgsJSON: `{"name":"my-volume"}`,
+			},
+			{
+				Short:    "Create a volume with a size of 50GB",
+				ArgsJSON: `{"size":50000000000}`,
+			},
+		},
+	}
+}
+
+func instanceVolumeGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a volume`,
+		Long:      `Get a specified volume.`,
+		Namespace: "instance",
+		Resource:  "volume",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[instance.VolumeAPIGetVolumeRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "volume-id",
+				Short:      `ID of the volume to retrieve`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.ZoneItMil1,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*instance.VolumeAPIGetVolumeRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewVolumeAPI(client)
+
+			return api.GetVolume(request, scw.WithContext(ctx))
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Get a specified volume",
+				ArgsJSON: `{"volume_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
+}
+
+func instanceVolumeUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a volume`,
+		Long:      `Update the properties of a specified volume.`,
+		Namespace: "instance",
+		Resource:  "volume",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[instance.VolumeAPIUpdateVolumeRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "volume-id",
+				Short:      `ID of the volume to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `New name for the volume`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `New tags for the volume`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "size",
+				Short:      `New size for the volume`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.ZoneItMil1,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*instance.VolumeAPIUpdateVolumeRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewVolumeAPI(client)
+
+			return api.UpdateVolume(request, scw.WithContext(ctx))
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Change the volume name",
+				ArgsJSON: `{"name":"my-new-name","volume_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:    "Change the volume disk size (bytes)",
+				ArgsJSON: `{"size":60000000000,"volume_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:    "Change the volume name and disk size",
+				ArgsJSON: `{"name":"a-new-name","size":70000000000,"volume_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
+}
+
+func instanceVolumeDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a volume`,
+		Long:      `Delete a specified volume.`,
+		Namespace: "instance",
+		Resource:  "volume",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[instance.VolumeAPIDeleteVolumeRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "volume-id",
+				Short:      `ID of the volume to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.ZoneItMil1,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*instance.VolumeAPIDeleteVolumeRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewVolumeAPI(client)
+			e = api.DeleteVolume(request, scw.WithContext(ctx))
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "volume",
+				Verb:     "delete",
+			}, nil
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Delete a specified volume",
+				ArgsJSON: `{"volume_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
+}
+
+func instanceSnapshotList() *core.Command {
+	return &core.Command{
+		Short:     `List snapshots`,
+		Long:      `List all snapshots of an Organization.`,
+		Namespace: "instance",
+		Resource:  "snapshot",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[instance.VolumeAPIListSnapshotsRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "page-token",
+				Short:      `Token for pagination`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "page-size",
+				Short:      `Number of snapshots to return per page`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "order-by",
+				Short:      `Field to sort by`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"created_at_desc",
+					"created_at_asc",
+					"updated_at_desc",
+					"updated_at_asc",
+				},
+			},
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "snapshot-ids.{index}",
+				Short:      `Filter by specific snapshot IDs`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `Filter by name`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Filter by tags`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "base-volume-id",
+				Short:      `Filter by base volume ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.ZoneItMil1,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*instance.VolumeAPIListSnapshotsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewVolumeAPI(client)
+
+			return api.ListSnapshots(request, scw.WithContext(ctx))
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "List all snapshots in the default zone",
+				ArgsJSON: `null`,
+			},
+			{
+				Short:    "List all snapshots in fr-par-1 zone",
+				ArgsJSON: `{"zone":"fr-par-1"}`,
+			},
+		},
+	}
+}
+
+func instanceSnapshotCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a snapshot from a specified volume`,
+		Long:      `Create a snapshot from a specified l_ssd volume.`,
+		Namespace: "instance",
+		Resource:  "snapshot",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[instance.VolumeAPICreateSnapshotRequest](),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "name",
+				Short:      `Name of the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags associated with the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "base-volume-id",
+				Short:      `ID of the base volume`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "public",
+				Short:      `Whether the snapshot should be public`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.ZoneItMil1,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*instance.VolumeAPICreateSnapshotRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewVolumeAPI(client)
+
+			return api.CreateSnapshot(request, scw.WithContext(ctx))
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Create a snapshot in the default zone from a specified volume ID",
+				ArgsJSON: `{"base_volume_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:    "Create a snapshot in fr-par-1 zone from a specified volume ID",
+				ArgsJSON: `{"base_volume_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+			},
+			{
+				Short:    "Create a named snapshot from a specified volume ID",
+				ArgsJSON: `{"base_volume_id":"11111111-1111-1111-1111-111111111111","name":"foobar"}`,
+			},
+		},
+	}
+}
+
+func instanceSnapshotGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a snapshot`,
+		Long:      `Get details of a specified snapshot.`,
+		Namespace: "instance",
+		Resource:  "snapshot",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[instance.VolumeAPIGetSnapshotRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "snapshot-id",
+				Short:      `ID of the snapshot to retrieve`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.ZoneItMil1,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*instance.VolumeAPIGetSnapshotRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewVolumeAPI(client)
+
+			return api.GetSnapshot(request, scw.WithContext(ctx))
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Get a specified snapshot in the default zone",
+				ArgsJSON: `{"snapshot_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:    "Get a specified snapshot in fr-par-1 zone",
+				ArgsJSON: `{"snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+			},
+		},
+	}
+}
+
+func instanceSnapshotUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a snapshot`,
+		Long:      `Update the properties of a snapshot.`,
+		Namespace: "instance",
+		Resource:  "snapshot",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[instance.VolumeAPIUpdateSnapshotRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "snapshot-id",
+				Short:      `ID of the snapshot to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `New name for the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `New tags for the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "public",
+				Short:      `Whether the snapshot should be public`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.ZoneItMil1,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*instance.VolumeAPIUpdateSnapshotRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewVolumeAPI(client)
+
+			return api.UpdateSnapshot(request, scw.WithContext(ctx))
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Change the snapshot name",
+				ArgsJSON: `{"name":"my-new-name","snapshot_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
+}
+
+func instanceSnapshotDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a snapshot`,
+		Long:      `Delete a specified snapshot.`,
+		Namespace: "instance",
+		Resource:  "snapshot",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[instance.VolumeAPIDeleteSnapshotRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "snapshot-id",
+				Short:      `ID of the snapshot to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.ZoneItMil1,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*instance.VolumeAPIDeleteSnapshotRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewVolumeAPI(client)
+			e = api.DeleteSnapshot(request, scw.WithContext(ctx))
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "snapshot",
+				Verb:     "delete",
+			}, nil
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Delete a specified snapshot in the default zone",
+				ArgsJSON: `{"snapshot_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:    "Delete a specified snapshot in fr-par-1 zone",
+				ArgsJSON: `{"snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+			},
+		},
+	}
+}
+
+func instanceSnapshotImportFromObjectStorage() *core.Command {
+	return &core.Command{
+		Short:     `Import a snapshot from Object Storage`,
+		Long:      `Import a snapshot from a QCOW2 file stored in Object Storage.`,
+		Namespace: "instance",
+		Resource:  "snapshot",
+		Verb:      "import-from-object-storage",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[instance.VolumeAPIImportSnapshotFromObjectStorageRequest](),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "name",
+				Short:      `Name of the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags associated with the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "bucket",
+				Short:      `Object Storage bucket name`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "object-key",
+				Short:      `Object key`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "size",
+				Short:      `Size of the imported snapshot in bytes`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "volume-type",
+				Short:      `Volume type of the snapshot`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_volume_type",
+					"l_ssd",
+				},
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.ZoneItMil1,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*instance.VolumeAPIImportSnapshotFromObjectStorageRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewVolumeAPI(client)
+
+			return api.ImportSnapshotFromObjectStorage(request, scw.WithContext(ctx))
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Import a snapshot from a QCOW2 file in Object Storage",
+				ArgsJSON: `{"bucket":"my-bucket","name":"imported-snapshot","object_key":"my-qcow2-file-name","volume_type":"l_ssd","zone":"fr-par-1"}`,
+			},
+		},
+	}
+}
+
+func instanceSnapshotExportToObjectStorage() *core.Command {
+	return &core.Command{
+		Short:     `Export a snapshot to Object Storage`,
+		Long:      `Export a snapshot to a specified Object Storage bucket in the same region.`,
+		Namespace: "instance",
+		Resource:  "snapshot",
+		Verb:      "export-to-object-storage",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[instance.VolumeAPIExportSnapshotToObjectStorageRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "snapshot-id",
+				Short:      `ID of the snapshot to export`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "bucket",
+				Short:      `Object Storage bucket name`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "object-key",
+				Short:      `Object key`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.ZoneItMil1,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*instance.VolumeAPIExportSnapshotToObjectStorageRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewVolumeAPI(client)
+
+			return api.ExportSnapshotToObjectStorage(request, scw.WithContext(ctx))
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Export a snapshot to an Object Storage bucket",
+				ArgsJSON: `{"bucket":"my-bucket","object_key":"my-qcow2-file-name","snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
+			},
 		},
 	}
 }
