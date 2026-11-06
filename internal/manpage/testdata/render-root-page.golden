@@ -1,0 +1,55 @@
+.TH scw 1 "" "scw" "scw Manual"
+.SH NAME
+scw \- Scaleway command line tool
+.SH SYNOPSIS
+\fBscw\fP [global option ...] <command> [args ...]
+.SH DESCRIPTION
+scw is the Scaleway command line tool. It allows you to manage your Scaleway infrastructure: compute, storage, networking, databases and more.
+.SH OPTIONS
+.TP
+\fB--profile <value>, -p <value>\fP
+The config profile to use
+.TP
+\fB--config <path>, -c <path>\fP
+The path of the config file
+.TP
+\fB--output <format>, -o <format>\fP
+Output format: json or human
+.TP
+\fB--debug, -D\fP
+Enable debug mode
+.TP
+\fB--beta, -B\fP
+Enable beta mode
+.SH NAMESPACES
+.TP
+\fBdemo\fP
+Demo namespace
+.SH ENVIRONMENT
+.TP
+\fISCW_ACCESS_KEY\fR
+The access key of a token (create a token at https://console.scaleway.com/iam/api-keys)
+.TP
+\fISCW_SECRET_KEY\fR
+The secret key of a token (create a token at https://console.scaleway.com/iam/api-keys)
+.TP
+\fISCW_DEFAULT_ORGANIZATION_ID\fR
+The default organization ID (get your organization ID at https://console.scaleway.com/iam/api-keys)
+.TP
+\fISCW_DEFAULT_PROJECT_ID\fR
+The default project ID (get your project ID at https://console.scaleway.com/iam/api-keys)
+.TP
+\fISCW_DEFAULT_REGION\fR
+The default region
+.TP
+\fISCW_DEFAULT_ZONE\fR
+The default availability zone
+.TP
+\fISCW_API_URL\fR
+URL of the API
+.TP
+\fISCW_INSECURE\fR
+Set this to true to enable the insecure mode
+.TP
+\fISCW_PROFILE\fR
+Set the config profile to use
