@@ -1,0 +1,61 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go (go1.27.1) cli-e2e-test
+        url: https://api.scaleway.com/metadata
+        method: GET
+      response:
+        content_length: 59
+        body: '{"platform":"external","partition":"scw","domain":"scw.eu"}'
+        headers:
+            Content-Length:
+                - "59"
+            Content-Type:
+                - application/json
+        status: 200 OK
+        code: 200
+        duration: 0s
+    - id: 1
+      request:
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go (go1.27.1) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/pl-waw-1/clusters/955763a4-77ed-4ce9-9380-7932e3d3592c
+        method: GET
+      response:
+        content_length: 800
+        body: '{"id": "955763a4-77ed-4ce9-9380-7932e3d3592c", "name": "redis-trusting-rosalind", "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42", "status": "ready", "version": "8.6.6", "endpoints": [{"port": 6379, "private_network": {"id": "b5c5f69d-9ca8-497c-8e14-9fe219a24f2a", "service_ips": ["172.16.12.2/22"], "zone": "pl-waw-1", "provisioning_mode": "ipam"}, "ips": ["172.16.12.2"], "id": "b246e168-808c-4908-9a31-5faa37e5493d"}], "tags": [], "node_type": "RED1-micro", "created_at": "2026-10-26T09:44:21.269362Z", "updated_at": "2026-10-26T09:48:45.920483Z", "tls_enabled": true, "cluster_settings": [], "acl_rules": [], "cluster_size": 1, "zone": "pl-waw-1", "user_name": "default", "upgradable_versions": [], "srn": "srn://redis.scw.eu/zones/pl-waw-1/clusters/955763a4-77ed-4ce9-9380-7932e3d3592c"}'
+        headers:
+            Content-Length:
+                - "800"
+            Content-Type:
+                - application/json
+        status: 200 OK
+        code: 200
+        duration: 0s
+    - id: 2
+      request:
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go (go1.27.1) cli-e2e-test
+        url: https://api.scaleway.com/vpc-gw/v2/zones/pl-waw-1/gateways?order_by=created_at_asc&page=1
+        method: GET
+      response:
+        content_length: 34
+        body: '{"gateways": [], "total_count": 0}'
+        headers:
+            Content-Type:
+                - application/json
+        status: 200 OK
+        code: 200
+        duration: 0s
