@@ -19,5 +19,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("secret", "version", "create").Override(secretVersionCreateBuilder)
 	cmds.MustFind("secret", "version", "access").Override(secretVersionAccessBuilder)
 
+	cmds.Merge(core.NewCommands(secretInjectCommand()))
+
 	return cmds
 }
