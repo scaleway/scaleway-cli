@@ -13,6 +13,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/semver"
 	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -215,6 +216,132 @@ func redisSettingAddBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("settings.{index}.name").AutoCompleteFunc = autoCompleteSettingsName
 
 	return c
+}
+
+// redisClusterGetResponse augments the redis cluster with the private
+// networks attached to its endpoints. The Redis API does not return the
+// private network name, so it is resolved through the VPC API.
+type redisClusterGetResponse struct {
+	*redis.Cluster
+	PrivateNetworks []*vpc.PrivateNetwork `json:"private_networks,omitempty"`
+}
+
+func clusterGetBuilder(c *core.Command) *core.Command {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
+		res, err := runner(ctx, argsI)
+		if err != nil {
+			return nil, err
+		}
+		cluster := res.(*redis.Cluster)
+
+		region, err := cluster.Zone.Region()
+		if err != nil {
+			return nil, err
+		}
+
+		vpcAPI := vpc.NewAPI(core.ExtractClient(ctx))
+		privateNetworks := make([]*vpc.PrivateNetwork, 0, len(cluster.Endpoints))
+		for _, endpoint := range cluster.Endpoints {
+			if endpoint.PrivateNetwork == nil {
+				continue
+			}
+			// ponytail: best-effort name resolution. A failing VPC lookup
+			// (permissions, 404) drops that PN instead of failing `cluster get`;
+			// also a PN shared by two endpoints is listed twice.
+			pn, err := vpcAPI.GetPrivateNetwork(
+				&vpc.GetPrivateNetworkRequest{
+					Region:           region,
+					PrivateNetworkID: endpoint.PrivateNetwork.ID,
+				},
+				scw.WithContext(ctx),
+			)
+			if err != nil {
+				continue
+			}
+			privateNetworks = append(privateNetworks, pn)
+		}
+
+		return redisClusterGetResponse{
+			Cluster:         cluster,
+			PrivateNetworks: privateNetworks,
+		}, nil
+	}
+
+	return c
+}
+
+// redisPrivateNetworkMarshalerFunc renders an endpoint's private network
+// as a compact single line in table cells.
+func redisPrivateNetworkMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
+	pn := i.(redis.PrivateNetwork)
+
+	return fmt.Sprintf("%s (%s)", pn.ID, pn.ProvisioningMode), nil
+}
+
+func redisClusterGetResponseMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
+	// Alias type so human.Marshal does not call this function back.
+	type tmp redisClusterGetResponse
+	resp := tmp(i.(redisClusterGetResponse))
+
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "Endpoints",
+			Title:     "Endpoints",
+		},
+		{
+			FieldName:   "PrivateNetworks",
+			Title:       "Private Networks",
+			HideIfEmpty: true,
+		},
+		{
+			FieldName: "ACLRules",
+			Title:     "ACLRules",
+		},
+	}
+	opt.SubOptions = map[string]*human.MarshalOpt{
+		"Endpoints": {
+			Fields: []*human.MarshalFieldOpt{
+				{
+					FieldName: "ID",
+					Label:     "ID",
+				},
+				{
+					FieldName: "Port",
+					Label:     "Port",
+				},
+				{
+					FieldName: "IPs",
+					Label:     "IPs",
+				},
+				{
+					FieldName: "PrivateNetwork",
+					Label:     "Private Network",
+				},
+			},
+		},
+		"PrivateNetworks": {
+			Fields: []*human.MarshalFieldOpt{
+				{
+					FieldName: "Name",
+					Label:     "Name",
+				},
+				{
+					FieldName: "ID",
+					Label:     "ID",
+				},
+				{
+					FieldName: "Region",
+					Label:     "Region",
+				},
+			},
+		},
+	}
+	str, err := human.Marshal(resp, opt)
+	if err != nil {
+		return "", err
+	}
+
+	return str, nil
 }
 
 func redisClusterGetMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
