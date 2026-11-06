@@ -52,7 +52,7 @@ func poolChargeCommand() *core.Command {
 				Region:    args.Region,
 				ClusterID: pool.ClusterID,
 				PoolID:    &args.PoolID,
-			})
+			}, scw.WithAllPages(), scw.WithContext(ctx))
 			if err != nil {
 				return nil, err
 			}
