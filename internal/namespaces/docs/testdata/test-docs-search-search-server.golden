@@ -1,0 +1,400 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+scw instance server delete - Delete server
+scw instance server wait - Wait for server to reach a stable state
+scw baremetal server add-flexible-ip - Attach a new flexible IP to a server
+scw baremetal server wait - Wait for a server to reach a stable state (delivery and installation)
+scw apple-silicon server create - Create a server
+scw apple-silicon server wait - Wait for a server to reach a stable state
+scw instance server enable-routed-ip - Migrate server to IP mobility
+scw instance server terminate - Terminate server
+scw instance server backup - Backup server
+scw baremetal server get-metrics - Return server metrics
+scw dns record update-nameservers - Update name servers within a DNS zone
+scw instance server create - Create server
+scw instance server ssh - SSH into a server
+scw apple-silicon server ssh - SSH into a server
+scw baremetal server stop - Stop an Elastic Metal server
+scw apple-silicon server update - Update a server
+scw baremetal server start - Start an Elastic Metal server
+scw mcp server serve - Start the MCP server
+scw apple-silicon server delete - Delete a server
+scw apple-silicon server get - Get a server
+scw apple-silicon server reboot - Reboot a server
+scw apple-silicon server-type get - Get a server type
+scw instance server action - Perform a raw API action on a server
+scw instance server attach-ip - Attach an IP to a server
+scw instance server detach-ip - Detach an IP from a server
+scw instance server get-rdp-password - Get your server rdp password and decrypt it using your ssh key
+scw instance server reboot - Reboot server
+scw instance server standby - Put server in standby mode
+scw instance server start - Power on server
+scw instance server stop - Power off server
+scw lb backend set-servers - Define all backend servers for a given backend
+scw secret version get - Get metadata of a secret's version using the secret's ID
+scw instance ip attach - Attach an IP to a given server
+scw instance ssh add-key - Add a public key to a server
+scw instance ssh remove-key - Remove a manually added public key from a server
+scw baremetal server delete - Delete an Elastic Metal server
+scw baremetal server update - Update an Elastic Metal server
+scw apple-silicon private-network add - Add a server to a Private Network
+scw apple-silicon server list - List all servers
+scw instance template create-server - Create a server from a template
+scw baremetal private-network add - Add a server to a Private Network
+scw baremetal server list - List Elastic Metal servers for an Organization
+scw instance placement-group get-servers - Get placement group servers
+scw apple-silicon server reinstall - Reinstall a server
+scw instance placement-group update-servers - Update placement group servers
+scw baremetal options delete - Delete server option
+scw autoscaling servers list - List autoscaling group servers
+scw apple-silicon server-type list - List server types
+scw baremetal server list-events - List server events
+scw lb backend add-servers - Add a set of backend servers to a given backend
+scw baremetal server get - Get a specific Elastic Metal server
+scw baremetal server batch-create - Create multiple Elastic Metal servers
+scw baremetal server create - Create an Elastic Metal server
+scw baremetal server reboot - Reboot an Elastic Metal server
+scw secret version access - Access a secret's version using the secret's ID
+scw secret version access-by-path - Access a secret's version using the secret's name and path
+scw secret version delete - Delete a version
+scw lb backend remove-servers - Remove a set of servers for a given backend
+scw baremetal options add - Add server option
+scw baremetal server install - Install an Elastic Metal server
+scw inference model list-serverless - List available serverless models
+scw dns record list-nameservers - List name servers within a DNS zone
+scw instance ip detach - Detach an ip from its server
+scw secret version update - Update metadata of a version
+scw instance placement-group set-servers - Set placement group servers
+scw secret version list - List versions of a secret using the secret's ID
+scw sdb-sql backup list - List your Serverless SQL Database backups
+scw sdb-sql database list - List your Serverless SQL Databases
+scw mcp server list-tools - List available MCP tools
+scw mcp server list-resources - List available MCP resources
+scw baremetal server update-ip - Update IP
+scw datalab cluster-version list - List datalab resources
+scw secret version create - Create a version
+scw edge-services route-rules add - Add route rules
+scw edge-services route-rules list - List route rules
+scw edge-services route-rules set - Set route rules
+scw edge-services route-stage create - Create route stage
+scw edge-services route-stage delete - Delete route stage
+scw edge-services route-stage get - Get route stage
+scw edge-services route-stage update - Update route stage
+scw instance server attach-filesystem - Attach a filesystem volume to an Instance
+scw instance server attach-volume - Attach a volume to an Instance
+scw instance server console - Connect to the serial console of an instance
+scw instance server detach-filesystem - Detach a filesystem volume from an Instance
+scw instance server detach-volume - Detach a volume from an Instance
+scw instance server get - Get an Instance
+scw instance server list - List all Instances
+scw instance server list-actions - List Instance actions
+scw instance server update - Update an Instance
+scw instance server-type get - Get availability
+scw instance server-type list - List Instance types
+scw searchdb versions list - List available Cloud Essentials for OpenSearch versions
+scw baremetal private-network set - Set multiple Private Networks on a server
+scw redis version list - List available Redis™ versions
+scw edge-services route-stage list - List route stages
+scw edge-services purge-request create - Create purge request
+scw edge-services purge-request get - Get purge request
+scw apple-silicon private-network set - Set multiple Private Networks on a server
+scw k8s cluster wait - Wait for a cluster to reach a stable state
+scw sdb-sql backup get - Get a database backup information
+scw sdb-sql database get - Get a database information
+scw rdb privilege set - Set user privileges for a database
+scw edge-services pipeline create - Create pipeline
+scw edge-services dns-stage create - Create DNS stage
+scw edge-services tls-stage create - Create TLS stage
+scw edge-services waf-stage create - Create WAF stage
+scw edge-services cache-stage create - Create cache stage
+scw edge-services route-rules edit - Edit all route rules of a route stage
+scw edge-services backend-stage create - Create backend stage
+scw sdb-sql database create - Create a new Serverless SQL Database
+scw lb backend list-statistics - List backend server statistics
+scw secret version enable - Enable a version
+scw secret version disable - Disable a version
+scw instance ssh install-config - Install a ssh config with all your servers as host
+It generate hosts for instance servers, baremetal, apple-silicon and bastions
+scw edge-services plan get - Get plan
+scw ipam ip create - Reserve a new IP
+scw s2s-vpn connection set-routing-policy - Set a new routing policy
+scw sdb-sql database update - Update database information
+scw secret secret create - Create a secret
+scw k8s version get - Get a Version
+scw vpc-gw ip create - Reserve an IP
+scw iam organization enable-saml - Enable SAML Identity Provider for an Organization
+scw iam organization get-saml - Get SAML Identity Provider configuration of an Organization
+scw iam saml update - Update SAML Identity Provider configuration
+scw lb backend update-healthcheck - Update a health check for a given backend
+scw baremetal private-network delete - Delete a Private Network
+scw fip ip attach - Attach an existing flexible IP to a server
+scw help output - Get help about how the CLI output works
+scw apple-silicon private-network delete - Delete a Private Network
+scw redis version list-settings - List available settings from a Redis™ version
+scw edge-services purge-request list - List purge requests
+scw edge-services plan select - Select plan
+scw dns zone export - Export a raw DNS zone
+scw ipam ip attach - Attach private IP to custom resource
+scw ipam ip move - Move private IP to a custom resource
+scw cockpit contact-point delete - Delete a contact point
+scw secret secret protect - Enable secret protection
+scw baremetal offer list - List offers
+scw instance ssh list-keys - List manually added public keys
+scw object bucket update - Update an S3 bucket
+scw ipam ip list - List existing IPs
+scw iam rule list - List rules of a given policy
+scw lb certificate create - Create an SSL/TLS certificate
+scw tutorial - Follow guided tutorials to learn the CLI
+scw dns certificate create - Create or get the DNS zone's TLS certificate
+scw dns record bulk-update - Update records within a DNS zone
+scw dns record clear - Clear records within a DNS zone
+scw dns version list - List versions of a DNS zone
+scw dns version diff - Access differences from a specific DNS zone version
+scw dns zone import - Import a raw DNS zone
+scw lb acl delete - Delete an ACL
+scw lb backend delete - Delete a backend of a given Load Balancer
+scw rdb acl list - List ACL rules of a Database Instance
+scw vpc private-network list - List Private Networks
+scw interlink link get - Get a link
+scw lb frontend delete - Delete a frontend
+scw login - Login to scaleway
+scw vpc-gw pat-rule delete - Delete a PAT rule
+scw cockpit token delete - Delete a token
+scw lb acl list - List ACLs for a given frontend
+scw s2s-vpn customer-gateway get - Get a customer gateway
+scw lb route list - List all routes
+scw rdb instance get-metrics - [deprecated] Get Database Instance metrics
+scw iam log list - List logs
+scw object bucket get - Get information about an S3 bucket
+scw s2s-vpn vpn-gateway-type list - List VPN gateway types
+scw baremetal private-network list - List the Private Networks of a server
+scw dns version show - List records from a given version of a specific DNS zone
+scw docs - Browse the CLI documentation interactively
+scw iam permission-set list - List permission sets
+scw instance security-group edit - Edit all rules of a security group
+scw interlink pop list - List PoPs
+scw lb private-network list - List Private Networks attached to a Load Balancer
+scw mnq sns create-credentials - Create Topics and Events credentials
+scw rdb acl edit - Edit a database instance's ACL
+scw vpc rule edit - Edit all ACL rules of a VPC
+scw vpc-gw pat-rule edit - Edit all PAT rules of a Public Gateway
+scw k8s pool upgrade - Upgrade a Pool in a Cluster
+scw vpc-gw ip update - Update an IP
+scw billing consumption list - Get monthly consumption
+scw edge-services plan list - List plans
+scw marketplace version get - Get a specific image version
+scw vpc-gw pat-rule get - Get a PAT rule
+scw apple-silicon runner list - List runner configurations associated with a server
+scw apple-silicon private-network list - List the Private Networks of a server
+scw billing consumption list-taxes - Get monthly consumption taxes
+scw secret secret unprotect - Disable secret protection
+scw fip ip detach - Detach an existing flexible IP from a server
+scw lb subscriber subscribe - Subscribe a subscriber to alerts for a given Load Balancer
+scw vpc vpc-connector get - Get a VPC connector
+scw baremetal os list - List available OSes
+scw cockpit contact-point create - Create a contact point
+scw instance private-nic create - Create a private NIC connecting an Instance to a Private Network
+scw iot device set-certificate - Set a custom certificate on a device
+scw keymanager key delete - Delete a key
+scw interlink link create - Create a link
+scw keymanager key disable - Disable key
+scw mnq nats delete-credentials - Delete NATS credentials
+scw rdb backup list - List database backups
+scw iam saml delete - Disable SAML Identity Provider for an Organization
+scw keymanager key unprotect - Remove key protection
+scw lb certificate delete - Delete an SSL/TLS certificate
+scw lb private-network attach - Attach a Load Balancer to a Private Network
+scw vpc-gw gateway-network create - Attach a Public Gateway to a Private Network
+scw dns certificate get - Get a DNS zone's TLS certificate
+scw dns record list - List records within a DNS zone
+scw k8s cluster list-available-versions - List available versions for a Cluster
+scw k8s cluster set-type - Change the Cluster type
+scw lb private-network detach - Detach Load Balancer from Private Network
+scw sdb-sql backup export - Export a database backup
+scw alias create - Create a new alias for a command
+scw container container redeploy - Redeploy a container
+scw datawarehouse deployment list - List deployments
+scw rdb user list - List users of a Database Instance
+scw inference deployment get-certificate - Get the CA certificate
+scw mnq sqs delete-credentials - Delete Queues credentials
+scw redis cluster migrate - Scale up a Redis™ Database Instance
+scw block volume create - Create a volume
+scw domain domain search - Search available domains
+scw mnq sqs create-credentials - Create Queues credentials
+scw rdb instance upgrade - Upgrade a Database Instance
+scw webhosting hosting create - Order a Web Hosting plan
+scw domain domain enable-dnssec - Update domain DNSSEC
+scw edge-services plan delete - Delete plan
+scw keymanager key rotate - Rotate a key
+scw rdb instance list - List Database Instances
+scw k8s cluster upgrade - Upgrade a Cluster
+scw mongodb endpoint create - Create a new Instance endpoint
+scw rdb endpoint create - Create a new Database Instance endpoint
+scw vpc-gw gateway delete - Delete a Public Gateway
+scw domain order buy - Purchase domains
+scw kafka cluster renew-ca - Renew the Kafka cluster's certificate authority
+scw sdb-sql database delete - Delete a database
+scw vpc-gw pat-rule update - Update a PAT rule
+scw webhosting freedomain list - Retrieve the list of free root domains available for a Web Hosting.
+scw cockpit alert-manager disable - Disable the Alert manager
+scw fip mac duplicate - Duplicate a virtual MAC address to another flexible IP
+scw iam rule update - Set rules of a given policy
+scw k8s pool remove-startup-taint - Remove a startup taint from a Pool
+scw mnq sns delete-credentials - Delete Topics and Events credentials
+scw rdb instance get-certificate - Get the TLS certificate of a Database Instance
+scw vpc private-network get - Get a Private Network
+scw vpc private-network update - Update Private Network
+scw annotations binding create - Attach a value to a resource. Fails if the resource already has a value for this key.
+scw instance snapshot apply-migration - Migrate a volume and/or snapshots to SBS (Scaleway Block Storage)
+scw instance volume apply-migration - Migrate a volume and/or snapshots to SBS (Scaleway Block Storage)
+scw interlink link disable_propagation - Disable route propagation
+scw iot device list - List devices
+scw k8s userdata get - Get a pool related user data
+scw rdb database get-url - Gets the URL to connect to the Database
+scw rdb user get-url - Gets the URL to connect to the Database
+scw s2s-vpn connection disable-route-propagation - Disable route propagation
+scw iam group set-members - Overwrite users and applications of a group
+scw keymanager key create - Create a key
+scw mnq sns activate - Activate Topics and Events
+scw redis cluster create - Create a Redis™ Database Instance
+scw webhosting hosting list - List all Web Hosting plans
+scw rdb read-replica create-endpoint - Create an endpoint for a Read Replica
+scw mnq sqs activate - Activate Queues
+scw annotations binding list - List all bindings, or filter by Scaleway Resource Name or value ID. Response order by ID.
+scw audit-trail product list - Retrieve the list of Scaleway resources for which you have Audit Trail events
+scw block snapshot create - Create a snapshot of a volume
+scw instance ssh fetch-keys - Fetch SSH keys from the console and install them on multiple servers
+scw mnq nats delete-account - Delete a NATS account
+scw redis endpoint add - Add endpoints for a cluster
+scw edge-services pipeline set-head - Configure a entry point to your pipeline. You must specify a `head stage` to form a stage-chain that goes all the way to the backend stage (origin), so the HTTP request will be processed according to the stages you created.
+scw s2s-vpn customer-gateway list - List customer gateways
+scw sdb-sql database restore - Restore a database from a backup
+scw vpc-gw gateway-type list - List Public Gateway types
+scw vpc-gw gateway-network get - Get a Public Gateway connection to a Private Network
+scw edge-services waf-stage update - Update WAF stage
+scw iot device get-certificate - Get a device's certificate
+scw s2s-vpn connection list - List connections
+scw cockpit contact-point list - List contact points
+scw instance security-group set-rules - Update all the rules of a security group
+scw s2s-vpn vpn-gateway list - List VPN gateways
+scw container container list - List all containers the caller can access (read permission).
+scw container trigger list - List all triggers the caller can access (read permission).
+scw iot network create - Create a new network
+scw lb route create - Create a route
+scw vpc private-network enable-dhcp - Enable DHCP on a Private Network
+scw rdb endpoint get - Get a Database Instance endpoint
+scw vpc-gw gateway update - Update a Public Gateway
+scw container namespace list - List all namespaces the caller can access (read permission).
+scw interlink link list - List links
+scw cockpit grafana sync-data-sources - Synchronize Grafana data sources
+scw interlink link attach_vpc - Attach a VPC
+scw vpc-gw pat-rule create - Create a PAT rule
+scw domain domain get-auth-code - Get a domain's authorization code
+scw ipam ip detach - Detach private IP from a custom resource
+scw container domain list - List all custom domains the caller can access (read permission).
+scw environmental-footprint data get - Retrieve detailed impact data
+scw help date - Get help about how date parsing works in the CLI
+scw marketplace local-image list - List local images from a specific image or version
+scw mnq nats get-credentials - Get NATS credentials
+scw vpc-gw ip list - List IPs
+scw tem domain get - Get information about a domain
+scw iam user delete - Delete a guest user from an Organization
+scw lb certificate list - List all SSL/TLS certificates on a given Load Balancer
+scw redis cluster metrics - Get metrics of a Redis™ Database Instance
+scw block snapshot import-from-object-storage - Import a snapshot from a Scaleway Object Storage bucket
+scw mnq sns get-credentials - Get Topics and Events credentials
+scw mnq sqs get-credentials - Get Queues credentials
+scw block volume update - Update a volume
+scw k8s kubeconfig uninstall - Uninstall a kubeconfig
+scw keymanager key generate-data-key - Create a data encryption key
+scw instance private-nic list - List all private NICs
+scw interlink link enable_propagation - Enable route propagation
+scw registry image update - Update an image
+scw s2s-vpn connection enable-route-propagation - Enable route propagation
+scw instance snapshot plan-migration - Get a volume or snapshot's migration plan
+scw instance volume plan-migration - Get a volume or snapshot's migration plan
+scw iam group list - List groups
+scw baremetal bmc start - Start BMC access
+scw registry image get - Get an image
+scw iam api-key list - List API keys
+scw iam ssh-key list - List SSH keys
+scw k8s cluster reset-admin-token - Reset the admin token of a Cluster
+scw keymanager key decrypt - Decrypt an encrypted payload
+scw mnq sqs get-info - Get Queues info
+scw rdb instance renew-certificate - Renew the TLS certificate of a Database Instance
+scw redis cluster get - Get a Redis™ Database Instance
+scw redis endpoint get - Get an endpoint
+scw redis endpoint update - Update an endpoint
+scw iam policy delete - Delete a policy
+scw marketplace local-image get - Get a specific local image by ID
+scw registry image list - List images
+scw vpc-gw gateway-network update - Update a Public Gateway's connection to a Private Network
+scw iam group delete - Delete a group
+scw iot hub list - List hubs
+scw cockpit grafana-user create - (Deprecated) EOL 2026-01-20
+scw mnq sns get-info - Get Topics and Events info
+scw rdb read-replica reset - Resync a Read Replica
+scw s2s-vpn customer-gateway update - Update a customer gateway
+scw iam group remove-member - Remove a user or an application from a group
+scw iot route list - List routes
+scw rdb log list-details - List remote Database Instance logs details
+scw registry namespace list - List namespaces
+scw block volume list - List volumes
+scw iam user list - List users of an Organization
+scw iam application delete - Delete an application
+scw mnq nats list-credentials - List NATS credentials
+scw rdb setting edit - Edit Database Instance settings in your default editor
+scw registry login - Login to a registry
+scw registry tag list - List tags
+scw registry logout - Logout of a registry
+scw iam policy list - List policies of an Organization
+scw lb subscriber unsubscribe - Unsubscribe a subscriber from alerts for a given Load Balancer
+scw inference node-type list - List available node types
+scw mnq nats create-context - Create a new context for natscli
+scw rdb node-type list - List available node types
+scw redis node-type list - List available node types
+scw interlink partner list - List available partners
+scw iam application list - List applications of an Organization
+scw mongodb endpoint delete - Delete a Database Instance endpoint
+scw vpc-gw gateway-network list - List Public Gateway connections to Private Networks
+scw kafka cluster get-ca - Get a Kafka cluster's certificate authority
+scw rdb log list - List available logs of a Database Instance
+scw block snapshot list - List all snapshots
+scw domain domain update - Update a domain's contacts
+scw k8s pool add-external-node - Add an external node to a Kosmos Pool
+scw rdb database list - List databases in a Database Instance
+scw rdb endpoint delete - Delete a Database Instance endpoint
+scw rdb snapshot restore - Create a new Database Instance from a snapshot
+scw function function update - Update an existing function
+scw kafka cluster list - List Kafka clusters
+scw redis cluster renew-certificate - Renew the TLS certificate of a cluster
+scw account project delete - Delete an existing Project
+scw vpc-gw ip get - Get an IP
+scw iam api-key get - Get an API key
+scw rdb privilege list - List user privileges for a database
+scw instance server get-compatible-types - Get Instance compatible types
+scw vpc-gw gateway upgrade - Upgrade a Public Gateway to the latest version and/or to a different commercial offer type
+scw rdb backup restore - Restore a database backup
+scw mongodb instance list - List MongoDB® Database Instances
+scw edge-services pipeline list - List pipelines
+scw edge-services dns-stage list - List DNS stages
+scw edge-services tls-stage list - List TLS stages
+scw edge-services waf-stage list - List WAF stages
+scw redis endpoint delete - Delete an endpoint for a cluster
+scw edge-services cache-stage list - List cache stages
+scw mnq nats list-accounts - List NATS accounts
+scw edge-services backend-stage list - List backend stages
+scw webhosting hosting delete - Delete a Web Hosting plan
+scw redis cluster list - List Redis™ Database Instances
+scw config validate - Validate the config
+scw lb lb list - List Load Balancers
+scw iam group add-members - Add multiple users and applications to a group
+scw iam api-key create - Create an API key
+scw rdb log prepare - Prepare logs of a Database Instance
+scw registry install-docker-helper - Install a local Docker credential helper
+scw iot route create - Create a route
+scw mongodb snapshot list - List snapshots
+scw rdb snapshot list - List snapshots
+scw domain order trade - Trade a domain's contact
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+"scw instance server delete - Delete server\nscw instance server wait - Wait for server to reach a stable state\nscw baremetal server add-flexible-ip - Attach a new flexible IP to a server\nscw baremetal server wait - Wait for a server to reach a stable state (delivery and installation)\nscw apple-silicon server create - Create a server\nscw apple-silicon server wait - Wait for a server to reach a stable state\nscw instance server enable-routed-ip - Migrate server to IP mobility\nscw instance server terminate - Terminate server\nscw instance server backup - Backup server\nscw baremetal server get-metrics - Return server metrics\nscw dns record update-nameservers - Update name servers within a DNS zone\nscw instance server create - Create server\nscw instance server ssh - SSH into a server\nscw apple-silicon server ssh - SSH into a server\nscw baremetal server stop - Stop an Elastic Metal server\nscw apple-silicon server update - Update a server\nscw baremetal server start - Start an Elastic Metal server\nscw mcp server serve - Start the MCP server\nscw apple-silicon server delete - Delete a server\nscw apple-silicon server get - Get a server\nscw apple-silicon server reboot - Reboot a server\nscw apple-silicon server-type get - Get a server type\nscw instance server action - Perform a raw API action on a server\nscw instance server attach-ip - Attach an IP to a server\nscw instance server detach-ip - Detach an IP from a server\nscw instance server get-rdp-password - Get your server rdp password and decrypt it using your ssh key\nscw instance server reboot - Reboot server\nscw instance server standby - Put server in standby mode\nscw instance server start - Power on server\nscw instance server stop - Power off server\nscw lb backend set-servers - Define all backend servers for a given backend\nscw secret version get - Get metadata of a secret's version using the secret's ID\nscw instance ip attach - Attach an IP to a given server\nscw instance ssh add-key - Add a public key to a server\nscw instance ssh remove-key - Remove a manually added public key from a server\nscw baremetal server delete - Delete an Elastic Metal server\nscw baremetal server update - Update an Elastic Metal server\nscw apple-silicon private-network add - Add a server to a Private Network\nscw apple-silicon server list - List all servers\nscw instance template create-server - Create a server from a template\nscw baremetal private-network add - Add a server to a Private Network\nscw baremetal server list - List Elastic Metal servers for an Organization\nscw instance placement-group get-servers - Get placement group servers\nscw apple-silicon server reinstall - Reinstall a server\nscw instance placement-group update-servers - Update placement group servers\nscw baremetal options delete - Delete server option\nscw autoscaling servers list - List autoscaling group servers\nscw apple-silicon server-type list - List server types\nscw baremetal server list-events - List server events\nscw lb backend add-servers - Add a set of backend servers to a given backend\nscw baremetal server get - Get a specific Elastic Metal server\nscw baremetal server batch-create - Create multiple Elastic Metal servers\nscw baremetal server create - Create an Elastic Metal server\nscw baremetal server reboot - Reboot an Elastic Metal server\nscw secret version access - Access a secret's version using the secret's ID\nscw secret version access-by-path - Access a secret's version using the secret's name and path\nscw secret version delete - Delete a version\nscw lb backend remove-servers - Remove a set of servers for a given backend\nscw baremetal options add - Add server option\nscw baremetal server install - Install an Elastic Metal server\nscw inference model list-serverless - List available serverless models\nscw dns record list-nameservers - List name servers within a DNS zone\nscw instance ip detach - Detach an ip from its server\nscw secret version update - Update metadata of a version\nscw instance placement-group set-servers - Set placement group servers\nscw secret version list - List versions of a secret using the secret's ID\nscw sdb-sql backup list - List your Serverless SQL Database backups\nscw sdb-sql database list - List your Serverless SQL Databases\nscw mcp server list-tools - List available MCP tools\nscw mcp server list-resources - List available MCP resources\nscw baremetal server update-ip - Update IP\nscw datalab cluster-version list - List datalab resources\nscw secret version create - Create a version\nscw edge-services route-rules add - Add route rules\nscw edge-services route-rules list - List route rules\nscw edge-services route-rules set - Set route rules\nscw edge-services route-stage create - Create route stage\nscw edge-services route-stage delete - Delete route stage\nscw edge-services route-stage get - Get route stage\nscw edge-services route-stage update - Update route stage\nscw instance server attach-filesystem - Attach a filesystem volume to an Instance\nscw instance server attach-volume - Attach a volume to an Instance\nscw instance server console - Connect to the serial console of an instance\nscw instance server detach-filesystem - Detach a filesystem volume from an Instance\nscw instance server detach-volume - Detach a volume from an Instance\nscw instance server get - Get an Instance\nscw instance server list - List all Instances\nscw instance server list-actions - List Instance actions\nscw instance server update - Update an Instance\nscw instance server-type get - Get availability\nscw instance server-type list - List Instance types\nscw searchdb versions list - List available Cloud Essentials for OpenSearch versions\nscw baremetal private-network set - Set multiple Private Networks on a server\nscw redis version list - List available Redis™ versions\nscw edge-services route-stage list - List route stages\nscw edge-services purge-request create - Create purge request\nscw edge-services purge-request get - Get purge request\nscw apple-silicon private-network set - Set multiple Private Networks on a server\nscw k8s cluster wait - Wait for a cluster to reach a stable state\nscw sdb-sql backup get - Get a database backup information\nscw sdb-sql database get - Get a database information\nscw rdb privilege set - Set user privileges for a database\nscw edge-services pipeline create - Create pipeline\nscw edge-services dns-stage create - Create DNS stage\nscw edge-services tls-stage create - Create TLS stage\nscw edge-services waf-stage create - Create WAF stage\nscw edge-services cache-stage create - Create cache stage\nscw edge-services route-rules edit - Edit all route rules of a route stage\nscw edge-services backend-stage create - Create backend stage\nscw sdb-sql database create - Create a new Serverless SQL Database\nscw lb backend list-statistics - List backend server statistics\nscw secret version enable - Enable a version\nscw secret version disable - Disable a version\nscw instance ssh install-config - Install a ssh config with all your servers as host\nIt generate hosts for instance servers, baremetal, apple-silicon and bastions\nscw edge-services plan get - Get plan\nscw ipam ip create - Reserve a new IP\nscw s2s-vpn connection set-routing-policy - Set a new routing policy\nscw sdb-sql database update - Update database information\nscw secret secret create - Create a secret\nscw k8s version get - Get a Version\nscw vpc-gw ip create - Reserve an IP\nscw iam organization enable-saml - Enable SAML Identity Provider for an Organization\nscw iam organization get-saml - Get SAML Identity Provider configuration of an Organization\nscw iam saml update - Update SAML Identity Provider configuration\nscw lb backend update-healthcheck - Update a health check for a given backend\nscw baremetal private-network delete - Delete a Private Network\nscw fip ip attach - Attach an existing flexible IP to a server\nscw help output - Get help about how the CLI output works\nscw apple-silicon private-network delete - Delete a Private Network\nscw redis version list-settings - List available settings from a Redis™ version\nscw edge-services purge-request list - List purge requests\nscw edge-services plan select - Select plan\nscw dns zone export - Export a raw DNS zone\nscw ipam ip attach - Attach private IP to custom resource\nscw ipam ip move - Move private IP to a custom resource\nscw cockpit contact-point delete - Delete a contact point\nscw secret secret protect - Enable secret protection\nscw baremetal offer list - List offers\nscw instance ssh list-keys - List manually added public keys\nscw object bucket update - Update an S3 bucket\nscw ipam ip list - List existing IPs\nscw iam rule list - List rules of a given policy\nscw lb certificate create - Create an SSL/TLS certificate\nscw tutorial - Follow guided tutorials to learn the CLI\nscw dns certificate create - Create or get the DNS zone's TLS certificate\nscw dns record bulk-update - Update records within a DNS zone\nscw dns record clear - Clear records within a DNS zone\nscw dns version list - List versions of a DNS zone\nscw dns version diff - Access differences from a specific DNS zone version\nscw dns zone import - Import a raw DNS zone\nscw lb acl delete - Delete an ACL\nscw lb backend delete - Delete a backend of a given Load Balancer\nscw rdb acl list - List ACL rules of a Database Instance\nscw vpc private-network list - List Private Networks\nscw interlink link get - Get a link\nscw lb frontend delete - Delete a frontend\nscw login - Login to scaleway\nscw vpc-gw pat-rule delete - Delete a PAT rule\nscw cockpit token delete - Delete a token\nscw lb acl list - List ACLs for a given frontend\nscw s2s-vpn customer-gateway get - Get a customer gateway\nscw lb route list - List all routes\nscw rdb instance get-metrics - [deprecated] Get Database Instance metrics\nscw iam log list - List logs\nscw object bucket get - Get information about an S3 bucket\nscw s2s-vpn vpn-gateway-type list - List VPN gateway types\nscw baremetal private-network list - List the Private Networks of a server\nscw dns version show - List records from a given version of a specific DNS zone\nscw docs - Browse the CLI documentation interactively\nscw iam permission-set list - List permission sets\nscw instance security-group edit - Edit all rules of a security group\nscw interlink pop list - List PoPs\nscw lb private-network list - List Private Networks attached to a Load Balancer\nscw mnq sns create-credentials - Create Topics and Events credentials\nscw rdb acl edit - Edit a database instance's ACL\nscw vpc rule edit - Edit all ACL rules of a VPC\nscw vpc-gw pat-rule edit - Edit all PAT rules of a Public Gateway\nscw k8s pool upgrade - Upgrade a Pool in a Cluster\nscw vpc-gw ip update - Update an IP\nscw billing consumption list - Get monthly consumption\nscw edge-services plan list - List plans\nscw marketplace version get - Get a specific image version\nscw vpc-gw pat-rule get - Get a PAT rule\nscw apple-silicon runner list - List runner configurations associated with a server\nscw apple-silicon private-network list - List the Private Networks of a server\nscw billing consumption list-taxes - Get monthly consumption taxes\nscw secret secret unprotect - Disable secret protection\nscw fip ip detach - Detach an existing flexible IP from a server\nscw lb subscriber subscribe - Subscribe a subscriber to alerts for a given Load Balancer\nscw vpc vpc-connector get - Get a VPC connector\nscw baremetal os list - List available OSes\nscw cockpit contact-point create - Create a contact point\nscw instance private-nic create - Create a private NIC connecting an Instance to a Private Network\nscw iot device set-certificate - Set a custom certificate on a device\nscw keymanager key delete - Delete a key\nscw interlink link create - Create a link\nscw keymanager key disable - Disable key\nscw mnq nats delete-credentials - Delete NATS credentials\nscw rdb backup list - List database backups\nscw iam saml delete - Disable SAML Identity Provider for an Organization\nscw keymanager key unprotect - Remove key protection\nscw lb certificate delete - Delete an SSL/TLS certificate\nscw lb private-network attach - Attach a Load Balancer to a Private Network\nscw vpc-gw gateway-network create - Attach a Public Gateway to a Private Network\nscw dns certificate get - Get a DNS zone's TLS certificate\nscw dns record list - List records within a DNS zone\nscw k8s cluster list-available-versions - List available versions for a Cluster\nscw k8s cluster set-type - Change the Cluster type\nscw lb private-network detach - Detach Load Balancer from Private Network\nscw sdb-sql backup export - Export a database backup\nscw alias create - Create a new alias for a command\nscw container container redeploy - Redeploy a container\nscw datawarehouse deployment list - List deployments\nscw rdb user list - List users of a Database Instance\nscw inference deployment get-certificate - Get the CA certificate\nscw mnq sqs delete-credentials - Delete Queues credentials\nscw redis cluster migrate - Scale up a Redis™ Database Instance\nscw block volume create - Create a volume\nscw domain domain search - Search available domains\nscw mnq sqs create-credentials - Create Queues credentials\nscw rdb instance upgrade - Upgrade a Database Instance\nscw webhosting hosting create - Order a Web Hosting plan\nscw domain domain enable-dnssec - Update domain DNSSEC\nscw edge-services plan delete - Delete plan\nscw keymanager key rotate - Rotate a key\nscw rdb instance list - List Database Instances\nscw k8s cluster upgrade - Upgrade a Cluster\nscw mongodb endpoint create - Create a new Instance endpoint\nscw rdb endpoint create - Create a new Database Instance endpoint\nscw vpc-gw gateway delete - Delete a Public Gateway\nscw domain order buy - Purchase domains\nscw kafka cluster renew-ca - Renew the Kafka cluster's certificate authority\nscw sdb-sql database delete - Delete a database\nscw vpc-gw pat-rule update - Update a PAT rule\nscw webhosting freedomain list - Retrieve the list of free root domains available for a Web Hosting.\nscw cockpit alert-manager disable - Disable the Alert manager\nscw fip mac duplicate - Duplicate a virtual MAC address to another flexible IP\nscw iam rule update - Set rules of a given policy\nscw k8s pool remove-startup-taint - Remove a startup taint from a Pool\nscw mnq sns delete-credentials - Delete Topics and Events credentials\nscw rdb instance get-certificate - Get the TLS certificate of a Database Instance\nscw vpc private-network get - Get a Private Network\nscw vpc private-network update - Update Private Network\nscw annotations binding create - Attach a value to a resource. Fails if the resource already has a value for this key.\nscw instance snapshot apply-migration - Migrate a volume and/or snapshots to SBS (Scaleway Block Storage)\nscw instance volume apply-migration - Migrate a volume and/or snapshots to SBS (Scaleway Block Storage)\nscw interlink link disable_propagation - Disable route propagation\nscw iot device list - List devices\nscw k8s userdata get - Get a pool related user data\nscw rdb database get-url - Gets the URL to connect to the Database\nscw rdb user get-url - Gets the URL to connect to the Database\nscw s2s-vpn connection disable-route-propagation - Disable route propagation\nscw iam group set-members - Overwrite users and applications of a group\nscw keymanager key create - Create a key\nscw mnq sns activate - Activate Topics and Events\nscw redis cluster create - Create a Redis™ Database Instance\nscw webhosting hosting list - List all Web Hosting plans\nscw rdb read-replica create-endpoint - Create an endpoint for a Read Replica\nscw mnq sqs activate - Activate Queues\nscw annotations binding list - List all bindings, or filter by Scaleway Resource Name or value ID. Response order by ID.\nscw audit-trail product list - Retrieve the list of Scaleway resources for which you have Audit Trail events\nscw block snapshot create - Create a snapshot of a volume\nscw instance ssh fetch-keys - Fetch SSH keys from the console and install them on multiple servers\nscw mnq nats delete-account - Delete a NATS account\nscw redis endpoint add - Add endpoints for a cluster\nscw edge-services pipeline set-head - Configure a entry point to your pipeline. You must specify a `head stage` to form a stage-chain that goes all the way to the backend stage (origin), so the HTTP request will be processed according to the stages you created.\nscw s2s-vpn customer-gateway list - List customer gateways\nscw sdb-sql database restore - Restore a database from a backup\nscw vpc-gw gateway-type list - List Public Gateway types\nscw vpc-gw gateway-network get - Get a Public Gateway connection to a Private Network\nscw edge-services waf-stage update - Update WAF stage\nscw iot device get-certificate - Get a device's certificate\nscw s2s-vpn connection list - List connections\nscw cockpit contact-point list - List contact points\nscw instance security-group set-rules - Update all the rules of a security group\nscw s2s-vpn vpn-gateway list - List VPN gateways\nscw container container list - List all containers the caller can access (read permission).\nscw container trigger list - List all triggers the caller can access (read permission).\nscw iot network create - Create a new network\nscw lb route create - Create a route\nscw vpc private-network enable-dhcp - Enable DHCP on a Private Network\nscw rdb endpoint get - Get a Database Instance endpoint\nscw vpc-gw gateway update - Update a Public Gateway\nscw container namespace list - List all namespaces the caller can access (read permission).\nscw interlink link list - List links\nscw cockpit grafana sync-data-sources - Synchronize Grafana data sources\nscw interlink link attach_vpc - Attach a VPC\nscw vpc-gw pat-rule create - Create a PAT rule\nscw domain domain get-auth-code - Get a domain's authorization code\nscw ipam ip detach - Detach private IP from a custom resource\nscw container domain list - List all custom domains the caller can access (read permission).\nscw environmental-footprint data get - Retrieve detailed impact data\nscw help date - Get help about how date parsing works in the CLI\nscw marketplace local-image list - List local images from a specific image or version\nscw mnq nats get-credentials - Get NATS credentials\nscw vpc-gw ip list - List IPs\nscw tem domain get - Get information about a domain\nscw iam user delete - Delete a guest user from an Organization\nscw lb certificate list - List all SSL/TLS certificates on a given Load Balancer\nscw redis cluster metrics - Get metrics of a Redis™ Database Instance\nscw block snapshot import-from-object-storage - Import a snapshot from a Scaleway Object Storage bucket\nscw mnq sns get-credentials - Get Topics and Events credentials\nscw mnq sqs get-credentials - Get Queues credentials\nscw block volume update - Update a volume\nscw k8s kubeconfig uninstall - Uninstall a kubeconfig\nscw keymanager key generate-data-key - Create a data encryption key\nscw instance private-nic list - List all private NICs\nscw interlink link enable_propagation - Enable route propagation\nscw registry image update - Update an image\nscw s2s-vpn connection enable-route-propagation - Enable route propagation\nscw instance snapshot plan-migration - Get a volume or snapshot's migration plan\nscw instance volume plan-migration - Get a volume or snapshot's migration plan\nscw iam group list - List groups\nscw baremetal bmc start - Start BMC access\nscw registry image get - Get an image\nscw iam api-key list - List API keys\nscw iam ssh-key list - List SSH keys\nscw k8s cluster reset-admin-token - Reset the admin token of a Cluster\nscw keymanager key decrypt - Decrypt an encrypted payload\nscw mnq sqs get-info - Get Queues info\nscw rdb instance renew-certificate - Renew the TLS certificate of a Database Instance\nscw redis cluster get - Get a Redis™ Database Instance\nscw redis endpoint get - Get an endpoint\nscw redis endpoint update - Update an endpoint\nscw iam policy delete - Delete a policy\nscw marketplace local-image get - Get a specific local image by ID\nscw registry image list - List images\nscw vpc-gw gateway-network update - Update a Public Gateway's connection to a Private Network\nscw iam group delete - Delete a group\nscw iot hub list - List hubs\nscw cockpit grafana-user create - (Deprecated) EOL 2026-01-20\nscw mnq sns get-info - Get Topics and Events info\nscw rdb read-replica reset - Resync a Read Replica\nscw s2s-vpn customer-gateway update - Update a customer gateway\nscw iam group remove-member - Remove a user or an application from a group\nscw iot route list - List routes\nscw rdb log list-details - List remote Database Instance logs details\nscw registry namespace list - List namespaces\nscw block volume list - List volumes\nscw iam user list - List users of an Organization\nscw iam application delete - Delete an application\nscw mnq nats list-credentials - List NATS credentials\nscw rdb setting edit - Edit Database Instance settings in your default editor\nscw registry login - Login to a registry\nscw registry tag list - List tags\nscw registry logout - Logout of a registry\nscw iam policy list - List policies of an Organization\nscw lb subscriber unsubscribe - Unsubscribe a subscriber from alerts for a given Load Balancer\nscw inference node-type list - List available node types\nscw mnq nats create-context - Create a new context for natscli\nscw rdb node-type list - List available node types\nscw redis node-type list - List available node types\nscw interlink partner list - List available partners\nscw iam application list - List applications of an Organization\nscw mongodb endpoint delete - Delete a Database Instance endpoint\nscw vpc-gw gateway-network list - List Public Gateway connections to Private Networks\nscw kafka cluster get-ca - Get a Kafka cluster's certificate authority\nscw rdb log list - List available logs of a Database Instance\nscw block snapshot list - List all snapshots\nscw domain domain update - Update a domain's contacts\nscw k8s pool add-external-node - Add an external node to a Kosmos Pool\nscw rdb database list - List databases in a Database Instance\nscw rdb endpoint delete - Delete a Database Instance endpoint\nscw rdb snapshot restore - Create a new Database Instance from a snapshot\nscw function function update - Update an existing function\nscw kafka cluster list - List Kafka clusters\nscw redis cluster renew-certificate - Renew the TLS certificate of a cluster\nscw account project delete - Delete an existing Project\nscw vpc-gw ip get - Get an IP\nscw iam api-key get - Get an API key\nscw rdb privilege list - List user privileges for a database\nscw instance server get-compatible-types - Get Instance compatible types\nscw vpc-gw gateway upgrade - Upgrade a Public Gateway to the latest version and/or to a different commercial offer type\nscw rdb backup restore - Restore a database backup\nscw mongodb instance list - List MongoDB® Database Instances\nscw edge-services pipeline list - List pipelines\nscw edge-services dns-stage list - List DNS stages\nscw edge-services tls-stage list - List TLS stages\nscw edge-services waf-stage list - List WAF stages\nscw redis endpoint delete - Delete an endpoint for a cluster\nscw edge-services cache-stage list - List cache stages\nscw mnq nats list-accounts - List NATS accounts\nscw edge-services backend-stage list - List backend stages\nscw webhosting hosting delete - Delete a Web Hosting plan\nscw redis cluster list - List Redis™ Database Instances\nscw config validate - Validate the config\nscw lb lb list - List Load Balancers\nscw iam group add-members - Add multiple users and applications to a group\nscw iam api-key create - Create an API key\nscw rdb log prepare - Prepare logs of a Database Instance\nscw registry install-docker-helper - Install a local Docker credential helper\nscw iot route create - Create a route\nscw mongodb snapshot list - List snapshots\nscw rdb snapshot list - List snapshots\nscw domain order trade - Trade a domain's contact"

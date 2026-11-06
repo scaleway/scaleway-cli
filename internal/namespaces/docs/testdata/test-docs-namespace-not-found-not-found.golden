@@ -1,0 +1,8 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Namespace "nonexistentns" not found. Run "scw docs" to see available namespaces.
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "message": "Namespace \"nonexistentns\" not found. Run \"scw docs\" to see available namespaces.",
+  "error": {}
+}

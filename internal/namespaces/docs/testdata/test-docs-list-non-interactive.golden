@@ -1,0 +1,21 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+This API allows you to manage your CPU and GPU Instances.
+
+Resources:
+
+  image                Image management commands
+  ip                   IP management commands
+  placement-group      Placement group management commands
+  private-nic          Private NIC management commands
+  security-group       Security group management commands
+  server               Instance management commands
+  server-type          Instance type management commands
+  snapshot             Snapshot management commands
+  ssh                  SSH Utilities
+  template             Template management commands
+  user-data            User data management commands
+  volume               Volume management commands
+  volume-type          Volume type management commands
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+"This API allows you to manage your CPU and GPU Instances.\n\nResources:\n\n  image                Image management commands\n  ip                   IP management commands\n  placement-group      Placement group management commands\n  private-nic          Private NIC management commands\n  security-group       Security group management commands\n  server               Instance management commands\n  server-type          Instance type management commands\n  snapshot             Snapshot management commands\n  ssh                  SSH Utilities\n  template             Template management commands\n  user-data            User data management commands\n  volume               Volume management commands\n  volume-type          Volume type management commands"
