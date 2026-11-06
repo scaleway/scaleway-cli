@@ -6,8 +6,10 @@ import (
 	"fmt"
 	"io"
 	"reflect"
+	"sort"
 	"strings"
 	"text/template"
+	"text/template/parse"
 
 	"github.com/ghodss/yaml"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
@@ -155,6 +157,99 @@ func setupTemplatePrinter(printer *Printer, opts string) error {
 	printer.template = t
 
 	return nil
+}
+
+// WarnUnknownTemplateFields checks that top-level fields referenced by the template
+// output exist in the command ResponseType and warns on stderr otherwise.
+// It is a no-op when the command has no ResponseType or the output is not a template.
+// ponytail: only top-level fields are resolved, against the unwrapped response struct;
+// fields addressed inside nested pipelines (range over a struct field, index, calls)
+// can produce false positives. Upgrade with an AST data-flow pass if they do.
+func WarnUnknownTemplateFields(cmd *Command, outputFlag string, stderr io.Writer) {
+	if cmd.ResponseType == nil {
+		return
+	}
+
+	tmp := strings.SplitN(outputFlag, "=", 2)
+	if tmp[0] != string(PrinterTypeTemplate) || len(tmp) < 2 {
+		return
+	}
+
+	t, err := template.New("field-check").Parse(tmp[1])
+	if err != nil {
+		return // syntax errors are reported by the printer at execution time
+	}
+
+	valid := map[string]struct{}{}
+	for _, f := range ResponseTypeFields(cmd.ResponseType) {
+		valid[f.Name] = struct{}{}
+	}
+
+	unknown := map[string]struct{}{}
+	collectTemplateFields(t.Root, func(name string) {
+		if _, exists := valid[name]; !exists {
+			unknown[name] = struct{}{}
+		}
+	})
+
+	if len(unknown) == 0 {
+		return
+	}
+
+	unknownNames := make([]string, 0, len(unknown))
+	for name := range unknown {
+		unknownNames = append(unknownNames, name)
+	}
+	sort.Strings(unknownNames)
+
+	fieldNames := make([]string, 0, len(valid))
+	for name := range valid {
+		fieldNames = append(fieldNames, name)
+	}
+	sort.Strings(fieldNames)
+
+	_, _ = fmt.Fprintf(
+		stderr,
+		"warning: field(s) %s not found in %s (available: %s)\n",
+		strings.Join(unknownNames, ", "),
+		cmd.ResponseType,
+		strings.Join(fieldNames, ", "),
+	)
+}
+
+// collectTemplateFields calls add with the first identifier of every field access
+// in the template parse tree (e.g. Foo for {{ .Foo }} and {{ .Foo.Bar }}).
+func collectTemplateFields(n parse.Node, add func(string)) {
+	switch n := n.(type) {
+	case *parse.ListNode:
+		for _, child := range n.Nodes {
+			collectTemplateFields(child, add)
+		}
+	case *parse.ActionNode:
+		if n.Pipe != nil {
+			collectTemplateFields(n.Pipe, add)
+		}
+	case *parse.PipeNode:
+		for _, cmd := range n.Cmds {
+			collectTemplateFields(cmd, add)
+		}
+	case *parse.CommandNode:
+		for _, arg := range n.Args {
+			collectTemplateFields(arg, add)
+		}
+	case *parse.FieldNode:
+		if len(n.Ident) > 0 {
+			add(n.Ident[0])
+		}
+	case *parse.ChainNode:
+		if _, isDot := n.Node.(*parse.DotNode); isDot {
+			if len(n.Field) > 0 {
+				add(n.Field[0])
+			}
+			return
+		}
+		collectTemplateFields(n.Node, add)
+	}
 }
 
 func setupHumanPrinter(printer *Printer, opts string) {

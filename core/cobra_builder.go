@@ -177,6 +177,10 @@ func (b *cobraBuilder) hydrateCobra(
 			cobraCmd.Annotations["UsageArgs"] = BuildUsageArgs(ctx, cmd, false)
 		}
 
+		if cmd.ResponseType != nil {
+			cobraCmd.Annotations["UsageResponse"] = BuildUsageResponse(cmd)
+		}
+
 		if cmd.ArgSpecs != nil {
 			cobraCmd.Annotations["UsageDeprecatedArgs"] = BuildUsageArgs(ctx, cmd, true)
 		}
@@ -261,6 +265,11 @@ ARGS:
 
 DEPRECATED ARGS:
 {{.Annotations.UsageDeprecatedArgs}}
+{{- end}}
+{{- if .Annotations.UsageResponse}}
+
+RESPONSE:
+{{.Annotations.UsageResponse}}
 {{- end}}
 {{- if .HasAvailableSubCommands}}
 

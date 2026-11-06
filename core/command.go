@@ -42,6 +42,12 @@ type Command struct {
 	// ArgsType defines the type of argument for this command.
 	ArgsType reflect.Type
 
+	// ResponseType defines the type of the value returned by Run (if any).
+	// It is used to document the output of the command (help, docs, MCP server).
+	// Nil means the response type is unknown or the command has no structured output.
+	// For list commands returning a slice (e.g. []*instance.Server), set the slice type.
+	ResponseType reflect.Type
+
 	// ArgSpecs defines specifications for arguments.
 	ArgSpecs ArgSpecs
 
