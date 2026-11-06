@@ -128,6 +128,7 @@ func GetCommands() *core.Commands {
 		serverWaitCommand(),
 		serverAttachIPCommand(),
 		serverDetachIPCommand(),
+		instanceServerGetRdpPassword(),
 	))
 
 	if cmdConsole := serverConsoleCommand(); cmdConsole != nil {
@@ -256,20 +257,6 @@ func GetCommands() *core.Commands {
 	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "update"))
 	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "delete"))
 	cmds.MustFind("instance", "private-nic", "get").Override(privateNicGetBuilder)
-
-	// SSH Utilities
-
-	human.RegisterMarshalerFunc([]*SSHKeyFormat(nil), marshalSSHKeys)
-
-	cmds.Merge(core.NewCommands(
-		instanceSSH(),
-		sshAddKeyCommand(),
-		sshConfigInstallCommand(),
-		sshFetchKeysCommand(),
-		sshListKeysCommand(),
-		sshRemoveKeyCommand(),
-		instanceServerGetRdpPassword(),
-	))
 
 	// Web URLs (--web)
 

@@ -5,9 +5,9 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	instanceV1 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	instanceV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v2alpha1"
-	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	instanceSDKV1 "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
 //
@@ -15,7 +15,7 @@ import (
 //
 
 func instanceV1AndV2Commands() *core.Commands {
-	cmds := instance.GetCommands()
+	cmds := instanceV1.GetCommands()
 	cmds.Merge(instanceV2.GetCommands())
 
 	return cmds
@@ -43,11 +43,11 @@ func testServerCommand(params string) string {
 	return baseCommand + params
 }
 
-func getServerFromMeta(meta core.TestMetadata, metaKey string) *instanceSDK.Server {
+func getServerFromMeta(meta core.TestMetadata, metaKey string) *instanceSDKV1.Server {
 	switch resp := meta[metaKey].(type) {
-	case *instanceSDK.Server:
+	case *instanceSDKV1.Server:
 		return resp
-	case *instance.ServerWithWarningsResponse:
+	case *instanceV1.ServerWithWarningsResponse:
 		return resp.Server
 	default:
 		return nil
@@ -59,7 +59,7 @@ func getServerFromMeta(meta core.TestMetadata, metaKey string) *instanceSDK.Serv
 func deleteServerV1(metaKey string) core.AfterFunc {
 	return func(ctx *core.AfterFuncCtx) error {
 		server := getServerFromMeta(ctx.Meta, metaKey)
-		if server.State == instanceSDK.ServerStateRunning {
+		if server.State == instanceSDKV1.ServerStateRunning {
 			err := core.ExecAfterCmd("scw instance server stop -w {{ ." + metaKey + ".ID }}")(ctx)
 			if err != nil {
 				return err

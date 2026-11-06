@@ -7,16 +7,18 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	instanceV1 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/sshconfig"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func Test_SSHConfigInstall(t *testing.T) {
+	cmds := instanceV1AndV2Commands()
+
 	t.Run("Install config and create default", core.Test(&core.TestConfig{
 		TmpHomeDir: true,
-		Commands:   instance.GetCommands(),
+		Commands:   cmds,
 		BeforeFunc: core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true ip=new")),
 		Args:       []string{"scw", "instance", "ssh", "install-config"},
 		Check: core.TestCheckCombine(
@@ -29,7 +31,7 @@ func Test_SSHConfigInstall(t *testing.T) {
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				server := ctx.Meta["Server"].(*instance.ServerWithWarningsResponse).Server
+				server := ctx.Meta["Server"].(*instanceV1.ServerWithWarningsResponse).Server
 
 				configPath := sshconfig.ConfigFilePath(ctx.Meta["HOME"].(string))
 				content, err := os.ReadFile(configPath)
@@ -41,12 +43,12 @@ func Test_SSHConfigInstall(t *testing.T) {
 				assert.True(t, included)
 			},
 		),
-		AfterFunc: deleteServer("Server"),
+		AfterFunc: deleteServerV1("Server"),
 	}))
 
 	t.Run("Install config and include", core.Test(&core.TestConfig{
 		TmpHomeDir: true,
-		Commands:   instance.GetCommands(),
+		Commands:   cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			func(ctx *core.BeforeFuncCtx) error {
 				homeDir := ctx.Meta["HOME"].(string)
@@ -71,7 +73,7 @@ func Test_SSHConfigInstall(t *testing.T) {
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				server := ctx.Meta["Server"].(*instance.ServerWithWarningsResponse).Server
+				server := ctx.Meta["Server"].(*instanceV1.ServerWithWarningsResponse).Server
 
 				defaultConfigPath := sshconfig.DefaultConfigFilePath(ctx.Meta["HOME"].(string))
 				content, err := os.ReadFile(defaultConfigPath)
@@ -89,6 +91,6 @@ func Test_SSHConfigInstall(t *testing.T) {
 				assert.True(t, included)
 			},
 		),
-		AfterFunc: deleteServer("Server"),
+		AfterFunc: deleteServerV1("Server"),
 	}))
 }
