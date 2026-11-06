@@ -1,0 +1,8 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+{"id":"111111111","load_balancer":{}}
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "111111111",
+  "load_balancer": {}
+}
