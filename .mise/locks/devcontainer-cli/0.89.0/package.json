@@ -2,6 +2,6 @@
   "name": "mise-npm-install",
   "private": true,
   "dependencies": {
-    "@devcontainers/cli": "0.89.0"
+    "@devcontainers/cli": "0.90.0"
   }
 }
