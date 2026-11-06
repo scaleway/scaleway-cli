@@ -302,6 +302,41 @@ func Test_ConfigInfoCommand(t *testing.T) {
 		TmpHomeDir: true,
 	}))
 
+	t.Run("Show secret", core.Test(&core.TestConfig{
+		Commands:   config.GetCommands(),
+		BeforeFunc: beforeFuncCreateFullConfig(),
+		Cmd:        "scw config info show-secret=true",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGoldenAndReplacePatterns(configPathReplacements...),
+		),
+		TmpHomeDir: true,
+	}))
+
+	t.Run("Show secret with env override", core.Test(&core.TestConfig{
+		Commands: config.GetCommands(),
+		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+			if err := beforeFuncCreateFullConfig()(ctx); err != nil {
+				return err
+			}
+			// scw.LoadEnvProfile reads SCW_SECRET_KEY straight from os.LookupEnv,
+			// so we must set it on the real environment rather than via OverrideEnv
+			// (which is only surfaced through core.ExtractEnv).
+			ctx.T.Setenv("SCW_SECRET_KEY", "22222222-2222-2222-2222-222222222222")
+
+			return nil
+		},
+		Cmd: "scw config info",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGoldenAndReplacePatterns(configPathReplacements...),
+		),
+		TmpHomeDir: true,
+		// Required because we set a real env var via t.Setenv, which is
+		// incompatible with t.Parallel().
+		DisableParallel: true,
+	}))
+
 	t.Run("Unknown Profile", core.Test(&core.TestConfig{
 		Commands:   config.GetCommands(),
 		BeforeFunc: beforeFuncCreateFullConfig(),
