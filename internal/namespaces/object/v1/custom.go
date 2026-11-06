@@ -82,6 +82,7 @@ func GetCommands() *core.Commands {
 	}
 
 	cmds.Add(bucketCockpitCommand())
+	cmds.Add(bucketChargeCommand())
 
 	return cmds
 }

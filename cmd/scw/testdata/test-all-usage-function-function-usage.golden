@@ -6,6 +6,7 @@ USAGE:
   scw function function <command>
 
 AVAILABLE COMMANDS:
+  charge           List all the charges of this function since its creation
   cockpit          Open the Cockpit Grafana dashboard for this function
   create           Create a new function
   delete           Delete a function

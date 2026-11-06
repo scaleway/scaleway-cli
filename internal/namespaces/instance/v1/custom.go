@@ -275,7 +275,7 @@ func GetCommands() *core.Commands {
 
 	addWebUrls(cmds)
 
-	cmds.Merge(core.NewCommands(serverCockpitCommand()))
+	cmds.Merge(core.NewCommands(serverCockpitCommand(), serverChargeCommand()))
 
 	return cmds
 }

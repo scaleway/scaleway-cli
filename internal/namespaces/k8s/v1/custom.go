@@ -70,7 +70,11 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("k8s", "version", "list").Override(versionListBuilder)
 
-	cmds.Merge(core.NewCommands(clusterCockpitCommand()))
+	cmds.Merge(core.NewCommands(
+		clusterCockpitCommand(),
+		clusterChargeCommand(),
+		poolChargeCommand(),
+	))
 
 	return cmds
 }

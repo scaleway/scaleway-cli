@@ -7,6 +7,7 @@ USAGE:
   scw k8s cluster <command>
 
 AVAILABLE COMMANDS:
+  charge                  List all the charges of this cluster since its creation
   cockpit                 Open the Cockpit Grafana dashboard for this cluster
   connect                 Connect to a cluster using k9s, or a custom command via template
   create                  Create a new Cluster

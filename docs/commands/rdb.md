@@ -682,6 +682,26 @@ A Database Instance is made up of one or multiple dedicated compute nodes runnin
 Read Replicas can be used for certain read-only workflows such as Business Intelligence, or for a read-only scaling of your application. Read Replicas use asynchronous replication to replicate data from the main node.
 
 
+### List all the charges of this database instance since its creation
+
+
+
+**Usage:**
+
+```shell
+scw rdb instance charge <instance-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name        | Description                                                                 | Argument Specifications |
+|-------------|-----------------------------------------------------------------------------|-------------------------|
+| instance-id | Database Instance ID                                                        | Required                |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Clone a Database Instance
 
 Clone a given Database Instance, specified by the `region` and `instance_id` parameters. The clone feature allows you to create a new Database Instance from an existing one. The clone includes all existing databases, users and permissions. You can create a clone on a Database Instance bigger than your current one.

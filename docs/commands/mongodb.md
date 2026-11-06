@@ -80,6 +80,26 @@ scw mongodb endpoint delete <endpoint-id ...> [arg=value ...]
 A Managed MongoDB® Database Instance is composed of one or multiple dedicated compute nodes running a single database engine.
 
 
+### List all the charges of this instance since its creation
+
+
+
+**Usage:**
+
+```shell
+scw mongodb instance charge <instance-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name        | Description                                                                 | Argument Specifications |
+|-------------|-----------------------------------------------------------------------------|-------------------------|
+| instance-id | Instance ID                                                                 | Required                |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Open the Cockpit Grafana dashboard for this instance
 
 

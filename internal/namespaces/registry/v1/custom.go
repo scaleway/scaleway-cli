@@ -25,6 +25,7 @@ func GetCommands() *core.Commands {
 		registryDockerHelperListCommand(),
 		registryDockerHelperStoreCommand(),
 		registryInstallDockerHelperCommand(),
+		namespaceChargeCommand(),
 	))
 
 	cmds.MustFind("registry", "tag", "delete").Override(tagDeleteBuilder)

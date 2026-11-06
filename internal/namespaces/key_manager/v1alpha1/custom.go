@@ -16,6 +16,8 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("keymanager", "key", "decrypt").Override(cipherDecrypt)
 	cmds.MustFind("keymanager", "key", "encrypt").Override(plaintextEncrypt)
 
+	cmds.Add(keyChargeCommand())
+
 	return cmds
 }
 

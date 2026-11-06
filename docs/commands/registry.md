@@ -182,6 +182,26 @@ Each namespace must have a globally unique name within its region. This means no
 You can use namespace privacy policies to specify whether everyone has the right to pull an image from a namespace or not. When an image is in a public namespace, anyone is able to pull it. You can set your namespace to private if you want to restrict access.
 
 
+### List all the charges of this registry namespace since its creation
+
+
+
+**Usage:**
+
+```shell
+scw registry namespace charge <namespace-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name         | Description                                                                 | Argument Specifications |
+|--------------|-----------------------------------------------------------------------------|-------------------------|
+| namespace-id | Namespace ID                                                                | Required                |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Create a namespace
 
 Create a new Container Registry namespace. You must specify the namespace name and region in which you want it to be created. Optionally, you can specify the `project_id` and `is_public` in the request payload.

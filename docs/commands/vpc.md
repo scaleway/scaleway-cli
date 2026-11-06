@@ -132,6 +132,26 @@ to resources that are on the same Private Network. Note that a
 resource can be a part of multiple private networks.
 
 
+### List all the charges of this private network since its creation
+
+
+
+**Usage:**
+
+```shell
+scw vpc private-network charge <private-network-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name               | Description                                                                 | Argument Specifications |
+|--------------------|-----------------------------------------------------------------------------|-------------------------|
+| private-network-id | Private Network ID                                                          | Required                |
+| region             | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Open the Cockpit Grafana dashboard for this private network
 
 
@@ -519,6 +539,26 @@ scw vpc rule set [arg=value ...]
 A Virtual Private Cloud (VPC) allows you to group your regional
 Private Networks together. Note that a Private Network can be a
 part of only one VPC.
+
+
+### List all the charges of this VPC since its creation
+
+
+
+**Usage:**
+
+```shell
+scw vpc vpc charge <vpc-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name   | Description                                                                 | Argument Specifications |
+|--------|-----------------------------------------------------------------------------|-------------------------|
+| vpc-id | VPC ID                                                                      | Required                |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
 
 
 ### Create a VPC
