@@ -37,7 +37,7 @@ func snapshotWaitCommand() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(snapshotWaitRequest{}),
+		ArgsType:  reflect.TypeFor[snapshotWaitRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*snapshotWaitRequest)
 
@@ -45,7 +45,7 @@ func snapshotWaitCommand() *core.Command {
 				WaitForSnapshot(&block.WaitForSnapshotRequest{
 					Zone:          args.Zone,
 					SnapshotID:    args.SnapshotID,
-					Timeout:       scw.TimeDurationPtr(args.Timeout),
+					Timeout:       new(args.Timeout),
 					RetryInterval: core.DefaultRetryInterval,
 
 					TerminalStatus: args.TerminalStatus,

@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Delete all records within a DNS zone that has default name servers.<br/>
 All edits will be versioned.
 
@@ -10,9 +10,11 @@ ARGS:
   dns-zone   DNS zone to clear
 
 FLAGS:
-  -h, --help   help for clear
+  -h, --help                help for clear
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

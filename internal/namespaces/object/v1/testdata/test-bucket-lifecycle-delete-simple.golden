@@ -1,0 +1,8 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+✅ Bucket-lifecycle has been successfully deleted.
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "message": "bucket-lifecycle has been successfully deleted.",
+  "details": ""
+}

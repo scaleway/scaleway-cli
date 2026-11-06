@@ -180,7 +180,7 @@ func serverListBuilder(c *core.Command) *core.Command {
 	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
 
-	c.ArgsType = reflect.TypeOf(customListServersRequest{})
+	c.ArgsType = reflect.TypeFor[customListServersRequest]()
 
 	c.AddInterceptors(
 		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
@@ -193,6 +193,13 @@ func serverListBuilder(c *core.Command) *core.Command {
 			request := args.ListServersRequest
 			request.Organization = args.OrganizationID
 			request.Project = args.ProjectID
+
+			// The API only accepts the snake_case value "stopped_in_place" for the state
+			// filter, while the SDK enum uses the JSON representation "stopped in place".
+			if request.State != nil && *request.State == instance.ServerStateStoppedInPlace {
+				stoppedInPlace := instance.ServerState("stopped_in_place")
+				request.State = &stoppedInPlace
+			}
 
 			return runner(ctx, request)
 		},
@@ -211,7 +218,7 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		CloudInit        string
 	}
 
-	c.ArgsType = reflect.TypeOf(instanceUpdateServerRequestCustom{})
+	c.ArgsType = reflect.TypeFor[instanceUpdateServerRequestCustom]()
 
 	// Add completion functions
 	c.ArgSpecs.GetByName("admin-password-encryption-ssh-key-id").AutoCompleteFunc = completeSSHKeyID
@@ -325,13 +332,13 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 
 				if volumeIsFromSBS(block.NewAPI(client), customRequest.Zone, volumeID) {
 					volumes[index] = &instance.VolumeServerTemplate{
-						ID:         scw.StringPtr(volumeID),
+						ID:         new(volumeID),
 						VolumeType: instance.VolumeVolumeTypeSbsVolume,
 					}
 				} else {
 					volumes[index] = &instance.VolumeServerTemplate{
-						ID:   scw.StringPtr(volumeID),
-						Name: scw.StringPtr(getServerResponse.Server.Name + "-" + index),
+						ID:   new(volumeID),
+						Name: new(getServerResponse.Server.Name + "-" + index),
 					}
 				}
 			}
@@ -378,6 +385,12 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 			},
 		},
 	}
+
+	// clarify how to address attached volumes, specific to the cli.
+	c.Examples = append(c.Examples, &core.Example{
+		Short: "Boot an Instance from a specific volume",
+		Raw:   `scw instance server update 11111111-1111-1111-1111-111111111111 volumes.0.id=11111111-1111-1111-1111-111111111111 volumes.0.boot=true`,
+	})
 
 	return c
 }
@@ -632,7 +645,7 @@ func serverAttachIPCommand() *core.Command {
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "attach-ip",
-		ArgsType:  reflect.TypeOf(customIPAttachRequest{}),
+		ArgsType:  reflect.TypeFor[customIPAttachRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -712,7 +725,7 @@ func serverDetachIPCommand() *core.Command {
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "detach-ip",
-		ArgsType:  reflect.TypeOf(customIPDetachRequest{}),
+		ArgsType:  reflect.TypeFor[customIPDetachRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -779,7 +792,7 @@ func serverWaitCommand() *core.Command {
 		Resource:  "server",
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
+		ArgsType:  reflect.TypeFor[serverWaitRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*serverWaitRequest)
 
@@ -787,7 +800,7 @@ func serverWaitCommand() *core.Command {
 				WaitForServer(&instance.WaitForServerRequest{
 					Zone:          args.Zone,
 					ServerID:      args.ServerID,
-					Timeout:       scw.TimeDurationPtr(args.Timeout),
+					Timeout:       new(args.Timeout),
 					RetryInterval: core.DefaultRetryInterval,
 				})
 		},

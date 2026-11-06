@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Delete a given image tag. You must specify, in the endpoint, the `region` and `tag_id` parameters of the tag you want to delete.
 
 USAGE:
@@ -14,9 +14,11 @@ DEPRECATED ARGS:
   [force]   If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated)
 
 FLAGS:
-  -h, --help   help for delete
+  -h, --help                help for delete
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

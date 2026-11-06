@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Synchronize your DNS records on the Elements Console and on cPanel.
 
 USAGE:
@@ -23,9 +23,11 @@ DEPRECATED ARGS:
   [update-nameservers]    Whether or not to synchronize domain nameservers (deprecated, use auto_config_domain_dns).
 
 FLAGS:
-  -h, --help   help for sync-dns-records
+  -h, --help                help for sync-dns-records
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

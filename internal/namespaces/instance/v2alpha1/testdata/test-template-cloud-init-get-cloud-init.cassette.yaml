@@ -1,0 +1,136 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 244
+        host: api.scaleway.com
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"cli-tpl-goofy-spence","tags":null,"server_tags":null,"server_type":"DEV1-M","volumes":null,"private_networks":null,"filesystem_ids":null,"public_ip_v4_count":0,"public_ip_v6_count":0}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/templates
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 395
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "id":"7c7634f8-5860-4533-908f-341df08906e9", "name":"cli-tpl-goofy-spence", "tags":[], "server_tags":[], "server_type":"DEV1-M", "public_ip_v4_count":0, "public_ip_v6_count":0, "volumes":[], "private_networks":[], "filesystem_ids":[], "created_at":"2026-08-04T14:38:57.733321Z", "updated_at":"2026-08-04T14:38:57.733321Z", "zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "395"
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 04 Aug 2026 14:38:57 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge03)
+            X-Request-Id:
+                - e06da8e9-878c-458e-a94c-43052c155839
+        status: 200 OK
+        code: 200
+        duration: 191.414014ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 138
+        host: api.scaleway.com
+        body: '{"content":"I2Nsb3VkLWNvbmZpZwpwYWNrYWdlX3VwZGF0ZTogdHJ1ZQpwYWNrYWdlX3VwZ3JhZGU6IHRydWUKcGFja2FnZXM6CiAgLSBzc2hmcwogIC0gc2hlbGxjaGVjaw=="}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/templates/7c7634f8-5860-4533-908f-341df08906e9/user-data/cloud-init
+        method: PUT
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 04 Aug 2026 14:38:57 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge03)
+            X-Request-Id:
+                - f6b1dcf3-1f39-46c4-92a3-19dedad7339c
+        status: 204 No Content
+        code: 204
+        duration: 104.235624ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/templates/7c7634f8-5860-4533-908f-341df08906e9/user-data/cloud-init
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 158
+        body: '{"key":"cloud-init", "content":"I2Nsb3VkLWNvbmZpZwpwYWNrYWdlX3VwZGF0ZTogdHJ1ZQpwYWNrYWdlX3VwZ3JhZGU6IHRydWUKcGFja2FnZXM6CiAgLSBzc2hmcwogIC0gc2hlbGxjaGVjaw=="}'
+        headers:
+            Content-Length:
+                - "158"
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 04 Aug 2026 14:38:57 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge03)
+            X-Request-Id:
+                - 45a31f0c-9eed-4e3f-bc4f-d02fb1f329e8
+        status: 200 OK
+        code: 200
+        duration: 62.158344ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 2
+        host: api.scaleway.com
+        body: '{}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/templates/7c7634f8-5860-4533-908f-341df08906e9
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 04 Aug 2026 14:38:58 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge03)
+            X-Request-Id:
+                - 55a8cd1e-3895-4c01-986d-f49c98cec8ae
+        status: 204 No Content
+        code: 204
+        duration: 106.309426ms

@@ -28,7 +28,7 @@ func StoreImageIdentifierInMeta(
 ) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		// List images
-		imageName := strings.Split(dockerImageName, ":")[0]
+		imageName, _, _ := strings.Cut(dockerImageName, ":")
 		namespaceID := ctx.Meta.Render(fmt.Sprintf("{{ .%s.ID }}", namespaceMetaKey))
 		imageListResult := core.ExecBeforeCmdWithResult(ctx, fmt.Sprintf(
 			"scw registry image list namespace-id=%s name=%s",

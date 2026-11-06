@@ -9,6 +9,7 @@ ProjectID                   5ebc0159-7cb7-406c-9521-9347d1987fb2
 Status                      ready
 Engine                      PostgreSQL-15
 IsHaCluster                 false
+HighAvailabilityMode        unknown_high_availability_mode
 NodeType                    db-dev-s
 Endpoints.0.ID              8834804a-b146-4719-8d0d-de6c114ee328
 Endpoints.0.IP              51.159.74.117
@@ -98,6 +99,7 @@ work_mem                         8
     "next_run_at": "1970-01-01T00:00:00.0Z"
   },
   "is_ha_cluster": false,
+  "high_availability_mode": "unknown_high_availability_mode",
   "read_replicas": [],
   "node_type": "db-dev-s",
   "init_settings": [],

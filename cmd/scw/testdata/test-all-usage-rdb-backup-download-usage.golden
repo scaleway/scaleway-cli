@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Download a backup locally.
 
 USAGE:
@@ -15,9 +15,11 @@ ARGS:
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
-  -h, --help   help for download
+  -h, --help                help for download
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

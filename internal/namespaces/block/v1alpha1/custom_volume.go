@@ -37,14 +37,14 @@ func volumeWaitCommand() *core.Command {
 		Resource:  "volume",
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(volumeWaitRequest{}),
+		ArgsType:  reflect.TypeFor[volumeWaitRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*volumeWaitRequest)
 
 			return block.NewAPI(core.ExtractClient(ctx)).WaitForVolume(&block.WaitForVolumeRequest{
 				Zone:          args.Zone,
 				VolumeID:      args.VolumeID,
-				Timeout:       scw.TimeDurationPtr(args.Timeout),
+				Timeout:       new(args.Timeout),
 				RetryInterval: core.DefaultRetryInterval,
 
 				TerminalStatus: args.TerminalStatus,

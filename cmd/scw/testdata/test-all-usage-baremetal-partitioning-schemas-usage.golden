@@ -1,14 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Allows to customize the partitioning schemas of your servers (available on some offers and OSs).
 
 USAGE:
   scw baremetal partitioning-schemas
 
 FLAGS:
-  -h, --help   help for partitioning-schemas
+  -h, --help                help for partitioning-schemas
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

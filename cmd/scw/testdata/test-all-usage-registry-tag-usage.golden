@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Tags allow you to organize your container images. This gives you the possibility of sorting and filtering your images in any organizational pattern of your choice, which in turn helps you arrange, control and monitor your cloud resources. You can assign as many tags as you want to each image.
 
 USAGE:
@@ -11,9 +11,11 @@ AVAILABLE COMMANDS:
   list        List tags
 
 FLAGS:
-  -h, --help   help for tag
+  -h, --help                help for tag
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

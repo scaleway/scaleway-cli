@@ -1,18 +1,18 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ ACL rules successfully set.
-IP          PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-1.2.3.4/32  8174  tcp       inbound    allow   something
+IP          PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
+1.2.3.4/32  tcp       inbound    allow   something    8174
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "Rules": [
     {
       "ip": "1.2.3.4/32",
-      "port": 8174,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",
-      "description": "something"
+      "description": "something",
+      "port": 8174
     }
   ],
   "Success": {

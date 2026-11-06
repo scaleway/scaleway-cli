@@ -1,0 +1,15 @@
+{{- if .PrivateNetworkID }}// Connect from a resource attached to private network {{ .PrivateNetworkID }}
+{{ end -}}
+const mysql = require("mysql2/promise");
+
+const pool = mysql.createPool({
+  host: "{{ .Host }}",
+  port: {{ .Port }},
+  user: "{{ .User }}",
+  password: process.env.RDB_PASSWORD,
+  database: "{{ .Database }}",
+  ssl: { rejectUnauthorized: true },
+});
+
+module.exports = { pool };
+

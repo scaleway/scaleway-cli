@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Refresh an SOA DNS zone to reload the records in the DNS zone and update the SOA serial.
 You can recreate the given DNS zone and its sub DNS zone if needed.
 
@@ -12,9 +12,11 @@ ARGS:
   [recreate-sub-dns-zone]   Specifies whether or not to recreate the sub DNS zone
 
 FLAGS:
-  -h, --help   help for refresh
+  -h, --help                help for refresh
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Command utilities around server SSH
 - Manage keys per server
 - Generate ssh config
@@ -18,9 +18,11 @@ WORKFLOW COMMANDS:
 It generate hosts for instance servers, baremetal, apple-silicon and bastions
 
 FLAGS:
-  -h, --help   help for ssh
+  -h, --help                help for ssh
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

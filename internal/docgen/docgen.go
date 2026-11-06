@@ -2,6 +2,7 @@ package docgen
 
 import (
 	"bytes"
+	_ "embed"
 	"fmt"
 	"os"
 	"path"
@@ -12,17 +13,20 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
-type tplData struct {
-	Namespaces map[string]*tplNamespace
+//go:embed main.md.tmpl
+var mainTemplate string
+
+type Data struct {
+	Namespaces map[string]*Namespace
 }
 
-type tplNamespace struct {
+type Namespace struct {
 	Cmd       *core.Command
 	Commands  *core.Commands
-	Resources map[string]*tplResource
+	Resources map[string]*Resource
 }
 
-type tplResource struct {
+type Resource struct {
 	Cmd   *core.Command
 	Verbs map[string]*core.Command
 }
@@ -32,8 +36,8 @@ const ansi = "[\u001B\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[a-zA-Z\\d]*)*)
 // GenerateDocs generates markdown documentation for a given list of commands
 func GenerateDocs(commands *core.Commands, outDir string) error {
 	// Prepare data that will be sent to template engine
-	data := &tplData{
-		Namespaces: map[string]*tplNamespace{},
+	data := &Data{
+		Namespaces: map[string]*Namespace{},
 	}
 
 	for _, c := range commands.GetAll() {
@@ -42,9 +46,9 @@ func GenerateDocs(commands *core.Commands, outDir string) error {
 		}
 
 		if data.Namespaces[c.Namespace] == nil {
-			data.Namespaces[c.Namespace] = &tplNamespace{
+			data.Namespaces[c.Namespace] = &Namespace{
 				Commands:  commands,
-				Resources: map[string]*tplResource{},
+				Resources: map[string]*Resource{},
 			}
 		}
 		namespace := data.Namespaces[c.Namespace]
@@ -57,7 +61,7 @@ func GenerateDocs(commands *core.Commands, outDir string) error {
 		}
 
 		if namespace.Resources[c.Resource] == nil {
-			namespace.Resources[c.Resource] = &tplResource{
+			namespace.Resources[c.Resource] = &Resource{
 				Verbs: map[string]*core.Command{},
 			}
 		}
@@ -101,7 +105,7 @@ func GenerateDocs(commands *core.Commands, outDir string) error {
 	return nil
 }
 
-func renderNamespace(data *tplNamespace) (string, error) {
+func renderNamespace(data *Namespace) (string, error) {
 	buffer := bytes.Buffer{}
 	err := newTemplate().ExecuteTemplate(&buffer, "namespace", data)
 	if err != nil {
@@ -178,7 +182,7 @@ func newTemplate() *template.Template {
 			return value
 		},
 	})
-	tpl = template.Must(tpl.Parse(tplStr))
+	tpl = template.Must(tpl.Parse(mainTemplate))
 
 	return tpl
 }

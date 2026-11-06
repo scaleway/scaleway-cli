@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 A Redis™ Database Instance, also known as a Redis™ cluster, consists of either one standalone node or a cluster composed of three to six nodes. The cluster uses partitioning to split the keyspace. Each partition is replicated and can be reassigned or elected as the primary when necessary. Standalone mode creates a standalone database provisioned on a single node.
 
 USAGE:
@@ -19,9 +19,11 @@ AVAILABLE COMMANDS:
   wait              Wait for a Redis cluster to reach a stable state
 
 FLAGS:
-  -h, --help   help for cluster
+  -h, --help                help for cluster
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

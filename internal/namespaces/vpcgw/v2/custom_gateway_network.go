@@ -29,7 +29,7 @@ func gatewayNetworkCreateBuilder(c *core.Command) *core.Command {
 		return api.WaitForGatewayNetwork(&vpcgw.WaitForGatewayNetworkRequest{
 			GatewayNetworkID: getResp.ID,
 			Zone:             getResp.Zone,
-			Timeout:          scw.TimeDurationPtr(gatewayActionTimeout),
+			Timeout:          new(gatewayActionTimeout),
 			RetryInterval:    core.DefaultRetryInterval,
 		})
 	}
@@ -44,13 +44,14 @@ func gatewayNetworkDeleteBuilder(c *core.Command) *core.Command {
 		gwNetwork, err := api.WaitForGatewayNetwork(&vpcgw.WaitForGatewayNetworkRequest{
 			GatewayNetworkID: getResp.GatewayNetworkID,
 			Zone:             getResp.Zone,
-			Timeout:          scw.TimeDurationPtr(gatewayActionTimeout),
+			Timeout:          new(gatewayActionTimeout),
 			RetryInterval:    core.DefaultRetryInterval,
 		})
 		if err != nil {
 			notFoundError := &scw.ResourceNotFoundError{}
-			responseError := &scw.ResponseError{}
-			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound ||
+			if responseError, ok := errors.AsType[*scw.ResponseError](
+				err,
+			); ok && responseError.StatusCode == http.StatusNotFound ||
 				errors.As(err, &notFoundError) {
 				return &core.SuccessResult{
 					Resource: "gateway-network",

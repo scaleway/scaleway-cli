@@ -43,10 +43,6 @@ func versionMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 			Title:     "Available CNIs",
 		},
 		{
-			FieldName: "AvailableContainerRuntimes",
-			Title:     "Available Container Runtimes",
-		},
-		{
 			FieldName: "AvailableFeatureGates",
 			Title:     "Available Feature Gates",
 		},

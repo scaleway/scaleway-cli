@@ -27,7 +27,7 @@ func secretVersionCreateBuilder(c *core.Command) *core.Command {
 }
 
 func secretVersionAccessBuilder(c *core.Command) *core.Command {
-	c.ArgsType = reflect.TypeOf(customAccessSecretVersionRequest{})
+	c.ArgsType = reflect.TypeFor[customAccessSecretVersionRequest]()
 
 	c.ArgSpecs.AddBefore("region", &core.ArgSpec{
 		Name:  "field",

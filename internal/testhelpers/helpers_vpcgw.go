@@ -2,7 +2,7 @@ package testhelpers
 
 import (
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v2"
 )
 
 func CreateGateway(metakey string) core.BeforeFunc {

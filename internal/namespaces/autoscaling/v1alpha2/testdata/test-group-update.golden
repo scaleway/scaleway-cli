@@ -1,0 +1,58 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID           019fd720-7a09-7381-a969-32e9a7ef383b
+ProjectID    fa1e3217-dc80-42ac-85c3-3f034b78b552
+Name         cli-asg-adoring-heisenberg
+CreatedAt    few seconds ago
+UpdatedAt    few seconds ago
+Status       active
+CurrentSize  0
+TargetSize   0
+TemplateID   5ab3e2a8-9624-4711-bfe2-a5706945f171
+
+Tags:
+[tags were updated]
+
+Scaling Policy:
+MinimumSize                 0
+MaximumSize                 25
+ScaleOutCooldown            1 minutes
+ScaleInCooldown             1 minutes
+ScaleInStep                 1
+ScaleOutStep                5
+CPUTarget.TargetAvgPercent  70
+
+Open Alerts:
+TYPE  OPENED AT  CLOSED AT  GROUP ID  FAILING QUOTAS
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "019fd720-7a09-7381-a969-32e9a7ef383b",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "name": "cli-asg-adoring-heisenberg",
+  "tags": [
+    "tags",
+    "were",
+    "updated"
+  ],
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "status": "active",
+  "open_alerts": [],
+  "current_size": 0,
+  "target_size": 0,
+  "last_scale_out_at": null,
+  "last_scale_in_at": null,
+  "template_id": "5ab3e2a8-9624-4711-bfe2-a5706945f171",
+  "scaling_policy": {
+    "minimum_size": 0,
+    "maximum_size": 25,
+    "scale_out_cooldown": "60.000000000s",
+    "scale_in_cooldown": "60.000000000s",
+    "scale_in_step": 1,
+    "scale_out_step": 5,
+    "cpu_target": {
+      "target_avg_percent": 70
+    }
+  },
+  "load_balancer_configuration": null
+}

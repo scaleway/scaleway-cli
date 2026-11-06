@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Delete one or more ACL rules of a Database Instance.
 
 USAGE:
@@ -11,10 +11,12 @@ ARGS:
   [region=fr-par]   Region to target. If none is passed will use default region from the config
 
 FLAGS:
-  -h, --help   help for delete
-  -w, --wait   wait until the acl is ready
+  -h, --help                help for delete
+      --list-sub-commands   List all subcommands
+  -w, --wait                wait until the acl is ready
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"regexp"
+	"strings"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -117,7 +118,15 @@ func checkContextFile(t *testing.T, ctx *core.CheckFuncCtx) {
 	if !mnq.FileExists(expectedContextFile) {
 		t.Errorf("Expected credentials file not found expected [%s]", expectedContextFile)
 	} else {
-		ctx.Meta["deleteFiles"] = []string{expectedContextFile}
+		filesToDelete := []string{expectedContextFile}
+		dir := filepath.Dir(expectedContextFile)
+		entries, _ := os.ReadDir(dir)
+		for _, entry := range entries {
+			if strings.HasSuffix(entry.Name(), ".creds") {
+				filesToDelete = append(filesToDelete, filepath.Join(dir, entry.Name()))
+			}
+		}
+		ctx.Meta["deleteFiles"] = filesToDelete
 	}
 }
 

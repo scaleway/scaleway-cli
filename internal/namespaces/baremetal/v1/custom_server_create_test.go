@@ -1,7 +1,6 @@
 package baremetal_test
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -11,56 +10,30 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var (
-	offerNameNVME = getenv("OFFER_NAME_NVME", "EM-I215E-NVME")
-	offerNameSATA = getenv("OFFER_NAME_SATA", "EM-B111X-SATA")
-	zone          = getenv("zone", "fr-par-2")
-)
+var zone = scw.Zone(getenv("zone", "fr-par-2"))
 
 // All test below should succeed to create an instance.
 func Test_CreateServer(t *testing.T) {
 	// Simple use cases
 	t.Run("Simple", func(t *testing.T) {
 		t.Run("Default", core.Test(&core.TestConfig{
-			Commands: baremetal.GetCommands(),
-			BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-				api := baremetalSDK.NewAPI(ctx.Client)
-				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
-					OfferName: offerNameNVME,
-					Zone:      scw.Zone(zone),
-				})
-				if server.Stock != baremetalSDK.OfferStockAvailable {
-					return errors.New("offer out of stock")
-				}
-
-				return nil
-			},
-			Cmd: "scw baremetal server create zone=" + zone + " type=" + offerNameNVME + " -w",
+			Commands:   baremetal.GetCommands(),
+			BeforeFunc: selectOffer(zone, offerFilterAvailable),
+			Cmd:        "scw baremetal server create zone={{ .Offer.Zone }} type={{ .Offer.Name }} -w",
 			Check: core.TestCheckCombine(
 				core.TestCheckGolden(),
 				core.TestCheckExitCode(0),
 			),
 			AfterFunc: core.ExecAfterCmd(
-				"scw baremetal server delete {{ .CmdResult.ID }} zone=" + zone,
+				"scw baremetal server delete {{ .CmdResult.ID }} zone={{ .CmdResult.Zone }}",
 			),
 		},
 		))
 
 		t.Run("With name", core.Test(&core.TestConfig{
-			Commands: baremetal.GetCommands(),
-			BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-				api := baremetalSDK.NewAPI(ctx.Client)
-				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
-					OfferName: offerNameNVME,
-					Zone:      scw.Zone(zone),
-				})
-				if server.Stock != baremetalSDK.OfferStockAvailable {
-					return errors.New("offer out of stock")
-				}
-
-				return nil
-			},
-			Cmd: "scw baremetal server create name=test-create-server-with-name zone=" + zone + " type=" + offerNameNVME + " -w",
+			Commands:   baremetal.GetCommands(),
+			BeforeFunc: selectOffer(zone, offerFilterAvailable),
+			Cmd:        "scw baremetal server create name=test-create-server-with-name zone={{ .Offer.Zone }} type={{ .Offer.Name }} -w",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
@@ -73,25 +46,14 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 			),
 			AfterFunc: core.ExecAfterCmd(
-				"scw baremetal server delete {{ .CmdResult.ID }} zone=" + zone,
+				"scw baremetal server delete {{ .CmdResult.ID }} zone={{ .CmdResult.Zone }}",
 			),
 		}))
 
 		t.Run("Tags", core.Test(&core.TestConfig{
-			Commands: baremetal.GetCommands(),
-			BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-				api := baremetalSDK.NewAPI(ctx.Client)
-				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
-					OfferName: offerNameNVME,
-					Zone:      scw.Zone(zone),
-				})
-				if server.Stock != baremetalSDK.OfferStockAvailable {
-					return errors.New("offer out of stock")
-				}
-
-				return nil
-			},
-			Cmd: "scw baremetal server create tags.0=prod tags.1=blue zone=" + zone + " type=" + offerNameNVME + " -w",
+			Commands:   baremetal.GetCommands(),
+			BeforeFunc: selectOffer(zone, offerFilterAvailable),
+			Cmd:        "scw baremetal server create tags.0=prod tags.1=blue zone={{ .Offer.Zone }} type={{ .Offer.Name }} -w",
 			Check: core.TestCheckCombine(
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
@@ -101,7 +63,7 @@ func Test_CreateServer(t *testing.T) {
 				core.TestCheckExitCode(0),
 			),
 			AfterFunc: core.ExecAfterCmd(
-				"scw baremetal server delete {{ .CmdResult.ID }} zone=" + zone,
+				"scw baremetal server delete {{ .CmdResult.ID }} zone={{ .CmdResult.Zone }}",
 			),
 		}))
 	})

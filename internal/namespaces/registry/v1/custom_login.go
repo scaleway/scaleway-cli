@@ -23,7 +23,7 @@ func registryLoginCommand() *core.Command {
 You will need to have the chosen binary installed on your system and in your PATH.`,
 		Namespace: "registry",
 		Resource:  "login",
-		ArgsType:  reflect.TypeOf(registryLoginArgs{}),
+		ArgsType:  reflect.TypeFor[registryLoginArgs](),
 		ArgSpecs: []*core.ArgSpec{
 			{
 				Name:       "program",
@@ -33,7 +33,8 @@ You will need to have the chosen binary installed on your system and in your PAT
 			},
 			core.RegionArgSpec(scw.AllRegions...),
 		},
-		Run: registryLoginRun,
+		Run:            registryLoginRun,
+		ExcludeFromMCP: true,
 	}
 }
 

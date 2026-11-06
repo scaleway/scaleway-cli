@@ -23,7 +23,7 @@ func dnsRecordSetCommand() *core.Command {
 		Namespace: "dns",
 		Verb:      "set",
 		Resource:  "record",
-		ArgsType:  reflect.TypeOf(dnsRecordSetRequest{}),
+		ArgsType:  reflect.TypeFor[dnsRecordSetRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",

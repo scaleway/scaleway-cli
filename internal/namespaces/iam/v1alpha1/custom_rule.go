@@ -21,7 +21,7 @@ func iamRuleCreateCommand() *core.Command {
 		Resource:  "rule",
 		Verb:      "create",
 		Short:     "Create a rule for a specific IAM policy",
-		ArgsType:  reflect.TypeOf(iamRuleCreateCommandRequest{}),
+		ArgsType:  reflect.TypeFor[iamRuleCreateCommandRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "policy-id",
@@ -99,7 +99,7 @@ func iamRuleDeleteCommand() *core.Command {
 		Resource:  "rule",
 		Verb:      "delete",
 		Short:     "Delete a rule for a specific IAM policy",
-		ArgsType:  reflect.TypeOf(iamRuleDeleteCommandRequest{}),
+		ArgsType:  reflect.TypeFor[iamRuleDeleteCommandRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "policy-id",

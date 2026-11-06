@@ -1,6 +1,7 @@
 package alias_test
 
 import (
+	"context"
 	"errors"
 	"strings"
 	"testing"
@@ -17,14 +18,14 @@ func Test_Alias(t *testing.T) {
 			core.ExecBeforeCmd("scw alias create i command=instance"),
 			core.ExecBeforeCmdArgs([]string{"scw", "alias", "create", "sl", "command=server list"}),
 		),
-		Commands:      commands.GetCommands(),
+		Commands:      commands.GetCommands(context.Background()),
 		Cmd:           "scw i sl -h",
 		EnableAliases: true,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				assert.Contains(t, string(ctx.Stderr), "instance server list")
+				assert.Contains(t, string(ctx.Stdout), "instance server list")
 			},
 		),
 		TmpHomeDir: true,
@@ -36,14 +37,14 @@ func Test_Alias(t *testing.T) {
 			core.ExecBeforeCmd("scw alias create s command=server"),
 			core.ExecBeforeCmd("scw alias create l command=list"),
 		),
-		Commands:      commands.GetCommands(),
+		Commands:      commands.GetCommands(context.Background()),
 		Cmd:           "scw i s l -h",
 		EnableAliases: true,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				assert.Contains(t, string(ctx.Stderr), "instance server list")
+				assert.Contains(t, string(ctx.Stdout), "instance server list")
 			},
 		),
 		TmpHomeDir: true,
@@ -53,7 +54,7 @@ func Test_Alias(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecBeforeCmd("scw alias create myalias command=iam"),
 		),
-		Commands:      commands.GetCommands(),
+		Commands:      commands.GetCommands(context.Background()),
 		Cmd:           "scw alias list",
 		EnableAliases: true,
 		Check: core.TestCheckCombine(
@@ -71,7 +72,7 @@ func Test_Alias(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecBeforeCmd("scw alias create i command=instance"),
 		),
-		Commands:      commands.GetCommands(),
+		Commands:      commands.GetCommands(context.Background()),
 		Cmd:           "scw alias delete i",
 		EnableAliases: true,
 		AfterFunc: core.AfterFuncCombine(

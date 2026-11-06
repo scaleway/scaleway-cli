@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 USAGE:
   scw jobs definition <command>
 
@@ -8,13 +8,15 @@ AVAILABLE COMMANDS:
   delete      Delete an existing job definition by its unique identifier
   get         Get a job definition by its unique identifier
   list        List all your job definitions with filters
-  start       Run an existing job definition by its unique identifier. This will create a new job run
+  start       Run an existing job definition using its unique identifier and create a new job run
   update      Update an existing job definition associated with the specified unique identifier
 
 FLAGS:
-  -h, --help   help for definition
+  -h, --help                help for definition
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

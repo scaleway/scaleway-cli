@@ -1,21 +1,24 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Create a new DNS stage. You must specify the `fqdns` field to customize the domain endpoint, using a domain you already own.
 
 USAGE:
   scw edge-services dns-stage create [arg=value ...]
 
 ARGS:
-  [fqdns.{index}]      Fully Qualified Domain Name (in the format subdomain.example.com) to attach to the stage
+  [fqdns.{index}]      Custom Fully Qualified Domain Name to be configured (only 1 FQDN can be setup for now)
   [tls-stage-id]       TLS stage ID the DNS stage will be linked to
   [cache-stage-id]     Cache stage ID the DNS stage will be linked to
   [backend-stage-id]   Backend stage ID the DNS stage will be linked to
   pipeline-id          Pipeline ID the DNS stage belongs to
+  [wildcard-domain]    Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work)
 
 FLAGS:
-  -h, --help   help for create
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

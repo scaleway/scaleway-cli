@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 By default, all routes across the Site-to-Site VPN (between VPN gateway and customer gateway) are blocked. Routing policies allow you to set filters to define the IP prefixes to allow.
 
 USAGE:
@@ -13,9 +13,11 @@ AVAILABLE COMMANDS:
   update      Update a routing policy
 
 FLAGS:
-  -h, --help   help for routing-policy
+  -h, --help                help for routing-policy
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

@@ -39,7 +39,7 @@ It avoid running docker login commands.
 `,
 		Namespace: "registry",
 		Resource:  "install-docker-helper",
-		ArgsType:  reflect.TypeOf(registrySetupDockerHelperArgs{}),
+		ArgsType:  reflect.TypeFor[registrySetupDockerHelperArgs](),
 		ArgSpecs: []*core.ArgSpec{
 			{
 				Name:    "path",
@@ -55,7 +55,8 @@ It avoid running docker login commands.
 				},
 			},
 		},
-		Run: registrySetupDockerHelperRun,
+		Run:            registrySetupDockerHelperRun,
+		ExcludeFromMCP: true,
 	}
 }
 
@@ -95,11 +96,13 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI any) (i any, e erro
 
 	// Early exit if user disagrees
 	_, _ = interactive.Println()
-	continueInstallation, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-		Ctx:          ctx,
-		Prompt:       "Do you want to proceed with these changes?",
-		DefaultValue: true,
-	})
+	continueInstallation, err := interactive.PromptBoolWithConfig(
+		ctx,
+		&interactive.PromptBoolConfig{
+			Prompt:       "Do you want to proceed with these changes?",
+			DefaultValue: true,
+		},
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -173,7 +176,7 @@ func registryDockerHelperGetCommand() *core.Command {
 		Namespace: "registry",
 		Resource:  "docker-helper",
 		Verb:      "get",
-		ArgsType:  reflect.TypeOf(emptyRequest{}),
+		ArgsType:  reflect.TypeFor[emptyRequest](),
 		Run:       registryDockerHelperGetRun,
 	}
 }
@@ -224,7 +227,7 @@ func registryDockerHelperStoreCommand() *core.Command {
 		Namespace: "registry",
 		Resource:  "docker-helper",
 		Verb:      "store",
-		ArgsType:  reflect.TypeOf(emptyRequest{}),
+		ArgsType:  reflect.TypeFor[emptyRequest](),
 		Run: func(_ context.Context, _ any) (i any, e error) {
 			return nil, nil
 		},
@@ -237,7 +240,7 @@ func registryDockerHelperEraseCommand() *core.Command {
 		Namespace: "registry",
 		Resource:  "docker-helper",
 		Verb:      "erase",
-		ArgsType:  reflect.TypeOf(emptyRequest{}),
+		ArgsType:  reflect.TypeFor[emptyRequest](),
 		ArgSpecs: []*core.ArgSpec{
 			{},
 		},
@@ -253,7 +256,7 @@ func registryDockerHelperListCommand() *core.Command {
 		Namespace: "registry",
 		Resource:  "docker-helper",
 		Verb:      "list",
-		ArgsType:  reflect.TypeOf(emptyRequest{}),
+		ArgsType:  reflect.TypeFor[emptyRequest](),
 		Run: func(_ context.Context, _ any) (i any, e error) {
 			registryEndpoints := make(map[string]string)
 			for _, region := range scw.AllRegions {

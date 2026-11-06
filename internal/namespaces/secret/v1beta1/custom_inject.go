@@ -33,10 +33,10 @@ func secretInjectCommand() *core.Command {
 		Short: `Inject Scaleway secrets into a template`,
 		Long: `Render a Go template (text/template) in which the ` + "`secret`" + ` function resolves secret references.
 
-  {{ secret "REFERENCE" }}                    secret value
-  {{ secret "REFERENCE" | jsonField "KEY" }}  string field of a JSON-encoded secret
+- ` + "`{{ secret \"REFERENCE\" }}`" + `: secret value
+- ` + "`{{ secret \"REFERENCE\" | jsonField \"KEY\" }}`" + `: string field of a JSON-encoded secret
 
-REFERENCE is (UUID|[PATH/]NAME)[@REVISION], REVISION being an integer, "latest" (default) or "latest_enabled".
+REFERENCE is ` + "`(UUID|[PATH/]NAME)[@REVISION]`" + `, REVISION being an integer, "latest" (default) or "latest_enabled".
 
 The rendered template is written to stdout.`,
 		Namespace: "secret", //nolint:goconst
@@ -48,7 +48,8 @@ The rendered template is written to stdout.`,
 				Short:       "Template to render (default: stdin)",
 				CanLoadFile: true,
 			},
-			core.RegionArgSpec(scw.AllRegions...),
+			// scw.AllRegions includes regions without Secret Manager.
+			secretVersionAccess().ArgSpecs.GetByName("region"),
 		},
 		Groups: []string{"security"},
 		Run:    secretInjectRun,
@@ -83,6 +84,7 @@ func secretInjectRun(ctx context.Context, argsI any) (any, error) {
 	}
 
 	resolver := &secretResolver{
+		ctx:    ctx,
 		api:    secret.NewAPI(core.ExtractClient(ctx)),
 		region: args.Region,
 		cache:  map[string]secretResult{},
@@ -113,6 +115,7 @@ type secretResult struct {
 }
 
 type secretResolver struct {
+	ctx    context.Context //nolint:containedctx // template funcs cannot take a context
 	api    *secret.API
 	region scw.Region
 	mu     sync.Mutex
@@ -180,11 +183,11 @@ func (r *secretResolver) fetch(ref string) (string, error) {
 			Region:   r.region,
 			SecretID: id,
 			Revision: revision,
-		})
+		}, scw.WithContext(r.ctx))
 	} else {
 		path, name := "/", id
-		if idx := strings.LastIndex(id, "/"); idx != -1 {
-			path, name = "/"+strings.Trim(id[:idx], "/"), id[idx+1:]
+		if dir, base, found := strings.CutLast(id, "/"); found {
+			path, name = "/"+strings.Trim(dir, "/"), base
 		}
 
 		if name == "" {
@@ -196,7 +199,7 @@ func (r *secretResolver) fetch(ref string) (string, error) {
 			SecretPath: path,
 			SecretName: name,
 			Revision:   revision,
-		})
+		}, scw.WithContext(r.ctx))
 	}
 
 	if err != nil {

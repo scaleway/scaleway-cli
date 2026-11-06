@@ -58,9 +58,6 @@ type BootstrapConfig struct {
 	// This function is intended to be use for tests purposes.
 	OverrideExec OverrideExecFunc
 
-	// BaseContest is the base context that will be used across all function call from top to bottom.
-	Ctx context.Context
-
 	// Optional we use it if defined
 	Logger *Logger
 
@@ -78,9 +75,10 @@ type BootstrapConfig struct {
 // Bootstrap is the main entry point. It is directly called from main.
 // BootstrapConfig.Args is usually os.Args
 // BootstrapConfig.Commands is a list of command available in CLI.
-func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
+func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, result any, err error) {
 	// Handles Flags
 	var debug bool
+	var betaFlag bool
 	var profileFlag string
 	var configPathFlag string
 	var outputFlag string
@@ -96,6 +94,13 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 		"Output format: json or human",
 	)
 	flags.BoolVarP(&debug, "debug", "D", os.Getenv("SCW_DEBUG") == "true", "Enable debug mode")
+	flags.BoolVarP(
+		&betaFlag,
+		"beta",
+		"B",
+		os.Getenv(scw.ScwEnableBeta) == "true",
+		"Enable beta mode",
+	)
 	// Ignore unknown flag
 	flags.ParseErrorsWhitelist.UnknownFlags = true
 	// Make sure usage is never print by the parse method. (It should only be print by cobra)
@@ -108,6 +113,14 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 	// Furthermore additional flag can be added on a per-command basis inside cobra
 	// parse would fail as these flag are not known at this time.
 	_ = flags.Parse(config.Args)
+
+	// The --beta flag enables beta namespaces and features. It overrides the
+	// SCW_ENABLE_BETA environment variable when set. We keep config.BetaMode as
+	// is when the flag is not set so that callers (e.g. main.go) that already
+	// resolved beta mode before calling Bootstrap are respected.
+	if betaFlag {
+		config.BetaMode = true
+	}
 
 	// If debug flag is set enable debug mode in SDK logger
 	logLevel := logger.LogLevelWarning
@@ -202,10 +215,12 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 		meta.OverrideExec = defaultOverrideExec
 	}
 
-	ctx := config.Ctx
+	// Keep Bootstrap resilient to callers passing a nil context.
+	// Context injection helpers commonly rely on context.WithValue, which panics on nil parents.
 	if ctx == nil {
-		ctx = context.Background()
+		ctx = context.Background() //nolint: contextcheck
 	}
+
 	ctx = account.InjectHTTPClient(ctx, httpClient)
 	ctx = InjectMeta(ctx, meta)
 
@@ -248,10 +263,12 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 	builder := cobraBuilder{
 		commands: config.Commands,
 		meta:     meta,
-		ctx:      ctx,
 	}
 
 	rootCmd := builder.build()
+
+	// Set the context with Meta on the root command and all subcommands
+	setContextOnCommandAndChildren(rootCmd, ctx)
 
 	// ShellMode
 	if len(config.Args) >= 2 && config.Args[1] == "shell" {
@@ -275,6 +292,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 	rootCmd.PersistentFlags().
 		StringVarP(&outputFlag, "output", "o", cliConfig.DefaultOutput, "Output format: json or human, see 'scw help output' for more info")
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
+	rootCmd.PersistentFlags().BoolVarP(&betaFlag, "beta", "B", false, "Enable beta mode")
 	rootCmd.SetArgs(args)
 	rootCmd.SetHelpCommand(&cobra.Command{Hidden: true})
 	err = rootCmd.Execute()
@@ -306,4 +324,12 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 
 func (config *BootstrapConfig) DebugString() string {
 	return strings.Join(config.Args, " ")
+}
+
+// setContextOnCommandAndChildren sets the context on a command and all its subcommands
+func setContextOnCommandAndChildren(cmd *cobra.Command, ctx context.Context) {
+	cmd.SetContext(ctx)
+	for _, subCmd := range cmd.Commands() {
+		setContextOnCommandAndChildren(subCmd, ctx)
+	}
 }

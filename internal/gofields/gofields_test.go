@@ -166,58 +166,58 @@ func TestGetType(t *testing.T) {
 	}
 
 	t.Run("Simple", run(&TestCase{
-		Data:     reflect.TypeOf(&User{}),
+		Data:     reflect.TypeFor[*User](),
 		Path:     "Name",
-		Expected: reflect.TypeOf(""),
+		Expected: reflect.TypeFor[string](),
 	}))
 
 	t.Run("Nested", run(&TestCase{
-		Data:     reflect.TypeOf(&User{}),
+		Data:     reflect.TypeFor[*User](),
 		Path:     "Address.Zip",
-		Expected: reflect.TypeOf(""),
+		Expected: reflect.TypeFor[string](),
 	}))
 	t.Run("Slice", run(&TestCase{
-		Data:     reflect.TypeOf(&User{}),
+		Data:     reflect.TypeFor[*User](),
 		Path:     "Friends.0.Name",
-		Expected: reflect.TypeOf(""),
+		Expected: reflect.TypeFor[string](),
 	}))
 	t.Run("Map", run(&TestCase{
-		Data:     reflect.TypeOf(&User{}),
+		Data:     reflect.TypeFor[*User](),
 		Path:     "Pets.rex.Name",
-		Expected: reflect.TypeOf(""),
+		Expected: reflect.TypeFor[string](),
 	}))
 	t.Run("UnknownField", run(&TestCase{
-		Data:     reflect.TypeOf(&User{}),
+		Data:     reflect.TypeFor[*User](),
 		Path:     "Unknown",
 		Expected: "field Unknown does not exist in $",
 	}))
 	t.Run("UnknownNestedField", run(&TestCase{
-		Data:     reflect.TypeOf(&User{}),
+		Data:     reflect.TypeFor[*User](),
 		Path:     "Address.Unknown",
 		Expected: "field Unknown does not exist in $.Address",
 	}))
 	t.Run("InvalidSliceIndex", run(&TestCase{
-		Data:     reflect.TypeOf(&User{}),
+		Data:     reflect.TypeFor[*User](),
 		Path:     "Friends.NotANumber",
 		Expected: "trying to access array $.Friends but NotANumber is not a numerical index",
 	}))
 	t.Run("OutOfRangeSliceIndex", run(&TestCase{
-		Data:     reflect.TypeOf(&User{}),
+		Data:     reflect.TypeFor[*User](),
 		Path:     "Friends.13.Name",
-		Expected: reflect.TypeOf(""),
+		Expected: reflect.TypeFor[string](),
 	}))
 	t.Run("UnknownMapKey", run(&TestCase{
-		Data:     reflect.TypeOf(&User{}),
+		Data:     reflect.TypeFor[*User](),
 		Path:     "Pets.unknown.Name",
-		Expected: reflect.TypeOf(""),
+		Expected: reflect.TypeFor[string](),
 	}))
 	t.Run("AnonymousField", run(&TestCase{
-		Data:     reflect.TypeOf(&User{}),
+		Data:     reflect.TypeFor[*User](),
 		Path:     "Pets.rex.Species",
-		Expected: reflect.TypeOf(""),
+		Expected: reflect.TypeFor[string](),
 	}))
 	t.Run("PrivateField", run(&TestCase{
-		Data:     reflect.TypeOf(&User{}),
+		Data:     reflect.TypeFor[*User](),
 		Path:     "Address.digicode",
 		Expected: "field digicode is private in $.Address",
 	}))
@@ -238,7 +238,7 @@ func TestListFields(t *testing.T) {
 	}
 
 	t.Run("Simple", run(&TestCase{
-		Data: reflect.TypeOf(&User{}),
+		Data: reflect.TypeFor[*User](),
 		Expected: []string{
 			"Name",
 			"Address.Zip",
@@ -265,7 +265,7 @@ func TestListFieldsWithFilter(t *testing.T) {
 	}
 
 	t.Run("Simple", run(&TestCase{
-		Data:     reflect.TypeOf(&User{}),
+		Data:     reflect.TypeFor[*User](),
 		Expected: []string{"Address.Zip"},
 		Filter: func(_ reflect.Type, s string) bool {
 			return strings.Contains(s, "Zip")

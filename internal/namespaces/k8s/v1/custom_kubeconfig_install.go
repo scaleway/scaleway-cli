@@ -32,7 +32,7 @@ It will merge the new kubeconfig in the file pointed by the KUBECONFIG variable.
 		Namespace: "k8s",
 		Verb:      "install",
 		Resource:  "kubeconfig",
-		ArgsType:  reflect.TypeOf(k8sKubeconfigInstallRequest{}),
+		ArgsType:  reflect.TypeFor[k8sKubeconfigInstallRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -74,6 +74,7 @@ It will merge the new kubeconfig in the file pointed by the KUBECONFIG variable.
 				Short:   "Uninstall a kubeconfig",
 			},
 		},
+		ExcludeFromMCP: true, // Shell-centric command
 	}
 }
 
@@ -86,9 +87,10 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI any) (i any, e error) {
 		GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
 			Region:    request.Region,
 			ClusterID: request.ClusterID,
-			Redacted: scw.BoolPtr(
+			Redacted: new(
 				request.AuthMethod != authMethodLegacy,
 			), // put true after legacy deprecation
+			Endpoint: k8s.GetClusterKubeConfigRequestEndpointPublic,
 		})
 	if err != nil {
 		return nil, err

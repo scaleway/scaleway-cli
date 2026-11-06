@@ -38,7 +38,7 @@ func instanceServerGetRdpPassword() *core.Command {
 		Namespace: "instance",
 		Verb:      "get-rdp-password",
 		Resource:  "server",
-		ArgsType:  reflect.TypeOf(instanceServerGetRdpPasswordRequest{}),
+		ArgsType:  reflect.TypeFor[instanceServerGetRdpPasswordRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -168,13 +168,11 @@ func parsePrivateKey(ctx context.Context, key []byte) (any, error) {
 		return privateKey, nil
 	}
 	// Key may need a passphrase
-	missingPassphraseError := &ssh.PassphraseMissingError{}
-	if !errors.As(err, &missingPassphraseError) {
+	if _, ok := errors.AsType[*ssh.PassphraseMissingError](err); !ok {
 		return nil, fmt.Errorf("failed to parse private key: %w", err)
 	}
 
-	passphrase, err := interactive.PromptPasswordWithConfig(&interactive.PromptPasswordConfig{
-		Ctx:    ctx,
+	passphrase, err := interactive.PromptPasswordWithConfig(ctx, &interactive.PromptPasswordConfig{
 		Prompt: "passphrase",
 	})
 	if err != nil {

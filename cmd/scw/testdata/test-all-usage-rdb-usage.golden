@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 This API allows you to manage your Managed Databases for PostgreSQL and MySQL.
 
 USAGE:
@@ -8,6 +8,7 @@ USAGE:
 AVAILABLE COMMANDS:
   acl          Access Control List (ACL) management commands
   backup       Backup management commands
+  config       Database client configuration snippets
   database     Database management commands
   endpoint     Endpoint management
   engine       Database engines commands
@@ -21,9 +22,11 @@ AVAILABLE COMMANDS:
   user         User management commands
 
 FLAGS:
-  -h, --help   help for rdb
+  -h, --help                help for rdb
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

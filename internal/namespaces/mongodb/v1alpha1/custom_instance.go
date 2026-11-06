@@ -66,7 +66,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		return api.WaitForInstance(&mongodb.WaitForInstanceRequest{
 			InstanceID:    getResp.ID,
 			Region:        getResp.Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
@@ -138,14 +138,14 @@ func instanceWaitCommand() *core.Command {
 		Resource:  "instance",
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
+		ArgsType:  reflect.TypeFor[serverWaitRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := mongodb.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForInstance(&mongodb.WaitForInstanceRequest{
 				Region:        argsI.(*serverWaitRequest).Region,
 				InstanceID:    argsI.(*serverWaitRequest).InstanceID,
-				Timeout:       scw.TimeDurationPtr(argsI.(*serverWaitRequest).Timeout),
+				Timeout:       new(argsI.(*serverWaitRequest).Timeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},

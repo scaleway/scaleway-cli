@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"reflect"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -103,7 +104,7 @@ func validateRequiredArgs(cmd *Command, cmdArgs any, rawArgs args.RawArgs) error
 				err.Error(),
 			)
 			if !arg.Required {
-				logger.Infof(validationErr.Error())
+				logger.Infof("%v", validationErr.Error())
 
 				continue
 			}
@@ -178,7 +179,7 @@ func validateDeprecated(
 				err.Error(),
 			)
 			if !arg.Required {
-				logger.Infof(validationErr.Error())
+				logger.Infof("%v", validationErr.Error())
 
 				continue
 			}
@@ -187,7 +188,7 @@ func validateDeprecated(
 
 		for i := range fieldValues {
 			if rawArgs.ExistsArgByName(strings.Replace(arg.Name, "{index}", strconv.Itoa(i), 1)) {
-				helpCmd := cmd.GetCommandLine(extractMeta(ctx).BinaryName) + " --help"
+				helpCmd := cmd.GetCommandLine(ExtractMeta(ctx).BinaryName) + " --help"
 				ExtractLogger(
 					ctx,
 				).Warningf("The argument '%s' is deprecated, more info with: %s\n", arg.Name, helpCmd)
@@ -225,13 +226,7 @@ func DefaultArgSpecValidateFunc() ArgSpecValidateFunc {
 }
 
 func stringExists(strs []string, s string) bool {
-	for _, s2 := range strs {
-		if s == s2 {
-			return true
-		}
-	}
-
-	return false
+	return slices.Contains(strs, s)
 }
 
 // ValidateSecretKey validates a secret key ID.
@@ -354,7 +349,7 @@ func (m *OneOfGroupManager) ValidateUniqueOneOfGroups(
 					err.Error(),
 				)
 				if m.RequiredGroups[groupName] {
-					logger.Infof(validationErr.Error())
+					logger.Infof("%v", validationErr.Error())
 
 					continue
 				}

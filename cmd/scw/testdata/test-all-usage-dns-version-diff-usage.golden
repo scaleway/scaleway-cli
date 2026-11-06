@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Access a previous DNS zone version to see the differences from another specific version.
 
 USAGE:
@@ -9,9 +9,11 @@ ARGS:
   dns-zone-version-id   
 
 FLAGS:
-  -h, --help   help for diff
+  -h, --help                help for diff
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

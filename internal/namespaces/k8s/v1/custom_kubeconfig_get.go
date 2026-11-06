@@ -24,7 +24,7 @@ func k8sKubeconfigGetCommand() *core.Command {
 		Namespace: "k8s",
 		Verb:      "get",
 		Resource:  "kubeconfig",
-		ArgsType:  reflect.TypeOf(k8sKubeconfigGetRequest{}),
+		ArgsType:  reflect.TypeFor[k8sKubeconfigGetRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -72,9 +72,10 @@ func k8sKubeconfigGetRun(ctx context.Context, argsI any) (i any, e error) {
 		GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
 			Region:    request.Region,
 			ClusterID: request.ClusterID,
-			Redacted: scw.BoolPtr(
+			Redacted: new(
 				request.AuthMethod != authMethodLegacy,
 			), // put true after legacy deprecation
+			Endpoint: k8s.GetClusterKubeConfigRequestEndpointPublic,
 		})
 	if err != nil {
 		return nil, err

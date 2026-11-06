@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 A customer gateway represents a Scaleway client's device that communicates with a VPN gateway.
 
 USAGE:
@@ -13,9 +13,11 @@ AVAILABLE COMMANDS:
   update      Update a customer gateway
 
 FLAGS:
-  -h, --help   help for customer-gateway
+  -h, --help                help for customer-gateway
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

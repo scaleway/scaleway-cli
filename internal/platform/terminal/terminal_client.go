@@ -66,7 +66,7 @@ func (p *Platform) CreateClient(
 		logger.Debugf("guess region from %s zone", zone)
 		region := zone[:len(zone)-2]
 		if validation.IsRegion(region) {
-			profile.DefaultRegion = scw.StringPtr(region)
+			profile.DefaultRegion = new(region)
 		} else {
 			logger.Debugf("invalid guessed region '%s'", region)
 		}
@@ -105,7 +105,7 @@ After initialization, there are three ways to provide %s:
 
 Note that the last method has the highest priority.
 
-More info: https://github.com/scaleway/scaleway-sdk-go/tree/master/scw#scaleway-config`,
+More info: https://github.com/scaleway/scaleway-sdk-go/tree/main/scw#scaleway-config`,
 		configKey,
 		configKey,
 		configKey,

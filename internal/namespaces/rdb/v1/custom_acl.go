@@ -52,7 +52,7 @@ func rdbACLCustomResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, erro
 }
 
 func aclAddBuilder(c *core.Command) *core.Command {
-	c.ArgsType = reflect.TypeOf(rdbACLAddCustomArgs{})
+	c.ArgsType = reflect.TypeFor[rdbACLAddCustomArgs]()
 	c.ArgSpecs = core.ArgSpecs{
 		{
 			Name:       "acl-rule-ips",
@@ -144,7 +144,7 @@ func aclAddBuilder(c *core.Command) *core.Command {
 		_, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
 			InstanceID:    args.InstanceID,
 			Region:        args.Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
@@ -158,7 +158,7 @@ func aclAddBuilder(c *core.Command) *core.Command {
 }
 
 func aclDeleteBuilder(c *core.Command) *core.Command {
-	c.ArgsType = reflect.TypeOf(rdbACLCustomArgs{})
+	c.ArgsType = reflect.TypeFor[rdbACLCustomArgs]()
 	c.ArgSpecs = core.ArgSpecs{
 		{
 			Name:       "acl-rule-ips",
@@ -272,7 +272,7 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 		_, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
 			InstanceID:    args.InstanceID,
 			Region:        args.Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
@@ -293,7 +293,7 @@ type rdbACLSetCustomArgs struct {
 }
 
 func aclSetBuilder(c *core.Command) *core.Command {
-	c.ArgsType = reflect.TypeOf(rdbACLSetCustomArgs{})
+	c.ArgsType = reflect.TypeFor[rdbACLSetCustomArgs]()
 	c.ArgSpecs = core.ArgSpecs{
 		{
 			Name:       "acl-rule-ips",
@@ -358,7 +358,7 @@ func aclSetBuilder(c *core.Command) *core.Command {
 		_, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
 			InstanceID:    args.InstanceID,
 			Region:        args.Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
@@ -389,7 +389,7 @@ func aclEditCommand() *core.Command {
 		Namespace: "rdb",
 		Resource:  "acl",
 		Verb:      "edit",
-		ArgsType:  reflect.TypeOf(rdbACLEditArgs{}),
+		ArgsType:  reflect.TypeFor[rdbACLEditArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",

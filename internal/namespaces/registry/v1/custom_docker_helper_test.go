@@ -37,7 +37,7 @@ func TestRegistryInstallDockerHelperCommand(t *testing.T) {
 			require.NoError(t, err)
 			assert.JSONEq(
 				t,
-				"{\n  \"credHelpers\": {\n    \"rg.fr-par.scw.cloud\": \"scw\",\n    \"rg.nl-ams.scw.cloud\": \"scw\",\n    \"rg.pl-waw.scw.cloud\": \"scw\"\n  }\n}\n",
+				"{\n  \"credHelpers\": {\n    \"rg.fr-par.scw.cloud\": \"scw\",\n    \"rg.it-mil.scw.cloud\": \"scw\",\n    \"rg.nl-ams.scw.cloud\": \"scw\",\n    \"rg.pl-waw.scw.cloud\": \"scw\"\n  }\n}\n",
 				string(dockerConfigContent),
 			)
 		},

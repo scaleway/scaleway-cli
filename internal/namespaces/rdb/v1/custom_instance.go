@@ -198,7 +198,7 @@ func instanceCloneBuilder(c *core.Command) *core.Command {
 		return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 			InstanceID:    respI.(*rdbSDK.Instance).ID,
 			Region:        respI.(*rdbSDK.Instance).Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
@@ -311,14 +311,14 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 	c.ArgSpecs.GetByName("engine").AutoCompleteFunc = autoCompleteDatabaseEngines
 
-	c.ArgsType = reflect.TypeOf(rdbCreateInstanceRequestCustom{})
+	c.ArgsType = reflect.TypeFor[rdbCreateInstanceRequestCustom]()
 
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 		instance, err := api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 			InstanceID:    respI.(CreateInstanceResult).ID,
 			Region:        respI.(CreateInstanceResult).Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
@@ -510,7 +510,7 @@ func instanceUpgradeBuilder(c *core.Command) *core.Command {
 		return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 			InstanceID:    instance.ID,
 			Region:        instance.Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
@@ -530,7 +530,7 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 		Namespace: "rdb",
 		Resource:  "instance",
 		Verb:      "update",
-		ArgsType:  reflect.TypeOf(rdbUpdateInstanceRequestCustom{}),
+		ArgsType:  reflect.TypeFor[rdbUpdateInstanceRequestCustom](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "backup-schedule-frequency",
@@ -656,20 +656,29 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 				}
 			}
 
-			updateInstanceResponse, err := api.UpdateInstance(updateInstanceRequest)
-			if err != nil {
-				return nil, err
+			// Skip empty UpdateInstance calls: after SetInstanceSettings the instance is often
+			// "configuring", and a no-op PATCH can fail intermittently.
+			if !instanceUpdateRequestHasChanges(updateInstanceRequest) {
+				return api.GetInstance(&rdbSDK.GetInstanceRequest{
+					Region:     customRequest.Region,
+					InstanceID: customRequest.InstanceID,
+				})
 			}
 
-			return updateInstanceResponse, nil
+			return api.UpdateInstance(updateInstanceRequest)
 		},
 		WaitFunc: func(ctx context.Context, _, respI any) (any, error) {
+			instance, ok := respI.(*rdbSDK.Instance)
+			if !ok || instance == nil {
+				return nil, errors.New("unexpected nil instance while waiting for update")
+			}
+
 			api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
-				InstanceID:    respI.(*rdbSDK.Instance).ID,
-				Region:        respI.(*rdbSDK.Instance).Region,
-				Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+				InstanceID:    instance.ID,
+				Region:        instance.Region,
+				Timeout:       new(instanceActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -690,20 +699,36 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 	}
 }
 
+func instanceUpdateRequestHasChanges(req *rdbSDK.UpdateInstanceRequest) bool {
+	if req == nil {
+		return false
+	}
+
+	return req.BackupScheduleFrequency != nil ||
+		req.BackupScheduleRetention != nil ||
+		req.IsBackupScheduleDisabled != nil ||
+		req.Name != nil ||
+		req.Tags != nil ||
+		req.LogsPolicy != nil ||
+		req.BackupSameRegion != nil ||
+		req.BackupScheduleStartHour != nil
+}
+
 func instanceDeleteBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 		instance, err := api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 			InstanceID:    respI.(*rdbSDK.Instance).ID,
 			Region:        respI.(*rdbSDK.Instance).Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
 			// if we get a 404 here, it means the resource was successfully deleted
 			notFoundError := &scw.ResourceNotFoundError{}
-			responseError := &scw.ResponseError{}
-			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound ||
+			if responseError, ok := errors.AsType[*scw.ResponseError](
+				err,
+			); ok && responseError.StatusCode == http.StatusNotFound ||
 				errors.As(err, &notFoundError) {
 				return instance, nil
 			}
@@ -725,14 +750,14 @@ func instanceWaitCommand() *core.Command {
 		Resource:  "instance",
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
+		ArgsType:  reflect.TypeFor[serverWaitRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 				Region:        argsI.(*serverWaitRequest).Region,
 				InstanceID:    argsI.(*serverWaitRequest).InstanceID,
-				Timeout:       scw.TimeDurationPtr(argsI.(*serverWaitRequest).Timeout),
+				Timeout:       new(argsI.(*serverWaitRequest).Timeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -906,7 +931,7 @@ func instanceConnectCommand() *core.Command {
 		Verb:      "connect",
 		Short:     "Connect to an instance using locally installed CLI",
 		Long:      "Connect to an instance using locally installed CLI such as psql or mysql.",
-		ArgsType:  reflect.TypeOf(instanceConnectArgs{}),
+		ArgsType:  reflect.TypeFor[instanceConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:     "private-network",
@@ -997,6 +1022,7 @@ func instanceConnectCommand() *core.Command {
 				Empty: true, // the program will output the success message
 			}, nil
 		},
+		ExcludeFromMCP: true,
 	}
 }
 
@@ -1014,7 +1040,7 @@ func instanceEditSettingsCommand() *core.Command {
 		Short:     "Edit Database Instance settings in your default editor",
 		Long: `This command opens the current settings of your RDB instance in your $EDITOR.
 You can modify the values and save the file to apply the new configuration.`,
-		ArgsType: reflect.TypeOf(editSettingsArgs{}),
+		ArgsType: reflect.TypeFor[editSettingsArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",

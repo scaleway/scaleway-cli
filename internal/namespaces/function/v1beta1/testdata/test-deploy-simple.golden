@@ -1,19 +1,19 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              bd4e6a89-a0cd-4d0f-8fec-1ca7553ec1d1
+ID              1eb1bff4-3ba6-4bef-a8de-6a6508c28a74
 Name            cli-test-function-deploy
-NamespaceID     05be01cf-2e0a-4834-959f-512bd21fb820
+NamespaceID     8b9efc3d-f37b-4fad-af1a-71f11ca8243a
 Status          ready
 MinScale        0
 MaxScale        5
-Runtime         go124
+Runtime         go126
 MemoryLimit     256
 CPULimit        140
 Timeout         5 minutes
 Handler         Handle
 Privacy         public
 Description     -
-DomainName      clitestfunctiondeplovcgixz1v-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud
+DomainName      clitestfunctiondeploj3ospr1i-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud
 Region          fr-par
 HTTPOption      enabled
 RuntimeMessage  -
@@ -23,14 +23,14 @@ UpdatedAt       few seconds ago
 ReadyAt         few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "bd4e6a89-a0cd-4d0f-8fec-1ca7553ec1d1",
+  "id": "1eb1bff4-3ba6-4bef-a8de-6a6508c28a74",
   "name": "cli-test-function-deploy",
-  "namespace_id": "05be01cf-2e0a-4834-959f-512bd21fb820",
+  "namespace_id": "8b9efc3d-f37b-4fad-af1a-71f11ca8243a",
   "status": "ready",
   "environment_variables": {},
   "min_scale": 0,
   "max_scale": 5,
-  "runtime": "go124",
+  "runtime": "go126",
   "memory_limit": 256,
   "cpu_limit": 140,
   "timeout": "300.000000000s",
@@ -39,7 +39,7 @@ ReadyAt         few seconds ago
   "build_message": null,
   "privacy": "public",
   "description": "",
-  "domain_name": "clitestfunctiondeplovcgixz1v-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud",
+  "domain_name": "clitestfunctiondeploj3ospr1i-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud",
   "secret_environment_variables": [],
   "region": "fr-par",
   "http_option": "enabled",

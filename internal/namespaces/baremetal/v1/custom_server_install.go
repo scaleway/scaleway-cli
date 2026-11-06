@@ -16,7 +16,7 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 		AllSSHKeys *bool
 	}
 
-	c.ArgsType = reflect.TypeOf(baremetalInstallServerRequestCustom{})
+	c.ArgsType = reflect.TypeFor[baremetalInstallServerRequestCustom]()
 
 	c.ArgSpecs.AddBefore("ssh-key-ids.{index}", &core.ArgSpec{
 		Name:       "all-ssh-keys",
@@ -57,7 +57,7 @@ func serverInstallBuilder(c *core.Command) *core.Command {
 		return api.WaitForServerInstall(&baremetal.WaitForServerInstallRequest{
 			Zone:          argsI.(*baremetalInstallServerRequestCustom).Zone,
 			ServerID:      respI.(*baremetal.Server).ID,
-			Timeout:       scw.TimeDurationPtr(ServerActionTimeout),
+			Timeout:       new(ServerActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}

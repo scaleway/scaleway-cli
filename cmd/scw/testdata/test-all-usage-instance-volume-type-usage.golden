@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 All volume types available in a specified zone.
 Each of these types will contains all the capabilities and constraints of the volume (min size, max size, snapshot).
 
@@ -10,9 +10,11 @@ AVAILABLE COMMANDS:
   list        List volume types
 
 FLAGS:
-  -h, --help   help for volume-type
+  -h, --help                help for volume-type
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

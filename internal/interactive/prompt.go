@@ -14,36 +14,40 @@ import (
 )
 
 type PromptPasswordConfig struct {
-	Ctx    context.Context
 	Prompt string
 }
 
-func PromptPasswordWithConfig(config *PromptPasswordConfig) (string, error) {
-	return Readline(&ReadlineConfig{
-		Ctx:      config.Ctx,
-		Prompt:   config.Prompt + ": ",
+func PromptPasswordWithConfig(ctx context.Context, config *PromptPasswordConfig) (string, error) {
+	return PromptPassword(ctx, config.Prompt)
+}
+
+func PromptPassword(ctx context.Context, prompt string) (string, error) {
+	return Readline(ctx, &ReadlineConfig{
+		Prompt:   prompt + ": ",
 		Password: true,
 	})
 }
 
 type PromptBoolConfig struct {
-	Ctx          context.Context
 	Prompt       string
 	DefaultValue bool
 }
 
-func PromptBoolWithConfig(config *PromptBoolConfig) (bool, error) {
+func PromptBoolWithConfig(ctx context.Context, config *PromptBoolConfig) (bool, error) {
+	return PromptBool(ctx, config.Prompt, config.DefaultValue)
+}
+
+func PromptBool(ctx context.Context, prompt string, defaultValue bool) (bool, error) {
 	for {
-		prompt := terminal.Style(config.Prompt, color.Bold)
-		if config.DefaultValue {
-			prompt += " (Y/n): "
+		promptText := terminal.Style(prompt, color.Bold)
+		if defaultValue {
+			promptText += " (Y/n): "
 		} else {
-			prompt += " (y/N): "
+			promptText += " (y/N): "
 		}
 
-		str, err := Readline(&ReadlineConfig{
-			Ctx:    config.Ctx,
-			Prompt: prompt,
+		str, err := Readline(ctx, &ReadlineConfig{
+			Prompt: promptText,
 		})
 		if err != nil {
 			return false, err
@@ -51,7 +55,7 @@ func PromptBoolWithConfig(config *PromptBoolConfig) (bool, error) {
 
 		switch strings.ToLower(str) {
 		case "":
-			return config.DefaultValue, nil
+			return defaultValue, nil
 		case "y", "yes":
 			return true, nil
 		case "n", "no":
@@ -62,31 +66,45 @@ func PromptBoolWithConfig(config *PromptBoolConfig) (bool, error) {
 }
 
 type PromptStringConfig struct {
-	Ctx             context.Context
 	Prompt          string
 	DefaultValue    string
 	DefaultValueDoc string
 	ValidateFunc    ValidateFunc
 }
 
-func PromptStringWithConfig(config *PromptStringConfig) (string, error) {
-	prompt := terminal.Style(config.Prompt, color.Bold)
-	if config.DefaultValue != "" {
-		prompt += terminal.Style(" (default: "+config.DefaultValueDoc+")", color.Italic)
-	}
-	prompt += ": "
+func PromptStringWithConfig(ctx context.Context, config *PromptStringConfig) (string, error) {
+	return PromptString(
+		ctx,
+		config.Prompt,
+		config.DefaultValue,
+		config.DefaultValueDoc,
+		config.ValidateFunc,
+	)
+}
 
-	v, err := Readline(&ReadlineConfig{
-		Ctx:          config.Ctx,
-		Prompt:       prompt,
-		ValidateFunc: config.ValidateFunc,
-		DefaultValue: config.DefaultValue,
+func PromptString(
+	ctx context.Context,
+	prompt string,
+	defaultValue string,
+	defaultValueDoc string,
+	validateFunc ValidateFunc,
+) (string, error) {
+	promptText := terminal.Style(prompt, color.Bold)
+	if defaultValue != "" {
+		promptText += terminal.Style(" (default: "+defaultValueDoc+")", color.Italic)
+	}
+	promptText += ": "
+
+	v, err := Readline(ctx, &ReadlineConfig{
+		Prompt:       promptText,
+		ValidateFunc: validateFunc,
+		DefaultValue: defaultValue,
 	})
 	if err != nil {
 		return v, err
 	}
 	if v == "" {
-		v = config.DefaultValue
+		v = defaultValue
 	}
 
 	return v, err
@@ -101,7 +119,6 @@ func (h *ReadlineHandler) SetPrompt(prompt string) {
 }
 
 type ReadlineConfig struct {
-	Ctx          context.Context
 	Prompt       string
 	PromptFunc   func(string) string
 	Password     bool
@@ -109,7 +126,7 @@ type ReadlineConfig struct {
 	DefaultValue string
 }
 
-func Readline(config *ReadlineConfig) (string, error) {
+func Readline(ctx context.Context, config *ReadlineConfig) (string, error) {
 	promptFunc := func(string) string {
 		return config.Prompt
 	}
@@ -119,6 +136,14 @@ func Readline(config *ReadlineConfig) (string, error) {
 	validateFunc := defaultValidateFunc
 	if config.ValidateFunc != nil {
 		validateFunc = config.ValidateFunc
+	}
+
+	// Extract mock responses from context for testing
+	var mockResponses *[]string
+	if contextValue := ctx.Value(contextKey); contextValue != nil {
+		if mockValues, ok := contextValue.(*[]string); ok && mockValues != nil {
+			mockResponses = mockValues
+		}
 	}
 
 	var promptHandler *ReadlineHandler
@@ -131,7 +156,7 @@ func Readline(config *ReadlineConfig) (string, error) {
 			return IsInteractive
 		},
 		Stdin: &mockResponseReader{
-			ctx:           config.Ctx,
+			mockResponses: mockResponses,
 			defaultReader: os.Stdin,
 		},
 		Listener: readline.FuncListener(

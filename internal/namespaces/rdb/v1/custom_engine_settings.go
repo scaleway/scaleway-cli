@@ -22,7 +22,7 @@ func engineSettingsCommand() *core.Command {
 		Namespace: "rdb",
 		Resource:  "engine",
 		Verb:      "settings",
-		ArgsType:  reflect.TypeOf(engineSettingsArgs{}),
+		ArgsType:  reflect.TypeFor[engineSettingsArgs](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*engineSettingsArgs)
 			api := rdb.NewAPI(core.ExtractClient(ctx))

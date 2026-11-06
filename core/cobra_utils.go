@@ -13,12 +13,23 @@ import (
 )
 
 // cobraRun returns a cobraRun command that wrap a CommandRunner function.
-func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) error {
+func cobraRun(cmd *Command) func(*cobra.Command, []string) error {
 	return func(cobraCmd *cobra.Command, rawArgsStr []string) error {
+		// Get context from cobra command, which should have been set during bootstrap
+		ctx := cobraCmd.Context()
+
 		rawArgs := args.RawArgs(rawArgsStr)
 
-		meta := extractMeta(ctx)
+		meta := ExtractMeta(ctx)
 		meta.command = cmd
+
+		// Check if --list-sub-commands flag is set
+		listSubCommandsFlag, err := cobraCmd.PersistentFlags().GetBool("list-sub-commands")
+		if err == nil && listSubCommandsFlag {
+			printAllSubCommands(cobraCmd, 0)
+
+			return nil
+		}
 
 		sentry.AddCommandContext(cmd.GetCommandLine("scw"))
 
@@ -130,7 +141,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		if len(results) == 1 {
 			meta.result = results[0]
 		} else {
-			meta.result = results
+			meta.result = &results
 		}
 
 		return nil
@@ -314,6 +325,14 @@ func cobraRunHelp(cmd *Command) func(cmd *cobra.Command, args []string) error {
 				return err
 			}
 			cobraCmd.Println(out)
+
+			return nil
+		}
+
+		// Check if --list-sub-commands flag is set
+		listSubCommandsFlag, err := cobraCmd.PersistentFlags().GetBool("list-sub-commands")
+		if err == nil && listSubCommandsFlag {
+			printAllSubCommands(cobraCmd, 0)
 
 			return nil
 		}

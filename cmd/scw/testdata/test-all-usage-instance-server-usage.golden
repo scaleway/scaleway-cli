@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Instances are computing units providing resources to run your applications on.
 Scaleway offers various Instance types including **Virtual Instances** and **dedicated GPU Instances**.
 **Note: Instances can be referenced as "servers" in API endpoints.**
@@ -37,10 +37,12 @@ WORKFLOW COMMANDS:
   wait                 Wait for server to reach a stable state
 
 FLAGS:
-  -h, --help   help for server
-      --web    open console page for the current resource
+  -h, --help                help for server
+      --list-sub-commands   List all subcommands
+      --web                 open console page for the current resource
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

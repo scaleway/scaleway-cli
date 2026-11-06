@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"errors"
 	"io"
 	"net/http"
 	"os"
@@ -50,19 +51,26 @@ func InjectMeta(ctx context.Context, meta *Meta) context.Context {
 	return context.WithValue(ctx, metaContextKey, meta)
 }
 
-// extractMeta extracts Meta from a given context.
-func extractMeta(ctx context.Context) *Meta {
-	return ctx.Value(metaContextKey).(*Meta)
+// ExtractMeta extracts Meta from a given context.
+func ExtractMeta(ctx context.Context) *Meta {
+	if meta, ok := ctx.Value(metaContextKey).(*Meta); ok {
+		return meta
+	}
+
+	return nil
 }
 
 // injectSDKConfig add config to a Meta context
 func InjectConfig(ctx context.Context, config *scw.Config) {
-	extractMeta(ctx).Platform.SetScwConfig(config)
+	meta := ExtractMeta(ctx)
+	if meta != nil && meta.Platform != nil {
+		meta.Platform.SetScwConfig(config)
+	}
 }
 
 func extractConfig(ctx context.Context) *scw.Config {
-	m := extractMeta(ctx)
-	if m.Platform != nil {
+	m := ExtractMeta(ctx)
+	if m != nil && m.Platform != nil {
 		return m.Platform.ScwConfig()
 	}
 
@@ -70,19 +78,37 @@ func extractConfig(ctx context.Context) *scw.Config {
 }
 
 func ExtractCommands(ctx context.Context) *Commands {
-	return extractMeta(ctx).Commands
+	meta := ExtractMeta(ctx)
+	if meta == nil {
+		return nil
+	}
+
+	return meta.Commands
 }
 
 func ExtractCliConfig(ctx context.Context) *cliConfig.Config {
-	return extractMeta(ctx).CliConfig
+	meta := ExtractMeta(ctx)
+	if meta == nil {
+		return nil
+	}
+
+	return meta.CliConfig
 }
 
 func ExtractAliases(ctx context.Context) *alias.Config {
-	return ExtractCliConfig(ctx).Alias
+	cliConfig := ExtractCliConfig(ctx)
+	if cliConfig == nil {
+		return nil
+	}
+
+	return cliConfig.Alias
 }
 
 func GetOrganizationIDFromContext(ctx context.Context) string {
 	client := ExtractClient(ctx)
+	if client == nil {
+		return ""
+	}
 	organizationID, _ := client.GetDefaultOrganizationID()
 
 	return organizationID
@@ -90,31 +116,56 @@ func GetOrganizationIDFromContext(ctx context.Context) string {
 
 func GetProjectIDFromContext(ctx context.Context) string {
 	client := ExtractClient(ctx)
+	if client == nil {
+		return ""
+	}
 	projectID, _ := client.GetDefaultProjectID()
 
 	return projectID
 }
 
 func ExtractClient(ctx context.Context) *scw.Client {
-	return extractMeta(ctx).Client
+	meta := ExtractMeta(ctx)
+	if meta == nil {
+		return nil
+	}
+
+	return meta.Client
 }
 
 func ExtractLogger(ctx context.Context) *Logger {
-	return extractMeta(ctx).Logger
+	meta := ExtractMeta(ctx)
+	if meta == nil {
+		return nil
+	}
+
+	return meta.Logger
 }
 
 func ExtractBuildInfo(ctx context.Context) *BuildInfo {
-	return extractMeta(ctx).BuildInfo
+	meta := ExtractMeta(ctx)
+	if meta == nil {
+		return nil
+	}
+
+	return meta.BuildInfo
 }
 
 func ExtractBetaMode(ctx context.Context) bool {
-	return extractMeta(ctx).BetaMode
+	meta := ExtractMeta(ctx)
+	if meta == nil {
+		return false
+	}
+
+	return meta.BetaMode
 }
 
 func ExtractEnv(ctx context.Context, envKey string) string {
-	meta := extractMeta(ctx)
-	if value, exist := meta.OverrideEnv[envKey]; exist {
-		return value
+	meta := ExtractMeta(ctx)
+	if meta != nil {
+		if value, exist := meta.OverrideEnv[envKey]; exist {
+			return value
+		}
 	}
 
 	if envKey == "HOME" {
@@ -140,17 +191,28 @@ func ExtractCacheDir(ctx context.Context) string {
 }
 
 func ExtractBinaryName(ctx context.Context) string {
-	return extractMeta(ctx).BinaryName
+	meta := ExtractMeta(ctx)
+	if meta == nil {
+		return ""
+	}
+
+	return meta.BinaryName
 }
 
 func ExtractStdin(ctx context.Context) io.Reader {
-	return extractMeta(ctx).stdin
+	meta := ExtractMeta(ctx)
+	if meta == nil {
+		return nil
+	}
+
+	return meta.stdin
 }
 
 func ExtractProfileName(ctx context.Context) string {
+	meta := ExtractMeta(ctx)
 	// Handle profile flag -p
-	if extractMeta(ctx).ProfileFlag != "" {
-		return extractMeta(ctx).ProfileFlag
+	if meta != nil && meta.ProfileFlag != "" {
+		return meta.ProfileFlag
 	}
 
 	// Handle SCW_PROFILE env variable
@@ -170,13 +232,21 @@ func ExtractProfileName(ctx context.Context) string {
 }
 
 func ExtractHTTPClient(ctx context.Context) *http.Client {
-	return extractMeta(ctx).httpClient
+	meta := ExtractMeta(ctx)
+	if meta == nil {
+		return nil
+	}
+
+	return meta.httpClient
 }
 
 func ExtractConfigPath(ctx context.Context) string {
-	meta := extractMeta(ctx)
+	meta := ExtractMeta(ctx)
+	if meta == nil {
+		return scw.GetConfigPath()
+	}
 	if meta.ConfigPathFlag != "" {
-		return extractMeta(ctx).ConfigPathFlag
+		return meta.ConfigPathFlag
 	}
 	// This is only useful for test when we override home environment variable
 	if home := meta.OverrideEnv["HOME"]; home != "" {
@@ -187,7 +257,12 @@ func ExtractConfigPath(ctx context.Context) string {
 }
 
 func ExtractCliConfigPath(ctx context.Context) string {
-	meta := extractMeta(ctx)
+	meta := ExtractMeta(ctx)
+	if meta == nil {
+		configPath, _ := cliConfig.FilePath()
+
+		return configPath
+	}
 	// This is only useful for test when we override home environment variable
 	if home := meta.OverrideEnv["HOME"]; home != "" {
 		return path.Join(home, ".config", "scw", cliConfig.DefaultConfigFileName)
@@ -198,8 +273,11 @@ func ExtractCliConfigPath(ctx context.Context) string {
 }
 
 func ReloadClient(ctx context.Context) error {
+	meta := ExtractMeta(ctx)
+	if meta == nil {
+		return errors.New("cannot reload client: meta not found in context")
+	}
 	var err error
-	meta := extractMeta(ctx)
 	meta.Client, err = meta.Platform.CreateClient(
 		meta.httpClient,
 		ExtractConfigPath(ctx),
@@ -210,11 +288,21 @@ func ReloadClient(ctx context.Context) error {
 }
 
 func ExtractConfigPathFlag(ctx context.Context) string {
-	return extractMeta(ctx).ConfigPathFlag
+	meta := ExtractMeta(ctx)
+	if meta == nil {
+		return ""
+	}
+
+	return meta.ConfigPathFlag
 }
 
 func ExtractProfileFlag(ctx context.Context) string {
-	return extractMeta(ctx).ProfileFlag
+	meta := ExtractMeta(ctx)
+	if meta == nil {
+		return ""
+	}
+
+	return meta.ProfileFlag
 }
 
 // GetDocGenContext returns a minimal context that can be used by scw-doc-gen

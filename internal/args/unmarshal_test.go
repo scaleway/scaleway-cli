@@ -13,7 +13,7 @@ import (
 )
 
 func init() {
-	args.TestForceNow = scw.TimePtr(time.Date(1970, 1, 1, 0, 0, 0, 0, time.UTC))
+	args.TestForceNow = new(time.Date(1970, 1, 1, 0, 0, 0, 0, time.UTC))
 }
 
 func TestUnmarshalStruct(t *testing.T) {
@@ -205,7 +205,7 @@ func TestUnmarshalStruct(t *testing.T) {
 		},
 		expected: &Slice{
 			Strings:    []string(nil),
-			SlicePtr:   scw.StringsPtr([]string{}),
+			SlicePtr:   new([]string{}),
 			StringsPtr: []*string(nil),
 		},
 	}))
@@ -283,11 +283,13 @@ func TestUnmarshalStruct(t *testing.T) {
 	t.Run("nested-basic", run(TestCase{
 		args: []string{
 			"basic.string=test",
+			"empty={}",
 		},
 		expected: &Nested{
 			Basic: Basic{
 				String: "test",
 			},
+			Empty: &Empty{},
 		},
 	}))
 
@@ -320,9 +322,22 @@ func TestUnmarshalStruct(t *testing.T) {
 	t.Run("insane", run(TestCase{
 		args: []string{
 			"map.key1.key2.basic.string=test",
+			"map.key1.key2.empty={}",
 		},
 		expected: func() any {
-			n1 := &Nested{Basic: Basic{String: "test"}}
+			n1 := &Nested{Basic: Basic{String: "test"}, Empty: &Empty{}}
+			m1 := &map[string]**Nested{"key2": &n1}
+			m2 := map[string]**map[string]**Nested{"key1": &m1}
+
+			return &Insane{Map: &m2}
+		}(),
+	}))
+	t.Run("insane empty struct", run(TestCase{
+		args: []string{
+			"map.key1.key2={}",
+		},
+		expected: func() any {
+			n1 := &Nested{}
 			m1 := &map[string]**Nested{"key2": &n1}
 			m2 := map[string]**map[string]**Nested{"key1": &m1}
 
@@ -372,14 +387,13 @@ func TestUnmarshalStruct(t *testing.T) {
 		},
 	}))
 
-	h := height(14)
 	t.Run("height-set", run(TestCase{
 		args: []string{
 			"height=14cm",
 		},
 		data: &CustomArgs{},
 		expected: &CustomArgs{
-			Height: &h,
+			Height: new(height(14)),
 		},
 	}))
 
@@ -550,10 +564,6 @@ func TestIsUmarshalableValue(t *testing.T) {
 
 	args.RegisterUnmarshalFunc((*height)(nil), unmarshalHeight)
 
-	strPtr := "This is a pointer"
-	heightPtr := height(42)
-	customStringPtr := CustomString("test")
-
 	t.Run("string", run(TestCase{
 		data:     "a simple string",
 		expected: true,
@@ -585,15 +595,15 @@ func TestIsUmarshalableValue(t *testing.T) {
 	}))
 
 	t.Run("str-pointer", run(TestCase{
-		data:     &strPtr,
+		data:     new("This is a pointer"),
 		expected: true,
 	}))
 	t.Run("custom-func-pointer", run(TestCase{
-		data:     &heightPtr,
+		data:     new(height(42)),
 		expected: true,
 	}))
 	t.Run("custom-pointer", run(TestCase{
-		data:     &customStringPtr,
+		data:     new(CustomString("test")),
 		expected: true,
 	}))
 	t.Run("custom-pointer", run(TestCase{

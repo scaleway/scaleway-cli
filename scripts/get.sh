@@ -1,4 +1,6 @@
-#!/bin/sh -e
+#!/bin/sh
+
+set -e
 
 CHOOSE_ANOTHER_INSTALLATION_METHOD="Please choose another installation method https://github.com/scaleway/scaleway-cli#installation."
 
@@ -47,7 +49,7 @@ elif [ -n "$has_wget" ]; then
     latest_release_json=$(wget -q -O - https://api.github.com/repos/scaleway/scaleway-cli/releases/latest)
 fi
 
-latest=$(echo "$latest_release_json" | grep "browser_download_url.*${os}_${arch}" | cut -d : -f 2,3 | tr -d \" | tr -d " ")
+latest=$(echo "$latest_release_json" | grep "browser_download_url.*${os}_${arch}\"" | cut -d : -f 2,3 | tr -d \" | tr -d " ")
 if [ -z "$latest" ]; then
     echo "Unable to find the latest ${os}_${arch} release. https://github.com/scaleway/scaleway-cli/releases" >&2
     exit 1

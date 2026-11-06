@@ -51,7 +51,7 @@ func CreateAndCloseFile(path string) error {
 // runAfterCommandChecks execute checks after a command has been executed
 // skipped if command has disabled checks or was executed in the last 24 hours
 func runAfterCommandChecks(ctx context.Context, checkFuncs ...AfterCommandCheckFunc) {
-	cmd := extractMeta(ctx).command
+	cmd := ExtractMeta(ctx).command
 	cmdDisableCheck := cmd != nil && cmd.DisableAfterChecks
 	if cmdDisableCheck {
 		ExtractLogger(ctx).Debug("skipping after command checks")

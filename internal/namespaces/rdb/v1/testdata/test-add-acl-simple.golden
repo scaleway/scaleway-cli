@@ -1,27 +1,27 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ ACL rule 1.2.3.4/32 successfully added.
-IP          PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0   27078  tcp       inbound    allow   Allow All
-1.2.3.4/32  27078  tcp       inbound    allow   Allow 1.2.3.4/32
+IP          PROTOCOL  DIRECTION  ACTION  DESCRIPTION       PORT
+0.0.0.0/0   tcp       inbound    allow   Allow All         27078
+1.2.3.4/32  tcp       inbound    allow   Allow 1.2.3.4/32  27078
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "Rules": [
     {
       "ip": "0.0.0.0/0",
-      "port": 27078,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",
-      "description": "Allow All"
+      "description": "Allow All",
+      "port": 27078
     },
     {
       "ip": "1.2.3.4/32",
-      "port": 27078,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",
-      "description": "Allow 1.2.3.4/32"
+      "description": "Allow 1.2.3.4/32",
+      "port": 27078
     }
   ],
   "Success": {

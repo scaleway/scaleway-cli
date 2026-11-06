@@ -2,6 +2,7 @@ package editor
 
 import (
 	"reflect"
+	"slices"
 )
 
 func areSameType(v1 reflect.Value, v2 reflect.Value) bool {
@@ -34,13 +35,7 @@ func areSameType(v1 reflect.Value, v2 reflect.Value) bool {
 }
 
 func hasTag(tags []string, actualTag string) bool {
-	for _, tag := range tags {
-		if tag == actualTag {
-			return true
-		}
-	}
-
-	return false
+	return slices.Contains(tags, actualTag)
 }
 
 func valueMapperWithoutOpt(

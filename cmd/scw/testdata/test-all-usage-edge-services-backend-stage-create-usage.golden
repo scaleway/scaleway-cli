@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a new backend stage. You must specify either a `scaleway_s3` (for a Scaleway Object Storage bucket) or `scaleway_lb` (for a Scaleway Load Balancer) field to configure the origin.
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Create a new backend stage. You must specify a type of backend (`scaleway_s3`, `scaleway_lb`, etc.) to configure the origin.
 
 USAGE:
   scw edge-services backend-stage create [arg=value ...]
@@ -22,9 +22,11 @@ ARGS:
   [scaleway-serverless-function.function-id]     
 
 FLAGS:
-  -h, --help   help for create
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

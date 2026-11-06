@@ -9,5 +9,9 @@ func GetCommands() *core.Commands {
 
 	commands.MustFind("account").Groups = []string{"security"}
 
+	commands.MergeAll(core.NewCommands(
+		listResources(),
+	))
+
 	return commands
 }

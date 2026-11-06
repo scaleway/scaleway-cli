@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 This API allows you to manage Identity and Access Management (IAM) across your Scaleway Organizations, Projects and resources.
 
 USAGE:
@@ -17,14 +17,18 @@ AVAILABLE COMMANDS:
   rule              Rules management commands
   saml              SAML management commands
   saml-certificates SAML Certificates management commands
+  scim              SCIM management commands
+  scim-tokens       SCIM tokens management commands
   security-settings Security settings management commands
   ssh-key           SSH keys management commands
   user              Users management commands
 
 FLAGS:
-  -h, --help   help for iam
+  -h, --help                help for iam
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

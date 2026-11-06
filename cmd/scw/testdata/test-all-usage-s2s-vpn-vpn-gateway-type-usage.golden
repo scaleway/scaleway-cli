@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-VPN gateways come in various shapes, sizes and prices, which are  described by VPN gateway types. They represent the different commercial  offer types for VPN gateways available at Scaleway.
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+VPN gateways come in various shapes, sizes and prices, which are described by VPN gateway types. They represent the different commercial offer types for VPN gateways available at Scaleway.
 
 USAGE:
   scw s2s-vpn vpn-gateway-type <command>
@@ -9,9 +9,11 @@ AVAILABLE COMMANDS:
   list        List VPN gateway types
 
 FLAGS:
-  -h, --help   help for vpn-gateway-type
+  -h, --help                help for vpn-gateway-type
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

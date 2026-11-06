@@ -1,18 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 You must specify the blocklist you want to delete by the `region` and `blocklist_id`.
 
 USAGE:
-  scw tem blocklists delete [arg=value ...]
+  scw tem blocklists delete <blocklist-id ...> [arg=value ...]
 
 ARGS:
   blocklist-id      ID of the blocklist to delete
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
-  -h, --help   help for delete
+  -h, --help                help for delete
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

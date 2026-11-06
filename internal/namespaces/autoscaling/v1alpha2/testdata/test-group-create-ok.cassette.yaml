@@ -1,0 +1,175 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"cli-tpl-fervent-curie","tags":null,"server_tags":null,"server_type":"PRO2-S","volumes":null,"private_networks":null,"filesystem_ids":null,"public_ip_v4_count":0,"public_ip_v6_count":0}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/templates
+    method: POST
+  response:
+    body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "id":"458f3cec-a287-4b37-bed8-51d371f6563d",
+      "name":"cli-tpl-fervent-curie", "tags":[], "server_tags":[], "server_type":"PRO2-S",
+      "public_ip_v4_count":0, "public_ip_v6_count":0, "volumes":[], "private_networks":[],
+      "filesystem_ids":[], "created_at":"2026-08-28T13:44:31.047673Z", "updated_at":"2026-08-28T13:44:31.047673Z",
+      "zone":"fr-par-1"}'
+    headers:
+      Content-Length:
+      - "396"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2026 13:44:31 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Ratelimit-Limit:
+      - 50, 50;w=1
+      X-Ratelimit-Remaining:
+      - "49"
+      X-Ratelimit-Reset:
+      - "1"
+      X-Request-Id:
+      - 7ea0799e-c431-4887-809a-3e1d3f687be5
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"cli-asg-nifty-taussig","tags":["cli-test-asg"],"template_id":"458f3cec-a287-4b37-bed8-51d371f6563d","scaling_policy_spec":{"minimum_size":1,"maximum_size":5,"scale_out_cooldown":"180.000000000s","scale_in_cooldown":null,"scale_in_step":2,"scale_out_step":null,"memory_target":{"target_avg_percent":80}}}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/autoscaling/v1alpha2/zones/fr-par-1/groups
+    method: POST
+  response:
+    body: '{"id":"01a0489d-6acd-7eed-856a-b2a3d988e6c2", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "name":"cli-asg-nifty-taussig", "tags":["cli-test-asg"], "created_at":"2026-08-28T13:44:31.172903Z",
+      "updated_at":"2026-08-28T13:44:31.172903Z", "status":"active", "open_alerts":[],
+      "current_size":0, "target_size":0, "last_scale_out_at":null, "last_scale_in_at":null,
+      "template_id":"458f3cec-a287-4b37-bed8-51d371f6563d", "scaling_policy":{"minimum_size":1,
+      "maximum_size":5, "scale_out_cooldown":"180s", "scale_in_cooldown":"60s", "scale_in_step":2,
+      "scale_out_step":1, "memory_target":{"target_avg_percent":80}}}'
+    headers:
+      Content-Length:
+      - "613"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2026 13:44:31 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Ratelimit-Limit:
+      - 50, 50;w=1
+      X-Ratelimit-Remaining:
+      - "49"
+      X-Ratelimit-Reset:
+      - "1"
+      X-Request-Id:
+      - 40b7fe17-f593-491f-b5ce-208476a93e38
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/autoscaling/v1alpha2/zones/fr-par-1/groups/01a0489d-6acd-7eed-856a-b2a3d988e6c2
+    method: DELETE
+  response:
+    body: '{"id":"01a0489d-6acd-7eed-856a-b2a3d988e6c2", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "name":"cli-asg-nifty-taussig", "tags":["cli-test-asg"], "created_at":"2026-08-28T13:44:31.172903Z",
+      "updated_at":"2026-08-28T13:44:31.287608Z", "status":"deleting", "open_alerts":[],
+      "current_size":0, "target_size":0, "last_scale_out_at":null, "last_scale_in_at":null,
+      "template_id":"458f3cec-a287-4b37-bed8-51d371f6563d", "scaling_policy":{"minimum_size":1,
+      "maximum_size":5, "scale_out_cooldown":"180s", "scale_in_cooldown":"60s", "scale_in_step":2,
+      "scale_out_step":1, "memory_target":{"target_avg_percent":80}}}'
+    headers:
+      Content-Length:
+      - "615"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2026 13:44:31 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Ratelimit-Limit:
+      - 50, 50;w=1
+      X-Ratelimit-Remaining:
+      - "48"
+      X-Ratelimit-Reset:
+      - "1"
+      X-Request-Id:
+      - fc4e09b4-0289-43a3-8190-ce5c87b73bd0
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/templates/458f3cec-a287-4b37-bed8-51d371f6563d
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Aug 2026 13:44:31 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Ratelimit-Limit:
+      - 50, 50;w=1
+      X-Ratelimit-Remaining:
+      - "48"
+      X-Ratelimit-Reset:
+      - "1"
+      X-Request-Id:
+      - cfd668d2-c977-4856-a3e8-c2f903e229e6
+    status: 204 No Content
+    code: 204
+    duration: ""

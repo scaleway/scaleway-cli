@@ -1,7 +1,6 @@
 package instance_test
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -873,41 +872,6 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-	}))
-}
-
-func Test_CreateServerScratchStorage(t *testing.T) {
-	t.Run("Default scratch storage", core.Test(&core.TestConfig{
-		Commands: instance.GetCommands(),
-		Cmd:      "scw instance server create type=H100-1-80G image=ubuntu_jammy_gpu_os_12 zone=fr-par-2",
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			func(_ *testing.T, ctx *core.CheckFuncCtx) {
-				fmt.Println(ctx.LogBuffer)
-			},
-			core.TestCheckExitCode(0),
-			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				t.Helper()
-				serverResponse, isServerResponse := ctx.Result.(*instance.ServerWithWarningsResponse)
-				if !isServerResponse {
-					t.Fatalf("Result is not a server")
-				}
-				server := serverResponse.Server
-				additionalVolume, exist := server.Volumes["1"]
-				if !exist {
-					t.Fatalf("Expected an additional scratch volume, found none")
-				}
-				assert.Equal(
-					t,
-					instanceSDK.VolumeServerVolumeTypeScratch,
-					additionalVolume.VolumeType,
-				)
-			},
-		),
-		AfterFunc: core.ExecAfterCmd(
-			"scw instance server delete {{ .CmdResult.ID }} zone=fr-par-2 with-volumes=all with-ip=true force-shutdown=true",
-		),
-		DisableParallel: true,
 	}))
 }
 

@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Snapshots contain the data of a specified volume at a particular point in time.
 The data can include the Instance's operating system,
 configuration information and/or files stored on the volume.
@@ -28,10 +28,12 @@ WORKFLOW COMMANDS:
   wait            Wait for snapshot to reach a stable state
 
 FLAGS:
-  -h, --help   help for snapshot
-      --web    open console page for the current resource
+  -h, --help                help for snapshot
+      --list-sub-commands   List all subcommands
+      --web                 open console page for the current resource
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

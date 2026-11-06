@@ -79,6 +79,32 @@ scw -o json instance server list zone=all | jq -r '.[] | "\(.id) zone=\(.zone)"'
 scw instance server list zone=all -o template="{{.ID}} zone={{.Zone}}" | xargs -P8 -L1 scw instance server reboot
 ```
 
+### Accept traffic from a Load Balancer only
+
+Create a dedicated security group that drops inbound traffic by default, allow the Load Balancer on the backend port, then attach that group to the Instance. Leave `stateful` at its default (`true`) so return traffic is allowed.
+
+The Instance and the Load Balancer must be in the same zone. When the backend is on a Private Network, allow the Load Balancer private IP. Health checks and forwarded traffic come from that address.
+
+```bash
+# Private IP booked for the Load Balancer on the Private Network
+LB_IP=$(scw ipam ip list resource-id=<lb-id> resource-type=lb_server private-network-id=<pn-id> is-ipv6=false region=<region> -o json | jq -r '.[0].address | split("/")[0]')
+
+SG_ID=$(scw instance security-group create name=behind-lb inbound-default-policy=drop zone=<zone> -o json | jq -r '.security_group.id')
+
+scw instance security-group create-rule security-group-id=$SG_ID protocol=TCP direction=inbound action=accept ip-range=${LB_IP}/32 dest-port-from=<backend-port> zone=<zone>
+
+# Optional: keep SSH reachable from an admin network. The drop policy blocks every other inbound source.
+# scw instance security-group create-rule security-group-id=$SG_ID protocol=TCP direction=inbound action=accept ip-range=<admin-cidr> dest-port-from=22 zone=<zone>
+
+scw instance server update <server-id> security-group.id=$SG_ID zone=<zone>
+```
+
+If the backend is reached through the Load Balancer public IP, allow that address instead:
+
+```bash
+LB_IP=$(scw lb lb get <lb-id> zone=<zone> -o json | jq -r '.ip[0].ip_address')
+```
+
 ## Database
 
 ### Filter backups by date
@@ -88,7 +114,33 @@ scw instance server list zone=all -o template="{{.ID}} zone={{.Zone}}" | xargs -
 scw rdb backup list -ojson | jq --arg d "$(date -d "7 days ago" --utc --iso-8601=ns)" '.[] | select (.created_at < $d)'
 ```
 
-## Database (continued)
+### Restore a backup from another Database Instance (even with different version)
+
+You can restore a backup from one Database Instance to another, even if they have different PostgreSQL/MySQL versions (e.g., PostgreSQL-15 to PostgreSQL-16). The restore operation works within the same region.
+
+```bash
+# Step 1: Create a backup from the source instance
+scw rdb backup create instance-id=<source-instance-id> database-name=<db-name> name=cross-instance-backup region=<region> -w
+
+# Step 2: Get the backup ID
+BACKUP_ID=$(scw rdb backup list instance-id=<source-instance-id> region=<region> -ojson | jq -r '.[0].id')
+
+# Step 3: Create the target database on the destination instance (if it doesn't exist)
+scw rdb database create instance-id=<target-instance-id> name=<db-name> region=<region>
+
+# Step 4: Restore the backup to the target instance
+scw rdb backup restore $BACKUP_ID instance-id=<target-instance-id> region=<region> -w
+
+# Example: Restore from PostgreSQL-15 to PostgreSQL-16
+SOURCE_ID="325fd68a-a286-4f5c-b56b-3b8d66fcd13d"  # PG-15 instance
+TARGET_ID="70644724-60c9-411c-a3e2-5276f1cefff1"  # PG-16 instance
+scw rdb backup create instance-id=$SOURCE_ID database-name=mydb name=upgrade-backup region=fr-par -w
+BACKUP_ID=$(scw rdb backup list instance-id=$SOURCE_ID region=fr-par -ojson | jq -r '.[0].id')
+scw rdb database create instance-id=$TARGET_ID name=mydb region=fr-par
+scw rdb backup restore $BACKUP_ID instance-id=$TARGET_ID region=fr-par -w
+```
+
+**Note:** This method only works within the same region. For cross-region migrations, see the "Migrate a managed database to another region" section.
 
 ### Migrate a managed database to another region
 

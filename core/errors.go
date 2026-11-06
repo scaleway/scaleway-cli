@@ -18,7 +18,7 @@ func InvalidValueForEnumError(
 ) *CliError {
 	return &CliError{
 		Err:  fmt.Errorf("invalid value '%v' for arg '%v'", value, argSpecName),
-		Hint: fmt.Sprintf("Accepted values for '%v' are %v", argSpecName, argSpecEnumValues),
+		Hint: fmt.Sprintf("Accepted values for '%v' are %q", argSpecName, argSpecEnumValues),
 	}
 }
 

@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Enable SAML Identity Provider for an Organization.
 
 USAGE:
@@ -9,9 +9,11 @@ ARGS:
   [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
-  -h, --help   help for enable-saml
+  -h, --help                help for enable-saml
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

@@ -31,10 +31,17 @@ func GetCommands() *core.Commands {
 		k8sNodeWaitCommand(),
 		k8sPoolWaitCommand(),
 		k8sPoolAddExternalNodeCommand(),
+		k8sPoolSetTaintCommand(),
+		k8sPoolRemoveTaintCommand(),
+		k8sPoolSetStartupTaintCommand(),
+		k8sPoolRemoveStartupTaintCommand(),
+		k8sPoolSetLabelCommand(),
+		k8sPoolRemoveLabelCommand(),
 	))
 
 	human.RegisterMarshalerFunc(k8s.Version{}, versionMarshalerFunc)
 	human.RegisterMarshalerFunc(k8s.Cluster{}, clusterMarshalerFunc)
+	human.RegisterMarshalerFunc(k8s.Pool{}, poolMarshalerFunc)
 	human.RegisterMarshalerFunc(
 		k8s.ClusterStatus(""),
 		human.EnumMarshalFunc(clusterStatusMarshalSpecs),

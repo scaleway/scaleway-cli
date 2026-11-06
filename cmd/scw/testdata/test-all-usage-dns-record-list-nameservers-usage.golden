@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Retrieve a list of name servers within a DNS zone and their optional glue records.
 
 USAGE:
@@ -10,9 +10,11 @@ ARGS:
   dns-zone       DNS zone on which to filter the returned DNS zone name servers
 
 FLAGS:
-  -h, --help   help for list-nameservers
+  -h, --help                help for list-nameservers
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

@@ -43,6 +43,7 @@ Server.Zone                        fr-par-1
 Server.Filesystems.0.FilesystemID  e2b45d46-f1de-406d-a43d-9f8dfcdd2342
 Server.Filesystems.0.State         available
 Server.EndOfService                false
+Server.Srn                         -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "server": {

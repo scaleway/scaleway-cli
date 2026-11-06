@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 To create a new filesystem, you must specify a name, a size, and a project ID.
 
 USAGE:
@@ -8,14 +8,17 @@ USAGE:
 ARGS:
   name              Name of the filesystem
   [project-id]      Project ID to use. If none is passed the default project ID will be used
-  size              Filesystem size in bytes, with a granularity of 100 GB (10^11 bytes).
+  size              Filesystem size in bytes, with a granularity in GB (10^9 bytes).
+  [type]            Type of the filesystem
   [tags.{index}]    List of tags assigned to the filesystem
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
-  -h, --help   help for create
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")

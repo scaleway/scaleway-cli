@@ -41,6 +41,8 @@ func GetCommands() *core.Commands {
 	)
 
 	cmds.Merge(core.NewCommands(
+		rdbConfigRoot(),
+		rdbConfigGetCommand(),
 		aclEditCommand(),
 		backupDownloadCommand(),
 		backupWaitCommand(),
