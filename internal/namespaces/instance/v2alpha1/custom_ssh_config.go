@@ -47,7 +47,7 @@ func sshConfigInstallCommand() *core.Command {
 		Resource:  "ssh",
 		Verb:      "install-config",
 		Short: `Install a ssh config with all your servers as host
-It generate hosts for instance servers, baremetal, apple-silicon and bastions`,
+It generates hosts for instance servers, baremetal, apple-silicon and bastions`,
 		Long:     "Path of the config will be $HOME/.ssh/scaleway.config",
 		ArgsType: reflect.TypeFor[sshConfigInstallRequest](),
 		ArgSpecs: core.ArgSpecs{
@@ -240,7 +240,15 @@ func sshConfigListBaremetalServers(
 		if strings.Contains(err.Error(), "unknown service") {
 			return nil, nil
 		}
-		// TODO: check permissions and print warning
+
+		if strings.Contains(err.Error(), "Permission denied") {
+			fmt.Println(
+				"Permission denied while listing baremetal servers, please check your IAM permissions.",
+			)
+
+			return nil, nil
+		}
+
 		return nil, err
 	}
 	listPNs, err := baremetalPNAPI.ListServerPrivateNetworks(
@@ -249,7 +257,14 @@ func sshConfigListBaremetalServers(
 		},
 		reqOpts...)
 	if err != nil {
-		// TODO: check permissions and print warning
+		if strings.Contains(err.Error(), "Permission denied") {
+			fmt.Println(
+				"Permission denied while listing baremetal private networks, please check your IAM permissions.",
+			)
+
+			return nil, nil
+		}
+
 		return nil, err
 	}
 
@@ -335,7 +350,7 @@ func sshConfigBastionHosts(
 		if strings.Contains(err.Error(), "unknown service") {
 			return nil, nil
 		}
-		// TODO: check permissions and print warning
+
 		return nil, err
 	}
 

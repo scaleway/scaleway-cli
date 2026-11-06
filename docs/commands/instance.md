@@ -2755,16 +2755,17 @@ scw instance ssh fetch-keys [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                             | Argument Specifications                                                                                                                                                         |
-|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| project-id | Fetch the keys on all servers in the given Project                      |                                                                                                                                                                                 |
-| username   | Username used for the SSH connection                                    | Default: `root`                                                                                                                                                                 |
-| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
+| Name                      | Description                                                                                                                       | Argument Specifications                                                                                                                                                         |
+|---------------------------|-----------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| project-id                | Fetch the keys on all servers in the given Project                                                                                |                                                                                                                                                                                 |
+| username                  | Username used for the SSH connection                                                                                              | Default: `root`                                                                                                                                                                 |
+| ssh-key-for-server-access | The path to a public SSH key that is already installed on the servers. It is needed for the remote execution to run successfully. |                                                                                                                                                                                 |
+| zone                      | Zone to target. If none is passed will use default zone from the config                                                           | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 
 ### Install a ssh config with all your servers as host
-It generate hosts for instance servers, baremetal, apple-silicon and bastions
+It generates hosts for instance servers, baremetal, apple-silicon and bastions
 
 Path of the config will be $HOME/.ssh/scaleway.config
 

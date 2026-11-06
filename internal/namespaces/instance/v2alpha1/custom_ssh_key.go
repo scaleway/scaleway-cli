@@ -135,9 +135,10 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 }
 
 type sshFetchKeysRequest struct {
-	Zone      scw.Zone
-	ProjectID string
-	Username  string
+	Zone                  scw.Zone
+	ProjectID             string
+	Username              string
+	SSHKeyForServerAccess string
 }
 
 func sshFetchKeysCommand() *core.Command {
@@ -163,6 +164,11 @@ Keep in mind that SSH keys are scoped by project.`,
 				Short:   "Username used for the SSH connection",
 				Default: core.DefaultValueSetter("root"),
 			},
+			{
+				Name:     "ssh-key-for-server-access",
+				Short:    "The path to a public SSH key that is already installed on the servers. It is needed for the remote execution to run successfully.",
+				Required: false,
+			},
 			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
@@ -175,6 +181,7 @@ Keep in mind that SSH keys are scoped by project.`,
 			if args.ProjectID != "" {
 				listServersRequest.ProjectID = args.ProjectID
 			}
+
 			servers, err := api.ListServers(
 				listServersRequest,
 				scw.WithAllPages(),
@@ -205,7 +212,7 @@ Keep in mind that SSH keys are scoped by project.`,
 
 				server, err := api.GetServer(&instance.GetServerRequest{
 					Zone:     args.Zone,
-					ServerID: args.ProjectID,
+					ServerID: serverSummary.ID,
 				}, scw.WithContext(ctx))
 				if err != nil {
 					return nil, fmt.Errorf("failed to get server: %w", err)
@@ -222,13 +229,25 @@ Keep in mind that SSH keys are scoped by project.`,
 				}
 
 				for _, publicIP := range server.PublicNetworkInterface.IPs {
+					// Build SSH command
 					sshArgs := []string{
-						publicIP.ProvisionedAddress.String(),
+						publicIP.ProvisionedAddress.IP.String(),
 						"-t",
 						"-l", args.Username,
+					}
+
+					// Pass custom SSH Key if present
+					if args.SSHKeyForServerAccess != "" {
+						sshArgs = append(sshArgs,
+							"-i",
+							args.SSHKeyForServerAccess)
+					}
+
+					// Add command to execute in the remote
+					sshArgs = append(sshArgs,
 						"/usr/sbin/scw-fetch-ssh-keys",
 						"--upgrade",
-					}
+					)
 
 					sshCmd := exec.Command("ssh", sshArgs...)
 

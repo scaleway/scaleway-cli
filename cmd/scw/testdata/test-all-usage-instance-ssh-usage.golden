@@ -15,7 +15,7 @@ UTILITY COMMANDS:
 
 WORKFLOW COMMANDS:
   install-config Install a ssh config with all your servers as host
-It generate hosts for instance servers, baremetal, apple-silicon and bastions
+It generates hosts for instance servers, baremetal, apple-silicon and bastions
 
 FLAGS:
   -h, --help                help for ssh
