@@ -10,7 +10,7 @@ import (
 	"os"
 	"strings"
 
-	tea "github.com/charmbracelet/bubbletea"
+	tea "charm.land/bubbletea/v2"
 )
 
 type ListPrompt struct {
@@ -52,21 +52,23 @@ func (m *ListPrompt) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
-func (m *ListPrompt) View() string {
+func (m *ListPrompt) View() tea.View {
 	var builder strings.Builder
-	builder.WriteString(m.Prompt + "\n\n")
+	builder.WriteString(m.Prompt)
+	builder.WriteString("\n\n")
 
 	for i, choice := range m.Choices {
 		if m.cursor == i {
 			fmt.Fprintf(&builder, "> %s\n", choice)
 		} else {
-			builder.WriteString(choice + "\n")
+			builder.WriteString(choice)
+			builder.WriteString("\n")
 		}
 	}
 
 	builder.WriteString("\nPress enter or space for select.\n")
 
-	return builder.String()
+	return tea.NewView(builder.String())
 }
 
 // Execute start the prompt and return the selected index
