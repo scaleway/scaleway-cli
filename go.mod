@@ -8,7 +8,7 @@ require (
 	github.com/aws/smithy-go v1.28.7
 	github.com/buildpacks/pack v0.40.10
 	github.com/c-bata/go-prompt v0.2.6
-	github.com/charmbracelet/bubbletea v1.3.10
+	github.com/charmbracelet/bubbletea/v2 v2.1.1
 	github.com/chzyer/readline v1.5.1
 	github.com/containerd/console v1.0.5
 	github.com/containerd/platforms v1.0.0-rc.5
