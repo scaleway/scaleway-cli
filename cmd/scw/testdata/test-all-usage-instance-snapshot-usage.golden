@@ -1,31 +1,25 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Snapshots contain the data of a specified volume at a particular point in time.
+Snapshots contain the data of a specified l_ssd volume at a particular point in time.
 The data can include the Instance's operating system,
 configuration information and/or files stored on the volume.
 
-A snapshot can be done from a specified volume, e.g. you
-have one Instance with a volume containing the OS and another one
-containing the application data, and you want to use different
-snapshot strategies on both volumes.
-
-Volumes can be created from snapshots of their own type.
+l_ssd volumes can be created from snapshots.
 
 USAGE:
   scw instance snapshot <command>
 
 AVAILABLE COMMANDS:
-  apply-migration Migrate a volume and/or snapshots to SBS (Scaleway Block Storage)
-  create          Create a snapshot from a specified volume or from a QCOW2 file
-  delete          Delete a snapshot
-  export          Export a snapshot
-  get             Get a snapshot
-  list            List snapshots
-  plan-migration  Get a volume or snapshot's migration plan
-  update          Update a snapshot
+  create                     Create a snapshot from a specified volume
+  delete                     Delete a snapshot
+  export-to-object-storage   Export a snapshot to Object Storage
+  get                        Get a snapshot
+  import-from-object-storage Import a snapshot from Object Storage
+  list                       List snapshots
+  update                     Update a snapshot
 
 WORKFLOW COMMANDS:
-  wait            Wait for snapshot to reach a stable state
+  wait                       Wait for snapshot to reach a stable state
 
 FLAGS:
   -h, --help                help for snapshot

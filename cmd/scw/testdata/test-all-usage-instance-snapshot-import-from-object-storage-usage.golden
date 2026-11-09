@@ -1,0 +1,33 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Import a snapshot from a QCOW2 file stored in Object Storage.
+
+USAGE:
+  scw instance snapshot import-from-object-storage [arg=value ...]
+
+EXAMPLES:
+  Import a snapshot from a QCOW2 file in Object Storage
+    scw instance snapshot import-from-object-storage zone=fr-par-1 name=imported-snapshot bucket=my-bucket object-key=my-qcow2-file-name volume-type=l_ssd
+
+ARGS:
+  [project-id]          Project ID to use. If none is passed the default project ID will be used
+  [name]                Name of the snapshot
+  [tags.{index}]        Tags associated with the snapshot
+  [bucket]              Object Storage bucket name
+  [object-key]          Object key
+  [size]                Size of the imported snapshot in bytes
+  [volume-type=l_ssd]   Volume type of the snapshot (unknown_volume_type | l_ssd)
+  [zone=fr-par-1]       Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3 | it-mil-1)
+
+FLAGS:
+  -h, --help                help for import-from-object-storage
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -B, --beta             Enable beta mode
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -H, --no-headers       Skip headers in human output
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+      --web              open console page for the current resource
