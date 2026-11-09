@@ -15,19 +15,20 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var logStatusMarshalSpecs = human.EnumMarshalSpecs{
-	rdb.InstanceLogStatusUnknown: &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
-	rdb.InstanceLogStatusReady:   &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
-	rdb.InstanceLogStatusCreating: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "creating",
+var logStatusFormat = humanv2.EnumFormats[rdb.InstanceLogStatus]{
+	rdb.InstanceLogStatusUnknown: humanv2.EnumFormat{Color: color.Faint, Value: "unknown"},
+	rdb.InstanceLogStatusReady:   humanv2.EnumFormat{Color: color.FgGreen, Value: "ready"},
+	rdb.InstanceLogStatusCreating: humanv2.EnumFormat{
+		Color: color.FgBlue,
+		Value: "creating",
 	},
-	rdb.InstanceLogStatusError: &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
+	rdb.InstanceLogStatusError: humanv2.EnumFormat{Color: color.FgRed, Value: "error"},
 }
 
 func logPrepareBuilder(c *core.Command) *core.Command {

@@ -2,21 +2,21 @@ package mongodb
 
 import (
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
 )
 
-var nodeTypeStockMarshalSpecs = human.EnumMarshalSpecs{
-	mongodb.NodeTypeStockAvailable: &human.EnumMarshalSpec{
-		Attribute: color.FgGreen,
-		Value:     "available",
+var nodeTypeStockFormat = humanv2.EnumFormats[mongodb.NodeTypeStock]{
+	mongodb.NodeTypeStockAvailable: humanv2.EnumFormat{
+		Color: color.FgGreen,
+		Value: "available",
 	},
-	mongodb.NodeTypeStockLowStock: &human.EnumMarshalSpec{
-		Attribute: color.FgYellow,
-		Value:     "low stock",
+	mongodb.NodeTypeStockLowStock: humanv2.EnumFormat{
+		Color: color.FgYellow,
+		Value: "low stock",
 	},
-	mongodb.NodeTypeStockOutOfStock: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
-		Value:     "out of stock",
+	mongodb.NodeTypeStockOutOfStock: humanv2.EnumFormat{
+		Color: color.FgRed,
+		Value: "out of stock",
 	},
 }

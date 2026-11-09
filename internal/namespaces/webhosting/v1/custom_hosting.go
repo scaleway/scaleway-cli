@@ -2,26 +2,26 @@ package webhosting
 
 import (
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/webhosting/v1"
 )
 
 var (
-	hostingStatusMarshalSpecs = human.EnumMarshalSpecs{
-		webhosting.HostingStatusDeleting:   &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		webhosting.HostingStatusDelivering: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		webhosting.HostingStatusError:      &human.EnumMarshalSpec{Attribute: color.FgRed},
-		webhosting.HostingStatusLocked:     &human.EnumMarshalSpec{Attribute: color.FgRed},
-		webhosting.HostingStatusReady:      &human.EnumMarshalSpec{Attribute: color.FgGreen},
+	hostingStatusFormat = humanv2.EnumFormats[webhosting.HostingStatus]{
+		webhosting.HostingStatusDeleting:   humanv2.EnumFormat{Color: color.FgBlue},
+		webhosting.HostingStatusDelivering: humanv2.EnumFormat{Color: color.FgBlue},
+		webhosting.HostingStatusError:      humanv2.EnumFormat{Color: color.FgRed},
+		webhosting.HostingStatusLocked:     humanv2.EnumFormat{Color: color.FgRed},
+		webhosting.HostingStatusReady:      humanv2.EnumFormat{Color: color.FgGreen},
 	}
 
-	hostingDNSMarshalSpecs = human.EnumMarshalSpecs{
-		webhosting.DNSRecordsStatusValid:   &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		webhosting.DNSRecordsStatusInvalid: &human.EnumMarshalSpec{Attribute: color.FgRed},
+	hostingDNSFormat = humanv2.EnumFormats[webhosting.DNSRecordsStatus]{
+		webhosting.DNSRecordsStatusValid:   humanv2.EnumFormat{Color: color.FgGreen},
+		webhosting.DNSRecordsStatusInvalid: humanv2.EnumFormat{Color: color.FgRed},
 	}
 
-	nameserverMarshalSpecs = human.EnumMarshalSpecs{
-		webhosting.NameserverStatusValid:   &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		webhosting.NameserverStatusInvalid: &human.EnumMarshalSpec{Attribute: color.FgRed},
+	nameserverFormat = humanv2.EnumFormats[webhosting.NameserverStatus]{
+		webhosting.NameserverStatusValid:   humanv2.EnumFormat{Color: color.FgGreen},
+		webhosting.NameserverStatusInvalid: humanv2.EnumFormat{Color: color.FgRed},
 	}
 )

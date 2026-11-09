@@ -1,8 +1,10 @@
 package vpcgw
 
 import (
+	"reflect"
+
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v2"
 )
 
@@ -16,15 +18,9 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("vpc-gw").Groups = []string{"network"}
 
-	human.RegisterMarshalerFunc(
-		vpcgw.GatewayNetworkStatus(""),
-		human.EnumMarshalFunc(gatewayNetworkStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(
-		vpcgw.GatewayStatus(""),
-		human.EnumMarshalFunc(gatewayStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(
-		vpcgw.Gateway{},
-		gatewayMarshalerFunc)
+	humanv2.RegisterEnumFormat(gatewayNetworkStatusFormat)
+	humanv2.RegisterEnumFormat(gatewayStatusFormat)
+	humanv2.RegisterLayout(reflect.TypeFor[vpcgw.Gateway](), gatewayLayout)
 
 	cmds.MustFind("vpc-gw", "gateway-type", "list").Override(vpcgwGatewayTypeListBuilder)
 	cmds.MustFind("vpc-gw", "gateway", "create").Override(gatewayCreateBuilder)

@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/semver"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -28,36 +28,13 @@ func versionListBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-func versionMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp k8s.Version
-	version := tmp(i.(k8s.Version))
-
-	// Sections
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "AvailableKubeletArgs",
-			Title:     "Available Kubelet Arguments",
-		},
-		{
-			FieldName: "AvailableCnis",
-			Title:     "Available CNIs",
-		},
-		{
-			FieldName: "AvailableFeatureGates",
-			Title:     "Available Feature Gates",
-		},
-		{
-			FieldName: "AvailableAdmissionPlugins",
-			Title:     "Available Admission Plugins",
-		},
-	}
-
-	str, err := human.Marshal(version, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
+var versionLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{Path: "AvailableKubeletArgs", Title: "Available Kubelet Arguments"},
+		{Path: "AvailableCnis", Title: "Available CNIs"},
+		{Path: "AvailableFeatureGates", Title: "Available Feature Gates"},
+		{Path: "AvailableAdmissionPlugins", Title: "Available Admission Plugins"},
+	},
 }
 
 func getLatestK8SVersion(scwClient *scw.Client) (string, error) {

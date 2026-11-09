@@ -6,7 +6,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -17,11 +17,11 @@ import (
 
 // imageStatusMarshalerFunc marshals a registry.ImageStatus.
 var (
-	imageStatusMarshalSpecs = human.EnumMarshalSpecs{
-		registry.ImageStatusReady:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		registry.ImageStatusLocked:   &human.EnumMarshalSpec{Attribute: color.FgRed},
-		registry.ImageStatusError:    &human.EnumMarshalSpec{Attribute: color.FgRed},
-		registry.ImageStatusDeleting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	imageStatusFormat = humanv2.EnumFormats[registry.ImageStatus]{
+		registry.ImageStatusReady:    humanv2.EnumFormat{Color: color.FgGreen},
+		registry.ImageStatusLocked:   humanv2.EnumFormat{Color: color.FgRed},
+		registry.ImageStatusError:    humanv2.EnumFormat{Color: color.FgRed},
+		registry.ImageStatusDeleting: humanv2.EnumFormat{Color: color.FgBlue},
 	}
 )
 

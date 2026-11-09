@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Invalid IP "yo", should be either 'new', 'ipv4', 'ipv6', 'both', 'dynamic', 'none', an IP address ID or a reserved flexible IP address
+invalid IP "yo", should be either 'new', 'ipv4', 'ipv6', 'both', 'dynamic', 'none', an IP address ID or a reserved flexible IP address
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
   "error": "invalid IP \"yo\", should be either 'new', 'ipv4', 'ipv6', 'both', 'dynamic', 'none', an IP address ID or a reserved flexible IP address"

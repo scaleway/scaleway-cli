@@ -15,8 +15,8 @@ CreatedAt          few seconds ago
 Region             fr-par
 
 Endpoints:
-ID                                    URL                                                                   DISABLE AUTH
-79319256-5e07-4b5a-8c08-b81f1c585b26  https://956f2366-8cf5-439a-9dbc-5a0ee3036465.ifr.fr-par.scaleway.com  false
+ID                                    URL                                                                   PUBLIC NETWORK  PRIVATE NETWORK  DISABLE AUTH
+79319256-5e07-4b5a-8c08-b81f1c585b26  https://956f2366-8cf5-439a-9dbc-5a0ee3036465.ifr.fr-par.scaleway.com  {}              -                false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "956f2366-8cf5-439a-9dbc-5a0ee3036465",

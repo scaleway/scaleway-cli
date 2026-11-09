@@ -15,9 +15,9 @@ CreatedAt          few seconds ago
 Region             fr-par
 
 Endpoints:
-ID                                    URL                                                                                         DISABLE AUTH
-d0fb99b1-0018-4025-aa46-62dce0f3bc78  https://896af1ed-836c-40e2-94e7-f563b7802466.ifr.fr-par.scaleway.com                        false
-e1eef3b8-3ee9-4b4c-9a11-d56e1df8bb39  https://896af1ed-836c-40e2-94e7-f563b7802466.b0caf5f9-fadc-4afe-bdff-42d252b9f698.internal  false
+ID                                    URL                                                                                         PUBLIC NETWORK  PRIVATE NETWORK                         DISABLE AUTH
+d0fb99b1-0018-4025-aa46-62dce0f3bc78  https://896af1ed-836c-40e2-94e7-f563b7802466.ifr.fr-par.scaleway.com                        {}              -                                       false
+e1eef3b8-3ee9-4b4c-9a11-d56e1df8bb39  https://896af1ed-836c-40e2-94e7-f563b7802466.b0caf5f9-fadc-4afe-bdff-42d252b9f698.internal  -               {b0caf5f9-fadc-4afe-bdff-42d252b9f698}  false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "896af1ed-836c-40e2-94e7-f563b7802466",

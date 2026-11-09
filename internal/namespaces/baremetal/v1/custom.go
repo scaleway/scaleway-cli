@@ -1,8 +1,10 @@
 package baremetal
 
 import (
+	"reflect"
+
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	baremetalV3 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v3"
 	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 )
@@ -17,17 +19,10 @@ func GetCommands() *core.Commands {
 		serverAddFlexibleIP(),
 	))
 
-	human.RegisterMarshalerFunc(
-		baremetal.ServerPingStatus(""),
-		human.EnumMarshalFunc(serverPingStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		baremetal.OfferStock(""),
-		human.EnumMarshalFunc(offerAvailabilityMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(baremetal.Server{}, serverMarshalerFunc)
-
-	human.RegisterMarshalerFunc(baremetal.Offer{}, listOfferMarshalerFunc)
+	humanv2.RegisterLayout(reflect.TypeFor[baremetal.Server](), serverLayout)
+	humanv2.RegisterLayout(reflect.TypeFor[baremetal.Offer](), offerLayout)
+	humanv2.RegisterEnumFormat(offerStockFormat)
+	humanv2.RegisterEnumFormat(pingStatusFormat)
 
 	cmds.MustFind("baremetal", "server", "create").Override(serverCreateBuilder)
 	cmds.MustFind("baremetal", "server", "install").Override(serverInstallBuilder)

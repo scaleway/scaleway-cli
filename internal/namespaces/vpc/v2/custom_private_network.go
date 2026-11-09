@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	inference "github.com/scaleway/scaleway-sdk-go/api/inference/v1"
@@ -21,25 +21,14 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-func privateNetworkMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp vpc.PrivateNetwork
-	pn := tmp(i.(vpc.PrivateNetwork))
-
-	// Sections
-	opt.Sections = []*human.MarshalSection{
+var privateNetworkLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
 		{
-			FieldName:   "Subnets",
-			Title:       "Subnets",
-			HideIfEmpty: true,
+			Path:      "Subnets",
+			Title:     "Subnets",
+			Omittable: true,
 		},
-	}
-
-	str, err := human.Marshal(pn, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
+	},
 }
 
 func privateNetworkGetBuilder(c *core.Command) *core.Command {

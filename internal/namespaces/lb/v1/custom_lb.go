@@ -5,63 +5,53 @@ import (
 	"errors"
 	"net/http"
 	"reflect"
-	"strings"
 	"time"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 var (
-	defaultLBTimeout     = 10 * time.Minute
-	lbStatusMarshalSpecs = human.EnumMarshalSpecs{
-		lb.LBStatusError:     &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-		lb.LBStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
-		lb.LBStatusMigrating: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "migrating"},
-		lb.LBStatusPending:   &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "pending"},
-		lb.LBStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
-		lb.LBStatusStopped:   &human.EnumMarshalSpec{Attribute: color.Faint, Value: "stopped"},
-		lb.LBStatusUnknown:   &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
+	defaultLBTimeout = 10 * time.Minute
+	lbStatusFormat   = humanv2.EnumFormats[lb.LBStatus]{
+		lb.LBStatusError:     humanv2.EnumFormat{Color: color.FgRed, Value: "error"},
+		lb.LBStatusLocked:    humanv2.EnumFormat{Color: color.FgRed, Value: "locked"},
+		lb.LBStatusMigrating: humanv2.EnumFormat{Color: color.FgBlue, Value: "migrating"},
+		lb.LBStatusPending:   humanv2.EnumFormat{Color: color.FgBlue, Value: "pending"},
+		lb.LBStatusReady:     humanv2.EnumFormat{Color: color.FgGreen, Value: "ready"},
+		lb.LBStatusStopped:   humanv2.EnumFormat{Color: color.Faint, Value: "stopped"},
+		lb.LBStatusUnknown:   humanv2.EnumFormat{Color: color.Faint, Value: "unknown"},
+	}
+
+	lbLayout = humanv2.Layout{
+		Sections: []humanv2.Section{
+			{Path: "IP", Title: "IPs"},
+			{
+				Path:  "Instances",
+				Title: "LB Instances",
+				FooterFunc: func(data any) (string, error) {
+					var tags []string
+					switch v := data.(type) {
+					case lb.LB:
+						tags = v.Tags
+					case *lb.LB:
+						tags = v.Tags
+					default:
+						return "", nil
+					}
+					if len(tags) != 0 && tags[0] == kapsuleTag {
+						return warningKapsuleTaggedMessageView(), nil
+					}
+
+					return "", nil
+				},
+			},
+		},
 	}
 )
-
-func lbMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp lb.LB
-	loadbalancer := tmp(i.(lb.LB))
-
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "IP",
-			Title:     "IPs",
-		},
-		{
-			FieldName: "Instances",
-			Title:     "LB Instances",
-		},
-	}
-
-	if len(loadbalancer.Tags) != 0 && loadbalancer.Tags[0] == kapsuleTag {
-		lbResp, err := human.Marshal(loadbalancer, opt)
-		if err != nil {
-			return "", err
-		}
-
-		return strings.Join([]string{
-			lbResp,
-			warningKapsuleTaggedMessageView(),
-		}, "\n\n"), nil
-	}
-
-	str, err := human.Marshal(loadbalancer, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
-}
 
 func lbWaitCommand() *core.Command {
 	return &core.Command{

@@ -8,6 +8,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -19,7 +20,7 @@ type rdbEndpointCustomResult struct {
 
 func rdbEndpointCustomResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	result := i.(rdbEndpointCustomResult)
-	messageStr, err := result.Success.MarshalHuman()
+	messageStr, err := humanv2.Format(result.Success)
 	if err != nil {
 		return "", err
 	}
@@ -33,6 +34,53 @@ func rdbEndpointCustomResultMarshalerFunc(i any, opt *human.MarshalOpt) (string,
 	}
 
 	return messageStr + "\n" + endpointsStr, nil
+}
+
+// endpointListLayout drops the PrivateNetwork/LoadBalancer/DirectAccess
+// columns that the default walk would print, matching v1's endpoint renderer.
+var endpointListLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{
+			Fields: []humanv2.Field{
+				{Path: "ID"},
+				{Path: "IP"},
+				{Path: "Port"},
+				{Path: "Name"},
+				{Path: "Hostname"},
+			},
+		},
+	},
+}
+
+func rdbEndpointCustomResultView(v rdbEndpointCustomResult) (string, error) {
+	messageStr, err := humanv2.Format(v.Success)
+	if err != nil {
+		return "", err
+	}
+	if len(v.Endpoints) == 0 {
+		return messageStr, nil
+	}
+
+	endpointsStr, err := humanv2.Render(v.Endpoints, endpointListLayout)
+	if err != nil {
+		return "", err
+	}
+
+	return messageStr + "\n" + endpointsStr, nil
+}
+
+// endpointListBuilder gives the generated list the same 5 columns as the
+// create result table instead of the default flattened walk.
+func endpointListBuilder(c *core.Command) *core.Command {
+	c.View = &core.View{Fields: []*core.ViewField{
+		{FieldName: "ID"},
+		{FieldName: "IP"},
+		{FieldName: "Port"},
+		{FieldName: "Name"},
+		{FieldName: "Hostname"},
+	}}
+
+	return c
 }
 
 type rdbEndpointSpecCustom struct {

@@ -2,8 +2,7 @@ package mnq
 
 import (
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
-	mnq "github.com/scaleway/scaleway-sdk-go/api/mnq/v1beta1"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 )
 
 func GetCommands() *core.Commands {
@@ -11,11 +10,7 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("mnq").Groups = []string{"integration"}
 
-	human.RegisterMarshalerFunc(
-		mnq.SnsInfoStatus(""),
-		human.EnumMarshalFunc(mnqSqsInfoStatusMarshalSpecs),
-	)
-
+	humanv2.RegisterEnumFormat(mnqSqsInfoStatusFormat)
 	cmds.MustFind("mnq", "nats", "get-account").Override(mnqNatsGetAccountBuilder)
 	cmds.MustFind("mnq", "nats", "list-credentials").Override(mnqNatsListCredentialsBuilder)
 

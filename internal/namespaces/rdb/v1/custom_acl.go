@@ -8,14 +8,15 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var aclRuleActionMarshalSpecs = human.EnumMarshalSpecs{
-	rdb.ACLRuleActionAllow: &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "allow"},
-	rdb.ACLRuleActionDeny:  &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "deny"},
+var aclRuleActionFormat = humanv2.EnumFormats[rdb.ACLRuleAction]{
+	rdb.ACLRuleActionAllow: humanv2.EnumFormat{Color: color.FgGreen, Value: "allow"},
+	rdb.ACLRuleActionDeny:  humanv2.EnumFormat{Color: color.FgRed, Value: "deny"},
 }
 
 type rdbACLCustomArgs struct {
@@ -39,11 +40,41 @@ type CustomACLResult struct {
 
 func rdbACLCustomResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	result := i.(CustomACLResult)
-	messageStr, err := result.Success.MarshalHuman()
+	messageStr, err := humanv2.Format(result.Success)
 	if err != nil {
 		return "", err
 	}
 	aclStr, err := human.Marshal(result.Rules, opt)
+	if err != nil {
+		return "", err
+	}
+
+	return messageStr + "\n" + aclStr, nil
+}
+
+// aclRulesLayout sets the rule columns v1's rdbACLCustomResultMarshalerFunc
+// rendered (SDK field order would put PORT second).
+var aclRulesLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{
+			Fields: []humanv2.Field{
+				{Path: "IP"},
+				{Path: "Protocol"},
+				{Path: "Direction"},
+				{Path: "Action"},
+				{Path: "Description"},
+				{Path: "Port"},
+			},
+		},
+	},
+}
+
+func rdbACLResultView(v CustomACLResult) (string, error) {
+	messageStr, err := humanv2.Format(v.Success)
+	if err != nil {
+		return "", err
+	}
+	aclStr, err := humanv2.Render(v.Rules, aclRulesLayout)
 	if err != nil {
 		return "", err
 	}

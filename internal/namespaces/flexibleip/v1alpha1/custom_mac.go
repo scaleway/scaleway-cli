@@ -2,15 +2,15 @@ package flexibleip
 
 import (
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	flexibleip "github.com/scaleway/scaleway-sdk-go/api/flexibleip/v1alpha1"
 )
 
-var macAddressStatusMarshalSpecs = human.EnumMarshalSpecs{
-	flexibleip.MACAddressStatusUnknown:  &human.EnumMarshalSpec{Attribute: color.Faint},
-	flexibleip.MACAddressStatusReady:    &human.EnumMarshalSpec{Attribute: color.FgCyan},
-	flexibleip.MACAddressStatusUpdating: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	flexibleip.MACAddressStatusUsed:     &human.EnumMarshalSpec{Attribute: color.FgGreen},
-	flexibleip.MACAddressStatusError:    &human.EnumMarshalSpec{Attribute: color.FgRed},
-	flexibleip.MACAddressStatusDeleting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
+var macAddressStatusFormat = humanv2.EnumFormats[flexibleip.MACAddressStatus]{
+	flexibleip.MACAddressStatusUnknown:  humanv2.EnumFormat{Color: color.Faint},
+	flexibleip.MACAddressStatusReady:    humanv2.EnumFormat{Color: color.FgCyan},
+	flexibleip.MACAddressStatusUpdating: humanv2.EnumFormat{Color: color.FgBlue},
+	flexibleip.MACAddressStatusUsed:     humanv2.EnumFormat{Color: color.FgGreen},
+	flexibleip.MACAddressStatusError:    humanv2.EnumFormat{Color: color.FgRed},
+	flexibleip.MACAddressStatusDeleting: humanv2.EnumFormat{Color: color.FgBlue},
 }

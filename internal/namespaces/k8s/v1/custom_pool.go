@@ -12,7 +12,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -26,14 +26,14 @@ const (
 // Marshalers
 //
 
-// poolStatusMarshalSpecs marshals a k8s.PoolStatus.
+// poolStatusFormat marshals a k8s.PoolStatus.
 var (
-	poolStatusMarshalSpecs = human.EnumMarshalSpecs{
-		k8s.PoolStatusScaling:   &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		k8s.PoolStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		k8s.PoolStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed},
-		k8s.PoolStatusUpgrading: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		k8s.PoolStatusWarning:   &human.EnumMarshalSpec{Attribute: color.FgHiYellow},
+	poolStatusFormat = humanv2.EnumFormats[k8s.PoolStatus]{
+		k8s.PoolStatusScaling:   humanv2.EnumFormat{Color: color.FgBlue},
+		k8s.PoolStatusReady:     humanv2.EnumFormat{Color: color.FgGreen},
+		k8s.PoolStatusLocked:    humanv2.EnumFormat{Color: color.FgRed},
+		k8s.PoolStatusUpgrading: humanv2.EnumFormat{Color: color.FgBlue},
+		k8s.PoolStatusWarning:   humanv2.EnumFormat{Color: color.FgHiYellow},
 	}
 )
 
@@ -44,37 +44,13 @@ const (
 	poolActionDelete
 )
 
-func poolMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type humanPool k8s.Pool
-	pool := humanPool(i.(k8s.Pool))
-
-	// Sections
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "UpgradePolicy",
-			Title:     "Upgrade Policy",
-		},
-		{
-			FieldName: "Labels",
-			Title:     "Node labels",
-		},
-		{
-			FieldName: "Taints",
-			Title:     "Node taints",
-		},
-
-		{
-			FieldName: "StartupTaints",
-			Title:     "Node startup taints",
-		},
-	}
-
-	str, err := human.Marshal(pool, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
+var poolLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{Path: "UpgradePolicy", Title: "Upgrade Policy"},
+		{Path: "Labels", Title: "Node labels"},
+		{Path: "Taints", Title: "Node taints"},
+		{Path: "StartupTaints", Title: "Node startup taints"},
+	},
 }
 
 func poolCreateBuilder(c *core.Command) *core.Command {
@@ -305,7 +281,6 @@ set -e
 sudo wget -O /usr/local/bin/k8s-agent https://github.com/scaleway/k8s-agent/releases/latest/download/k8s-agent_linux_amd64
 sudo chmod +x /usr/local/bin/k8s-agent
 export POOL_ID=%s POOL_REGION=%s SCW_SECRET_KEY=\$SCW_SECRET_KEY
-echo "Launching k8s-agent..."
 sudo --preserve-env=POOL_ID,POOL_REGION,SCW_SECRET_KEY /usr/local/bin/k8s-agent -kosmos
 EOF`, poolID, region.String())
 }

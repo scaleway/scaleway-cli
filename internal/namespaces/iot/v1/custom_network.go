@@ -4,22 +4,20 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/iot/v1"
 )
 
-func iotNetworkCreateResponseMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp iot.CreateNetworkResponse
-	networkCreateResponse := tmp(*i.(*iot.CreateNetworkResponse))
-
-	networkContent, err := human.Marshal(networkCreateResponse.Network, opt)
+func iotCreateNetworkView(v *iot.CreateNetworkResponse) (string, error) {
+	networkContent, err := humanv2.Render(v.Network, humanv2.Layout{})
 	if err != nil {
 		return "", err
 	}
+
 	networkView := terminal.Style("Network:\n", color.Bold) + networkContent
 
-	secretContent, err := human.Marshal(networkCreateResponse.Secret, opt)
+	secretContent, err := humanv2.Format(v.Secret)
 	if err != nil {
 		return "", err
 	}

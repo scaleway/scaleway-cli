@@ -6,23 +6,23 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/container/v1"
 )
 
 var (
 	containerDeployTimeout = 12*time.Minute + 30*time.Second
 
-	containerStatusMarshalSpecs = human.EnumMarshalSpecs{
-		container.ContainerStatusCreating:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		container.ContainerStatusDeleting:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		container.ContainerStatusError:         &human.EnumMarshalSpec{Attribute: color.FgRed},
-		container.ContainerStatusLocked:        &human.EnumMarshalSpec{Attribute: color.FgRed},
-		container.ContainerStatusLocking:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		container.ContainerStatusReady:         &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		container.ContainerStatusUnknownStatus: &human.EnumMarshalSpec{Attribute: color.Faint},
-		container.ContainerStatusUpdating:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		container.ContainerStatusUpgrading:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	containerStatusFormat = humanv2.EnumFormats[container.ContainerStatus]{
+		container.ContainerStatusCreating:      humanv2.EnumFormat{Color: color.FgBlue},
+		container.ContainerStatusDeleting:      humanv2.EnumFormat{Color: color.FgBlue},
+		container.ContainerStatusError:         humanv2.EnumFormat{Color: color.FgRed},
+		container.ContainerStatusLocked:        humanv2.EnumFormat{Color: color.FgRed},
+		container.ContainerStatusLocking:       humanv2.EnumFormat{Color: color.FgBlue},
+		container.ContainerStatusReady:         humanv2.EnumFormat{Color: color.FgGreen},
+		container.ContainerStatusUnknownStatus: humanv2.EnumFormat{Color: color.Faint},
+		container.ContainerStatusUpdating:      humanv2.EnumFormat{Color: color.FgBlue},
+		container.ContainerStatusUpgrading:     humanv2.EnumFormat{Color: color.FgBlue},
 	}
 )
 
