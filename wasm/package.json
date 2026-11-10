@@ -4,7 +4,7 @@
   "description": "WASM interface for Scaleway CLI, made to be used in a JS environment",
   "type": "module",
   "main": "index.js",
-  "packageManager": "pnpm@12.17.0",
+  "packageManager": "pnpm@12.18.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/scaleway/scaleway-cli",
