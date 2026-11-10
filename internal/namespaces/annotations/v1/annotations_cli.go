@@ -454,7 +454,7 @@ func annotationsValueDeleteAllMatchingKey() *core.Command {
 		Namespace: "annotations",
 		Resource:  "value",
 		Verb:      "delete-all-matching-key",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeFor[annotations.DeleteAllValuesMatchingKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -620,7 +620,7 @@ func annotationsBindingDeleteAllMatchingValue() *core.Command {
 		Namespace: "annotations",
 		Resource:  "binding",
 		Verb:      "delete-all-matching-value",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeFor[annotations.DeleteAllBindingsMatchingValueRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -649,7 +649,7 @@ func annotationsBindingDeleteAllMatchingSrn() *core.Command {
 		Namespace: "annotations",
 		Resource:  "binding",
 		Verb:      "delete-all-matching-srn",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeFor[annotations.DeleteAllBindingsMatchingSRNRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
