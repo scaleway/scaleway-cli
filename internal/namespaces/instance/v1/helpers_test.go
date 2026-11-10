@@ -7,6 +7,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	instanceV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v2alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
@@ -14,6 +15,17 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
 )
+
+//
+// Commands
+//
+
+func instanceV1AndV2Commands() *core.Commands {
+	cmds := instance.GetCommands()
+	cmds.Merge(instanceV2.GetCommands())
+
+	return cmds
+}
 
 //
 // Server
@@ -208,7 +220,7 @@ func deletePlacementGroup(metaKey string) core.AfterFunc {
 
 // deleteSnapshot deletes a snapshot previously registered in the context Meta at metaKey.
 func deleteSnapshot(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw instance snapshot delete {{ ." + metaKey + ".Snapshot.ID }}")
+	return core.ExecAfterCmd("scw instance snapshot delete {{ ." + metaKey + ".ID }}")
 }
 
 // deleteSnapshot deletes a snapshot previously registered in the context Meta at metaKey.

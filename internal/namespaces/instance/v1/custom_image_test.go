@@ -8,11 +8,14 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	instanceSDKV2 "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
 )
 
 func Test_ImageCreate(t *testing.T) {
+	cmds := instanceV1AndV2Commands()
+
 	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd(
@@ -24,8 +27,8 @@ func Test_ImageCreate(t *testing.T) {
 				`scw instance snapshot create volume-id={{ (index .Server.Volumes "0").ID }}`,
 			),
 		),
-		Commands: instance.GetCommands(),
-		Cmd:      "scw instance image create snapshot-id={{ .Snapshot.Snapshot.ID }} arch=x86_64",
+		Commands: cmds,
+		Cmd:      "scw instance image create snapshot-id={{ .Snapshot.ID }} arch=x86_64",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -38,7 +41,7 @@ func Test_ImageCreate(t *testing.T) {
 	}))
 
 	t.Run("Use additional snapshots", core.Test(&core.TestConfig{
-		Commands: instance.GetCommands(),
+		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd(
 				"Server",
@@ -70,7 +73,7 @@ func Test_ImageCreate(t *testing.T) {
 func Test_ImageDelete(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: createImage("Image"),
-		Commands:   instance.GetCommands(),
+		Commands:   instanceV1AndV2Commands(),
 		Cmd:        "scw instance image delete {{ .Image.Image.ID }} with-snapshots=true",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -78,15 +81,15 @@ func Test_ImageDelete(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				// Assert snapshot are deleted with the image
-				api := instanceSDK.NewAPI(ctx.Client)
-				snapshot := testhelpers.MapValue[*instanceSDK.CreateSnapshotResponse](
+				api := instanceSDKV2.NewVolumeAPI(ctx.Client)
+				snapshot := testhelpers.MapValue[*instanceSDKV2.Snapshot](
 					t,
 					ctx.Meta,
 					"Snapshot",
 				)
 
-				_, err := api.GetSnapshot(&instanceSDK.GetSnapshotRequest{
-					SnapshotID: snapshot.Snapshot.ID,
+				_, err := api.GetSnapshot(&instanceSDKV2.VolumeAPIGetSnapshotRequest{
+					SnapshotID: snapshot.ID,
 				})
 				assert.ErrorAs(t, err, new(*scw.ResourceNotFoundError))
 			},
@@ -107,7 +110,7 @@ func createImage(metaKey string) core.BeforeFunc {
 		),
 		core.ExecStoreBeforeCmd(
 			metaKey,
-			`scw instance image create snapshot-id={{ .Snapshot.Snapshot.ID }} arch=x86_64`,
+			`scw instance image create snapshot-id={{ .Snapshot.ID }} arch=x86_64`,
 		),
 	)
 }
@@ -163,9 +166,11 @@ func deleteImage(metaKey string) core.AfterFunc {
 }
 
 func Test_ImageList(t *testing.T) {
+	cmds := instanceV1AndV2Commands()
+
 	t.Run("simple", core.Test(&core.TestConfig{
 		BeforeFunc: createImage("Image"),
-		Commands:   instance.GetCommands(),
+		Commands:   cmds,
 		Cmd:        "scw instance image list",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -180,7 +185,7 @@ func Test_ImageList(t *testing.T) {
 	t.Run("With SBS root volume", core.Test(&core.TestConfig{
 		BeforeFunc: createImageWithSBSRootVolume("ImageSBSRoot"),
 		Commands: core.NewCommandsMerge(
-			instance.GetCommands(),
+			cmds,
 			block.GetCommands(),
 		),
 		Cmd: "scw instance image list",
@@ -197,7 +202,7 @@ func Test_ImageList(t *testing.T) {
 	t.Run("With SBS additional volumes", core.Test(&core.TestConfig{
 		BeforeFunc: createImageWithSBSAdditionalVolumes("ImageSBSAdditional"),
 		Commands: core.NewCommandsMerge(
-			instance.GetCommands(),
+			cmds,
 			block.GetCommands(),
 		),
 		Cmd: "scw instance image list",
@@ -213,9 +218,11 @@ func Test_ImageList(t *testing.T) {
 }
 
 func Test_ImageUpdate(t *testing.T) {
+	cmds := instanceV1AndV2Commands()
+
 	t.Run("Change name", core.Test(&core.TestConfig{
 		BeforeFunc: createImage("ImageName"),
-		Commands:   instance.GetCommands(),
+		Commands:   cmds,
 		Cmd:        "scw instance image update {{ .ImageName.Image.ID }} name=foo",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -234,7 +241,7 @@ func Test_ImageUpdate(t *testing.T) {
 
 	t.Run("Change public from default false to true", core.Test(&core.TestConfig{
 		BeforeFunc: createImage("ImagePub"),
-		Commands:   instance.GetCommands(),
+		Commands:   cmds,
 		Cmd:        "scw instance image update {{ .ImagePub.Image.ID }} public=true",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
