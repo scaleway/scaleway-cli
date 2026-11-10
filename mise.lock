@@ -245,12 +245,6 @@ url = "https://nodejs.org/dist/v24.22.2/node-v24.22.2-darwin-x64.tar.gz"
 checksum = "sha256:ca1bff5d8ead13c9f2ea404a176db46bd430704d5b5113734049fa365e7799e2"
 url = "https://nodejs.org/dist/v24.22.2/node-v24.22.2-win-x64.zip"
 
-[[tools."npm:actions-up"]]
-version = "1.20.0"
-aube = { path = ".mise/locks/npm-actions-up/1.20.0", digest = "sha256:79e2165ea5aca99d3ad5b70f730f8797f56180a070e0d28f00fbae5b91d40258" }
-backend = "npm:actions-up"
-specifiers = ["1.20"]
-
 [[tools."npm:markdown-link-check"]]
 version = "3.15.0"
 aube = { path = ".mise/locks/npm-markdown-link-check/3.15.0", digest = "sha256:a58a267fb41e71e05d52e1f3bee153f1a1b0818c536d9aa90ca6e91a4fd33cd7" }
