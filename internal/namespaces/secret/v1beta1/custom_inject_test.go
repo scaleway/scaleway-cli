@@ -85,10 +85,10 @@ func Test_SecretInject(t *testing.T) {
 			wantRequests: 1,
 		},
 		{
-			name:         "unused-unknown-secret-is-prefetched-without-failing",
-			template:     `{{ if false }}{{ secret "missing" }}{{ end }}ok`,
-			wantOut:      "ok",
-			wantRequests: 1,
+			name:         "secret-behind-value-dependent-branch",
+			template:     `{{ if eq (secret "` + injectSecretID + `") "s3cr3t" }}{{ secret "my-app/db@2" | jsonField "password" }}{{ end }}`,
+			wantOut:      "hunter2",
+			wantRequests: 2,
 		},
 		{
 			name:         "by-path-with-revision-and-json-field",

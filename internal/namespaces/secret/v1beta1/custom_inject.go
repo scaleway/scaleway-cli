@@ -8,7 +8,6 @@ import (
 	"strings"
 	"sync"
 	"text/template"
-	"text/template/parse"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	secret "github.com/scaleway/scaleway-sdk-go/api/secret/v1beta1"
@@ -83,22 +82,44 @@ func secretInjectRun(ctx context.Context, argsI any) (any, error) {
 		text = string(data)
 	}
 
-	resolver := &secretResolver{
-		ctx:    ctx,
-		api:    secret.NewAPI(core.ExtractClient(ctx)),
-		region: args.Region,
-		cache:  map[string]secretResult{},
+	api := secret.NewAPI(core.ExtractClient(ctx))
+	fetch := func(ref string) (string, error) {
+		return fetchSecret(ctx, api, args.Region, ref)
 	}
 
+	// First pass only collects references, with placeholder values.
+	refs := map[string]struct{}{}
+
 	tpl, err := template.New("inject").Funcs(template.FuncMap{
-		"secret":    resolver.resolve,
-		"jsonField": jsonField,
+		"secret": func(ref string) string {
+			refs[ref] = struct{}{}
+
+			return ""
+		},
+		"jsonField": func(string, string) string { return "" },
 	}).Parse(text)
 	if err != nil {
 		return nil, fmt.Errorf("parsing template: %w", err)
 	}
 
-	resolver.prefetch(tpl)
+	// Placeholders may break value-dependent logic; the second pass reports real errors.
+	_ = tpl.Execute(io.Discard, nil)
+
+	results := fetchSecrets(refs, fetch)
+
+	tpl.Funcs(template.FuncMap{
+		"secret": func(ref string) (string, error) {
+			// Missed by the first pass when behind a branch depending on a secret value.
+			res, ok := results[ref]
+			if !ok {
+				res.value, res.err = fetch(ref)
+				results[ref] = res
+			}
+
+			return res.value, res.err
+		},
+		"jsonField": jsonField,
+	})
 
 	// Render fully before writing so a failure never outputs a partial template.
 	var out strings.Builder
@@ -114,56 +135,35 @@ type secretResult struct {
 	err   error
 }
 
-type secretResolver struct {
-	ctx    context.Context //nolint:containedctx // template funcs cannot take a context
-	api    *secret.API
-	region scw.Region
-	mu     sync.Mutex
-	cache  map[string]secretResult
-}
+// fetchSecrets concurrently fetches refs; errors surface only if rendering uses them.
+func fetchSecrets(refs map[string]struct{}, fetch func(string) (string, error)) map[string]secretResult {
+	var (
+		mu sync.Mutex
+		g  errgroup.Group
+	)
 
-// prefetch concurrently resolves the literal references of tpl; errors surface only if rendering uses them.
-func (r *secretResolver) prefetch(tpl *template.Template) {
-	refs := map[string]struct{}{}
-	for _, t := range tpl.Templates() {
-		if t.Tree != nil {
-			collectSecretRefs(t.Root, refs)
-		}
-	}
-
-	var g errgroup.Group
+	results := make(map[string]secretResult, len(refs))
 
 	g.SetLimit(maxConcurrentSecretFetches)
 
 	for ref := range refs {
 		g.Go(func() error {
-			_, _ = r.resolve(ref)
+			value, err := fetch(ref)
+
+			mu.Lock()
+			results[ref] = secretResult{value: value, err: err}
+			mu.Unlock()
 
 			return nil
 		})
 	}
 
 	_ = g.Wait()
+
+	return results
 }
 
-// resolve returns the data of the secret version referenced by ref, fetching each reference once.
-func (r *secretResolver) resolve(ref string) (string, error) {
-	r.mu.Lock()
-	res, ok := r.cache[ref]
-	r.mu.Unlock()
-
-	if !ok {
-		res.value, res.err = r.fetch(ref)
-
-		r.mu.Lock()
-		r.cache[ref] = res
-		r.mu.Unlock()
-	}
-
-	return res.value, res.err
-}
-
-func (r *secretResolver) fetch(ref string) (string, error) {
+func fetchSecret(ctx context.Context, api *secret.API, region scw.Region, ref string) (string, error) {
 	id, revision, hasRevision := strings.Cut(ref, "@")
 	if !hasRevision {
 		revision = revisionLatest
@@ -179,11 +179,11 @@ func (r *secretResolver) fetch(ref string) (string, error) {
 	)
 
 	if validation.IsUUID(id) {
-		resp, err = r.api.AccessSecretVersion(&secret.AccessSecretVersionRequest{
-			Region:   r.region,
+		resp, err = api.AccessSecretVersion(&secret.AccessSecretVersionRequest{
+			Region:   region,
 			SecretID: id,
 			Revision: revision,
-		}, scw.WithContext(r.ctx))
+		}, scw.WithContext(ctx))
 	} else {
 		path, name := "/", id
 		if dir, base, found := strings.CutLast(id, "/"); found {
@@ -194,12 +194,12 @@ func (r *secretResolver) fetch(ref string) (string, error) {
 			return "", fmt.Errorf("invalid secret reference %q", ref)
 		}
 
-		resp, err = r.api.AccessSecretVersionByPath(&secret.AccessSecretVersionByPathRequest{
-			Region:     r.region,
+		resp, err = api.AccessSecretVersionByPath(&secret.AccessSecretVersionByPathRequest{
+			Region:     region,
 			SecretPath: path,
 			SecretName: name,
 			Revision:   revision,
-		}, scw.WithContext(r.ctx))
+		}, scw.WithContext(ctx))
 	}
 
 	if err != nil {
@@ -207,57 +207,6 @@ func (r *secretResolver) fetch(ref string) (string, error) {
 	}
 
 	return string(resp.Data), nil
-}
-
-// collectSecretRefs adds to refs the string literal argument of every `secret` call under node.
-func collectSecretRefs(node parse.Node, refs map[string]struct{}) {
-	switch n := node.(type) {
-	case *parse.ListNode:
-		if n == nil {
-			return
-		}
-
-		for _, child := range n.Nodes {
-			collectSecretRefs(child, refs)
-		}
-	case *parse.ActionNode:
-		collectSecretRefs(n.Pipe, refs)
-	case *parse.TemplateNode:
-		collectSecretRefs(n.Pipe, refs)
-	case *parse.IfNode:
-		collectBranchSecretRefs(&n.BranchNode, refs)
-	case *parse.RangeNode:
-		collectBranchSecretRefs(&n.BranchNode, refs)
-	case *parse.WithNode:
-		collectBranchSecretRefs(&n.BranchNode, refs)
-	case *parse.PipeNode:
-		if n == nil {
-			return
-		}
-
-		for _, cmd := range n.Cmds {
-			collectSecretRefs(cmd, refs)
-		}
-	case *parse.CommandNode:
-		if len(n.Args) == 2 {
-			fn, isIdent := n.Args[0].(*parse.IdentifierNode)
-			ref, isString := n.Args[1].(*parse.StringNode)
-
-			if isIdent && isString && fn.Ident == "secret" {
-				refs[ref.Text] = struct{}{}
-			}
-		}
-
-		for _, arg := range n.Args {
-			collectSecretRefs(arg, refs)
-		}
-	}
-}
-
-func collectBranchSecretRefs(n *parse.BranchNode, refs map[string]struct{}) {
-	collectSecretRefs(n.Pipe, refs)
-	collectSecretRefs(n.List, refs)
-	collectSecretRefs(n.ElseList, refs)
 }
 
 func jsonField(field, data string) (string, error) {
