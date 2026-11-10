@@ -7,8 +7,8 @@ USAGE:
 
 ARGS:
   key-id          ID of the key to update.
-  [name]          New name of the key.
-  [description]   New description of the key.
+  [name]          New name of the key. Never use a secret as a name, as it is shown in the audit trail.
+  [description]   New description of the key. Never put a secret in the description, as it is shown in the audit trail.
 
 FLAGS:
   -h, --help                help for update

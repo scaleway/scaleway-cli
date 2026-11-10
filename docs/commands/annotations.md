@@ -124,11 +124,11 @@ scw annotations key create [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                        | Argument Specifications |
-|-----------------|------------------------------------------------------------------------------------|-------------------------|
-| name            | Name of the annotation key.                                                        |                         |
-| description     | Description of the annotation key.                                                 |                         |
-| organization-id | Organization ID to use. If none is passed the default organization ID will be used |                         |
+| Name            | Description                                                                                                  | Argument Specifications |
+|-----------------|--------------------------------------------------------------------------------------------------------------|-------------------------|
+| name            | Name of the annotation key. Never use a secret as a name, as it is shown in the audit trail.                 |                         |
+| description     | Description of the annotation key. Never put a secret in the description, as it is shown in the audit trail. |                         |
+| organization-id | Organization ID to use. If none is passed the default organization ID will be used                           |                         |
 
 
 
@@ -202,11 +202,11 @@ scw annotations key update [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                 | Argument Specifications |
-|-------------|-----------------------------|-------------------------|
-| key-id      | ID of the key to update.    | Required                |
-| name        | New name of the key.        |                         |
-| description | New description of the key. |                         |
+| Name        | Description                                                                                           | Argument Specifications |
+|-------------|-------------------------------------------------------------------------------------------------------|-------------------------|
+| key-id      | ID of the key to update.                                                                              | Required                |
+| name        | New name of the key. Never use a secret as a name, as it is shown in the audit trail.                 |                         |
+| description | New description of the key. Never put a secret in the description, as it is shown in the audit trail. |                         |
 
 
 
@@ -252,11 +252,11 @@ scw annotations value create [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                               | Argument Specifications |
-|-------------|-------------------------------------------|-------------------------|
-| key-id      | ID of the key the value will be bound to. |                         |
-| name        | Name of the value.                        |                         |
-| description | Description of the value.                 |                         |
+| Name        | Description                                                                                         | Argument Specifications |
+|-------------|-----------------------------------------------------------------------------------------------------|-------------------------|
+| key-id      | ID of the key the value will be bound to.                                                           |                         |
+| name        | Name of the value. Never use a secret as a name, as it is shown in the audit trail.                 |                         |
+| description | Description of the value. Never put a secret in the description, as it is shown in the audit trail. |                         |
 
 
 
@@ -350,11 +350,11 @@ scw annotations value update [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                   | Argument Specifications |
-|-------------|-------------------------------|-------------------------|
-| value-id    | ID of the value to update.    | Required                |
-| name        | New name of the value.        |                         |
-| description | New description of the value. |                         |
+| Name        | Description                                                                                             | Argument Specifications |
+|-------------|---------------------------------------------------------------------------------------------------------|-------------------------|
+| value-id    | ID of the value to update.                                                                              | Required                |
+| name        | New name of the value. Never use a secret as a name, as it is shown in the audit trail.                 |                         |
+| description | New description of the value. Never put a secret in the description, as it is shown in the audit trail. |                         |
 
 
 

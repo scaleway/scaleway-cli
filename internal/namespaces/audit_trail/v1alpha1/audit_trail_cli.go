@@ -196,6 +196,9 @@ func auditTrailEventList() *core.Command {
 					"wofl_workflow_run",
 					"wofl_workflow_version",
 					"kafk_cluster",
+					"annotations_key",
+					"annotations_value",
+					"annotations_binding",
 				},
 			},
 			{

@@ -100,14 +100,14 @@ func annotationsKeyCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `Name of the annotation key.`,
+				Short:      `Name of the annotation key. Never use a secret as a name, as it is shown in the audit trail.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `Description of the annotation key.`,
+				Short:      `Description of the annotation key. Never put a secret in the description, as it is shown in the audit trail.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -201,14 +201,14 @@ func annotationsKeyUpdate() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `New name of the key.`,
+				Short:      `New name of the key. Never use a secret as a name, as it is shown in the audit trail.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `New description of the key.`,
+				Short:      `New description of the key. Never put a secret in the description, as it is shown in the audit trail.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -280,14 +280,14 @@ func annotationsValueCreate() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `Name of the value.`,
+				Short:      `Name of the value. Never use a secret as a name, as it is shown in the audit trail.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `Description of the value.`,
+				Short:      `Description of the value. Never put a secret in the description, as it is shown in the audit trail.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -387,14 +387,14 @@ func annotationsValueUpdate() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `New name of the value.`,
+				Short:      `New name of the value. Never use a secret as a name, as it is shown in the audit trail.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `New description of the value.`,
+				Short:      `New description of the value. Never put a secret in the description, as it is shown in the audit trail.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
