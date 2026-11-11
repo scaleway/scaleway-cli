@@ -142,6 +142,16 @@ scw rdb backup create [arg=value ...]
 | region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
+**Examples:**
+
+
+Create a backup and wait until it is ready
+```shell
+scw rdb backup create name=foobar expires-at=2032-01-02T15:04:05Z instance-id=11111111-1111-1111-1111-111111111111 database-name=rdb --wait
+```
+
+
+
 
 ### Delete a database backup
 
