@@ -11,13 +11,13 @@ ARGS:
   [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-2 | pl-waw-3 | all)
 
 FLAGS:
-  -h, --help                help for list-events
-      --list-sub-commands   List all subcommands
+  -h, --help[=true|false]                help for list-events
+      --list-sub-commands[=true|false]   List all subcommands
 
 GLOBAL FLAGS:
-  -B, --beta             Enable beta mode
-  -c, --config string    The path to the config file
-  -D, --debug            Enable debug mode
-  -H, --no-headers       Skip headers in human output
-  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
-  -p, --profile string   The config profile to use
+  -B, --beta[=true|false]         Enable beta mode
+  -c, --config string             The path to the config file
+  -D, --debug[=true|false]        Enable debug mode
+  -H, --no-headers[=true|false]   Skip headers in human output
+  -o, --output string             Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string            The config profile to use

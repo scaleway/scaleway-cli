@@ -11,13 +11,13 @@ ARGS:
   [products.{index}]                                Filter by products (comma-separated, e.g. apple-silicon-server,baremetal-server,block-snapshot,block-volume,cockpit-data-source,cockpit-token,container-namespace,file-filesystem,fip-ip,function-namespace,inference-deployment,instance-ip,instance-security-group,instance-server,instance-snapshot,instance-volume,ipam-ip,k8s-cluster,keymanager-key,lb-lb,mongodb-instance,mongodb-snapshot,object-bucket,rdb-instance,redis-cluster,registry-namespace,s2s-vpn-vpn-gateway,searchdb-deployment,secret-secret,vpc-gw-gateway,vpc-gw-ip,vpc-vpc,webhosting-hosting). If empty, all products are queried (apple-silicon-server | baremetal-server | block-snapshot | block-volume | cockpit-data-source | cockpit-token | container-namespace | file-filesystem | fip-ip | function-namespace | inference-deployment | instance-ip | instance-security-group | instance-server | instance-snapshot | instance-volume | ipam-ip | k8s-cluster | keymanager-key | lb-lb | mongodb-instance | mongodb-snapshot | object-bucket | rdb-instance | redis-cluster | registry-namespace | s2s-vpn-vpn-gateway | searchdb-deployment | secret-secret | vpc-gw-gateway | vpc-gw-ip | vpc-vpc | webhosting-hosting)
 
 FLAGS:
-  -h, --help                help for list-resources
-      --list-sub-commands   List all subcommands
+  -h, --help[=true|false]                help for list-resources
+      --list-sub-commands[=true|false]   List all subcommands
 
 GLOBAL FLAGS:
-  -B, --beta             Enable beta mode
-  -c, --config string    The path to the config file
-  -D, --debug            Enable debug mode
-  -H, --no-headers       Skip headers in human output
-  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
-  -p, --profile string   The config profile to use
+  -B, --beta[=true|false]         Enable beta mode
+  -c, --config string             The path to the config file
+  -D, --debug[=true|false]        Enable debug mode
+  -H, --no-headers[=true|false]   Skip headers in human output
+  -o, --output string             Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string            The config profile to use
