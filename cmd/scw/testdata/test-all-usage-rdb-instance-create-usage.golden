@@ -29,6 +29,7 @@ ARGS:
   [init-endpoints.{index}.private-network.ipam-config]          Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated)
   [backup-same-region]                                          Defines whether to or not to store logical backups in the same region as the Database Instance
   [encryption.enabled]                                          
+  [encryption.kms-key-id]                                       
   [organization-id]                                             Organization ID to use. If none is passed the default organization ID will be used
   [region=fr-par]                                               Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
@@ -36,14 +37,14 @@ DEPRECATED ARGS:
   [is-ha-cluster]   Defines whether or not High-Availability is enabled
 
 FLAGS:
-  -h, --help                help for create
-      --list-sub-commands   List all subcommands
-  -w, --wait                wait until the instance is ready
+  -h, --help[=true|false]                help for create
+      --list-sub-commands[=true|false]   List all subcommands
+  -w, --wait[=true|false]                wait until the instance is ready
 
 GLOBAL FLAGS:
-  -B, --beta             Enable beta mode
-  -c, --config string    The path to the config file
-  -D, --debug            Enable debug mode
-  -H, --no-headers       Skip headers in human output
-  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
-  -p, --profile string   The config profile to use
+  -B, --beta[=true|false]         Enable beta mode
+  -c, --config string             The path to the config file
+  -D, --debug[=true|false]        Enable debug mode
+  -H, --no-headers[=true|false]   Skip headers in human output
+  -o, --output string             Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string            The config profile to use
