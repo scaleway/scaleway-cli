@@ -13,15 +13,15 @@ AVAILABLE COMMANDS:
   update      Create a new runner configuration
 
 FLAGS:
-  -h, --help                help for runner
-      --list-sub-commands   List all subcommands
+  -h, --help[=true|false]                help for runner
+      --list-sub-commands[=true|false]   List all subcommands
 
 GLOBAL FLAGS:
-  -B, --beta             Enable beta mode
-  -c, --config string    The path to the config file
-  -D, --debug            Enable debug mode
-  -H, --no-headers       Skip headers in human output
-  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
-  -p, --profile string   The config profile to use
+  -B, --beta[=true|false]         Enable beta mode
+  -c, --config string             The path to the config file
+  -D, --debug[=true|false]        Enable debug mode
+  -H, --no-headers[=true|false]   Skip headers in human output
+  -o, --output string             Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string            The config profile to use
 
 Use "scw apple-silicon runner [command] --help" for more information about a command.

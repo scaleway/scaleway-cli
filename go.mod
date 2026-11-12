@@ -32,7 +32,7 @@ require (
 	github.com/scaleway/scaleway-sdk-go v1.39.1-0.20261110120234-f408edc91a85
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
 	github.com/spf13/cobra v1.10.2
-	github.com/spf13/pflag v1.0.10
+	github.com/spf13/pflag v1.1.0
 	github.com/stretchr/testify v1.12.1
 	golang.org/x/crypto v0.58.0
 	golang.org/x/sync v0.25.0

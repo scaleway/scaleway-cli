@@ -17,14 +17,14 @@ DEPRECATED ARGS:
   [command]   Contextual startup command for this specific job run.
 
 FLAGS:
-  -h, --help                help for start
-      --list-sub-commands   List all subcommands
-  -w, --wait                Wait until the job reach a stable state, use job definition timeout
+  -h, --help[=true|false]                help for start
+      --list-sub-commands[=true|false]   List all subcommands
+  -w, --wait[=true|false]                Wait until the job reach a stable state, use job definition timeout
 
 GLOBAL FLAGS:
-  -B, --beta             Enable beta mode
-  -c, --config string    The path to the config file
-  -D, --debug            Enable debug mode
-  -H, --no-headers       Skip headers in human output
-  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
-  -p, --profile string   The config profile to use
+  -B, --beta[=true|false]         Enable beta mode
+  -c, --config string             The path to the config file
+  -D, --debug[=true|false]        Enable debug mode
+  -H, --no-headers[=true|false]   Skip headers in human output
+  -o, --output string             Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string            The config profile to use
