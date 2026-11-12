@@ -13,7 +13,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/sshconfig"
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
-	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v2"
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -47,7 +47,7 @@ func sshConfigInstallCommand() *core.Command {
 		Resource:  "ssh",
 		Verb:      "install-config",
 		Short: `Install a ssh config with all your servers as host
-It generate hosts for instance servers, baremetal, apple-silicon and bastions`,
+It generates hosts for instance servers, baremetal, apple-silicon and bastions`,
 		Long:     "Path of the config will be $HOME/.ssh/scaleway.config",
 		ArgsType: reflect.TypeFor[sshConfigInstallRequest](),
 		ArgSpecs: core.ArgSpecs{
@@ -173,29 +173,44 @@ func sshConfigListServers(
 		args.Zone = ""
 	}
 
-	listServers, err := instanceAPI.ListServers(&instance.ListServersRequest{
-		Zone:    args.Zone,
-		Project: args.ProjectID,
-	}, reqOpts...)
+	req := &instance.ListServersRequest{
+		Zone: args.Zone,
+	}
+
+	if args.ProjectID != nil {
+		req.ProjectID = *args.ProjectID
+	}
+
+	listServers, err := instanceAPI.ListServers(req, reqOpts...)
 	if err != nil {
 		return nil, err
 	}
 
 	servers := make([]sshConfigServer, len(listServers.Servers))
 
-	for i, server := range listServers.Servers {
-		pnIDs := make([]string, len(server.PrivateNics))
-		for j, nic := range server.PrivateNics {
+	for i, serverSummary := range listServers.Servers {
+		serverFull, err := instanceAPI.GetServer(&instance.GetServerRequest{
+			Zone:     serverSummary.Zone,
+			ServerID: serverSummary.ID,
+		}, scw.WithContext(ctx))
+		if err != nil {
+			return nil, err
+		}
+
+		pnIDs := make([]string, len(serverFull.PrivateNetworkInterfaces))
+		for j, nic := range serverFull.PrivateNetworkInterfaces {
 			pnIDs[j] = nic.PrivateNetworkID
 		}
 
 		serverAddress := ""
-		if server.PublicIP != nil {
-			serverAddress = server.PublicIP.Address.String()
+		if serverFull.PublicNetworkInterface != nil {
+			for _, publicIP := range serverFull.PublicNetworkInterface.IPs {
+				serverAddress = publicIP.ProvisionedAddress.String()
+			}
 		}
 
 		servers[i] = sshConfigServer{
-			Name:              server.Name,
+			Name:              serverSummary.Name,
 			Address:           serverAddress,
 			PrivateNetworksID: pnIDs,
 		}
@@ -225,7 +240,15 @@ func sshConfigListBaremetalServers(
 		if strings.Contains(err.Error(), "unknown service") {
 			return nil, nil
 		}
-		// TODO: check permissions and print warning
+
+		if strings.Contains(err.Error(), "Permission denied") {
+			fmt.Println(
+				"Permission denied while listing baremetal servers, please check your IAM permissions.",
+			)
+
+			return nil, nil
+		}
+
 		return nil, err
 	}
 	listPNs, err := baremetalPNAPI.ListServerPrivateNetworks(
@@ -234,7 +257,14 @@ func sshConfigListBaremetalServers(
 		},
 		reqOpts...)
 	if err != nil {
-		// TODO: check permissions and print warning
+		if strings.Contains(err.Error(), "Permission denied") {
+			fmt.Println(
+				"Permission denied while listing baremetal private networks, please check your IAM permissions.",
+			)
+
+			return nil, nil
+		}
+
 		return nil, err
 	}
 
@@ -320,7 +350,7 @@ func sshConfigBastionHosts(
 		if strings.Contains(err.Error(), "unknown service") {
 			return nil, nil
 		}
-		// TODO: check permissions and print warning
+
 		return nil, err
 	}
 
