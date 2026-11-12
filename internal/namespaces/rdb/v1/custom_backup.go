@@ -111,6 +111,12 @@ func backupCreateBuilder(c *core.Command) *core.Command {
 			RetryInterval:    core.DefaultRetryInterval,
 		})
 	}
+	c.Examples = []*core.Example{
+		{
+			Short: "Create a backup and wait until it is ready",
+			Raw:   "scw rdb backup create name=foobar expires-at=2032-01-02T15:04:05Z instance-id=11111111-1111-1111-1111-111111111111 database-name=rdb --wait",
+		},
+	}
 
 	return c
 }
