@@ -48,14 +48,14 @@ CAPACITY  TYPE  FREQUENCY  IS ECC  ECC TYPE
 96 GB     DDR3  1600       true    standard
 
 Options:
-ID                                    NAME                     ENABLED  SUBSCRIPTION PERIOD  PRICE     MANAGEABLE  OS ID
-31f78309-e6e0-4005-99b3-b3de3958ca7d  HDS                      false    monthly              € 15.00   false       00000000-0000-0000-0000-000000000000
-c498071f-4f8d-49f3-bc52-afc219a48fe0  Windows 2022 datacenter  false    monthly              € 168.00  false       3422ae02-d6d7-4980-8a00-eb38c262fb41
-931df052-d713-4674-8b58-96a63244c8e2  Remote Access            false    hourly               € 0.00    true        00000000-0000-0000-0000-000000000000
-cd4158d7-2d65-49be-8803-c4b8ab6f760c  Private Network          false    hourly               € 0.03    true        00000000-0000-0000-0000-000000000000
-f42a040b-6c91-4b11-beb0-b0b21e641fda  Windows 2019 standard    false    monthly              € 25.20   false       7c70ff80-dbfa-4e07-be73-1de0e60fe175
-f74a6322-070e-41dd-a13f-8165ea63aca8  Windows 2019 datacenter  false    monthly              € 168.00  false       e04414b9-16d4-4ffb-8ba1-6b80704c7d2a
-83a8fb91-47b4-4c20-82f9-84c31d79bfd8  Windows 2022 standard    false    monthly              € 25.20   false       bf705b90-1548-4368-98ca-d17dbd8dd860
+ID                                    NAME                     ENABLED  SUBSCRIPTION PERIOD  PRICE     MANAGEABLE  OS ID                                 TYPE
+31f78309-e6e0-4005-99b3-b3de3958ca7d  HDS                      false    monthly              € 15.00   false       00000000-0000-0000-0000-000000000000  option_type_unknown
+c498071f-4f8d-49f3-bc52-afc219a48fe0  Windows 2022 datacenter  false    monthly              € 168.00  false       3422ae02-d6d7-4980-8a00-eb38c262fb41  option_type_unknown
+931df052-d713-4674-8b58-96a63244c8e2  Remote Access            false    hourly               € 0.00    true        00000000-0000-0000-0000-000000000000  option_type_unknown
+cd4158d7-2d65-49be-8803-c4b8ab6f760c  Private Network          false    hourly               € 0.03    true        00000000-0000-0000-0000-000000000000  option_type_unknown
+f42a040b-6c91-4b11-beb0-b0b21e641fda  Windows 2019 standard    false    monthly              € 25.20   false       7c70ff80-dbfa-4e07-be73-1de0e60fe175  option_type_unknown
+f74a6322-070e-41dd-a13f-8165ea63aca8  Windows 2019 datacenter  false    monthly              € 168.00  false       e04414b9-16d4-4ffb-8ba1-6b80704c7d2a  option_type_unknown
+83a8fb91-47b4-4c20-82f9-84c31d79bfd8  Windows 2022 standard    false    monthly              € 25.20   false       bf705b90-1548-4368-98ca-d17dbd8dd860  option_type_unknown
 
 Bandwidth(Mbit/s):
 1000
@@ -151,7 +151,8 @@ PrivateBandwidth(Mbit/s):
       },
       "manageable": false,
       "os_id": "00000000-0000-0000-0000-000000000000",
-      "certification": {}
+      "certification": {},
+      "type": "option_type_unknown"
     },
     {
       "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
@@ -167,7 +168,8 @@ PrivateBandwidth(Mbit/s):
       "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41",
       "license": {
         "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
-      }
+      },
+      "type": "option_type_unknown"
     },
     {
       "id": "931df052-d713-4674-8b58-96a63244c8e2",
@@ -181,7 +183,8 @@ PrivateBandwidth(Mbit/s):
       },
       "manageable": true,
       "os_id": "00000000-0000-0000-0000-000000000000",
-      "remote_access": {}
+      "remote_access": {},
+      "type": "option_type_unknown"
     },
     {
       "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
@@ -197,7 +200,8 @@ PrivateBandwidth(Mbit/s):
       "os_id": "00000000-0000-0000-0000-000000000000",
       "private_network": {
         "bandwidth_in_bps": 1000000000
-      }
+      },
+      "type": "option_type_unknown"
     },
     {
       "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
@@ -213,7 +217,8 @@ PrivateBandwidth(Mbit/s):
       "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
       "license": {
         "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
-      }
+      },
+      "type": "option_type_unknown"
     },
     {
       "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
@@ -229,7 +234,8 @@ PrivateBandwidth(Mbit/s):
       "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
       "license": {
         "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"
-      }
+      },
+      "type": "option_type_unknown"
     },
     {
       "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
@@ -245,7 +251,8 @@ PrivateBandwidth(Mbit/s):
       "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
       "license": {
         "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860"
-      }
+      },
+      "type": "option_type_unknown"
     }
   ],
   "private_bandwidth": 1000000000,
