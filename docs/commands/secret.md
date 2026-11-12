@@ -2,6 +2,62 @@
 # Documentation for `scw secret`
 This API allows you to manage your Secret Manager services, for storing, accessing and sharing sensitive data such as passwords, API keys and certificates.
 
+## Inject Scaleway secrets into a template
+
+Render a Go template (text/template) in which the `secret` function resolves secret references.
+
+- `{{ secret "REFERENCE" }}`: secret value
+- `{{ secret "REFERENCE" | jsonField "KEY" }}`: string field of a JSON-encoded secret
+
+REFERENCE is `(UUID|[PATH/]NAME)[@REVISION]`, REVISION being an integer, "latest" (default) or "latest_enabled".
+
+The rendered template is written to stdout.
+
+Render a Go template (text/template) in which the `secret` function resolves secret references.
+
+- `{{ secret "REFERENCE" }}`: secret value
+- `{{ secret "REFERENCE" | jsonField "KEY" }}`: string field of a JSON-encoded secret
+
+REFERENCE is `(UUID|[PATH/]NAME)[@REVISION]`, REVISION being an integer, "latest" (default) or "latest_enabled".
+
+The rendered template is written to stdout.
+
+**Usage:**
+
+```shell
+scw secret inject [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name     | Description                                                                 | Argument Specifications                                     |
+|----------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| template | Template to render (default: stdin)                                         |                                                             |
+| region   | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+
+
+**Examples:**
+
+
+Render a template from stdin
+```shell
+echo 'password: {{ secret "11111111-1111-1111-1111-111111111111" }}' | scw secret inject
+```
+
+Render a template file into another file
+```shell
+scw secret inject template=@config.tpl > config.yaml
+```
+
+Extract a JSON field from a secret referenced by path, name and revision
+```shell
+scw secret inject template='{{ secret "my-app/db@2" | jsonField "password" }}'
+```
+
+
+
+
 ## Secret management commands
 
 Secrets are logical containers made up of zero or more immutable versions, that contain sensitive data.
