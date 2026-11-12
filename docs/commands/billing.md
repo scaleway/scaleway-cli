@@ -444,3 +444,41 @@ scw billing invoice list [arg=value ...]
 
 
 
+### List discount lines
+
+List all discount lines of a given invoice, specified by its ID.
+
+**Usage:**
+
+```shell
+scw billing invoice list-discount-lines <invoice-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description | Argument Specifications |
+|------------|-------------|-------------------------|
+| invoice-id | Invoice ID  | Required                |
+
+
+
+### List invoice lines
+
+List all lines of a given invoice, specified by its ID.
+
+**Usage:**
+
+```shell
+scw billing invoice list-lines <invoice-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description | Argument Specifications |
+|------------|-------------|-------------------------|
+| invoice-id | Invoice ID  | Required                |
+
+
+
