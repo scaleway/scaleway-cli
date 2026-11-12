@@ -6,7 +6,7 @@ USAGE:
   scw annotations binding list [arg=value ...]
 
 ARGS:
-  [srn]               Scaleway Resource Name for which to list all bindings.
+  [target-srn]        SRN of the resource for which to list all bindings.
   [value-id]          Value ID for which to list all bindings.
   [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
 
@@ -18,5 +18,6 @@ GLOBAL FLAGS:
   -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
+  -H, --no-headers       Skip headers in human output
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use

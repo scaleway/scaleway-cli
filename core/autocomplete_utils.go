@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"reflect"
+	"sort"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
@@ -60,7 +61,7 @@ func getGlobalFlags(ctx context.Context) []FlagSpec {
 
 func AutocompleteProfileName() AutoCompleteArgFunc {
 	return func(ctx context.Context, prefix string, _ any) AutocompleteSuggestions {
-		res := AutocompleteSuggestions(nil)
+		res := AutocompleteSuggestions{}
 		configPath := ExtractConfigPath(ctx)
 		config, err := scw.LoadConfigFromPath(configPath)
 		if err != nil {
@@ -69,12 +70,12 @@ func AutocompleteProfileName() AutoCompleteArgFunc {
 
 		for profileName := range config.Profiles {
 			if strings.HasPrefix(profileName, prefix) {
-				res = append(res, profileName)
+				res = append(res, Suggestion{Value: profileName})
 			}
 		}
 
 		if strings.HasPrefix(scw.DefaultProfileName, prefix) { //nolint:gocritic
-			res = append(res, scw.DefaultProfileName)
+			res = append(res, Suggestion{Value: scw.DefaultProfileName})
 		}
 
 		return res
@@ -88,12 +89,13 @@ var autocompleteResourceToNamespace = map[string]string{
 // AutocompleteGetArg tries to complete an argument by using the list verb if it exists for the same resource
 // It will search for the same field in the response of the list
 // Field name will be stripped of the resource name (ex: cluster-id -> id)
+// The suggestions are values, with the resource name as description when completing an id, empty otherwise.
 func AutocompleteGetArg(
 	ctx context.Context,
 	cmd *Command,
 	argSpec *ArgSpec,
 	completedArgs map[string]string,
-) []string {
+) AutocompleteSuggestions {
 	commands := ExtractCommands(ctx)
 
 	// The argument we want to find (ex: server-id)
@@ -138,8 +140,8 @@ func AutocompleteGetArg(
 	// Has to use interceptor if it exists as ArgsType could be handled by interceptor
 	listCmdArgs := reflect.New(listCmd.ArgsType).Interface()
 
-	// Keep zone and region arguments
-	listRawArgs := listRawArgsLocalities(completedArgs, listCmd)
+	// Keep zone/region and required arguments already provided by the user
+	listRawArgs := listRawArgsFromCompletedArgs(completedArgs, listCmd)
 
 	// Apply default arguments
 	listRawArgs = ApplyDefaultValues(ctx, listCmd.ArgSpecs, listRawArgs)
@@ -158,7 +160,12 @@ func AutocompleteGetArg(
 		}
 	}
 
-	rawCommand := fmt.Sprintf("%s %s", listCmd.getPath(), strings.Join(listRawArgs, " "))
+	rawCommand := fmt.Sprintf(
+		"%s %s %s",
+		ExtractProfileName(ctx),
+		listCmd.getPath(),
+		strings.Join(listRawArgs, " "),
+	)
 	resp := autoCompleteCache.Get(rawCommand)
 	if resp == nil {
 		resp, err = listCmd.Interceptor(ctx, listCmdArgs, listCmd.Run)
@@ -174,7 +181,7 @@ func AutocompleteGetArg(
 	if resources.Kind() != reflect.Slice {
 		return nil
 	}
-	values := []string(nil)
+	values := AutocompleteSuggestions{}
 	// Let's iterate over the struct in the response slice and get the searched field
 	for i := range resources.Len() {
 		resource := resources.Index(i)
@@ -182,18 +189,30 @@ func AutocompleteGetArg(
 			resource = resource.Elem()
 		}
 		resourceField := resource.FieldByName(strcase.ToPublicGoName(argName))
-		if resourceField.Kind() == reflect.String {
-			values = append(values, resourceField.String())
+		if resourceField.Kind() != reflect.String {
+			continue
 		}
+		value := resourceField.String()
+		description := ""
+		if argName == "id" {
+			if nameField := resource.FieldByName("Name"); nameField.Kind() == reflect.String {
+				description = nameField.String()
+			}
+		}
+		values = append(values, Suggestion{Value: value, Description: description})
 	}
 
 	return values
 }
 
-func listRawArgsLocalities(completedArgs map[string]string, cmd *Command) []string {
+// listRawArgsFromCompletedArgs builds raw args for a list command from already completed args
+// It forwards zone/region localities and any argument that is required by the list command
+func listRawArgsFromCompletedArgs(completedArgs map[string]string, cmd *Command) []string {
 	listRawArgs := []string(nil)
 	specs := cmd.ArgSpecs
 	for arg, value := range completedArgs {
+		argName := strings.TrimSuffix(arg, "=")
+
 		if strings.HasPrefix(arg, "zone") {
 			if specs.GetByName("region") != nil {
 				zone, _ := scw.ParseZone(value)
@@ -203,13 +222,66 @@ func listRawArgsLocalities(completedArgs map[string]string, cmd *Command) []stri
 			if specs.GetByName("zone") != nil {
 				listRawArgs = append(listRawArgs, arg+value)
 			}
+
+			continue
 		}
 		if strings.HasPrefix(arg, "region") && specs.GetByName("region") != nil {
+			listRawArgs = append(listRawArgs, arg+value)
+
+			continue
+		}
+
+		if spec := specs.GetByName(argName); spec != nil && spec.Required {
 			listRawArgs = append(listRawArgs, arg+value)
 		}
 	}
 
+	sort.Strings(listRawArgs)
+
 	return listRawArgs
+}
+
+// ProfileFlagFromWords returns the value of the last -p/--profile flag found in the words surrounding the word to complete
+func ProfileFlagFromWords(leftWords []string, rightWords []string) string {
+	profile := ""
+
+	for _, words := range [][]string{leftWords, rightWords} {
+		for i, word := range words {
+			switch {
+			case word == "-p" || word == "--profile":
+				if i+1 < len(words) && !strings.HasPrefix(words[i+1], "-") {
+					profile = words[i+1]
+				}
+			case strings.HasPrefix(word, "-p="):
+				profile = strings.TrimPrefix(word, "-p=")
+			case strings.HasPrefix(word, "--profile="):
+				profile = strings.TrimPrefix(word, "--profile=")
+			}
+		}
+	}
+
+	return profile
+}
+
+// ApplyProfileFlagFromWords reloads the client using the profile given in the completed command line
+// The current client is kept if the profile cannot be loaded
+func ApplyProfileFlagFromWords(ctx context.Context, leftWords []string, rightWords []string) {
+	meta := ExtractMeta(ctx)
+	if meta == nil || meta.isClientFromBootstrapConfig {
+		return
+	}
+
+	profile := ProfileFlagFromWords(leftWords, rightWords)
+	if profile == "" || profile == meta.ProfileFlag {
+		return
+	}
+
+	previousProfile, previousClient := meta.ProfileFlag, meta.Client
+	meta.ProfileFlag = profile
+
+	if err := ReloadClient(ctx); err != nil {
+		meta.ProfileFlag, meta.Client = previousProfile, previousClient
+	}
 }
 
 func flattenCompleteArgs(completedArgs map[string]string) []string {

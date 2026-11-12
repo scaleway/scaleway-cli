@@ -34,6 +34,7 @@ scw keymanager key create [arg=value ...]
 | rotation-policy.next-rotation-at | Key next rotation date                                                                                    |                                                                                                                                                                                                                                                                                        |
 | unprotected                      | (Optional) Defines whether key protection is applied to a key. Protected keys can be used but not deleted |                                                                                                                                                                                                                                                                                        |
 | origin                           | Key origin                                                                                                | One of: `unknown_origin`, `scaleway_kms`, `external`                                                                                                                                                                                                                                   |
+| protection-level                 | Key Protection level                                                                                      | One of: `unknown_protection_level`, `software`, `hsm`                                                                                                                                                                                                                                  |
 | region                           | Region to target. If none is passed will use default region from the config                               | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`                                                                                                                                                                                                                            |
 
 
@@ -220,12 +221,14 @@ scw keymanager key import-key-material <key-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                                 | Argument Specifications                                     |
-|--------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| key-id       | ID of the key in which to import key material                               | Required                                                    |
-| key-material | The key material                                                            |                                                             |
-| salt         | (Optional) Salt value to pass the key derivation function                   |                                                             |
-| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name                                | Description                                                                      | Argument Specifications                                     |
+|-------------------------------------|----------------------------------------------------------------------------------|-------------------------------------------------------------|
+| key-id                              | ID of the key in which to import key material                                    | Required                                                    |
+| ~~key-material~~                    | The key material                                                                 | Deprecated                                                  |
+| salt                                | (Optional) Salt value to pass the key derivation function                        |                                                             |
+| encrypted-key-material.data         | The encrypted key material to import.                                            |                                                             |
+| encrypted-key-material.import-token | The secure import token returned by the `GetKeyMaterialImportParameters` method. |                                                             |
+| region                              | Region to target. If none is passed will use default region from the config      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -253,6 +256,7 @@ scw keymanager key list [arg=value ...]
 | name                   | (Optional) Filter by key name                                                                                            |                                                                                                                     |
 | usage                  | (Optional) Filter keys by usage.                                                                                         | One of: `unknown_usage`, `symmetric_encryption`, `asymmetric_encryption`, `asymmetric_signing`, `key_encapsulation` |
 | scheduled-for-deletion | Filter keys based on their deletion status. By default, only keys not scheduled for deletion are returned in the output. |                                                                                                                     |
+| protection-level       | (Optional) Filter keys by protection level.                                                                              | One of: `unknown_protection_level`, `software`, `hsm`                                                               |
 | organization-id        | (Optional) Filter by Organization ID                                                                                     |                                                                                                                     |
 | region                 | Region to target. If none is passed will use default region from the config                                              | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`                                                  |
 

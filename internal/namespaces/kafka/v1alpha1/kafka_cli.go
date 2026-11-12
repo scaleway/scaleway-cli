@@ -447,6 +447,13 @@ func kafkaClusterUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "volume-size-bytes",
+				Short:      `New volume size for each broker, can only increase`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {

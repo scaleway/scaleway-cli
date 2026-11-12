@@ -7,6 +7,26 @@ This API allows you to manage your Serverless Containers.
 Container management commands.
 
 
+### Open the Cockpit Grafana dashboard for this container
+
+
+
+**Usage:**
+
+```shell
+scw container container cockpit <container-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name         | Description                                                                 | Argument Specifications |
+|--------------|-----------------------------------------------------------------------------|-------------------------|
+| container-id | Container ID                                                                | Required                |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Create a new container in a namespace.
 
 Name must be unique inside the given namespace.
@@ -33,7 +53,7 @@ scw container container create [arg=value ...]
 | timeout                                      | Processing time limit for the container.                                                                                                                                                           |                                                                       |
 | privacy                                      | Privacy policy of the container.                                                                                                                                                                   | Default: `public`<br />One of: `unknown_privacy`, `public`, `private` |
 | description                                  | Container description.                                                                                                                                                                             |                                                                       |
-| image                                        | Image reference (e.g. "rg.fr-par.scw.cloud/my-registry-namespace/image:tag").                                                                                                                      | Required                                                              |
+| image                                        | Image reference (e.g. with sample image: "rg.fr-par.scw.cloud/serverless-catalog/sample-website:latest").                                                                                          | Required                                                              |
 | protocol                                     | Protocol the container uses.                                                                                                                                                                       | Default: `http1`<br />One of: `unknown_protocol`, `http1`, `h2c`      |
 | port                                         | Port the container listens on.                                                                                                                                                                     | Default: `8080`                                                       |
 | https-connections-only                       | If true, it will allow only HTTPS connections to access your container to prevent it from being triggered by insecure connections (HTTP).                                                          | Default: `false`                                                      |
@@ -218,7 +238,7 @@ scw container container update <container-id ...> [arg=value ...]
 | timeout                                      | Processing time limit for the container.                                                                                                                                                           |                                                                       |
 | privacy                                      | Privacy policy of the container.                                                                                                                                                                   | One of: `unknown_privacy`, `public`, `private`                        |
 | description                                  | Container description.                                                                                                                                                                             |                                                                       |
-| image                                        | Image reference (e.g. "rg.fr-par.scw.cloud/my-registry-namespace/image:tag").                                                                                                                      |                                                                       |
+| image                                        | Image reference (e.g. with sample image: "rg.fr-par.scw.cloud/serverless-catalog/sample-website:latest").                                                                                          |                                                                       |
 | protocol                                     | Protocol the container uses.                                                                                                                                                                       | One of: `unknown_protocol`, `http1`, `h2c`                            |
 | port                                         | Port the container listens on.                                                                                                                                                                     |                                                                       |
 | https-connection-only                        | If true, it will allow only HTTPS connections to access your container to prevent it from being triggered by insecure connections (HTTP).                                                          |                                                                       |
@@ -349,7 +369,7 @@ scw container domain get <domain-id ...> [arg=value ...]
 ### List all custom domains the caller can access (read permission).
 
 By default, the custom domains listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
-    
+
 Additional parameters can be set in the query to filter the output, such as `organization_id`, `project_id`, `namespace_id`, or `container_id`.
 
 **Usage:**

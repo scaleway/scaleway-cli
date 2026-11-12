@@ -1,423 +1,421 @@
 ---
-version: 1
+version: 2
 interactions:
-- request:
-    body: '{"id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536", "name":"cli-test-rg-tag-delete-sweet-feynman",
-      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
-      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-sweet-feynman", "is_public":false,
-      "size":0, "created_at":"2025-11-03T15:54:55.475453520Z", "updated_at":"2025-11-03T15:54:55.475453520Z",
-      "image_count":0, "region":"fr-par"}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces
-    method: POST
-  response:
-    body: '{"id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536", "name":"cli-test-rg-tag-delete-sweet-feynman",
-      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
-      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-sweet-feynman", "is_public":false,
-      "size":0, "created_at":"2025-11-03T15:54:55.475453520Z", "updated_at":"2025-11-03T15:54:55.475453520Z",
-      "image_count":0, "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "490"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 03 Nov 2025 15:54:55 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 198cda2b-885d-4620-ac8a-28fa8c5aa8be
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"images":[{"id":"de12f99f-3ef0-48e6-b30d-c097f75e349f", "name":"hello-world",
-      "namespace_id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536", "status":"ready", "status_message":"",
-      "visibility":"inherit", "size":2927, "created_at":"2025-11-03T15:55:04.882283Z",
-      "updated_at":"2025-11-03T15:55:05.136888Z", "tags":["latest"]}], "total_count":1}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=hello-world&namespace_id=2dcbc03b-4372-4acb-bb4c-b73ff3e77536&order_by=created_at_asc&page=1
-    method: GET
-  response:
-    body: '{"images":[{"id":"de12f99f-3ef0-48e6-b30d-c097f75e349f", "name":"hello-world",
-      "namespace_id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536", "status":"ready", "status_message":"",
-      "visibility":"inherit", "size":2927, "created_at":"2025-11-03T15:55:04.882283Z",
-      "updated_at":"2025-11-03T15:55:05.136888Z", "tags":["latest"]}], "total_count":1}'
-    headers:
-      Content-Length:
-      - "335"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 03 Nov 2025 15:55:05 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 49d22890-79e6-40c8-ba5f-4bbaacf59004
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"namespaces":[{"id":"389afd74-a9de-4a44-a3f2-4e407e0a2040", "name":"cli-test-rg-tag-delete-recursing-wilbur",
-      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
-      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-recursing-wilbur", "is_public":false,
-      "size":2927, "created_at":"2025-11-03T15:54:55.468188Z", "updated_at":"2025-11-03T15:55:05.182249Z",
-      "image_count":1, "region":"fr-par"}, {"id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536",
-      "name":"cli-test-rg-tag-delete-sweet-feynman", "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
-      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-sweet-feynman", "is_public":false,
-      "size":2927, "created_at":"2025-11-03T15:54:55.475454Z", "updated_at":"2025-11-03T15:55:05.149587Z",
-      "image_count":1, "region":"fr-par"}], "total_count":2}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
-    method: GET
-  response:
-    body: '{"namespaces":[{"id":"389afd74-a9de-4a44-a3f2-4e407e0a2040", "name":"cli-test-rg-tag-delete-recursing-wilbur",
-      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
-      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-recursing-wilbur", "is_public":false,
-      "size":2927, "created_at":"2025-11-03T15:54:55.468188Z", "updated_at":"2025-11-03T15:55:05.182249Z",
-      "image_count":1, "region":"fr-par"}, {"id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536",
-      "name":"cli-test-rg-tag-delete-sweet-feynman", "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
-      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-sweet-feynman", "is_public":false,
-      "size":2927, "created_at":"2025-11-03T15:54:55.475454Z", "updated_at":"2025-11-03T15:55:05.149587Z",
-      "image_count":1, "region":"fr-par"}], "total_count":2}'
-    headers:
-      Content-Length:
-      - "1016"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 03 Nov 2025 15:55:05 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - a26b1e67-09ca-4ad7-8677-1f3afd1718f6
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"images":[{"id":"de12f99f-3ef0-48e6-b30d-c097f75e349f", "name":"hello-world",
-      "namespace_id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536", "status":"ready", "status_message":"",
-      "visibility":"inherit", "size":2927, "created_at":"2025-11-03T15:55:04.882283Z",
-      "updated_at":"2025-11-03T15:55:05.136888Z", "tags":["latest"]}], "total_count":1}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=hello-world&namespace_id=2dcbc03b-4372-4acb-bb4c-b73ff3e77536&order_by=created_at_asc&page=1
-    method: GET
-  response:
-    body: '{"images":[{"id":"de12f99f-3ef0-48e6-b30d-c097f75e349f", "name":"hello-world",
-      "namespace_id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536", "status":"ready", "status_message":"",
-      "visibility":"inherit", "size":2927, "created_at":"2025-11-03T15:55:04.882283Z",
-      "updated_at":"2025-11-03T15:55:05.136888Z", "tags":["latest"]}], "total_count":1}'
-    headers:
-      Content-Length:
-      - "335"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 03 Nov 2025 15:55:05 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 844df70b-22f7-4b95-afb6-fa42454cc061
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"namespaces":[{"id":"389afd74-a9de-4a44-a3f2-4e407e0a2040", "name":"cli-test-rg-tag-delete-recursing-wilbur",
-      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
-      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-recursing-wilbur", "is_public":false,
-      "size":2927, "created_at":"2025-11-03T15:54:55.468188Z", "updated_at":"2025-11-03T15:55:05.182249Z",
-      "image_count":1, "region":"fr-par"}, {"id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536",
-      "name":"cli-test-rg-tag-delete-sweet-feynman", "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
-      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-sweet-feynman", "is_public":false,
-      "size":2927, "created_at":"2025-11-03T15:54:55.475454Z", "updated_at":"2025-11-03T15:55:05.149587Z",
-      "image_count":1, "region":"fr-par"}], "total_count":2}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
-    method: GET
-  response:
-    body: '{"namespaces":[{"id":"389afd74-a9de-4a44-a3f2-4e407e0a2040", "name":"cli-test-rg-tag-delete-recursing-wilbur",
-      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
-      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-recursing-wilbur", "is_public":false,
-      "size":2927, "created_at":"2025-11-03T15:54:55.468188Z", "updated_at":"2025-11-03T15:55:05.182249Z",
-      "image_count":1, "region":"fr-par"}, {"id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536",
-      "name":"cli-test-rg-tag-delete-sweet-feynman", "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
-      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-sweet-feynman", "is_public":false,
-      "size":2927, "created_at":"2025-11-03T15:54:55.475454Z", "updated_at":"2025-11-03T15:55:05.149587Z",
-      "image_count":1, "region":"fr-par"}], "total_count":2}'
-    headers:
-      Content-Length:
-      - "1016"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 03 Nov 2025 15:55:05 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 96095032-bd63-4b61-a2de-71fd493595bd
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"tags":[{"id":"9ce53a10-cf67-4bab-90c3-a49a7af67dda", "name":"latest",
-      "image_id":"de12f99f-3ef0-48e6-b30d-c097f75e349f", "status":"ready", "digest":"sha256:19459a6bbefb63f83f137f08c1df645f8846e2cd1f44fe209294ebc505e6495e",
-      "created_at":"2025-11-03T15:55:04.902466Z", "updated_at":"2025-11-03T15:55:05.166370Z"}],
-      "total_count":1}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/images/de12f99f-3ef0-48e6-b30d-c097f75e349f/tags?name=latest&order_by=created_at_asc&page=1
-    method: GET
-  response:
-    body: '{"tags":[{"id":"9ce53a10-cf67-4bab-90c3-a49a7af67dda", "name":"latest",
-      "image_id":"de12f99f-3ef0-48e6-b30d-c097f75e349f", "status":"ready", "digest":"sha256:19459a6bbefb63f83f137f08c1df645f8846e2cd1f44fe209294ebc505e6495e",
-      "created_at":"2025-11-03T15:55:04.902466Z", "updated_at":"2025-11-03T15:55:05.166370Z"}],
-      "total_count":1}'
-    headers:
-      Content-Length:
-      - "331"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 03 Nov 2025 15:55:06 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 8e10422a-18f5-48a8-86c9-c1f7d6bde8a3
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"de12f99f-3ef0-48e6-b30d-c097f75e349f", "name":"hello-world", "namespace_id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536",
-      "status":"ready", "status_message":"", "visibility":"inherit", "size":2927,
-      "created_at":"2025-11-03T15:55:04.882283Z", "updated_at":"2025-11-03T15:55:05.136888Z",
-      "tags":["latest"]}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/images/de12f99f-3ef0-48e6-b30d-c097f75e349f
-    method: GET
-  response:
-    body: '{"id":"de12f99f-3ef0-48e6-b30d-c097f75e349f", "name":"hello-world", "namespace_id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536",
-      "status":"ready", "status_message":"", "visibility":"inherit", "size":2927,
-      "created_at":"2025-11-03T15:55:04.882283Z", "updated_at":"2025-11-03T15:55:05.136888Z",
-      "tags":["latest"]}'
-    headers:
-      Content-Length:
-      - "305"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 03 Nov 2025 15:55:06 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 495f5b25-b36f-44ae-b597-67d7c42570cd
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536", "name":"cli-test-rg-tag-delete-sweet-feynman",
-      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
-      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-sweet-feynman", "is_public":false,
-      "size":2927, "created_at":"2025-11-03T15:54:55.475454Z", "updated_at":"2025-11-03T15:55:05.149587Z",
-      "image_count":1, "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/2dcbc03b-4372-4acb-bb4c-b73ff3e77536
-    method: GET
-  response:
-    body: '{"id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536", "name":"cli-test-rg-tag-delete-sweet-feynman",
-      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
-      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-sweet-feynman", "is_public":false,
-      "size":2927, "created_at":"2025-11-03T15:54:55.475454Z", "updated_at":"2025-11-03T15:55:05.149587Z",
-      "image_count":1, "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "487"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 03 Nov 2025 15:55:06 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - f4ebcbe2-6db1-4890-8538-a0802fa83269
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"9ce53a10-cf67-4bab-90c3-a49a7af67dda", "name":"latest", "image_id":"de12f99f-3ef0-48e6-b30d-c097f75e349f",
-      "status":"deleting", "digest":"sha256:19459a6bbefb63f83f137f08c1df645f8846e2cd1f44fe209294ebc505e6495e",
-      "created_at":"2025-11-03T15:55:04.902466Z", "updated_at":"2025-11-03T15:55:06.385879658Z"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/tags/9ce53a10-cf67-4bab-90c3-a49a7af67dda
-    method: DELETE
-  response:
-    body: '{"id":"9ce53a10-cf67-4bab-90c3-a49a7af67dda", "name":"latest", "image_id":"de12f99f-3ef0-48e6-b30d-c097f75e349f",
-      "status":"deleting", "digest":"sha256:19459a6bbefb63f83f137f08c1df645f8846e2cd1f44fe209294ebc505e6495e",
-      "created_at":"2025-11-03T15:55:04.902466Z", "updated_at":"2025-11-03T15:55:06.385879658Z"}'
-    headers:
-      Content-Length:
-      - "309"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 03 Nov 2025 15:55:06 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 0dcb0115-6991-4e88-ae38-a875795492fd
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536", "name":"cli-test-rg-tag-delete-sweet-feynman",
-      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
-      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"deleting", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-sweet-feynman", "is_public":false,
-      "size":0, "created_at":"2025-11-03T15:54:55.475454Z", "updated_at":"2025-11-03T15:55:06.615747708Z",
-      "image_count":1, "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/2dcbc03b-4372-4acb-bb4c-b73ff3e77536
-    method: DELETE
-  response:
-    body: '{"id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536", "name":"cli-test-rg-tag-delete-sweet-feynman",
-      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
-      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"deleting", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-sweet-feynman", "is_public":false,
-      "size":0, "created_at":"2025-11-03T15:54:55.475454Z", "updated_at":"2025-11-03T15:55:06.615747708Z",
-      "image_count":1, "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "490"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 03 Nov 2025 15:55:06 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - a40ac625-3de7-48a0-89dd-e769740ec01d
-    status: 200 OK
-    code: 200
-    duration: ""
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 134
+        host: api.scaleway.com
+        body: '{"name":"cli-test-rg-tag-delete-sleepy-liskov","description":"","project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da","is_public":false}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 490
+        body: '{"id":"8ca32bcf-f450-44c1-8f85-52305c00621e", "name":"cli-test-rg-tag-delete-sleepy-liskov", "description":"", "organization_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "status":"ready", "status_message":"", "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-sleepy-liskov", "is_public":false, "size":0, "created_at":"2026-10-08T08:32:39.340357202Z", "updated_at":"2026-10-08T08:32:39.340357202Z", "image_count":0, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "490"
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 08 Oct 2026 08:32:39 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "44"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - e1d74a3d-844e-4b9d-a4d7-b7365f0ee08a
+        status: 200 OK
+        code: 200
+        duration: 63.007556ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        form:
+            name:
+                - hello-world
+            namespace_id:
+                - 8ca32bcf-f450-44c1-8f85-52305c00621e
+            order_by:
+                - created_at_asc
+            page:
+                - "1"
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=hello-world&namespace_id=8ca32bcf-f450-44c1-8f85-52305c00621e&order_by=created_at_asc&page=1
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 335
+        body: '{"images":[{"id":"cb4a4ab6-443c-494a-ba5f-0bb53188c2c6", "name":"hello-world", "namespace_id":"8ca32bcf-f450-44c1-8f85-52305c00621e", "status":"ready", "status_message":"", "visibility":"inherit", "size":2992, "created_at":"2026-10-08T08:32:41.078482Z", "updated_at":"2026-10-08T08:32:41.145270Z", "tags":["latest"]}], "total_count":1}'
+        headers:
+            Content-Length:
+                - "335"
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 08 Oct 2026 08:32:41 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "47"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - e541b668-95c0-4b48-803a-032226c7be0f
+        status: 200 OK
+        code: 200
+        duration: 43.778635ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        form:
+            order_by:
+                - created_at_asc
+            page:
+                - "1"
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 521
+        body: '{"namespaces":[{"id":"8ca32bcf-f450-44c1-8f85-52305c00621e", "name":"cli-test-rg-tag-delete-sleepy-liskov", "description":"", "organization_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "status":"ready", "status_message":"", "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-sleepy-liskov", "is_public":false, "size":2992, "created_at":"2026-10-08T08:32:39.340357Z", "updated_at":"2026-10-08T08:32:41.152634Z", "image_count":1, "region":"fr-par"}], "total_count":1}'
+        headers:
+            Content-Length:
+                - "521"
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 08 Oct 2026 08:32:41 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "47"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 41e806af-0127-41d5-a265-c885b764967a
+        status: 200 OK
+        code: 200
+        duration: 39.727654ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        form:
+            name:
+                - hello-world
+            namespace_id:
+                - 8ca32bcf-f450-44c1-8f85-52305c00621e
+            order_by:
+                - created_at_asc
+            page:
+                - "1"
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=hello-world&namespace_id=8ca32bcf-f450-44c1-8f85-52305c00621e&order_by=created_at_asc&page=1
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 335
+        body: '{"images":[{"id":"cb4a4ab6-443c-494a-ba5f-0bb53188c2c6", "name":"hello-world", "namespace_id":"8ca32bcf-f450-44c1-8f85-52305c00621e", "status":"ready", "status_message":"", "visibility":"inherit", "size":2992, "created_at":"2026-10-08T08:32:41.078482Z", "updated_at":"2026-10-08T08:32:41.145270Z", "tags":["latest"]}], "total_count":1}'
+        headers:
+            Content-Length:
+                - "335"
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 08 Oct 2026 08:32:41 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - b83961b3-1691-4087-a1b1-8085f3d11c91
+        status: 200 OK
+        code: 200
+        duration: 54.851173ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        form:
+            order_by:
+                - created_at_asc
+            page:
+                - "1"
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 521
+        body: '{"namespaces":[{"id":"8ca32bcf-f450-44c1-8f85-52305c00621e", "name":"cli-test-rg-tag-delete-sleepy-liskov", "description":"", "organization_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "status":"ready", "status_message":"", "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-sleepy-liskov", "is_public":false, "size":2992, "created_at":"2026-10-08T08:32:39.340357Z", "updated_at":"2026-10-08T08:32:41.152634Z", "image_count":1, "region":"fr-par"}], "total_count":1}'
+        headers:
+            Content-Length:
+                - "521"
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 08 Oct 2026 08:32:41 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - dd0562da-1d0c-45bf-a169-2a6f74b8b962
+        status: 200 OK
+        code: 200
+        duration: 41.645518ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        form:
+            name:
+                - latest
+            order_by:
+                - created_at_asc
+            page:
+                - "1"
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/registry/v1/regions/fr-par/images/cb4a4ab6-443c-494a-ba5f-0bb53188c2c6/tags?name=latest&order_by=created_at_asc&page=1
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 331
+        body: '{"tags":[{"id":"11d0cd11-1d6d-4eeb-ba5c-aae70337f302", "name":"latest", "image_id":"cb4a4ab6-443c-494a-ba5f-0bb53188c2c6", "status":"ready", "digest":"sha256:d1a8d0a4eeb63aff09f5f34d4d80505e0ba81905f36158cc3970d8e07179e59e", "created_at":"2026-10-08T08:32:41.089786Z", "updated_at":"2026-10-08T08:32:41.165189Z"}], "total_count":1}'
+        headers:
+            Content-Length:
+                - "331"
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 08 Oct 2026 08:32:41 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "45"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - a4e00a07-bce6-49e8-9f66-46ab05c13b4c
+        status: 200 OK
+        code: 200
+        duration: 57.15488ms
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/registry/v1/regions/fr-par/images/cb4a4ab6-443c-494a-ba5f-0bb53188c2c6
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 305
+        body: '{"id":"cb4a4ab6-443c-494a-ba5f-0bb53188c2c6", "name":"hello-world", "namespace_id":"8ca32bcf-f450-44c1-8f85-52305c00621e", "status":"ready", "status_message":"", "visibility":"inherit", "size":2992, "created_at":"2026-10-08T08:32:41.078482Z", "updated_at":"2026-10-08T08:32:41.145270Z", "tags":["latest"]}'
+        headers:
+            Content-Length:
+                - "305"
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 08 Oct 2026 08:32:41 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 19a00997-5e91-4b93-a9ca-6df2c8444fd0
+        status: 200 OK
+        code: 200
+        duration: 45.623512ms
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/8ca32bcf-f450-44c1-8f85-52305c00621e
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 487
+        body: '{"id":"8ca32bcf-f450-44c1-8f85-52305c00621e", "name":"cli-test-rg-tag-delete-sleepy-liskov", "description":"", "organization_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "status":"ready", "status_message":"", "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-sleepy-liskov", "is_public":false, "size":2992, "created_at":"2026-10-08T08:32:39.340357Z", "updated_at":"2026-10-08T08:32:41.152634Z", "image_count":1, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "487"
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 08 Oct 2026 08:32:41 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - fadbbead-a678-49be-8400-4c1c203e3f08
+        status: 200 OK
+        code: 200
+        duration: 40.663968ms
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/registry/v1/regions/fr-par/tags/11d0cd11-1d6d-4eeb-ba5c-aae70337f302
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 309
+        body: '{"id":"11d0cd11-1d6d-4eeb-ba5c-aae70337f302", "name":"latest", "image_id":"cb4a4ab6-443c-494a-ba5f-0bb53188c2c6", "status":"deleting", "digest":"sha256:d1a8d0a4eeb63aff09f5f34d4d80505e0ba81905f36158cc3970d8e07179e59e", "created_at":"2026-10-08T08:32:41.089786Z", "updated_at":"2026-10-08T08:32:41.569529511Z"}'
+        headers:
+            Content-Length:
+                - "309"
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 08 Oct 2026 08:32:41 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "48"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 1025ced4-a345-4208-8284-bca0353f364a
+        status: 200 OK
+        code: 200
+        duration: 125.47411ms
+    - id: 9
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.38.1-0.20261006091840-96b6b943dbf2 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/8ca32bcf-f450-44c1-8f85-52305c00621e
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 490
+        body: '{"id":"8ca32bcf-f450-44c1-8f85-52305c00621e", "name":"cli-test-rg-tag-delete-sleepy-liskov", "description":"", "organization_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "status":"deleting", "status_message":"", "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-sleepy-liskov", "is_public":false, "size":0, "created_at":"2026-10-08T08:32:39.340357Z", "updated_at":"2026-10-08T08:32:41.679384615Z", "image_count":1, "region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "490"
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 08 Oct 2026 08:32:41 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "47"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - c6d7d0e3-c0c0-4c15-b694-2ff131635600
+        status: 200 OK
+        code: 200
+        duration: 51.256717ms

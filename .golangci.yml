@@ -28,6 +28,7 @@ linters:
     - durationcheck # check for two durations multiplied together [fast: false, auto-fix: false]
     - errchkjson # Checks types passed to the json encoding functions. Reports unsupported types and optionally reports occasions, where the check for the returned error can be omitted. [fast: false, auto-fix: false]
     - errname # Checks that sentinel errors are prefixed with the `Err` and error types are suffixed with the `Error`. [fast: false, auto-fix: false]
+    - errorlint # Find code that can cause problems with the error wrapping scheme introduced in Go 1.13. [auto-fix]
     - exptostd # Detects functions from golang.org/x/exp/ that can be replaced by std functions. [auto-fix]
     - funcorder # Checks the order of functions, methods, and constructors. [fast]
     - gocheckcompilerdirectives # Checks that go compiler directive comments (//go:) are valid. [fast: true, auto-fix: false]

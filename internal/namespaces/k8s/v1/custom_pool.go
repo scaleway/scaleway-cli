@@ -82,6 +82,12 @@ func poolCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgSpecs.GetByName("size").Default = core.DefaultValueSetter("1")
 	c.ArgSpecs.GetByName("node-type").Default = core.DefaultValueSetter("DEV1-M")
+	c.ArgSpecs.GetByName("user-data.{key}").CanLoadFile = true
+
+	c.Examples = append(c.Examples, &core.Example{
+		Short: "Create a pool with user data loaded from a local file",
+		Raw:   `scw k8s pool create cluster-id=11111111-1111-1111-1111-111111111111 name=bar node-type=DEV1-XL size=2 user-data.cloud-init=@cloud-init.yml`,
+	})
 
 	return c
 }

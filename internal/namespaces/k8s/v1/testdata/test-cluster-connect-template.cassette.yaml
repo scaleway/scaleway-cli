@@ -1,0 +1,38 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        form:
+            redacted:
+                - "true"
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/k8s/v1/regions/fr-par/clusters/3313184d-3767-4535-902a-2bba7b7a4414/kubeconfig?endpoint=public&redacted=true
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 1720
+        body: '{"name":"kubeconfig","content_type":"application/octet-stream","content":"YXBpVmVyc2lvbjogdjEKY2x1c3RlcnM6Ci0gbmFtZTogImNsaS10ZXN0LWdldC1rdWJlY29uZmlnLXNpbXBsZSIKICBjbHVzdGVyOgogICAgY2VydGlmaWNhdGUtYXV0aG9yaXR5LWRhdGE6IExTMHRMUzFDUlVkSlRpQkRSVkpVU1VaSlEwRlVSUzB0TFMwdENrMUpTVUpYYWtORFFWRkhaMEYzU1VKQlowbENRVVJCUzBKblozRm9hMnBQVUZGUlJFRnFRVlpOVWsxM1JWRlpSRlpSVVVSRmQzQnlaRmRLYkdOdE5Xd0taRWRXZWsxQ05GaEVWRWt5VFVSamQwMXFSVEJPUkVVd1RURnZXRVJVVFRKTlJHTjNUV3BGTUU1RVJUQk5NVzkzUmxSRlZFMUNSVWRCTVZWRlFYaE5Td3BoTTFacFdsaEtkVnBZVW14amVrSmFUVUpOUjBKNWNVZFRUVFE1UVdkRlIwTkRjVWRUVFRRNVFYZEZTRUV3U1VGQ1NWWnRWVlZIYkRkcGVWWkZlWFZwQ21KblUxcHJUbGd5UzA1QlZWZHFObEpVUkhGVVFuUkJOa0pSWW5oV1RVNVBTR2hTWkhCRlNXaHZlbE5FYkV3MlJEQXhWVlJKVUhZNVdWUjJNRzl0UkVNS1FWbEhNVzE2UzJwUmFrSkJUVUUwUjBFeFZXUkVkMFZDTDNkUlJVRjNTVU53UkVGUVFtZE9Wa2hTVFVKQlpqaEZRbFJCUkVGUlNDOU5RakJIUVRGVlpBcEVaMUZYUWtKVFNuaFROaXR2WkM4M2IwdHFZMlJaYVdGVWMyWjZVSEpxTVRacVFVdENaMmR4YUd0cVQxQlJVVVJCWjA1SVFVUkNSVUZwUW5sbU4wZEZDbkpRWTNGb1pUbE9TbFpqTVdWVGJVSnBVeXQyWkV4TmRYUXpaWEl2U1ZFMlEyeENPRlZCU1dkUVFVMUlUazlUYzJOUFYyUk1lRTFRVEVzeGVXUnhNV2tLV2pVME9Fb3hhbVJ5TTA5UlZqWnhSbTVXTUQwS0xTMHRMUzFGVGtRZ1EwVlNWRWxHU1VOQlZFVXRMUzB0TFFvPQogICAgc2VydmVyOiBodHRwczovLzMzMTMxODRkLTM3NjctNDUzNS05MDJhLTJiYmE3YjdhNDQxNC5hcGkuazhzLmZyLXBhci5zY3cuY2xvdWQ6NjQ0Mwpjb250ZXh0czoKLSBuYW1lOiBhZG1pbkBjbGktdGVzdC1nZXQta3ViZWNvbmZpZy1zaW1wbGUKICBjb250ZXh0OgogICAgY2x1c3RlcjogImNsaS10ZXN0LWdldC1rdWJlY29uZmlnLXNpbXBsZSIKICAgIHVzZXI6IGNsaS10ZXN0LWdldC1rdWJlY29uZmlnLXNpbXBsZS1hZG1pbgpjdXJyZW50LWNvbnRleHQ6IGFkbWluQGNsaS10ZXN0LWdldC1rdWJlY29uZmlnLXNpbXBsZQpraW5kOiBDb25maWcKcHJlZmVyZW5jZXM6IHt9CnVzZXJzOgotIG5hbWU6IGNsaS10ZXN0LWdldC1rdWJlY29uZmlnLXNpbXBsZS1hZG1pbgogIHVzZXI6CiAgICB0b2tlbjogUkVEQUNURURfVE9LRU4="}'
+        headers:
+            Content-Length:
+                - "1720"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 03 Jul 2026 14:43:13 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge01)
+            X-Request-Id:
+                - b27c16e7-1e88-40a0-a229-dc5d79815388
+        status: 200 OK
+        code: 200
+        duration: 30.821855ms

@@ -6,9 +6,9 @@ USAGE:
   scw domain order renew [arg=value ...]
 
 ARGS:
-  domains.{index}        
-  [duration-in-years]    
-  [force-late-renewal]   
+  domains.{index}        List of domains to renew.
+  [duration-in-years]    Duration in years for the domain renewal. Subject to TLD-specific minimum and maximum constraints.
+  [force-late-renewal]   Confirm the late renewal (incurs extra fees).
 
 FLAGS:
   -h, --help                help for renew
@@ -18,5 +18,6 @@ GLOBAL FLAGS:
   -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
+  -H, --no-headers       Skip headers in human output
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use

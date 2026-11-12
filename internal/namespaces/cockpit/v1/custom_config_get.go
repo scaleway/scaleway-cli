@@ -57,9 +57,11 @@ func cockpitConfigGetCommand() *core.Command {
 Supported tools:
   - prometheus: generates a remote_write block for prometheus.yml (metrics data sources only).
   - fluent-bit: generates a fluent-bit.conf snippet with a dummy input and an OpenTelemetry output (logs data sources only).
+  - alloy: generates a Grafana Alloy snippet for Cockpit (metrics, logs, or traces data sources).
 
 Use generate-token=true to create a new Cockpit token and inject it directly in the snippet.
-The token is created with the minimum required write scope for the data source type.`,
+The token is created with the minimum required write scope for the data source type.
+Custom data sources are required for push; Scaleway-managed data sources are read-only.`,
 		ArgsType: reflect.TypeFor[cockpitConfigGetRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -75,6 +77,7 @@ The token is created with the minimum required write scope for the data source t
 				EnumValues: []string{
 					string(cockpitConfigTypePrometheus),
 					string(cockpitConfigTypeFluentBit),
+					string(cockpitConfigTypeAlloy),
 				},
 			},
 			{
@@ -82,9 +85,8 @@ The token is created with the minimum required write scope for the data source t
 				Short: "Create a new Cockpit token and inject it in the generated snippet",
 			},
 			{
-				Name:    "token-name",
-				Short:   "Name of the token to create when generate-token=true",
-				Default: core.DefaultValueSetter("prometheus-push"),
+				Name:  "token-name",
+				Short: "Name of the token to create when generate-token=true",
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -112,6 +114,14 @@ The token is created with the minimum required write scope for the data source t
 			{
 				Short:    "Generate a Fluent Bit configuration snippet with a new token",
 				ArgsJSON: `{"data_source_id":"11111111-1111-1111-1111-111111111111","type":"fluent-bit","generate_token":true}`,
+			},
+			{
+				Short:    "Generate a Grafana Alloy configuration snippet",
+				ArgsJSON: `{"data_source_id":"11111111-1111-1111-1111-111111111111","type":"alloy"}`,
+			},
+			{
+				Short:    "Generate a Grafana Alloy configuration snippet with a new token",
+				ArgsJSON: `{"data_source_id":"11111111-1111-1111-1111-111111111111","type":"alloy","generate_token":true}`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -142,6 +152,18 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 		return nil, err
 	}
 
+	if dataSource.Origin == cockpit.DataSourceOriginScaleway {
+		return nil, &core.CliError{
+			Err: fmt.Errorf(
+				"data source %q has origin %q and does not accept external push",
+				dataSource.ID,
+				dataSource.Origin,
+			),
+			Hint: "Create a custom data source with " +
+				"`scw cockpit data-source create` and use its ID instead.",
+		}
+	}
+
 	switch args.Type {
 	case cockpitConfigTypePrometheus:
 		if dataSource.Type != cockpit.DataSourceTypeMetrics {
@@ -150,6 +172,18 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 				cockpit.DataSourceTypeMetrics,
 				dataSource.Type,
 				"metrics",
+			)
+		}
+	case cockpitConfigTypeAlloy:
+		switch dataSource.Type {
+		case cockpit.DataSourceTypeMetrics,
+			cockpit.DataSourceTypeLogs,
+			cockpit.DataSourceTypeTraces:
+		default:
+			return nil, fmt.Errorf(
+				"config type %q requires a metrics, logs, or traces data source, got %q",
+				args.Type,
+				dataSource.Type,
 			)
 		}
 	case cockpitConfigTypeFluentBit:
@@ -168,8 +202,15 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 	var tokenSecretKey *string
 	if args.GenerateToken {
 		tokenName := args.TokenName
-		if args.Type == cockpitConfigTypeFluentBit && tokenName == "prometheus-push" {
-			tokenName = "fluent-bit-push"
+		if tokenName == "" {
+			switch args.Type {
+			case cockpitConfigTypePrometheus:
+				tokenName = "prometheus-push"
+			case cockpitConfigTypeFluentBit:
+				tokenName = "fluent-bit-push"
+			case cockpitConfigTypeAlloy:
+				tokenName = "alloy-push"
+			}
 		}
 		scope, ok := tokenScopeForDataSourceType[dataSource.Type]
 		if !ok {
@@ -198,6 +239,7 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 	switch args.Type {
 	case cockpitConfigTypePrometheus:
 		return RenderPrometheusRemoteWriteConfig(dataSource.URL, tokenSecretKey), nil
+
 	case cockpitConfigTypeFluentBit:
 		endpoint, err := ParseCockpitDataSourceEndpoint(dataSource.URL)
 		if err != nil {
@@ -205,6 +247,10 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 		}
 
 		return RenderFluentBitConfig(endpoint, tokenSecretKey), nil
+
+	case cockpitConfigTypeAlloy:
+		return RenderAlloyConfig(dataSource.Type, dataSource.URL, tokenSecretKey)
+
 	default:
 		return nil, fmt.Errorf("unsupported config type %q", args.Type)
 	}
@@ -255,12 +301,16 @@ func RenderPrometheusRemoteWriteConfig(
 
 // BuildPrometheusRemoteWriteURL returns the remote_write push URL for a Cockpit metrics data source base URL.
 func BuildPrometheusRemoteWriteURL(dataSourceURL string) string {
+	return ensureURLPath(dataSourceURL, "/api/v1/push")
+}
+
+func ensureURLPath(dataSourceURL, path string) string {
 	baseURL := strings.TrimRight(dataSourceURL, "/")
-	if strings.HasSuffix(baseURL, "/api/v1/push") {
+	if strings.HasSuffix(baseURL, path) {
 		return baseURL
 	}
 
-	return baseURL + "/api/v1/push"
+	return baseURL + path
 }
 
 // cockpitDataSourceEndpoint holds host and port parsed from a Cockpit data source URL.

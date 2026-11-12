@@ -4,19 +4,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"io"
 	"net/http"
-	"os"
-	"os/exec"
-	"path/filepath"
 	"reflect"
-	"strconv"
 	"strings"
 	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
-	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/semver"
 	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -29,21 +24,21 @@ func redisClusterMigrateBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+type redisEndpointSpecPrivateNetworkSpecCustom struct {
+	*redis.EndpointSpecPrivateNetworkSpec
+	EnableIpam bool `json:"enable-ipam"`
+}
+
+type redisEndpointSpecCustom struct {
+	PrivateNetwork *redisEndpointSpecPrivateNetworkSpecCustom `json:"private-network"`
+}
+
+type CreateClusterRequestCustom struct {
+	*redis.CreateClusterRequest
+	Endpoints []*redisEndpointSpecCustom `json:"endpoints"`
+}
+
 func clusterCreateBuilder(c *core.Command) *core.Command {
-	type redisEndpointSpecPrivateNetworkSpecCustom struct {
-		*redis.EndpointSpecPrivateNetworkSpec
-		EnableIpam bool `json:"enable-ipam"`
-	}
-
-	type redisEndpointSpecCustom struct {
-		PrivateNetwork *redisEndpointSpecPrivateNetworkSpecCustom `json:"private-network"`
-	}
-
-	type redisCreateClusterRequestCustom struct {
-		*redis.CreateClusterRequest
-		Endpoints []*redisEndpointSpecCustom `json:"endpoints"`
-	}
-
 	c.ArgSpecs.AddBefore("endpoints.{index}.private-network.id", &core.ArgSpec{
 		Name:     "endpoints.{index}.private-network.enable-ipam",
 		Short:    "Will configure your Private Network endpoint with Scaleway IPAM service if true",
@@ -51,7 +46,11 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		Default:  core.DefaultValueSetter("false"),
 	})
 
-	c.ArgsType = reflect.TypeFor[redisCreateClusterRequestCustom]()
+	c.ArgsType = reflect.TypeFor[CreateClusterRequestCustom]()
+
+	c.ArgSpecs.GetByName("version").Default = core.DefaultValueSetter("latest")
+	c.ArgSpecs.GetByName("version").AutoCompleteFunc = autoCompleteRedisVersion
+	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteCreateNodeType
 
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := redis.NewAPI(core.ExtractClient(ctx))
@@ -72,8 +71,17 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		client := core.ExtractClient(ctx)
 		api := redis.NewAPI(client)
 
-		customRequest := argsI.(*redisCreateClusterRequestCustom)
+		customRequest := argsI.(*CreateClusterRequestCustom)
 		createClusterRequest := customRequest.CreateClusterRequest
+
+		// Handle default latest version for redis cluster
+		if createClusterRequest.Version == "latest" {
+			latestVersion, err := getLatestRedisVersion(client, createClusterRequest.Zone)
+			if err != nil {
+				return nil, err
+			}
+			createClusterRequest.Version = latestVersion
+		}
 
 		if len(customRequest.Endpoints) == 0 {
 			createClusterRequest.Endpoints = append(
@@ -257,7 +265,7 @@ func autoCompleteSettingsName(
 	prefix string,
 	request any,
 ) core.AutocompleteSuggestions {
-	suggestions := core.AutocompleteSuggestions(nil)
+	suggestions := core.AutocompleteSuggestions{}
 	req := request.(*redis.AddClusterSettingsRequest)
 	client := core.ExtractClient(ctx)
 	api := redis.NewAPI(client)
@@ -285,7 +293,7 @@ func autoCompleteSettingsName(
 		for _, version := range completeClusterVersionCache.Versions {
 			for _, settingName := range version.AvailableSettings {
 				if strings.HasPrefix(settingName.Name, prefix) {
-					suggestions = append(suggestions, settingName.Name)
+					suggestions = append(suggestions, core.Suggestion{Value: settingName.Name})
 				}
 			}
 		}
@@ -301,43 +309,113 @@ func autoCompleteNodeType(
 	prefix string,
 	request any,
 ) core.AutocompleteSuggestions {
-	suggestions := core.AutocompleteSuggestions(nil)
 	req := request.(*redis.MigrateClusterRequest)
+
+	return completeNodeTypes(ctx, req.Zone, prefix)
+}
+
+func CreateRequestZone(req *CreateClusterRequestCustom) scw.Zone {
+	// The embedded *redis.CreateClusterRequest is nil during shell completion
+	// (reflect.New leaves it unallocated), so guard before promoting .Zone.
+	if req.CreateClusterRequest == nil {
+		return ""
+	}
+
+	return req.CreateClusterRequest.Zone
+}
+
+func autoCompleteCreateNodeType(
+	ctx context.Context,
+	prefix string,
+	request any,
+) core.AutocompleteSuggestions {
+	req := request.(*CreateClusterRequestCustom)
+
+	return completeNodeTypes(ctx, CreateRequestZone(req), prefix)
+}
+
+func completeNodeTypes(
+	ctx context.Context,
+	zone scw.Zone,
+	prefix string,
+) core.AutocompleteSuggestions {
+	suggestions := core.AutocompleteSuggestions{}
 	client := core.ExtractClient(ctx)
 	api := redis.NewAPI(client)
-	if req.Zone != "" {
-		if completeRedisNoteTypeCache == nil {
-			res, err := api.ListNodeTypes(&redis.ListNodeTypesRequest{
-				Zone: req.Zone,
-			})
-			if err != nil {
-				return nil
-			}
-			completeRedisNoteTypeCache = res
+
+	if completeRedisNoteTypeCache == nil {
+		res, err := api.ListNodeTypes(&redis.ListNodeTypesRequest{
+			Zone: zone,
+		})
+		if err != nil {
+			return nil
 		}
-		for _, nodeType := range completeRedisNoteTypeCache.NodeTypes {
-			if strings.HasPrefix(nodeType.Name, prefix) {
-				suggestions = append(suggestions, nodeType.Name)
-			}
+		completeRedisNoteTypeCache = res
+	}
+	for _, nodeType := range completeRedisNoteTypeCache.NodeTypes {
+		if strings.HasPrefix(nodeType.Name, prefix) {
+			suggestions = append(suggestions, core.Suggestion{Value: nodeType.Name})
 		}
 	}
 
 	return suggestions
 }
 
-type clusterConnectArgs struct {
-	Zone           scw.Zone
-	PrivateNetwork bool
-	ClusterID      string
-	CliRedis       *string
-	CliArgs        []string
+// Caching ListClusterVersions response for shell completion
+var completeRedisVersionCache *redis.ListClusterVersionsResponse
+
+func autoCompleteRedisVersion(
+	ctx context.Context,
+	prefix string,
+	request any,
+) core.AutocompleteSuggestions {
+	suggestions := core.AutocompleteSuggestions{}
+	zone := CreateRequestZone(request.(*CreateClusterRequestCustom))
+
+	client := core.ExtractClient(ctx)
+	api := redis.NewAPI(client)
+
+	if completeRedisVersionCache == nil {
+		res, err := api.ListClusterVersions(&redis.ListClusterVersionsRequest{
+			Zone: zone,
+		})
+		if err != nil {
+			return nil
+		}
+		completeRedisVersionCache = res
+	}
+
+	for _, v := range completeRedisVersionCache.Versions {
+		if strings.HasPrefix(v.Version, prefix) {
+			suggestions = append(suggestions, core.Suggestion{Value: v.Version})
+		}
+	}
+
+	return suggestions
+}
+
+func getLatestRedisVersion(client *scw.Client, zone scw.Zone) (string, error) {
+	api := redis.NewAPI(client)
+	resp, err := api.ListClusterVersions(
+		&redis.ListClusterVersionsRequest{Zone: zone},
+		scw.WithAllPages(),
+	)
+	if err != nil {
+		return "", fmt.Errorf("could not get latest Redis version: %w", err)
+	}
+
+	versions := make([]string, 0, len(resp.Versions))
+	for _, v := range resp.Versions {
+		versions = append(versions, v.Version)
+	}
+
+	return semver.LatestVersion(versions)
 }
 
 const (
 	errorMessagePublicEndpointNotFound  = "public endpoint not found"
 	errorMessagePrivateEndpointNotFound = "private endpoint not found"
 	errorMessageEndpointNotFound        = "any endpoint is associated on your cluster"
-	errorMessageRedisCliNotFound        = "redis-cli is not installed. Please install redis-cli to use this command"
 )
 
 func getPublicEndpoint(endpoints []*redis.Endpoint) (*redis.Endpoint, error) {
@@ -358,190 +436,4 @@ func getPrivateEndpoint(endpoints []*redis.Endpoint) (*redis.Endpoint, error) {
 	}
 
 	return nil, fmt.Errorf("%s", errorMessagePrivateEndpointNotFound)
-}
-
-func checkRedisCliInstalled(cliRedis string) error {
-	cmd := exec.Command(cliRedis, "--version") //nolint:gosec
-	if err := cmd.Run(); err != nil {
-		return fmt.Errorf("%s", errorMessageRedisCliNotFound)
-	}
-
-	return nil
-}
-
-func getRedisZones() []scw.Zone {
-	// Get zones dynamically from the Redis API SDK
-	// We create a minimal client just to access the Zones() method
-	// which doesn't require authentication
-	client := &scw.Client{}
-	api := redis.NewAPI(client)
-
-	return api.Zones()
-}
-
-func clusterConnectCommand() *core.Command {
-	return &core.Command{
-		Namespace: "redis",
-		Resource:  "cluster",
-		Verb:      "connect",
-		Short:     "Connect to a Redis cluster using locally installed redis-cli",
-		Long:      "Connect to a Redis cluster using locally installed redis-cli. The command will check if redis-cli is installed, download the certificate if TLS is enabled, and prompt for the password.",
-		ArgsType:  reflect.TypeFor[clusterConnectArgs](),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:     "private-network",
-				Short:    `Connect by the private network endpoint attached.`,
-				Required: false,
-				Default:  core.DefaultValueSetter("false"),
-			},
-			{
-				Name:       "cluster-id",
-				Short:      `UUID of the cluster`,
-				Required:   true,
-				Positional: true,
-			},
-			{
-				Name:  "cli-redis",
-				Short: "Command line tool to use, default to redis-cli",
-			},
-			{
-				Name:     "cli-args",
-				Short:    "Additional arguments to pass to redis-cli",
-				Required: false,
-			},
-			core.ZoneArgSpec(getRedisZones()...),
-		},
-		Run: func(ctx context.Context, argsI any) (any, error) {
-			args := argsI.(*clusterConnectArgs)
-
-			cliRedis := "redis-cli"
-			if args.CliRedis != nil {
-				cliRedis = *args.CliRedis
-			}
-
-			if err := checkRedisCliInstalled(cliRedis); err != nil {
-				return nil, err
-			}
-
-			client := core.ExtractClient(ctx)
-			api := redis.NewAPI(client)
-			cluster, err := api.GetCluster(&redis.GetClusterRequest{
-				Zone:      args.Zone,
-				ClusterID: args.ClusterID,
-			})
-			if err != nil {
-				return nil, err
-			}
-
-			if len(cluster.Endpoints) == 0 {
-				return nil, fmt.Errorf("%s", errorMessageEndpointNotFound)
-			}
-
-			var endpoint *redis.Endpoint
-			switch {
-			case args.PrivateNetwork:
-				endpoint, err = getPrivateEndpoint(cluster.Endpoints)
-				if err != nil {
-					return nil, err
-				}
-			default:
-				endpoint, err = getPublicEndpoint(cluster.Endpoints)
-				if err != nil {
-					return nil, err
-				}
-			}
-
-			if len(endpoint.IPs) == 0 {
-				return nil, errors.New("endpoint has no IP addresses")
-			}
-
-			port := endpoint.Port
-
-			var certPath string
-			if cluster.TLSEnabled {
-				certResp, err := api.GetClusterCertificate(&redis.GetClusterCertificateRequest{
-					Zone:      args.Zone,
-					ClusterID: args.ClusterID,
-				})
-				if err != nil {
-					return nil, fmt.Errorf("failed to get certificate: %w", err)
-				}
-
-				certContent, err := io.ReadAll(certResp.Content)
-				if err != nil {
-					return nil, fmt.Errorf("failed to read certificate content: %w", err)
-				}
-
-				tmpDir := os.TempDir()
-				certPath = filepath.Join(tmpDir, fmt.Sprintf("redis-cert-%s.crt", args.ClusterID))
-				if err := os.WriteFile(certPath, certContent, 0o600); err != nil {
-					return nil, fmt.Errorf("failed to write certificate: %w", err)
-				}
-				defer func() {
-					if err := os.Remove(certPath); err != nil {
-						core.ExtractLogger(ctx).Debugf("failed to remove certificate file: %v", err)
-					}
-				}()
-			}
-
-			password, err := interactive.PromptPasswordWithConfig(
-				ctx,
-				&interactive.PromptPasswordConfig{
-					Prompt: "Password",
-				},
-			)
-			if err != nil {
-				return nil, fmt.Errorf("failed to get password: %w", err)
-			}
-
-			hostStr := endpoint.IPs[0].String()
-			cmdArgs := []string{
-				cliRedis,
-				"-h", hostStr,
-				"-p", strconv.FormatUint(uint64(port), 10),
-				"-a", password,
-			}
-
-			if cluster.TLSEnabled {
-				cmdArgs = append(cmdArgs, "--tls", "--cert", certPath)
-			}
-
-			if cluster.UserName != "" {
-				cmdArgs = append(cmdArgs, "--user", cluster.UserName)
-			}
-
-			// Add any additional arguments passed by the user
-			if len(args.CliArgs) > 0 {
-				cmdArgs = append(cmdArgs, args.CliArgs...)
-			}
-
-			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
-			cmd.Stdin = os.Stdin
-			cmd.Stdout = os.Stdout
-			cmd.Stderr = os.Stderr
-			core.ExtractLogger(ctx).Debugf("executing: %s\n", cmd.Args)
-
-			if err := cmd.Run(); err != nil {
-				if exitError, ok := err.(*exec.ExitError); ok {
-					return nil, &core.CliError{Empty: true, Code: exitError.ExitCode()}
-				}
-
-				return nil, err
-			}
-
-			return &core.SuccessResult{
-				Empty: true,
-			}, nil
-		},
-		Examples: []*core.Example{
-			{
-				Short: "Connect to a Redis cluster",
-				Raw:   `scw redis cluster connect 11111111-1111-1111-1111-111111111111`,
-			},
-			{
-				Short: "Connect to a Redis cluster via private network",
-				Raw:   `scw redis cluster connect 11111111-1111-1111-1111-111111111111 private-network=true`,
-			},
-		},
-	}
 }

@@ -250,10 +250,10 @@ func Test_ServerUpdateCustom(t *testing.T) {
 	t.Run(
 		"Update server security-group-id from server with security-group-id",
 		core.Test(&core.TestConfig{
-			Commands: instance.GetCommands(),
+			Commands: cmds,
 			BeforeFunc: core.BeforeFuncCombine(
-				createSecurityGroup("SecurityGroup1"),
-				createSecurityGroup("SecurityGroup2"),
+				instanceV2.CreateSecurityGroup("SecurityGroup1"),
+				instanceV2.CreateSecurityGroup("SecurityGroup2"),
 				core.ExecStoreBeforeCmd(
 					"Server",
 					testServerCommand(
@@ -267,14 +267,14 @@ func Test_ServerUpdateCustom(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.Equal(t,
-						ctx.Meta["SecurityGroup2"].(*instanceSDK.SecurityGroup).ID,
+						ctx.Meta["SecurityGroup2"].(*instanceSDKV2.SecurityGroup).ID,
 						ctx.Result.(*instance.ServerWithWarningsResponse).Server.SecurityGroup.ID)
 				},
 			),
 			AfterFunc: core.AfterFuncCombine(
 				deleteServer("Server"),
-				deleteSecurityGroup("SecurityGroup1"),
-				deleteSecurityGroup("SecurityGroup2"),
+				instanceV2.DeleteSecurityGroup("SecurityGroup1"),
+				instanceV2.DeleteSecurityGroup("SecurityGroup2"),
 			),
 		}),
 	)

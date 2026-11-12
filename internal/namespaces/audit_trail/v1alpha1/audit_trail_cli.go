@@ -103,6 +103,7 @@ func auditTrailEventList() *core.Command {
 					"account_organization",
 					"account_project",
 					"account_contract_signature",
+					"instance_dedicated_pool",
 					"instance_server",
 					"instance_placement_group",
 					"instance_security_group",
@@ -194,6 +195,10 @@ func auditTrailEventList() *core.Command {
 					"wofl_workflow_definition",
 					"wofl_workflow_run",
 					"wofl_workflow_version",
+					"kafk_cluster",
+					"annotations_key",
+					"annotations_value",
+					"annotations_binding",
 				},
 			},
 			{

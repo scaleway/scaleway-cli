@@ -115,17 +115,28 @@ func autocompleteScripts(ctx context.Context, basename string) map[string]autoco
 			// If you are using an alias for scw, such as :
 			// 		alias scw='go run "$HOME"/scaleway-cli/cmd/scw/main.go'
 			// you might want to run 'compdef _scw go' during development.
+			//
+			// The #compdef header lets compinit register this script when it is installed as an
+			// autoloaded _scw file in $fpath (e.g. by a package manager). When it is eval'd instead,
+			// the function is registered explicitly.
 			CompleteFunc: fmt.Sprintf(`
-			autoload -U compinit && compinit
+			#compdef %[1]s
 			_%[1]s () {
-				output=($(%[1]s autocomplete complete zsh -- ${CURRENT} ${words}))
-				opts=('-S' ' ')
+				local output
+				output=$(%[1]s autocomplete complete zsh -- ${CURRENT} "${words[@]}")
+				local opts=('-S' ' ')
 				if [[ $output == *= ]]; then
 					opts=('-S' '')
 				fi
-				compadd "${opts[@]}" -- "${output[@]}"
+				local -a matches=("${(@f)output}")
+				_describe 'resources' matches "${opts[@]}"
 			}
-			compdef _%[1]s %[1]s
+			if [[ "$funcstack[1]" == "_%[1]s" ]]; then
+				_%[1]s "$@"
+			else
+				autoload -U compinit && compinit
+				compdef _%[1]s %[1]s
+			fi
 		`, basename),
 			CompleteScript: fmt.Sprintf(`eval "$(%s autocomplete script shell=zsh)"`, basename),
 			ShellConfigurationFile: map[string]string{
@@ -134,6 +145,18 @@ func autocompleteScripts(ctx context.Context, basename string) map[string]autoco
 			},
 		},
 	}
+}
+
+// defaultBasename returns the name the completion scripts are generated for. The binary may have
+// been invoked through a path (e.g. /opt/homebrew/Cellar/scw/x.y.z/bin/scw), but function and
+// command names in the scripts must only use the file name.
+func defaultBasename(ctx context.Context) string {
+	binaryName := core.ExtractBinaryName(ctx)
+	if binaryName == "" {
+		return "scw"
+	}
+
+	return filepath.Base(binaryName)
 }
 
 type InstallArgs struct {
@@ -155,7 +178,7 @@ func autocompleteInstallCommand() *core.Command {
 			{
 				Name: "basename",
 				Default: func(ctx context.Context) (value string, doc string) {
-					resp := core.ExtractBinaryName(ctx)
+					resp := defaultBasename(ctx)
 
 					return resp, resp
 				},
@@ -310,17 +333,24 @@ func autocompleteCompleteBashCommand() *core.Command {
 			wordToComplete := words[wordIndex]
 			rightWords := aliases.ResolveAliases(words[wordIndex+1:])
 
+			core.ApplyProfileFlagFromWords(ctx, leftWords, rightWords)
+
 			// If the wordToComplete is an argument label (cf. `arg=`), remove
 			// this prefix for all suggestions.
 			res := core.AutoComplete(ctx, leftWords, wordToComplete, rightWords)
 			if strings.Contains(wordToComplete, "=") {
 				prefix := strings.SplitAfterN(wordToComplete, "=", 2)[0]
-				for k, p := range res.Suggestions {
-					res.Suggestions[k] = strings.TrimPrefix(p, prefix)
+				for i, suggestion := range res.Suggestions {
+					res.Suggestions[i].Value = strings.TrimPrefix(suggestion.Value, prefix)
 				}
 			}
 
-			return strings.Join(res.Suggestions, " "), nil
+			values := make([]string, 0, len(res.Suggestions))
+			for _, suggestion := range res.Suggestions {
+				values = append(values, suggestion.Value)
+			}
+
+			return strings.Join(values, " "), nil
 		},
 	}
 }
@@ -353,14 +383,45 @@ func autocompleteCompleteFishCommand() *core.Command {
 			// charIndex, _ := strconv.Atoi(rawArgs[1])
 			rightWords := []string(nil)
 
+			core.ApplyProfileFlagFromWords(ctx, leftWords, rightWords)
+
 			res := core.AutoComplete(ctx, leftWords, wordToComplete, rightWords)
 
-			// TODO: decide if we want to add descriptions
-			// see https://stackoverflow.com/a/20879411
-			// "followed optionally by a tab and a short description."
-			return strings.Join(res.Suggestions, "\n"), nil
+			return FishSuggestions(res), nil
 		},
 	}
+}
+
+// FishSuggestions formats an autocomplete response for the fish shell:
+// one suggestion per line, "value<TAB>description" when a description exists.
+func FishSuggestions(res *core.AutocompleteResponse) string {
+	return strings.Join(suggestionLines(res, "\t", false), "\n")
+}
+
+// ZshSuggestions formats an autocomplete response for the zsh shell:
+// one "value:description" pair per line, as consumed by _describe.
+func ZshSuggestions(res *core.AutocompleteResponse) string {
+	return strings.Join(suggestionLines(res, ":", true), "\n")
+}
+
+func suggestionLines(res *core.AutocompleteResponse, separator string, escapeValue bool) []string {
+	descReplacer := strings.NewReplacer("\n", " ", "\t", " ")
+	valueReplacer := strings.NewReplacer(`\`, `\\`, ":", `\:`)
+	lines := make([]string, 0, len(res.Suggestions))
+	for _, suggestion := range res.Suggestions {
+		value := suggestion.Value
+		if escapeValue {
+			value = valueReplacer.Replace(value)
+		}
+		if suggestion.Description != "" {
+			lines = append(lines, value+separator+descReplacer.Replace(suggestion.Description))
+
+			continue
+		}
+		lines = append(lines, value)
+	}
+
+	return lines
 }
 
 func autocompleteCompleteZshCommand() *core.Command {
@@ -404,9 +465,11 @@ func autocompleteCompleteZshCommand() *core.Command {
 			wordToComplete := words[wordIndex]
 			rightWords := aliases.ResolveAliases(words[wordIndex+1:])
 
+			core.ApplyProfileFlagFromWords(ctx, leftWords, rightWords)
+
 			res := core.AutoComplete(ctx, leftWords, wordToComplete, rightWords)
 
-			return strings.Join(res.Suggestions, " "), nil
+			return ZshSuggestions(res), nil
 		},
 	}
 }
@@ -427,12 +490,12 @@ func autocompleteScriptCommand() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:    "shell",
-				Default: core.DefaultValueSetter(os.Getenv("SHELL")),
+				Default: core.DefaultValueSetterWithFallback("SHELL", "/bin/bash"),
 			},
 			{
 				Name: "basename",
 				Default: func(ctx context.Context) (value string, doc string) {
-					resp := core.ExtractBinaryName(ctx)
+					resp := defaultBasename(ctx)
 
 					return resp, resp
 				},

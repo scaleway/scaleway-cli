@@ -11,7 +11,7 @@ EXAMPLES:
 
 ARGS:
   instance-id       ID of the instance you want to wait for.
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
   [timeout=20m0s]   Timeout of the wait
 
 FLAGS:
@@ -22,5 +22,6 @@ GLOBAL FLAGS:
   -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
+  -H, --no-headers       Skip headers in human output
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use

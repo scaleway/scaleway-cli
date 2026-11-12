@@ -28,6 +28,26 @@ scw secret secret add-owner <secret-id ...> [arg=value ...]
 
 
 
+### Open the Cockpit Grafana dashboard for this secret
+
+
+
+**Usage:**
+
+```shell
+scw secret secret cockpit <secret-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name      | Description                                                                 | Argument Specifications |
+|-----------|-----------------------------------------------------------------------------|-------------------------|
+| secret-id | Secret ID                                                                   | Required                |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Create a secret
 
 Create a secret in a given region specified by the `region` parameter.
@@ -44,7 +64,7 @@ scw secret secret create [arg=value ...]
 | Name                                   | Description                                                                                   | Argument Specifications                                                                                              |
 |----------------------------------------|-----------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
 | project-id                             | Project ID to use. If none is passed the default project ID will be used                      |                                                                                                                      |
-| name                                   | Name of the secret                                                                            |                                                                                                                      |
+| name                                   | Name of the secret                                                                            | Default: `<generated>`                                                                                               |
 | tags.{index}                           | List of the secret's tags                                                                     |                                                                                                                      |
 | description                            | Description of the secret                                                                     |                                                                                                                      |
 | type                                   | Type of the secret                                                                            | One of: `unknown_type`, `opaque`, `certificate`, `key_value`, `basic_credentials`, `database_credentials`, `ssh_key` |

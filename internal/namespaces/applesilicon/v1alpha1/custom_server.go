@@ -158,7 +158,7 @@ func autocompleteServerType(
 	prefix string,
 	_ any,
 ) core.AutocompleteSuggestions {
-	suggestions := core.AutocompleteSuggestions(nil)
+	suggestions := core.AutocompleteSuggestions{}
 
 	client := core.ExtractClient(ctx)
 	api := applesilicon.NewAPI(client)
@@ -173,7 +173,7 @@ func autocompleteServerType(
 
 	for _, serverType := range completeListTypeServerCache.ServerTypes {
 		if strings.HasPrefix(serverType.Name, prefix) {
-			suggestions = append(suggestions, serverType.Name)
+			suggestions = append(suggestions, core.Suggestion{Value: serverType.Name})
 		}
 	}
 

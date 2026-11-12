@@ -1,133 +1,197 @@
 ---
-version: 1
+version: 2
 interactions:
-- request:
-    body: '{"name":"cli-hub-jovial-bardeen","project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","product_plan":"plan_shared","disable_events":null,"events_topic_prefix":null}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/iot/v1/regions/fr-par/hubs
-    method: POST
-  response:
-    body: '{"region":"fr-par","id":"e50c1da4-3ade-4c67-9321-ce39d4bbe1ca","organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","name":"cli-hub-jovial-bardeen","status":"enabling","product_plan":"plan_shared","endpoint":"iot.fr-par.scw.cloud","created_at":"2022-11-14T11:22:39.323Z","updated_at":"2022-11-14T11:22:39.323Z","enabled":true,"device_count":0,"connected_device_count":0,"disable_events":false,"events_topic_prefix":"$SCW/events","enable_device_auto_provisioning":false,"has_custom_ca":false}'
-    headers:
-      Content-Length:
-      - "547"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 14 Nov 2022 11:22:40 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 222f5144-1163-4d21-a630-0b46321f6946
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/iot/v1/regions/fr-par/hubs/e50c1da4-3ade-4c67-9321-ce39d4bbe1ca
-    method: GET
-  response:
-    body: '{"region":"fr-par","id":"e50c1da4-3ade-4c67-9321-ce39d4bbe1ca","organization_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","project_id":"564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5","name":"cli-hub-jovial-bardeen","status":"ready","product_plan":"plan_shared","endpoint":"iot.fr-par.scw.cloud","created_at":"2022-11-14T11:22:39.323Z","updated_at":"2022-11-14T11:22:39.323Z","enabled":true,"device_count":0,"connected_device_count":0,"disable_events":false,"events_topic_prefix":"$SCW/events","enable_device_auto_provisioning":false,"has_custom_ca":false}'
-    headers:
-      Content-Length:
-      - "544"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 14 Nov 2022 11:22:40 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - daf9e801-7561-40a4-918f-f291c72b93c2
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"name":"cli-network-jolly-thompson","type":"sigfox","hub_id":"e50c1da4-3ade-4c67-9321-ce39d4bbe1ca","topic_prefix":"foo"}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/iot/v1/regions/fr-par/networks
-    method: POST
-  response:
-    body: '{"network":{"id":"0fc1c42f-050e-421e-86fc-54dcf154cf84","name":"cli-network-jolly-thompson","endpoint":"sigfox.iot.fr-par.scw.cloud","type":"sigfox","hub_id":"e50c1da4-3ade-4c67-9321-ce39d4bbe1ca","created_at":"2022-11-14T11:22:40.273Z","topic_prefix":"foo"},"secret":"eyJOZXRJRCI6IjBmYzFjNDJmLTA1MGUtNDIxZS04NmZjLTU0ZGNmMTU0Y2Y4NCIsIk5ldEtleSI6Ijg0ZWY0MzA4LTBmNjMtNGMyNy04YmJiLTA4YzkzOGU2ZmZkMiJ9"}'
-    headers:
-      Content-Length:
-      - "399"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 14 Nov 2022 11:22:40 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - dc27a96e-549f-458b-97c0-007028d7f448
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.1; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/iot/v1/regions/fr-par/hubs/e50c1da4-3ade-4c67-9321-ce39d4bbe1ca
-    method: DELETE
-  response:
-    body: ""
-    headers:
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 14 Nov 2022 11:22:40 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 792c4ded-83ce-43c5-ad56-0f495ac95a34
-    status: 204 No Content
-    code: 204
-    duration: ""
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 113
+        host: api.scaleway.com
+        body: '{"name":"cli-hub-happy-swanson","project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da","product_plan":"plan_shared"}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.37.0.20261005125851-bba713c8ec7e (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/iot/v1/regions/fr-par/hubs
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 562
+        body: '{"region":"fr-par", "id":"dfe46261-6b30-4193-95df-f7bfa1904ef4", "organization_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "name":"cli-hub-happy-swanson", "status":"enabling", "product_plan":"plan_shared", "endpoint":"iot.fr-par.scw.cloud", "created_at":"2026-10-07T15:21:17.542Z", "updated_at":"2026-10-07T15:21:17.542Z", "enabled":true, "device_count":0, "connected_device_count":0, "disable_events":false, "events_topic_prefix":"$SCW/events", "enable_device_auto_provisioning":false, "has_custom_ca":false}'
+        headers:
+            Content-Length:
+                - "562"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 07 Oct 2026 15:21:18 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "48"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 923a40b8-d865-46de-a13d-45936c9b2409
+        status: 200 OK
+        code: 200
+        duration: 922.814587ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.37.0.20261005125851-bba713c8ec7e (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/iot/v1/regions/fr-par/hubs/dfe46261-6b30-4193-95df-f7bfa1904ef4
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 562
+        body: '{"region":"fr-par", "id":"dfe46261-6b30-4193-95df-f7bfa1904ef4", "organization_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "name":"cli-hub-happy-swanson", "status":"enabling", "product_plan":"plan_shared", "endpoint":"iot.fr-par.scw.cloud", "created_at":"2026-10-07T15:21:17.542Z", "updated_at":"2026-10-07T15:21:17.542Z", "enabled":true, "device_count":0, "connected_device_count":0, "disable_events":false, "events_topic_prefix":"$SCW/events", "enable_device_auto_provisioning":false, "has_custom_ca":false}'
+        headers:
+            Content-Length:
+                - "562"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 07 Oct 2026 15:21:18 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - c4eed11b-dfe5-4f75-84ad-a8ca4adfe9f0
+        status: 200 OK
+        code: 200
+        duration: 83.183538ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.37.0.20261005125851-bba713c8ec7e (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/iot/v1/regions/fr-par/hubs/dfe46261-6b30-4193-95df-f7bfa1904ef4
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 559
+        body: '{"region":"fr-par", "id":"dfe46261-6b30-4193-95df-f7bfa1904ef4", "organization_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da", "name":"cli-hub-happy-swanson", "status":"ready", "product_plan":"plan_shared", "endpoint":"iot.fr-par.scw.cloud", "created_at":"2026-10-07T15:21:17.542Z", "updated_at":"2026-10-07T15:21:17.542Z", "enabled":true, "device_count":0, "connected_device_count":0, "disable_events":false, "events_topic_prefix":"$SCW/events", "enable_device_auto_provisioning":false, "has_custom_ca":false}'
+        headers:
+            Content-Length:
+                - "559"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 07 Oct 2026 15:21:33 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 0405db68-adcf-478e-b4b6-7874924d15eb
+        status: 200 OK
+        code: 200
+        duration: 69.747348ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 121
+        host: api.scaleway.com
+        body: '{"name":"cli-network-gifted-edison","type":"sigfox","hub_id":"dfe46261-6b30-4193-95df-f7bfa1904ef4","topic_prefix":"foo"}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.37.0.20261005125851-bba713c8ec7e (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/iot/v1/regions/fr-par/networks
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 424
+        body: '{"network":{"id":"e372451f-9d8d-4f80-94a5-5fa78cfa697d", "name":"cli-network-gifted-edison", "endpoint":"sigfox.iot.fr-par.scw.cloud", "type":"sigfox", "hub_id":"dfe46261-6b30-4193-95df-f7bfa1904ef4", "created_at":"2026-10-07T15:21:33.628Z", "topic_prefix":"foo", "region":"fr-par"}, "secret":"eyJOZXRJRCI6ImUzNzI0NTFmLTlkOGQtNGY4MC05NGE1LTVmYTc4Y2ZhNjk3ZCIsIk5ldEtleSI6IjgyMzRjZjZiLWUzNmYtNDRmYS1hNjFjLTA1ZmE5OWRiYjY2MCJ9"}'
+        headers:
+            Content-Length:
+                - "424"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 07 Oct 2026 15:21:33 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - c8066409-ff22-42d8-846d-c34f99152e20
+        status: 200 OK
+        code: 200
+        duration: 92.764746ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.37.0.20261005125851-bba713c8ec7e (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/iot/v1/regions/fr-par/hubs/dfe46261-6b30-4193-95df-f7bfa1904ef4
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 07 Oct 2026 15:21:33 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 403c6092-40f5-4f24-a538-ce958cb69003
+        status: 204 No Content
+        code: 204
+        duration: 89.467058ms

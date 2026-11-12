@@ -37,26 +37,15 @@ func GetCommands() *core.Commands {
 		instanceRoot(),
 		instanceImage(),
 		instanceIP(),
-		instanceSecurityGroup(),
 		instanceServer(),
-		instanceServerType(),
 		instanceVolumeType(),
 		instanceSnapshot(),
-		instanceUserData(),
 		instanceVolume(),
-		instancePrivateNic(),
-		instanceServerTypeGet(),
-		instanceServerTypeList(),
 		instanceVolumeTypeList(),
 		instanceServerList(),
 		instanceServerGet(),
 		instanceServerUpdate(),
 		instanceServerListActions(),
-		instanceUserDataList(),
-		instanceUserDataDelete(),
-		instanceUserDataSet(),
-		instanceUserDataGet(),
-		instanceServerGetCompatibleTypes(),
 		instanceServerAttachVolume(),
 		instanceServerDetachVolume(),
 		instanceServerAttachFilesystem(),
@@ -77,35 +66,33 @@ func GetCommands() *core.Commands {
 		instanceVolumeGet(),
 		instanceVolumeUpdate(),
 		instanceVolumeDelete(),
-		instanceSecurityGroupList(),
-		instanceSecurityGroupCreate(),
-		instanceSecurityGroupGet(),
-		instanceSecurityGroupDelete(),
-		instanceSecurityGroupUpdate(),
-		instanceSecurityGroupListDefaultRules(),
-		instanceSecurityGroupListRules(),
-		instanceSecurityGroupCreateRule(),
-		instanceSecurityGroupSetRules(),
-		instanceSecurityGroupDeleteRule(),
-		instanceSecurityGroupGetRule(),
-		instanceSecurityGroupUpdateRule(),
+		instanceVolumePlanMigration(),
+		instanceVolumeApplyMigration(),
 		instanceIPList(),
 		instanceIPCreate(),
 		instanceIPGet(),
 		instanceIPUpdate(),
 		instanceIPDelete(),
-		instancePrivateNicList(),
-		instancePrivateNicCreate(),
-		instancePrivateNicGet(),
-		instancePrivateNicUpdate(),
-		instancePrivateNicDelete(),
-		instanceVolumePlanMigration(),
-		instanceVolumeApplyMigration(),
 		// PlacementGroup commands exclusive to v1
 		instancePlacementGroupSet(),
 		instancePlacementGroupGetServers(),
 		instancePlacementGroupSetServers(),
 		instancePlacementGroupUpdateServers(),
+		// PrivateNIC commands exclusive to v1
+		instancePrivateNic(),
+		instancePrivateNicList(),
+		instancePrivateNicCreate(),
+		instancePrivateNicGet(),
+		instancePrivateNicUpdate(),
+		instancePrivateNicDelete(),
+		// SecurityGroup commands exclusive to v1
+		instanceSecurityGroupListDefaultRules(),
+		instanceSecurityGroupListRules(),
+		instanceSecurityGroupCreateRule(),
+		instanceSecurityGroupDeleteRule(),
+		instanceSecurityGroupGetRule(),
+		// ServerType commands exclusive to v1
+		instanceServerTypeGet(),
 	)
 
 	//
@@ -150,18 +137,7 @@ func GetCommands() *core.Commands {
 	//
 	// Server-Type
 	//
-	human.RegisterMarshalerFunc(
-		instance.ServerTypesAvailability(""),
-		human.EnumMarshalFunc(serverTypesAvailabilityMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc([]*customServerType{}, serverTypesListMarshalerFunc)
-
-	cmds.MustFind("instance", "server-type", "list").Override(serverTypeListBuilder)
-
-	//
-	// Get-Compatible-Types
-	//
-	cmds.MustFind("instance", "server", "get-compatible-types").Override(getCompatibleTypesBuilder)
+	cmds.MustFind("instance", "server-type", "get").Override(serverTypeGetBuilder)
 
 	//
 	// IP
@@ -231,32 +207,6 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "volume-type", "list").Override(volumeTypeListBuilder)
 
 	//
-	// Security Group
-	//
-	human.RegisterMarshalerFunc(
-		instance.CreateSecurityGroupResponse{},
-		marshallNestedField("SecurityGroup"),
-	)
-	human.RegisterMarshalerFunc(
-		instance.SecurityGroupPolicy(""),
-		human.EnumMarshalFunc(securityGroupPolicyMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		instance.SecurityGroupState(""),
-		human.EnumMarshalFunc(securityGroupStateMarshalSpecs),
-	)
-
-	cmds.MustFind("instance", "security-group", "create").Override(securityGroupCreateBuilder)
-	cmds.MustFind("instance", "security-group", "get").Override(securityGroupGetBuilder)
-	cmds.MustFind("instance", "security-group", "list").Override(securityGroupListBuilder)
-	cmds.MustFind("instance", "security-group", "delete").Override(securityGroupDeleteBuilder)
-
-	cmds.Merge(core.NewCommands(
-		securityGroupClearCommand(),
-		securityGroupEditCommand(),
-	))
-
-	//
 	// Security Group Rule
 	//
 	human.RegisterMarshalerFunc(
@@ -268,6 +218,17 @@ func GetCommands() *core.Commands {
 		human.EnumMarshalFunc(securityGroupRuleActionMarshalSpecs),
 	)
 	human.RegisterMarshalerFunc([]*instance.SecurityGroupRule{}, marshalSecurityGroupRules)
+
+	cmds.MustFind("instance", "security-group", "list-default-rules").
+		Override(securityGroupListDefaultRulesBuilder)
+	cmds.MustFind("instance", "security-group", "list-rules").
+		Override(securityGroupListRulesBuilder)
+	cmds.MustFind("instance", "security-group", "create-rule").
+		Override(securityGroupCreateRuleBuilder)
+	cmds.MustFind("instance", "security-group", "delete-rule").
+		Override(securityGroupDeleteRuleBuilder)
+	cmds.MustFind("instance", "security-group", "get-rule").
+		Override(securityGroupGetRuleBuilder)
 
 	//
 	// Placement Group
@@ -282,14 +243,6 @@ func GetCommands() *core.Commands {
 		Override(placementGroupUpdateServersBuilder)
 
 	//
-	// User Data
-	//
-	cmds.MustFind("instance", "user-data", "delete").Override(userDataDeleteBuilder)
-	cmds.MustFind("instance", "user-data", "set").Override(userDataSetBuilder)
-	cmds.MustFind("instance", "user-data", "get").Override(userDataGetBuilder)
-	cmds.MustFind("instance", "user-data", "list").Override(userDataListBuilder)
-
-	//
 	// Private NICs
 	//
 	human.RegisterMarshalerFunc(
@@ -297,6 +250,11 @@ func GetCommands() *core.Commands {
 		human.EnumMarshalFunc(privateNICStateMarshalSpecs),
 	)
 
+	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic"))
+	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "create"))
+	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "list"))
+	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "update"))
+	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "delete"))
 	cmds.MustFind("instance", "private-nic", "get").Override(privateNicGetBuilder)
 
 	// SSH Utilities
@@ -316,6 +274,8 @@ func GetCommands() *core.Commands {
 	// Web URLs (--web)
 
 	addWebUrls(cmds)
+
+	cmds.Merge(core.NewCommands(serverCockpitCommand()))
 
 	return cmds
 }

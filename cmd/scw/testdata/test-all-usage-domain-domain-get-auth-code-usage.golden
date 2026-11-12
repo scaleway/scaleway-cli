@@ -7,7 +7,7 @@ USAGE:
   scw domain domain get-auth-code [arg=value ...]
 
 ARGS:
-  domain   
+  domain   The domain name to retrieve the authorization code for.
 
 FLAGS:
   -h, --help                help for get-auth-code
@@ -17,5 +17,6 @@ GLOBAL FLAGS:
   -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
+  -H, --no-headers       Skip headers in human output
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use

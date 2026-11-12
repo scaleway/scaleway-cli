@@ -13,6 +13,7 @@ AVAILABLE COMMANDS:
   attach-ip            Attach an IP to a server
   attach-volume        Attach a volume to an Instance
   backup               Backup server
+  cockpit              Open the Cockpit Grafana dashboard for this server
   console              Connect to the serial console of an instance
   create               Create server
   delete               Delete server
@@ -21,7 +22,7 @@ AVAILABLE COMMANDS:
   detach-volume        Detach a volume from an Instance
   enable-routed-ip     Migrate server to IP mobility
   get                  Get an Instance
-  get-compatible-types Get Instance compatible types
+  get-compatible-types List compatible Instance types
   get-rdp-password     Get your server rdp password and decrypt it using your ssh key
   list                 List all Instances
   list-actions         List Instance actions
@@ -45,6 +46,7 @@ GLOBAL FLAGS:
   -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
+  -H, --no-headers       Skip headers in human output
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
 

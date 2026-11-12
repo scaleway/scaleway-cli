@@ -1,0 +1,15 @@
+// Snippet of Grafana Alloy configuration to add to cockpit.alloy
+// Exports traces to your Cockpit traces data source over OTLP HTTP.
+// Forward otelcol.* pipeline outputs to otelcol.exporter.otlphttp.cockpit.input.
+// Run with: alloy run cockpit.alloy
+
+otelcol.exporter.otlphttp "cockpit" {
+    client {
+        endpoint        = "{{ .OTLPBaseURL }}"
+        traces_endpoint = "{{ .TracesEndpoint }}"
+        headers = {
+            "X-TOKEN" = "{{ .Token }}",
+        }
+    }
+}
+

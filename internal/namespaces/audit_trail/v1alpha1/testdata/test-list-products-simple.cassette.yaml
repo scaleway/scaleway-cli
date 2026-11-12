@@ -1,0 +1,41 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261020175058-1678d4b821f3 (go1.27.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/audit-trail/v1alpha1/regions/fr-par/products?organization_id=11111111-1111-1111-1111-111111111111
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 412
+        body: '{"total_count":2, "products":[{"title":"Baremetal", "name":"baremetal", "services":[{"name":"baremetal/v1", "methods":["CreateServer","DeleteServer","GetServer","ListServers"]}, {"name":"baremetal/v2", "methods":["GetOffer"]}]}, {"title":"Secret Manager", "name":"secret-manager", "services":[{"name":"secret-manager/v1alpha1", "methods":["CreateSecret","DeleteSecret","GetSecret","ListSecrets"]}]}]}'
+        headers:
+            Content-Length:
+                - "412"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 21 Oct 2026 00:00:00 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge01)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 00000000-0000-0000-0000-000000000000
+        status: 200 OK
+        code: 200
+        duration: 100ms

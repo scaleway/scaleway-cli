@@ -31,17 +31,14 @@ func Test_Template(t *testing.T) {
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				if tpl, ok := ctx.Result.(*instanceSDK.Template); !ok {
-					t.Errorf("result was not *instance.Template but %T", ctx.Result)
-				} else {
-					assert.Len(t, tpl.Tags, 1)
-					assert.Equal(t, "tmpl-tag", tpl.Tags[0])
-					assert.Len(t, tpl.ServerTags, 1)
-					assert.Equal(t, "server-tag", tpl.ServerTags[0])
-					assert.Equal(t, uint32(2), tpl.PublicIPV4Count)
-					assert.Equal(t, uint32(4), tpl.PublicIPV6Count)
-					assert.Equal(t, serverType1, tpl.ServerType)
-				}
+				tpl := ctx.Result.(*instanceSDK.Template)
+				assert.Len(t, tpl.Tags, 1)
+				assert.Equal(t, "tmpl-tag", tpl.Tags[0])
+				assert.Len(t, tpl.ServerTags, 1)
+				assert.Equal(t, "server-tag", tpl.ServerTags[0])
+				assert.Equal(t, uint32(2), tpl.PublicIPV4Count)
+				assert.Equal(t, uint32(4), tpl.PublicIPV6Count)
+				assert.Equal(t, serverType1, tpl.ServerType)
 			},
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -64,27 +61,24 @@ func Test_Template(t *testing.T) {
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				if tpl, ok := ctx.Result.(*instanceSDK.Template); !ok {
-					t.Errorf("result was not *instance.Template but %T", ctx.Result)
-				} else {
-					assert.Len(t, tpl.Tags, 2)
-					assert.Equal(t, "new", tpl.Tags[0])
-					assert.Equal(t, "tags", tpl.Tags[1])
-					assert.Len(t, tpl.ServerTags, 1)
-					assert.Equal(t, "server-tag", tpl.ServerTags[0])
-					assert.Equal(t, uint32(0), tpl.PublicIPV4Count)
-					assert.Equal(t, uint32(1), tpl.PublicIPV6Count)
-					assert.Equal(t, serverType2, tpl.ServerType)
-					assert.Len(t, tpl.Volumes, 1)
-					assert.Equal(t, "cli-test", tpl.Volumes[0].Name)
-					assert.Equal(t, 20*scw.GB, *tpl.Volumes[0].Size)
-					assert.Equal(
-						t,
-						instanceSDK.CreateServerRequestServerVolumeVolumeTypeSbs,
-						tpl.Volumes[0].VolumeType,
-					)
-					assert.Equal(t, "ubuntu_resolute", *tpl.Volumes[0].ImageLabel)
-				}
+				tpl := ctx.Result.(*instanceSDK.Template)
+				assert.Len(t, tpl.Tags, 2)
+				assert.Equal(t, "new", tpl.Tags[0])
+				assert.Equal(t, "tags", tpl.Tags[1])
+				assert.Len(t, tpl.ServerTags, 1)
+				assert.Equal(t, "server-tag", tpl.ServerTags[0])
+				assert.Equal(t, uint32(0), tpl.PublicIPV4Count)
+				assert.Equal(t, uint32(1), tpl.PublicIPV6Count)
+				assert.Equal(t, serverType2, tpl.ServerType)
+				assert.Len(t, tpl.Volumes, 1)
+				assert.Equal(t, "cli-test", tpl.Volumes[0].Name)
+				assert.Equal(t, 20*scw.GB, *tpl.Volumes[0].Size)
+				assert.Equal(
+					t,
+					instanceSDK.CreateServerRequestServerVolumeVolumeTypeSbs,
+					tpl.Volumes[0].VolumeType,
+				)
+				assert.Equal(t, "ubuntu_resolute", *tpl.Volumes[0].ImageLabel)
 			},
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -119,20 +113,17 @@ func Test_Template(t *testing.T) {
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				if server, ok := ctx.Result.(*instanceSDK.Server); !ok {
-					t.Errorf("result was not *instance.Server but %T", ctx.Result)
-				} else {
-					assert.Len(t, server.Tags, 1)
-					assert.Equal(t, "cli-tpl", server.Tags[0])
-					assert.Len(t, server.PublicNetworkInterface.IPs, 1)
-					assert.Equal(t, serverType3, server.ServerType)
-					assert.Len(t, server.Volumes, 1)
-					assert.Equal(
-						t,
-						instanceSDK.ServerVolumeVolumeTypeLSSD,
-						server.Volumes[0].VolumeType,
-					)
-				}
+				server := ctx.Result.(*instanceSDK.Server)
+				assert.Len(t, server.Tags, 1)
+				assert.Equal(t, "cli-tpl", server.Tags[0])
+				assert.Len(t, server.PublicNetworkInterface.IPs, 1)
+				assert.Equal(t, serverType3, server.ServerType)
+				assert.Len(t, server.Volumes, 1)
+				assert.Equal(
+					t,
+					instanceSDK.ServerVolumeVolumeTypeLSSD,
+					server.Volumes[0].VolumeType,
+				)
 			},
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -206,11 +197,8 @@ func Test_TemplateUserData(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 
-				if ud, ok := ctx.Result.(*instanceSDK.UserData); !ok {
-					t.Errorf("result was not *instance.UserData but %T", ctx.Result)
-				} else {
-					assert.Equal(t, cloudInitScript, string(ud.Content))
-				}
+				ud := ctx.Result.(*instanceSDK.UserData)
+				assert.Equal(t, cloudInitScript, string(ud.Content))
 			},
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -234,14 +222,11 @@ func Test_TemplateUserData(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 
-				if keys, ok := ctx.Result.([]string); !ok {
-					t.Errorf("result was not []string but %T", ctx.Result)
-				} else {
-					assert.Len(t, keys, 3)
-					assert.Equal(t, "key1", keys[0])
-					assert.Equal(t, "key2", keys[1])
-					assert.Equal(t, "key3", keys[2])
-				}
+				keys := ctx.Result.([]string)
+				assert.Len(t, keys, 3)
+				assert.Equal(t, "key1", keys[0])
+				assert.Equal(t, "key2", keys[1])
+				assert.Equal(t, "key3", keys[2])
 			},
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -351,11 +336,8 @@ func Test_TemplateCloudInit(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 
-				if ud, ok := ctx.Result.(*instanceSDK.UserData); !ok {
-					t.Errorf("result was not *instance.UserData but %T", ctx.Result)
-				} else {
-					assert.Equal(t, cloudInitScript, string(ud.Content))
-				}
+				ud := ctx.Result.(*instanceSDK.UserData)
+				assert.Equal(t, cloudInitScript, string(ud.Content))
 			},
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),

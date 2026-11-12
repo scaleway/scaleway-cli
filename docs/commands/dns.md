@@ -284,6 +284,60 @@ scw dns record delete my-domain.tld data=1.2.3.4 name=vpn type=A
 
 
 
+### Import many DNS records from a file
+
+Import DNS records into a zone that uses Scaleway default name servers.
+
+The DNS zone is the only positional argument. Pass BIND or JSON content with content=...;
+use content=@/path/to/file to load from a file (same @ prefix as other scw file args).
+
+Two formats are supported:
+ - bind: standard zone file (BIND), same family of syntax as "scw dns zone import".
+   Supported types: A, AAAA, CNAME, TXT, MX, NS, PTR, SRV, CAA. For other types (e.g. TLSA, SSHFP, DS), use format=json.
+ - json: UTF-8 JSON object with a "records" array; each element has name, type, ttl, data, and optional priority (required for MX; used for SRV).
+   Accepts all types supported by the Scaleway DNS API. For SRV, data is "weight port target" and priority is the separate field.
+
+SOA records and apex NS records in a BIND file are skipped. $INCLUDE and $GENERATE are rejected.
+
+Use "replace=true" to delete all existing records in the zone before importing (equivalent to "scw dns record clear" followed by adds).
+Large imports are split into batches of 200 records; if a later batch fails after replace=true, the zone may be left partially empty or partially imported.
+
+For a full zone file replacement at once, prefer "scw dns zone import".
+
+**Usage:**
+
+```shell
+scw dns record import <dns-zone ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name     | Description                                                   | Argument Specifications                     |
+|----------|---------------------------------------------------------------|---------------------------------------------|
+| dns-zone | DNS zone to import records into                               | Required                                    |
+| content  | BIND or JSON content                                          | Required                                    |
+| format   | File format: "bind" or "json"                                 | Default: `bind`<br />One of: `bind`, `json` |
+| dry-run  | Parse the content and print a summary without calling the API | Default: `false`                            |
+| replace  | Clear all records in the zone before importing                | Default: `false`                            |
+
+
+**Examples:**
+
+
+Import BIND records from a file
+```shell
+scw dns record import my-domain.tld content=@./zone.txt
+```
+
+Import JSON and replace existing records
+```shell
+scw dns record import my-domain.tld content=@./records.json format=json replace=true
+```
+
+
+
+
 ### List records within a DNS zone
 
 Retrieve a list of DNS records within a DNS zone that has default name servers.

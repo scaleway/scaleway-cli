@@ -34,21 +34,18 @@ func Test_Group(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 
-				if group, ok := ctx.Result.(*autoscalingSDK.Group); !ok {
-					t.Errorf("expected result of type *autoscalingSDK.Group, got %T", ctx.Result)
-				} else {
-					assert.Equal(t, uint32(5), group.ScalingPolicy.MaximumSize)
-					assert.Equal(t, uint32(1), group.ScalingPolicy.MinimumSize)
-					assert.Len(t, group.Tags, 1)
-					assert.Equal(t, "cli-test-asg", group.Tags[0])
-					assert.Equal(
-						t,
-						scw.Duration{Seconds: 180},
-						*group.ScalingPolicy.ScaleOutCooldown,
-					)
-					assert.Equal(t, uint32(2), group.ScalingPolicy.ScaleInStep)
-					assert.Equal(t, uint32(80), group.ScalingPolicy.MemoryTarget.TargetAvgPercent)
-				}
+				group := ctx.Result.(*autoscalingSDK.Group)
+				assert.Equal(t, uint32(5), group.ScalingPolicy.MaximumSize)
+				assert.Equal(t, uint32(1), group.ScalingPolicy.MinimumSize)
+				assert.Len(t, group.Tags, 1)
+				assert.Equal(t, "cli-test-asg", group.Tags[0])
+				assert.Equal(
+					t,
+					scw.Duration{Seconds: 180},
+					*group.ScalingPolicy.ScaleOutCooldown,
+				)
+				assert.Equal(t, uint32(2), group.ScalingPolicy.ScaleInStep)
+				assert.Equal(t, uint32(80), group.ScalingPolicy.MemoryTarget.TargetAvgPercent)
 			},
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -110,21 +107,18 @@ func Test_Group(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 
-				if group, ok := ctx.Result.(*autoscalingSDK.Group); !ok {
-					t.Errorf("expected result of type *autoscalingSDK.Group, got %T", ctx.Result)
-				} else {
-					tmpl2ID := ctx.Meta["Tmpl2"].(*instanceSDK.Template).ID
+				group := ctx.Result.(*autoscalingSDK.Group)
+				tmpl2ID := ctx.Meta["Tmpl2"].(*instanceSDK.Template).ID
 
-					assert.Equal(t, uint32(70), group.ScalingPolicy.CPUTarget.TargetAvgPercent)
-					assert.Equal(t, uint32(25), group.ScalingPolicy.MaximumSize)
-					assert.Equal(t, uint32(0), group.ScalingPolicy.MinimumSize)
-					assert.Len(t, group.Tags, 3)
-					assert.Equal(t, "tags", group.Tags[0])
-					assert.Equal(t, "were", group.Tags[1])
-					assert.Equal(t, "updated", group.Tags[2])
-					assert.Equal(t, uint32(5), group.ScalingPolicy.ScaleOutStep)
-					assert.Equal(t, tmpl2ID, group.TemplateID)
-				}
+				assert.Equal(t, uint32(70), group.ScalingPolicy.CPUTarget.TargetAvgPercent)
+				assert.Equal(t, uint32(25), group.ScalingPolicy.MaximumSize)
+				assert.Equal(t, uint32(0), group.ScalingPolicy.MinimumSize)
+				assert.Len(t, group.Tags, 3)
+				assert.Equal(t, "tags", group.Tags[0])
+				assert.Equal(t, "were", group.Tags[1])
+				assert.Equal(t, "updated", group.Tags[2])
+				assert.Equal(t, uint32(5), group.ScalingPolicy.ScaleOutStep)
+				assert.Equal(t, tmpl2ID, group.TemplateID)
 			},
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),

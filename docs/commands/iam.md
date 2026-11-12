@@ -720,6 +720,7 @@ scw iam policy create [arg=value ...]
 | rules.{index}.permission-set-names.{index} | Names of permission sets bound to the rule                                         |                                      |
 | rules.{index}.condition                    | Condition expression to evaluate                                                   |                                      |
 | rules.{index}.project-ids.{index}          | List of Project IDs the rule is scoped to                                          |                                      |
+| rules.{index}.deny                         | Select whether the rule should remove the permissions instead of granting them     |                                      |
 | rules.{index}.organization-id              | ID of Organization the rule is scoped to                                           |                                      |
 | tags.{index}                               | Tags associated with the policy (maximum of 10 tags)                               |                                      |
 | user-id                                    | ID of user attributed to the policy                                                |                                      |
@@ -911,13 +912,14 @@ scw iam rule update <policy-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name                                       | Description                                | Argument Specifications |
-|--------------------------------------------|--------------------------------------------|-------------------------|
-| policy-id                                  | Id of policy to update                     | Required                |
-| rules.{index}.permission-set-names.{index} | Names of permission sets bound to the rule |                         |
-| rules.{index}.condition                    | Condition expression to evaluate           |                         |
-| rules.{index}.project-ids.{index}          | List of Project IDs the rule is scoped to  |                         |
-| rules.{index}.organization-id              | ID of Organization the rule is scoped to   |                         |
+| Name                                       | Description                                                                    | Argument Specifications |
+|--------------------------------------------|--------------------------------------------------------------------------------|-------------------------|
+| policy-id                                  | Id of policy to update                                                         | Required                |
+| rules.{index}.permission-set-names.{index} | Names of permission sets bound to the rule                                     |                         |
+| rules.{index}.condition                    | Condition expression to evaluate                                               |                         |
+| rules.{index}.project-ids.{index}          | List of Project IDs the rule is scoped to                                      |                         |
+| rules.{index}.deny                         | Select whether the rule should remove the permissions instead of granting them |                         |
+| rules.{index}.organization-id              | ID of Organization the rule is scoped to                                       |                         |
 
 
 

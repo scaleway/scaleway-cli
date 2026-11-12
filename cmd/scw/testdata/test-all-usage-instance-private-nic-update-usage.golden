@@ -1,5 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Command "update" is deprecated, private-nic is a term only used in v1, please use private-network-interface instead.
 Update one or more parameter(s) of a specified private NIC.
 
 USAGE:
@@ -23,6 +24,7 @@ GLOBAL FLAGS:
   -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
+  -H, --no-headers       Skip headers in human output
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
       --web              open console page for the current resource

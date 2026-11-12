@@ -20,12 +20,19 @@ func Test_ListLBPrivateNetwork(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			createLB(),
 			createPN(),
-			createIPAMIP(),
+			ipam.CreateIPFromPrivateNetwork(),
 			attachPN(),
 		),
 		Cmd:   "scw lb private-network list {{ .LB.ID }}",
 		Check: core.TestCheckGolden(),
 		AfterFunc: core.AfterFuncCombine(
+			core.AfterFuncWhenUpdatingCassette(
+				func(_ *core.AfterFuncCtx) error {
+					time.Sleep(10 * time.Second)
+
+					return nil
+				},
+			),
 			detachPN(),
 			deleteLB(),
 			core.AfterFuncWhenUpdatingCassette(
@@ -35,7 +42,7 @@ func Test_ListLBPrivateNetwork(t *testing.T) {
 					return nil
 				},
 			),
-			deleteIPAMIP(),
+			ipam.DeleteIP(),
 			deletePN(),
 			deleteLBFlexibleIP(),
 		),

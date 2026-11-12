@@ -6,8 +6,8 @@ USAGE:
   scw annotations key create [arg=value ...]
 
 ARGS:
-  [name]              Name of the annotation key.
-  [description]       Description of the annotation key.
+  [name]              Name of the annotation key. Never use a secret as a name, as it is shown in the audit trail.
+  [description]       Description of the annotation key. Never put a secret in the description, as it is shown in the audit trail.
   [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
@@ -18,5 +18,6 @@ GLOBAL FLAGS:
   -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
+  -H, --no-headers       Skip headers in human output
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use

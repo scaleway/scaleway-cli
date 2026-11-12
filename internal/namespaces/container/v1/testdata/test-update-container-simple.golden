@@ -1,6 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                         3e4360d0-9683-4402-a904-e52145d04809
+Srn                                        -
 Name                                       cli-test-zen-lamarr
 NamespaceID                                bca677ed-caf9-4569-b230-087ab5343ea5
 Description                                -
@@ -30,6 +31,7 @@ Region                                     fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "3e4360d0-9683-4402-a904-e52145d04809",
+  "srn": "",
   "name": "cli-test-zen-lamarr",
   "namespace_id": "bca677ed-caf9-4569-b230-087ab5343ea5",
   "description": "",

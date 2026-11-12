@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -82,6 +83,7 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 	var profileFlag string
 	var configPathFlag string
 	var outputFlag string
+	var noHeadersFlag bool
 
 	flags := pflag.NewFlagSet(config.Args[0], pflag.ContinueOnError)
 	flags.StringVarP(&profileFlag, "profile", "p", "", "The config profile to use")
@@ -94,6 +96,7 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 		"Output format: json or human",
 	)
 	flags.BoolVarP(&debug, "debug", "D", os.Getenv("SCW_DEBUG") == "true", "Enable debug mode")
+	flags.BoolVarP(&noHeadersFlag, "no-headers", "H", false, "Skip headers in human output")
 	flags.BoolVarP(
 		&betaFlag,
 		"beta",
@@ -149,6 +152,7 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 		OutputFlag: outputFlag,
 		Stdout:     config.Stdout,
 		Stderr:     config.Stderr,
+		NoHeaders:  noHeadersFlag,
 	})
 	if err != nil {
 		_, _ = fmt.Fprintln(config.Stderr, err)
@@ -210,11 +214,6 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 		meta.OverrideEnv = map[string]string{}
 	}
 
-	// If OverrideExec was not set in the config, we set a default value.
-	if meta.OverrideExec == nil {
-		meta.OverrideExec = defaultOverrideExec
-	}
-
 	// Keep Bootstrap resilient to callers passing a nil context.
 	// Context injection helpers commonly rely on context.WithValue, which panics on nil parents.
 	if ctx == nil {
@@ -241,6 +240,7 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 			OutputFlag: outputFlag,
 			Stdout:     config.Stdout,
 			Stderr:     config.Stderr,
+			NoHeaders:  noHeadersFlag,
 		})
 		if err != nil {
 			_, _ = fmt.Fprintln(config.Stderr, err)
@@ -292,16 +292,18 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 	rootCmd.PersistentFlags().
 		StringVarP(&outputFlag, "output", "o", cliConfig.DefaultOutput, "Output format: json or human, see 'scw help output' for more info")
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
+	rootCmd.PersistentFlags().
+		BoolVarP(&noHeadersFlag, "no-headers", "H", false, "Skip headers in human output")
 	rootCmd.PersistentFlags().BoolVarP(&betaFlag, "beta", "B", false, "Enable beta mode")
 	rootCmd.SetArgs(args)
 	rootCmd.SetHelpCommand(&cobra.Command{Hidden: true})
 	err = rootCmd.Execute()
 	if err != nil {
-		if _, ok := err.(*interactive.InterruptError); ok {
+		if _, ok := errors.AsType[*interactive.InterruptError](err); ok {
 			return 130, nil, err
 		}
 		errorCode := 1
-		if cliErr, ok := err.(*CliError); ok && cliErr.Code != 0 {
+		if cliErr, ok := errors.AsType[*CliError](err); ok && cliErr.Code != 0 {
 			errorCode = cliErr.Code
 		}
 		printErr := printer.Print(err, nil)

@@ -57,7 +57,7 @@ func BuildUsageArgs(ctx context.Context, cmd *Command, deprecated bool) string {
 	err := _buildUsageArgs(ctx, tw, argSpecs)
 	if err != nil {
 		// TODO: decide how to handle this error
-		err = fmt.Errorf("building %v: %v", cmd.getPath(), err)
+		err = fmt.Errorf("building %v: %w", cmd.getPath(), err)
 		logger.Debugf("%v", err)
 	}
 	tw.Flush()

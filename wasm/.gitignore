@@ -1,5 +1,5 @@
 node_modules
 cli.wasm
-cliTester.wasm
-lib
+wasm_exec.cjs
+last-cli-checks
 .idea

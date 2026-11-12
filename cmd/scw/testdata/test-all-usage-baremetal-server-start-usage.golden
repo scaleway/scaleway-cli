@@ -6,7 +6,7 @@ USAGE:
   scw baremetal server start <server-id ...> [arg=value ...]
 
 EXAMPLES:
-  Start an Elastic Metalx server
+  Start an Elastic Metal server
     scw baremetal server start 11111111-1111-1111-1111-111111111111
 
   Start a server in rescue mode
@@ -27,5 +27,6 @@ GLOBAL FLAGS:
   -B, --beta             Enable beta mode
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
+  -H, --no-headers       Skip headers in human output
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use

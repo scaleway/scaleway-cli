@@ -67,13 +67,10 @@ func Test_UpdateContainer(t *testing.T) {
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				if c, ok := ctx.Result.(*containerSDK.Container); ok {
-					assert.Equal(t, []string{"new_tag"}, c.Tags)
-					assert.Equal(t, uint32(8080), c.Port, "unexpected port number")
-					assert.Equal(t, uint32(1500), c.MvcpuLimit, "unexpected CPU limit")
-				} else {
-					t.Fail()
-				}
+				c := ctx.Result.(*containerSDK.Container)
+				assert.Equal(t, []string{"new_tag"}, c.Tags)
+				assert.Equal(t, uint32(8080), c.Port, "unexpected port number")
+				assert.Equal(t, uint32(1500), c.MvcpuLimit, "unexpected CPU limit")
 			},
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
