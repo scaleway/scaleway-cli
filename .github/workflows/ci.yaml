@@ -17,7 +17,7 @@ permissions:
 jobs:
   ci:
     runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
-    timeout-minutes: 10
+    timeout-minutes: 30
     steps:
       - uses: $/.github/actions/checkout
       - name: Set cache paths
