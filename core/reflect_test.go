@@ -192,3 +192,37 @@ func Test_getValuesForFieldByName(t *testing.T) {
 		})
 	}
 }
+
+func Test_ResponseTypeFields(t *testing.T) {
+	type server struct {
+		ID   string
+		Name string
+		Tags []string
+	}
+
+	tests := map[string]struct {
+		responseType reflect.Type
+		expected     []string // nil when the type is not struct-based
+	}{
+		"struct":       {reflect.TypeFor[server](), []string{"ID", "Name", "Tags"}},
+		"pointer":      {reflect.TypeFor[*server](), []string{"ID", "Name", "Tags"}},
+		"slice":        {reflect.TypeFor[[]server](), []string{"ID", "Name", "Tags"}},
+		"slicePointer": {reflect.TypeFor[[]*server](), []string{"ID", "Name", "Tags"}},
+		"string":       {reflect.TypeFor[string](), nil},
+	}
+
+	for name, tc := range tests {
+		t.Run(name, func(t *testing.T) {
+			fields := core.ResponseTypeFields(tc.responseType)
+			if tc.expected == nil {
+				assert.Nil(t, fields)
+				return
+			}
+			names := make([]string, 0, len(fields))
+			for _, f := range fields {
+				names = append(names, f.Name)
+			}
+			assert.Equal(t, tc.expected, names)
+		})
+	}
+}

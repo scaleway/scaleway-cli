@@ -407,7 +407,8 @@ func instanceServerList() *core.Command {
 		Resource:  "server",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeFor[instance.ListServersRequest](),
+		ArgsType:     reflect.TypeFor[instance.ListServersRequest](),
+		ResponseType: reflect.TypeFor[[]*instance.Server](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project",
@@ -581,7 +582,8 @@ func instanceServerGet() *core.Command {
 		Resource:  "server",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeFor[instance.GetServerRequest](),
+		ArgsType:     reflect.TypeFor[instance.GetServerRequest](),
+		ResponseType: reflect.TypeFor[instance.Server](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
