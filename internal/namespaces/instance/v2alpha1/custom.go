@@ -213,13 +213,12 @@ func GetCommands() *core.Commands {
 	//human.RegisterMarshalerFunc(instance.VolumeSummary{}, volumeSummaryMarshalerFunc)
 	//human.RegisterMarshalerFunc(map[string]*instance.Volume{}, volumeMapMarshalerFunc)
 
-	//cmds.MustFind("instance", "volume", "create").Override(volumeCreateBuilder)
-	//cmds.MustFind("instance", "volume", "list").Override(volumeListBuilder)
-	//cmds.MustFind("instance", "volume", "plan-migration").Override(volumeMigrationBuilder)
-	//cmds.MustFind("instance", "volume", "apply-migration").Override(volumeMigrationBuilder)
-	//cmds.Merge(core.NewCommands(
-	//	volumeWaitCommand(),
-	//))
+	cmds.MustFind("instance", "volume", "create").Override(volumeCreateBuilder)
+	cmds.MustFind("instance", "volume", "list").Override(volumeListBuilder)
+	cmds.MustFind("instance", "volume", "delete").Override(volumeDeleteBuilder)
+	cmds.Merge(core.NewCommands(
+		volumeWaitCommand(),
+	))
 
 	//
 	// Volume-Type

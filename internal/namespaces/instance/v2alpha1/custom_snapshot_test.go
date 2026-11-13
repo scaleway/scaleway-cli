@@ -13,7 +13,7 @@ func Test_Snapshot(t *testing.T) {
 
 	t.Run("Create", core.Test(&core.TestConfig{
 		Commands:   cmds,
-		BeforeFunc: createNonEmptyLocalVolumeV1("Volume", 10),
+		BeforeFunc: createNonEmptyLocalVolume("Volume", 10),
 		Cmd:        "scw instance snapshot create base-volume-id={{ .Volume.ID }} name=cli-test-snapshot-create tags.0=foo tags.1=bar",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -32,15 +32,15 @@ func Test_Snapshot(t *testing.T) {
 		),
 		AfterFunc: core.AfterFuncCombine(
 			deleteSnapshot("CmdResult"),
-			deleteVolumeV1("Volume"),
+			deleteVolume("Volume"),
 		),
 	}))
 
 	t.Run("List", core.Test(&core.TestConfig{
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
-			createNonEmptyLocalVolumeV1("Vol1", 10),
-			createNonEmptyLocalVolumeV1("Vol2", 15),
+			createNonEmptyLocalVolume("Vol1", 10),
+			createNonEmptyLocalVolume("Vol2", 15),
 			createSnapshot("Snap1", "Vol1"),
 			createSnapshot("Snap2", "Vol2"),
 			createSnapshot("Snap3", "Vol2"),
@@ -61,15 +61,15 @@ func Test_Snapshot(t *testing.T) {
 			deleteSnapshot("Snap1"),
 			deleteSnapshot("Snap2"),
 			deleteSnapshot("Snap3"),
-			deleteVolumeV1("Vol1"),
-			deleteVolumeV1("Vol2"),
+			deleteVolume("Vol1"),
+			deleteVolume("Vol2"),
 		),
 	}))
 
 	t.Run("Update", core.Test(&core.TestConfig{
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
-			createNonEmptyLocalVolumeV1("Volume", 10),
+			createNonEmptyLocalVolume("Volume", 10),
 			createSnapshot("Snapshot", "Volume"),
 		),
 		Cmd: "scw instance snapshot update {{ .Snapshot.ID }} name=cli-test-snapshot-update tags.0=foo tags.1=bar public=true",
@@ -90,7 +90,7 @@ func Test_Snapshot(t *testing.T) {
 		),
 		AfterFunc: core.AfterFuncCombine(
 			deleteSnapshot("Snapshot"),
-			deleteVolumeV1("Volume"),
+			deleteVolume("Volume"),
 		),
 	}))
 }
