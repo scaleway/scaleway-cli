@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 All volume types available in a specified zone.
-Each of these types will contains all the capabilities and constraints of the volume (min size, max size, snapshot).
+Each of these types will contain all the capabilities and constraints of the volume (min size, max size, snapshot).
 
 USAGE:
   scw instance volume-type <command>

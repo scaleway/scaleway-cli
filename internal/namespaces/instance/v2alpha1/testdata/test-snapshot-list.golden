@@ -1,20 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                    NAME                       SIZE   BASE VOLUME ID                        VOLUME TYPE  PUBLIC  STATUS     TAGS  ZONE      PROJECT ID                            CREATED AT       UPDATED AT       SRN
-19700d7a-e7a7-468a-8b5b-f3b6c69391df  cli-snap-nervous-hamilton  15 GB  54fec0fc-77c5-462e-8879-bd2f0d3853c6  l_ssd        false   available  []    fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/snapshots/19700d7a-e7a7-468a-8b5b-f3b6c69391df
-0b229a4a-6cb9-46df-8328-0b85f6270b9a  cli-snap-serene-cohen      15 GB  54fec0fc-77c5-462e-8879-bd2f0d3853c6  l_ssd        false   available  []    fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/snapshots/0b229a4a-6cb9-46df-8328-0b85f6270b9a
-f21d1462-3a63-416e-9236-40f8d513ac37  cli-snap-cool-snyder       10 GB  5ce832a7-47f5-468d-853b-14be4330dac4  l_ssd        false   available  []    fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/snapshots/f21d1462-3a63-416e-9236-40f8d513ac37
+d726cfe3-f6fe-49ef-b937-c71e72843f01  cli-snap-eloquent-haslett  15 GB  81986e91-5b7f-4d5a-9c50-f47a59728c52  l_ssd        false   available  []    fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/snapshots/d726cfe3-f6fe-49ef-b937-c71e72843f01
+ab1a0ac7-435e-40d6-9924-12a0fa71a1e0  cli-snap-boring-bouman     15 GB  81986e91-5b7f-4d5a-9c50-f47a59728c52  l_ssd        false   available  []    fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/snapshots/ab1a0ac7-435e-40d6-9924-12a0fa71a1e0
+5ea97784-468b-49fb-906a-b67a66d6b669  cli-snap-stoic-mcclintock  10 GB  c9b2edc0-89e8-4207-93f5-8d8ba2123a6c  l_ssd        false   available  []    fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/snapshots/5ea97784-468b-49fb-906a-b67a66d6b669
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "19700d7a-e7a7-468a-8b5b-f3b6c69391df",
-    "srn": "srn://instance.scw.eu/zones/fr-par-1/snapshots/19700d7a-e7a7-468a-8b5b-f3b6c69391df",
+    "id": "d726cfe3-f6fe-49ef-b937-c71e72843f01",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/snapshots/d726cfe3-f6fe-49ef-b937-c71e72843f01",
     "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-    "name": "cli-snap-nervous-hamilton",
+    "name": "cli-snap-eloquent-haslett",
     "tags": [],
     "size": 15000000000,
     "status": "available",
-    "base_volume_id": "54fec0fc-77c5-462e-8879-bd2f0d3853c6",
+    "base_volume_id": "81986e91-5b7f-4d5a-9c50-f47a59728c52",
     "volume_type": "l_ssd",
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",
@@ -22,14 +22,14 @@ f21d1462-3a63-416e-9236-40f8d513ac37  cli-snap-cool-snyder       10 GB  5ce832a7
     "public": false
   },
   {
-    "id": "0b229a4a-6cb9-46df-8328-0b85f6270b9a",
-    "srn": "srn://instance.scw.eu/zones/fr-par-1/snapshots/0b229a4a-6cb9-46df-8328-0b85f6270b9a",
+    "id": "ab1a0ac7-435e-40d6-9924-12a0fa71a1e0",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/snapshots/ab1a0ac7-435e-40d6-9924-12a0fa71a1e0",
     "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-    "name": "cli-snap-serene-cohen",
+    "name": "cli-snap-boring-bouman",
     "tags": [],
     "size": 15000000000,
     "status": "available",
-    "base_volume_id": "54fec0fc-77c5-462e-8879-bd2f0d3853c6",
+    "base_volume_id": "81986e91-5b7f-4d5a-9c50-f47a59728c52",
     "volume_type": "l_ssd",
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",
@@ -37,14 +37,14 @@ f21d1462-3a63-416e-9236-40f8d513ac37  cli-snap-cool-snyder       10 GB  5ce832a7
     "public": false
   },
   {
-    "id": "f21d1462-3a63-416e-9236-40f8d513ac37",
-    "srn": "srn://instance.scw.eu/zones/fr-par-1/snapshots/f21d1462-3a63-416e-9236-40f8d513ac37",
+    "id": "5ea97784-468b-49fb-906a-b67a66d6b669",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/snapshots/5ea97784-468b-49fb-906a-b67a66d6b669",
     "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-    "name": "cli-snap-cool-snyder",
+    "name": "cli-snap-stoic-mcclintock",
     "tags": [],
     "size": 10000000000,
     "status": "available",
-    "base_volume_id": "5ce832a7-47f5-468d-853b-14be4330dac4",
+    "base_volume_id": "c9b2edc0-89e8-4207-93f5-8d8ba2123a6c",
     "volume_type": "l_ssd",
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",

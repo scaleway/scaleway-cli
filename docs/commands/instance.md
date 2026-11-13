@@ -3289,17 +3289,15 @@ A volume is where you store your data inside your Instance. It
 appears as a block device on Linux that you can use to create
 a filesystem and mount it.
 
-The Instance API only supports local (`l_ssd`) and `scratch` volume types.
+The Instance API only supports `l_ssd` and `scratch` volume types.
 Block storage volumes can also be attached to Instances, these volumes are
 managed by the SBS API (https://www.scaleway.com/en/developers/api/block/).
 
-Minimum and maximum volume sizes for each volume types can be queried
-from the zone `/products/volumes` API endpoint. _I.e_ for:
-  - `fr-par-1` use https://api.scaleway.com/instance/v1/zones/fr-par-1/products/volumes
-  - `nl-ams-1` use https://api.scaleway.com/instance/v1/zones/nl-ams-1/products/volumes
+Minimum and maximum volume sizes for each volume type can be queried
+from the zone `/volume-types` API endpoint.
 
 Each type of volume is also subject to a global quota for the sum of all the
-volumes. This quota depends of the level of support and may be
+volumes. This quota depends on the level of support and may be
 changed on demand.
 
 When using multiple block devices, it's advised to mount them by
@@ -3308,30 +3306,9 @@ subject to change depending on the volumes order. Block devices
 UUIDs can be found in `/dev/disk/by-id/`.
 
 
-### Migrate a volume and/or snapshots to SBS (Scaleway Block Storage)
-
-To be used, the call to this endpoint must be preceded by a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint. To migrate all resources mentioned in the migration plan, the validation_key returned in the plan must be provided.
-
-**Usage:**
-
-```shell
-scw instance volume apply-migration <volume-id ...> [arg=value ...]
-```
-
-
-**Arguments:**
-
-| Name           | Description                                                                                                                                                                                                                                     | Argument Specifications                                                                                                                                 |
-|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| volume-id      | The volume to migrate, along with potentially other resources, according to the migration plan generated with a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint.       |                                                                                                                                                         |
-| validation-key | A value to be retrieved from a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint, to confirm that the volume and/or snapshots specified in said plan should be migrated. | Required                                                                                                                                                |
-| zone           | Zone to target. If none is passed will use default zone from the config                                                                                                                                                                         | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
-
-
-
 ### Create a volume
 
-Create a volume of a specified type in an Availability Zone.
+Create a volume of a specified type.
 
 **Usage:**
 
@@ -3342,16 +3319,15 @@ scw instance volume create [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                        | Argument Specifications                                                                                                                                 |
-|-----------------|------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name            | Volume name                                                                        | Default: `<generated>`                                                                                                                                  |
-| project-id      | Project ID to use. If none is passed the default project ID will be used           |                                                                                                                                                         |
-| tags.{index}    | Volume tags                                                                        |                                                                                                                                                         |
-| volume-type     | Volume type                                                                        | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume`, `sbs_snapshot`                                                                            |
-| size            | Volume disk size, must be a multiple of 512                                        |                                                                                                                                                         |
-| base-snapshot   | ID of the snapshot on which this volume will be based                              |                                                                                                                                                         |
-| organization-id | Organization ID to use. If none is passed the default organization ID will be used |                                                                                                                                                         |
-| zone            | Zone to target. If none is passed will use default zone from the config            | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name             | Description                                                              | Argument Specifications                                                                                                                                 |
+|------------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| project-id       | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                         |
+| name             | Volume name                                                              | Default: `<generated>`                                                                                                                                  |
+| tags.{index}     | Tags associated with the volume                                          |                                                                                                                                                         |
+| size             | Volume size in bytes                                                     |                                                                                                                                                         |
+| base-snapshot-id | ID of the base snapshot used for this volume                             |                                                                                                                                                         |
+| volume-type      | Type of the volume                                                       | One of: `unknown_volume_type`, `l_ssd`, `scratch`                                                                                                       |
+| zone             | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
 **Examples:**
@@ -3372,7 +3348,7 @@ scw instance volume create size=50GB
 
 ### Delete a volume
 
-Delete the volume with the specified ID.
+Delete a specified volume.
 
 **Usage:**
 
@@ -3385,16 +3361,16 @@ scw instance volume delete <volume-id ...> [arg=value ...]
 
 | Name      | Description                                                             | Argument Specifications                                                                                                                                 |
 |-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| volume-id | UUID of the volume you want to delete                                   | Required                                                                                                                                                |
+| volume-id | ID of the volume to delete                                              | Required                                                                                                                                                |
 | zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
 **Examples:**
 
 
-Delete a volume with the specified ID
+Delete a specified volume
 ```shell
-scw instance volume delete af136619-bc59-4b48-a0ed-ed7dceaad9a6
+scw instance volume delete 11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -3402,7 +3378,7 @@ scw instance volume delete af136619-bc59-4b48-a0ed-ed7dceaad9a6
 
 ### Get a volume
 
-Get details of a volume with the specified ID.
+Get a specified volume.
 
 **Usage:**
 
@@ -3415,16 +3391,16 @@ scw instance volume get <volume-id ...> [arg=value ...]
 
 | Name      | Description                                                             | Argument Specifications                                                                                                                                 |
 |-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| volume-id | UUID of the volume you want to get                                      | Required                                                                                                                                                |
+| volume-id | ID of the volume to retrieve                                            | Required                                                                                                                                                |
 | zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
 **Examples:**
 
 
-Get a volume with the specified ID
+Get a specified volume
 ```shell
-scw instance volume get b70e9a0e-28b1-4542-bb9b-06d2d6debc0f
+scw instance volume get 11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -3432,7 +3408,7 @@ scw instance volume get b70e9a0e-28b1-4542-bb9b-06d2d6debc0f
 
 ### List volumes
 
-List volumes in the specified Availability Zone. You can filter the output by volume type.
+List volumes.
 
 **Usage:**
 
@@ -3443,14 +3419,17 @@ scw instance volume list [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                                     | Argument Specifications                                                                                                                                        |
-|-----------------|-------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| volume-type     | Filter by volume type                                                                           | One of: `l_ssd`, `b_ssd`, `unified`, `scratch`, `sbs_volume`, `sbs_snapshot`                                                                                   |
-| project-id      | Filter volume by Project ID                                                                     |                                                                                                                                                                |
-| tags            | Filter volumes with these exact tags (to filter with several tags, use commas to separate them) |                                                                                                                                                                |
-| name            | Filter volume by name (for eg. "vol" will return "myvolume" but not "data")                     |                                                                                                                                                                |
-| organization-id | Filter volume by Organization ID                                                                |                                                                                                                                                                |
-| zone            | Zone to target. If none is passed will use default zone from the config                         | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `all` |
+| Name               | Description                                                              | Argument Specifications                                                                                                                                 |
+|--------------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| page-token         | Token for pagination                                                     |                                                                                                                                                         |
+| page-size          | Number of items to return per page                                       |                                                                                                                                                         |
+| order-by           | Field to order the results by                                            | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`                                                                        |
+| project-id         | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                         |
+| volume-ids.{index} | Filter by specific volume IDs                                            |                                                                                                                                                         |
+| name               | Filter by volume name                                                    |                                                                                                                                                         |
+| tags.{index}       | Filter by tags                                                           |                                                                                                                                                         |
+| volume-type        | Filter by volume type                                                    | One of: `unknown_volume_type`, `l_ssd`, `scratch`                                                                                                       |
+| zone               | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
 **Examples:**
@@ -3469,33 +3448,9 @@ scw instance volume list name=foobar
 
 
 
-### Get a volume or snapshot's migration plan
-
-Given a volume or snapshot, returns the migration plan but does not perform the actual migration. To perform the migration, you have to call the [Migrate a volume and/or snapshots to SBS](#path-volumes-migrate-a-volume-andor-snapshots-to-sbs-scaleway-block-storage) endpoint afterward.
-The endpoint returns the resources that should be migrated together:
-- the volume and any snapshots created from the volume, if the call was made to plan a volume migration.
-- the base volume of the snapshot (if the volume is not deleted) and its related snapshots, if the call was made to plan a snapshot migration.
-The endpoint also returns the validation_key, which must be provided to the [Migrate a volume and/or snapshots to SBS](#path-volumes-migrate-a-volume-andor-snapshots-to-sbs-scaleway-block-storage) endpoint to confirm that all resources listed in the plan should be migrated.
-
-**Usage:**
-
-```shell
-scw instance volume plan-migration <volume-id ...> [arg=value ...]
-```
-
-
-**Arguments:**
-
-| Name      | Description                                                             | Argument Specifications                                                                                                                                 |
-|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| volume-id | The volume for which the migration plan will be generated.              |                                                                                                                                                         |
-| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
-
-
-
 ### Update a volume
 
-Replace the name and/or size properties of a volume specified by its ID, with the specified value(s).
+Update the properties of a specified volume.
 
 **Usage:**
 
@@ -3508,10 +3463,10 @@ scw instance volume update <volume-id ...> [arg=value ...]
 
 | Name         | Description                                                             | Argument Specifications                                                                                                                                 |
 |--------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| volume-id    | UUID of the volume                                                      | Required                                                                                                                                                |
-| name         | Volume name                                                             |                                                                                                                                                         |
-| tags.{index} | Tags of the volume                                                      |                                                                                                                                                         |
-| size         | Volume disk size, must be a multiple of 512                             |                                                                                                                                                         |
+| volume-id    | ID of the volume to update                                              | Required                                                                                                                                                |
+| name         | New name for the volume                                                 |                                                                                                                                                         |
+| tags.{index} | New tags for the volume                                                 |                                                                                                                                                         |
+| size         | New size for the volume                                                 |                                                                                                                                                         |
 | zone         | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
@@ -3549,11 +3504,11 @@ scw instance volume wait <volume-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name      | Description                                                             | Argument Specifications                                                                                                                                 |
-|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| timeout   | Timeout of the wait                                                     | Default: `10m0s`                                                                                                                                        |
-| volume-id | ID of the volume affected by the action.                                | Required                                                                                                                                                |
-| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name      | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| timeout   | Timeout of the wait                                                     | Default: `10m0s`                                                                                                                                                                |
+| volume-id | ID of the volume affected by the action.                                | Required                                                                                                                                                                        |
+| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 **Examples:**
@@ -3570,7 +3525,7 @@ scw instance volume wait 11111111-1111-1111-1111-111111111111
 ## Volume type management commands
 
 All volume types available in a specified zone.
-Each of these types will contains all the capabilities and constraints of the volume (min size, max size, snapshot).
+Each of these types will contain all the capabilities and constraints of the volume (min size, max size, snapshot).
 
 
 ### List volume types
@@ -3586,9 +3541,11 @@ scw instance volume-type list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description                                                             | Argument Specifications                                                                                                                                 |
-|------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name       | Description                                                             | Argument Specifications                                                                                                                                 |
+|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| page-token | Token for pagination                                                    |                                                                                                                                                         |
+| page-size  | Number of items to return per page                                      |                                                                                                                                                         |
+| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
 **Examples:**

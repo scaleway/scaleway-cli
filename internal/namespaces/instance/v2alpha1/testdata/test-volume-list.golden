@@ -1,0 +1,332 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                    NAME                          SIZE     BASE SNAPSHOT ID                      VOLUME TYPE  STATUS     TAGS        SERVER ID                             ZONE      PROJECT ID                            CREATED AT       UPDATED AT       SRN
+6b576956-0407-4d01-be37-2c0c189b487d  list-test-vol3                200 GB   -                                     scratch      available  []          -                                     fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/6b576956-0407-4d01-be37-2c0c189b487d
+11a0884b-d273-45e3-a8f1-cab3db62106f  list-test-vol2                20 GB    -                                     l_ssd        available  [cli-test]  -                                     fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/11a0884b-d273-45e3-a8f1-cab3db62106f
+2b5cd923-91b0-4bd7-98a4-4ae10023f097  list-test-vol1                25 GB    -                                     l_ssd        available  []          -                                     fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/2b5cd923-91b0-4bd7-98a4-4ae10023f097
+9a6f92d0-dfbc-4899-8dfa-3b52deeec22d  list-test-vol3                200 GB   -                                     scratch      available  []          -                                     fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/9a6f92d0-dfbc-4899-8dfa-3b52deeec22d
+73c44185-8bf7-4ceb-8f98-effdf2a7a95b  list-test-vol2                20 GB    -                                     l_ssd        available  [cli-test]  -                                     fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/73c44185-8bf7-4ceb-8f98-effdf2a7a95b
+a5b123f1-e4d2-48d6-b13d-5e9eda9f727b  list-test-vol1                25 GB    -                                     l_ssd        available  []          -                                     fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/a5b123f1-e4d2-48d6-b13d-5e9eda9f727b
+92ff299c-dea4-4e56-a4cf-32ee6297cab8  list-test-vol3                200 GB   -                                     scratch      available  []          -                                     fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/92ff299c-dea4-4e56-a4cf-32ee6297cab8
+c48d5351-c0c7-49e3-8ca8-59fcebc20a0f  list-test-vol2                20 GB    -                                     l_ssd        available  [cli-test]  -                                     fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/c48d5351-c0c7-49e3-8ca8-59fcebc20a0f
+534d2d23-2cd4-4167-9154-c2afb6baa98c  list-test-vol1                25 GB    -                                     l_ssd        available  []          -                                     fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/534d2d23-2cd4-4167-9154-c2afb6baa98c
+121714a9-80c3-415c-ba7d-2d14e85e7946  Ubuntu 22.04 Jammy Jellyfish  10 GB    03398786-bb73-4e22-a87d-978889321f6d  l_ssd        available  []          -                                     fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/121714a9-80c3-415c-ba7d-2d14e85e7946
+a03bd9b0-182e-4def-ab68-eb42f4251b57  cli-vol-vigilant-heisenberg   3.2 GiB  44ad8ac2-576f-4a70-958e-645017eda293  l_ssd        available  []          -                                     fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/a03bd9b0-182e-4def-ab68-eb42f4251b57
+4c52c21b-e6d9-469d-9419-16cb7249558a  Ubuntu 22.04 Jammy Jellyfish  10 GB    03398786-bb73-4e22-a87d-978889321f6d  l_ssd        available  []          -                                     fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/4c52c21b-e6d9-469d-9419-16cb7249558a
+fec3d327-6386-4ac0-b5e0-33393fd42042  Ubuntu 22.04 Jammy Jellyfish  10 GB    03398786-bb73-4e22-a87d-978889321f6d  l_ssd        available  []          -                                     fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/fec3d327-6386-4ac0-b5e0-33393fd42042
+2face780-a443-40a7-b4a4-a365cec50e38  Ubuntu 22.04 Jammy Jellyfish  10 GB    03398786-bb73-4e22-a87d-978889321f6d  l_ssd        available  []          -                                     fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/2face780-a443-40a7-b4a4-a365cec50e38
+194bbccf-0588-40ad-9add-6a41328506a4  Ubuntu 22.04 Jammy Jellyfish  10 GB    03398786-bb73-4e22-a87d-978889321f6d  l_ssd        available  []          -                                     fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/194bbccf-0588-40ad-9add-6a41328506a4
+5150a510-8db8-4e86-8920-73b560af0c61  Ubuntu 22.04 Jammy Jellyfish  10 GB    03398786-bb73-4e22-a87d-978889321f6d  l_ssd        available  []          -                                     fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/5150a510-8db8-4e86-8920-73b560af0c61
+d13167dc-3572-4e66-82ce-d26fc8e2ce50  Ubuntu 22.04 Jammy Jellyfish  10 GB    03398786-bb73-4e22-a87d-978889321f6d  l_ssd        available  []          -                                     fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/d13167dc-3572-4e66-82ce-d26fc8e2ce50
+05e2d8cd-3816-4d32-8b2f-a75336e12119  Ubuntu 22.04 Jammy Jellyfish  10 GB    03398786-bb73-4e22-a87d-978889321f6d  l_ssd        available  []          -                                     fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/05e2d8cd-3816-4d32-8b2f-a75336e12119
+ac101d23-03a9-4cf5-b96c-d816d0ad1d82  Ubuntu 22.04 Jammy Jellyfish  10 GB    03398786-bb73-4e22-a87d-978889321f6d  l_ssd        available  []          -                                     fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/ac101d23-03a9-4cf5-b96c-d816d0ad1d82
+0e3c2d82-5409-40df-87c4-890bc72cf648  k8s_base_node_instance        40 GB    8365eadb-cd9d-4110-b44d-7bf2ded4fe68  l_ssd        available  []          6d991054-6350-4184-9ff6-04cfaabce98d  fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago  srn://instance.scw.eu/zones/fr-par-1/volumes/0e3c2d82-5409-40df-87c4-890bc72cf648
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "id": "6b576956-0407-4d01-be37-2c0c189b487d",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/6b576956-0407-4d01-be37-2c0c189b487d",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "list-test-vol3",
+    "tags": [],
+    "size": 200000000000,
+    "base_snapshot_id": null,
+    "status": "available",
+    "volume_type": "scratch",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": null,
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "11a0884b-d273-45e3-a8f1-cab3db62106f",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/11a0884b-d273-45e3-a8f1-cab3db62106f",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "list-test-vol2",
+    "tags": [
+      "cli-test"
+    ],
+    "size": 20000000000,
+    "base_snapshot_id": null,
+    "status": "available",
+    "volume_type": "l_ssd",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": null,
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "2b5cd923-91b0-4bd7-98a4-4ae10023f097",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/2b5cd923-91b0-4bd7-98a4-4ae10023f097",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "list-test-vol1",
+    "tags": [],
+    "size": 25000000000,
+    "base_snapshot_id": null,
+    "status": "available",
+    "volume_type": "l_ssd",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": null,
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "9a6f92d0-dfbc-4899-8dfa-3b52deeec22d",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/9a6f92d0-dfbc-4899-8dfa-3b52deeec22d",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "list-test-vol3",
+    "tags": [],
+    "size": 200000000000,
+    "base_snapshot_id": null,
+    "status": "available",
+    "volume_type": "scratch",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": null,
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "73c44185-8bf7-4ceb-8f98-effdf2a7a95b",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/73c44185-8bf7-4ceb-8f98-effdf2a7a95b",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "list-test-vol2",
+    "tags": [
+      "cli-test"
+    ],
+    "size": 20000000000,
+    "base_snapshot_id": null,
+    "status": "available",
+    "volume_type": "l_ssd",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": null,
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "a5b123f1-e4d2-48d6-b13d-5e9eda9f727b",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/a5b123f1-e4d2-48d6-b13d-5e9eda9f727b",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "list-test-vol1",
+    "tags": [],
+    "size": 25000000000,
+    "base_snapshot_id": null,
+    "status": "available",
+    "volume_type": "l_ssd",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": null,
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "92ff299c-dea4-4e56-a4cf-32ee6297cab8",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/92ff299c-dea4-4e56-a4cf-32ee6297cab8",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "list-test-vol3",
+    "tags": [],
+    "size": 200000000000,
+    "base_snapshot_id": null,
+    "status": "available",
+    "volume_type": "scratch",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": null,
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "c48d5351-c0c7-49e3-8ca8-59fcebc20a0f",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/c48d5351-c0c7-49e3-8ca8-59fcebc20a0f",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "list-test-vol2",
+    "tags": [
+      "cli-test"
+    ],
+    "size": 20000000000,
+    "base_snapshot_id": null,
+    "status": "available",
+    "volume_type": "l_ssd",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": null,
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "534d2d23-2cd4-4167-9154-c2afb6baa98c",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/534d2d23-2cd4-4167-9154-c2afb6baa98c",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "list-test-vol1",
+    "tags": [],
+    "size": 25000000000,
+    "base_snapshot_id": null,
+    "status": "available",
+    "volume_type": "l_ssd",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": null,
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "121714a9-80c3-415c-ba7d-2d14e85e7946",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/121714a9-80c3-415c-ba7d-2d14e85e7946",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "Ubuntu 22.04 Jammy Jellyfish",
+    "tags": [],
+    "size": 10000000000,
+    "base_snapshot_id": "03398786-bb73-4e22-a87d-978889321f6d",
+    "status": "available",
+    "volume_type": "l_ssd",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": null,
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "a03bd9b0-182e-4def-ab68-eb42f4251b57",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/a03bd9b0-182e-4def-ab68-eb42f4251b57",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "cli-vol-vigilant-heisenberg",
+    "tags": [],
+    "size": 3435134976,
+    "base_snapshot_id": "44ad8ac2-576f-4a70-958e-645017eda293",
+    "status": "available",
+    "volume_type": "l_ssd",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": null,
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "4c52c21b-e6d9-469d-9419-16cb7249558a",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/4c52c21b-e6d9-469d-9419-16cb7249558a",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "Ubuntu 22.04 Jammy Jellyfish",
+    "tags": [],
+    "size": 10000000000,
+    "base_snapshot_id": "03398786-bb73-4e22-a87d-978889321f6d",
+    "status": "available",
+    "volume_type": "l_ssd",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": null,
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "fec3d327-6386-4ac0-b5e0-33393fd42042",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/fec3d327-6386-4ac0-b5e0-33393fd42042",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "Ubuntu 22.04 Jammy Jellyfish",
+    "tags": [],
+    "size": 10000000000,
+    "base_snapshot_id": "03398786-bb73-4e22-a87d-978889321f6d",
+    "status": "available",
+    "volume_type": "l_ssd",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": null,
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "2face780-a443-40a7-b4a4-a365cec50e38",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/2face780-a443-40a7-b4a4-a365cec50e38",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "Ubuntu 22.04 Jammy Jellyfish",
+    "tags": [],
+    "size": 10000000000,
+    "base_snapshot_id": "03398786-bb73-4e22-a87d-978889321f6d",
+    "status": "available",
+    "volume_type": "l_ssd",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": null,
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "194bbccf-0588-40ad-9add-6a41328506a4",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/194bbccf-0588-40ad-9add-6a41328506a4",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "Ubuntu 22.04 Jammy Jellyfish",
+    "tags": [],
+    "size": 10000000000,
+    "base_snapshot_id": "03398786-bb73-4e22-a87d-978889321f6d",
+    "status": "available",
+    "volume_type": "l_ssd",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": null,
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "5150a510-8db8-4e86-8920-73b560af0c61",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/5150a510-8db8-4e86-8920-73b560af0c61",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "Ubuntu 22.04 Jammy Jellyfish",
+    "tags": [],
+    "size": 10000000000,
+    "base_snapshot_id": "03398786-bb73-4e22-a87d-978889321f6d",
+    "status": "available",
+    "volume_type": "l_ssd",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": null,
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "d13167dc-3572-4e66-82ce-d26fc8e2ce50",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/d13167dc-3572-4e66-82ce-d26fc8e2ce50",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "Ubuntu 22.04 Jammy Jellyfish",
+    "tags": [],
+    "size": 10000000000,
+    "base_snapshot_id": "03398786-bb73-4e22-a87d-978889321f6d",
+    "status": "available",
+    "volume_type": "l_ssd",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": null,
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "05e2d8cd-3816-4d32-8b2f-a75336e12119",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/05e2d8cd-3816-4d32-8b2f-a75336e12119",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "Ubuntu 22.04 Jammy Jellyfish",
+    "tags": [],
+    "size": 10000000000,
+    "base_snapshot_id": "03398786-bb73-4e22-a87d-978889321f6d",
+    "status": "available",
+    "volume_type": "l_ssd",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": null,
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "ac101d23-03a9-4cf5-b96c-d816d0ad1d82",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/ac101d23-03a9-4cf5-b96c-d816d0ad1d82",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "Ubuntu 22.04 Jammy Jellyfish",
+    "tags": [],
+    "size": 10000000000,
+    "base_snapshot_id": "03398786-bb73-4e22-a87d-978889321f6d",
+    "status": "available",
+    "volume_type": "l_ssd",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": null,
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "0e3c2d82-5409-40df-87c4-890bc72cf648",
+    "srn": "srn://instance.scw.eu/zones/fr-par-1/volumes/0e3c2d82-5409-40df-87c4-890bc72cf648",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "name": "k8s_base_node_instance",
+    "tags": [],
+    "size": 40000000000,
+    "base_snapshot_id": "8365eadb-cd9d-4110-b44d-7bf2ded4fe68",
+    "status": "available",
+    "volume_type": "l_ssd",
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "server_id": "6d991054-6350-4184-9ff6-04cfaabce98d",
+    "zone": "fr-par-1"
+  }
+]
