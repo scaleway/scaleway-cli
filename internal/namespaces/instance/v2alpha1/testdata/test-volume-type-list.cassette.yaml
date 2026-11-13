@@ -25,17 +25,17 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Fri, 13 Nov 2026 13:22:34 GMT
+                - Fri, 13 Nov 2026 14:00:02 GMT
             Server:
-                - Scaleway API Gateway (fr-par-3;edge03)
+                - Scaleway API Gateway (fr-par-3;edge01)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
-                - "46"
+                - "49"
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - 92a236b0-f3b0-41e0-b077-8e434f430aeb
+                - 0213864f-3fd4-4092-8726-83596a9714e0
         status: 200 OK
         code: 200
-        duration: 116.933948ms
+        duration: 143.487301ms
