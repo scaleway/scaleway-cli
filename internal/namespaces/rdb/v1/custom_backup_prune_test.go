@@ -1,24 +1,25 @@
-package rdb
+package rdb_test
 
 import (
 	"strings"
 	"testing"
 	"time"
 
-	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
+	rdbSDK "github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 )
 
 func TestBackupsToDelete(t *testing.T) {
 	t.Parallel()
 
 	now := time.Date(2026, 11, 12, 12, 0, 0, 0, time.UTC)
-	backup := func(id string, age time.Duration) *rdb.DatabaseBackup {
+	backup := func(id string, age time.Duration) *rdbSDK.DatabaseBackup {
 		createdAt := now.Add(-age)
 
-		return &rdb.DatabaseBackup{ID: id, CreatedAt: &createdAt}
+		return &rdbSDK.DatabaseBackup{ID: id, CreatedAt: &createdAt}
 	}
 
-	backups := []*rdb.DatabaseBackup{
+	backups := []*rdbSDK.DatabaseBackup{
 		backup("new", 1*time.Hour),
 		backup("mid", 10*24*time.Hour),
 		backup("old", 40*24*time.Hour),
@@ -32,14 +33,14 @@ func TestBackupsToDelete(t *testing.T) {
 	t.Run("keep-last", func(t *testing.T) {
 		t.Parallel()
 
-		got := backupsToDelete(backups, &keep, nil, now)
+		got := rdb.BackupsToDelete(backups, &keep, nil, now)
 		assertBackupIDs(t, got, "old", "older")
 	})
 
 	t.Run("keep-within", func(t *testing.T) {
 		t.Parallel()
 
-		got := backupsToDelete(backups, nil, &within30d, now)
+		got := rdb.BackupsToDelete(backups, nil, &within30d, now)
 		assertBackupIDs(t, got, "old", "older")
 	})
 
@@ -47,43 +48,40 @@ func TestBackupsToDelete(t *testing.T) {
 		t.Parallel()
 
 		keepOne := uint32(1)
-		got := backupsToDelete(backups, &keepOne, &within30d, now)
-		// new kept by last; mid kept by within; old/older removed
+		got := rdb.BackupsToDelete(backups, &keepOne, &within30d, now)
 		assertBackupIDs(t, got, "old", "older")
 	})
 
 	t.Run("OR with narrow within still keeps by keep-last", func(t *testing.T) {
 		t.Parallel()
 
-		got := backupsToDelete(backups, &keep, &within5d, now)
-		// new+mid kept by last; mid is outside 5d window but OR keeps it
+		got := rdb.BackupsToDelete(backups, &keep, &within5d, now)
 		assertBackupIDs(t, got, "old", "older")
 	})
 
 	t.Run("keep-within relative to newest not wall clock", func(t *testing.T) {
 		t.Parallel()
 
-		// newest is 20d old; keep-within 15d → cutoff = newest-15d = 35d ago
-		stale := []*rdb.DatabaseBackup{
+		stale := []*rdbSDK.DatabaseBackup{
 			backup("newest", 20*24*time.Hour),
 			backup("edge", 30*24*time.Hour),
 			backup("gone", 40*24*time.Hour),
 		}
 		within15d := 15 * 24 * time.Hour
-		got := backupsToDelete(stale, nil, &within15d, now)
+		got := rdb.BackupsToDelete(stale, nil, &within15d, now)
 		assertBackupIDs(t, got, "gone")
 	})
 
 	t.Run("nil CreatedAt sorts last and can match keep-last", func(t *testing.T) {
 		t.Parallel()
 
-		withNil := []*rdb.DatabaseBackup{
+		withNil := []*rdbSDK.DatabaseBackup{
 			backup("a", 1*time.Hour),
 			{ID: "nil-date"},
 			backup("b", 2*time.Hour),
 		}
 		keepOne := uint32(1)
-		got := backupsToDelete(withNil, &keepOne, nil, now)
+		got := rdb.BackupsToDelete(withNil, &keepOne, nil, now)
 		assertBackupIDs(t, got, "b", "nil-date")
 	})
 }
@@ -91,7 +89,7 @@ func TestBackupsToDelete(t *testing.T) {
 func TestParseKeepWithinDuration(t *testing.T) {
 	t.Parallel()
 
-	got, err := parseKeepWithinDuration("30d")
+	got, err := rdb.ParseKeepWithinDuration("30d")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -99,7 +97,7 @@ func TestParseKeepWithinDuration(t *testing.T) {
 		t.Fatalf("got %v, want ~30d", got)
 	}
 
-	gotNeg, err := parseKeepWithinDuration("-7d")
+	gotNeg, err := rdb.ParseKeepWithinDuration("-7d")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -112,17 +110,17 @@ func TestBackupPruneResultMarshaler(t *testing.T) {
 	t.Parallel()
 
 	createdAt := time.Date(2026, 11, 13, 10, 0, 0, 0, time.UTC)
-	res := backupPruneResult{
-		DeletedIDs: []string{"id-1"},
-		Deleted:    1,
-		Remaining:  2,
-		DryRun:     true,
-		Backups: []backupPruneItem{
+	res := rdb.NewBackupPruneResultForTest(
+		[]string{"id-1"},
+		1,
+		2,
+		true,
+		[]rdb.BackupPruneItemForTest{
 			{ID: "id-1", Name: "ux-test", CreatedAt: &createdAt},
 		},
-	}
+	)
 
-	got, err := backupPruneResultMarshalerFunc(res, nil)
+	got, err := rdb.BackupPruneResultMarshaler(res, nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -140,7 +138,7 @@ func TestBackupPruneResultMarshaler(t *testing.T) {
 	}
 }
 
-func assertBackupIDs(t *testing.T, got []*rdb.DatabaseBackup, want ...string) {
+func assertBackupIDs(t *testing.T, got []*rdbSDK.DatabaseBackup, want ...string) {
 	t.Helper()
 
 	if len(got) != len(want) {
@@ -153,7 +151,7 @@ func assertBackupIDs(t *testing.T, got []*rdb.DatabaseBackup, want ...string) {
 	}
 }
 
-func idsOf(backups []*rdb.DatabaseBackup) []string {
+func idsOf(backups []*rdbSDK.DatabaseBackup) []string {
 	ids := make([]string, len(backups))
 	for i, backup := range backups {
 		ids[i] = backup.ID
