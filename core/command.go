@@ -77,6 +77,9 @@ type Command struct {
 	// WaitFunc will be called if non-nil when the -w (--wait) flag is passed.
 	WaitFunc WaitFunc
 
+	// FollowFunc will be called instead of Run if non-nil when the -f (--follow) flag is passed.
+	FollowFunc FollowFunc
+
 	// WebURL will be used as url to open when the --web flag is passed
 	// Can contain template of values in request, ex: "url/{{ .Zone }}/{{ .ResourceID }}"
 	WebURL string
@@ -114,6 +117,9 @@ type CommandRunner func(ctx context.Context, argsI any) (any, error)
 
 // WaitFunc returns the updated response (respI if unchanged) or an error.
 type WaitFunc func(ctx context.Context, argsI, respI any) (any, error)
+
+// FollowFunc streams results by calling emit for each new batch until ctx is done (Ctrl+C).
+type FollowFunc func(ctx context.Context, argsI any, emit func(any) error) error
 
 const indexCommandSeparator = "."
 

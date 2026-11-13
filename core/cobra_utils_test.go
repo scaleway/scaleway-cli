@@ -30,6 +30,25 @@ type testAcceptMultiPositionalArgsType struct {
 func testGetCommands() *core.Commands {
 	return core.NewCommands(
 		&core.Command{
+			Namespace:            "test",
+			Resource:             "follow",
+			AllowAnonymousClient: true,
+			ArgsType:             reflect.TypeFor[testType](),
+			Run: func(_ context.Context, _ any) (any, error) {
+				return "run", nil
+			},
+			FollowFunc: func(_ context.Context, _ any, emit func(any) error) error {
+				for _, batch := range []string{"first", "second"} {
+					err := emit(batch)
+					if err != nil {
+						return err
+					}
+				}
+
+				return context.Canceled
+			},
+		},
+		&core.Command{
 			Namespace: "test",
 			ArgSpecs: core.ArgSpecs{
 				{
@@ -185,6 +204,25 @@ func Test_NoArgsType(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckStdout("ok\n"),
+		),
+	}))
+}
+
+func Test_Follow(t *testing.T) {
+	t.Run("WithoutFlag", core.Test(&core.TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test follow",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckStdout("run\n"),
+		),
+	}))
+	t.Run("PrintsEachBatchAndExitsCleanly", core.Test(&core.TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test follow -f",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckStdout("first\nsecond\n"),
 		),
 	}))
 }
