@@ -15,6 +15,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/cockpitlogs"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -91,6 +92,95 @@ func getLogDefaultFileName(rawURL string) (string, error) {
 	filename := splitURL[len(splitURL)-1]
 
 	return filename, nil
+}
+
+type instanceLogsArgs struct {
+	InstanceID string
+	Region     scw.Region
+	TimeSpan   time.Duration
+	EntryCount *int
+}
+
+// resource returns the Cockpit logs of the instance, labelled per engine (e.g. rdb_instance_postgresql).
+func (a *instanceLogsArgs) resource(ctx context.Context) (cockpitlogs.Resource, error) {
+	instance, err := rdb.NewAPI(core.ExtractClient(ctx)).GetInstance(&rdb.GetInstanceRequest{
+		InstanceID: a.InstanceID,
+		Region:     a.Region,
+	}, scw.WithContext(ctx))
+	if err != nil {
+		return cockpitlogs.Resource{}, err
+	}
+
+	engine, _, _ := strings.Cut(instance.Engine, "-")
+
+	return cockpitlogs.Resource{
+		Type:   "rdb_instance_" + strings.ToLower(engine),
+		ID:     a.InstanceID,
+		Region: a.Region,
+	}, nil
+}
+
+func instanceLogsCommand() *core.Command {
+	return &core.Command{
+		Short:     `Show Database Instance logs`,
+		Long:      `Display the logs of a Database Instance from Cockpit. Use -f to keep printing new lines.`,
+		Namespace: "rdb",
+		Resource:  "instance",
+		Verb:      "logs",
+		ArgsType:  reflect.TypeFor[instanceLogsArgs](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance you want logs of`,
+				Required:   true,
+				Positional: true,
+			},
+			{
+				Name:    "time-span",
+				Short:   "Time range for which to retrieve logs in duration format",
+				Default: core.DefaultValueSetter("2h"),
+			},
+			{
+				Name:  "entry-count",
+				Short: "Maximum number of log entries to be displayed",
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, argsI any) (any, error) {
+			args := argsI.(*instanceLogsArgs)
+
+			resource, err := args.resource(ctx)
+			if err != nil {
+				return nil, err
+			}
+
+			return cockpitlogs.Recent(ctx, resource, args.TimeSpan, args.EntryCount)
+		},
+		FollowFunc: func(ctx context.Context, argsI any, emit func(any) error) error {
+			args := argsI.(*instanceLogsArgs)
+
+			resource, err := args.resource(ctx)
+			if err != nil {
+				return err
+			}
+
+			return cockpitlogs.Follow(ctx, resource, args.TimeSpan, emit)
+		},
+		Examples: []*core.Example{
+			{
+				Short: "Show the logs of the last 2 hours",
+				Raw:   "scw rdb instance logs 11111111-1111-1111-1111-111111111111",
+			},
+			{
+				Short: "Follow new logs and keep only errors",
+				Raw:   "scw rdb instance logs 11111111-1111-1111-1111-111111111111 -f | grep -i error",
+			},
+		},
+	}
 }
 
 func logDownloadCommand() *core.Command {

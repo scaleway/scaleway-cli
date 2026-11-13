@@ -12,6 +12,7 @@ ARGS:
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
+  -f, --follow[=true|false]              keep printing new results until interrupted (Ctrl+C)
   -h, --help[=true|false]                help for logs
       --list-sub-commands[=true|false]   List all subcommands
 

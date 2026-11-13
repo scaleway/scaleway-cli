@@ -910,6 +910,43 @@ scw rdb instance list [arg=value ...]
 
 
 
+### Show Database Instance logs
+
+Display the logs of a Database Instance from Cockpit. Use -f to keep printing new lines.
+
+**Usage:**
+
+```shell
+scw rdb instance logs <instance-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance you want logs of                              | Required                                                    |
+| time-span   | Time range for which to retrieve logs in duration format                    | Default: `2h`                                               |
+| entry-count | Maximum number of log entries to be displayed                               |                                                             |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+
+
+**Examples:**
+
+
+Show the logs of the last 2 hours
+```shell
+scw rdb instance logs 11111111-1111-1111-1111-111111111111
+```
+
+Follow new logs and keep only errors
+```shell
+scw rdb instance logs 11111111-1111-1111-1111-111111111111 -f | grep -i error
+```
+
+
+
+
 ### Renew the TLS certificate of a Database Instance
 
 Renew a TLS for a Database Instance. Renewing a certificate means that you will not be able to connect to your Database Instance using the previous certificate. You will also need to download and update the new certificate for all database clients.

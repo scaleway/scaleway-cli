@@ -50,6 +50,7 @@ func GetCommands() *core.Commands {
 		endpointListCommand(),
 		engineSettingsCommand(),
 		instanceConnectCommand(),
+		instanceLogsCommand(),
 		instanceWaitCommand(),
 		userGetURLCommand(),
 		instanceEditSettingsCommand(),
