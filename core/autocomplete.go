@@ -242,6 +242,15 @@ func BuildAutoCompleteTree(ctx context.Context, commands *Commands) *AutoComplet
 				Name: "--wait",
 			})
 		}
+
+		if cmd.FollowFunc != nil {
+			node.Children["-f"] = NewAutoCompleteFlagNode(node, &FlagSpec{
+				Name: "-f",
+			})
+			node.Children["--follow"] = NewAutoCompleteFlagNode(node, &FlagSpec{
+				Name: "--follow",
+			})
+		}
 	}
 
 	return root

@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"os/signal"
 	"reflect"
 	"strings"
 
@@ -220,6 +221,11 @@ func run(
 		ctx,
 		cmdArgs,
 		func(ctx context.Context, argsI any) (i any, err error) {
+			followFlag, err := cobraCmd.PersistentFlags().GetBool("follow")
+			if err == nil && cmd.FollowFunc != nil && followFlag {
+				return runFollow(ctx, cmd, argsI)
+			}
+
 			return cmd.Run(ctx, argsI)
 		},
 	)
@@ -235,6 +241,23 @@ func run(
 	}
 
 	return data, nil
+}
+
+// runFollow prints each batch emitted by cmd.FollowFunc as soon as it is received.
+func runFollow(ctx context.Context, cmd *Command, argsI any) (any, error) {
+	ctx, stop := signal.NotifyContext(ctx, followStopSignals...)
+	defer stop()
+
+	printer := ExtractMeta(ctx).printer
+	err := cmd.FollowFunc(ctx, argsI, func(data any) error {
+		return printer.Print(data, cmd.getHumanMarshalerOpt())
+	})
+	if err != nil && !errors.Is(err, context.Canceled) {
+		return nil, err
+	}
+
+	// Everything was already printed.
+	return RawResult(nil), nil
 }
 
 // positionalArgHint formats the positional argument error hint.

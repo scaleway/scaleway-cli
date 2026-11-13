@@ -224,6 +224,11 @@ func (b *cobraBuilder) hydrateCobra(
 		cobraCmd.PersistentFlags().BoolP("wait", "w", false, waitUsage)
 	}
 
+	if cmd.FollowFunc != nil {
+		cobraCmd.PersistentFlags().
+			BoolP("follow", "f", false, "keep printing new results until interrupted (Ctrl+C)")
+	}
+
 	if cmd.Deprecated {
 		cobraCmd.Deprecated = cmd.DeprecationMessage
 		if cobraCmd.Deprecated == "" {

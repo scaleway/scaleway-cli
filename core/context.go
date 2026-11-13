@@ -35,6 +35,7 @@ type Meta struct {
 	stderr                      io.Writer
 	stdin                       io.Reader
 	result                      any
+	printer                     *Printer
 	httpClient                  *http.Client
 	isClientFromBootstrapConfig bool
 	BetaMode                    bool
