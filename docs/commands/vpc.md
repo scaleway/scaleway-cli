@@ -132,6 +132,26 @@ to resources that are on the same Private Network. Note that a
 resource can be a part of multiple private networks.
 
 
+### Open the Cockpit Grafana dashboard for this private network
+
+
+
+**Usage:**
+
+```shell
+scw vpc private-network cockpit <private-network-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name               | Description                                                                 | Argument Specifications |
+|--------------------|-----------------------------------------------------------------------------|-------------------------|
+| private-network-id | Private Network ID                                                          | Required                |
+| region             | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Create a Private Network
 
 Create a new Private Network. Once created, you can attach Scaleway resources which are in the same region.

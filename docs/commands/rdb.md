@@ -142,6 +142,16 @@ scw rdb backup create [arg=value ...]
 | region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
+**Examples:**
+
+
+Create a backup and wait until it is ready
+```shell
+scw rdb backup create name=foobar expires-at=2032-01-02T15:04:05Z instance-id=11111111-1111-1111-1111-111111111111 database-name=rdb --wait
+```
+
+
+
 
 ### Delete a database backup
 
@@ -750,6 +760,26 @@ scw rdb instance clone <instance-id ...> [arg=value ...]
 
 
 
+### Open the Cockpit Grafana dashboard for this database instance
+
+
+
+**Usage:**
+
+```shell
+scw rdb instance cockpit <instance-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name        | Description                                                                 | Argument Specifications |
+|-------------|-----------------------------------------------------------------------------|-------------------------|
+| instance-id | Database Instance ID                                                        | Required                |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Connect to an instance using locally installed CLI
 
 Connect to an instance using locally installed CLI such as psql or mysql.
@@ -812,6 +842,7 @@ scw rdb instance create [arg=value ...]
 | init-endpoints.{index}.private-network.ipam-config        | Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated) |                                                                                      |
 | backup-same-region                                        | Defines whether to or not to store logical backups in the same region as the Database Instance                                                                                                                                                                                 |                                                                                      |
 | encryption.enabled                                        |                                                                                                                                                                                                                                                                                |                                                                                      |
+| encryption.kms-key-id                                     |                                                                                                                                                                                                                                                                                |                                                                                      |
 | organization-id                                           | Organization ID to use. If none is passed the default organization ID will be used                                                                                                                                                                                             |                                                                                      |
 | region                                                    | Region to target. If none is passed will use default region from the config                                                                                                                                                                                                    | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`                          |
 

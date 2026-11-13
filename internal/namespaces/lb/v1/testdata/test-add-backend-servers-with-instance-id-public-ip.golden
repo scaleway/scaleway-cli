@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                        c95c88cc-5b33-4aaf-bcdc-493d42bdf334
+ID                        4f449610-97f7-435b-9fc5-931a41e1894b
 Name                      cli-test
 ForwardProtocol           tcp
 ForwardPort               80
@@ -16,6 +16,9 @@ ProxyProtocol             proxy_protocol_unknown
 CreatedAt                 few seconds ago
 UpdatedAt                 few seconds ago
 SslBridging               false
+Host                      -
+Zone                      
+Srn                       -
 
 Health Check:
 Port                 8888
@@ -26,15 +29,15 @@ CheckSendProxy       false
 TransientCheckDelay  500000000 nanoseconds
 
 Pool:
-[51.15.213.110]
+[51.15.247.51]
 
 Lb:
-ID                     1f1b61c7-ede7-48e0-ab53-992b24fc8092
+ID                     0d32f17a-ec2c-4011-bd79-f18cb5040c3d
 Name                   cli-test
 Description            cli-test
 Status                 ready
-OrganizationID         105bdce1-64c0-48ab-899d-868455867ecf
-ProjectID              105bdce1-64c0-48ab-899d-868455867ecf
+OrganizationID         564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ProjectID              564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
 FrontendCount          0
 BackendCount           1
 Type                   lb-s
@@ -45,17 +48,18 @@ PrivateNetworkCount    0
 RouteCount             0
 Region                 fr-par
 Zone                   fr-par-1
+Srn                    -
 
 IPs:
-ID                                    IP ADDRESS     ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                            TAGS  REGION  ZONE
-83ed6033-494e-4683-bb31-7a9a70d85eb3  51.159.26.108  105bdce1-64c0-48ab-899d-868455867ecf  105bdce1-64c0-48ab-899d-868455867ecf  1f1b61c7-ede7-48e0-ab53-992b24fc8092  51-159-26-108.lb.fr-par.scw.cloud  []    fr-par  fr-par-1
+ID                                    IP ADDRESS      ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                             TAGS  IPAM IPID  REGION  ZONE      SRN
+8e8e8e31-c119-4ca5-a5b9-980d0c09b939  51.159.206.139  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  0d32f17a-ec2c-4011-bd79-f18cb5040c3d  51-159-206-139.lb.fr-par.scw.cloud  []    -          fr-par  fr-par-1  -
 
 LB Instances:
 ID                                    STATUS   IP ADDRESS  CREATED AT       UPDATED AT       REGION  ZONE
-f9556418-002b-4481-bd63-dbb51abe5d72  pending  -           few seconds ago  few seconds ago  fr-par  fr-par-1
+bd786501-30e8-47d1-abe4-7c35904823d1  pending  -           few seconds ago  few seconds ago  fr-par  fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "c95c88cc-5b33-4aaf-bcdc-493d42bdf334",
+  "id": "4f449610-97f7-435b-9fc5-931a41e1894b",
   "name": "cli-test",
   "forward_protocol": "tcp",
   "forward_port": 80,
@@ -72,16 +76,16 @@ f9556418-002b-4481-bd63-dbb51abe5d72  pending  -           few seconds ago  few 
     "check_timeout": 1000
   },
   "pool": [
-    "51.15.213.110"
+    "51.15.247.51"
   ],
   "lb": {
-    "id": "1f1b61c7-ede7-48e0-ab53-992b24fc8092",
+    "id": "0d32f17a-ec2c-4011-bd79-f18cb5040c3d",
     "name": "cli-test",
     "description": "cli-test",
     "status": "ready",
     "instances": [
       {
-        "id": "f9556418-002b-4481-bd63-dbb51abe5d72",
+        "id": "bd786501-30e8-47d1-abe4-7c35904823d1",
         "status": "pending",
         "ip_address": "",
         "created_at": "1970-01-01T00:00:00.0Z",
@@ -90,21 +94,24 @@ f9556418-002b-4481-bd63-dbb51abe5d72  pending  -           few seconds ago  few 
         "zone": "fr-par-1"
       }
     ],
-    "organization_id": "105bdce1-64c0-48ab-899d-868455867ecf",
-    "project_id": "105bdce1-64c0-48ab-899d-868455867ecf",
+    "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+    "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
     "ip": [
       {
-        "id": "83ed6033-494e-4683-bb31-7a9a70d85eb3",
-        "ip_address": "51.159.26.108",
-        "organization_id": "105bdce1-64c0-48ab-899d-868455867ecf",
-        "project_id": "105bdce1-64c0-48ab-899d-868455867ecf",
-        "lb_id": "1f1b61c7-ede7-48e0-ab53-992b24fc8092",
-        "reverse": "51-159-26-108.lb.fr-par.scw.cloud",
+        "id": "8e8e8e31-c119-4ca5-a5b9-980d0c09b939",
+        "ip_address": "51.159.206.139",
+        "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+        "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+        "lb_id": "0d32f17a-ec2c-4011-bd79-f18cb5040c3d",
+        "reverse": "51-159-206-139.lb.fr-par.scw.cloud",
         "tags": [],
+        "ipam_ip_id": null,
         "region": "fr-par",
-        "zone": "fr-par-1"
+        "zone": "fr-par-1",
+        "srn": ""
       }
     ],
+    "ipam_ips": null,
     "tags": [],
     "frontend_count": 0,
     "backend_count": 1,
@@ -116,7 +123,8 @@ f9556418-002b-4481-bd63-dbb51abe5d72  pending  -           few seconds ago  few 
     "private_network_count": 0,
     "route_count": 0,
     "region": "fr-par",
-    "zone": "fr-par-1"
+    "zone": "fr-par-1",
+    "srn": ""
   },
   "send_proxy_v2": false,
   "on_marked_down_action": "on_marked_down_action_none",
@@ -130,7 +138,9 @@ f9556418-002b-4481-bd63-dbb51abe5d72  pending  -           few seconds ago  few 
   "max_retries": null,
   "max_connections": null,
   "timeout_queue": null,
-  "host": null,
+  "host": "",
+  "zone": "",
+  "srn": "",
   "timeout_server": 300000,
   "timeout_connect": 5000,
   "timeout_tunnel": 900000

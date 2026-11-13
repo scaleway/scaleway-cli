@@ -21,6 +21,8 @@ The following environment variables are supported:
 | SCW_DEFAULT_REGION          | The default region                                                                                  |
 | SCW_DEFAULT_ZONE            | The default availability zone                                                                       |
 | SCW_API_URL                 | URL of the API                                                                                      |
+| SCW_S3_ENDPOINT             | URL of the S3 API                                                                                   |
+| SCW_S3_USE_PATH_STYLE       | Whether to use path-style addressing for S3 API                                                     |
 | SCW_INSECURE                | Set this to true to enable the insecure mode                                                        |
 | SCW_PROFILE                 | Set the config profile to use                                                                       |
 
@@ -240,17 +242,17 @@ scw config set [arg=value ...]
 
 **Arguments:**
 
-| Name                    | Description                                     | Argument Specifications                                                                                                        |
-|-------------------------|-------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| access-key              | A Scaleway access key                           |                                                                                                                                |
-| secret-key              | A Scaleway secret key                           |                                                                                                                                |
-| api-url                 | Scaleway API URL                                |                                                                                                                                |
-| insecure                | Set to true to allow insecure HTTPS connections |                                                                                                                                |
-| default-organization-id | A default Scaleway organization id              |                                                                                                                                |
-| default-project-id      | A default Scaleway project id                   |                                                                                                                                |
-| default-region          | A default Scaleway region                       | One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`                                                                                 |
-| default-zone            | A default Scaleway zone                         | One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
-| send-telemetry          | Set to false to disable telemetry               |                                                                                                                                |
+| Name                    | Description                                     | Argument Specifications                                                                                                                                |
+|-------------------------|-------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| access-key              | A Scaleway access key                           |                                                                                                                                                        |
+| secret-key              | A Scaleway secret key                           |                                                                                                                                                        |
+| api-url                 | Scaleway API URL                                |                                                                                                                                                        |
+| insecure                | Set to true to allow insecure HTTPS connections |                                                                                                                                                        |
+| default-organization-id | A default Scaleway organization id              |                                                                                                                                                        |
+| default-project-id      | A default Scaleway project id                   |                                                                                                                                                        |
+| default-region          | A default Scaleway region                       | One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`                                                                                                         |
+| default-zone            | A default Scaleway zone                         | One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
+| send-telemetry          | Set to false to disable telemetry               |                                                                                                                                                        |
 
 
 **Examples:**

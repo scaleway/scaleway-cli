@@ -29,11 +29,11 @@ func completeServerType(
 		return nil
 	}
 
-	suggestions := make([]string, 0, len(resp.Servers))
+	suggestions := make(core.AutocompleteSuggestions, 0, len(resp.Servers))
 
 	for serverType := range resp.Servers {
 		if strings.HasPrefix(serverType, prefix) {
-			suggestions = append(suggestions, serverType)
+			suggestions = append(suggestions, core.Suggestion{Value: serverType})
 		}
 	}
 

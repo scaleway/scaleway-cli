@@ -1,0 +1,30 @@
+name: publish
+
+on:
+  release:
+    types: [published]
+
+permissions: {}
+
+jobs:
+  publish:
+    runs-on: ${{ vars.RUNS_ON || 'ubuntu-latest' }}
+    timeout-minutes: 20
+    permissions:
+      id-token: write # Required for OIDC (MCP)
+    steps:
+      - uses: $/.github/actions/checkout
+      - uses: $/.github/actions/mise
+        with:
+          cache: false
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      - name: Push the packages (docker, mcp, winget)
+        # Runs once the draft release is manually published. DISABLE_RELEASE
+        # makes GoReleaser skip the now-immutable GitHub release: this run only
+        # pushes docker, mcp and winget.
+        run: mise run release --no-snapshot
+        env:
+          DISABLE_RELEASE: "true"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WINGET_TOKEN: ${{ secrets.WINGET_TOKEN }}

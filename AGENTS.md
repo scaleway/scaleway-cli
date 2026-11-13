@@ -21,6 +21,9 @@ mise run build:cli                 # default build (static, stripped)
 mise run build:cli --race         # build with race detection
 mise run build:cli -o /tmp/scw    # custom output path
 
+# Run the CLI (go run, all args passed through to the binary)
+mise run run:cli instance server list
+
 # Generate documentation
 mise run gen:doc                   # generate docs + format with rumdl
 

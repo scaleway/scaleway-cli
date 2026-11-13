@@ -199,7 +199,7 @@ func dnsRecordSetRun(ctx context.Context, argsI any) (i any, e error) {
 
 	resp, err := apiDomain.UpdateDNSZoneRecords(dnsRecordSetReq)
 	if err != nil {
-		return nil, fmt.Errorf("cannot set the record: %s", err)
+		return nil, fmt.Errorf("cannot set the record: %w", err)
 	}
 
 	return resp.Records, nil

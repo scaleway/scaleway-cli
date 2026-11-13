@@ -101,7 +101,7 @@ func dnsRecordDeleteRun(ctx context.Context, argsI any) (i any, e error) {
 
 	resp, err := apiDomain.UpdateDNSZoneRecords(dnsRecordDeleteReq)
 	if err != nil {
-		return nil, fmt.Errorf("cannot delete the record: %s", err)
+		return nil, fmt.Errorf("cannot delete the record: %w", err)
 	}
 
 	return resp, nil

@@ -35,5 +35,7 @@ func GetCommands() *core.Commands {
 
 	definitionStartBuilder(cmds.MustFind("jobs", "definition", "start"))
 
+	cmds.Merge(core.NewCommands(definitionCockpitCommand()))
+
 	return cmds
 }

@@ -1,0 +1,35 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID            6cb36642-3f23-4315-8ea4-11862a2748e5
+Srn           srn://instance.scw.eu/zones/fr-par-1/snapshots/6cb36642-3f23-4315-8ea4-11862a2748e5
+ProjectID     fa1e3217-dc80-42ac-85c3-3f034b78b552
+Name          cli-test-snapshot-update
+Tags.0        foo
+Tags.1        bar
+Size          10 GB
+Status        available
+BaseVolumeID  8c36933e-97b3-4472-8a56-5d38a4c059f9
+VolumeType    l_ssd
+CreatedAt     few seconds ago
+UpdatedAt     few seconds ago
+Zone          fr-par-1
+Public        true
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "6cb36642-3f23-4315-8ea4-11862a2748e5",
+  "srn": "srn://instance.scw.eu/zones/fr-par-1/snapshots/6cb36642-3f23-4315-8ea4-11862a2748e5",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "name": "cli-test-snapshot-update",
+  "tags": [
+    "foo",
+    "bar"
+  ],
+  "size": 10000000000,
+  "status": "available",
+  "base_volume_id": "8c36933e-97b3-4472-8a56-5d38a4c059f9",
+  "volume_type": "l_ssd",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "zone": "fr-par-1",
+  "public": true
+}

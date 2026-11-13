@@ -381,18 +381,19 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		// If it does not exist we try to find it in nested anonymous field
 		for _, v := range slices.Backward(anonymousFieldIndexes) {
 			err := set(dest.Field(v), argNameWords, value)
-			switch err.(type) {
-			case nil:
+			if err == nil {
 				// If we got no error the field was correctly set we return nil.
 				return nil
-			case *UnknownArgError:
+			}
+
+			if _, ok := errors.AsType[*UnknownArgError](err); ok {
 				// If err is an UnknownArgError this could mean the field is in another anonymous field
 				// We continue to the previous anonymous field.
 				continue
-			default:
-				// If we get any other error this mean something went wrong we return an error.
-				return err
 			}
+
+			// If we get any other error this mean something went wrong we return an error.
+			return err
 		}
 
 		// We look in all struct fields + all anonymous fields without success.

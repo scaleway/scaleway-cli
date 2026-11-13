@@ -115,6 +115,16 @@ You can select the columns that you want to print with commands that return a li
 	scw-cool-franklin                               51.15.251.251
 
 
+Human output without headers
+
+You can remove the header row from human and wide outputs with the global -H/--no-headers flag.
+This is useful to pipe the output in a script.
+
+	scw instance server list -H
+
+	088b01da-9ba7-40d2-bc55-eb3170f42185  scw-cool-franklin  DEV1-S  running  fr-par-1  51.15.251.251
+
+
 Standard JSON output
 
 	scw config dump -o json
@@ -194,6 +204,16 @@ You can select the columns that you want to print with commands that return a li
 
 	NAME                                            PUBLIC IP
 	scw-cool-franklin                               51.15.251.251
+
+
+Human output without headers
+
+You can remove the header row from human and wide outputs with the global -H/--no-headers flag.
+This is useful to pipe the output in a script.
+
+	scw instance server list -H
+
+	088b01da-9ba7-40d2-bc55-eb3170f42185  scw-cool-franklin  DEV1-S  running  fr-par-1  51.15.251.251
 
 
 Standard JSON output

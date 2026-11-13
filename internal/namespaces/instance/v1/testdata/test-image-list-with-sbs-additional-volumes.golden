@@ -1,19 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    NAME                     STATE      ZONE      VOLUMES              SERVER NAME  SERVER ID  ARCH    ORGANIZATION ID                       PROJECT ID                            CREATION DATE    MODIFICATION DATE
-1bda45e4-799e-4bf2-9401-15bb9dce289d  cli-img-boring-meninsky  available  fr-par-1  20 GB, 10 GB, 15 GB  -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+ID                                    NAME                       STATE      ZONE      VOLUMES              SERVER NAME  SERVER ID  ARCH    ORGANIZATION ID                       PROJECT ID                            CREATION DATE    MODIFICATION DATE
+e1fedbee-93aa-4892-ac5b-bc4b111eee7b  cli-img-charming-mahavira  available  fr-par-1  20 GB, 10 GB, 15 GB  -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+aedd9530-ed38-4104-a4e3-3878313ca3ee  image-windows-configured   available  fr-par-1  40 GB                -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "1bda45e4-799e-4bf2-9401-15bb9dce289d",
-    "name": "cli-img-boring-meninsky",
+    "id": "e1fedbee-93aa-4892-ac5b-bc4b111eee7b",
+    "name": "cli-img-charming-mahavira",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "modification_date": "1970-01-01T00:00:00.0Z",
     "default_bootscript": null,
     "extra_volumes": {
       "1": {
-        "id": "e06982b3-b5b3-40d3-979c-7a57471641e0",
+        "id": "07950a19-f68e-4d8a-8e3a-3d3e56403fef",
         "name": "",
         "export_uri": null,
         "size": 10000000000,
@@ -28,7 +29,7 @@ ID                                    NAME                     STATE      ZONE  
         "zone": ""
       },
       "2": {
-        "id": "babb28ec-025f-43ed-8ccd-167e290e3ac2",
+        "id": "a251e3d3-ad4c-4d58-92a9-c5d5a6f0b888",
         "name": "",
         "export_uri": null,
         "size": 15000000000,
@@ -47,8 +48,8 @@ ID                                    NAME                     STATE      ZONE  
     "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "public": false,
     "root_volume": {
-      "id": "6afbccc9-7728-486e-913c-df52be61faa8",
-      "name": "cli-snp-optimistic-wozniak",
+      "id": "da4c086d-a253-457c-9a31-52129825c62e",
+      "name": "cli-snap-eloquent-merkle",
       "size": 20000000000,
       "volume_type": "l_ssd"
     },
@@ -58,5 +59,29 @@ ID                                    NAME                     STATE      ZONE  
     "zone": "fr-par-1",
     "server_id": "",
     "server_name": ""
+  },
+  {
+    "id": "aedd9530-ed38-4104-a4e3-3878313ca3ee",
+    "name": "image-windows-configured",
+    "arch": "x86_64",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {},
+    "from_server": "fbe2e3c3-411c-4ba5-b3f1-2eded5a8b985",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "public": false,
+    "root_volume": {
+      "id": "1d6c36f5-bffb-40f1-89e4-2674e08a9c67",
+      "name": "",
+      "size": 40000000000,
+      "volume_type": "sbs_snapshot"
+    },
+    "state": "available",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [],
+    "zone": "fr-par-1",
+    "server_id": "",
+    "server_name": "-"
   }
 ]

@@ -181,7 +181,7 @@ func dnsRecordAddRun(ctx context.Context, argsI any) (i any, e error) {
 
 	resp, err := apiDomain.UpdateDNSZoneRecords(dnsRecordAddReq)
 	if err != nil {
-		return nil, fmt.Errorf("cannot add the record: %s", err)
+		return nil, fmt.Errorf("cannot add the record: %w", err)
 	}
 
 	return resp.Records, nil

@@ -2,6 +2,7 @@ package instance
 
 import (
 	"context"
+	"errors"
 	"reflect"
 	"sort"
 	"strconv"
@@ -255,7 +256,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 				ServerID: image.FromServer,
 			}
 			getServerResponse, err := api.GetServer(&serverReq)
-			if _, ok := err.(*scw.ResourceNotFoundError); ok {
+			if _, ok := errors.AsType[*scw.ResourceNotFoundError](err); ok {
 				newCustomImage.ServerName = "-"
 
 				continue

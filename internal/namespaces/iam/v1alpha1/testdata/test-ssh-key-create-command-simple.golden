@@ -1,25 +1,25 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              61feb7c8-3878-42e4-9d57-cdc491c20634
+ID              cae25fcb-bab4-4c5d-8f21-8b5bb4709103
 Name            foobar
-PublicKey       ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0= foobar@foobar
-Fingerprint     256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44 foobar@foobar (ecdsa-sha2-nistp256)
+PublicKey       ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=
+Fingerprint     256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44 (ecdsa-sha2-nistp256)
 CreatedAt       few seconds ago
 UpdatedAt       few seconds ago
-OrganizationID  63a66ec9-a385-4194-bc15-04aa6921274a
-ProjectID       63a66ec9-a385-4194-bc15-04aa6921274a
+OrganizationID  de2b260d-2c2e-4be9-baa0-99d8ed17f1da
+ProjectID       de2b260d-2c2e-4be9-baa0-99d8ed17f1da
 Disabled        false
-Srn             -
+Srn             srn://iam.scw.eu/ssh-keys/cae25fcb-bab4-4c5d-8f21-8b5bb4709103
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "61feb7c8-3878-42e4-9d57-cdc491c20634",
+  "id": "cae25fcb-bab4-4c5d-8f21-8b5bb4709103",
   "name": "foobar",
-  "public_key": "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0= foobar@foobar",
-  "fingerprint": "256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44 foobar@foobar (ecdsa-sha2-nistp256)",
+  "public_key": "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0=",
+  "fingerprint": "256 MD5:19:ec:90:3b:95:c6:d8:93:ac:e1:14:4c:0e:cb:ea:44 (ecdsa-sha2-nistp256)",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
-  "organization_id": "63a66ec9-a385-4194-bc15-04aa6921274a",
-  "project_id": "63a66ec9-a385-4194-bc15-04aa6921274a",
+  "organization_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
+  "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
   "disabled": false,
-  "srn": ""
+  "srn": "srn://iam.scw.eu/ssh-keys/cae25fcb-bab4-4c5d-8f21-8b5bb4709103"
 }

@@ -1,6 +1,7 @@
 package core
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/platform"
@@ -26,7 +27,7 @@ func createAnonymousClient(httpClient *http.Client, buildInfo *BuildInfo) (*scw.
 func createClientError(err error) error {
 	credentialsHint := "You can check your credentials here: https://console.scaleway.com/iam/api-keys"
 
-	if clientError, isClientError := err.(*platform.ClientError); isClientError {
+	if clientError, ok := errors.AsType[*platform.ClientError](err); ok {
 		err = &CliError{
 			Err:     clientError.Err,
 			Details: clientError.Details,

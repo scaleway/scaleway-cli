@@ -1,0 +1,60 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Name            Service                  Method
+baremetal       baremetal/v1             CreateServer
+baremetal       baremetal/v1             DeleteServer
+baremetal       baremetal/v1             GetServer
+baremetal       baremetal/v1             ListServers
+baremetal       baremetal/v2             GetOffer
+secret-manager  secret-manager/v1alpha1  CreateSecret
+secret-manager  secret-manager/v1alpha1  DeleteSecret
+secret-manager  secret-manager/v1alpha1  GetSecret
+secret-manager  secret-manager/v1alpha1  ListSecrets
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "name": "baremetal",
+    "service": "baremetal/v1",
+    "method": "CreateServer"
+  },
+  {
+    "name": "baremetal",
+    "service": "baremetal/v1",
+    "method": "DeleteServer"
+  },
+  {
+    "name": "baremetal",
+    "service": "baremetal/v1",
+    "method": "GetServer"
+  },
+  {
+    "name": "baremetal",
+    "service": "baremetal/v1",
+    "method": "ListServers"
+  },
+  {
+    "name": "baremetal",
+    "service": "baremetal/v2",
+    "method": "GetOffer"
+  },
+  {
+    "name": "secret-manager",
+    "service": "secret-manager/v1alpha1",
+    "method": "CreateSecret"
+  },
+  {
+    "name": "secret-manager",
+    "service": "secret-manager/v1alpha1",
+    "method": "DeleteSecret"
+  },
+  {
+    "name": "secret-manager",
+    "service": "secret-manager/v1alpha1",
+    "method": "GetSecret"
+  },
+  {
+    "name": "secret-manager",
+    "service": "secret-manager/v1alpha1",
+    "method": "ListSecrets"
+  }
+]

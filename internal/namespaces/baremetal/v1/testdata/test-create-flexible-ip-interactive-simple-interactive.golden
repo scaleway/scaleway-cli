@@ -1,20 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              fe708b8a-6a23-42f1-8001-b7a623c65ddf
+ID              ad9e9ebb-c7b2-40ee-a34a-a5a69f449b12
 OrganizationID  de2b260d-2c2e-4be9-baa0-99d8ed17f1da
 ProjectID       de2b260d-2c2e-4be9-baa0-99d8ed17f1da
 Description     -
 UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
 Status          attached
-IPAddress       62.210.102.109/32
-ServerID        06a8d6cd-31ed-4868-9a98-03fa524faa53
-Reverse         62-210-102-109.rev.poneytelecom.eu.
+IPAddress       62.210.140.23/32
+ServerID        a14dd060-d251-4037-a3ac-b234de246190
+Reverse         62-210-140-23.rev.poneytelecom.eu.
 Zone            fr-par-2
-Srn             srn://flexible-ip.scw.eu/zones/fr-par-2/flexible-ips/fe708b8a-6a23-42f1-8001-b7a623c65ddf
+Srn             srn://flexible-ip.scw.eu/zones/fr-par-2/flexible-ips/ad9e9ebb-c7b2-40ee-a34a-a5a69f449b12
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "fe708b8a-6a23-42f1-8001-b7a623c65ddf",
+  "id": "ad9e9ebb-c7b2-40ee-a34a-a5a69f449b12",
   "organization_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
   "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
   "description": "",
@@ -22,10 +22,10 @@ Srn             srn://flexible-ip.scw.eu/zones/fr-par-2/flexible-ips/fe708b8a-6a
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
   "status": "attached",
-  "ip_address": "62.210.102.109/32",
+  "ip_address": "62.210.140.23/32",
   "mac_address": null,
-  "server_id": "06a8d6cd-31ed-4868-9a98-03fa524faa53",
-  "reverse": "62-210-102-109.rev.poneytelecom.eu.",
+  "server_id": "a14dd060-d251-4037-a3ac-b234de246190",
+  "reverse": "62-210-140-23.rev.poneytelecom.eu.",
   "zone": "fr-par-2",
-  "srn": "srn://flexible-ip.scw.eu/zones/fr-par-2/flexible-ips/fe708b8a-6a23-42f1-8001-b7a623c65ddf"
+  "srn": "srn://flexible-ip.scw.eu/zones/fr-par-2/flexible-ips/ad9e9ebb-c7b2-40ee-a34a-a5a69f449b12"
 }

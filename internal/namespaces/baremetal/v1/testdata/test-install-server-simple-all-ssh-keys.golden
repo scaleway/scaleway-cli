@@ -1,37 +1,46 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              bbdfbe8e-7891-4c87-b743-c4a78b1c6909
-OrganizationID  de2b260d-2c2e-4be9-baa0-99d8ed17f1da
-ProjectID       de2b260d-2c2e-4be9-baa0-99d8ed17f1da
-Name            cli-bm-amazing-allen
-Description     -
-UpdatedAt       few seconds ago
-CreatedAt       few seconds ago
-Status          ready
-OfferID         ddb09834-8680-4339-b5e3-19ca5205fa1f
-OfferName       EM-I215E-NVME
-Domain          bbdfbe8e-7891-4c87-b743-c4a78b1c6909.fr-par-2.baremetal.scw.cloud
-BootType        normal
-Zone            fr-par-2
-PingStatus      unknown
-Protected       false
+ID                 1c215c35-6ebb-4ce7-ad8b-1ba9f6a70de9
+OrganizationID     564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ProjectID          564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+Name               cli-bm-jolly-wozniak
+Description        -
+UpdatedAt          few seconds ago
+CreatedAt          few seconds ago
+Status             ready
+OfferID            66cdd2c4-664c-47af-b0ad-a70e12999f0e
+OfferName          EM-I320E-NVME
+Domain             1c215c35-6ebb-4ce7-ad8b-1ba9f6a70de9.fr-par-2.baremetal.scw.cloud
+BootType           normal
+Zone               fr-par-2
+PingStatus         up
+Protected          false
+ScheduledDeletion  false
+Srn                srn://elastic-metal.scw.eu/zones/fr-par-2/servers/1c215c35-6ebb-4ce7-ad8b-1ba9f6a70de9
 
 IPs:
 ID                                    ADDRESS                                REVERSE  VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
-46e5a550-6831-467c-a89d-ac3d02f5b4c5  195.154.100.3                          -        IPv4     unknown         -
-e569ea92-b2ec-4ba4-89bd-539b23f4e407  2001:bc8:1201:a17:b683:51ff:fe0f:6b60  -        IPv6     unknown         -
+27198fb8-9b9b-4d94-a0e1-5a450d83f889  195.154.218.24                         -        IPv4     unknown         -
+8ffde507-fb75-4e29-968b-cd278d581766  2001:bc8:1201:a2c:d604:e6ff:fee8:6290  -        IPv6     unknown         -
 
 Options:
-ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
+ID   NAME  STATUS  MANAGEABLE  EXPIRES AT  TYPE
 
 Install:
-OsID                                                          03b7f4ba-a6a1-4305-984e-b54fafbf1681
+OsID                                                          b9a016fc-947f-4bbc-bf95-343c8524535a
 Hostname                                                      test-install-server
-SSHKeyIDs.0                                                   dc4b4779-eb79-42d2-9dbf-5ff82b304902
-SSHKeyIDs.1                                                   af9c5571-17c3-42be-856e-dcd1bccfe3fe
-SSHKeyIDs.2                                                   fd8e412d-b048-4f5f-9c2d-bd2bcf88f485
-SSHKeyIDs.3                                                   bfa9ba43-9980-4140-8728-9ff47dcd039b
-SSHKeyIDs.4                                                   5154b21a-5581-4acd-84bc-60815e86da9c
+SSHKeyIDs.0                                                   1e271c03-3cfc-4fcf-a157-f71829091486
+SSHKeyIDs.1                                                   6320195c-021b-41dc-b7c8-9d3e84cb873b
+SSHKeyIDs.2                                                   442e1f23-89f3-4e0e-8c8c-f7596d938349
+SSHKeyIDs.3                                                   cd2d8d74-4d75-4329-8101-0be05227b3d8
+SSHKeyIDs.4                                                   532f9de1-10ed-4dc7-9b2e-5d0ae88e8e1d
+SSHKeyIDs.5                                                   d1d261fc-248a-4fd0-851c-591e1d16da09
+SSHKeyIDs.6                                                   39d430d6-0dc4-4fdb-b067-170864123a00
+SSHKeyIDs.7                                                   434a36d8-f95d-490f-97d5-357c4ba96154
+SSHKeyIDs.8                                                   9889ed76-e762-43a7-95df-e0e008330291
+SSHKeyIDs.9                                                   fc9e37da-3a1b-47c7-a405-468bb1bc0b98
+SSHKeyIDs.10                                                  8daadcd5-a964-49cc-b971-e5223ab78d1f
+SSHKeyIDs.11                                                  2bd2f98e-a211-4d51-bd36-126128dca921
 Status                                                        completed
 User                                                          ubuntu
 ServiceUser                                                   -
@@ -83,49 +92,58 @@ PartitioningSchema.Filesystems.1.Mountpoint                   /boot
 PartitioningSchema.Filesystems.2.Device                       /dev/md1
 PartitioningSchema.Filesystems.2.Format                       ext4
 PartitioningSchema.Filesystems.2.Mountpoint                   /
+NetworkBootURL                                                -
+NetworkBootPersistent                                         false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "bbdfbe8e-7891-4c87-b743-c4a78b1c6909",
-  "organization_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
-  "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
-  "name": "cli-bm-amazing-allen",
+  "id": "1c215c35-6ebb-4ce7-ad8b-1ba9f6a70de9",
+  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "name": "cli-bm-jolly-wozniak",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
   "status": "ready",
-  "offer_id": "ddb09834-8680-4339-b5e3-19ca5205fa1f",
-  "offer_name": "EM-I215E-NVME",
+  "offer_id": "66cdd2c4-664c-47af-b0ad-a70e12999f0e",
+  "offer_name": "EM-I320E-NVME",
   "tags": [],
   "ips": [
     {
-      "id": "46e5a550-6831-467c-a89d-ac3d02f5b4c5",
-      "address": "195.154.100.3",
+      "id": "27198fb8-9b9b-4d94-a0e1-5a450d83f889",
+      "address": "195.154.218.24",
       "reverse": "",
       "version": "IPv4",
       "reverse_status": "unknown",
       "reverse_status_message": ""
     },
     {
-      "id": "e569ea92-b2ec-4ba4-89bd-539b23f4e407",
-      "address": "2001:bc8:1201:a17:b683:51ff:fe0f:6b60",
+      "id": "8ffde507-fb75-4e29-968b-cd278d581766",
+      "address": "2001:bc8:1201:a2c:d604:e6ff:fee8:6290",
       "reverse": "",
       "version": "IPv6",
       "reverse_status": "unknown",
       "reverse_status_message": ""
     }
   ],
-  "domain": "bbdfbe8e-7891-4c87-b743-c4a78b1c6909.fr-par-2.baremetal.scw.cloud",
+  "domain": "1c215c35-6ebb-4ce7-ad8b-1ba9f6a70de9.fr-par-2.baremetal.scw.cloud",
   "boot_type": "normal",
   "zone": "fr-par-2",
   "install": {
-    "os_id": "03b7f4ba-a6a1-4305-984e-b54fafbf1681",
+    "os_id": "b9a016fc-947f-4bbc-bf95-343c8524535a",
     "hostname": "test-install-server",
     "ssh_key_ids": [
-      "dc4b4779-eb79-42d2-9dbf-5ff82b304902",
-      "af9c5571-17c3-42be-856e-dcd1bccfe3fe",
-      "fd8e412d-b048-4f5f-9c2d-bd2bcf88f485",
-      "bfa9ba43-9980-4140-8728-9ff47dcd039b",
-      "5154b21a-5581-4acd-84bc-60815e86da9c"
+      "1e271c03-3cfc-4fcf-a157-f71829091486",
+      "6320195c-021b-41dc-b7c8-9d3e84cb873b",
+      "442e1f23-89f3-4e0e-8c8c-f7596d938349",
+      "cd2d8d74-4d75-4329-8101-0be05227b3d8",
+      "532f9de1-10ed-4dc7-9b2e-5d0ae88e8e1d",
+      "d1d261fc-248a-4fd0-851c-591e1d16da09",
+      "39d430d6-0dc4-4fdb-b067-170864123a00",
+      "434a36d8-f95d-490f-97d5-357c4ba96154",
+      "9889ed76-e762-43a7-95df-e0e008330291",
+      "fc9e37da-3a1b-47c7-a405-468bb1bc0b98",
+      "8daadcd5-a964-49cc-b971-e5223ab78d1f",
+      "2bd2f98e-a211-4d51-bd36-126128dca921"
     ],
     "status": "completed",
     "user": "ubuntu",
@@ -157,7 +175,7 @@ PartitioningSchema.Filesystems.2.Mountpoint                   /
             {
               "label": "root",
               "number": 4,
-              "size": 1915003863040,
+              "size": 1914630569984,
               "use_all_available_space": false
             }
           ]
@@ -180,7 +198,7 @@ PartitioningSchema.Filesystems.2.Mountpoint                   /
             {
               "label": "root",
               "number": 3,
-              "size": 1915003863040,
+              "size": 1914630569984,
               "use_all_available_space": false
             }
           ]
@@ -224,11 +242,17 @@ PartitioningSchema.Filesystems.2.Mountpoint                   /
       "zfs": {
         "pools": []
       }
-    }
+    },
+    "network_boot_url": "",
+    "network_boot_persistent": false
   },
-  "ping_status": "ping_status_unknown",
+  "ping_status": "ping_status_up",
   "options": [],
   "rescue_server": null,
   "protected": false,
-  "user_data": null
+  "user_data": null,
+  "commitment": null,
+  "scheduled_deletion_at": null,
+  "scheduled_deletion": false,
+  "srn": "srn://elastic-metal.scw.eu/zones/fr-par-2/servers/1c215c35-6ebb-4ce7-ad8b-1ba9f6a70de9"
 }

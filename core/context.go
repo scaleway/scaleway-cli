@@ -208,6 +208,24 @@ func ExtractStdin(ctx context.Context) io.Reader {
 	return meta.stdin
 }
 
+func ExtractStdout(ctx context.Context) io.Writer {
+	meta := ExtractMeta(ctx)
+	if meta == nil {
+		return os.Stdout
+	}
+
+	return meta.stdout
+}
+
+func ExtractStderr(ctx context.Context) io.Writer {
+	meta := ExtractMeta(ctx)
+	if meta == nil {
+		return os.Stderr
+	}
+
+	return meta.stderr
+}
+
 func ExtractProfileName(ctx context.Context) string {
 	meta := ExtractMeta(ctx)
 	// Handle profile flag -p

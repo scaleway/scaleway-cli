@@ -4233,6 +4233,18 @@ func instanceIPList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "server",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "detached",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization",
 				Short:      `Organization ID in which the IPs are reserved`,
 				Required:   false,

@@ -60,10 +60,13 @@ dockers_v2:
   - images:
       - "scaleway/cli"
     tags:
-      - "latest"
+      # Only stable tags may claim latest/major/minor: a prerelease or debug
+      # tag (v1.2.3-alpha1, v1.2.3-dbg1) must not overwrite the last stable
+      # image. GoReleaser drops a tag that renders to an empty string.
+      - '{{ if not .Prerelease }}latest{{ end }}'
       - "{{ .Tag }}"
-      - "{{ .Major }}"
-      - "{{ .Major }}.{{ .Minor }}"
+      - '{{ if not .Prerelease }}{{ .Major }}{{ end }}'
+      - '{{ if not .Prerelease }}{{ .Major }}.{{ .Minor }}{{ end }}'
       - "{{ .Version }}"
     platforms:
       - linux/amd64
@@ -104,6 +107,11 @@ release:
   prerelease: auto
   draft: true
   name_template: "{{ .Tag }}"
+
+  # The separate "publish" workflow (release: published) re-runs goreleaser to
+  # push docker/mcp/winget; it sets DISABLE_RELEASE so this run never touches the
+  # (now immutable) GitHub release again.
+  disable: "{{ envOrDefault \"DISABLE_RELEASE\" \"false\" }}"
 
 winget:
   - name: cli

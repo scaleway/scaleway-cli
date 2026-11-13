@@ -188,7 +188,7 @@ func websocketReader(conn *websocket.Conn) (chan []byte, chan error) {
 			_, data, err := conn.ReadMessage()
 			if err != nil {
 				// if a error is a close error exit properly
-				if _, isClose := err.(*websocket.CloseError); !isClose {
+				if _, ok := errors.AsType[*websocket.CloseError](err); !ok {
 					errChan <- err
 				}
 

@@ -14,11 +14,9 @@ func Test_PlacementGroup_Get(t *testing.T) {
 	cmds := instance.GetCommands()
 
 	t.Run("Without servers", core.Test(&core.TestConfig{
-		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd(
-				"PlacementGroup",
-				"scw instance placement-group create",
-			),
+		BeforeFunc: core.ExecStoreBeforeCmd(
+			"PlacementGroup",
+			"scw instance placement-group create",
 		),
 		Commands: cmds,
 		Cmd:      "scw instance placement-group get {{ .PlacementGroup.ID }}",
@@ -26,10 +24,8 @@ func Test_PlacementGroup_Get(t *testing.T) {
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 		),
-		AfterFunc: core.AfterFuncCombine(
-			core.ExecAfterCmd(
-				"scw instance placement-group delete {{ .PlacementGroup.ID }}",
-			),
+		AfterFunc: core.ExecAfterCmd(
+			"scw instance placement-group delete {{ .PlacementGroup.ID }}",
 		),
 	}))
 
@@ -87,11 +83,9 @@ func Test_PlacementGroup_List(t *testing.T) {
 
 func Test_PlacementGroup_Update(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
-		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd(
-				"PlacementGroup",
-				"scw instance placement-group create policy-type=max_availability tags.0=test",
-			),
+		BeforeFunc: core.ExecStoreBeforeCmd(
+			"PlacementGroup",
+			"scw instance placement-group create policy-type=max_availability tags.0=test",
 		),
 		Commands: instance.GetCommands(),
 		Cmd: "scw instance placement-group update {{ .PlacementGroup.ID }} name=cli-test-pg-update" +
@@ -99,29 +93,18 @@ func Test_PlacementGroup_Update(t *testing.T) {
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				if pg, ok := ctx.Result.(*instanceSDK.PlacementGroup); !ok {
-					t.Errorf("result was not *instance.PlacementGroup but %T", ctx.Result)
-				} else {
-					assert.Equal(
-						t,
-						pg.PolicyType,
-						instanceSDK.PlacementGroupPolicyType("low_latency"),
-					)
-					assert.Equal(t, "cli-test-pg-update", pg.Name)
-					if !assert.Len(t, pg.Tags, 2) {
-						t.Fatal()
-					}
-					assert.Equal(t, "test-update", pg.Tags[0])
-					assert.Equal(t, "cli", pg.Tags[1])
-				}
+				pg := ctx.Result.(*instanceSDK.PlacementGroup)
+				assert.Equal(t, pg.PolicyType, instanceSDK.PlacementGroupPolicyType("low_latency"))
+				assert.Equal(t, "cli-test-pg-update", pg.Name)
+				assert.Len(t, pg.Tags, 2)
+				assert.Equal(t, "test-update", pg.Tags[0])
+				assert.Equal(t, "cli", pg.Tags[1])
 			},
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
 		),
-		AfterFunc: core.AfterFuncCombine(
-			core.ExecAfterCmd(
-				"scw instance placement-group delete {{ .PlacementGroup.ID }}",
-			),
+		AfterFunc: core.ExecAfterCmd(
+			"scw instance placement-group delete {{ .PlacementGroup.ID }}",
 		),
 	}))
 }

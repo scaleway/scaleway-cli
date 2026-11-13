@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                   3c41d834-2d87-4acc-92db-a887a3fc6320
-Name                 cli-snp-eager-joliot
-ParentVolume.ID      87503651-bc4b-46cb-ae91-68f734ebdf78
+ID                   f6dd67cc-d77b-4e47-b16d-8e64dd626404
+Name                 cli-snp-intelligent-brown
+ParentVolume.ID      698b3fca-df98-4787-b3b4-fae24b66f92f
 ParentVolume.Name    Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0
 ParentVolume.Type    sbs_5k
 ParentVolume.Status  in_use
@@ -15,10 +15,10 @@ Zone                 fr-par-1
 Class                sbs
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "3c41d834-2d87-4acc-92db-a887a3fc6320",
-  "name": "cli-snp-eager-joliot",
+  "id": "f6dd67cc-d77b-4e47-b16d-8e64dd626404",
+  "name": "cli-snp-intelligent-brown",
   "parent_volume": {
-    "id": "87503651-bc4b-46cb-ae91-68f734ebdf78",
+    "id": "698b3fca-df98-4787-b3b4-fae24b66f92f",
     "name": "Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0",
     "type": "sbs_5k",
     "status": "in_use"

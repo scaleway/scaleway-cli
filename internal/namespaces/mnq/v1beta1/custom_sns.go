@@ -44,7 +44,7 @@ func autocompleteSnsProjectID(
 		completeSnsInfoCache = res
 	}
 
-	suggestions = append(suggestions, completeSnsInfoCache.ProjectID)
+	suggestions = append(suggestions, core.Suggestion{Value: completeSnsInfoCache.ProjectID})
 
 	return suggestions
 }
@@ -58,7 +58,7 @@ func autocompleteSnsCredentialsID(
 ) core.AutocompleteSuggestions {
 	req := request.(*mnq.SnsAPIGetSnsCredentialsRequest)
 
-	suggestions := core.AutocompleteSuggestions(nil)
+	suggestions := core.AutocompleteSuggestions{}
 
 	if req.Region != "" {
 		client := core.ExtractClient(ctx)
@@ -85,7 +85,7 @@ func autocompleteSnsCredentialsID(
 
 		for _, snsCredentials := range completeSnsListCredentials.SnsCredentials {
 			if strings.HasPrefix(snsCredentials.ID, prefix) {
-				suggestions = append(suggestions, snsCredentials.ID)
+				suggestions = append(suggestions, core.Suggestion{Value: snsCredentials.ID})
 			}
 		}
 	}

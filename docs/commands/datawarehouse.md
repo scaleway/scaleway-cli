@@ -76,6 +76,26 @@ scw datawarehouse database list [arg=value ...]
 A deployment is composed of one or multiple replicas.
 
 
+### Open the Cockpit Grafana dashboard for this data warehouse
+
+
+
+**Usage:**
+
+```shell
+scw datawarehouse deployment cockpit <deployment-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name          | Description                                                                 | Argument Specifications |
+|---------------|-----------------------------------------------------------------------------|-------------------------|
+| deployment-id | Deployment ID                                                               | Required                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Create a deployment
 
 Create a new deployment.

@@ -60,6 +60,8 @@ func GetCommands() *core.Commands {
 	iamCmd.Run = iamApiKeyCustomBuilder.run
 	human.RegisterMarshalerFunc(apiKeyResponse{}, apiKeyMarshalerFunc)
 
+	cmds.MustFind("iam", "api-key", "list").Override(iamApiKeyListCustomBuilder)
+
 	return cmds
 }
 

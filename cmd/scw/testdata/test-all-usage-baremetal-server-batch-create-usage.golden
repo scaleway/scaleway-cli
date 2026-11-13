@@ -34,9 +34,12 @@ ARGS:
   [common-configuration.install.partitioning-schema.zfs.pools.{index}.devices.{index}]                          
   [common-configuration.install.partitioning-schema.zfs.pools.{index}.options.{index}]                          
   [common-configuration.install.partitioning-schema.zfs.pools.{index}.filesystem-options.{index}]               
+  [common-configuration.install.network-boot-url]                                                               URL of the network service to which the server should forward its boot request
+  [common-configuration.install.network-boot-persistent]                                                        Defines whether the network boot forwarding should be applied at every reboot or only once
   [common-configuration.option-ids.{index}]                                                                     IDs of options to enable on server
   [common-configuration.protected]                                                                              If enabled, the server can not be deleted
   [common-configuration.user-data]                                                                              Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script
+  [common-configuration.commitment-period]                                                                      Commitment period to subscribe (unknown_period | one_month | six_months | one_year | two_years | three_years)
   [common-configuration.zone]                                                                                   
   [servers.{index}.hostname]                                                                                    
   [servers.{index}.description]                                                                                 
@@ -47,12 +50,13 @@ DEPRECATED ARGS:
   [common-configuration.organization-id]   Organization ID with which the server will be created
 
 FLAGS:
-  -h, --help                help for batch-create
-      --list-sub-commands   List all subcommands
+  -h, --help[=true|false]                help for batch-create
+      --list-sub-commands[=true|false]   List all subcommands
 
 GLOBAL FLAGS:
-  -B, --beta             Enable beta mode
-  -c, --config string    The path to the config file
-  -D, --debug            Enable debug mode
-  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
-  -p, --profile string   The config profile to use
+  -B, --beta[=true|false]         Enable beta mode
+  -c, --config string             The path to the config file
+  -D, --debug[=true|false]        Enable debug mode
+  -H, --no-headers[=true|false]   Skip headers in human output
+  -o, --output string             Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string            The config profile to use

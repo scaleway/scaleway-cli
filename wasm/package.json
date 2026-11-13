@@ -4,27 +4,15 @@
   "description": "WASM interface for Scaleway CLI, made to be used in a JS environment",
   "type": "module",
   "main": "index.js",
-  "packageManager": "pnpm@10.33.2",
+  "packageManager": "pnpm@12.18.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/scaleway/scaleway-cli",
     "directory": "wasm"
   },
-  "scripts": {
-    "test": "vitest src",
-    "lint": "prettier --check ."
-  },
   "types": "index.d.ts",
   "keywords": [],
   "author": "Scaleway",
-  "devDependencies": {
-    "@codecov/vite-plugin": "^2.0.1",
-    "@vitest/browser": "^5.0.0",
-    "prettier": "3.9.9",
-    "typescript": "^7.0.2",
-    "vite": "^8.0.13",
-    "vitest": "^5.0.0"
-  },
   "files": [
     "cli.wasm",
     "cli.d.ts",

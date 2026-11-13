@@ -2,6 +2,7 @@ package qa
 
 import (
 	"context"
+	"errors"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/commands"
@@ -22,11 +23,12 @@ func filterIgnore(unfilteredErrors []error) []error {
 func isIgnoredError(err error) bool {
 	for _, ignoredError := range ignoredErrors {
 		var isEqual bool
-		switch typedError := err.(type) {
-		case *DifferentLocalizationForNamespaceError:
-			isEqual = areCommandsEquals(typedError.Command1, ignoredError.Command) ||
-				areCommandsEquals(typedError.Command2, ignoredError.Command)
-		default:
+		if localizationError, ok := errors.AsType[*DifferentLocalizationForNamespaceError](
+			err,
+		); ok {
+			isEqual = areCommandsEquals(localizationError.Command1, ignoredError.Command) ||
+				areCommandsEquals(localizationError.Command2, ignoredError.Command)
+		} else {
 			isEqual = (reflect.TypeOf(err) == ignoredError.Type) &&
 				areCommandsEquals(
 					reflect.ValueOf(err).FieldByName("Command").Interface().(*core.Command),

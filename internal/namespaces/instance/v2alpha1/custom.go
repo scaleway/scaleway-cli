@@ -16,12 +16,40 @@ import (
 func GetCommands() *core.Commands {
 	cmds := core.NewCommands(
 		instancePlacementGroup(),
+		instancePrivateNetworkInterface(),
+		instanceSecurityGroup(),
+		instanceServerType(),
+		instanceSnapshot(),
 		instanceTemplate(),
+		instanceUserData(),
 		instancePlacementGroupList(),
 		instancePlacementGroupCreate(),
 		instancePlacementGroupGet(),
 		instancePlacementGroupUpdate(),
 		instancePlacementGroupDelete(),
+		instancePrivateNetworkInterfaceList(),
+		instancePrivateNetworkInterfaceCreate(),
+		instancePrivateNetworkInterfaceGet(),
+		instancePrivateNetworkInterfaceUpdate(),
+		instancePrivateNetworkInterfaceDelete(),
+		instanceSecurityGroupList(),
+		instanceSecurityGroupCreate(),
+		instanceSecurityGroupGet(),
+		instanceSecurityGroupUpdate(),
+		instanceSecurityGroupDelete(),
+		instanceSecurityGroupAddRules(),
+		instanceSecurityGroupSetRules(),
+		instanceSecurityGroupUpdateRule(),
+		instanceSecurityGroupDeleteRules(),
+		instanceServerGetCompatibleTypes(),
+		instanceServerTypeList(),
+		instanceSnapshotList(),
+		instanceSnapshotCreate(),
+		instanceSnapshotGet(),
+		instanceSnapshotUpdate(),
+		instanceSnapshotDelete(),
+		instanceSnapshotImportFromObjectStorage(),
+		instanceSnapshotExportToObjectStorage(),
 		instanceTemplateList(),
 		instanceTemplateCreate(),
 		instanceTemplateGet(),
@@ -35,6 +63,12 @@ func GetCommands() *core.Commands {
 		instanceTemplateSetCloudInit(),
 		instanceTemplateCheck(),
 		instanceTemplateCreateServer(),
+		instanceUserDataList(),
+		instanceUserDataSet(),
+		instanceUserDataGet(),
+		instanceUserDataDelete(),
+		instanceUserDataGetCloudInit(),
+		instanceUserDataSetCloudInit(),
 	)
 
 	//
@@ -44,6 +78,88 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "placement-group", "create").Override(placementGroupCreateBuilder)
 	cmds.MustFind("instance", "placement-group", "get").Override(placementGroupGetBuilder)
 	cmds.MustFind("instance", "placement-group", "list").Override(placementGroupListBuilder)
+
+	//
+	// Private Network Interfaces
+	//
+	human.RegisterMarshalerFunc(
+		instanceSDK.PrivateNetworkInterfaceStatus(""),
+		human.EnumMarshalFunc(privateNetworkInterfaceStateMarshalSpecs),
+	)
+
+	cmds.MustFind("instance", "private-network-interface", "create").
+		Override(privateNetworkInterfaceCreateBuilder)
+	cmds.MustFind("instance", "private-network-interface", "get").
+		Override(privateNetworkInterfaceGetBuilder)
+	cmds.MustFind("instance", "private-network-interface", "list").
+		Override(privateNetworkInterfaceListBuilder)
+	cmds.MustFind("instance", "private-network-interface", "update").
+		Override(privateNetworkInterfaceUpdateBuilder)
+	cmds.MustFind("instance", "private-network-interface", "delete").
+		Override(privateNetworkInterfaceDeleteBuilder)
+
+	//
+	// Security Group
+	//
+	human.RegisterMarshalerFunc(instanceSDK.SecurityGroup{}, securityGroupMarshalerFunc)
+	human.RegisterMarshalerFunc([]*instanceSDK.SecurityGroupRule{}, securityGroupRulesMarshalerFunc)
+	human.RegisterMarshalerFunc(
+		instanceSDK.SecurityGroupRulePortRange{},
+		securityGroupRulePortRangeMarshalerFunc,
+	)
+	human.RegisterMarshalerFunc(
+		instanceSDK.SecurityGroupAction(""),
+		human.EnumMarshalFunc(securityGroupActionMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		instanceSDK.SecurityGroupRuleAction(""),
+		human.EnumMarshalFunc(securityGroupRuleActionMarshalSpecs),
+	)
+
+	cmds.MustFind("instance", "security-group", "create").Override(securityGroupCreateBuilder)
+	cmds.MustFind("instance", "security-group", "get").Override(securityGroupGetBuilder)
+	cmds.MustFind("instance", "security-group", "list").Override(securityGroupListBuilder)
+	cmds.MustFind("instance", "security-group", "update").Override(securityGroupUpdateBuilder)
+	cmds.MustFind("instance", "security-group", "delete").Override(securityGroupDeleteBuilder)
+	cmds.MustFind("instance", "security-group", "add-rules").Override(securityGroupAddRulesBuilder)
+	cmds.MustFind("instance", "security-group", "set-rules").Override(securityGroupSetRulesBuilder)
+
+	cmds.Merge(core.NewCommands(
+		securityGroupClearCommand(),
+		securityGroupEditCommand(),
+	))
+
+	//
+	// Server-Type
+	//
+	human.RegisterMarshalerFunc(
+		instanceSDK.ServerTypeAvailability(""),
+		human.EnumMarshalFunc(serverTypesAvailabilityMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc([]*customServerType{}, serverTypesListMarshalerFunc)
+
+	cmds.MustFind("instance", "server-type", "list").Override(serverTypeListBuilder)
+
+	//
+	// Get-Compatible-Types
+	//
+	cmds.MustFind("instance", "server", "get-compatible-types").Override(getCompatibleTypesBuilder)
+
+	//
+	// Snapshot
+	//
+	cmds.MustFind("instance", "snapshot", "create").Override(snapshotCreateBuilder)
+	cmds.MustFind("instance", "snapshot", "get").Override(snapshotGetBuilder)
+	cmds.MustFind("instance", "snapshot", "list").Override(snapshotListBuilder)
+	cmds.MustFind("instance", "snapshot", "update").Override(snapshotUpdateBuilder)
+	cmds.MustFind("instance", "snapshot", "delete").Override(snapshotDeleteBuilder)
+	cmds.MustFind("instance", "snapshot", "export-to-object-storage").
+		Override(snapshotExportToObjectStorageBuilder)
+	cmds.MustFind("instance", "snapshot", "import-from-object-storage").
+		Override(snapshotImportToObjectStorageBuilder)
+	cmds.Merge(core.NewCommands(
+		snapshotWaitCommand(),
+	))
 
 	//
 	// Templates
@@ -67,6 +183,17 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("instance", "template", "set-cloud-init").Override(TemplateSetCloudInitBuilder)
 	cmds.MustFind("instance", "template", "get-cloud-init").Override(TemplateGetCloudInitBuilder)
+
+	//
+	// User Data
+	//
+	cmds.MustFind("instance", "user-data", "set").Override(userDataSetBuilder)
+	cmds.MustFind("instance", "user-data", "get").Override(userDataGetBuilder)
+	cmds.MustFind("instance", "user-data", "list").Override(userDataListBuilder)
+	cmds.MustFind("instance", "user-data", "delete").Override(userDataDeleteBuilder)
+
+	cmds.MustFind("instance", "user-data", "set-cloud-init").Override(userDataSetCloudInitBuilder)
+	cmds.MustFind("instance", "user-data", "get-cloud-init").Override(userDataGetCloudInitBuilder)
 
 	// Web URLs (--web)
 

@@ -18,6 +18,9 @@ type MarshalOpt struct {
 
 	// DisableShrinking will disable columns shrinking based on terminal size
 	DisableShrinking bool
+
+	// NoHeaders will skip the header row when marshaling a slice
+	NoHeaders bool
 }
 
 func (m *MarshalOpt) subOption(section string) *MarshalOpt {

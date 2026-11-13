@@ -20,7 +20,7 @@ scw autocomplete install [arg=value ...]
 | Name     | Description | Argument Specifications |
 |----------|-------------|-------------------------|
 | shell    |             |                         |
-| basename |             | Default: ``             |
+| basename |             | Default: `scw`          |
 
 
 
@@ -41,8 +41,8 @@ scw autocomplete script [arg=value ...]
 
 | Name     | Description | Argument Specifications |
 |----------|-------------|-------------------------|
-| shell    |             | Default: ``             |
-| basename |             | Default: ``             |
+| shell    |             | Default: `/bin/bash`    |
+| basename |             | Default: `scw`          |
 
 
 

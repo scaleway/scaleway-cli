@@ -100,14 +100,14 @@ func annotationsKeyCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
-				Short:      `Name of the annotation key.`,
+				Short:      `Name of the annotation key. Never use a secret as a name, as it is shown in the audit trail.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `Description of the annotation key.`,
+				Short:      `Description of the annotation key. Never put a secret in the description, as it is shown in the audit trail.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -201,14 +201,14 @@ func annotationsKeyUpdate() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `New name of the key.`,
+				Short:      `New name of the key. Never use a secret as a name, as it is shown in the audit trail.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `New description of the key.`,
+				Short:      `New description of the key. Never put a secret in the description, as it is shown in the audit trail.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -280,14 +280,14 @@ func annotationsValueCreate() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `Name of the value.`,
+				Short:      `Name of the value. Never use a secret as a name, as it is shown in the audit trail.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `Description of the value.`,
+				Short:      `Description of the value. Never put a secret in the description, as it is shown in the audit trail.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -387,14 +387,14 @@ func annotationsValueUpdate() *core.Command {
 			},
 			{
 				Name:       "name",
-				Short:      `New name of the value.`,
+				Short:      `New name of the value. Never use a secret as a name, as it is shown in the audit trail.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `New description of the value.`,
+				Short:      `New description of the value. Never put a secret in the description, as it is shown in the audit trail.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -454,7 +454,7 @@ func annotationsValueDeleteAllMatchingKey() *core.Command {
 		Namespace: "annotations",
 		Resource:  "value",
 		Verb:      "delete-all-matching-key",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeFor[annotations.DeleteAllValuesMatchingKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -510,8 +510,8 @@ func annotationsBindingCreate() *core.Command {
 		ArgsType: reflect.TypeFor[annotations.CreateBindingRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "srn",
-				Short:      `Scaleway Resource Name to associate.`,
+				Name:       "target-srn",
+				Short:      `SRN of the resource to attach the value to.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -546,8 +546,8 @@ func annotationsBindingList() *core.Command {
 		ArgsType: reflect.TypeFor[annotations.ListBindingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "srn",
-				Short:      `Scaleway Resource Name for which to list all bindings.`,
+				Name:       "target-srn",
+				Short:      `SRN of the resource for which to list all bindings.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -620,7 +620,7 @@ func annotationsBindingDeleteAllMatchingValue() *core.Command {
 		Namespace: "annotations",
 		Resource:  "binding",
 		Verb:      "delete-all-matching-value",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeFor[annotations.DeleteAllBindingsMatchingValueRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -649,12 +649,12 @@ func annotationsBindingDeleteAllMatchingSrn() *core.Command {
 		Namespace: "annotations",
 		Resource:  "binding",
 		Verb:      "delete-all-matching-srn",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeFor[annotations.DeleteAllBindingsMatchingSRNRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "srn",
-				Short:      `Scaleway Resource Name for which all bindings should be deleted.`,
+				Name:       "target-srn",
+				Short:      `SRN of the resource for which all bindings should be deleted.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
