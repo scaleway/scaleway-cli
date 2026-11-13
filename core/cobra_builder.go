@@ -48,8 +48,9 @@ func (b *cobraBuilder) build() *cobra.Command {
 		SilenceUsage: true,
 	}
 
-	// Disable autocomplete commands from Cobra we should study whether or not we could use instead of our own logic
-	rootCmd.CompletionOptions.DisableDefaultCmd = true
+	// Cobra completion is only enabled in beta mode for now
+	rootCmd.CompletionOptions.DisableDefaultCmd = !b.meta.BetaMode
+	rootCmd.CompletionOptions.HiddenDefaultCmd = true
 
 	rootCmd.SetOut(b.meta.stdout)
 
@@ -198,6 +199,11 @@ func (b *cobraBuilder) hydrateCobra(
 		// If command is not runnable we create a default run function that
 		// will print usage of the parent command and exit with code 1
 		cobraCmd.RunE = cobraRunHelp(cmd)
+	}
+
+	// Parent commands may be hydrated with a child command, their completion is handled by cobra
+	if cmd.ArgsType != nil && !cobraCmd.HasSubCommands() {
+		cobraCmd.ValidArgsFunction = cobraValidArgsFunction(cmd)
 	}
 
 	// If a command has no groups, we add it to the available group.
