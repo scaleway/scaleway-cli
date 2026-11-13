@@ -19,6 +19,7 @@ func GetCommands() *core.Commands {
 		instancePrivateNetworkInterface(),
 		instanceSecurityGroup(),
 		instanceServerType(),
+		instanceSnapshot(),
 		instanceTemplate(),
 		instanceUserData(),
 		instancePlacementGroupList(),
@@ -42,6 +43,13 @@ func GetCommands() *core.Commands {
 		instanceSecurityGroupDeleteRules(),
 		instanceServerGetCompatibleTypes(),
 		instanceServerTypeList(),
+		instanceSnapshotList(),
+		instanceSnapshotCreate(),
+		instanceSnapshotGet(),
+		instanceSnapshotUpdate(),
+		instanceSnapshotDelete(),
+		instanceSnapshotImportFromObjectStorage(),
+		instanceSnapshotExportToObjectStorage(),
 		instanceTemplateList(),
 		instanceTemplateCreate(),
 		instanceTemplateGet(),
@@ -136,6 +144,22 @@ func GetCommands() *core.Commands {
 	// Get-Compatible-Types
 	//
 	cmds.MustFind("instance", "server", "get-compatible-types").Override(getCompatibleTypesBuilder)
+
+	//
+	// Snapshot
+	//
+	cmds.MustFind("instance", "snapshot", "create").Override(snapshotCreateBuilder)
+	cmds.MustFind("instance", "snapshot", "get").Override(snapshotGetBuilder)
+	cmds.MustFind("instance", "snapshot", "list").Override(snapshotListBuilder)
+	cmds.MustFind("instance", "snapshot", "update").Override(snapshotUpdateBuilder)
+	cmds.MustFind("instance", "snapshot", "delete").Override(snapshotDeleteBuilder)
+	cmds.MustFind("instance", "snapshot", "export-to-object-storage").
+		Override(snapshotExportToObjectStorageBuilder)
+	cmds.MustFind("instance", "snapshot", "import-from-object-storage").
+		Override(snapshotImportToObjectStorageBuilder)
+	cmds.Merge(core.NewCommands(
+		snapshotWaitCommand(),
+	))
 
 	//
 	// Templates

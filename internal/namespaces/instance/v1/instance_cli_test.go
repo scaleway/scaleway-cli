@@ -256,7 +256,7 @@ func Test_SnapshotCreate(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands: core.NewCommandsMerge(
 			block.GetCommands(),
-			instance.GetCommands(),
+			instanceV1AndV2Commands(),
 		),
 		BeforeFunc: createServer("Server"),
 		Cmd:        `scw block snapshot create volume-id={{ (index .Server.Volumes "0").ID }} -w`,

@@ -39,7 +39,6 @@ func GetCommands() *core.Commands {
 		instanceIP(),
 		instanceServer(),
 		instanceVolumeType(),
-		instanceSnapshot(),
 		instanceVolume(),
 		instanceVolumeTypeList(),
 		instanceServerList(),
@@ -55,12 +54,6 @@ func GetCommands() *core.Commands {
 		instanceImageCreate(),
 		instanceImageUpdate(),
 		instanceImageDelete(),
-		instanceSnapshotList(),
-		instanceSnapshotCreate(),
-		instanceSnapshotGet(),
-		instanceSnapshotUpdate(),
-		instanceSnapshotDelete(),
-		instanceSnapshotExport(),
 		instanceVolumeList(),
 		instanceVolumeCreate(),
 		instanceVolumeGet(),
@@ -166,20 +159,6 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "image", "delete").Override(imageDeleteBuilder)
 	cmds.Merge(core.NewCommands(
 		imageWaitCommand(),
-	))
-
-	//
-	// Snapshot
-	//
-	human.RegisterMarshalerFunc(instance.CreateSnapshotResponse{}, marshallNestedField("Snapshot"))
-
-	cmds.MustFind("instance", "snapshot", "create").Override(snapshotCreateBuilder)
-	cmds.MustFind("instance", "snapshot", "list").Override(snapshotListBuilder)
-	cmds.MustFind("instance", "snapshot", "update").Override(snapshotUpdateBuilder)
-	cmds.Merge(core.NewCommands(
-		snapshotWaitCommand(),
-		snapshotPlanMigrationCommand(),
-		snapshotApplyMigrationCommand(),
 	))
 
 	//

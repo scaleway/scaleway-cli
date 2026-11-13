@@ -136,6 +136,7 @@ func Test_CreateServer(t *testing.T) {
 	////
 	// Volume use cases
 	////
+
 	t.Run("Volumes", func(t *testing.T) {
 		t.Run("valid single local volume", core.Test(&core.TestConfig{
 			Commands: instance.GetCommands(),
@@ -162,8 +163,10 @@ func Test_CreateServer(t *testing.T) {
 			AfterFunc: deleteServerAfterFunc(),
 		}))
 
+		cmds := instanceV1AndV2Commands()
+
 		t.Run("valid single local snapshot", core.Test(&core.TestConfig{
-			Commands: instance.GetCommands(),
+			Commands: cmds,
 			BeforeFunc: core.BeforeFuncCombine(
 				core.ExecStoreBeforeCmd(
 					"Server",
@@ -175,7 +178,7 @@ func Test_CreateServer(t *testing.T) {
 				),
 			),
 			Cmd: testServerCommand(
-				"image=ubuntu_bionic root-volume=local:{{ .Snapshot.Snapshot.ID }} stopped=true",
+				"image=ubuntu_bionic root-volume=local:{{ .Snapshot.ID }} stopped=true",
 			),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),
@@ -204,7 +207,7 @@ func Test_CreateServer(t *testing.T) {
 		}))
 
 		t.Run("valid single local snapshot without image", core.Test(&core.TestConfig{
-			Commands: instance.GetCommands(),
+			Commands: cmds,
 			BeforeFunc: core.BeforeFuncCombine(
 				core.ExecStoreBeforeCmd(
 					"Server",
@@ -216,7 +219,7 @@ func Test_CreateServer(t *testing.T) {
 				),
 			),
 			Cmd: testServerCommand(
-				"image=none root-volume=local:{{ .Snapshot.Snapshot.ID }} stopped=true",
+				"image=none root-volume=local:{{ .Snapshot.ID }} stopped=true",
 			),
 			Check: core.TestCheckCombine(
 				core.TestCheckExitCode(0),

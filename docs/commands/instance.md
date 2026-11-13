@@ -2404,42 +2404,16 @@ scw instance server-type list zone=fr-par-1
 
 ## Snapshot management commands
 
-Snapshots contain the data of a specified volume at a particular point in time.
+Snapshots contain the data of a specified l_ssd volume at a particular point in time.
 The data can include the Instance's operating system,
 configuration information and/or files stored on the volume.
 
-A snapshot can be done from a specified volume, e.g. you
-have one Instance with a volume containing the OS and another one
-containing the application data, and you want to use different
-snapshot strategies on both volumes.
-
-Volumes can be created from snapshots of their own type.
+l_ssd volumes can be created from snapshots.
 
 
-### Migrate a volume and/or snapshots to SBS (Scaleway Block Storage)
+### Create a snapshot from a specified volume
 
-To be used, the call to this endpoint must be preceded by a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint. To migrate all resources mentioned in the migration plan, the validation_key returned in the plan must be provided.
-
-**Usage:**
-
-```shell
-scw instance snapshot apply-migration <snapshot-id ...> [arg=value ...]
-```
-
-
-**Arguments:**
-
-| Name           | Description                                                                                                                                                                                                                                     | Argument Specifications                                                                                                                                 |
-|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| snapshot-id    | The snapshot to migrate, along with potentially other resources, according to the migration plan generated with a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint.     |                                                                                                                                                         |
-| validation-key | A value to be retrieved from a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint, to confirm that the volume and/or snapshots specified in said plan should be migrated. | Required                                                                                                                                                |
-| zone           | Zone to target. If none is passed will use default zone from the config                                                                                                                                                                         | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
-
-
-
-### Create a snapshot from a specified volume or from a QCOW2 file
-
-Create a snapshot from a specified volume or from a QCOW2 file in a specified Availability Zone.
+Create a snapshot from a specified l_ssd volume.
 
 **Usage:**
 
@@ -2450,41 +2424,33 @@ scw instance snapshot create [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                        | Argument Specifications                                                                                                                                 |
-|-----------------|------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name            | Name of the snapshot                                                               | Default: `<generated>`                                                                                                                                  |
-| volume-id       | UUID of the volume                                                                 |                                                                                                                                                         |
-| unified         | Whether a snapshot is unified or not.                                              |                                                                                                                                                         |
-| tags.{index}    | Tags of the snapshot                                                               |                                                                                                                                                         |
-| project-id      | Project ID to use. If none is passed the default project ID will be used           |                                                                                                                                                         |
-| bucket          | Bucket name for snapshot imports                                                   |                                                                                                                                                         |
-| key             | Object key for snapshot imports                                                    |                                                                                                                                                         |
-| size            | Imported snapshot size, must be a multiple of 512                                  |                                                                                                                                                         |
-| organization-id | Organization ID to use. If none is passed the default organization ID will be used |                                                                                                                                                         |
-| zone            | Zone to target. If none is passed will use default zone from the config            | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name           | Description                                                              | Argument Specifications                                                                                                                                 |
+|----------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| project-id     | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                         |
+| name           | Name of the snapshot                                                     | Default: `<generated>`                                                                                                                                  |
+| tags.{index}   | Tags associated with the snapshot                                        |                                                                                                                                                         |
+| base-volume-id | ID of the base volume                                                    |                                                                                                                                                         |
+| ~~volume-id~~  | ID of the base volume, please use base-volume-id instead                 | Deprecated                                                                                                                                              |
+| public         | Whether the snapshot should be public                                    |                                                                                                                                                         |
+| zone           | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
 **Examples:**
 
 
-Create a snapshot in the default zone from the specified volume ID
+Create a snapshot in the default zone from a specified volume ID
 ```shell
-scw instance snapshot create volume-id=11111111-1111-1111-1111-111111111111
+scw instance snapshot create base-volume-id=11111111-1111-1111-1111-111111111111
 ```
 
-Create a snapshot in fr-par-1 zone from the specified volume ID
+Create a snapshot in fr-par-1 zone from a specified volume ID
 ```shell
-scw instance snapshot create zone=fr-par-1 volume-id=11111111-1111-1111-1111-111111111111
+scw instance snapshot create zone=fr-par-1 base-volume-id=11111111-1111-1111-1111-111111111111
 ```
 
-Create a named snapshot from the specified volume ID
+Create a named snapshot from a specified volume ID
 ```shell
-scw instance snapshot create name=foobar volume-id=11111111-1111-1111-1111-111111111111
-```
-
-Import a QCOW file as an Instance snapshot
-```shell
-scw instance snapshot create zone=fr-par-1 name=my-imported-snapshot volume-type=l_ssd bucket=my-bucket key=my-qcow2-file-name
+scw instance snapshot create name=foobar base-volume-id=11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -2492,7 +2458,7 @@ scw instance snapshot create zone=fr-par-1 name=my-imported-snapshot volume-type
 
 ### Delete a snapshot
 
-Delete the snapshot with the specified ID.
+Delete a specified snapshot.
 
 **Usage:**
 
@@ -2505,19 +2471,19 @@ scw instance snapshot delete <snapshot-id ...> [arg=value ...]
 
 | Name        | Description                                                             | Argument Specifications                                                                                                                                 |
 |-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| snapshot-id | UUID of the snapshot you want to delete                                 | Required                                                                                                                                                |
+| snapshot-id | ID of the snapshot to delete                                            | Required                                                                                                                                                |
 | zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
 **Examples:**
 
 
-Delete a snapshot in the default zone with the specified ID
+Delete a specified snapshot in the default zone
 ```shell
 scw instance snapshot delete 11111111-1111-1111-1111-111111111111
 ```
 
-Delete a snapshot in fr-par-1 zone with the specified ID
+Delete a specified snapshot in fr-par-1 zone
 ```shell
 scw instance snapshot delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 ```
@@ -2525,14 +2491,14 @@ scw instance snapshot delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 
 
 
-### Export a snapshot
+### Export a snapshot to Object Storage
 
 Export a snapshot to a specified Object Storage bucket in the same region.
 
 **Usage:**
 
 ```shell
-scw instance snapshot export [arg=value ...]
+scw instance snapshot export-to-object-storage <snapshot-id ...> [arg=value ...]
 ```
 
 
@@ -2540,9 +2506,9 @@ scw instance snapshot export [arg=value ...]
 
 | Name        | Description                                                             | Argument Specifications                                                                                                                                 |
 |-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| snapshot-id | ID of the snapshot to export                                            | Required                                                                                                                                                |
 | bucket      | Object Storage bucket name                                              |                                                                                                                                                         |
-| key         | Object key                                                              |                                                                                                                                                         |
-| snapshot-id | Snapshot ID                                                             | Required                                                                                                                                                |
+| object-key  | Object key                                                              |                                                                                                                                                         |
 | zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
@@ -2551,7 +2517,7 @@ scw instance snapshot export [arg=value ...]
 
 Export a snapshot to an Object Storage bucket
 ```shell
-scw instance snapshot export zone=fr-par-1 snapshot-id=11111111-1111-1111-1111-111111111111 bucket=my-bucket key=my-qcow2-file-name
+scw instance snapshot export-to-object-storage 11111111-1111-1111-1111-111111111111 zone=fr-par-1 bucket=my-bucket object-key=my-qcow2-file-name
 ```
 
 
@@ -2559,7 +2525,7 @@ scw instance snapshot export zone=fr-par-1 snapshot-id=11111111-1111-1111-1111-1
 
 ### Get a snapshot
 
-Get details of a snapshot with the specified ID.
+Get details of a specified snapshot.
 
 **Usage:**
 
@@ -2572,19 +2538,19 @@ scw instance snapshot get <snapshot-id ...> [arg=value ...]
 
 | Name        | Description                                                             | Argument Specifications                                                                                                                                 |
 |-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| snapshot-id | UUID of the snapshot you want to get                                    | Required                                                                                                                                                |
+| snapshot-id | ID of the snapshot to retrieve                                          | Required                                                                                                                                                |
 | zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
 **Examples:**
 
 
-Get a snapshot in the default zone with the specified ID
+Get a specified snapshot in the default zone
 ```shell
 scw instance snapshot get 11111111-1111-1111-1111-111111111111
 ```
 
-Get a snapshot in fr-par-1 zone with the specified ID
+Get a specified snapshot in fr-par-1 zone
 ```shell
 scw instance snapshot get 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 ```
@@ -2592,9 +2558,45 @@ scw instance snapshot get 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 
 
 
+### Import a snapshot from Object Storage
+
+Import a snapshot from a QCOW2 file stored in Object Storage.
+
+**Usage:**
+
+```shell
+scw instance snapshot import-from-object-storage [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name         | Description                                                              | Argument Specifications                                                                                                                                 |
+|--------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| project-id   | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                         |
+| name         | Name of the snapshot                                                     |                                                                                                                                                         |
+| tags.{index} | Tags associated with the snapshot                                        |                                                                                                                                                         |
+| bucket       | Object Storage bucket name                                               |                                                                                                                                                         |
+| object-key   | Object key                                                               |                                                                                                                                                         |
+| size         | Size of the imported snapshot in bytes                                   |                                                                                                                                                         |
+| volume-type  | Volume type of the snapshot                                              | Default: `l_ssd`<br />One of: `unknown_volume_type`, `l_ssd`                                                                                            |
+| zone         | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+
+
+**Examples:**
+
+
+Import a snapshot from a QCOW2 file in Object Storage
+```shell
+scw instance snapshot import-from-object-storage zone=fr-par-1 name=imported-snapshot bucket=my-bucket object-key=my-qcow2-file-name volume-type=l_ssd
+```
+
+
+
+
 ### List snapshots
 
-List all snapshots of an Organization in a specified Availability Zone.
+List all snapshots of an Organization.
 
 **Usage:**
 
@@ -2605,14 +2607,17 @@ scw instance snapshot list [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                             | Argument Specifications                                                                                                                                        |
-|-----------------|-------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| project-id      | List snapshots only for this Project ID                                 |                                                                                                                                                                |
-| name            | List snapshots of the requested name                                    |                                                                                                                                                                |
-| tags            | List snapshots that have the requested tag                              |                                                                                                                                                                |
-| base-volume-id  | List snapshots originating only from this volume                        |                                                                                                                                                                |
-| organization-id | List snapshots only for this Organization ID                            |                                                                                                                                                                |
-| zone            | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `all` |
+| Name                 | Description                                                              | Argument Specifications                                                                                                                                 |
+|----------------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| page-token           | Token for pagination                                                     |                                                                                                                                                         |
+| page-size            | Number of snapshots to return per page                                   |                                                                                                                                                         |
+| order-by             | Field to sort by                                                         | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`                                                                        |
+| project-id           | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                         |
+| snapshot-ids.{index} | Filter by specific snapshot IDs                                          |                                                                                                                                                         |
+| name                 | Filter by name                                                           |                                                                                                                                                         |
+| tags.{index}         | Filter by tags                                                           |                                                                                                                                                         |
+| base-volume-id       | Filter by base volume ID                                                 |                                                                                                                                                         |
+| zone                 | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
 **Examples:**
@@ -2631,30 +2636,6 @@ scw instance snapshot list zone=fr-par-1
 
 
 
-### Get a volume or snapshot's migration plan
-
-Given a volume or snapshot, returns the migration plan but does not perform the actual migration. To perform the migration, you have to call the [Migrate a volume and/or snapshots to SBS](#path-volumes-migrate-a-volume-andor-snapshots-to-sbs-scaleway-block-storage) endpoint afterward.
-The endpoint returns the resources that should be migrated together:
-- the volume and any snapshots created from the volume, if the call was made to plan a volume migration.
-- the base volume of the snapshot (if the volume is not deleted) and its related snapshots, if the call was made to plan a snapshot migration.
-The endpoint also returns the validation_key, which must be provided to the [Migrate a volume and/or snapshots to SBS](#path-volumes-migrate-a-volume-andor-snapshots-to-sbs-scaleway-block-storage) endpoint to confirm that all resources listed in the plan should be migrated.
-
-**Usage:**
-
-```shell
-scw instance snapshot plan-migration <snapshot-id ...> [arg=value ...]
-```
-
-
-**Arguments:**
-
-| Name        | Description                                                             | Argument Specifications                                                                                                                                 |
-|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| snapshot-id | The snapshot for which the migration plan will be generated.            |                                                                                                                                                         |
-| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
-
-
-
 ### Update a snapshot
 
 Update the properties of a snapshot.
@@ -2670,10 +2651,21 @@ scw instance snapshot update <snapshot-id ...> [arg=value ...]
 
 | Name         | Description                                                             | Argument Specifications                                                                                                                                 |
 |--------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| snapshot-id  | UUID of the snapshot                                                    | Required                                                                                                                                                |
-| name         | Name of the snapshot                                                    |                                                                                                                                                         |
-| tags.{index} | Tags of the snapshot                                                    |                                                                                                                                                         |
+| snapshot-id  | ID of the snapshot to update                                            | Required                                                                                                                                                |
+| name         | New name for the snapshot                                               |                                                                                                                                                         |
+| tags.{index} | New tags for the snapshot                                               |                                                                                                                                                         |
+| public       | Whether the snapshot should be public                                   |                                                                                                                                                         |
 | zone         | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+
+
+**Examples:**
+
+
+Change the snapshot name
+```shell
+scw instance snapshot update 11111111-1111-1111-1111-111111111111 name=my-new-name
+```
+
 
 
 
@@ -2690,11 +2682,11 @@ scw instance snapshot wait <snapshot-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                             | Argument Specifications                                                                                                                                 |
-|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| snapshot-id | ID of the snapshot.                                                     | Required                                                                                                                                                |
-| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
-| timeout     | Timeout of the wait                                                     | Default: `1h0m0s`                                                                                                                                       |
+| Name        | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| snapshot-id | ID of the snapshot.                                                     | Required                                                                                                                                                                        |
+| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
+| timeout     | Timeout of the wait                                                     | Default: `1h0m0s`                                                                                                                                                               |
 
 
 **Examples:**

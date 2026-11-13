@@ -60,14 +60,18 @@ func deleteServerV1(metaKey string) core.AfterFunc {
 	return func(ctx *core.AfterFuncCtx) error {
 		server := getServerFromMeta(ctx.Meta, metaKey)
 		if server.State == instanceSDK.ServerStateRunning {
-			err := core.ExecAfterCmd("scw instance server stop -w {{ ." + metaKey + ".ID }}")(ctx)
+			err := core.ExecAfterCmd(
+				fmt.Sprintf("scw instance server stop -w {{ .%s.ID }}", metaKey),
+			)(
+				ctx,
+			)
 			if err != nil {
 				return err
 			}
 		}
 
-		return core.ExecAfterCmd(
-			"scw instance server delete {{ ." + metaKey + ".ID }} with-ip=true with-volumes=all",
+		return core.ExecAfterCmd(fmt.Sprintf(
+			"scw instance server delete {{ .%s.ID }} with-ip=true with-volumes=all", metaKey),
 		)(
 			ctx,
 		)
@@ -88,4 +92,59 @@ func createPrivateNetworkInterface(serverMetaKey, privateNetworkMetaKey string) 
 			privateNetworkMetaKey,
 		),
 	)
+}
+
+//
+// Snapshot
+//
+
+// createSnapshot create an instance snapshot from a local volume at volumeMetaKey, and stores it at metaKey.
+func createSnapshot(metaKey, volumeMetaKey string) core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(
+		metaKey,
+		fmt.Sprintf(
+			"scw instance snapshot create base-volume-id={{ .%s.ID }}", volumeMetaKey,
+		),
+	)
+}
+
+// deleteSnapshot deletes a snapshot previously registered in the context Meta at metaKey.
+func deleteSnapshot(metaKey string) core.AfterFunc {
+	return core.ExecAfterCmd(
+		fmt.Sprintf("scw instance snapshot delete {{ .%s.ID }}", metaKey),
+	)
+}
+
+//
+// Volume
+//
+
+// createNonEmptyLocalVolume creates a server with a local root volume of the given size and registers the volume in
+// the context Meta at metaKey. The volume is then detached, and the server deleted, leaving a non-empty volume
+// ready to be snapshot, or any other use case that requires a non-empty local volume.
+func createNonEmptyLocalVolumeV1(metaKey string, sizeInGB int) core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		cmd := fmt.Sprintf(
+			"scw instance server create type=DEV1-S root-volume=local:%dGB stopped=true",
+			sizeInGB,
+		)
+		server := ctx.ExecuteCmd(strings.Split(cmd, " "))
+		createServerResponse := server.(*instance.ServerWithWarningsResponse)
+		serverID := createServerResponse.Server.ID
+		volume := createServerResponse.Server.Volumes["0"]
+		ctx.Meta[metaKey] = volume
+
+		cmd = "scw instance server detach-volume volume-id=" + volume.ID + " server-id=" + serverID
+		_ = ctx.ExecuteCmd(strings.Split(cmd, " "))
+
+		cmd = "scw instance server delete " + serverID
+		_ = ctx.ExecuteCmd(strings.Split(cmd, " "))
+
+		return nil
+	}
+}
+
+// deleteVolume deletes a volume previously registered in the context Meta at "Volume".
+func deleteVolumeV1(metaKey string) core.AfterFunc {
+	return core.ExecAfterCmd(fmt.Sprintf("scw instance volume delete {{ .%s.ID }}", metaKey))
 }
