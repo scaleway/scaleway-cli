@@ -8,7 +8,7 @@ import (
 )
 
 func Test_VolumeType(t *testing.T) {
-	t.Run("list", core.Test(&core.TestConfig{
+	t.Run("List", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		Cmd:      "scw instance volume-type list",
 		Check:    core.TestCheckGolden(),
