@@ -11,4 +11,6 @@ func addWebUrls(cmds *core.Commands) {
 	cmds.MustFind("instance", "security-group").WebURL = "https://console.scaleway.com/instance/security-groups"
 
 	cmds.MustFind("instance", "snapshot").WebURL = "https://console.scaleway.com/local-storage/{{ .Zone }}/snapshots"
+
+	cmds.MustFind("instance", "volume").WebURL = "https://console.scaleway.com/local-storage/{{ .Zone }}/volumes"
 }
