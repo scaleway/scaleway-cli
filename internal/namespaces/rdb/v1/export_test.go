@@ -2,6 +2,12 @@ package rdb
 
 import "github.com/scaleway/scaleway-cli/v2/core"
 
+// ResetAutocompleteCaches clears package-level autocomplete caches between tests.
+func ResetAutocompleteCaches() {
+	completeListEngineCache = nil
+	completeListNodeTypeCache = nil
+}
+
 // Exported for black-box tests of config snippet rendering.
 
 func RenderPHPConfig(info *ConnectionInfo) (core.RawResult, error) {

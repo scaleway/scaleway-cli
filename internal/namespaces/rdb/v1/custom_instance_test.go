@@ -410,8 +410,48 @@ func Test_Connect(t *testing.T) {
 func Test_AutocompleteInstanceCreateEngine(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: core.NewCommandsMerge(rdb.GetCommands(), autocomplete.GetCommands()),
-		Cmd:      `scw autocomplete complete bash -- "scw rdb instance create engine=" 4 scw rdb instance create engine=`,
-		Check:    core.TestCheckGolden(),
+		BeforeFunc: func(_ *core.BeforeFuncCtx) error {
+			rdb.ResetAutocompleteCaches()
+
+			return nil
+		},
+		Cmd: `scw autocomplete complete bash -- "scw rdb instance create engine=" 4 scw rdb instance create engine=`,
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+	}))
+}
+
+func Test_AutocompleteInstanceCreateNodeType(t *testing.T) {
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: core.NewCommandsMerge(rdb.GetCommands(), autocomplete.GetCommands()),
+		BeforeFunc: func(_ *core.BeforeFuncCtx) error {
+			rdb.ResetAutocompleteCaches()
+
+			return nil
+		},
+		Cmd: `scw autocomplete complete bash -- "scw rdb instance create node-type=" 4 scw rdb instance create node-type=`,
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+	}))
+}
+
+func Test_AutocompleteInstanceCreateEngineZsh(t *testing.T) {
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: core.NewCommandsMerge(rdb.GetCommands(), autocomplete.GetCommands()),
+		BeforeFunc: func(_ *core.BeforeFuncCtx) error {
+			rdb.ResetAutocompleteCaches()
+
+			return nil
+		},
+		Cmd: `scw autocomplete complete zsh -- 5 scw rdb instance create engine=`,
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
 	}))
 }
 

@@ -211,19 +211,38 @@ var completeListNodeTypeCache *rdbSDK.ListNodeTypesResponse
 
 var completeListEngineCache *rdbSDK.ListDatabaseEnginesResponse
 
+// regionFromAutocompleteRequest reads Region from autocomplete request payloads.
+// Create uses an embedded *CreateInstanceRequest that is often still nil during
+// tab-completion (no args unmarshaled yet) — never dereference it blindly.
+func regionFromAutocompleteRequest(request any) scw.Region {
+	switch req := request.(type) {
+	case *rdbCreateInstanceRequestCustom:
+		if req != nil && req.CreateInstanceRequest != nil {
+			return req.Region
+		}
+	case rdbCreateInstanceRequestCustom:
+		if req.CreateInstanceRequest != nil {
+			return req.Region
+		}
+	case *rdbSDK.CreateInstanceRequest:
+		if req != nil {
+			return req.Region
+		}
+	case *rdbSDK.UpgradeInstanceRequest:
+		if req != nil {
+			return req.Region
+		}
+	}
+
+	return ""
+}
+
 func autoCompleteNodeType(
 	ctx context.Context,
 	prefix string,
 	request any,
 ) core.AutocompleteSuggestions {
-	region := scw.Region("")
-	switch req := request.(type) {
-	case *rdbSDK.CreateInstanceRequest:
-		region = req.Region
-	case *rdbSDK.UpgradeInstanceRequest:
-		region = req.Region
-	}
-
+	region := regionFromAutocompleteRequest(request)
 	suggestions := core.AutocompleteSuggestions{}
 
 	client := core.ExtractClient(ctx)
@@ -240,6 +259,9 @@ func autoCompleteNodeType(
 	}
 
 	for _, nodeType := range completeListNodeTypeCache.NodeTypes {
+		if nodeType == nil {
+			continue
+		}
 		if strings.HasPrefix(nodeType.Name, prefix) {
 			suggestions = append(suggestions, core.Suggestion{Value: nodeType.Name})
 		}
@@ -253,12 +275,7 @@ func autoCompleteDatabaseEngines(
 	prefix string,
 	request any,
 ) core.AutocompleteSuggestions {
-	region := scw.Region("")
-	if req, ok := request.(*rdbCreateInstanceRequestCustom); ok && req != nil &&
-		req.CreateInstanceRequest != nil {
-		region = req.CreateInstanceRequest.Region
-	}
-
+	region := regionFromAutocompleteRequest(request)
 	suggestion := core.AutocompleteSuggestions{}
 	client := core.ExtractClient(ctx)
 	api := rdbSDK.NewAPI(client)
@@ -274,8 +291,14 @@ func autoCompleteDatabaseEngines(
 	}
 
 	for _, engine := range completeListEngineCache.Engines {
+		if engine == nil {
+			continue
+		}
 		for _, version := range engine.Versions {
-			if !version.Disabled && strings.HasPrefix(version.Name, prefix) {
+			if version == nil || version.Disabled {
+				continue
+			}
+			if strings.HasPrefix(version.Name, prefix) {
 				suggestion = append(suggestion, core.Suggestion{Value: version.Name})
 			}
 		}

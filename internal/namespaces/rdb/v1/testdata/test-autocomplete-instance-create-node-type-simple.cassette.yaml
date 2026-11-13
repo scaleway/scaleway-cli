@@ -1,0 +1,299 @@
+---
+version: 1
+interactions:
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.39.1-0.20261112091134-7dcaff287d45 (go1.27.1; darwin; arm64)
+        cli-e2e-test
+    url: https://api.scaleway.com/rdb/v1/regions/fr-par/node-types?include_disabled_types=false&page=1
+    method: GET
+  response:
+    body: '{"node_types":[{"name":"db-dev-s", "stock_status":"available", "description":"2
+      GB RAM; 2 vCPU; 5 GB LSSD Storage", "vcpus":2, "memory":2000000000, "volume_constraint":{"min_size":5000000000,
+      "max_size":5000000000}, "is_bssd_compatible":true, "disabled":false, "beta":false,
+      "available_volume_types":[{"type":"lssd", "description":"Local NVMe", "min_size":5000000000,
+      "max_size":5000000000, "chunk_size":0, "class":"lssd"}, {"type":"bssd", "description":"Block
+      Storage drive", "min_size":5000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"bssd"}, {"type":"sbs_5k", "description":"Block Storage NVMe with 5K
+      IOPS", "min_size":5000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}, {"type":"sbs_15k", "description":"Block Storage NVMe with 15K
+      IOPS", "min_size":5000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}], "is_ha_required":false, "generation":"generation_v1", "instance_range":"Cost
+      Optimized", "region":"fr-par"}, {"name":"db-play2-pico", "stock_status":"available",
+      "description":"2 GB RAM;1 vCPU; No LSSD Storage", "vcpus":1, "memory":2000000000,
+      "volume_constraint":null, "is_bssd_compatible":true, "disabled":false, "beta":false,
+      "available_volume_types":[{"type":"bssd", "description":"Block Storage drive",
+      "min_size":5000000000, "max_size":10000000000000, "chunk_size":5000000000, "class":"bssd"},
+      {"type":"sbs_5k", "description":"Block Storage NVMe with 5K IOPS", "min_size":5000000000,
+      "max_size":10000000000000, "chunk_size":5000000000, "class":"sbs"}, {"type":"sbs_15k",
+      "description":"Block Storage NVMe with 15K IOPS", "min_size":5000000000, "max_size":10000000000000,
+      "chunk_size":5000000000, "class":"sbs"}], "is_ha_required":false, "generation":"generation_v2",
+      "instance_range":"Cost Optimized", "region":"fr-par"}, {"name":"db-dev-m", "stock_status":"available",
+      "description":"4 GB RAM; 3 vCPU; 25 GB LSSD Storage", "vcpus":3, "memory":4000000000,
+      "volume_constraint":{"min_size":25000000000, "max_size":25000000000}, "is_bssd_compatible":true,
+      "disabled":false, "beta":false, "available_volume_types":[{"type":"lssd", "description":"Local
+      NVMe", "min_size":25000000000, "max_size":25000000000, "chunk_size":0, "class":"lssd"},
+      {"type":"bssd", "description":"Block Storage drive", "min_size":5000000000,
+      "max_size":10000000000000, "chunk_size":5000000000, "class":"bssd"}, {"type":"sbs_5k",
+      "description":"Block Storage NVMe with 5K IOPS", "min_size":5000000000, "max_size":10000000000000,
+      "chunk_size":5000000000, "class":"sbs"}, {"type":"sbs_15k", "description":"Block
+      Storage NVMe with 15K IOPS", "min_size":5000000000, "max_size":10000000000000,
+      "chunk_size":5000000000, "class":"sbs"}], "is_ha_required":false, "generation":"generation_v1",
+      "instance_range":"Cost Optimized", "region":"fr-par"}, {"name":"db-play2-nano",
+      "stock_status":"available", "description":"4 GB RAM;2 vCPU; No LSSD Storage",
+      "vcpus":2, "memory":4000000000, "volume_constraint":null, "is_bssd_compatible":true,
+      "disabled":false, "beta":false, "available_volume_types":[{"type":"bssd", "description":"Block
+      Storage drive", "min_size":5000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"bssd"}, {"type":"sbs_5k", "description":"Block Storage NVMe with 5K
+      IOPS", "min_size":5000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}, {"type":"sbs_15k", "description":"Block Storage NVMe with 15K
+      IOPS", "min_size":5000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}], "is_ha_required":false, "generation":"generation_v2", "instance_range":"Cost
+      Optimized", "region":"fr-par"}, {"name":"db-dev-l", "stock_status":"available",
+      "description":"8 GB RAM; 4 vCPU; 65 GB LSSD Storage", "vcpus":4, "memory":8000000000,
+      "volume_constraint":{"min_size":65000000000, "max_size":65000000000}, "is_bssd_compatible":true,
+      "disabled":false, "beta":false, "available_volume_types":[{"type":"lssd", "description":"Local
+      NVMe", "min_size":65000000000, "max_size":65000000000, "chunk_size":0, "class":"lssd"},
+      {"type":"bssd", "description":"Block Storage drive", "min_size":5000000000,
+      "max_size":10000000000000, "chunk_size":5000000000, "class":"bssd"}, {"type":"sbs_5k",
+      "description":"Block Storage NVMe with 5K IOPS", "min_size":5000000000, "max_size":10000000000000,
+      "chunk_size":5000000000, "class":"sbs"}, {"type":"sbs_15k", "description":"Block
+      Storage NVMe with 15K IOPS", "min_size":5000000000, "max_size":10000000000000,
+      "chunk_size":5000000000, "class":"sbs"}], "is_ha_required":false, "generation":"generation_v1",
+      "instance_range":"Cost Optimized", "region":"fr-par"}, {"name":"db-pro2-xxs",
+      "stock_status":"low_stock", "description":"8 GB RAM; 2 vCPU; No LSSD Storage",
+      "vcpus":2, "memory":8000000000, "volume_constraint":null, "is_bssd_compatible":true,
+      "disabled":false, "beta":false, "available_volume_types":[{"type":"bssd", "description":"Block
+      Storage drive", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"bssd"}, {"type":"sbs_5k", "description":"Block Storage NVMe with 5K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}, {"type":"sbs_15k", "description":"Block Storage NVMe with 15K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}], "is_ha_required":false, "generation":"generation_v2", "instance_range":"Cost
+      Optimized", "region":"fr-par"}, {"name":"db-pop2-2c-8g", "stock_status":"low_stock",
+      "description":"8 GB RAM;2 vCPU; No LSSD Storage", "vcpus":2, "memory":8000000000,
+      "volume_constraint":null, "is_bssd_compatible":true, "disabled":false, "beta":false,
+      "available_volume_types":[{"type":"bssd", "description":"Block Storage drive",
+      "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"bssd"}, {"type":"sbs_5k", "description":"Block Storage NVMe with 5K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}, {"type":"sbs_15k", "description":"Block Storage NVMe with 15K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}], "is_ha_required":false, "generation":"generation_v2", "instance_range":"Production
+      Optimized", "region":"fr-par"}, {"name":"db-dev-xl", "stock_status":"available",
+      "description":"12 GB RAM; 4 vCPU; 105 GB LSSD Storage", "vcpus":4, "memory":12000000000,
+      "volume_constraint":{"min_size":105000000000, "max_size":105000000000}, "is_bssd_compatible":true,
+      "disabled":false, "beta":false, "available_volume_types":[{"type":"lssd", "description":"Local
+      NVMe", "min_size":105000000000, "max_size":105000000000, "chunk_size":0, "class":"lssd"},
+      {"type":"bssd", "description":"Block Storage drive", "min_size":5000000000,
+      "max_size":10000000000000, "chunk_size":5000000000, "class":"bssd"}, {"type":"sbs_5k",
+      "description":"Block Storage NVMe with 5K IOPS", "min_size":5000000000, "max_size":10000000000000,
+      "chunk_size":5000000000, "class":"sbs"}, {"type":"sbs_15k", "description":"Block
+      Storage NVMe with 15K IOPS", "min_size":5000000000, "max_size":10000000000000,
+      "chunk_size":5000000000, "class":"sbs"}], "is_ha_required":false, "generation":"generation_v1",
+      "instance_range":"Cost Optimized", "region":"fr-par"}, {"name":"db-pro2-xs",
+      "stock_status":"low_stock", "description":"16 GB RAM; 4 vCPU; No LSSD Storage",
+      "vcpus":4, "memory":16000000000, "volume_constraint":null, "is_bssd_compatible":true,
+      "disabled":false, "beta":false, "available_volume_types":[{"type":"bssd", "description":"Block
+      Storage drive", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"bssd"}, {"type":"sbs_5k", "description":"Block Storage NVMe with 5K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}, {"type":"sbs_15k", "description":"Block Storage NVMe with 15K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}], "is_ha_required":false, "generation":"generation_v2", "instance_range":"Cost
+      Optimized", "region":"fr-par"}, {"name":"db-gp-xs", "stock_status":"available",
+      "description":"16 GB RAM; 4 vCPU; 135 GB LSSD Storage", "vcpus":4, "memory":16000000000,
+      "volume_constraint":{"min_size":135000000000, "max_size":135000000000}, "is_bssd_compatible":true,
+      "disabled":false, "beta":false, "available_volume_types":[{"type":"lssd", "description":"Local
+      NVMe", "min_size":135000000000, "max_size":135000000000, "chunk_size":0, "class":"lssd"},
+      {"type":"bssd", "description":"Block Storage drive", "min_size":10000000000,
+      "max_size":10000000000000, "chunk_size":5000000000, "class":"bssd"}, {"type":"sbs_5k",
+      "description":"Block Storage NVMe with 5K IOPS", "min_size":10000000000, "max_size":10000000000000,
+      "chunk_size":5000000000, "class":"sbs"}, {"type":"sbs_15k", "description":"Block
+      Storage NVMe with 15K IOPS", "min_size":10000000000, "max_size":10000000000000,
+      "chunk_size":5000000000, "class":"sbs"}], "is_ha_required":false, "generation":"generation_v1",
+      "instance_range":"Cost Optimized", "region":"fr-par"}, {"name":"db-pop2-4c-16g",
+      "stock_status":"low_stock", "description":"16 GB RAM;4 vCPU; No LSSD Storage",
+      "vcpus":4, "memory":16000000000, "volume_constraint":null, "is_bssd_compatible":true,
+      "disabled":false, "beta":false, "available_volume_types":[{"type":"bssd", "description":"Block
+      Storage drive", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"bssd"}, {"type":"sbs_5k", "description":"Block Storage NVMe with 5K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}, {"type":"sbs_15k", "description":"Block Storage NVMe with 15K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}], "is_ha_required":false, "generation":"generation_v2", "instance_range":"Production
+      Optimized", "region":"fr-par"}, {"name":"db-gp-s", "stock_status":"available",
+      "description":"32 GB RAM; 8 vCPU; 285 GB LSSD Storage", "vcpus":8, "memory":32000000000,
+      "volume_constraint":{"min_size":285000000000, "max_size":285000000000}, "is_bssd_compatible":true,
+      "disabled":false, "beta":false, "available_volume_types":[{"type":"lssd", "description":"Local
+      NVMe", "min_size":285000000000, "max_size":285000000000, "chunk_size":0, "class":"lssd"},
+      {"type":"bssd", "description":"Block Storage drive", "min_size":10000000000,
+      "max_size":10000000000000, "chunk_size":5000000000, "class":"bssd"}, {"type":"sbs_5k",
+      "description":"Block Storage NVMe with 5K IOPS", "min_size":10000000000, "max_size":10000000000000,
+      "chunk_size":5000000000, "class":"sbs"}, {"type":"sbs_15k", "description":"Block
+      Storage NVMe with 15K IOPS", "min_size":10000000000, "max_size":10000000000000,
+      "chunk_size":5000000000, "class":"sbs"}], "is_ha_required":false, "generation":"generation_v1",
+      "instance_range":"Cost Optimized", "region":"fr-par"}, {"name":"db-pro2-s",
+      "stock_status":"low_stock", "description":"32 GB RAM; 8 vCPU; No LSSD Storage",
+      "vcpus":8, "memory":32000000000, "volume_constraint":null, "is_bssd_compatible":true,
+      "disabled":false, "beta":false, "available_volume_types":[{"type":"bssd", "description":"Block
+      Storage drive", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"bssd"}, {"type":"sbs_5k", "description":"Block Storage NVMe with 5K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}, {"type":"sbs_15k", "description":"Block Storage NVMe with 15K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}], "is_ha_required":false, "generation":"generation_v2", "instance_range":"Cost
+      Optimized", "region":"fr-par"}, {"name":"db-pop2-8c-32g", "stock_status":"low_stock",
+      "description":"32 GB RAM;8 vCPU; No LSSD Storage", "vcpus":8, "memory":32000000000,
+      "volume_constraint":null, "is_bssd_compatible":true, "disabled":false, "beta":false,
+      "available_volume_types":[{"type":"bssd", "description":"Block Storage drive",
+      "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"bssd"}, {"type":"sbs_5k", "description":"Block Storage NVMe with 5K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}, {"type":"sbs_15k", "description":"Block Storage NVMe with 15K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}], "is_ha_required":false, "generation":"generation_v2", "instance_range":"Production
+      Optimized", "region":"fr-par"}, {"name":"db-gp-m", "stock_status":"available",
+      "description":"64 GB RAM; 16 vCPU; 585 GB LSSD Storage", "vcpus":16, "memory":64000000000,
+      "volume_constraint":{"min_size":585000000000, "max_size":585000000000}, "is_bssd_compatible":true,
+      "disabled":false, "beta":false, "available_volume_types":[{"type":"lssd", "description":"Local
+      NVMe", "min_size":585000000000, "max_size":585000000000, "chunk_size":0, "class":"lssd"},
+      {"type":"bssd", "description":"Block Storage drive", "min_size":10000000000,
+      "max_size":10000000000000, "chunk_size":5000000000, "class":"bssd"}, {"type":"sbs_5k",
+      "description":"Block Storage NVMe with 5K IOPS", "min_size":10000000000, "max_size":10000000000000,
+      "chunk_size":5000000000, "class":"sbs"}, {"type":"sbs_15k", "description":"Block
+      Storage NVMe with 15K IOPS", "min_size":10000000000, "max_size":10000000000000,
+      "chunk_size":5000000000, "class":"sbs"}], "is_ha_required":false, "generation":"generation_v1",
+      "instance_range":"Cost Optimized", "region":"fr-par"}, {"name":"db-pop2-16c-64g",
+      "stock_status":"low_stock", "description":"64 GB RAM;16 vCPU; No LSSD Storage",
+      "vcpus":16, "memory":64000000000, "volume_constraint":null, "is_bssd_compatible":true,
+      "disabled":false, "beta":false, "available_volume_types":[{"type":"bssd", "description":"Block
+      Storage drive", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"bssd"}, {"type":"sbs_5k", "description":"Block Storage NVMe with 5K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}, {"type":"sbs_15k", "description":"Block Storage NVMe with 15K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}], "is_ha_required":false, "generation":"generation_v2", "instance_range":"Production
+      Optimized", "region":"fr-par"}, {"name":"db-pro2-m", "stock_status":"low_stock",
+      "description":"64 GB RAM; 16 vCPU; No LSSD Storage", "vcpus":16, "memory":64000000000,
+      "volume_constraint":null, "is_bssd_compatible":true, "disabled":false, "beta":false,
+      "available_volume_types":[{"type":"bssd", "description":"Block Storage drive",
+      "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"bssd"}, {"type":"sbs_5k", "description":"Block Storage NVMe with 5K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}, {"type":"sbs_15k", "description":"Block Storage NVMe with 15K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}], "is_ha_required":false, "generation":"generation_v2", "instance_range":"Cost
+      Optimized", "region":"fr-par"}, {"name":"db-gp-l", "stock_status":"available",
+      "description":"128 GB RAM; 32 vCPU; 585 GB LSSD Storage", "vcpus":32, "memory":128000000000,
+      "volume_constraint":{"min_size":585000000000, "max_size":585000000000}, "is_bssd_compatible":true,
+      "disabled":false, "beta":false, "available_volume_types":[{"type":"lssd", "description":"Local
+      NVMe", "min_size":585000000000, "max_size":585000000000, "chunk_size":0, "class":"lssd"},
+      {"type":"bssd", "description":"Block Storage drive", "min_size":10000000000,
+      "max_size":10000000000000, "chunk_size":5000000000, "class":"bssd"}, {"type":"sbs_5k",
+      "description":"Block Storage NVMe with 5K IOPS", "min_size":10000000000, "max_size":10000000000000,
+      "chunk_size":5000000000, "class":"sbs"}, {"type":"sbs_15k", "description":"Block
+      Storage NVMe with 15K IOPS", "min_size":10000000000, "max_size":10000000000000,
+      "chunk_size":5000000000, "class":"sbs"}], "is_ha_required":true, "generation":"generation_v1",
+      "instance_range":"Cost Optimized", "region":"fr-par"}, {"name":"db-pro2-l",
+      "stock_status":"out_of_stock", "description":"128 GB RAM; 32 vCPU; No LSSD Storage",
+      "vcpus":32, "memory":128000000000, "volume_constraint":null, "is_bssd_compatible":true,
+      "disabled":false, "beta":false, "available_volume_types":[{"type":"bssd", "description":"Block
+      Storage drive", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"bssd"}, {"type":"sbs_5k", "description":"Block Storage NVMe with 5K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}, {"type":"sbs_15k", "description":"Block Storage NVMe with 15K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}], "is_ha_required":false, "generation":"generation_v2", "instance_range":"Cost
+      Optimized", "region":"fr-par"}, {"name":"db-pop2-32c-128g", "stock_status":"out_of_stock",
+      "description":"128 GB RAM;32 vCPU; No LSSD Storage", "vcpus":32, "memory":128000000000,
+      "volume_constraint":null, "is_bssd_compatible":true, "disabled":false, "beta":false,
+      "available_volume_types":[{"type":"bssd", "description":"Block Storage drive",
+      "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"bssd"}, {"type":"sbs_5k", "description":"Block Storage NVMe with 5K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}, {"type":"sbs_15k", "description":"Block Storage NVMe with 15K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}], "is_ha_required":false, "generation":"generation_v2", "instance_range":"Production
+      Optimized", "region":"fr-par"}], "total_count":21}'
+    headers:
+      Content-Length:
+      - "17891"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Nov 2026 10:11:18 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Ratelimit-Limit:
+      - 50, 50;w=1
+      X-Ratelimit-Remaining:
+      - "49"
+      X-Ratelimit-Reset:
+      - "1"
+      X-Request-Id:
+      - 6017ec93-3cc5-4de5-a8a1-4f72b1d1028d
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.39.1-0.20261112091134-7dcaff287d45 (go1.27.1; darwin; arm64)
+        cli-e2e-test
+    url: https://api.scaleway.com/rdb/v1/regions/fr-par/node-types?include_disabled_types=false&page=2
+    method: GET
+  response:
+    body: '{"node_types":[{"name":"db-gp-xl", "stock_status":"available", "description":"256
+      GB RAM; 48 vCPU; 585 GB LSSD Storage", "vcpus":48, "memory":256000000000, "volume_constraint":{"min_size":585000000000,
+      "max_size":585000000000}, "is_bssd_compatible":true, "disabled":false, "beta":false,
+      "available_volume_types":[{"type":"lssd", "description":"Local NVMe", "min_size":585000000000,
+      "max_size":585000000000, "chunk_size":0, "class":"lssd"}, {"type":"bssd", "description":"Block
+      Storage drive", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"bssd"}, {"type":"sbs_5k", "description":"Block Storage NVMe with 5K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}, {"type":"sbs_15k", "description":"Block Storage NVMe with 15K
+      IOPS", "min_size":10000000000, "max_size":10000000000000, "chunk_size":5000000000,
+      "class":"sbs"}], "is_ha_required":true, "generation":"generation_v1", "instance_range":"Cost
+      Optimized", "region":"fr-par"}], "total_count":21}'
+    headers:
+      Content-Length:
+      - "1033"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 13 Nov 2026 10:11:19 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Ratelimit-Limit:
+      - 50, 50;w=1
+      X-Ratelimit-Remaining:
+      - "49"
+      X-Ratelimit-Reset:
+      - "1"
+      X-Request-Id:
+      - f78e394a-ba95-409d-96ac-14be0e536646
+    status: 200 OK
+    code: 200
+    duration: ""

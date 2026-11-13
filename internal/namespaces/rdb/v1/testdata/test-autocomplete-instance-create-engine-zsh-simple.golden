@@ -1,0 +1,9 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+engine=MySQL-8
+engine=PostgreSQL-14
+engine=PostgreSQL-15
+engine=PostgreSQL-16
+engine=PostgreSQL-17
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+"engine=MySQL-8\nengine=PostgreSQL-14\nengine=PostgreSQL-15\nengine=PostgreSQL-16\nengine=PostgreSQL-17"
