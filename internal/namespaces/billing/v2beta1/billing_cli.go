@@ -31,6 +31,8 @@ func GetGeneratedCommands() *core.Commands {
 		billingInvoiceGet(),
 		billingInvoiceDownload(),
 		billingDiscountList(),
+		billingInvoiceListLines(),
+		billingInvoiceListDiscountLines(),
 		billingChargeList(),
 	)
 }
@@ -488,6 +490,74 @@ func billingDiscountList() *core.Command {
 			}
 
 			return resp.Discounts, nil
+		},
+	}
+}
+
+func billingInvoiceListLines() *core.Command {
+	return &core.Command{
+		Short:     `List invoice lines`,
+		Long:      `List all lines of a given invoice, specified by its ID.`,
+		Namespace: "billing",
+		Resource:  "invoice",
+		Verb:      "list-lines",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[billing.ListInvoiceLinesRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "invoice-id",
+				Short:      `Invoice ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*billing.ListInvoiceLinesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := billing.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
+			resp, err := api.ListInvoiceLines(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.InvoiceLines, nil
+		},
+	}
+}
+
+func billingInvoiceListDiscountLines() *core.Command {
+	return &core.Command{
+		Short:     `List discount lines`,
+		Long:      `List all discount lines of a given invoice, specified by its ID.`,
+		Namespace: "billing",
+		Resource:  "invoice",
+		Verb:      "list-discount-lines",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[billing.ListDiscountLinesRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "invoice-id",
+				Short:      `Invoice ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*billing.ListDiscountLinesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := billing.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
+			resp, err := api.ListDiscountLines(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.DiscountLines, nil
 		},
 	}
 }
