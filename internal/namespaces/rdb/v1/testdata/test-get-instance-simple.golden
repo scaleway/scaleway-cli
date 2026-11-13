@@ -123,7 +123,8 @@ IP         PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
   "backup_same_region": false,
   "maintenances": [],
   "encryption": {
-    "enabled": false
+    "enabled": false,
+    "kms_key_id": null
   },
   "acls": [
     {
