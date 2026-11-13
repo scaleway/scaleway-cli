@@ -270,6 +270,52 @@ scw rdb backup list [arg=value ...]
 
 
 
+### Delete old database backups according to a retention policy
+
+Delete old database backups according to a retention policy.
+
+Retention matches restic forget semantics: a backup is kept if it matches any
+policy (OR). Use keep-last to retain the N most recent backups, and/or
+keep-within to retain backups newer than a duration relative to the newest
+backup (e.g. 30d). See also scw help date for duration units.
+
+dry-run=true previews deletions without calling the API delete endpoint.
+
+**Usage:**
+
+```shell
+scw rdb backup prune [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name        | Description                                                                                                    | Argument Specifications                                     |
+|-------------|----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance                                                                                  | Required                                                    |
+| name        | Only consider backups with this name                                                                           |                                                             |
+| keep-last   | Number of most recent backups to keep                                                                          |                                                             |
+| keep-within | Keep backups newer than this duration relative to the newest backup (e.g. 30d). See `scw help date` for units. |                                                             |
+| dry-run     | Preview which backups would be deleted without deleting them                                                   | Default: `false`                                            |
+| region      | Region to target. If none is passed will use default region from the config                                    | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+
+
+**Examples:**
+
+
+Keep only the 5 most recent backups named monthly
+```shell
+scw rdb backup prune instance-id=11111111-1111-1111-1111-111111111111 name=monthly keep-last=5
+```
+
+Keep backups within 30 days of the newest, dry-run
+```shell
+scw rdb backup prune instance-id=11111111-1111-1111-1111-111111111111 keep-within=30d dry-run=true
+```
+
+
+
+
 ### Restore a database backup
 
 Launch the process of restoring database backup. You must specify the `instance_id` of the Database Instance of destination, where the backup will be restored. Note that large database backups can take up to several hours to restore.
