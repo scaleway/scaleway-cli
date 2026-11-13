@@ -22,6 +22,8 @@ func GetCommands() *core.Commands {
 		instanceSnapshot(),
 		instanceTemplate(),
 		instanceUserData(),
+		instanceVolumeType(),
+		instanceVolume(),
 		instancePlacementGroupList(),
 		instancePlacementGroupCreate(),
 		instancePlacementGroupGet(),
@@ -69,6 +71,12 @@ func GetCommands() *core.Commands {
 		instanceUserDataDelete(),
 		instanceUserDataGetCloudInit(),
 		instanceUserDataSetCloudInit(),
+		instanceVolumeTypeList(),
+		instanceVolumeList(),
+		instanceVolumeCreate(),
+		instanceVolumeGet(),
+		instanceVolumeUpdate(),
+		instanceVolumeDelete(),
 	)
 
 	//
@@ -194,6 +202,29 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("instance", "user-data", "set-cloud-init").Override(userDataSetCloudInitBuilder)
 	cmds.MustFind("instance", "user-data", "get-cloud-init").Override(userDataGetCloudInitBuilder)
+
+	//
+	// Volume
+	//
+	human.RegisterMarshalerFunc(
+		instanceSDK.VolumeStatus(""),
+		human.EnumMarshalFunc(volumeStatusMarshalSpecs),
+	)
+	//human.RegisterMarshalerFunc(instance.VolumeSummary{}, volumeSummaryMarshalerFunc)
+	//human.RegisterMarshalerFunc(map[string]*instance.Volume{}, volumeMapMarshalerFunc)
+
+	//cmds.MustFind("instance", "volume", "create").Override(volumeCreateBuilder)
+	//cmds.MustFind("instance", "volume", "list").Override(volumeListBuilder)
+	//cmds.MustFind("instance", "volume", "plan-migration").Override(volumeMigrationBuilder)
+	//cmds.MustFind("instance", "volume", "apply-migration").Override(volumeMigrationBuilder)
+	//cmds.Merge(core.NewCommands(
+	//	volumeWaitCommand(),
+	//))
+
+	//
+	// Volume-Type
+	//
+	cmds.MustFind("instance", "volume-type", "list").Override(volumeTypeListBuilder)
 
 	// Web URLs (--web)
 

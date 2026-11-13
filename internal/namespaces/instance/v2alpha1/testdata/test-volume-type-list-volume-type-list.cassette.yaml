@@ -1,0 +1,41 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261112091134-7dcaff287d45 (go1.27.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/volume-types
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 170
+        body: '{"volume_types":[{"name":"l_ssd", "min_size":1000000000, "max_size":800000000000}, {"name":"scratch", "min_size":1000000000, "max_size":60000000000000}], "total_count":2}'
+        headers:
+            Content-Length:
+                - "170"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 13 Nov 2026 13:22:34 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "46"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 92a236b0-f3b0-41e0-b077-8e434f430aeb
+        status: 200 OK
+        code: 200
+        duration: 116.933948ms
