@@ -9,12 +9,15 @@ import (
 	"os"
 	"path"
 	"reflect"
+	"slices"
 	"strings"
 	"time"
 
 	"github.com/fatih/color"
+	"github.com/karrick/tparse/v2"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -259,6 +262,10 @@ func backupListBuilder(c *core.Command) *core.Command {
 				FieldName: "Name",
 			},
 			{
+				Label:     "Created At",
+				FieldName: "CreatedAt",
+			},
+			{
 				Label:     "Database Name",
 				FieldName: "DatabaseName",
 			},
@@ -285,10 +292,6 @@ func backupListBuilder(c *core.Command) *core.Command {
 			{
 				Label:     "Expires At",
 				FieldName: "ExpiresAt",
-			},
-			{
-				Label:     "Created At",
-				FieldName: "CreatedAt",
 			},
 			{
 				Label:     "Updated At",
@@ -509,6 +512,276 @@ func backupDownloadCommand() *core.Command {
 			{
 				Short:    "Download a backup",
 				ArgsJSON: `{"backup_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+		},
+	}
+}
+
+type backupPruneArgs struct {
+	InstanceID string
+	Name       *string
+	KeepLast   *uint32
+	KeepWithin *string
+	DryRun     bool
+	Region     scw.Region
+}
+
+type backupPruneItem struct {
+	ID        string     `json:"id"`
+	Name      string     `json:"name"`
+	CreatedAt *time.Time `json:"created_at"`
+}
+
+type backupPruneResult struct {
+	DeletedIDs []string          `json:"deleted_ids"`
+	Deleted    int               `json:"deleted"`
+	Remaining  int               `json:"remaining"`
+	DryRun     bool              `json:"dry_run"`
+	Backups    []backupPruneItem `json:"backups"`
+}
+
+func backupPruneResultMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
+	res := i.(backupPruneResult)
+	action := "Deleted"
+	idsLabel := "Deleted"
+	if res.DryRun {
+		action = "Would delete"
+		idsLabel = "Would delete"
+	}
+
+	var b strings.Builder
+	fmt.Fprintf(&b, "%s %d backup(s), %d remaining\n", action, res.Deleted, res.Remaining)
+	if len(res.Backups) == 0 {
+		fmt.Fprintf(&b, "%s:\n  (none)", idsLabel)
+
+		return b.String(), nil
+	}
+
+	fmt.Fprintf(&b, "%s:\n", idsLabel)
+	for _, item := range res.Backups {
+		createdAt := "-"
+		if item.CreatedAt != nil {
+			createdAt = item.CreatedAt.Format(time.RFC3339)
+		}
+		fmt.Fprintf(&b, "  %s  %s  %s\n", item.ID, item.Name, createdAt)
+	}
+
+	return strings.TrimRight(b.String(), "\n"), nil
+}
+
+// parseKeepWithinDuration parses a positive duration (e.g. 30d, 1w2d) using the same
+// relative time units as `scw help date`. A leading sign is ignored; 30d and -30d both
+// mean a 30-day window.
+func parseKeepWithinDuration(value string) (time.Duration, error) {
+	if value == "" {
+		return 0, errors.New("empty duration")
+	}
+
+	signed := value
+	if value[0] != '+' && value[0] != '-' {
+		signed = "+" + value
+	}
+
+	now := time.Now()
+	if args.TestForceNow != nil {
+		now = *args.TestForceNow
+	}
+
+	parsed, err := tparse.ParseWithMap(time.RFC3339, "t"+signed, map[string]time.Time{"t": now})
+	if err != nil {
+		return 0, fmt.Errorf("invalid keep-within duration %q: %w", value, err)
+	}
+
+	duration := parsed.Sub(now)
+	if duration < 0 {
+		duration = -duration
+	}
+	if duration == 0 {
+		return 0, errors.New("keep-within duration must be greater than 0")
+	}
+
+	return duration, nil
+}
+
+func latestBackupTime(backups []*rdb.DatabaseBackup, now time.Time) *time.Time {
+	var latest *time.Time
+	for _, backup := range backups {
+		if backup.CreatedAt == nil || !backup.CreatedAt.Before(now) {
+			continue
+		}
+		if latest == nil || backup.CreatedAt.After(*latest) {
+			latest = backup.CreatedAt
+		}
+	}
+
+	return latest
+}
+
+// backupsToDelete applies restic-like retention: keep if any policy matches (OR),
+// delete otherwise. keep-within is relative to the newest backup (not wall clock).
+func backupsToDelete(
+	backups []*rdb.DatabaseBackup,
+	keepLast *uint32,
+	keepWithin *time.Duration,
+	now time.Time,
+) []*rdb.DatabaseBackup {
+	sorted := slices.Clone(backups)
+	slices.SortFunc(sorted, func(a, b *rdb.DatabaseBackup) int {
+		switch {
+		case a.CreatedAt == nil && b.CreatedAt == nil:
+			return 0
+		case a.CreatedAt == nil:
+			return 1
+		case b.CreatedAt == nil:
+			return -1
+		default:
+			return b.CreatedAt.Compare(*a.CreatedAt)
+		}
+	})
+
+	var withinCutoff *time.Time
+	if keepWithin != nil {
+		if latest := latestBackupTime(sorted, now); latest != nil {
+			cutoff := latest.Add(-*keepWithin)
+			withinCutoff = &cutoff
+		}
+	}
+
+	out := make([]*rdb.DatabaseBackup, 0)
+	for i, backup := range sorted {
+		keep := false
+		if keepLast != nil && uint32(i) < *keepLast {
+			keep = true
+		}
+		if withinCutoff != nil && backup.CreatedAt != nil && backup.CreatedAt.After(*withinCutoff) {
+			keep = true
+		}
+		if !keep {
+			out = append(out, backup)
+		}
+	}
+
+	return out
+}
+
+func backupPruneCommand() *core.Command {
+	return &core.Command{
+		Short: `Delete old database backups according to a retention policy`,
+		Long: `Delete old database backups according to a retention policy.
+
+Retention matches restic forget semantics: a backup is kept if it matches any
+policy (OR). Use keep-last to retain the N most recent backups, and/or
+keep-within to retain backups newer than a duration relative to the newest
+backup (e.g. 30d). See also scw help date for duration units.
+
+dry-run=true previews deletions without calling the API delete endpoint.`,
+		Namespace: "rdb",
+		Resource:  "backup",
+		Verb:      "prune",
+		Groups:    []string{"workflow"},
+		ArgsType:  reflect.TypeFor[backupPruneArgs](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "instance-id",
+				Short:    "UUID of the Database Instance",
+				Required: true,
+			},
+			{
+				Name:  "name",
+				Short: "Only consider backups with this name",
+			},
+			{
+				Name:  "keep-last",
+				Short: "Number of most recent backups to keep",
+			},
+			{
+				Name: "keep-within",
+				Short: "Keep backups newer than this duration relative to the newest backup " +
+					"(e.g. 30d). See `scw help date` for units.",
+			},
+			{
+				Name:    "dry-run",
+				Short:   "Preview which backups would be deleted without deleting them",
+				Default: core.DefaultValueSetter("false"),
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, argsI any) (any, error) {
+			args := argsI.(*backupPruneArgs)
+
+			if args.KeepLast == nil && args.KeepWithin == nil {
+				return nil, &core.CliError{
+					Message: "missing retention policy",
+					Hint:    "Set keep-last and/or keep-within (e.g. keep-last=5 or keep-within=30d)",
+				}
+			}
+
+			var keepWithin *time.Duration
+			if args.KeepWithin != nil {
+				duration, err := parseKeepWithinDuration(*args.KeepWithin)
+				if err != nil {
+					return nil, &core.CliError{
+						Err:     err,
+						Message: "invalid keep-within value",
+						Hint:    "Use a duration like 30d or 1w2d (see `scw help date`)",
+					}
+				}
+				keepWithin = &duration
+			}
+
+			api := rdb.NewAPI(core.ExtractClient(ctx))
+			listReq := &rdb.ListDatabaseBackupsRequest{
+				Region:     args.Region,
+				InstanceID: &args.InstanceID,
+				Name:       args.Name,
+				OrderBy:    rdb.ListDatabaseBackupsRequestOrderByCreatedAtDesc,
+			}
+
+			resp, err := api.ListDatabaseBackups(listReq, scw.WithAllPages(), scw.WithContext(ctx))
+			if err != nil {
+				return nil, fmt.Errorf("could not list backups: %w", err)
+			}
+
+			toDelete := backupsToDelete(resp.DatabaseBackups, args.KeepLast, keepWithin, time.Now())
+			deletedIDs := make([]string, 0, len(toDelete))
+			items := make([]backupPruneItem, 0, len(toDelete))
+
+			for _, backup := range toDelete {
+				deletedIDs = append(deletedIDs, backup.ID)
+				items = append(items, backupPruneItem{
+					ID:        backup.ID,
+					Name:      backup.Name,
+					CreatedAt: backup.CreatedAt,
+				})
+				if args.DryRun {
+					continue
+				}
+
+				_, err = api.DeleteDatabaseBackup(&rdb.DeleteDatabaseBackupRequest{
+					Region:           args.Region,
+					DatabaseBackupID: backup.ID,
+				}, scw.WithContext(ctx))
+				if err != nil {
+					return nil, fmt.Errorf("could not delete backup %s: %w", backup.ID, err)
+				}
+			}
+
+			return backupPruneResult{
+				DeletedIDs: deletedIDs,
+				Deleted:    len(deletedIDs),
+				Remaining:  len(resp.DatabaseBackups) - len(deletedIDs),
+				DryRun:     args.DryRun,
+				Backups:    items,
+			}, nil
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Keep only the 5 most recent backups named monthly",
+				ArgsJSON: `{"instance_id": "11111111-1111-1111-1111-111111111111", "name": "monthly", "keep_last": 5}`,
+			},
+			{
+				Short:    "Keep backups within 30 days of the newest, dry-run",
+				ArgsJSON: `{"instance_id": "11111111-1111-1111-1111-111111111111", "keep_within": "30d", "dry_run": true}`,
 			},
 		},
 	}

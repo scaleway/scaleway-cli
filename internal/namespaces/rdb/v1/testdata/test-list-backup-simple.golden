@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    Name                  Database Name  Size    Status  Instance ID                           URL Expired  Is Exported  Expires At       Created At       Updated At       Region  Same Region
-bd5681c4-a529-463e-8368-791619b53644  will_be_exported      rdb            2.1 kB  ready   319e7311-4804-4035-9b70-c762c694a3e0  false        true         few seconds ago  few seconds ago  few seconds ago  fr-par  false
-8c2e48c7-31c1-4e15-9556-08040b8701a9  will_not_be_exported  rdb            2.1 kB  ready   319e7311-4804-4035-9b70-c762c694a3e0  true         false        few seconds ago  few seconds ago  few seconds ago  fr-par  false
+ID                                    Name                  Created At       Database Name  Size    Status  Instance ID                           URL Expired  Is Exported  Expires At       Updated At       Region  Same Region
+bd5681c4-a529-463e-8368-791619b53644  will_be_exported      few seconds ago  rdb            2.1 kB  ready   319e7311-4804-4035-9b70-c762c694a3e0  false        true         few seconds ago  few seconds ago  fr-par  false
+8c2e48c7-31c1-4e15-9556-08040b8701a9  will_not_be_exported  few seconds ago  rdb            2.1 kB  ready   319e7311-4804-4035-9b70-c762c694a3e0  true         false        few seconds ago  few seconds ago  fr-par  false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
