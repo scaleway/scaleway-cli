@@ -1,0 +1,12 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Server is not ready
+
+Hint:
+Start the server with: scw baremetal server start 54fe4f4b-0678-4052-adbd-e1bcb1513a9f --wait
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "message": "server is not ready",
+  "error": {},
+  "hint": "Start the server with: scw baremetal server start 54fe4f4b-0678-4052-adbd-e1bcb1513a9f --wait"
+}

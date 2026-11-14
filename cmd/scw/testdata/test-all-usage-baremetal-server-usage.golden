@@ -22,6 +22,7 @@ AVAILABLE COMMANDS:
 
 UTILITY COMMANDS:
   add-flexible-ip Attach a new flexible IP to a server
+  ssh             SSH into a server
 
 WORKFLOW COMMANDS:
   wait            Wait for a server to reach a stable state (delivery and installation)
