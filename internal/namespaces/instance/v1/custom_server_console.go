@@ -47,6 +47,16 @@ func serverConsoleCommand() *core.Command {
 	}
 }
 
+// connectServerConsole opens the serial console of the given server and blocks until the user quits (Ctrl+q).
+func connectServerConsole(ctx context.Context, zone scw.Zone, serverID string) error {
+	_, err := instanceServerConsoleRun(ctx, &instanceConsoleServerArgs{
+		Zone:     zone,
+		ServerID: serverID,
+	})
+
+	return err
+}
+
 func instanceServerConsoleRun(ctx context.Context, argsI any) (i any, e error) {
 	args := argsI.(*instanceConsoleServerArgs)
 

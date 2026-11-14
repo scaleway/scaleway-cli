@@ -1,0 +1,7 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+--console cannot be used with --stopped: the serial console of a stopped server is not available
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "error": "--console cannot be used with --stopped: the serial console of a stopped server is not available"
+}

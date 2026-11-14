@@ -865,6 +865,15 @@ func Test_CreateServerErrors(t *testing.T) {
 		),
 	}))
 
+	t.Run("Error: console with stopped", core.Test(&core.TestConfig{
+		Commands: instance.GetCommands(),
+		Cmd:      testServerCommand("image=ubuntu_jammy stopped=true console=true"),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(1),
+		),
+	}))
+
 	////
 	// Windows
 	////
