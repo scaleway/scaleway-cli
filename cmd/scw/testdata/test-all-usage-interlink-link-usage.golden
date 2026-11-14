@@ -8,6 +8,7 @@ USAGE:
 AVAILABLE COMMANDS:
   attach_policy       Attach a routing policy
   attach_vpc          Attach a VPC
+  charge              List all the charges of this dedicated connection since its creation
   create              Create a link
   delete              Delete a link
   detach_policy       Detach a routing policy

@@ -653,6 +653,26 @@ scw webhosting ftp-account list [arg=value ...]
 With a Scaleway Web Hosting plan, you can manage your domain, configure your web hosting services, manage your emails and more. Create, list, update and delete your Web Hosting plans with these calls.
 
 
+### List all the charges of this hosting since its creation
+
+
+
+**Usage:**
+
+```shell
+scw webhosting hosting charge <hosting-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| hosting-id | Hosting ID                                                                  | Required                |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Order a Web Hosting plan
 
 Order a Web Hosting plan, specifying the offer type required via the `offer_id` parameter.

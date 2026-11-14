@@ -10,6 +10,7 @@ USAGE:
   scw registry namespace <command>
 
 AVAILABLE COMMANDS:
+  charge      List all the charges of this registry namespace since its creation
   create      Create a namespace
   delete      Delete a namespace
   get         Get a namespace

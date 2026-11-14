@@ -600,6 +600,26 @@ scw baremetal server batch-create [arg=value ...]
 
 
 
+### List all the charges of this server since its creation
+
+
+
+**Usage:**
+
+```shell
+scw baremetal server charge <server-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name      | Description                                                             | Argument Specifications |
+|-----------|-------------------------------------------------------------------------|-------------------------|
+| server-id | Server ID                                                               | Required                |
+| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`     |
+
+
+
 ### Create an Elastic Metal server
 
 Create a new Elastic Metal server. Once the server is created, proceed with the [installation of an OS](#post-3e949e).

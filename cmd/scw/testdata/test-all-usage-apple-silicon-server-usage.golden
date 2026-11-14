@@ -6,6 +6,7 @@ USAGE:
   scw apple-silicon server <command>
 
 AVAILABLE COMMANDS:
+  charge      List all the charges of this Mac mini server since its creation
   create      Create a server
   delete      Delete a server
   get         Get a server

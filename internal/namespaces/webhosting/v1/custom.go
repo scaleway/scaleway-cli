@@ -26,5 +26,7 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("webhosting", "offer", "list").Override(webhostingOfferListBuilder)
 
+	cmds.Add(hostingChargeCommand())
+
 	return cmds
 }

@@ -6,6 +6,7 @@ USAGE:
   scw datawarehouse deployment <command>
 
 AVAILABLE COMMANDS:
+  charge          List all the charges of this data warehouse since its creation
   cockpit         Open the Cockpit Grafana dashboard for this data warehouse
   create          Create a deployment
   delete          Delete a deployment

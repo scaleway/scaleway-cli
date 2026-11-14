@@ -7,6 +7,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   attach      Attach private IP to custom resource
+  charge      List all the charges of this IP since its creation
   create      Reserve a new IP
   delete      Release an IP
   detach      Detach private IP from a custom resource

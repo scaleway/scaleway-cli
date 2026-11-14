@@ -8,6 +8,7 @@ USAGE:
   scw vpc vpc <command>
 
 AVAILABLE COMMANDS:
+  charge      List all the charges of this VPC since its creation
   create      Create a VPC
   delete      Delete a VPC
   get         Get a VPC

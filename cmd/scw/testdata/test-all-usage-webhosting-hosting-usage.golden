@@ -6,6 +6,7 @@ USAGE:
   scw webhosting hosting <command>
 
 AVAILABLE COMMANDS:
+  charge         List all the charges of this hosting since its creation
   create         Order a Web Hosting plan
   create-session Create a user session
   delete         Delete a Web Hosting plan

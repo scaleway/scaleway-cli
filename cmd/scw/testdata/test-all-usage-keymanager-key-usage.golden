@@ -6,6 +6,7 @@ USAGE:
   scw keymanager key <command>
 
 AVAILABLE COMMANDS:
+  charge              List all the charges of this key since its creation
   create              Create a key
   decrypt             Decrypt an encrypted payload
   delete              Delete a key

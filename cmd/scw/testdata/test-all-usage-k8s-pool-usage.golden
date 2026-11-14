@@ -8,6 +8,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   add-external-node    Add an external node to a Kosmos Pool
+  charge               List all the charges of this pool since its creation
   create               Create a new Pool in a Cluster
   delete               Delete a Pool in a Cluster
   get                  Get a Pool in a Cluster
