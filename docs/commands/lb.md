@@ -838,6 +838,26 @@ scw lb ip update <ip-id ...> [arg=value ...]
 Load balancer management commands.
 
 
+### List all the charges of this load-balancer since its creation
+
+
+
+**Usage:**
+
+```shell
+scw lb lb charge <lb-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name  | Description                                                             | Argument Specifications |
+|-------|-------------------------------------------------------------------------|-------------------------|
+| lb-id | Load Balancer ID                                                        | Required                |
+| zone  | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`     |
+
+
+
 ### Open the Cockpit Grafana dashboard for this load-balancer
 
 

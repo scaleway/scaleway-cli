@@ -6,6 +6,7 @@ USAGE:
   scw vpc-gw gateway <command>
 
 AVAILABLE COMMANDS:
+  charge           List all the charges of this gateway since its creation
   create           Create a Public Gateway
   delete           Delete a Public Gateway
   get              Get a Public Gateway

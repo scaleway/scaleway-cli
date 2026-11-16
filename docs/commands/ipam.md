@@ -29,6 +29,26 @@ scw ipam ip attach <ip-id ...> [arg=value ...]
 
 
 
+### List all the charges of this IP since its creation
+
+
+
+**Usage:**
+
+```shell
+scw ipam ip charge <ip-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name   | Description                                                                 | Argument Specifications |
+|--------|-----------------------------------------------------------------------------|-------------------------|
+| ip-id  | IP ID                                                                       | Required                |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Reserve a new IP
 
 Reserve a new IP from the specified source. Currently IPs can only be reserved from a Private Network.

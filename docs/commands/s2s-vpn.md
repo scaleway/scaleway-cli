@@ -497,6 +497,26 @@ scw s2s-vpn routing-policy update <routing-policy-id ...> [arg=value ...]
 A VPN gateway is an IPsec peer managed by Scaleway. It can support multiple connections to customer gateways.
 
 
+### List all the charges of this VPN gateway since its creation
+
+
+
+**Usage:**
+
+```shell
+scw s2s-vpn vpn-gateway charge <gateway-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| gateway-id | VPN Gateway ID                                                              | Required                |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Create VPN gateway
 
 Create VPN gateway.

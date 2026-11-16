@@ -49,6 +49,7 @@ func GetCommands() *core.Commands {
 
 	cmds.Add(volumeWaitCommand())
 	cmds.Add(snapshotWaitCommand())
+	cmds.Add(volumeChargeCommand())
 
 	cmds.MustFind("block", "snapshot", "create").Override(blockSnapshotCreateBuilder)
 	cmds.MustFind("block", "volume", "create").Override(blockVolumeCreateBuilder)

@@ -22,6 +22,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("inference", "deployment", "delete").Override(deploymentDeleteBuilder)
 
 	cmds.Add(listServerlessModels())
+	cmds.Add(deploymentChargeCommand())
 
 	return cmds
 }

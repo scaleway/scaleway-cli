@@ -9,7 +9,7 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("datawarehouse").Groups = []string{"database"}
 
-	cmds.Merge(core.NewCommands(deploymentCockpitCommand()))
+	cmds.Merge(core.NewCommands(deploymentCockpitCommand(), deploymentChargeCommand()))
 
 	return cmds
 }

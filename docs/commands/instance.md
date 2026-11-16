@@ -1598,6 +1598,26 @@ scw instance server backup 11111111-1111-1111-1111-111111111111
 
 
 
+### List all the charges of this server since its creation
+
+
+
+**Usage:**
+
+```shell
+scw instance server charge <server-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name      | Description                                                             | Argument Specifications |
+|-----------|-------------------------------------------------------------------------|-------------------------|
+| server-id | Server ID                                                               | Required                |
+| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`     |
+
+
+
 ### Open the Cockpit Grafana dashboard for this server
 
 

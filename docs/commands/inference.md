@@ -7,6 +7,26 @@ This API allows you to handle your Generative APIs - Dedicated Deployment servic
 Deployment commands.
 
 
+### List all the charges of this deployment since its creation
+
+
+
+**Usage:**
+
+```shell
+scw inference deployment charge <deployment-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name          | Description                                                                 | Argument Specifications |
+|---------------|-----------------------------------------------------------------------------|-------------------------|
+| deployment-id | Deployment ID                                                               | Required                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Create a deployment
 
 Create a new inference deployment related to a specific model.

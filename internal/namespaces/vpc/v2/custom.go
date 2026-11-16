@@ -19,6 +19,8 @@ func GetCommands() *core.Commands {
 	cmds.Merge(core.NewCommands(
 		vpcACLEditCommand(),
 		privateNetworkCockpitCommand(),
+		privateNetworkChargeCommand(),
+		vpcChargeCommand(),
 	))
 
 	return cmds

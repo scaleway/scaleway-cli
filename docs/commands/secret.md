@@ -28,6 +28,26 @@ scw secret secret add-owner <secret-id ...> [arg=value ...]
 
 
 
+### List all the charges of this secret since its creation
+
+
+
+**Usage:**
+
+```shell
+scw secret secret charge <secret-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name      | Description                                                                 | Argument Specifications |
+|-----------|-----------------------------------------------------------------------------|-------------------------|
+| secret-id | Secret ID                                                                   | Required                |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Open the Cockpit Grafana dashboard for this secret
 
 

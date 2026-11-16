@@ -7,5 +7,7 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.Add(datalabChargeCommand())
+
 	return cmds
 }

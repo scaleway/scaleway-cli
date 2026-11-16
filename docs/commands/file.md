@@ -36,6 +36,26 @@ scw file attachment list [arg=value ...]
 Filesystem management.
 
 
+### List all the charges of this filesystem since its creation
+
+
+
+**Usage:**
+
+```shell
+scw file filesystem charge <filesystem-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name          | Description                                                                 | Argument Specifications |
+|---------------|-----------------------------------------------------------------------------|-------------------------|
+| filesystem-id | Filesystem ID                                                               | Required                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Create a new filesystem
 
 To create a new filesystem, you must specify a name, a project ID, and either a size (`from_empty`) or a source snapshot (`from_snapshot`).

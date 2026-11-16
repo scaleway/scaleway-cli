@@ -7,6 +7,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   batch-create    Create multiple Elastic Metal servers
+  charge          List all the charges of this server since its creation
   create          Create an Elastic Metal server
   delete          Delete an Elastic Metal server
   get             Get a specific Elastic Metal server

@@ -7,5 +7,7 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("ipam").Groups = []string{"network"}
 
+	cmds.Add(ipChargeCommand())
+
 	return cmds
 }

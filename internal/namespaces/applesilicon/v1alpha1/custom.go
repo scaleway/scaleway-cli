@@ -12,6 +12,7 @@ func GetCommands() *core.Commands {
 	cmds.Merge(core.NewCommands(
 		serverSSHCommand(),
 		serverWaitCommand(),
+		serverChargeCommand(),
 	))
 
 	cmds.MustFind("apple-silicon").Groups = []string{"baremetal"}

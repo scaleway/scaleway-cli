@@ -7,6 +7,26 @@ Object-storage utils
 Manage S3 buckets creation, deletion and updates to properties like tags, ACL and versioning.
 
 
+### List all the charges of this bucket since its creation
+
+
+
+**Usage:**
+
+```shell
+scw object bucket charge <name ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name   | Description                                                                 | Argument Specifications |
+|--------|-----------------------------------------------------------------------------|-------------------------|
+| name   | Bucket name                                                                 | Required                |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Open the Cockpit Grafana dashboard for this bucket
 
 

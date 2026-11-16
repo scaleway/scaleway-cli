@@ -273,6 +273,26 @@ scw apple-silicon runner update <runner-id ...> [arg=value ...]
 Apple silicon management commands.
 
 
+### List all the charges of this Mac mini server since its creation
+
+
+
+**Usage:**
+
+```shell
+scw apple-silicon server charge <server-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name      | Description                                                             | Argument Specifications |
+|-----------|-------------------------------------------------------------------------|-------------------------|
+| server-id | Server ID                                                               | Required                |
+| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`     |
+
+
+
 ### Create a server
 
 Create a new server in the targeted zone, specifying its configuration including name and type.

@@ -7,6 +7,26 @@ This API allows you to conveniently store and use cryptographic keys.
 Keys are logical containers which store cryptographic keys.
 
 
+### List all the charges of this key since its creation
+
+
+
+**Usage:**
+
+```shell
+scw keymanager key charge <key-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name   | Description                                                                 | Argument Specifications |
+|--------|-----------------------------------------------------------------------------|-------------------------|
+| key-id | Key ID                                                                      | Required                |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Create a key
 
 Create a key in a given region specified by the `region` parameter. You can use keys to encrypt or decrypt arbitrary payloads, to sign and verify messages or to generate data encryption keys. **Data encryption keys are not stored in Key Manager**.

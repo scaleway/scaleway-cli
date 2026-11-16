@@ -7,6 +7,26 @@ This API allows you to manage your Serverless Containers.
 Container management commands.
 
 
+### List all the charges of this container since its creation
+
+
+
+**Usage:**
+
+```shell
+scw container container charge <container-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name         | Description                                                                 | Argument Specifications |
+|--------------|-----------------------------------------------------------------------------|-------------------------|
+| container-id | Container ID                                                                | Required                |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Open the Cockpit Grafana dashboard for this container
 
 

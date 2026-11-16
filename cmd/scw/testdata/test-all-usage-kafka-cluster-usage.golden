@@ -6,6 +6,7 @@ USAGE:
   scw kafka cluster <command>
 
 AVAILABLE COMMANDS:
+  charge      List all the charges of this cluster since its creation
   cockpit     Open the Cockpit Grafana dashboard for this cluster
   create      Create a Kafka cluster
   delete      Delete a Kafka cluster

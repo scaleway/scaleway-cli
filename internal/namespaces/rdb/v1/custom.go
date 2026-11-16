@@ -87,6 +87,7 @@ func GetCommands() *core.Commands {
 	cmds.Merge(core.NewCommands(
 		logDownloadCommand(),
 		instanceCockpitCommand(),
+		instanceChargeCommand(),
 	))
 
 	return cmds

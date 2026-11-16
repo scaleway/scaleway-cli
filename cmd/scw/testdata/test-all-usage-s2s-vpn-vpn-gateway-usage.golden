@@ -6,6 +6,7 @@ USAGE:
   scw s2s-vpn vpn-gateway <command>
 
 AVAILABLE COMMANDS:
+  charge      List all the charges of this VPN gateway since its creation
   create      Create VPN gateway
   delete      Delete a VPN gateway
   get         Get a VPN gateway

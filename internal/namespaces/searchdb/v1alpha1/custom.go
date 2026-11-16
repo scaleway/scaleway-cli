@@ -84,5 +84,7 @@ func GetCommands() *core.Commands {
 		human.EnumMarshalFunc(nodeStatusMarshalSpecs),
 	)
 
+	cmds.Add(deploymentChargeCommand())
+
 	return cmds
 }

@@ -7,5 +7,7 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("s2s-vpn").Groups = []string{"network"}
 
+	cmds.Add(vpnGatewayChargeCommand())
+
 	return cmds
 }

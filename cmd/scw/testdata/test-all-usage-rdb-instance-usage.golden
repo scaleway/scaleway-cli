@@ -10,6 +10,7 @@ USAGE:
   scw rdb instance <command>
 
 AVAILABLE COMMANDS:
+  charge            List all the charges of this database instance since its creation
   clone             Clone a Database Instance
   cockpit           Open the Cockpit Grafana dashboard for this database instance
   connect           Connect to an instance using locally installed CLI

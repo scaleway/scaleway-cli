@@ -6,6 +6,7 @@ USAGE:
   scw object bucket <command>
 
 AVAILABLE COMMANDS:
+  charge      List all the charges of this bucket since its creation
   cockpit     Open the Cockpit Grafana dashboard for this bucket
   create      Create an S3 bucket
   delete      Delete an S3 bucket

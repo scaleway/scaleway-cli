@@ -6,6 +6,7 @@ USAGE:
   scw file filesystem <command>
 
 AVAILABLE COMMANDS:
+  charge      List all the charges of this filesystem since its creation
   create      Create a new filesystem
   delete      Delete a detached filesystem
   get         Get filesystem details

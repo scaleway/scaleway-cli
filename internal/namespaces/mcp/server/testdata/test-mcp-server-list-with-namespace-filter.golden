@@ -5,6 +5,7 @@ k8s        acl           add                      k8s_acl_add                   
 k8s        acl           delete                   k8s_acl_delete                       Delete an existing ACL
 k8s        acl           list                     k8s_acl_list                         List ACLs
 k8s        acl           set                      k8s_acl_set                          Set new ACLs
+k8s        cluster       charge                   k8s_cluster_charge                   List all the charges of this cluster since its creation
 k8s        cluster       cockpit                  k8s_cluster_cockpit                  Open the Cockpit Grafana dashboard for this cluster
 k8s        cluster       create                   k8s_cluster_create                   Create a new Cluster
 k8s        cluster       delete                   k8s_cluster_delete                   Delete a Cluster
@@ -26,6 +27,7 @@ k8s        node          reboot                   k8s_node_reboot               
 k8s        node          replace                  k8s_node_replace                     Replace a Node in a Cluster
 k8s        node          wait                     k8s_node_wait                        Wait for a node to reach a stable state
 k8s        pool          add-external-node        k8s_pool_add-external-node           Add an external node to a Kosmos Pool
+k8s        pool          charge                   k8s_pool_charge                      List all the charges of this pool since its creation
 k8s        pool          create                   k8s_pool_create                      Create a new Pool in a Cluster
 k8s        pool          delete                   k8s_pool_delete                      Delete a Pool in a Cluster
 k8s        pool          get                      k8s_pool_get                         Get a Pool in a Cluster
@@ -72,6 +74,13 @@ k8s        version       list                     k8s_version_list              
     "verb": "set",
     "tool_name": "k8s_acl_set",
     "short": "Set new ACLs"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "verb": "charge",
+    "tool_name": "k8s_cluster_charge",
+    "short": "List all the charges of this cluster since its creation"
   },
   {
     "namespace": "k8s",
@@ -219,6 +228,13 @@ k8s        version       list                     k8s_version_list              
     "verb": "add-external-node",
     "tool_name": "k8s_pool_add-external-node",
     "short": "Add an external node to a Kosmos Pool"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
+    "verb": "charge",
+    "tool_name": "k8s_pool_charge",
+    "short": "List all the charges of this pool since its creation"
   },
   {
     "namespace": "k8s",

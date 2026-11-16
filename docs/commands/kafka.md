@@ -7,6 +7,26 @@ This API allows you to manage your Clusters for Apache Kafka®.
 A Kafka cluster is composed of one or multiple dedicated compute nodes running a single Kafka broker.
 
 
+### List all the charges of this cluster since its creation
+
+
+
+**Usage:**
+
+```shell
+scw kafka cluster charge <cluster-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| cluster-id | Cluster ID                                                                  | Required                |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Open the Cockpit Grafana dashboard for this cluster
 
 

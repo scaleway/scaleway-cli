@@ -6,6 +6,7 @@ USAGE:
   scw block volume <command>
 
 AVAILABLE COMMANDS:
+  charge      List all the charges of this volume since its creation
   create      Create a volume
   delete      Delete a detached volume
   get         Get a volume

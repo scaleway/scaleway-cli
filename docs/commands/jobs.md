@@ -7,6 +7,26 @@ This API allows you to manage your Serverless Jobs.
 
 
 
+### List all the charges of this job definition since its creation
+
+
+
+**Usage:**
+
+```shell
+scw jobs definition charge <job-definition-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name              | Description                                                                 | Argument Specifications |
+|-------------------|-----------------------------------------------------------------------------|-------------------------|
+| job-definition-id | Job Definition ID                                                           | Required                |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ### Open the Cockpit Grafana dashboard for this job definition
 
 

@@ -9,6 +9,7 @@ USAGE:
   scw vpc private-network <command>
 
 AVAILABLE COMMANDS:
+  charge      List all the charges of this private network since its creation
   cockpit     Open the Cockpit Grafana dashboard for this private network
   create      Create a Private Network
   delete      Delete a Private Network
