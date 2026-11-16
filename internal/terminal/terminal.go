@@ -16,7 +16,7 @@ func Style(msg string, styles ...color.Attribute) string {
 func GetWidth() int {
 	w, _, err := term.GetSize(int(os.Stderr.Fd()))
 	if err != nil {
-		return -1
+		return 0
 	}
 
 	return w
@@ -25,7 +25,7 @@ func GetWidth() int {
 func GetHeight() int {
 	_, h, err := term.GetSize(int(os.Stderr.Fd()))
 	if err != nil {
-		return -1
+		return 0
 	}
 
 	return h
