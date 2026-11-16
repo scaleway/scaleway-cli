@@ -753,13 +753,15 @@ dry-run=true previews deletions without calling the API delete endpoint.`,
 			items := make([]backupPruneItem, 0, len(toDelete))
 
 			for _, backup := range toDelete {
-				deletedIDs = append(deletedIDs, backup.ID)
-				items = append(items, backupPruneItem{
+				item := backupPruneItem{
 					ID:        backup.ID,
 					Name:      backup.Name,
 					CreatedAt: backup.CreatedAt,
-				})
+				}
 				if args.DryRun {
+					deletedIDs = append(deletedIDs, backup.ID)
+					items = append(items, item)
+
 					continue
 				}
 
@@ -768,8 +770,13 @@ dry-run=true previews deletions without calling the API delete endpoint.`,
 					DatabaseBackupID: backup.ID,
 				}, scw.WithContext(ctx))
 				if err != nil {
-					return nil, fmt.Errorf("could not delete backup %s: %w", backup.ID, err)
+					err = fmt.Errorf("could not delete backup %s: %w", backup.ID, err)
+
+					break
 				}
+
+				deletedIDs = append(deletedIDs, backup.ID)
+				items = append(items, item)
 			}
 
 			return backupPruneResult{
@@ -778,7 +785,7 @@ dry-run=true previews deletions without calling the API delete endpoint.`,
 				Remaining:  len(resp.DatabaseBackups) - len(deletedIDs),
 				DryRun:     args.DryRun,
 				Backups:    items,
-			}, nil
+			}, err
 		},
 		Examples: []*core.Example{
 			{
