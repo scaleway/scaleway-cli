@@ -52,11 +52,10 @@ func (l Lines) MarshalHuman() (string, error) {
 
 // Recent returns the newest logs of r over the last span, at most entryCount if set.
 func Recent(ctx context.Context, r Resource, span time.Duration, entryCount *int) ([]Entry, error) {
-	s, closeSession, err := open(ctx, r)
+	s, err := open(ctx, r)
 	if err != nil {
 		return nil, err
 	}
-	defer closeSession()
 
 	now := time.Now()
 	entries, err := s.query(ctx, now.Add(-span), now, false)
@@ -79,11 +78,10 @@ func Recent(ctx context.Context, r Resource, span time.Duration, entryCount *int
 // ponytail: polls query_range from the last seen timestamp, lines ingested late with an older
 // timestamp are skipped; switch to Loki's /tail websocket if that matters.
 func Follow(ctx context.Context, r Resource, span time.Duration, emit func(any) error) error {
-	s, closeSession, err := open(ctx, r)
+	s, err := open(ctx, r)
 	if err != nil {
 		return err
 	}
-	defer closeSession()
 
 	ticker := time.NewTicker(pollInterval)
 	defer ticker.Stop()
@@ -127,9 +125,10 @@ type session struct {
 	selector   string
 }
 
-// open finds the Scaleway logs data source and creates a read-only token, deleted by the returned func.
-func open(ctx context.Context, r Resource) (*session, func(), error) {
-	api := cockpit.NewRegionalAPI(core.ExtractClient(ctx))
+// open finds the Scaleway logs data source and authenticates with the IAM secret key.
+func open(ctx context.Context, r Resource) (*session, error) {
+	client := core.ExtractClient(ctx)
+	api := cockpit.NewRegionalAPI(client)
 
 	ds, err := api.ListDataSources(&cockpit.RegionalAPIListDataSourcesRequest{
 		Region: r.Region,
@@ -137,40 +136,24 @@ func open(ctx context.Context, r Resource) (*session, func(), error) {
 		Types:  []cockpit.DataSourceType{cockpit.DataSourceTypeLogs},
 	}, scw.WithAllPages(), scw.WithContext(ctx))
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
 	if ds.TotalCount == 0 {
-		return nil, nil, errors.New("could not find any cockpit datasource to fetch the logs from")
+		return nil, errors.New("could not find any cockpit datasource to fetch the logs from")
 	}
 
-	// Token names are unique per project, so concurrent commands need distinct names.
-	token, err := api.CreateToken(&cockpit.RegionalAPICreateTokenRequest{
-		Region:      r.Region,
-		Name:        "cli-generated-for-logs-" + strconv.FormatInt(time.Now().UnixNano(), 36),
-		TokenScopes: []cockpit.TokenScope{cockpit.TokenScopeReadOnlyLogs},
-	}, scw.WithContext(ctx))
-	if err != nil {
-		return nil, nil, err
+	secretKey, ok := client.GetSecretKey()
+	if !ok {
+		return nil, errors.New("could not get secret key")
 	}
 
-	closeSession := func() {
-		_ = api.DeleteToken(&cockpit.RegionalAPIDeleteTokenRequest{
-			Region:  r.Region,
-			TokenID: token.ID,
-		}, scw.WithContext(context.WithoutCancel(ctx)))
-	}
-
-	s := &session{
+	return &session{
 		httpClient: core.ExtractHTTPClient(ctx),
 		url:        ds.DataSources[0].URL + "/loki/api/v1/query_range",
+		token:      secretKey,
 		selector:   fmt.Sprintf(`{resource_type="%s", resource_id="%s"}`, r.Type, r.ID),
-	}
-	if token.SecretKey != nil {
-		s.token = *token.SecretKey
-	}
-
-	return s, closeSession, nil
+	}, nil
 }
 
 type lokiResponse struct {
@@ -200,7 +183,7 @@ func (s *session) query(ctx context.Context, start, end time.Time, forward bool)
 		return nil, err
 	}
 
-	req.Header.Set("X-Token", s.token)
+	req.Header.Set("X-Auth-Token", s.token)
 
 	resp, err := s.httpClient.Do(req)
 	if err != nil {

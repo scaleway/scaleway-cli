@@ -42,7 +42,7 @@ func Test_ParseValue(t *testing.T) {
 // lines, the next one must start right after the last line seen and read forward.
 func Test_Follow(t *testing.T) {
 	lokiCalls := 0
-	tokenDeleted := false
+	const secretKey = "11111111-1111-1111-1111-111111111111"
 
 	var srv *httptest.Server
 	srv = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -53,14 +53,9 @@ func Test_Follow(t *testing.T) {
 			_, _ = w.Write([]byte(`{"domain":"scw.cloud"}`))
 		case r.URL.Path == "/cockpit/v1/regions/fr-par/data-sources":
 			_, _ = w.Write([]byte(`{"data_sources":[{"url":"` + srv.URL + `"}],"total_count":1}`))
-		case r.Method == http.MethodPost && r.URL.Path == "/cockpit/v1/regions/fr-par/tokens":
-			_, _ = w.Write([]byte(`{"id":"token-id","secret_key":"secret","region":"fr-par"}`))
-		case r.Method == http.MethodDelete && r.URL.Path == "/cockpit/v1/regions/fr-par/tokens/token-id":
-			tokenDeleted = true
-			w.WriteHeader(http.StatusNoContent)
 		case r.URL.Path == "/loki/api/v1/query_range":
 			lokiCalls++
-			assert.Equal(t, "secret", r.Header.Get("X-Token"))
+			assert.Equal(t, secretKey, r.Header.Get("X-Auth-Token"))
 			assert.Equal(
 				t,
 				`{resource_type="rdb_instance_postgresql", resource_id="instance-id"}`,
@@ -88,7 +83,7 @@ func Test_Follow(t *testing.T) {
 	client, err := scw.NewClient(
 		scw.WithAPIURL(srv.URL),
 		scw.WithHTTPClient(srv.Client()),
-		scw.WithAuth("SCWXXXXXXXXXXXXXXXXX", "11111111-1111-1111-1111-111111111111"),
+		scw.WithAuth("SCWXXXXXXXXXXXXXXXXX", secretKey),
 		scw.WithDefaultProjectID("11111111-1111-1111-1111-111111111111"),
 		scw.WithDefaultRegion(scw.RegionFrPar),
 	)
@@ -140,7 +135,6 @@ func Test_Follow(t *testing.T) {
 	require.NoError(t, err, stderr.String())
 	assert.Equal(t, 0, exitCode)
 	assert.Equal(t, 2, lokiCalls)
-	assert.True(t, tokenDeleted, "the cockpit token must be deleted when follow stops")
 
 	expected := make([]string, 0, 3)
 	for i, msg := range []string{"first", "second", "third"} {
