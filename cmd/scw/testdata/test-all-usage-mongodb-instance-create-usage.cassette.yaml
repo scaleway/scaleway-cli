@@ -10,22 +10,22 @@ interactions:
         host: api.scaleway.com
         headers:
             User-Agent:
-                - scaleway-sdk-go/v1.39.1-0.20261112154503-1ccd27dfdd40 (go1.27.3; linux; amd64) cli-e2e-test
+                - scaleway-sdk-go/v1.39.1-0.20261117160957-d8a4a43caa34 (go1.27.4; darwin; arm64) cli-e2e-test
         url: https://api.scaleway.com/mongodb/v1/regions/fr-par/versions
         method: GET
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 109
-        body: '{"message":"authentication is denied","method":"api_key","reason":"not_found","type":"denied_authentication"}'
+        content_length: 226
+        body: '{"versions":[{"version":"8.0", "end_of_life_at":"2029-10-31T00:00:00Z", "released_at":"2024-10-01T00:00:00Z"}, {"version":"7.0", "end_of_life_at":"2027-08-31T00:00:00Z", "released_at":"2024-10-09T00:00:00Z"}], "total_count":2}'
         headers:
             Content-Length:
-                - "109"
+                - "226"
             Content-Type:
                 - application/json
             Date:
-                - Fri, 13 Nov 2026 13:49:47 GMT
+                - Tue, 17 Nov 2026 17:38:45 GMT
             Server:
                 - Scaleway API Gateway (fr-par-1;edge02)
             X-Ratelimit-Limit:
@@ -35,7 +35,7 @@ interactions:
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - 3de1db05-ad71-4f29-818f-86f79c324fe3
-        status: 401 Unauthorized
-        code: 401
-        duration: 179.680205ms
+                - acd58492-1b5b-4e9b-b178-edccf6cd794c
+        status: 200 OK
+        code: 200
+        duration: 263.589125ms
