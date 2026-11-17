@@ -41,8 +41,8 @@ func GetGeneratedCommands() *core.Commands {
 
 func workflowsRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API is a boilerplate for products`,
-		Long:      `This API is a boilerplate for products.`,
+		Short:     `This API allows you to manage your Data Orchestrator`,
+		Long:      `This API allows you to manage your Data Orchestrator.`,
 		Namespace: "workflows",
 	}
 }
