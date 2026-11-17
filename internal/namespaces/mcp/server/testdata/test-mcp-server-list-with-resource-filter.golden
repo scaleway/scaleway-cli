@@ -1,12 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-NAMESPACE  RESOURCE  VERB            TOOL NAME                       SHORT
-account    project   create          account_project_create          Create a new Project for an Organization
-account    project   delete          account_project_delete          Delete an existing Project
-account    project   get             account_project_get             Get an existing Project
-account    project   list            account_project_list            List all Projects of an Organization
-account    project   list-resources  account_project_list-resources  List all resources across all zones
-account    project   update          account_project_update          Update Project
+NAMESPACE  RESOURCE  VERB                   TOOL NAME                              SHORT
+account    project   create                 account_project_create                 Create a new Project for an Organization
+account    project   delete                 account_project_delete                 Delete an existing Project
+account    project   delete-with-resources  account_project_delete-with-resources  Delete an existing Project with all its resources
+account    project   get                    account_project_get                    Get an existing Project
+account    project   list                   account_project_list                   List all Projects of an Organization
+account    project   list-resources         account_project_list-resources         List all resources across all zones
+account    project   update                 account_project_update                 Update Project
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
@@ -22,6 +23,13 @@ account    project   update          account_project_update          Update Proj
     "verb": "delete",
     "tool_name": "account_project_delete",
     "short": "Delete an existing Project"
+  },
+  {
+    "namespace": "account",
+    "resource": "project",
+    "verb": "delete-with-resources",
+    "tool_name": "account_project_delete-with-resources",
+    "short": "Delete an existing Project with all its resources"
   },
   {
     "namespace": "account",
