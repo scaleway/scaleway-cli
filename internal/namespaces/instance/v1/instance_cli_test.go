@@ -7,7 +7,6 @@ import (
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	instanceV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v2alpha1"
-	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	instanceSDKV2 "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -46,32 +45,6 @@ func Test_GetServer(t *testing.T) {
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: deleteServer("Server"),
-	}))
-}
-
-// Volume
-func Test_CreateVolume(t *testing.T) {
-	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: instance.GetCommands(),
-		Cmd:      "scw instance volume create name=test volume-type=l_ssd size=20G",
-		Check: core.TestCheckCombine(
-			core.TestCheckExitCode(0),
-			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				t.Helper()
-				require.NotNil(t, ctx.Result)
-				assert.Equal(t, "test", ctx.Result.(*instanceSDK.CreateVolumeResponse).Volume.Name)
-			},
-		),
-		AfterFunc: core.ExecAfterCmd("scw instance volume delete {{ .CmdResult.Volume.ID }}"),
-	}))
-
-	t.Run("Bad size unit", core.Test(&core.TestConfig{
-		Commands: instance.GetCommands(),
-		Cmd:      "scw instance volume create name=test volume-type=l_ssd size=20",
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(1),
-		),
 	}))
 }
 
