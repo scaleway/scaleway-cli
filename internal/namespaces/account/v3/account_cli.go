@@ -25,6 +25,7 @@ func GetGeneratedCommands() *core.Commands {
 		accountProjectList(),
 		accountProjectGet(),
 		accountProjectDelete(),
+		accountProjectDeleteWithResources(),
 		accountProjectUpdate(),
 	)
 }
@@ -188,6 +189,36 @@ func accountProjectDelete() *core.Command {
 				Resource: "project",
 				Verb:     "delete",
 			}, nil
+		},
+	}
+}
+
+func accountProjectDeleteWithResources() *core.Command {
+	return &core.Command{
+		Short:     `Delete an existing Project with all its resources`,
+		Long:      `Delete an existing Project, specified by its Project ID and Name, along with all the resources it contains. Note that deleting a Project is permanent, and cannot be undone.`,
+		Namespace: "account",
+		Resource:  "project",
+		Verb:      "delete-with-resources",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[account.ProjectAPIDeleteProjectWithResourcesRequest](),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "project-name",
+				Short:      `Name of the Project to delete. This is used as a safeguard confirmation`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*account.ProjectAPIDeleteProjectWithResourcesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := account.NewProjectAPI(client)
+
+			return api.DeleteProjectWithResources(request, scw.WithContext(ctx))
 		},
 	}
 }
