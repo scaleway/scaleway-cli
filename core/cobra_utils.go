@@ -221,9 +221,8 @@ func run(
 		ctx,
 		cmdArgs,
 		func(ctx context.Context, argsI any) (i any, err error) {
-			followFlag, err := cobraCmd.PersistentFlags().GetBool("follow")
-			if err == nil && cmd.FollowFunc != nil && followFlag {
-				return runFollow(ctx, cmd, argsI)
+			if cmd.StreamFunc != nil && streamRequested(argsI) {
+				return runStream(ctx, cmd, argsI)
 			}
 
 			return cmd.Run(ctx, argsI)
@@ -243,13 +242,27 @@ func run(
 	return data, nil
 }
 
-// runFollow prints each batch emitted by cmd.FollowFunc as soon as it is received.
-func runFollow(ctx context.Context, cmd *Command, argsI any) (any, error) {
+// streamRequested is true when args expose Stream=true (see StreamArgSpec).
+func streamRequested(argsI any) bool {
+	v := reflect.ValueOf(argsI)
+	if v.Kind() == reflect.Pointer {
+		v = v.Elem()
+	}
+	if !v.IsValid() || v.Kind() != reflect.Struct {
+		return false
+	}
+	f := v.FieldByName("Stream")
+
+	return f.IsValid() && f.Kind() == reflect.Bool && f.Bool()
+}
+
+// runStream prints each batch emitted by cmd.StreamFunc as soon as it is received.
+func runStream(ctx context.Context, cmd *Command, argsI any) (any, error) {
 	ctx, stop := signal.NotifyContext(ctx, followStopSignals...)
 	defer stop()
 
 	printer := ExtractMeta(ctx).printer
-	err := cmd.FollowFunc(ctx, argsI, func(data any) error {
+	err := cmd.StreamFunc(ctx, argsI, func(data any) error {
 		return printer.Print(data, cmd.getHumanMarshalerOpt())
 	})
 	if err != nil && !errors.Is(err, context.Canceled) {

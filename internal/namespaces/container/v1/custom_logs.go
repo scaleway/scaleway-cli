@@ -16,6 +16,7 @@ type containerLogsRequest struct {
 	Region      scw.Region
 	TimeSpan    time.Duration
 	EntryCount  *int
+	Stream      bool
 }
 
 func (r *containerLogsRequest) resource() cockpit.Resource {
@@ -61,6 +62,7 @@ func containerLogs() *core.Command {
 					return nil
 				},
 			},
+			core.StreamArgSpec(),
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -72,7 +74,7 @@ func containerLogs() *core.Command {
 
 			return cockpit.Recent(ctx, args.resource(), args.TimeSpan, args.EntryCount)
 		},
-		FollowFunc: func(ctx context.Context, argsI any, emit func(any) error) error {
+		StreamFunc: func(ctx context.Context, argsI any, emit func(any) error) error {
 			args := argsI.(*containerLogsRequest)
 
 			return cockpit.Follow(ctx, args.resource(), args.TimeSpan, emit)

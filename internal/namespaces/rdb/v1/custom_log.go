@@ -99,6 +99,7 @@ type instanceLogsArgs struct {
 	Region     scw.Region
 	TimeSpan   time.Duration
 	EntryCount *int
+	Stream     bool
 }
 
 // resource returns the Cockpit logs of the instance, labelled per engine (e.g. rdb_instance_postgresql).
@@ -123,7 +124,7 @@ func (a *instanceLogsArgs) resource(ctx context.Context) (cockpit.Resource, erro
 func instanceLogsCommand() *core.Command {
 	return &core.Command{
 		Short:     `Show Database Instance logs`,
-		Long:      `Display the logs of a Database Instance from Cockpit. Use -f to keep printing new lines.`,
+		Long:      `Display the logs of a Database Instance from Cockpit. Use stream=true to keep printing new lines.`,
 		Namespace: "rdb",
 		Resource:  "instance",
 		Verb:      "logs",
@@ -155,6 +156,7 @@ func instanceLogsCommand() *core.Command {
 					return nil
 				},
 			},
+			core.StreamArgSpec(),
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -171,7 +173,7 @@ func instanceLogsCommand() *core.Command {
 
 			return cockpit.Recent(ctx, resource, args.TimeSpan, args.EntryCount)
 		},
-		FollowFunc: func(ctx context.Context, argsI any, emit func(any) error) error {
+		StreamFunc: func(ctx context.Context, argsI any, emit func(any) error) error {
 			args := argsI.(*instanceLogsArgs)
 
 			resource, err := args.resource(ctx)
@@ -187,8 +189,8 @@ func instanceLogsCommand() *core.Command {
 				Raw:   "scw rdb instance logs 11111111-1111-1111-1111-111111111111",
 			},
 			{
-				Short: "Follow new logs and keep only errors",
-				Raw:   "scw rdb instance logs 11111111-1111-1111-1111-111111111111 -f | grep -i error",
+				Short: "Stream new logs and keep only errors",
+				Raw:   "scw rdb instance logs 11111111-1111-1111-1111-111111111111 stream=true | grep -i error",
 			},
 		},
 	}

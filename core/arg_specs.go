@@ -204,6 +204,14 @@ func RegionArgSpec(regions ...scw.Region) *ArgSpec {
 	}
 }
 
+// StreamArgSpec enables stream=true for commands that set StreamFunc.
+func StreamArgSpec() *ArgSpec {
+	return &ArgSpec{
+		Name:  "stream",
+		Short: "Keep printing new results until interrupted (Ctrl+C)",
+	}
+}
+
 func ProjectIDArgSpec() *ArgSpec {
 	return &ArgSpec{
 		Name:         "project-id",

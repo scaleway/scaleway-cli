@@ -38,7 +38,11 @@ func Test_ParseValue(t *testing.T) {
 	require.Error(t, err)
 }
 
-// Test_Follow runs `-f` against a fake Cockpit API + Loki: the first query returns the newest
+type streamLogsArgs struct {
+	Stream bool
+}
+
+// Test_Follow runs stream=true against a fake Cockpit API + Loki: the first query returns the newest
 // lines, the next one must start right after the last line seen and read forward.
 func Test_Follow(t *testing.T) {
 	lokiCalls := 0
@@ -103,9 +107,10 @@ func Test_Follow(t *testing.T) {
 		Resource:             "logs",
 		AllowAnonymousClient: true,
 		DisableAfterChecks:   true,
-		ArgsType:             reflect.TypeFor[struct{}](),
+		ArgsType:             reflect.TypeFor[streamLogsArgs](),
+		ArgSpecs:             core.ArgSpecs{core.StreamArgSpec()},
 		Run:                  func(context.Context, any) (any, error) { return nil, nil },
-		FollowFunc: func(ctx context.Context, _ any, emit func(any) error) error {
+		StreamFunc: func(ctx context.Context, _ any, emit func(any) error) error {
 			return cockpit.Follow(ctx, resource, time.Hour, func(data any) error {
 				printed += len(data.(cockpit.Lines))
 				if printed == 3 {
@@ -120,7 +125,7 @@ func Test_Follow(t *testing.T) {
 	stdout, stderr := &bytes.Buffer{}, &bytes.Buffer{}
 	buildInfo := &core.BuildInfo{Version: version.Must(version.NewSemver("v0.0.0+test"))}
 	exitCode, _, err := core.Bootstrap(ctx, &core.BootstrapConfig{
-		Args:             []string{"scw", "test", "logs", "-f"},
+		Args:             []string{"scw", "test", "logs", "stream=true"},
 		Commands:         commands,
 		BuildInfo:        buildInfo,
 		Stdout:           stdout,

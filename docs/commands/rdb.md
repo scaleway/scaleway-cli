@@ -912,7 +912,7 @@ scw rdb instance list [arg=value ...]
 
 ### Show Database Instance logs
 
-Display the logs of a Database Instance from Cockpit. Use -f to keep printing new lines.
+Display the logs of a Database Instance from Cockpit. Use stream=true to keep printing new lines.
 
 **Usage:**
 
@@ -928,6 +928,7 @@ scw rdb instance logs <instance-id ...> [arg=value ...]
 | instance-id | UUID of the Database Instance you want logs of                              | Required                                                    |
 | time-span   | Time range for which to retrieve logs in duration format                    | Default: `2h`                                               |
 | entry-count | Maximum number of log entries to be displayed                               |                                                             |
+| stream      | Keep printing new results until interrupted (Ctrl+C)                        |                                                             |
 | region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
@@ -939,9 +940,9 @@ Show the logs of the last 2 hours
 scw rdb instance logs 11111111-1111-1111-1111-111111111111
 ```
 
-Follow new logs and keep only errors
+Stream new logs and keep only errors
 ```shell
-scw rdb instance logs 11111111-1111-1111-1111-111111111111 -f | grep -i error
+scw rdb instance logs 11111111-1111-1111-1111-111111111111 stream=true | grep -i error
 ```
 
 

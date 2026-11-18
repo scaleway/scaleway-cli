@@ -18,6 +18,10 @@ type testType struct {
 	Tag    string
 }
 
+type testStreamArgs struct {
+	Stream bool
+}
+
 type testDate struct {
 	Date *time.Time
 }
@@ -31,13 +35,14 @@ func testGetCommands() *core.Commands {
 	return core.NewCommands(
 		&core.Command{
 			Namespace:            "test",
-			Resource:             "follow",
+			Resource:             "stream",
 			AllowAnonymousClient: true,
-			ArgsType:             reflect.TypeFor[testType](),
+			ArgsType:             reflect.TypeFor[testStreamArgs](),
+			ArgSpecs:             core.ArgSpecs{core.StreamArgSpec()},
 			Run: func(_ context.Context, _ any) (any, error) {
 				return "run", nil
 			},
-			FollowFunc: func(_ context.Context, _ any, emit func(any) error) error {
+			StreamFunc: func(_ context.Context, _ any, emit func(any) error) error {
 				for _, batch := range []string{"first", "second"} {
 					err := emit(batch)
 					if err != nil {
@@ -208,10 +213,10 @@ func Test_NoArgsType(t *testing.T) {
 	}))
 }
 
-func Test_Follow(t *testing.T) {
-	t.Run("WithoutFlag", core.Test(&core.TestConfig{
+func Test_Stream(t *testing.T) {
+	t.Run("WithoutArg", core.Test(&core.TestConfig{
 		Commands: testGetCommands(),
-		Cmd:      "scw test follow",
+		Cmd:      "scw test stream",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckStdout("run\n"),
@@ -219,7 +224,7 @@ func Test_Follow(t *testing.T) {
 	}))
 	t.Run("PrintsEachBatchAndExitsCleanly", core.Test(&core.TestConfig{
 		Commands: testGetCommands(),
-		Cmd:      "scw test follow -f",
+		Cmd:      "scw test stream stream=true",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckStdout("first\nsecond\n"),
