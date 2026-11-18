@@ -67,8 +67,13 @@ func Recent(ctx context.Context, r Resource, span time.Duration, entryCount *int
 		return nil, fmt.Errorf("no logs found for %s %s in the last %s", r.Type, r.ID, span)
 	}
 
-	if entryCount != nil && *entryCount < len(entries) {
-		entries = entries[:*entryCount]
+	if entryCount != nil {
+		if *entryCount < 0 {
+			return nil, errors.New("entry-count must be non-negative")
+		}
+		if *entryCount < len(entries) {
+			entries = entries[:*entryCount]
+		}
 	}
 
 	return entries, nil

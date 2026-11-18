@@ -143,6 +143,17 @@ func instanceLogsCommand() *core.Command {
 			{
 				Name:  "entry-count",
 				Short: "Maximum number of log entries to be displayed",
+				ValidateFunc: func(_ *core.ArgSpec, value any) error {
+					v, ok := value.(*int)
+					if !ok || v == nil {
+						return nil
+					}
+					if *v < 0 {
+						return errors.New("entry-count must be non-negative")
+					}
+
+					return nil
+				},
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
