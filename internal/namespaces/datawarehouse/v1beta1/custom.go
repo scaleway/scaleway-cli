@@ -8,6 +8,9 @@ func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
 	cmds.MustFind("datawarehouse").Groups = []string{"database"}
+	cmds.MustFind("datawarehouse", "deployment", "create").Override(deploymentCreateBuilder)
+	cmds.MustFind("datawarehouse", "user", "create").Override(userCreateBuilder)
+	cmds.MustFind("datawarehouse", "user", "update").Override(userUpdateBuilder)
 
 	cmds.Merge(core.NewCommands(deploymentCockpitCommand()))
 

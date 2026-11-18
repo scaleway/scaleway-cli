@@ -297,14 +297,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		Required:   false,
 		OneOfGroup: "config",
 	})
-	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
-		Name:       "generate-password",
-		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
-		Required:   false,
-		Deprecated: false,
-		Positional: false,
-		Default:    core.DefaultValueSetter("true"),
-	})
+	c.ArgSpecs.AddBefore("password", passwordgenerator.ArgSpec(true))
 	c.ArgSpecs.GetByName("password").Required = false
 	c.ArgSpecs.GetByName("node-type").Default = core.DefaultValueSetter("DB-DEV-S")
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
@@ -341,11 +334,15 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 
 		var err error
 		createInstanceRequest.NodeType = strings.ToLower(createInstanceRequest.NodeType)
-		if customRequest.GeneratePassword && customRequest.Password == "" {
-			createInstanceRequest.Password, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
-			if err != nil {
-				return nil, err
-			}
+		generatedPassword := customRequest.GeneratePassword && createInstanceRequest.Password == ""
+		createInstanceRequest.Password, err = passwordgenerator.Resolve(
+			customRequest.GeneratePassword,
+			createInstanceRequest.Password,
+		)
+		if err != nil {
+			return nil, err
+		}
+		if generatedPassword {
 			fmt.Printf("Your generated password is %s \n", createInstanceRequest.Password)
 			fmt.Printf("\n")
 		}

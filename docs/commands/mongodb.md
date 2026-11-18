@@ -113,21 +113,22 @@ scw mongodb instance create [arg=value ...]
 
 **Arguments:**
 
-| Name                                                 | Description                                                                 | Argument Specifications                                            |
-|------------------------------------------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
-| project-id                                           | Project ID to use. If none is passed the default project ID will be used    |                                                                    |
-| name                                                 | Name of the Database Instance                                               | Default: `<generated>`                                             |
-| version                                              | Major version of the MongoDB® engine                                        | Required<br />Default: ``                                          |
-| tags.{index}                                         | Tags to apply to the Database Instance                                      |                                                                    |
-| node-amount                                          | Number of node to use for the Database Instance                             | Required<br />Default: `1`                                         |
-| node-type                                            | Type of node to use for the Database Instance                               | Required                                                           |
-| user-name                                            | Username created when the Database Instance is created                      | Required                                                           |
-| password                                             | Password of the initial user                                                | Required                                                           |
-| volume.type                                          | Type of volume where data is stored                                         | Default: `sbs_5k`<br />One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
-| volume.size-bytes                                    | Volume size                                                                 | Default: `5GB`                                                     |
-| endpoints.{index}.public-network                     | Expose the Database Instance publicly (empty object)                        |                                                                    |
-| endpoints.{index}.private-network.private-network-id | UUID of the Private Network                                                 |                                                                    |
-| region                                               | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`                            |
+| Name                                                 | Description                                                                                                               | Argument Specifications                                            |
+|------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------|
+| project-id                                           | Project ID to use. If none is passed the default project ID will be used                                                  |                                                                    |
+| name                                                 | Name of the Database Instance                                                                                             | Default: `<generated>`                                             |
+| version                                              | Major version of the MongoDB® engine                                                                                      | Required<br />Default: ``                                          |
+| tags.{index}                                         | Tags to apply to the Database Instance                                                                                    |                                                                    |
+| node-amount                                          | Number of node to use for the Database Instance                                                                           | Required<br />Default: `1`                                         |
+| node-type                                            | Type of node to use for the Database Instance                                                                             | Required                                                           |
+| user-name                                            | Username created when the Database Instance is created                                                                    | Required                                                           |
+| generate-password                                    | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols | Default: `true`                                                    |
+| password                                             | Password of the initial user                                                                                              |                                                                    |
+| volume.type                                          | Type of volume where data is stored                                                                                       | Default: `sbs_5k`<br />One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
+| volume.size-bytes                                    | Volume size                                                                                                               | Default: `5GB`                                                     |
+| endpoints.{index}.public-network                     | Expose the Database Instance publicly (empty object)                                                                      |                                                                    |
+| endpoints.{index}.private-network.private-network-id | UUID of the Private Network                                                                                               |                                                                    |
+| region                                               | Region to target. If none is passed will use default region from the config                                               | Default: `fr-par`<br />One of: `fr-par`                            |
 
 
 
@@ -544,12 +545,13 @@ scw mongodb user create [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                                 | Argument Specifications                 |
-|-------------|-----------------------------------------------------------------------------|-----------------------------------------|
-| instance-id | UUID of the Database Instance the user belongs to                           | Required                                |
-| name        | Name of the database user                                                   |                                         |
-| password    | Password of the database user                                               |                                         |
-| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+| Name              | Description                                                                                                               | Argument Specifications                 |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| instance-id       | UUID of the Database Instance the user belongs to                                                                         | Required                                |
+| name              | Name of the database user                                                                                                 |                                         |
+| generate-password | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols | Default: `true`                         |
+| password          | Password of the database user                                                                                             |                                         |
+| region            | Region to target. If none is passed will use default region from the config                                               | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -633,12 +635,13 @@ scw mongodb user update [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                                 | Argument Specifications                 |
-|-------------|-----------------------------------------------------------------------------|-----------------------------------------|
-| instance-id | UUID of the Database Instance the user belongs to                           | Required                                |
-| name        | Name of the database user                                                   | Required                                |
-| password    | Password of the database user                                               |                                         |
-| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+| Name              | Description                                                                                                               | Argument Specifications                 |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| instance-id       | UUID of the Database Instance the user belongs to                                                                         | Required                                |
+| name              | Name of the database user                                                                                                 | Required                                |
+| generate-password | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols | Default: `false`                        |
+| password          | Password of the database user                                                                                             |                                         |
+| region            | Region to target. If none is passed will use default region from the config                                               | Default: `fr-par`<br />One of: `fr-par` |
 
 
 

@@ -11,6 +11,8 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	"github.com/scaleway/scaleway-cli/v2/internal/semver"
 	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -35,7 +37,8 @@ type redisEndpointSpecCustom struct {
 
 type CreateClusterRequestCustom struct {
 	*redis.CreateClusterRequest
-	Endpoints []*redisEndpointSpecCustom `json:"endpoints"`
+	Endpoints        []*redisEndpointSpecCustom `json:"endpoints"`
+	GeneratePassword bool
 }
 
 func clusterCreateBuilder(c *core.Command) *core.Command {
@@ -45,6 +48,8 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		Required: false,
 		Default:  core.DefaultValueSetter("false"),
 	})
+	c.ArgSpecs.AddBefore("password", passwordgenerator.ArgSpec(true))
+	c.ArgSpecs.GetByName("password").Required = false
 
 	c.ArgsType = reflect.TypeFor[CreateClusterRequestCustom]()
 
@@ -83,6 +88,19 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 			createClusterRequest.Version = latestVersion
 		}
 
+		generated := customRequest.GeneratePassword && createClusterRequest.Password == ""
+		var err error
+		createClusterRequest.Password, err = passwordgenerator.Resolve(
+			customRequest.GeneratePassword,
+			createClusterRequest.Password,
+		)
+		if err != nil {
+			return nil, err
+		}
+		if generated {
+			_, _ = interactive.Println("Your generated password is", createClusterRequest.Password)
+		}
+
 		if len(customRequest.Endpoints) == 0 {
 			createClusterRequest.Endpoints = append(
 				createClusterRequest.Endpoints,
@@ -118,6 +136,36 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		return cluster, nil
+	}
+
+	return c
+}
+
+func clusterUpdateBuilder(c *core.Command) *core.Command {
+	type redisUpdateClusterRequestCustom struct {
+		*redis.UpdateClusterRequest
+		GeneratePassword bool
+	}
+
+	c.ArgSpecs.AddBefore("password", passwordgenerator.ArgSpec(false))
+	c.ArgsType = reflect.TypeFor[redisUpdateClusterRequestCustom]()
+
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
+		api := redis.NewAPI(core.ExtractClient(ctx))
+		customRequest := argsI.(*redisUpdateClusterRequestCustom)
+		req := customRequest.UpdateClusterRequest
+
+		generated := customRequest.GeneratePassword && (req.Password == nil || *req.Password == "")
+		password, err := passwordgenerator.ResolvePtr(customRequest.GeneratePassword, req.Password)
+		if err != nil {
+			return nil, err
+		}
+		req.Password = password
+		if generated && password != nil {
+			_, _ = interactive.Println("Your generated password is", *password)
+		}
+
+		return api.UpdateCluster(req)
 	}
 
 	return c

@@ -101,14 +101,7 @@ func userCreateBuilder(c *core.Command) *core.Command {
 		Password string `json:"password"`
 	}
 
-	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
-		Name:       "generate-password",
-		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
-		Required:   false,
-		Deprecated: false,
-		Positional: false,
-		Default:    core.DefaultValueSetter("true"),
-	})
+	c.ArgSpecs.AddBefore("password", passwordgenerator.ArgSpec(true))
 	c.ArgsType = reflect.TypeFor[rdbCreateUserRequestCustom]()
 
 	c.Run = func(ctx context.Context, argsI any) (any, error) {
@@ -130,13 +123,10 @@ func userCreateBuilder(c *core.Command) *core.Command {
 			}
 		}
 
-		if customRequest.GeneratePassword && customRequest.Password == "" {
-			password, err := passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
-			if err != nil {
-				return nil, err
-			}
-			req.Password = password
-			// password is returned in the command output; avoid logging it to stdout
+		var err error
+		req.Password, err = passwordgenerator.Resolve(customRequest.GeneratePassword, req.Password)
+		if err != nil {
+			return nil, err
 		}
 
 		user, err := api.CreateUser(req)
@@ -166,14 +156,7 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 		Password string `json:"password"`
 	}
 
-	c.ArgSpecs.AddBefore("password", &core.ArgSpec{
-		Name:       "generate-password",
-		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
-		Required:   false,
-		Deprecated: false,
-		Positional: false,
-		Default:    core.DefaultValueSetter("true"),
-	})
+	c.ArgSpecs.AddBefore("password", passwordgenerator.ArgSpec(true))
 	c.ArgsType = reflect.TypeFor[rdbUpdateUserRequestCustom]()
 
 	c.Run = func(ctx context.Context, argsI any) (any, error) {
@@ -188,12 +171,11 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 		if customRequest.GeneratePassword || customRequest.Password != nil {
 			switch {
 			case customRequest.GeneratePassword && customRequest.Password == nil:
-				updateUserRequest.Password = new(string)
-				pwd, err := passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
-				if err != nil {
-					return nil, err
+				pwd, resolveErr := passwordgenerator.Generate()
+				if resolveErr != nil {
+					return nil, resolveErr
 				}
-				*updateUserRequest.Password = pwd
+				updateUserRequest.Password = &pwd
 
 				_, err = interactive.Println("Your generated password is", pwd)
 				if err != nil {

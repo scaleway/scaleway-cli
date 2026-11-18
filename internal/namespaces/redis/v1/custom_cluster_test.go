@@ -24,6 +24,23 @@ const (
 	metaNamePNB      = "PrivateNetworkB"
 )
 
+func Test_PasswordGenerator(t *testing.T) {
+	t.Run("Create cluster", core.Test(&core.TestConfig{
+		Commands: redis.GetCommands(),
+		BeforeFunc: core.BeforeFuncWhenUpdatingCassette(
+			func(_ *core.BeforeFuncCtx) error {
+				time.Sleep(1 * time.Minute)
+
+				return nil
+			},
+		),
+		Cmd: "scw redis cluster create --wait name=cli-pwd-gen2 version=" + redisTestVersion +
+			" node-type=RED1-micro user-name=admin generate-password=true",
+		Check:     core.TestCheckExitCode(0),
+		AfterFunc: deleteCluster(),
+	}))
+}
+
 func Test_Endpoints(t *testing.T) {
 	cmds := redis.GetCommands()
 	cmds.Merge(vpc.GetCommands())
