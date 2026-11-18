@@ -15,6 +15,7 @@ func Test_Info(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
+		TmpHomeDir: true,
 		OverrideEnv: map[string]string{
 			"SCW_SECRET_KEY":              "22222222-2222-2222-2222-222222222222",
 			"SCW_DEFAULT_ORGANIZATION_ID": "22222222-2222-2222-2222-222222222222",
@@ -33,6 +34,7 @@ func Test_Info(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
+		TmpHomeDir: true,
 		OverrideEnv: map[string]string{
 			"SCW_SECRET_KEY":              "22222222-2222-2222-2222-222222222222",
 			"SCW_DEFAULT_ORGANIZATION_ID": "22222222-2222-2222-2222-222222222222",
