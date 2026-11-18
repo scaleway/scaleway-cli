@@ -57,11 +57,17 @@ changelog:
       - '^test:'
   groups:
     - title: "Features:"
-      regexp: "^.*feat[(\\w)]*:+.*$"
+      regexp: "^feat(\\(.+\\))?:?.*$"
       order: 100
     - title: "Fixes:"
-      regexp: "^.*fix[(\\w)]*:+.*$"
+      regexp: "^fix(\\(.+\\))?:?.*$"
       order: 200
+    - title: "Documentation:"
+      regexp: "^docs(\\(.+\\))?:?.*$"
+      order: 300
+    - title: "Dependencies:"
+      regexp: "^chore\\(deps\\):?.*$"
+      order: 400
     - title: "Other:"
       order: 9999
 
