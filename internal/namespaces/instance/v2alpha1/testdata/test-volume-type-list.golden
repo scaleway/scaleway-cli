@@ -1,0 +1,18 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+NAME     MIN SIZE  MAX SIZE
+l_ssd    1.0 GB    800 GB
+scratch  1.0 GB    60 TB
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "name": "l_ssd",
+    "min_size": 1000000000,
+    "max_size": 800000000000
+  },
+  {
+    "name": "scratch",
+    "min_size": 1000000000,
+    "max_size": 60000000000000
+  }
+]

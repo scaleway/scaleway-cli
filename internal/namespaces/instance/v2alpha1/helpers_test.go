@@ -7,7 +7,9 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	instanceV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v2alpha1"
-	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	instanceSDKV1 "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	instanceSDKV2 "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 //
@@ -43,9 +45,9 @@ func testServerCommand(params string) string {
 	return baseCommand + params
 }
 
-func getServerFromMeta(meta core.TestMetadata, metaKey string) *instanceSDK.Server {
+func getServerFromMeta(meta core.TestMetadata, metaKey string) *instanceSDKV1.Server {
 	switch resp := meta[metaKey].(type) {
-	case *instanceSDK.Server:
+	case *instanceSDKV1.Server:
 		return resp
 	case *instance.ServerWithWarningsResponse:
 		return resp.Server
@@ -59,7 +61,7 @@ func getServerFromMeta(meta core.TestMetadata, metaKey string) *instanceSDK.Serv
 func deleteServerV1(metaKey string) core.AfterFunc {
 	return func(ctx *core.AfterFuncCtx) error {
 		server := getServerFromMeta(ctx.Meta, metaKey)
-		if server.State == instanceSDK.ServerStateRunning {
+		if server.State == instanceSDKV1.ServerStateRunning {
 			err := core.ExecAfterCmd(
 				fmt.Sprintf("scw instance server stop -w {{ .%s.ID }}", metaKey),
 			)(
@@ -122,7 +124,7 @@ func deleteSnapshot(metaKey string) core.AfterFunc {
 // createNonEmptyLocalVolume creates a server with a local root volume of the given size and registers the volume in
 // the context Meta at metaKey. The volume is then detached, and the server deleted, leaving a non-empty volume
 // ready to be snapshot, or any other use case that requires a non-empty local volume.
-func createNonEmptyLocalVolumeV1(metaKey string, sizeInGB int) core.BeforeFunc {
+func createNonEmptyLocalVolume(metaKey string, sizeInGB int) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := fmt.Sprintf(
 			"scw instance server create type=DEV1-S root-volume=local:%dGB stopped=true",
@@ -131,10 +133,21 @@ func createNonEmptyLocalVolumeV1(metaKey string, sizeInGB int) core.BeforeFunc {
 		server := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		createServerResponse := server.(*instance.ServerWithWarningsResponse)
 		serverID := createServerResponse.Server.ID
-		volume := createServerResponse.Server.Volumes["0"]
-		ctx.Meta[metaKey] = volume
+		volumeV1 := createServerResponse.Server.Volumes["0"]
 
-		cmd = "scw instance server detach-volume volume-id=" + volume.ID + " server-id=" + serverID
+		// Fetch volume from API v2
+		api := instanceSDKV2.NewVolumeAPI(ctx.Client)
+		volumeV2, err := api.GetVolume(&instanceSDKV2.VolumeAPIGetVolumeRequest{
+			Zone:     volumeV1.Zone,
+			VolumeID: volumeV1.ID,
+		}, scw.WithContext(ctx.T.Context()))
+		if err != nil {
+			return err
+		}
+
+		ctx.Meta[metaKey] = volumeV2
+
+		cmd = "scw instance server detach-volume volume-id=" + volumeV2.ID + " server-id=" + serverID
 		_ = ctx.ExecuteCmd(strings.Split(cmd, " "))
 
 		cmd = "scw instance server delete " + serverID
@@ -145,6 +158,6 @@ func createNonEmptyLocalVolumeV1(metaKey string, sizeInGB int) core.BeforeFunc {
 }
 
 // deleteVolume deletes a volume previously registered in the context Meta at "Volume".
-func deleteVolumeV1(metaKey string) core.AfterFunc {
+func deleteVolume(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd(fmt.Sprintf("scw instance volume delete {{ .%s.ID }}", metaKey))
 }
