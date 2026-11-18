@@ -143,7 +143,7 @@ func Test_Follow(t *testing.T) {
 
 	expected := make([]string, 0, 3)
 	for i, msg := range []string{"first", "second", "third"} {
-		ts := time.Unix(0, int64(i+1)*1000).Format(time.RFC3339)
+		ts := time.Unix(0, int64(i+1)*1000).UTC().Format(time.RFC3339)
 		expected = append(expected, ts+" node-1 "+msg)
 	}
 	assert.Equal(t, strings.Join(expected, "\n")+"\n", stdout.String())

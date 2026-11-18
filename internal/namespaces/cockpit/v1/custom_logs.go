@@ -35,7 +35,7 @@ type Entry struct {
 }
 
 func (e Entry) MarshalHuman() (string, error) {
-	return e.Timestamp.Format(time.RFC3339) + " " + e.ResourceInstance + " " + e.Message, nil
+	return e.Timestamp.UTC().Format(time.RFC3339) + " " + e.ResourceInstance + " " + e.Message, nil
 }
 
 // Lines is a batch of log entries. Human and JSON match stream=true (one line / object per entry).
