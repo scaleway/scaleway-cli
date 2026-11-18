@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-This API is a boilerplate for products.
+This API allows you to manage your Data Orchestrator.
 
 USAGE:
   scw workflows <command>
