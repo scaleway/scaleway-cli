@@ -115,6 +115,7 @@ release:
 
 winget:
   - name: cli
+    url_template: "https://github.com/scaleway/scaleway-cli/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
     publisher: Scaleway SAS
     short_description: Command Line Interface for Scaleway
     package_identifier: "Scaleway.cli"
