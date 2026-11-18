@@ -13,7 +13,6 @@ permissions: {}
 jobs:
   release:
     runs-on: ${{ vars.RUNS_ON || 'ubuntu-latest' }}
-    timeout-minutes: 20
     permissions:
       contents: write
     steps:
