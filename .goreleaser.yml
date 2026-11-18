@@ -49,12 +49,21 @@ checksum:
   algorithm: sha256
 
 changelog:
-  use: github
   sort: asc
+  use: github
   filters:
     exclude:
       - '^docs:'
       - '^test:'
+  groups:
+    - title: "Features:"
+      regexp: "^.*feat[(\\w)]*:+.*$"
+      order: 100
+    - title: "Fixes:"
+      regexp: "^.*fix[(\\w)]*:+.*$"
+      order: 200
+    - title: "Other:"
+      order: 9999
 
 dockers_v2:
   - images:
