@@ -9,7 +9,6 @@ permissions: {}
 jobs:
   publish:
     runs-on: ${{ vars.RUNS_ON || 'ubuntu-latest' }}
-    timeout-minutes: 20
     permissions:
       id-token: write # Required for OIDC (MCP)
     steps:
