@@ -14,14 +14,14 @@ builds:
     main: ./cmd/scw/main.go
     binary: scaleway-cli
     goos:
-      - freebsd
+      # - freebsd
       - linux
-      - windows
-      - darwin
+      # - windows
+      # - darwin
     goarch:
-      - 386
+      # - 386
       - amd64
-      - arm64
+      # - arm64
     ignore:
       - goos: darwin
         goarch: 386
@@ -57,10 +57,13 @@ changelog:
       - '^test:'
   groups:
     - title: "Features:"
-      regexp: "^.*feat[(\\w)]*:+.*$"
+      regexp: "^feat(\\(.+\\))?:?.*$"
       order: 100
     - title: "Fixes:"
-      regexp: "^.*fix[(\\w)]*:+.*$"
+      regexp: "^fix(\\(.+\\))?:?.*$"
+      order: 200
+    - title: "Dependencies:"
+      regexp: "^chore\\(deps\\):?.*$"
       order: 200
     - title: "Other:"
       order: 9999

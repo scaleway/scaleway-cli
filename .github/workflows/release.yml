@@ -17,6 +17,8 @@ jobs:
       contents: write
     steps:
       - uses: $/.github/actions/checkout
+        with:
+          fetch-depth: 0
       - uses: $/.github/actions/mise
         with:
           cache: false
