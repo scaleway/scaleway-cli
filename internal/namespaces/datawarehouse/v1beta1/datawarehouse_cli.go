@@ -384,6 +384,13 @@ func datawarehouseDeploymentCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "kms-key-id",
+				Short:      `ID of a Key Manager key of the Project, used to encrypt the deployment data at rest. The key must be enabled, with a symmetric encryption usage. Encryption can only be chosen at creation, it cannot be enabled, disabled or changed afterwards.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
