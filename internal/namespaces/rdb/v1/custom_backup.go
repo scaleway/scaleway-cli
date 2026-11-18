@@ -758,21 +758,16 @@ dry-run=true previews deletions without calling the API delete endpoint.`,
 					Name:      backup.Name,
 					CreatedAt: backup.CreatedAt,
 				}
-				if args.DryRun {
-					deletedIDs = append(deletedIDs, backup.ID)
-					items = append(items, item)
+				if !args.DryRun {
+					_, err = api.DeleteDatabaseBackup(&rdb.DeleteDatabaseBackupRequest{
+						Region:           args.Region,
+						DatabaseBackupID: backup.ID,
+					}, scw.WithContext(ctx))
+					if err != nil {
+						err = fmt.Errorf("could not delete backup %s: %w", backup.ID, err)
 
-					continue
-				}
-
-				_, err = api.DeleteDatabaseBackup(&rdb.DeleteDatabaseBackupRequest{
-					Region:           args.Region,
-					DatabaseBackupID: backup.ID,
-				}, scw.WithContext(ctx))
-				if err != nil {
-					err = fmt.Errorf("could not delete backup %s: %w", backup.ID, err)
-
-					break
+						break
+					}
 				}
 
 				deletedIDs = append(deletedIDs, backup.ID)
