@@ -1,4 +1,4 @@
-package cockpitlogs_test
+package cockpit_test
 
 import (
 	"bytes"
@@ -12,7 +12,7 @@ import (
 
 	"github.com/hashicorp/go-version"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/cockpitlogs"
+	cockpit "github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/platform/terminal"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
@@ -20,21 +20,21 @@ import (
 )
 
 func Test_ParseValue(t *testing.T) {
-	entry, err := cockpitlogs.ParseValue(
+	entry, err := cockpit.ParseValue(
 		[]string{"1000", `{"resource_instance":"node-1","message":"hello"}`},
 	)
 	require.NoError(t, err)
-	assert.Equal(t, cockpitlogs.Entry{
+	assert.Equal(t, cockpit.Entry{
 		Timestamp:        time.Unix(0, 1000),
 		ResourceInstance: "node-1",
 		Message:          "hello",
 	}, entry)
 
-	entry, err = cockpitlogs.ParseValue([]string{"1000", "LOG:  checkpoint starting"})
+	entry, err = cockpit.ParseValue([]string{"1000", "LOG:  checkpoint starting"})
 	require.NoError(t, err)
 	assert.Equal(t, "LOG:  checkpoint starting", entry.Message)
 
-	_, err = cockpitlogs.ParseValue([]string{"1000"})
+	_, err = cockpit.ParseValue([]string{"1000"})
 	require.Error(t, err)
 }
 
@@ -93,7 +93,7 @@ func Test_Follow(t *testing.T) {
 	defer cancel()
 
 	printed := 0
-	resource := cockpitlogs.Resource{
+	resource := cockpit.Resource{
 		Type:   "rdb_instance_postgresql",
 		ID:     "instance-id",
 		Region: scw.RegionFrPar,
@@ -106,8 +106,8 @@ func Test_Follow(t *testing.T) {
 		ArgsType:             reflect.TypeFor[struct{}](),
 		Run:                  func(context.Context, any) (any, error) { return nil, nil },
 		FollowFunc: func(ctx context.Context, _ any, emit func(any) error) error {
-			return cockpitlogs.Follow(ctx, resource, time.Hour, func(data any) error {
-				printed += len(data.(cockpitlogs.Lines))
+			return cockpit.Follow(ctx, resource, time.Hour, func(data any) error {
+				printed += len(data.(cockpit.Lines))
 				if printed == 3 {
 					cancel()
 				}

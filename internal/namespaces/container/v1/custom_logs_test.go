@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/cockpitlogs"
+	cockpit "github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1"
 	"github.com/stretchr/testify/assert"
 )
@@ -47,7 +47,7 @@ func Test_ContainerLogs(t *testing.T) {
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				c := ctx.Result.([]cockpitlogs.Entry)
+				c := ctx.Result.([]cockpit.Entry)
 				assert.Len(t, c, 5)
 			},
 			core.TestCheckExitCode(0),

@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/cockpitlogs"
+	cockpit "github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -18,8 +18,8 @@ type containerLogsRequest struct {
 	EntryCount  *int
 }
 
-func (r *containerLogsRequest) resource() cockpitlogs.Resource {
-	return cockpitlogs.Resource{
+func (r *containerLogsRequest) resource() cockpit.Resource {
+	return cockpit.Resource{
 		Type:   "serverless_container",
 		ID:     r.ContainerID,
 		Region: r.Region,
@@ -70,12 +70,12 @@ func containerLogs() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*containerLogsRequest)
 
-			return cockpitlogs.Recent(ctx, args.resource(), args.TimeSpan, args.EntryCount)
+			return cockpit.Recent(ctx, args.resource(), args.TimeSpan, args.EntryCount)
 		},
 		FollowFunc: func(ctx context.Context, argsI any, emit func(any) error) error {
 			args := argsI.(*containerLogsRequest)
 
-			return cockpitlogs.Follow(ctx, args.resource(), args.TimeSpan, emit)
+			return cockpit.Follow(ctx, args.resource(), args.TimeSpan, emit)
 		},
 	}
 }

@@ -1,5 +1,4 @@
-// Package cockpitlogs reads the logs that Scaleway products push to Cockpit (Loki).
-package cockpitlogs
+package cockpit
 
 import (
 	"context"
@@ -52,7 +51,7 @@ func (l Lines) MarshalHuman() (string, error) {
 
 // Recent returns the newest logs of r over the last span, at most entryCount if set.
 func Recent(ctx context.Context, r Resource, span time.Duration, entryCount *int) ([]Entry, error) {
-	s, err := open(ctx, r)
+	s, err := openLogs(ctx, r)
 	if err != nil {
 		return nil, err
 	}
@@ -83,7 +82,7 @@ func Recent(ctx context.Context, r Resource, span time.Duration, entryCount *int
 // ponytail: polls query_range from the last seen timestamp, lines ingested late with an older
 // timestamp are skipped; switch to Loki's /tail websocket if that matters.
 func Follow(ctx context.Context, r Resource, span time.Duration, emit func(any) error) error {
-	s, err := open(ctx, r)
+	s, err := openLogs(ctx, r)
 	if err != nil {
 		return err
 	}
@@ -130,8 +129,8 @@ type session struct {
 	selector   string
 }
 
-// open finds the Scaleway logs data source and authenticates with the IAM secret key.
-func open(ctx context.Context, r Resource) (*session, error) {
+// openLogs finds the Scaleway logs data source and authenticates with the IAM secret key.
+func openLogs(ctx context.Context, r Resource) (*session, error) {
 	client := core.ExtractClient(ctx)
 	api := cockpit.NewRegionalAPI(client)
 
@@ -211,7 +210,7 @@ func (s *session) query(ctx context.Context, start, end time.Time, forward bool)
 
 	for _, stream := range lokiResp.Data.Result {
 		for i, value := range stream.Values {
-			entry, err := parseValue(value)
+			entry, err := ParseValue(value)
 			if err != nil {
 				return nil, fmt.Errorf("failed to parse log entry at index %d: %w", i, err)
 			}
@@ -235,8 +234,8 @@ func (s *session) query(ctx context.Context, start, end time.Time, forward bool)
 	return entries, nil
 }
 
-// parseValue decodes a Loki [timestamp, line] pair. Lines that are not JSON are kept as the message.
-func parseValue(value []string) (Entry, error) {
+// ParseValue decodes a Loki [timestamp, line] pair. Lines that are not JSON are kept as the message.
+func ParseValue(value []string) (Entry, error) {
 	if len(value) < 2 {
 		return Entry{}, fmt.Errorf("expected 2 parts, got %d", len(value))
 	}

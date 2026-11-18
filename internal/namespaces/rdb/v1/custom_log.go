@@ -15,7 +15,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
-	"github.com/scaleway/scaleway-cli/v2/internal/cockpitlogs"
+	cockpit "github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -102,18 +102,18 @@ type instanceLogsArgs struct {
 }
 
 // resource returns the Cockpit logs of the instance, labelled per engine (e.g. rdb_instance_postgresql).
-func (a *instanceLogsArgs) resource(ctx context.Context) (cockpitlogs.Resource, error) {
+func (a *instanceLogsArgs) resource(ctx context.Context) (cockpit.Resource, error) {
 	instance, err := rdb.NewAPI(core.ExtractClient(ctx)).GetInstance(&rdb.GetInstanceRequest{
 		InstanceID: a.InstanceID,
 		Region:     a.Region,
 	}, scw.WithContext(ctx))
 	if err != nil {
-		return cockpitlogs.Resource{}, err
+		return cockpit.Resource{}, err
 	}
 
 	engine, _, _ := strings.Cut(instance.Engine, "-")
 
-	return cockpitlogs.Resource{
+	return cockpit.Resource{
 		Type:   "rdb_instance_" + strings.ToLower(engine),
 		ID:     a.InstanceID,
 		Region: a.Region,
@@ -169,7 +169,7 @@ func instanceLogsCommand() *core.Command {
 				return nil, err
 			}
 
-			return cockpitlogs.Recent(ctx, resource, args.TimeSpan, args.EntryCount)
+			return cockpit.Recent(ctx, resource, args.TimeSpan, args.EntryCount)
 		},
 		FollowFunc: func(ctx context.Context, argsI any, emit func(any) error) error {
 			args := argsI.(*instanceLogsArgs)
@@ -179,7 +179,7 @@ func instanceLogsCommand() *core.Command {
 				return err
 			}
 
-			return cockpitlogs.Follow(ctx, resource, args.TimeSpan, emit)
+			return cockpit.Follow(ctx, resource, args.TimeSpan, emit)
 		},
 		Examples: []*core.Example{
 			{
