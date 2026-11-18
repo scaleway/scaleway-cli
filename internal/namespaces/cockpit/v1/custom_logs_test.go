@@ -112,7 +112,7 @@ func Test_Follow(t *testing.T) {
 		Run:                  func(context.Context, any) (any, error) { return nil, nil },
 		StreamFunc: func(ctx context.Context, _ any, emit func(any) error) error {
 			return cockpit.Follow(ctx, resource, time.Hour, func(data any) error {
-				printed += len(data.(cockpit.Lines))
+				printed++
 				if printed == 3 {
 					cancel()
 				}

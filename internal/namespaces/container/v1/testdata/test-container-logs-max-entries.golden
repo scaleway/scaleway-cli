@@ -1,11 +1,10 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-TIMESTAMP        RESOURCE INSTANCE                                                MESSAGE
-few seconds ago  clinsaffectionatehoo27be6a9847fd7f839151fe627966d752-deplog5zvk  -
-few seconds ago  clinsaffectionatehoo27be6a9847fd7f839151fe627966d752-deplog5zvk   https://docs.docker.com/get-started/
-few seconds ago  clinsaffectionatehoo27be6a9847fd7f839151fe627966d752-deplog5zvk  For more examples and ideas, visit:
-few seconds ago  clinsaffectionatehoo27be6a9847fd7f839151fe627966d752-deplog5zvk  -
-few seconds ago  clinsaffectionatehoo27be6a9847fd7f839151fe627966d752-deplog5zvk   https://hub.docker.com/
+2026-08-07T18:35:42+02:00 clinsaffectionatehoo27be6a9847fd7f839151fe627966d752-deplog5zvk 
+2026-08-07T18:35:42+02:00 clinsaffectionatehoo27be6a9847fd7f839151fe627966d752-deplog5zvk  https://docs.docker.com/get-started/
+2026-08-07T18:35:42+02:00 clinsaffectionatehoo27be6a9847fd7f839151fe627966d752-deplog5zvk For more examples and ideas, visit:
+2026-08-07T18:35:42+02:00 clinsaffectionatehoo27be6a9847fd7f839151fe627966d752-deplog5zvk 
+2026-08-07T18:35:42+02:00 clinsaffectionatehoo27be6a9847fd7f839151fe627966d752-deplog5zvk  https://hub.docker.com/
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {

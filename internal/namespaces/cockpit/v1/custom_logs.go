@@ -34,23 +34,28 @@ type Entry struct {
 	Message          string    `json:"message"`
 }
 
-// Lines renders entries one per line so that successive batches can be streamed.
+func (e Entry) MarshalHuman() (string, error) {
+	return e.Timestamp.Format(time.RFC3339) + " " + e.ResourceInstance + " " + e.Message, nil
+}
+
+// Lines is a batch of log entries. Human and JSON match stream=true (one line / object per entry).
 type Lines []Entry
 
 func (l Lines) MarshalHuman() (string, error) {
 	lines := make([]string, 0, len(l))
 	for _, e := range l {
-		lines = append(
-			lines,
-			e.Timestamp.Format(time.RFC3339)+" "+e.ResourceInstance+" "+e.Message,
-		)
+		line, err := e.MarshalHuman()
+		if err != nil {
+			return "", err
+		}
+		lines = append(lines, line)
 	}
 
 	return strings.Join(lines, "\n"), nil
 }
 
 // Recent returns the newest logs of r over the last span, at most entryCount if set.
-func Recent(ctx context.Context, r Resource, span time.Duration, entryCount *int) ([]Entry, error) {
+func Recent(ctx context.Context, r Resource, span time.Duration, entryCount *int) (Lines, error) {
 	s, err := openLogs(ctx, r)
 	if err != nil {
 		return nil, err
@@ -75,10 +80,11 @@ func Recent(ctx context.Context, r Resource, span time.Duration, entryCount *int
 		}
 	}
 
-	return entries, nil
+	return Lines(entries), nil
 }
 
 // Follow emits the newest logs of r over the last span, then every new line until ctx is done.
+// Each entry is emitted alone so -o json is JSONL and human matches Recent.
 // ponytail: polls query_range from the last seen timestamp, lines ingested late with an older
 // timestamp are skipped; switch to Loki's /tail websocket if that matters.
 func Follow(ctx context.Context, r Resource, span time.Duration, emit func(any) error) error {
@@ -108,9 +114,11 @@ func Follow(ctx context.Context, r Resource, span time.Duration, emit func(any) 
 		if len(entries) > 0 {
 			start = entries[len(entries)-1].Timestamp.Add(time.Nanosecond)
 
-			err = emit(Lines(entries))
-			if err != nil {
-				return err
+			for _, entry := range entries {
+				err = emit(entry)
+				if err != nil {
+					return err
+				}
 			}
 		}
 

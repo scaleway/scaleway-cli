@@ -47,7 +47,7 @@ func Test_ContainerLogs(t *testing.T) {
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				c := ctx.Result.([]cockpit.Entry)
+				c := ctx.Result.(cockpit.Lines)
 				assert.Len(t, c, 5)
 			},
 			core.TestCheckExitCode(0),
