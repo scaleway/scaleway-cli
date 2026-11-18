@@ -331,6 +331,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 // These tests needs to be run in sequence
 // since they are using the interactive print
 func Test_ServerDelete(t *testing.T) {
+	mergedCommands := instanceV1AndV2Commands()
 	interactive.IsInteractive = true
 
 	t.Run("with all volumes", core.Test(&core.TestConfig{
@@ -348,7 +349,7 @@ func Test_ServerDelete(t *testing.T) {
 	}))
 
 	t.Run("only block volumes", core.Test(&core.TestConfig{
-		Commands: instance.GetCommands(),
+		Commands: mergedCommands,
 		BeforeFunc: core.ExecStoreBeforeCmd(
 			"Server",
 			testServerCommand("stopped=true root-volume=l:20G additional-volumes.0=block:10G"),
@@ -390,7 +391,7 @@ func Test_ServerDelete(t *testing.T) {
 	t.Run("with none volumes", core.Test(&core.TestConfig{
 		Commands: core.NewCommandsMerge(
 			block.GetCommands(),
-			instance.GetCommands(),
+			mergedCommands,
 		),
 		BeforeFunc: core.ExecStoreBeforeCmd(
 			"Server",

@@ -628,6 +628,8 @@ func Test_CreateServer(t *testing.T) {
 // These tests need to be run in sequence since they are having warnings in the stderr
 // and these warnings can be captured by other tests
 func Test_CreateServerErrors(t *testing.T) {
+	mergedCmds := instanceV1AndV2Commands()
+
 	////
 	// Image errors
 	////
@@ -690,7 +692,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: invalid total local volumes size: too low 3", core.Test(&core.TestConfig{
-		Commands:   instance.GetCommands(),
+		Commands:   mergedCmds,
 		BeforeFunc: createVolume(5),
 		Cmd:        testServerCommand("image=ubuntu_jammy root-volume={{ .Volume.ID }}"),
 		Check: core.TestCheckCombine(
@@ -724,7 +726,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: invalid total local volumes size: too high 3", core.Test(&core.TestConfig{
-		Commands:   instance.GetCommands(),
+		Commands:   mergedCmds,
 		BeforeFunc: createVolume(20),
 		Cmd: testServerCommand(
 			"image=ubuntu_jammy root-volume={{ .Volume.ID }} additional-volumes.0=local:10GB",
@@ -750,7 +752,7 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 
 	t.Run("Error: disallow existing root volume ID", core.Test(&core.TestConfig{
-		Commands:   instance.GetCommands(),
+		Commands:   mergedCmds,
 		BeforeFunc: createVolume(20),
 		Cmd:        testServerCommand("image=ubuntu_jammy root-volume={{ .Volume.ID }}"),
 		Check: core.TestCheckCombine(

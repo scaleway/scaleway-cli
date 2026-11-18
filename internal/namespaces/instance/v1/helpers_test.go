@@ -110,8 +110,7 @@ func createVolume(
 			sizeInGb,
 		)
 		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
-		createVolumeResponse := res.(*instanceSDK.CreateVolumeResponse)
-		ctx.Meta["Volume"] = createVolumeResponse.Volume
+		ctx.Meta["Volume"] = res.(*instanceSDKV2.Volume)
 
 		return nil
 	}
