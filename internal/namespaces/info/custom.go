@@ -60,6 +60,7 @@ func infosRoot() *core.Command {
 		Short:                `Get info about current settings`,
 		Namespace:            "info",
 		AllowAnonymousClient: true,
+		ExcludeFromMCP:       true, // Reveals the secret key with show-secret=true
 		ArgsType:             reflect.TypeFor[infoArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{

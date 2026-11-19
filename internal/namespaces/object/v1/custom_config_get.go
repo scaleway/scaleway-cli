@@ -25,6 +25,8 @@ func configGetCommand() *core.Command {
 		Short:     "Generate a S3 tool configuration file",
 		Long:      "Generate a S3 tool configuration file.",
 		ArgsType:  reflect.TypeFor[getArgs](),
+		// The generated config file embeds the secret key, so it must not be exposed to MCP.
+		ExcludeFromMCP: true,
 		ArgSpecs: []*core.ArgSpec{
 			{
 				Name:       "type",
