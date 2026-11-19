@@ -143,12 +143,11 @@ func Test_InstanceConnect(t *testing.T) {
 	}))
 
 	t.Run("template", core.Test(&core.TestConfig{
-		Commands:        mongodb.GetCommands(),
-		DisableParallel: true,
-		BeforeFunc:      createConnectInstance("connect-test-template"),
-		Cmd: "scw mongodb instance connect {{ .Instance.ID }}" +
+		Commands: mongodb.GetCommands(),
+		// No API: username/password set and template only uses {{.Username}}.
+		Cmd: "scw mongodb instance connect " + connectInterruptedInstanceID +
+			` username=` + mongodbTestUser + ` password=` + mongodbTestPass +
 			` template="echo {{"{{"}}.Username{{"}}"}}"`,
-		PromptResponseMocks: []string{mongodbTestPass},
 		OverrideExec: func(_ *core.ExecFuncCtx, cmd *exec.Cmd) (int, error) {
 			want := []string{"echo", mongodbTestUser}
 			if !slices.Equal(cmd.Args, want) {
@@ -160,7 +159,6 @@ func Test_InstanceConnect(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: deleteConnectInstance(),
 	}))
 
 	t.Run("interrupted", core.Test(&core.TestConfig{

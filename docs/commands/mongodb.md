@@ -108,7 +108,7 @@ When no username is given, the first db_admin user is used (falling back to the 
 
 Use template to connect with a different tool instead. Its value (default: the mongosh command below) is rendered as a Go text/template and the result is executed as the connect command.
 Available variables:
-{{.InstanceID}}, {{.Instance}} (the instance object), {{.Endpoint}} ({{.Endpoint.DNSRecord}}), {{.DNSRecord}}, {{.Region}}, {{.Username}}, {{.Password}}, {{.ConnURL}}, {{.CertPath}}, {{.Organization}} and {{.Project}}.
+{{.InstanceID}}, {{.Instance}} (the instance object), {{.Endpoint}} ({{.Endpoint.DNSRecord}}), {{.Region}}, {{.Username}}, {{.Password}}, {{.ConnURL}}, {{.CertPath}}, {{.Organization}} and {{.Project}}.
 
 **Usage:**
 

@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"net"
 	"net/url"
 	"os"
 	"os/exec"
@@ -78,18 +77,6 @@ func pickAdminUser(users []*mongodb.User) (string, error) {
 	return fallback, nil
 }
 
-func findAdminUser(api *mongodb.API, instanceID string, region scw.Region) (string, error) {
-	users, err := api.ListUsers(&mongodb.ListUsersRequest{
-		Region:     region,
-		InstanceID: instanceID,
-	}, scw.WithAllPages())
-	if err != nil {
-		return "", err
-	}
-
-	return pickAdminUser(users.Users)
-}
-
 // instanceConnectTemplateData is the template data for the connect command.
 type instanceConnectTemplateData struct {
 	*connect.TemplateData
@@ -134,13 +121,6 @@ func (d *instanceConnectTemplateData) Endpoint() (*mongodb.Endpoint, error) {
 
 			return
 		}
-		if len(instance.Endpoints) == 0 {
-			d.endpoint, d.endpointErr = nil, errors.New(
-				"no endpoint is associated with your instance",
-			)
-
-			return
-		}
 
 		if d.privateNetwork {
 			d.endpoint, d.endpointErr = getPrivateEndpoint(instance.Endpoints)
@@ -150,16 +130,6 @@ func (d *instanceConnectTemplateData) Endpoint() (*mongodb.Endpoint, error) {
 	})
 
 	return d.endpoint, d.endpointErr
-}
-
-// DNSRecord is the endpoint DNS name used in mongodb+srv URIs.
-func (d *instanceConnectTemplateData) DNSRecord() (string, error) {
-	endpoint, err := d.Endpoint()
-	if err != nil {
-		return "", err
-	}
-
-	return endpoint.DNSRecord, nil
 }
 
 // CertPath returns the path of the temporary TLS certificate file.
@@ -173,14 +143,14 @@ func (d *instanceConnectTemplateData) CertPath() (string, error) {
 
 // ConnURL returns a mongodb+srv URI with username and password.
 func (d *instanceConnectTemplateData) ConnURL() (string, error) {
-	dnsRecord, err := d.DNSRecord()
+	endpoint, err := d.Endpoint()
 	if err != nil {
 		return "", err
 	}
 
 	return (&url.URL{
 		Scheme: "mongodb+srv",
-		Host:   dnsRecord,
+		Host:   endpoint.DNSRecord,
 		User:   url.UserPassword(d.Username, d.Password),
 	}).String(), nil
 }
@@ -220,7 +190,7 @@ When no username is given, the first db_admin user is used (falling back to the 
 
 Use template to connect with a different tool instead. Its value (default: the mongosh command below) is rendered as a Go text/template and the result is executed as the connect command.
 Available variables:
-{{.InstanceID}}, {{.Instance}} (the instance object), {{.Endpoint}} ({{.Endpoint.DNSRecord}}), {{.DNSRecord}}, {{.Region}}, {{.Username}}, {{.Password}}, {{.ConnURL}}, {{.CertPath}}, {{.Organization}} and {{.Project}}.`,
+{{.InstanceID}}, {{.Instance}} (the instance object), {{.Endpoint}} ({{.Endpoint.DNSRecord}}), {{.Region}}, {{.Username}}, {{.Password}}, {{.ConnURL}}, {{.CertPath}}, {{.Organization}} and {{.Project}}.`,
 		ArgsType: reflect.TypeFor[instanceConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -256,8 +226,14 @@ Available variables:
 
 			username := args.Username
 			if username == "" {
-				var err error
-				username, err = findAdminUser(api, args.InstanceID, args.Region)
+				users, err := api.ListUsers(&mongodb.ListUsersRequest{
+					Region:     args.Region,
+					InstanceID: args.InstanceID,
+				}, scw.WithAllPages())
+				if err != nil {
+					return nil, err
+				}
+				username, err = pickAdminUser(users.Users)
 				if err != nil {
 					return nil, err
 				}
@@ -294,32 +270,6 @@ Available variables:
 					core.ExtractLogger(ctx).Debugf("failed to remove certificate file: %v", err)
 				}
 			}()
-
-			// Fail fast on the default mongosh path when the +srv record is
-			// not resolvable, instead of letting mongosh time out. Skip when
-			// OverrideExec is set (cassette tests): DNS is not recorded and
-			// the instance may already be gone at replay time.
-			meta := core.ExtractMeta(ctx)
-			if args.Template == defaultConnectTemplate &&
-				(meta == nil || meta.OverrideExec == nil) {
-				dnsRecord, err := templateData.DNSRecord()
-				if err != nil {
-					return nil, err
-				}
-				if _, _, srvErr := net.DefaultResolver.LookupSRV(
-					ctx,
-					"mongodb",
-					"tcp",
-					dnsRecord,
-				); srvErr != nil {
-					return nil, fmt.Errorf(
-						"cannot resolve the MongoDB endpoint %s from this machine (%v); "+
-							"check your network/DNS, or use private-network=true if a private endpoint is attached",
-						dnsRecord,
-						srvErr,
-					)
-				}
-			}
 
 			cmdArgs, err := connect.RenderCommand(args.Template, templateData)
 			if err != nil {
