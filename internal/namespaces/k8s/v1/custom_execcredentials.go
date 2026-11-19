@@ -21,6 +21,9 @@ func k8sExecCredentialCommand() *core.Command {
 
 		// avoid calling checkAPIKey (Check if API Key is about to expire)
 		DisableAfterChecks: true,
+		// Outputs the secret key as a bearer token, must not be exposed to MCP.
+		// Already filtered by Hidden, kept explicit as defense in depth.
+		ExcludeFromMCP: true,
 	}
 }
 

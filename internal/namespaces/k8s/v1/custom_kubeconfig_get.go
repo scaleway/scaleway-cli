@@ -25,6 +25,8 @@ func k8sKubeconfigGetCommand() *core.Command {
 		Verb:      "get",
 		Resource:  "kubeconfig",
 		ArgsType:  reflect.TypeFor[k8sKubeconfigGetRequest](),
+		// Kubeconfig can embed the secret key as a token (copy-cli-token auth method or when SCW_SECRET_KEY is set).
+		ExcludeFromMCP: true,
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",

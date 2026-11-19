@@ -25,14 +25,12 @@ k8s        cluster       update                   k8s_cluster_update            
 k8s        cluster       upgrade                  k8s_cluster_upgrade                    Upgrade a Cluster
 k8s        cluster       wait                     k8s_cluster_wait                       Wait for a cluster to reach a stable state
 k8s        cluster-type  list                     k8s_cluster-type_list                  List cluster types
-k8s        kubeconfig    get                      k8s_kubeconfig_get                     Retrieve a kubeconfig
 k8s        node          delete                   k8s_node_delete                        Delete a Node in a Cluster
 k8s        node          get                      k8s_node_get                           Get a Node in a Cluster
 k8s        node          list                     k8s_node_list                          List Nodes in a Cluster
 k8s        node          reboot                   k8s_node_reboot                        Reboot a Node in a Cluster
 k8s        node          replace                  k8s_node_replace                       Replace a Node in a Cluster
 k8s        node          wait                     k8s_node_wait                          Wait for a node to reach a stable state
-k8s        pool          add-external-node        k8s_pool_add-external-node             Add an external node to a Kosmos Pool
 k8s        pool          create                   k8s_pool_create                        Create a new Pool in a Cluster
 k8s        pool          delete                   k8s_pool_delete                        Delete a Pool in a Cluster
 k8s        pool          get                      k8s_pool_get                           Get a Pool in a Cluster
@@ -222,13 +220,6 @@ k8s        version       list                     k8s_version_list              
   },
   {
     "namespace": "k8s",
-    "resource": "kubeconfig",
-    "verb": "get",
-    "tool_name": "k8s_kubeconfig_get",
-    "short": "Retrieve a kubeconfig"
-  },
-  {
-    "namespace": "k8s",
     "resource": "node",
     "verb": "delete",
     "tool_name": "k8s_node_delete",
@@ -268,13 +259,6 @@ k8s        version       list                     k8s_version_list              
     "verb": "wait",
     "tool_name": "k8s_node_wait",
     "short": "Wait for a node to reach a stable state"
-  },
-  {
-    "namespace": "k8s",
-    "resource": "pool",
-    "verb": "add-external-node",
-    "tool_name": "k8s_pool_add-external-node",
-    "short": "Add an external node to a Kosmos Pool"
   },
   {
     "namespace": "k8s",
