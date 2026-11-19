@@ -25,12 +25,12 @@ EXAMPLES:
     scw mcp server serve namespaces=instance resources=server verbs=get,list
 
 ARGS:
-  [transport=stdio]   Transport mode: stdio (default) or streamable-http
-  [address=:8080]     Address to bind for streamable-http transports (e.g., :8080)
-  [read-only=false]   Only register read-only commands (get, list operations)
-  [namespaces]        Only serve commands from specified namespaces (comma-separated)
-  [resources]         Only serve commands from specified resources (comma-separated)
-  [verbs]             Only serve commands with specified verbs (comma-separated)
+  [transport=stdio]          Transport mode: stdio (default) or streamable-http
+  [address=localhost:8080]   Address to bind for streamable-http transports (e.g., :8080)
+  [read-only=false]          Only register read-only commands (get, list operations)
+  [namespaces]               Only serve commands from specified namespaces (comma-separated)
+  [resources]                Only serve commands from specified resources (comma-separated)
+  [verbs]                    Only serve commands with specified verbs (comma-separated)
 
 FLAGS:
   -h, --help[=true|false]                help for serve

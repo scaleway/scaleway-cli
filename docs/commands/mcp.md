@@ -118,14 +118,14 @@ scw mcp server serve [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                     | Argument Specifications |
-|------------|-----------------------------------------------------------------|-------------------------|
-| transport  | Transport mode: stdio (default) or streamable-http              | Default: `stdio`        |
-| address    | Address to bind for streamable-http transports (e.g., :8080)    | Default: `:8080`        |
-| read-only  | Only register read-only commands (get, list operations)         | Default: `false`        |
-| namespaces | Only serve commands from specified namespaces (comma-separated) |                         |
-| resources  | Only serve commands from specified resources (comma-separated)  |                         |
-| verbs      | Only serve commands with specified verbs (comma-separated)      |                         |
+| Name       | Description                                                     | Argument Specifications   |
+|------------|-----------------------------------------------------------------|---------------------------|
+| transport  | Transport mode: stdio (default) or streamable-http              | Default: `stdio`          |
+| address    | Address to bind for streamable-http transports (e.g., :8080)    | Default: `localhost:8080` |
+| read-only  | Only register read-only commands (get, list operations)         | Default: `false`          |
+| namespaces | Only serve commands from specified namespaces (comma-separated) |                           |
+| resources  | Only serve commands from specified resources (comma-separated)  |                           |
+| verbs      | Only serve commands with specified verbs (comma-separated)      |                           |
 
 
 **Examples:**

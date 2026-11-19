@@ -69,7 +69,7 @@ func McpServerServe() *core.Command {
 				Short:      "Address to bind for streamable-http transports (e.g., :8080)",
 				Required:   false,
 				Positional: false,
-				Default:    core.DefaultValueSetter(":8080"),
+				Default:    core.DefaultValueSetter("localhost:8080"),
 			},
 			{
 				Name:       "read-only",
