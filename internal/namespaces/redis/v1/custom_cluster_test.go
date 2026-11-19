@@ -60,7 +60,7 @@ func Test_Endpoints(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				if ctx.Result != nil {
-					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					endpoints := ctx.Result.(redis.ClusterResult).Endpoints
 					checkEndpoints(t, endpoints, 1, 0, 0)
 				}
 			},
@@ -87,7 +87,7 @@ func Test_Endpoints(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				if ctx.Result != nil {
-					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					endpoints := ctx.Result.(redis.ClusterResult).Endpoints
 					checkEndpoints(t, endpoints, 0, 1, 0)
 				}
 			},
@@ -126,7 +126,7 @@ func Test_Endpoints(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				if ctx.Result != nil {
-					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					endpoints := ctx.Result.(redis.ClusterResult).Endpoints
 					checkEndpoints(t, endpoints, 0, 2, 0)
 				}
 			},
@@ -163,7 +163,7 @@ func Test_IpamConfig(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				if ctx.Result != nil {
-					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					endpoints := ctx.Result.(redis.ClusterResult).Endpoints
 					checkEndpoints(t, endpoints, 0, 0, 1)
 				}
 			},
@@ -196,7 +196,7 @@ func Test_IpamConfig(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				if ctx.Result != nil {
-					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					endpoints := ctx.Result.(redis.ClusterResult).Endpoints
 					checkEndpoints(t, endpoints, 0, 0, 2)
 				}
 			},
@@ -230,7 +230,7 @@ func Test_IpamConfig(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				if ctx.Result != nil {
-					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					endpoints := ctx.Result.(redis.ClusterResult).Endpoints
 					checkEndpoints(t, endpoints, 0, 1, 1)
 				}
 			},

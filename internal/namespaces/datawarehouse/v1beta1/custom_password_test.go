@@ -23,14 +23,14 @@ func Test_PasswordGenerator(t *testing.T) {
 		Check: core.TestCheckExitCode(0),
 		AfterFunc: core.AfterFuncCombine(
 			func(ctx *core.AfterFuncCtx) error {
-				deployment, ok := ctx.CmdResult.(*datawarehouseSDK.Deployment)
-				if !ok || deployment == nil {
+				result, ok := ctx.CmdResult.(datawarehouse.CreateDeploymentResult)
+				if !ok || result.Deployment == nil {
 					return nil
 				}
 				api := datawarehouseSDK.NewAPI(ctx.Client)
 				_, err := api.WaitForDeployment(&datawarehouseSDK.WaitForDeploymentRequest{
-					DeploymentID:  deployment.ID,
-					Region:        deployment.Region,
+					DeploymentID:  result.ID,
+					Region:        result.Region,
 					Timeout:       scw.TimeDurationPtr(20 * time.Minute),
 					RetryInterval: core.DefaultRetryInterval,
 				})

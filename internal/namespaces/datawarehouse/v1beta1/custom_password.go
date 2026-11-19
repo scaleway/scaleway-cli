@@ -5,10 +5,19 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	datawarehouse "github.com/scaleway/scaleway-sdk-go/api/datawarehouse/v1beta1"
 )
+
+type CreateDeploymentResult struct {
+	*datawarehouse.Deployment
+	Password string `json:"password,omitempty"`
+}
+
+type UserResult struct {
+	*datawarehouse.User
+	Password string `json:"password,omitempty"`
+}
 
 func deploymentCreateBuilder(c *core.Command) *core.Command {
 	type createDeploymentRequestCustom struct {
@@ -25,17 +34,18 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*createDeploymentRequestCustom)
 		req := customRequest.CreateDeploymentRequest
 
-		generated := customRequest.GeneratePassword && req.Password == ""
 		var err error
 		req.Password, err = passwordgenerator.Resolve(customRequest.GeneratePassword, req.Password)
 		if err != nil {
 			return nil, err
 		}
-		if generated {
-			_, _ = interactive.Println("Your generated password is", req.Password)
+
+		deployment, err := api.CreateDeployment(req)
+		if err != nil {
+			return nil, err
 		}
 
-		return api.CreateDeployment(req)
+		return CreateDeploymentResult{Deployment: deployment, Password: req.Password}, nil
 	}
 
 	return c
@@ -56,17 +66,18 @@ func userCreateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*createUserRequestCustom)
 		req := customRequest.CreateUserRequest
 
-		generated := customRequest.GeneratePassword && req.Password == ""
 		var err error
 		req.Password, err = passwordgenerator.Resolve(customRequest.GeneratePassword, req.Password)
 		if err != nil {
 			return nil, err
 		}
-		if generated {
-			_, _ = interactive.Println("Your generated password is", req.Password)
+
+		user, err := api.CreateUser(req)
+		if err != nil {
+			return nil, err
 		}
 
-		return api.CreateUser(req)
+		return UserResult{User: user, Password: req.Password}, nil
 	}
 
 	return c
@@ -86,17 +97,23 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*updateUserRequestCustom)
 		req := customRequest.UpdateUserRequest
 
-		generated := customRequest.GeneratePassword && (req.Password == nil || *req.Password == "")
 		password, err := passwordgenerator.ResolvePtr(customRequest.GeneratePassword, req.Password)
 		if err != nil {
 			return nil, err
 		}
 		req.Password = password
-		if generated && password != nil {
-			_, _ = interactive.Println("Your generated password is", *password)
+
+		user, err := api.UpdateUser(req)
+		if err != nil {
+			return nil, err
 		}
 
-		return api.UpdateUser(req)
+		result := UserResult{User: user}
+		if password != nil {
+			result.Password = *password
+		}
+
+		return result, nil
 	}
 
 	return c

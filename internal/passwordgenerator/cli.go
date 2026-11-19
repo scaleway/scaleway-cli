@@ -17,12 +17,9 @@ func ArgSpec(defaultEnabled bool) *core.ArgSpec {
 	}
 
 	return &core.ArgSpec{
-		Name:       "generate-password",
-		Short:      `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
-		Required:   false,
-		Deprecated: false,
-		Positional: false,
-		Default:    core.DefaultValueSetter(defaultValue),
+		Name:    "generate-password",
+		Short:   `Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols`,
+		Default: core.DefaultValueSetter(defaultValue),
 	}
 }
 

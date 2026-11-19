@@ -5,7 +5,6 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	"github.com/scaleway/scaleway-sdk-go/api/webhosting/v1"
 )
@@ -14,6 +13,10 @@ func databaseUserCreateBuilder(c *core.Command) *core.Command {
 	type requestCustom struct {
 		*webhosting.DatabaseAPICreateDatabaseUserRequest
 		GeneratePassword bool
+	}
+	type responseCustom struct {
+		*webhosting.DatabaseUser
+		Password string `json:"password,omitempty"`
 	}
 
 	c.ArgSpecs.AddBefore("password", passwordgenerator.ArgSpec(true))
@@ -25,17 +28,18 @@ func databaseUserCreateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*requestCustom)
 		req := customRequest.DatabaseAPICreateDatabaseUserRequest
 
-		generated := customRequest.GeneratePassword && req.Password == ""
 		var err error
 		req.Password, err = passwordgenerator.Resolve(customRequest.GeneratePassword, req.Password)
 		if err != nil {
 			return nil, err
 		}
-		if generated {
-			_, _ = interactive.Println("Your generated password is", req.Password)
+
+		user, err := api.CreateDatabaseUser(req)
+		if err != nil {
+			return nil, err
 		}
 
-		return api.CreateDatabaseUser(req)
+		return responseCustom{DatabaseUser: user, Password: req.Password}, nil
 	}
 
 	return c
@@ -45,6 +49,10 @@ func databaseUserChangePasswordBuilder(c *core.Command) *core.Command {
 	type requestCustom struct {
 		*webhosting.DatabaseAPIChangeDatabaseUserPasswordRequest
 		GeneratePassword bool
+	}
+	type responseCustom struct {
+		*webhosting.DatabaseUser
+		Password string `json:"password,omitempty"`
 	}
 
 	c.ArgSpecs.AddBefore("password", passwordgenerator.ArgSpec(true))
@@ -56,17 +64,18 @@ func databaseUserChangePasswordBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*requestCustom)
 		req := customRequest.DatabaseAPIChangeDatabaseUserPasswordRequest
 
-		generated := customRequest.GeneratePassword && req.Password == ""
 		var err error
 		req.Password, err = passwordgenerator.Resolve(customRequest.GeneratePassword, req.Password)
 		if err != nil {
 			return nil, err
 		}
-		if generated {
-			_, _ = interactive.Println("Your generated password is", req.Password)
+
+		user, err := api.ChangeDatabaseUserPassword(req)
+		if err != nil {
+			return nil, err
 		}
 
-		return api.ChangeDatabaseUserPassword(req)
+		return responseCustom{DatabaseUser: user, Password: req.Password}, nil
 	}
 
 	return c
@@ -76,6 +85,10 @@ func ftpAccountCreateBuilder(c *core.Command) *core.Command {
 	type requestCustom struct {
 		*webhosting.FtpAccountAPICreateFtpAccountRequest
 		GeneratePassword bool
+	}
+	type responseCustom struct {
+		*webhosting.FtpAccount
+		Password string `json:"password,omitempty"`
 	}
 
 	c.ArgSpecs.AddBefore("password", passwordgenerator.ArgSpec(true))
@@ -87,17 +100,18 @@ func ftpAccountCreateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*requestCustom)
 		req := customRequest.FtpAccountAPICreateFtpAccountRequest
 
-		generated := customRequest.GeneratePassword && req.Password == ""
 		var err error
 		req.Password, err = passwordgenerator.Resolve(customRequest.GeneratePassword, req.Password)
 		if err != nil {
 			return nil, err
 		}
-		if generated {
-			_, _ = interactive.Println("Your generated password is", req.Password)
+
+		account, err := api.CreateFtpAccount(req)
+		if err != nil {
+			return nil, err
 		}
 
-		return api.CreateFtpAccount(req)
+		return responseCustom{FtpAccount: account, Password: req.Password}, nil
 	}
 
 	return c
@@ -107,6 +121,10 @@ func mailAccountCreateBuilder(c *core.Command) *core.Command {
 	type requestCustom struct {
 		*webhosting.MailAccountAPICreateMailAccountRequest
 		GeneratePassword bool
+	}
+	type responseCustom struct {
+		*webhosting.MailAccount
+		Password string `json:"password,omitempty"`
 	}
 
 	c.ArgSpecs.AddBefore("password", passwordgenerator.ArgSpec(true))
@@ -118,17 +136,18 @@ func mailAccountCreateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*requestCustom)
 		req := customRequest.MailAccountAPICreateMailAccountRequest
 
-		generated := customRequest.GeneratePassword && req.Password == ""
 		var err error
 		req.Password, err = passwordgenerator.Resolve(customRequest.GeneratePassword, req.Password)
 		if err != nil {
 			return nil, err
 		}
-		if generated {
-			_, _ = interactive.Println("Your generated password is", req.Password)
+
+		account, err := api.CreateMailAccount(req)
+		if err != nil {
+			return nil, err
 		}
 
-		return api.CreateMailAccount(req)
+		return responseCustom{MailAccount: account, Password: req.Password}, nil
 	}
 
 	return c
@@ -138,6 +157,10 @@ func mailAccountChangePasswordBuilder(c *core.Command) *core.Command {
 	type requestCustom struct {
 		*webhosting.MailAccountAPIChangeMailAccountPasswordRequest
 		GeneratePassword bool
+	}
+	type responseCustom struct {
+		*webhosting.MailAccount
+		Password string `json:"password,omitempty"`
 	}
 
 	c.ArgSpecs.AddBefore("password", passwordgenerator.ArgSpec(true))
@@ -149,17 +172,18 @@ func mailAccountChangePasswordBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*requestCustom)
 		req := customRequest.MailAccountAPIChangeMailAccountPasswordRequest
 
-		generated := customRequest.GeneratePassword && req.Password == ""
 		var err error
 		req.Password, err = passwordgenerator.Resolve(customRequest.GeneratePassword, req.Password)
 		if err != nil {
 			return nil, err
 		}
-		if generated {
-			_, _ = interactive.Println("Your generated password is", req.Password)
+
+		account, err := api.ChangeMailAccountPassword(req)
+		if err != nil {
+			return nil, err
 		}
 
-		return api.ChangeMailAccountPassword(req)
+		return responseCustom{MailAccount: account, Password: req.Password}, nil
 	}
 
 	return c

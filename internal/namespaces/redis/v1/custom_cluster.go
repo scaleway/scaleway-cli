@@ -11,7 +11,6 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
-	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	"github.com/scaleway/scaleway-cli/v2/internal/semver"
 	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
@@ -41,6 +40,11 @@ type CreateClusterRequestCustom struct {
 	GeneratePassword bool
 }
 
+type ClusterResult struct {
+	*redis.Cluster
+	Password string `json:"password,omitempty"`
+}
+
 func clusterCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.AddBefore("endpoints.{index}.private-network.id", &core.ArgSpec{
 		Name:     "endpoints.{index}.private-network.enable-ipam",
@@ -59,9 +63,10 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := redis.NewAPI(core.ExtractClient(ctx))
+		prev := respI.(ClusterResult)
 		cluster, err := api.WaitForCluster(&redis.WaitForClusterRequest{
-			ClusterID:     respI.(*redis.Cluster).ID,
-			Zone:          respI.(*redis.Cluster).Zone,
+			ClusterID:     prev.ID,
+			Zone:          prev.Zone,
 			Timeout:       new(redisActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -69,7 +74,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		return cluster, nil
+		return ClusterResult{Cluster: cluster, Password: prev.Password}, nil
 	}
 
 	c.Run = func(ctx context.Context, argsI any) (any, error) {
@@ -88,7 +93,6 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 			createClusterRequest.Version = latestVersion
 		}
 
-		generated := customRequest.GeneratePassword && createClusterRequest.Password == ""
 		var err error
 		createClusterRequest.Password, err = passwordgenerator.Resolve(
 			customRequest.GeneratePassword,
@@ -96,9 +100,6 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		)
 		if err != nil {
 			return nil, err
-		}
-		if generated {
-			_, _ = interactive.Println("Your generated password is", createClusterRequest.Password)
 		}
 
 		if len(customRequest.Endpoints) == 0 {
@@ -135,7 +136,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		return cluster, nil
+		return ClusterResult{Cluster: cluster, Password: createClusterRequest.Password}, nil
 	}
 
 	return c
@@ -155,17 +156,23 @@ func clusterUpdateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*redisUpdateClusterRequestCustom)
 		req := customRequest.UpdateClusterRequest
 
-		generated := customRequest.GeneratePassword && (req.Password == nil || *req.Password == "")
 		password, err := passwordgenerator.ResolvePtr(customRequest.GeneratePassword, req.Password)
 		if err != nil {
 			return nil, err
 		}
 		req.Password = password
-		if generated && password != nil {
-			_, _ = interactive.Println("Your generated password is", *password)
+
+		cluster, err := api.UpdateCluster(req)
+		if err != nil {
+			return nil, err
 		}
 
-		return api.UpdateCluster(req)
+		result := ClusterResult{Cluster: cluster}
+		if password != nil {
+			result.Password = *password
+		}
+
+		return result, nil
 	}
 
 	return c
@@ -302,6 +309,19 @@ func redisClusterGetMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) 
 	}
 
 	return str, nil
+}
+
+func clusterResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
+	result := i.(ClusterResult)
+	str, err := redisClusterGetMarshalerFunc(*result.Cluster, opt)
+	if err != nil {
+		return "", err
+	}
+	if result.Password == "" {
+		return str, nil
+	}
+
+	return str + "\nPassword  " + result.Password, nil
 }
 
 var completeClusterCache *redis.Cluster

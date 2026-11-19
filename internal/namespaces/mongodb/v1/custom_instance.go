@@ -9,7 +9,6 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
-	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -59,6 +58,11 @@ type mongodbCreateInstanceRequestCustom struct {
 	GeneratePassword bool
 }
 
+type CreateInstanceResult struct {
+	*mongodb.Instance
+	Password string `json:"password,omitempty"`
+}
+
 func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("node-amount").Default = core.DefaultValueSetter("1")
 	c.ArgSpecs.GetByName("version").Default = fetchLatestEngine
@@ -70,15 +74,20 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeFor[mongodbCreateInstanceRequestCustom]()
 
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
-		getResp := respI.(*mongodb.Instance)
+		prev := respI.(CreateInstanceResult)
 		api := mongodb.NewAPI(core.ExtractClient(ctx))
 
-		return api.WaitForInstance(&mongodb.WaitForInstanceRequest{
-			InstanceID:    getResp.ID,
-			Region:        getResp.Region,
+		instance, err := api.WaitForInstance(&mongodb.WaitForInstanceRequest{
+			InstanceID:    prev.ID,
+			Region:        prev.Region,
 			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
+		if err != nil {
+			return nil, err
+		}
+
+		return CreateInstanceResult{Instance: instance, Password: prev.Password}, nil
 	}
 
 	c.Run = func(ctx context.Context, argsI any) (any, error) {
@@ -86,17 +95,18 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*mongodbCreateInstanceRequestCustom)
 		req := customRequest.CreateInstanceRequest
 
-		generated := customRequest.GeneratePassword && req.Password == ""
 		var err error
 		req.Password, err = passwordgenerator.Resolve(customRequest.GeneratePassword, req.Password)
 		if err != nil {
 			return nil, err
 		}
-		if generated {
-			_, _ = interactive.Println("Your generated password is", req.Password)
+
+		instance, err := api.CreateInstance(req)
+		if err != nil {
+			return nil, err
 		}
 
-		return api.CreateInstance(req)
+		return CreateInstanceResult{Instance: instance, Password: req.Password}, nil
 	}
 
 	return c
