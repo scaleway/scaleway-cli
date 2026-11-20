@@ -1,7 +1,8 @@
 package core
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"fmt"
 	"strings"
 
@@ -70,11 +71,28 @@ func (s *CliError) MarshalHuman() (string, error) {
 	return strings.Join(sections, "\n\n"), nil
 }
 
+// jsonError returns the JSON representation of e, reproducing the encoding/json v1
+// behavior: an error is marshaled through its exported fields or MarshalJSON, and an
+// error with no exported fields (e.g. errors.errorString) marshals to {}.
+func jsonError(e error) string {
+	b, err := json.Marshal(e, jsontext.EscapeForHTML(true))
+	if err != nil {
+		return "{}"
+	}
+
+	return string(b)
+}
+
+// jsonQuoted returns s as a JSON string literal.
+func jsonQuoted(s string) (string, error) {
+	b, err := json.Marshal(s, jsontext.EscapeForHTML(true))
+
+	return string(b), err
+}
+
 func (s *CliError) MarshalJSON() ([]byte, error) {
 	if s.Empty {
-		type emptyRes struct{}
-
-		return json.Marshal(&emptyRes{})
+		return []byte("{}"), nil
 	}
 
 	message := s.Message
@@ -82,17 +100,36 @@ func (s *CliError) MarshalJSON() ([]byte, error) {
 		message = s.Err.Error()
 	}
 
-	type tmpRes struct {
-		Message string `json:"message,omitempty"`
-		Error   error  `json:"error,omitempty"`
-		Details string `json:"details,omitempty"`
-		Hint    string `json:"hint,omitempty"`
+	// encoding/json v2 refuses to marshal errors with no exported fields and its
+	// omitempty drops them, so the fields are assembled by hand to keep the v1 wire format.
+	parts := make([]string, 0, 4)
+	if message != "" {
+		q, err := jsonQuoted(message)
+		if err != nil {
+			return nil, err
+		}
+
+		parts = append(parts, `"message":`+q)
+	}
+	if s.Err != nil {
+		parts = append(parts, `"error":`+jsonError(s.Err))
+	}
+	if s.Details != "" {
+		q, err := jsonQuoted(s.Details)
+		if err != nil {
+			return nil, err
+		}
+
+		parts = append(parts, `"details":`+q)
+	}
+	if s.Hint != "" {
+		q, err := jsonQuoted(s.Hint)
+		if err != nil {
+			return nil, err
+		}
+
+		parts = append(parts, `"hint":`+q)
 	}
 
-	return json.Marshal(&tmpRes{
-		Message: message,
-		Error:   s.Err,
-		Details: s.Details,
-		Hint:    s.Hint,
-	})
+	return []byte("{" + strings.Join(parts, ",") + "}"), nil
 }
