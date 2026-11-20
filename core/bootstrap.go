@@ -117,6 +117,8 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 	// parse would fail as these flag are not known at this time.
 	_ = flags.Parse(config.Args)
 
+	outputFlag = cobraCompletionOutputFlag(config.Args, outputFlag)
+
 	// The --beta flag enables beta namespaces and features. It overrides the
 	// SCW_ENABLE_BETA environment variable when set. We keep config.BetaMode as
 	// is when the flag is not set so that callers (e.g. main.go) that already
@@ -295,6 +297,7 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 	rootCmd.PersistentFlags().
 		BoolVarP(&noHeadersFlag, "no-headers", "H", false, "Skip headers in human output")
 	rootCmd.PersistentFlags().BoolVarP(&betaFlag, "beta", "B", false, "Enable beta mode")
+	registerCobraFlagCompletions(rootCmd)
 	rootCmd.SetArgs(args)
 	rootCmd.SetHelpCommand(&cobra.Command{Hidden: true})
 	err = rootCmd.Execute()
