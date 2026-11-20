@@ -20,7 +20,7 @@ import (
 )
 
 // defaultConnectTemplate renders the default mongosh invocation.
-// Credentials are in ConnURL (mongosh has no redis-cli-style auth env var).
+// Credentials are in ConnURL.
 const defaultConnectTemplate = `mongosh {{.ConnURL}} --tlsCAFile {{.CertPath}}`
 
 type instanceConnectArgs struct {
@@ -203,7 +203,7 @@ Available variables:
 			},
 			{
 				Name:  "username",
-				Short: `Name of the user to connect with (defaults to the admin user)`,
+				Short: `Name of the user to connect with (defaults to the first db_admin, else the first user)`,
 			},
 			{
 				Name:  "password",

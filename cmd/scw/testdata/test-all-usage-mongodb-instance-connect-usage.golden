@@ -24,7 +24,7 @@ EXAMPLES:
 ARGS:
   [private-network=false]                                     Connect by the private network endpoint attached.
   instance-id                                                 UUID of the instance
-  [username]                                                  Name of the user to connect with (defaults to the admin user)
+  [username]                                                  Name of the user to connect with (defaults to the first db_admin, else the first user)
   [password]                                                  Password to connect with. If not provided, the user is prompted for it
   [template=mongosh {{.ConnURL}} --tlsCAFile {{.CertPath}}]   Command line to run instead of the default mongosh one, as a Go text/template
   [region=fr-par]                                             Region to target. If none is passed will use default region from the config (fr-par)

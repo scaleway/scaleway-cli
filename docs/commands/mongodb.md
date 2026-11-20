@@ -119,14 +119,14 @@ scw mongodb instance connect <instance-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                   | Argument Specifications                                   |
-|-----------------|-------------------------------------------------------------------------------|-----------------------------------------------------------|
-| private-network | Connect by the private network endpoint attached.                             | Default: `false`                                          |
-| instance-id     | UUID of the instance                                                          | Required                                                  |
-| username        | Name of the user to connect with (defaults to the admin user)                 |                                                           |
-| password        | Password to connect with. If not provided, the user is prompted for it        |                                                           |
-| template        | Command line to run instead of the default mongosh one, as a Go text/template | Default: `mongosh {{.ConnURL}} --tlsCAFile {{.CertPath}}` |
-| region          | Region to target. If none is passed will use default region from the config   | Default: `fr-par`<br />One of: `fr-par`                   |
+| Name            | Description                                                                            | Argument Specifications                                   |
+|-----------------|----------------------------------------------------------------------------------------|-----------------------------------------------------------|
+| private-network | Connect by the private network endpoint attached.                                      | Default: `false`                                          |
+| instance-id     | UUID of the instance                                                                   | Required                                                  |
+| username        | Name of the user to connect with (defaults to the first db_admin, else the first user) |                                                           |
+| password        | Password to connect with. If not provided, the user is prompted for it                 |                                                           |
+| template        | Command line to run instead of the default mongosh one, as a Go text/template          | Default: `mongosh {{.ConnURL}} --tlsCAFile {{.CertPath}}` |
+| region          | Region to target. If none is passed will use default region from the config            | Default: `fr-par`<br />One of: `fr-par`                   |
 
 
 **Examples:**
