@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
@@ -30,23 +30,39 @@ var standardSuccessMessages = map[string]string{
 	"delete": "%s has been successfully deleted.",
 }
 
-func (s *SuccessResult) MarshalHuman() (string, error) {
-	if s.Empty {
-		return "", nil
-	}
-	message := s.getMessage()
-	if !strings.HasSuffix(message, ".") {
-		message += "."
-	}
+// init wires v2's human engine to the result types: SuccessResult renders
+// its leaf string and MultiResults composes one per element.
+func init() {
+	humanv2.RegisterFormatFunc(func(s SuccessResult) (string, error) {
+		if s.Empty {
+			return "", nil
+		}
+		message := s.getMessage()
+		if !strings.HasSuffix(message, ".") {
+			message += "."
+		}
 
-	message = strcase.TitleFirstWord(message)
-	message = "✅ " + terminal.Style(message, color.FgGreen)
+		message = strcase.TitleFirstWord(message)
+		message = "✅ " + terminal.Style(message, color.FgGreen)
 
-	if s.Details != "" {
-		message += "\n" + interactive.Indent(s.Details, 2)
-	}
+		if s.Details != "" {
+			message += "\n" + interactive.Indent(s.Details, 2)
+		}
 
-	return message, nil
+		return message, nil
+	})
+	humanv2.RegisterFormatFunc(func(mr MultiResults) (string, error) {
+		strs := []string(nil)
+		for _, r := range mr {
+			str, err := humanv2.Render(r, humanv2.Layout{})
+			if err != nil {
+				return "", err
+			}
+			strs = append(strs, str)
+		}
+
+		return strings.Join(strs, "\n"), nil
+	})
 }
 
 func (s *SuccessResult) MarshalJSON() ([]byte, error) {
@@ -79,16 +95,3 @@ func (s *SuccessResult) getMessage() string {
 }
 
 type MultiResults []any
-
-func (mr *MultiResults) MarshalHuman() (string, error) {
-	strs := []string(nil)
-	for _, r := range *mr {
-		str, err := human.Marshal(r, nil)
-		if err != nil {
-			return "", err
-		}
-		strs = append(strs, str)
-	}
-
-	return strings.Join(strs, "\n"), nil
-}
