@@ -8,20 +8,19 @@ import (
 	"net/url"
 	"os"
 	"os/exec"
-	"path/filepath"
 	"reflect"
 	"sync"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/connect"
-	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 // defaultConnectTemplate renders the default mongosh invocation.
-// Credentials are in ConnURL.
-const defaultConnectTemplate = `mongosh {{.ConnURL}} --tlsCAFile {{.CertPath}}`
+// ConnURL has no password (mongosh prompts when --username is set without one).
+// CertPath is quoted so paths with spaces survive shlex splitting.
+const defaultConnectTemplate = `mongosh {{.ConnURL}} --username {{.Username}} --tlsCAFile "{{.CertPath}}"`
 
 type instanceConnectArgs struct {
 	Region         scw.Region
@@ -89,10 +88,6 @@ type instanceConnectTemplateData struct {
 	instanceOnce sync.Once
 	instanceErr  error
 
-	endpoint     *mongodb.Endpoint
-	endpointOnce sync.Once
-	endpointErr  error
-
 	certPath string
 	certOnce sync.Once
 	certErr  error
@@ -111,22 +106,16 @@ func (d *instanceConnectTemplateData) Instance() (*mongodb.Instance, error) {
 }
 
 func (d *instanceConnectTemplateData) Endpoint() (*mongodb.Endpoint, error) {
-	d.endpointOnce.Do(func() {
-		instance, err := d.Instance()
-		if err != nil {
-			d.endpoint, d.endpointErr = nil, err
+	instance, err := d.Instance()
+	if err != nil {
+		return nil, err
+	}
 
-			return
-		}
+	if d.privateNetwork {
+		return getPrivateEndpoint(instance.Endpoints)
+	}
 
-		if d.privateNetwork {
-			d.endpoint, d.endpointErr = getPrivateEndpoint(instance.Endpoints)
-		} else {
-			d.endpoint, d.endpointErr = getPublicEndpoint(instance.Endpoints)
-		}
-	})
-
-	return d.endpoint, d.endpointErr
+	return getPublicEndpoint(instance.Endpoints)
 }
 
 // CertPath returns the path of the temporary TLS certificate file.
@@ -138,18 +127,24 @@ func (d *instanceConnectTemplateData) CertPath() (string, error) {
 	return d.certPath, d.certErr
 }
 
-// ConnURL returns a mongodb+srv URI with username and password.
+// ConnURL returns a mongodb+srv URI. Credentials are included only when
+// Password is set (password=), so the default interactive path never puts a
+// password in the child process arguments — mongosh prompts instead.
 func (d *instanceConnectTemplateData) ConnURL() (string, error) {
 	endpoint, err := d.Endpoint()
 	if err != nil {
 		return "", err
 	}
 
-	return (&url.URL{
+	u := &url.URL{
 		Scheme: "mongodb+srv",
 		Host:   endpoint.DNSRecord,
-		User:   url.UserPassword(d.Username, d.Password),
-	}).String(), nil
+	}
+	if d.Password != "" {
+		u.User = url.UserPassword(d.Username, d.Password)
+	}
+
+	return u.String(), nil
 }
 
 func (d *instanceConnectTemplateData) downloadCertificate() (string, error) {
@@ -167,9 +162,27 @@ func (d *instanceConnectTemplateData) downloadCertificate() (string, error) {
 		return "", fmt.Errorf("failed to read certificate content: %w", err)
 	}
 
-	certPath := filepath.Join(os.TempDir(), fmt.Sprintf("mongodb-cert-%s.crt", d.InstanceID))
-	if err := os.WriteFile(certPath, certContent, 0o600); err != nil {
+	f, err := os.CreateTemp("", "mongodb-cert-*.crt")
+	if err != nil {
+		return "", fmt.Errorf("failed to create certificate file: %w", err)
+	}
+	certPath := f.Name()
+
+	if _, err := f.Write(certContent); err != nil {
+		_ = f.Close()
+		_ = os.Remove(certPath)
+
 		return "", fmt.Errorf("failed to write certificate: %w", err)
+	}
+	if err := f.Close(); err != nil {
+		_ = os.Remove(certPath)
+
+		return "", fmt.Errorf("failed to close certificate file: %w", err)
+	}
+	if err := os.Chmod(certPath, 0o600); err != nil {
+		_ = os.Remove(certPath)
+
+		return "", fmt.Errorf("failed to set certificate permissions: %w", err)
 	}
 
 	return certPath, nil
@@ -183,7 +196,7 @@ func instanceConnectCommand() *core.Command {
 		Short:     `Connect to a MongoDB® Database Instance using locally installed mongosh, or a custom command via template`,
 		Long: `Connect to a MongoDB® Database Instance using locally installed mongosh.
 
-When no username is given, the first db_admin user is used (falling back to the first user). The password is prompted unless password= is provided. The instance TLS certificate is downloaded to a temporary file (removed when the command exits).
+When no username is given, the first db_admin user is used (falling back to the first user). With the default template, mongosh prompts for the password unless password= is provided (in which case it is placed in ConnURL). The instance TLS certificate is downloaded to a unique temporary file (removed when the command exits).
 
 Use template to connect with a different tool instead. Its value (default: the mongosh command below) is rendered as a Go text/template and the result is executed as the connect command.
 Available variables:
@@ -207,7 +220,7 @@ Available variables:
 			},
 			{
 				Name:  "password",
-				Short: `Password to connect with. If not provided, the user is prompted for it`,
+				Short: `Password for ConnURL. If omitted, the default template lets mongosh prompt for it`,
 			},
 			&core.ArgSpec{
 				Name:    "template",
@@ -236,26 +249,12 @@ Available variables:
 				}
 			}
 
-			password := args.Password
-			if password == "" {
-				var err error
-				password, err = interactive.PromptPasswordWithConfig(
-					ctx,
-					&interactive.PromptPasswordConfig{
-						Prompt: "Password",
-					},
-				)
-				if err != nil {
-					return nil, fmt.Errorf("failed to get password: %w", err)
-				}
-			}
-
 			templateData := &instanceConnectTemplateData{
 				TemplateData:   connect.NewTemplateData(ctx),
 				InstanceID:     args.InstanceID,
 				Region:         args.Region,
 				Username:       username,
-				Password:       password,
+				Password:       args.Password,
 				privateNetwork: args.PrivateNetwork,
 				client:         client,
 			}

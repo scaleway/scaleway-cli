@@ -104,7 +104,7 @@ scw mongodb instance cockpit <instance-id ...> [arg=value ...]
 
 Connect to a MongoDB® Database Instance using locally installed mongosh.
 
-When no username is given, the first db_admin user is used (falling back to the first user). The password is prompted unless password= is provided. The instance TLS certificate is downloaded to a temporary file (removed when the command exits).
+When no username is given, the first db_admin user is used (falling back to the first user). With the default template, mongosh prompts for the password unless password= is provided (in which case it is placed in ConnURL). The instance TLS certificate is downloaded to a unique temporary file (removed when the command exits).
 
 Use template to connect with a different tool instead. Its value (default: the mongosh command below) is rendered as a Go text/template and the result is executed as the connect command.
 Available variables:
@@ -119,14 +119,14 @@ scw mongodb instance connect <instance-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                            | Argument Specifications                                   |
-|-----------------|----------------------------------------------------------------------------------------|-----------------------------------------------------------|
-| private-network | Connect by the private network endpoint attached.                                      | Default: `false`                                          |
-| instance-id     | UUID of the instance                                                                   | Required                                                  |
-| username        | Name of the user to connect with (defaults to the first db_admin, else the first user) |                                                           |
-| password        | Password to connect with. If not provided, the user is prompted for it                 |                                                           |
-| template        | Command line to run instead of the default mongosh one, as a Go text/template          | Default: `mongosh {{.ConnURL}} --tlsCAFile {{.CertPath}}` |
-| region          | Region to target. If none is passed will use default region from the config            | Default: `fr-par`<br />One of: `fr-par`                   |
+| Name            | Description                                                                            | Argument Specifications                                                              |
+|-----------------|----------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| private-network | Connect by the private network endpoint attached.                                      | Default: `false`                                                                     |
+| instance-id     | UUID of the instance                                                                   | Required                                                                             |
+| username        | Name of the user to connect with (defaults to the first db_admin, else the first user) |                                                                                      |
+| password        | Password for ConnURL. If omitted, the default template lets mongosh prompt for it      |                                                                                      |
+| template        | Command line to run instead of the default mongosh one, as a Go text/template          | Default: `mongosh {{.ConnURL}} --username {{.Username}} --tlsCAFile "{{.CertPath}}"` |
+| region          | Region to target. If none is passed will use default region from the config            | Default: `fr-par`<br />One of: `fr-par`                                              |
 
 
 **Examples:**
