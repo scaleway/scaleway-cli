@@ -18,6 +18,10 @@ type testType struct {
 	Tag    string
 }
 
+type testStreamArgs struct {
+	Stream bool
+}
+
 type testDate struct {
 	Date *time.Time
 }
@@ -29,6 +33,26 @@ type testAcceptMultiPositionalArgsType struct {
 
 func testGetCommands() *core.Commands {
 	return core.NewCommands(
+		&core.Command{
+			Namespace:            "test",
+			Resource:             "stream",
+			AllowAnonymousClient: true,
+			ArgsType:             reflect.TypeFor[testStreamArgs](),
+			ArgSpecs:             core.ArgSpecs{core.StreamArgSpec()},
+			Run: func(_ context.Context, _ any) (any, error) {
+				return "run", nil
+			},
+			StreamFunc: func(_ context.Context, _ any, emit func(any) error) error {
+				for _, batch := range []string{"first", "second"} {
+					err := emit(batch)
+					if err != nil {
+						return err
+					}
+				}
+
+				return context.Canceled
+			},
+		},
 		&core.Command{
 			Namespace: "test",
 			ArgSpecs: core.ArgSpecs{
@@ -185,6 +209,25 @@ func Test_NoArgsType(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckStdout("ok\n"),
+		),
+	}))
+}
+
+func Test_Stream(t *testing.T) {
+	t.Run("WithoutArg", core.Test(&core.TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test stream",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckStdout("run\n"),
+		),
+	}))
+	t.Run("PrintsEachBatchAndExitsCleanly", core.Test(&core.TestConfig{
+		Commands: testGetCommands(),
+		Cmd:      "scw test stream stream=true",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckStdout("first\nsecond\n"),
 		),
 	}))
 }

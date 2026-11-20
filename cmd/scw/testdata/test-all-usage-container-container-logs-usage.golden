@@ -9,6 +9,7 @@ ARGS:
   container-id      ID of the container which logs are to be displayed
   [time-span=2h]    Time range for which to retrieve container logs in duration format, defaults to 2h
   [entry-count]     Maximum number of log entries to be displayed
+  [stream]          Keep printing new results until interrupted (Ctrl+C)
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

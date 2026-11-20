@@ -204,6 +204,7 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 		stderr:                      config.Stderr,
 		stdin:                       config.Stdin,
 		result:                      nil, // result is later injected by cobra_utils.go/cobraRun()
+		printer:                     printer,
 		command:                     nil, // command is later injected by cobra_utils.go/cobraRun()
 		httpClient:                  httpClient,
 		isClientFromBootstrapConfig: isClientFromBootstrapConfig,
@@ -247,6 +248,7 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 
 			return 1, nil, err
 		}
+		meta.printer = printer
 	}
 
 	// Run checks after command has been executed
