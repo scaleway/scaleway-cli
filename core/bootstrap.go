@@ -315,7 +315,7 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 	}
 
 	if meta.command != nil {
-		printErr := printer.Print(meta.result, meta.command.getHumanMarshalerOpt())
+		printErr := printer.Print(meta.result, meta.command.getHumanLayout())
 		if printErr != nil {
 			_, _ = fmt.Fprintln(config.Stderr, printErr)
 		}

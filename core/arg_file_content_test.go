@@ -119,7 +119,7 @@ func Test_FileContentArgs(t *testing.T) {
 		Cmd:      "scw test file-content user-data.cloud-init=@does-not-exist.yml",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
-			core.TestCheckStderrContains("Could not open requested file"),
+			core.TestCheckStderrContains("could not open requested file"),
 		),
 	}))
 

@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -17,7 +18,7 @@ func TestResult(t *testing.T) {
 		Verb:     "dummy",
 	}
 
-	humanOutput, err := result.MarshalHuman()
+	humanOutput, err := humanv2.Format(result)
 	require.NoError(t, err)
 	assert.Empty(t, humanOutput)
 	jsonOutput, err := result.MarshalJSON()
