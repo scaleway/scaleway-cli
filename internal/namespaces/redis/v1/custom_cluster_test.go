@@ -36,7 +36,15 @@ func Test_PasswordGenerator(t *testing.T) {
 		),
 		Cmd: "scw redis cluster create --wait name=cli-pwd-gen2 version=" + redisTestVersion +
 			" node-type=RED1-micro user-name=admin generate-password=true",
-		Check:     core.TestCheckExitCode(0),
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+				result, ok := ctx.Result.(redis.ClusterResult)
+				require.True(t, ok)
+				require.NotEmpty(t, result.Password)
+			},
+		),
 		AfterFunc: deleteCluster(),
 	}))
 }
@@ -60,8 +68,9 @@ func Test_Endpoints(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				if ctx.Result != nil {
-					endpoints := ctx.Result.(redis.ClusterResult).Endpoints
-					checkEndpoints(t, endpoints, 1, 0, 0)
+					result := ctx.Result.(redis.ClusterResult)
+					assert.Empty(t, result.Password)
+					checkEndpoints(t, result.Endpoints, 1, 0, 0)
 				}
 			},
 		),

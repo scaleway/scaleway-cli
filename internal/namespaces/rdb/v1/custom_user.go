@@ -2,7 +2,6 @@ package rdb
 
 import (
 	"context"
-	"errors"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -97,7 +96,7 @@ func userCreateBuilder(c *core.Command) *core.Command {
 
 	type rdbCreateUserResponseCustom struct {
 		*rdb.User
-		Password string `json:"password"`
+		Password string `json:"password,omitempty"`
 	}
 
 	c.ArgSpecs.AddBefore("password", passwordgenerator.ArgSpec(true))
@@ -113,29 +112,27 @@ func userCreateBuilder(c *core.Command) *core.Command {
 				Region:     req.Region,
 				InstanceID: req.InstanceID,
 				Name:       new(req.Name),
-			}, scw.WithAllPages())
+			}, scw.WithAllPages(), scw.WithContext(ctx))
 			if err == nil && users.TotalCount > 0 {
-				return rdbCreateUserResponseCustom{
-					User:     users.Users[0],
-					Password: "",
-				}, nil
+				return rdbCreateUserResponseCustom{User: users.Users[0]}, nil
 			}
 		}
 
+		generated := customRequest.GeneratePassword && req.Password == ""
 		var err error
 		req.Password, err = passwordgenerator.Resolve(customRequest.GeneratePassword, req.Password)
 		if err != nil {
 			return nil, err
 		}
 
-		user, err := api.CreateUser(req)
+		user, err := api.CreateUser(req, scw.WithContext(ctx))
 		if err != nil {
 			return nil, err
 		}
 
-		result := rdbCreateUserResponseCustom{
-			User:     user,
-			Password: req.Password,
+		result := rdbCreateUserResponseCustom{User: user}
+		if generated {
+			result.Password = req.Password
 		}
 
 		return result, nil
@@ -152,53 +149,34 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 
 	type rdbUpdateUserResponseCustom struct {
 		*rdb.User
-		Password string `json:"password"`
+		Password string `json:"password,omitempty"`
 	}
 
 	c.ArgSpecs.AddBefore("password", passwordgenerator.ArgSpec(true))
 	c.ArgsType = reflect.TypeFor[rdbUpdateUserRequestCustom]()
 
 	c.Run = func(ctx context.Context, argsI any) (any, error) {
-		client := core.ExtractClient(ctx)
-		api := rdb.NewAPI(client)
-
+		api := rdb.NewAPI(core.ExtractClient(ctx))
 		customRequest := argsI.(*rdbUpdateUserRequestCustom)
 		updateUserRequest := customRequest.UpdateUserRequest
 
-		var err error
-
-		if customRequest.GeneratePassword || customRequest.Password != nil {
-			switch {
-			case customRequest.GeneratePassword && customRequest.Password == nil:
-				pwd, resolveErr := passwordgenerator.Generate()
-				if resolveErr != nil {
-					return nil, resolveErr
-				}
-				updateUserRequest.Password = &pwd
-
-			case !customRequest.GeneratePassword && customRequest.Password == nil:
-				return nil, errors.New(
-					"you must provide a password when generate-password is set to false",
-				)
-
-			default:
-				updateUserRequest.Password = customRequest.Password
+		generated := customRequest.GeneratePassword && customRequest.Password == nil
+		if generated {
+			pwd, err := passwordgenerator.Generate()
+			if err != nil {
+				return nil, err
 			}
+			updateUserRequest.Password = &pwd
 		}
 
-		user, err := api.UpdateUser(updateUserRequest)
+		user, err := api.UpdateUser(updateUserRequest, scw.WithContext(ctx))
 		if err != nil {
 			return nil, err
 		}
 
-		respPwd := ""
-		if updateUserRequest.Password != nil {
-			respPwd = *updateUserRequest.Password
-		}
-
-		result := rdbUpdateUserResponseCustom{
-			User:     user,
-			Password: respPwd,
+		result := rdbUpdateUserResponseCustom{User: user}
+		if generated {
+			result.Password = *updateUserRequest.Password
 		}
 
 		return result, nil

@@ -20,7 +20,19 @@ func Test_PasswordGenerator(t *testing.T) {
 			"scw datawarehouse deployment create name=cli-pwd-gen-create version=%s replica-count=1 cpu-min=2 cpu-max=4 ram-per-cpu=4 generate-password=true endpoints.0.public={}",
 			dwhVersion,
 		),
-		Check: core.TestCheckExitCode(0),
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+				result, ok := ctx.Result.(datawarehouse.CreateDeploymentResult)
+				if !ok {
+					t.Fatalf("expected CreateDeploymentResult, got %T", ctx.Result)
+				}
+				if result.Password == "" {
+					t.Fatal("expected generated password in result")
+				}
+			},
+		),
 		AfterFunc: core.AfterFuncCombine(
 			func(ctx *core.AfterFuncCtx) error {
 				result, ok := ctx.CmdResult.(datawarehouse.CreateDeploymentResult)

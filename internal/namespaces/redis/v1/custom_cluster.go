@@ -93,6 +93,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 			createClusterRequest.Version = latestVersion
 		}
 
+		generated := customRequest.GeneratePassword && createClusterRequest.Password == ""
 		var err error
 		createClusterRequest.Password, err = passwordgenerator.Resolve(
 			customRequest.GeneratePassword,
@@ -131,12 +132,17 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 			}
 		}
 
-		cluster, err := api.CreateCluster(createClusterRequest)
+		cluster, err := api.CreateCluster(createClusterRequest, scw.WithContext(ctx))
 		if err != nil {
 			return nil, err
 		}
 
-		return ClusterResult{Cluster: cluster, Password: createClusterRequest.Password}, nil
+		result := ClusterResult{Cluster: cluster}
+		if generated {
+			result.Password = createClusterRequest.Password
+		}
+
+		return result, nil
 	}
 
 	return c
@@ -156,19 +162,20 @@ func clusterUpdateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*redisUpdateClusterRequestCustom)
 		req := customRequest.UpdateClusterRequest
 
+		generated := customRequest.GeneratePassword && (req.Password == nil || *req.Password == "")
 		password, err := passwordgenerator.ResolvePtr(customRequest.GeneratePassword, req.Password)
 		if err != nil {
 			return nil, err
 		}
 		req.Password = password
 
-		cluster, err := api.UpdateCluster(req)
+		cluster, err := api.UpdateCluster(req, scw.WithContext(ctx))
 		if err != nil {
 			return nil, err
 		}
 
 		result := ClusterResult{Cluster: cluster}
-		if password != nil {
+		if generated {
 			result.Password = *password
 		}
 

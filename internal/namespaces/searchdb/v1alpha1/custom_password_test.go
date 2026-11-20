@@ -26,7 +26,19 @@ func Test_PasswordGenerator(t *testing.T) {
 			searchdbVersion,
 			searchdbUser,
 		),
-		Check: core.TestCheckExitCode(0),
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+				result, ok := ctx.Result.(searchdb.CreateDeploymentResult)
+				if !ok {
+					t.Fatalf("expected CreateDeploymentResult, got %T", ctx.Result)
+				}
+				if result.Password == "" {
+					t.Fatal("expected generated password in result")
+				}
+			},
+		),
 		AfterFunc: core.AfterFuncCombine(
 			func(ctx *core.AfterFuncCtx) error {
 				result, ok := ctx.CmdResult.(searchdb.CreateDeploymentResult)

@@ -7,6 +7,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	searchdb "github.com/scaleway/scaleway-sdk-go/api/searchdb/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 type CreateDeploymentResult struct {
@@ -33,19 +34,20 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*createDeploymentRequestCustom)
 		req := customRequest.CreateDeploymentRequest
 
+		generated := customRequest.GeneratePassword && (req.Password == nil || *req.Password == "")
 		password, err := passwordgenerator.ResolvePtr(customRequest.GeneratePassword, req.Password)
 		if err != nil {
 			return nil, err
 		}
 		req.Password = password
 
-		deployment, err := api.CreateDeployment(req)
+		deployment, err := api.CreateDeployment(req, scw.WithContext(ctx))
 		if err != nil {
 			return nil, err
 		}
 
 		result := CreateDeploymentResult{Deployment: deployment}
-		if password != nil {
+		if generated {
 			result.Password = *password
 		}
 
@@ -70,18 +72,24 @@ func userCreateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*createUserRequestCustom)
 		req := customRequest.CreateUserRequest
 
+		generated := customRequest.GeneratePassword && req.Password == ""
 		var err error
 		req.Password, err = passwordgenerator.Resolve(customRequest.GeneratePassword, req.Password)
 		if err != nil {
 			return nil, err
 		}
 
-		user, err := api.CreateUser(req)
+		user, err := api.CreateUser(req, scw.WithContext(ctx))
 		if err != nil {
 			return nil, err
 		}
 
-		return UserResult{User: user, Password: req.Password}, nil
+		result := UserResult{User: user}
+		if generated {
+			result.Password = req.Password
+		}
+
+		return result, nil
 	}
 
 	return c
@@ -101,19 +109,20 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*updateUserRequestCustom)
 		req := customRequest.UpdateUserRequest
 
+		generated := customRequest.GeneratePassword && (req.Password == nil || *req.Password == "")
 		password, err := passwordgenerator.ResolvePtr(customRequest.GeneratePassword, req.Password)
 		if err != nil {
 			return nil, err
 		}
 		req.Password = password
 
-		user, err := api.UpdateUser(req)
+		user, err := api.UpdateUser(req, scw.WithContext(ctx))
 		if err != nil {
 			return nil, err
 		}
 
 		result := UserResult{User: user}
-		if password != nil {
+		if generated {
 			result.Password = *password
 		}
 

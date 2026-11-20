@@ -20,7 +20,6 @@ ID                                    Port  IPs
 
 ACLRules:
 ID   IP CIDR  DESCRIPTION
-Password  P@sSw0Rd
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "047ff1eb-5215-4bdf-bec3-26c11766bea9",
@@ -49,6 +48,5 @@ Password  P@sSw0Rd
   "zone": "fr-par-1",
   "user_name": "admin",
   "upgradable_versions": [],
-  "srn": "srn://redis.scw.eu/zones/fr-par-1/clusters/047ff1eb-5215-4bdf-bec3-26c11766bea9",
-  "password": "P@sSw0Rd"
+  "srn": "srn://redis.scw.eu/zones/fr-par-1/clusters/047ff1eb-5215-4bdf-bec3-26c11766bea9"
 }

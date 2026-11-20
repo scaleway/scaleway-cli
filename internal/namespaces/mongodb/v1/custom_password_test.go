@@ -6,6 +6,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	mongodb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mongodb/v1"
+	"github.com/stretchr/testify/require"
 )
 
 const (
@@ -23,7 +24,15 @@ func Test_PasswordGenerator(t *testing.T) {
 			mongodbVersion,
 			mongodbUser,
 		),
-		Check:     core.TestCheckExitCode(0),
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+				result, ok := ctx.Result.(mongodb.CreateInstanceResult)
+				require.True(t, ok)
+				require.NotEmpty(t, result.Password)
+			},
+		),
 		AfterFunc: core.ExecAfterCmd("scw mongodb instance delete {{ .CmdResult.ID }}"),
 	}))
 }

@@ -95,18 +95,24 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*mongodbCreateInstanceRequestCustom)
 		req := customRequest.CreateInstanceRequest
 
+		generated := customRequest.GeneratePassword && req.Password == ""
 		var err error
 		req.Password, err = passwordgenerator.Resolve(customRequest.GeneratePassword, req.Password)
 		if err != nil {
 			return nil, err
 		}
 
-		instance, err := api.CreateInstance(req)
+		instance, err := api.CreateInstance(req, scw.WithContext(ctx))
 		if err != nil {
 			return nil, err
 		}
 
-		return CreateInstanceResult{Instance: instance, Password: req.Password}, nil
+		result := CreateInstanceResult{Instance: instance}
+		if generated {
+			result.Password = req.Password
+		}
+
+		return result, nil
 	}
 
 	return c
