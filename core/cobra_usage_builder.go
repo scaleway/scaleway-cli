@@ -124,6 +124,26 @@ func _buildArgShort(as *ArgSpec) string {
 	return as.Short
 }
 
+// BuildUsageResponse builds the response usage string from the command ResponseType.
+// This string will be used by cobra usage template.
+func BuildUsageResponse(cmd *Command) string {
+	fields := ResponseTypeFields(cmd.ResponseType)
+	if fields == nil {
+		return ""
+	}
+
+	var buffer bytes.Buffer
+	tw := tabwriter.NewWriter(&buffer, 0, 0, 3, ' ', 0)
+
+	_, _ = fmt.Fprintf(tw, " %s\n", cmd.ResponseType)
+	for _, field := range fields {
+		_, _ = fmt.Fprintf(tw, "  %s\t%s\n", field.Name, field.Type)
+	}
+	tw.Flush()
+
+	return strings.TrimSuffix(buffer.String(), "\n")
+}
+
 // buildExamples builds usage examples string.
 // This string will be used by cobra usage template.
 func buildExamples(binaryName string, cmd *Command) string {
