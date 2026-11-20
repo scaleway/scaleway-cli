@@ -12,6 +12,8 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(annotationsSDK.BindingKey{}, bindingKeyMarshalerFunc)
 	human.RegisterMarshalerFunc(annotationsSDK.BindingValue{}, bindingValueMarshalerFunc)
 
+	cmds.MustFind("annotations", "key-value", "list").Override(keyValueListBuilder)
+
 	return cmds
 }
 
