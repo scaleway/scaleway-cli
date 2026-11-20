@@ -6,11 +6,12 @@ USAGE:
   scw webhosting ftp-account create [arg=value ...]
 
 ARGS:
-  hosting-id        UUID of the hosting plan
-  [username]        Username for the new FTP account
-  [path]            Path for the new FTP account
-  [password]        Password for the new FTP account
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  hosting-id                 UUID of the hosting plan
+  [username]                 Username for the new FTP account
+  [path]                     Path for the new FTP account
+  [generate-password=true]   Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols
+  [password]                 Password for the new FTP account
+  [region=fr-par]            Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help[=true|false]                help for create

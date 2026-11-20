@@ -8,9 +8,9 @@ import (
 )
 
 const (
-	numbers        = "0123456789"
-	lowerLetters   = "abcdedfghijklmnopqrstuvwxyz"
-	upperLetters   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	numbers      = "0123456789"
+	lowerLetters = "abcdedfghijklmnopqrstuvwxyz"
+	upperLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	// Keep Redis/RDB-safe: avoid braces/brackets/quotes that break provisioning or shells.
 	SpecialSymbols = "!$%^&*()_+@#?;:-=."
 	allSet         = lowerLetters + upperLetters + SpecialSymbols + numbers

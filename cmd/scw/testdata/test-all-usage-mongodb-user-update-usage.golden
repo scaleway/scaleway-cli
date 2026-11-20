@@ -6,10 +6,11 @@ USAGE:
   scw mongodb user update [arg=value ...]
 
 ARGS:
-  instance-id       UUID of the Database Instance the user belongs to
-  name              Name of the database user
-  [password]        Password of the database user
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  instance-id                 UUID of the Database Instance the user belongs to
+  name                        Name of the database user
+  [generate-password=false]   Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols
+  [password]                  Password of the database user
+  [region=fr-par]             Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help[=true|false]                help for update
