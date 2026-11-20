@@ -4,7 +4,7 @@ extend-exclude = [
     "**.golden",
     "go.mod",
     "go.sum",
-    "CHANGELOG.md"
+    "docs/release_notes/"
 ]
 
 [default.extend-words]
