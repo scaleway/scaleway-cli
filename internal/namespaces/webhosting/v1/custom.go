@@ -25,6 +25,13 @@ func GetCommands() *core.Commands {
 	)
 
 	cmds.MustFind("webhosting", "offer", "list").Override(webhostingOfferListBuilder)
+	cmds.MustFind("webhosting", "database-user", "create").Override(databaseUserCreateBuilder)
+	cmds.MustFind("webhosting", "database-user", "change-password").
+		Override(databaseUserChangePasswordBuilder)
+	cmds.MustFind("webhosting", "ftp-account", "create").Override(ftpAccountCreateBuilder)
+	cmds.MustFind("webhosting", "mail-account", "create").Override(mailAccountCreateBuilder)
+	cmds.MustFind("webhosting", "mail-account", "change-password").
+		Override(mailAccountChangePasswordBuilder)
 
 	return cmds
 }

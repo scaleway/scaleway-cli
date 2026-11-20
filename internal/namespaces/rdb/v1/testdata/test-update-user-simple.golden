@@ -2,10 +2,9 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Name      cli-test
 IsAdmin   true
-Password  Newp1ssw0rd!
+Password  -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "name": "cli-test",
-  "is_admin": true,
-  "password": "Newp1ssw0rd!"
+  "is_admin": true
 }

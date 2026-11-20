@@ -6,11 +6,12 @@ USAGE:
   scw datawarehouse user create [arg=value ...]
 
 ARGS:
-  deployment-id     UUID of the deployment
-  [name]            Name of the user
-  [password]        Password for the user
-  [is-admin]        Indicates if the user is an administrator
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  deployment-id              UUID of the deployment
+  [name]                     Name of the user
+  [generate-password=true]   Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols
+  [password]                 Password for the user
+  [is-admin]                 Indicates if the user is an administrator
+  [region=fr-par]            Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help[=true|false]                help for create

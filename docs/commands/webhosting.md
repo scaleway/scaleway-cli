@@ -277,12 +277,13 @@ scw webhosting database-user change-password [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                                 | Argument Specifications                                     |
-|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| hosting-id | UUID of the hosting plan                                                    | Required                                                    |
-| username   | Name of the user to update                                                  | Required                                                    |
-| password   | New password                                                                |                                                             |
-| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name              | Description                                                                                                               | Argument Specifications                                     |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id        | UUID of the hosting plan                                                                                                  | Required                                                    |
+| username          | Name of the user to update                                                                                                | Required                                                    |
+| generate-password | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols | Default: `true`                                             |
+| password          | New password                                                                                                              |                                                             |
+| region            | Region to target. If none is passed will use default region from the config                                               | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -299,12 +300,13 @@ scw webhosting database-user create [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                                                                                                                                                                                     | Argument Specifications                                     |
-|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
-| hosting-id | UUID of the hosting plan                                                                                                                                                                                                        | Required                                                    |
-| username   | Name of the user to create. If it is not already prefixed with the hosting's cPanel username followed by an underscore (e.g. `cpe1234_`), this prefix is automatically added. The resulting name must not exceed 32 characters. |                                                             |
-| password   | Password of the user to create                                                                                                                                                                                                  |                                                             |
-| region     | Region to target. If none is passed will use default region from the config                                                                                                                                                     | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name              | Description                                                                                                                                                                                                                     | Argument Specifications                                     |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id        | UUID of the hosting plan                                                                                                                                                                                                        | Required                                                    |
+| username          | Name of the user to create. If it is not already prefixed with the hosting's cPanel username followed by an underscore (e.g. `cpe1234_`), this prefix is automatically added. The resulting name must not exceed 32 characters. |                                                             |
+| generate-password | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols                                                                                                       | Default: `true`                                             |
+| password          | Password of the user to create                                                                                                                                                                                                  |                                                             |
+| region            | Region to target. If none is passed will use default region from the config                                                                                                                                                     | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -595,13 +597,14 @@ scw webhosting ftp-account create [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                                 | Argument Specifications                                     |
-|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| hosting-id | UUID of the hosting plan                                                    | Required                                                    |
-| username   | Username for the new FTP account                                            |                                                             |
-| path       | Path for the new FTP account                                                |                                                             |
-| password   | Password for the new FTP account                                            |                                                             |
-| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name              | Description                                                                                                               | Argument Specifications                                     |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id        | UUID of the hosting plan                                                                                                  | Required                                                    |
+| username          | Username for the new FTP account                                                                                          |                                                             |
+| path              | Path for the new FTP account                                                                                              |                                                             |
+| generate-password | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols | Default: `true`                                             |
+| password          | Password for the new FTP account                                                                                          |                                                             |
+| region            | Region to target. If none is passed will use default region from the config                                               | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -869,13 +872,14 @@ scw webhosting mail-account change-password [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                                 | Argument Specifications                                     |
-|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| hosting-id | UUID of the hosting plan                                                    | Required                                                    |
-| domain     | Domain part of the mail account address                                     |                                                             |
-| username   | Username part of the mail account address                                   |                                                             |
-| password   | New password for the mail account                                           |                                                             |
-| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name              | Description                                                                                                               | Argument Specifications                                     |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id        | UUID of the hosting plan                                                                                                  | Required                                                    |
+| domain            | Domain part of the mail account address                                                                                   |                                                             |
+| username          | Username part of the mail account address                                                                                 |                                                             |
+| generate-password | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols | Default: `true`                                             |
+| password          | New password for the mail account                                                                                         |                                                             |
+| region            | Region to target. If none is passed will use default region from the config                                               | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -892,13 +896,14 @@ scw webhosting mail-account create [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                                 | Argument Specifications                                     |
-|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| hosting-id | UUID of the hosting plan                                                    | Required                                                    |
-| domain     | Domain part of the mail account address                                     |                                                             |
-| username   | Username part address of the mail account address                           |                                                             |
-| password   | Password for the new mail account                                           |                                                             |
-| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name              | Description                                                                                                               | Argument Specifications                                     |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id        | UUID of the hosting plan                                                                                                  | Required                                                    |
+| domain            | Domain part of the mail account address                                                                                   |                                                             |
+| username          | Username part address of the mail account address                                                                         |                                                             |
+| generate-password | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols | Default: `true`                                             |
+| password          | Password for the new mail account                                                                                         |                                                             |
+| region            | Region to target. If none is passed will use default region from the config                                               | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 

@@ -84,5 +84,9 @@ func GetCommands() *core.Commands {
 		human.EnumMarshalFunc(nodeStatusMarshalSpecs),
 	)
 
+	cmds.MustFind("searchdb", "deployment", "create").Override(deploymentCreateBuilder)
+	cmds.MustFind("searchdb", "user", "create").Override(userCreateBuilder)
+	cmds.MustFind("searchdb", "user", "update").Override(userUpdateBuilder)
+
 	return cmds
 }

@@ -24,6 +24,31 @@ const (
 	metaNamePNB      = "PrivateNetworkB"
 )
 
+func Test_PasswordGenerator(t *testing.T) {
+	t.Run("Create cluster", core.Test(&core.TestConfig{
+		Commands: redis.GetCommands(),
+		BeforeFunc: core.BeforeFuncWhenUpdatingCassette(
+			func(_ *core.BeforeFuncCtx) error {
+				time.Sleep(1 * time.Minute)
+
+				return nil
+			},
+		),
+		Cmd: "scw redis cluster create --wait name=cli-pwd-gen2 version=" + redisTestVersion +
+			" node-type=RED1-micro user-name=admin generate-password=true",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+				result, ok := ctx.Result.(redis.ClusterResult)
+				require.True(t, ok)
+				require.NotEmpty(t, result.Password)
+			},
+		),
+		AfterFunc: deleteCluster(),
+	}))
+}
+
 func Test_Endpoints(t *testing.T) {
 	cmds := redis.GetCommands()
 	cmds.Merge(vpc.GetCommands())
@@ -43,8 +68,9 @@ func Test_Endpoints(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				if ctx.Result != nil {
-					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
-					checkEndpoints(t, endpoints, 1, 0, 0)
+					result := ctx.Result.(redis.ClusterResult)
+					assert.Empty(t, result.Password)
+					checkEndpoints(t, result.Endpoints, 1, 0, 0)
 				}
 			},
 		),
@@ -70,7 +96,7 @@ func Test_Endpoints(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				if ctx.Result != nil {
-					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					endpoints := ctx.Result.(redis.ClusterResult).Endpoints
 					checkEndpoints(t, endpoints, 0, 1, 0)
 				}
 			},
@@ -109,7 +135,7 @@ func Test_Endpoints(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				if ctx.Result != nil {
-					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					endpoints := ctx.Result.(redis.ClusterResult).Endpoints
 					checkEndpoints(t, endpoints, 0, 2, 0)
 				}
 			},
@@ -146,7 +172,7 @@ func Test_IpamConfig(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				if ctx.Result != nil {
-					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					endpoints := ctx.Result.(redis.ClusterResult).Endpoints
 					checkEndpoints(t, endpoints, 0, 0, 1)
 				}
 			},
@@ -179,7 +205,7 @@ func Test_IpamConfig(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				if ctx.Result != nil {
-					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					endpoints := ctx.Result.(redis.ClusterResult).Endpoints
 					checkEndpoints(t, endpoints, 0, 0, 2)
 				}
 			},
@@ -213,7 +239,7 @@ func Test_IpamConfig(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				if ctx.Result != nil {
-					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					endpoints := ctx.Result.(redis.ClusterResult).Endpoints
 					checkEndpoints(t, endpoints, 0, 1, 1)
 				}
 			},
