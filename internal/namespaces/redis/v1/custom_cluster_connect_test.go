@@ -12,7 +12,6 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
-	redisSDK "github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -112,7 +111,7 @@ func Test_ClusterConnect(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 
-				checkNoCertLeftover(t, ctx.Meta["Cluster"].(*redisSDK.Cluster).ID)
+				checkNoCertLeftover(t, ctx.Meta["Cluster"].(redis.ClusterResult).ID)
 			},
 		),
 		AfterFunc: deleteConnectCluster(),
@@ -153,7 +152,7 @@ func Test_ClusterConnect(t *testing.T) {
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 
-				checkNoCertLeftover(t, ctx.Meta["Cluster"].(*redisSDK.Cluster).ID)
+				checkNoCertLeftover(t, ctx.Meta["Cluster"].(redis.ClusterResult).ID)
 			},
 		),
 		AfterFunc: deleteConnectCluster(),
