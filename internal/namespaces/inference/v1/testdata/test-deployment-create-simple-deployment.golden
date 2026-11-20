@@ -13,6 +13,8 @@ Quantization.Bits  4
 ModelName          qwen/qwen3-235b-a22b-instruct-2507:awq
 CreatedAt          few seconds ago
 Region             fr-par
+Srn                -
+Zone               
 
 Endpoints:
 ID                                    URL                                                                   DISABLE AUTH
@@ -29,7 +31,6 @@ ID                                    URL                                       
     {
       "id": "79319256-5e07-4b5a-8c08-b81f1c585b26",
       "url": "https://956f2366-8cf5-439a-9dbc-5a0ee3036465.ifr.fr-par.scaleway.com",
-      "public_network": {},
       "disable_auth": false
     }
   ],
@@ -44,5 +45,7 @@ ID                                    URL                                       
   "model_name": "qwen/qwen3-235b-a22b-instruct-2507:awq",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": null,
-  "region": "fr-par"
+  "region": "fr-par",
+  "srn": "",
+  "zone": ""
 }

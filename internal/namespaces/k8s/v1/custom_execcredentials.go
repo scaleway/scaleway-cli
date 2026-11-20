@@ -2,7 +2,8 @@ package k8s
 
 import (
 	"context"
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -21,6 +22,9 @@ func k8sExecCredentialCommand() *core.Command {
 
 		// avoid calling checkAPIKey (Check if API Key is about to expire)
 		DisableAfterChecks: true,
+		// Outputs the secret key as a bearer token, must not be exposed to MCP.
+		// Already filtered by Hidden, kept explicit as defense in depth.
+		ExcludeFromMCP: true,
 	}
 }
 
@@ -41,7 +45,7 @@ func k8sExecCredentialRun(ctx context.Context, _ any) (i any, e error) {
 			Token: secretKey,
 		},
 	}
-	response, err := json.MarshalIndent(execCreds, "", "    ")
+	response, err := json.Marshal(execCreds, jsontext.WithIndent("    "))
 	if err != nil {
 		return nil, err
 	}

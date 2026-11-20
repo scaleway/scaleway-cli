@@ -6,10 +6,12 @@ USAGE:
   scw billing invoice <command>
 
 AVAILABLE COMMANDS:
-  download    Download an invoice
-  export      Export invoices
-  get         Get an invoice
-  list        List invoices
+  download            Download an invoice
+  export              Export invoices
+  get                 Get an invoice
+  list                List invoices
+  list-discount-lines List discount lines
+  list-lines          List invoice lines
 
 FLAGS:
   -h, --help[=true|false]                help for invoice

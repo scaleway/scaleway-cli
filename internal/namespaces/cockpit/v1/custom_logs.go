@@ -2,7 +2,7 @@ package cockpit
 
 import (
 	"context"
-	"encoding/json"
+	"encoding/json/v2"
 	"errors"
 	"fmt"
 	"net/http"
@@ -209,7 +209,7 @@ func (s *session) query(ctx context.Context, start, end time.Time, forward bool)
 
 	var lokiResp lokiResponse
 
-	err = json.NewDecoder(resp.Body).Decode(&lokiResp)
+	err = json.UnmarshalRead(resp.Body, &lokiResp)
 	if err != nil {
 		return nil, fmt.Errorf("error parsing logs: %w", err)
 	}

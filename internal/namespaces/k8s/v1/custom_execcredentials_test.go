@@ -1,7 +1,7 @@
 package k8s_test
 
 import (
-	"encoding/json"
+	"encoding/json/v2"
 	"os"
 	"path"
 	"testing"

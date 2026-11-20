@@ -47,6 +47,26 @@ scw account project delete [arg=value ...]
 
 
 
+### Delete an existing Project with all its resources
+
+Delete an existing Project, specified by its Project ID and Name, along with all the resources it contains. Note that deleting a Project is permanent, and cannot be undone.
+
+**Usage:**
+
+```shell
+scw account project delete-with-resources [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name         | Description                                                              | Argument Specifications |
+|--------------|--------------------------------------------------------------------------|-------------------------|
+| project-id   | Project ID to use. If none is passed the default project ID will be used |                         |
+| project-name | Name of the Project to delete. This is used as a safeguard confirmation  |                         |
+
+
+
 ### Get an existing Project
 
 Retrieve information about an existing Project, specified by its Project ID. Its full details, including ID, name and description, are returned in the response object.

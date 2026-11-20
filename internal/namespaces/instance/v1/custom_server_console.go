@@ -44,6 +44,8 @@ func serverConsoleCommand() *core.Command {
 			},
 		},
 		Run: instanceServerConsoleRun,
+		// Interactive serial console connection, must not be exposed to MCP.
+		ExcludeFromMCP: true,
 	}
 }
 

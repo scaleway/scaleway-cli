@@ -9,18 +9,18 @@ shell = "bash -c"
 
 [tools]
 devcontainer-cli = "0.89"
-go = "1.27.3"
+go = "1.27.4"
 "go:github.com/boumenot/gocover-cobertura" = "1.5"
 "go:github.com/go-delve/delve/cmd/dlv" = "1.27"
 "go:gotest.tools/gotestsum" = "1.13"
 golangci-lint = "2.15"
 goreleaser = "2.18"
 hadolint = "2.15"
-node = "24.22.2"
+node = "24.22.3"
 "npm:markdown-link-check" = "3.15"
 "npm:oxfmt" = "0.75"
 "npm:oxlint" = "1.90"
-pnpm = "12.18.0"
+pnpm = "12.20.0"
 rumdl = "0.2"
 typos = "1.50"
 zizmor = "1.30"
@@ -213,6 +213,12 @@ typos ./docs
 description = "lint the workflows"
 run = '''
 zizmor .
+'''
+
+[tasks.'lint:renovate']
+description = "validate the renovate config"
+run = '''
+npx --yes --package renovate -- renovate-config-validator --strict
 '''
 
 [tasks.'test:cli']

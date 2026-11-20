@@ -151,7 +151,6 @@ PrivateBandwidth(Mbit/s):
       },
       "manageable": false,
       "os_id": "00000000-0000-0000-0000-000000000000",
-      "certification": {},
       "type": "option_type_unknown"
     },
     {
@@ -183,7 +182,6 @@ PrivateBandwidth(Mbit/s):
       },
       "manageable": true,
       "os_id": "00000000-0000-0000-0000-000000000000",
-      "remote_access": {},
       "type": "option_type_unknown"
     },
     {

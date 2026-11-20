@@ -1,55 +1,58 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                      37eebbd9-a323-47fd-8192-07e13fe467a2
-Name                    cli-srv-awesome-hellman
-Organization            fa1e3217-dc80-42ac-85c3-3f034b78b552
-Project                 fa1e3217-dc80-42ac-85c3-3f034b78b552
-AllowedActions.0        poweroff
-AllowedActions.1        terminate
-AllowedActions.2        reboot
-AllowedActions.3        stop_in_place
-AllowedActions.4        backup
-CommercialType          DEV1-S
-CreationDate            few seconds ago
-DynamicIPRequired       false
-RoutedIPEnabled         true
-EnableIPv6              false
-Hostname                cli-srv-awesome-hellman
-Image.ID                6d3c053e-c728-4294-b23a-560b62a4d592
-Image.Name              Ubuntu 22.04 Jammy Jellyfish
-Image.Arch              x86_64
-Image.CreationDate      few seconds ago
-Image.ModificationDate  few seconds ago
-Image.ExtraVolumes      0
-Image.FromServer        -
-Image.Organization      51b656e3-4865-41e8-adbc-0c45bdd780db
-Image.Public            true
-Image.RootVolume        36b4ce54-c67a-4f68-ab74-839515834352
-Image.State             available
-Image.Project           51b656e3-4865-41e8-adbc-0c45bdd780db
-Image.Zone              fr-par-1
-Protected               false
-MacAddress              de:00:00:d1:45:35
-ModificationDate        few seconds ago
-State                   running
-Location                fr-par-1
-BootType                local
-Volumes.0.ID            641756d8-4aeb-4dc9-a434-74445f5b553f
-Volumes.0.VolumeType    sbs_volume
-Volumes.0.State         available
-Volumes.0.Boot          false
-Volumes.0.Zone          fr-par-1
-SecurityGroup.ID        da505169-540e-4c2b-b0da-c854139224e0
-SecurityGroup.Name      Default security group
-StateDetail             booting kernel
-Arch                    x86_64
-Zone                    fr-par-1
-EndOfService            false
-Srn                     -
+ID                           2970fb35-28f8-41bb-bc54-682a4f847260
+Name                         cli-srv-interesting-lumiere
+Organization                 fa1e3217-dc80-42ac-85c3-3f034b78b552
+Project                      fa1e3217-dc80-42ac-85c3-3f034b78b552
+AllowedActions.0             poweroff
+AllowedActions.1             terminate
+AllowedActions.2             reboot
+AllowedActions.3             stop_in_place
+AllowedActions.4             backup
+CommercialType               DEV1-S
+CreationDate                 few seconds ago
+DynamicIPRequired            false
+RoutedIPEnabled              true
+EnableIPv6                   false
+Hostname                     cli-srv-interesting-lumiere
+Image.ID                     4baa8d9f-fbbe-46f6-8599-610eb16dcec1
+Image.Name                   Ubuntu 22.04 Jammy Jellyfish
+Image.Arch                   x86_64
+Image.CreationDate           few seconds ago
+Image.ModificationDate       few seconds ago
+Image.FromServer             -
+Image.Organization           51b656e3-4865-41e8-adbc-0c45bdd780db
+Image.Public                 true
+Image.RootVolume.ID          6df771cd-0833-4372-b016-2de09988e626
+Image.RootVolume.Name        -
+Image.RootVolume.Size        0 B
+Image.RootVolume.VolumeType  sbs_snapshot
+Image.State                  available
+Image.Project                51b656e3-4865-41e8-adbc-0c45bdd780db
+Image.Zone                   fr-par-1
+Protected                    false
+MacAddress                   de:00:00:cb:41:c0
+ModificationDate             few seconds ago
+State                        running
+Location                     fr-par-1
+BootType                     local
+Volumes.0.ID                 adf79b62-761f-4828-b518-370bbcaab281
+Volumes.0.VolumeType         sbs_volume
+Volumes.0.State              available
+Volumes.0.Boot               false
+Volumes.0.Zone               fr-par-1
+SecurityGroup.ID             da505169-540e-4c2b-b0da-c854139224e0
+SecurityGroup.Name           Default security group
+StateDetail                  booting kernel
+Arch                         x86_64
+Zone                         fr-par-1
+EndOfService                 false
+DNS                          2970fb35-28f8-41bb-bc54-682a4f847260.pub.instances.scw.cloud
+Srn                          -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "37eebbd9-a323-47fd-8192-07e13fe467a2",
-  "name": "cli-srv-awesome-hellman",
+  "id": "2970fb35-28f8-41bb-bc54-682a4f847260",
+  "name": "cli-srv-interesting-lumiere",
   "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "allowed_actions": [
@@ -65,9 +68,9 @@ Srn                     -
   "dynamic_ip_required": false,
   "routed_ip_enabled": true,
   "enable_ipv6": false,
-  "hostname": "cli-srv-awesome-hellman",
+  "hostname": "cli-srv-interesting-lumiere",
   "image": {
-    "id": "6d3c053e-c728-4294-b23a-560b62a4d592",
+    "id": "4baa8d9f-fbbe-46f6-8599-610eb16dcec1",
     "name": "Ubuntu 22.04 Jammy Jellyfish",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
@@ -78,7 +81,7 @@ Srn                     -
     "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
     "public": true,
     "root_volume": {
-      "id": "36b4ce54-c67a-4f68-ab74-839515834352",
+      "id": "6df771cd-0833-4372-b016-2de09988e626",
       "name": "",
       "size": 0,
       "volume_type": "sbs_snapshot"
@@ -92,13 +95,13 @@ Srn                     -
   "private_ip": null,
   "public_ip": null,
   "public_ips": [],
-  "mac_address": "de:00:00:d1:45:35",
+  "mac_address": "de:00:00:cb:41:c0",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "running",
   "location": {
-    "cluster_id": "41",
-    "hypervisor_id": "1101",
-    "node_id": "43",
+    "cluster_id": "19",
+    "hypervisor_id": "1202",
+    "node_id": "24",
     "platform_id": "14",
     "zone_id": "fr-par-1"
   },
@@ -106,7 +109,7 @@ Srn                     -
   "boot_type": "local",
   "volumes": {
     "0": {
-      "id": "641756d8-4aeb-4dc9-a434-74445f5b553f",
+      "id": "adf79b62-761f-4828-b518-370bbcaab281",
       "name": null,
       "export_uri": null,
       "organization": null,
@@ -135,5 +138,5 @@ Srn                     -
   "admin_password_encrypted_value": null,
   "filesystems": [],
   "end_of_service": false,
-  "dns": null
+  "dns": "2970fb35-28f8-41bb-bc54-682a4f847260.pub.instances.scw.cloud"
 }

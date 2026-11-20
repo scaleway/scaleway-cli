@@ -1,0 +1,159 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 142
+        host: api.scaleway.com
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"cli-vol-quirky-dewdney","tags":["test"],"size":20000000000,"volume_type":"l_ssd"}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261112091134-7dcaff287d45 (go1.27.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/volumes
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 411
+        body: '{"srn":"srn://instance.scw.eu/zones/fr-par-1/volumes/3caf5ae7-83d6-49f0-9583-ae73bd9e8859", "id":"3caf5ae7-83d6-49f0-9583-ae73bd9e8859", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-vol-quirky-dewdney", "tags":["test"], "size":20000000000, "status":"available", "volume_type":"l_ssd", "created_at":"2026-11-13T17:11:19.548356Z", "updated_at":"2026-11-13T17:11:19.548356Z", "zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "411"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 13 Nov 2026 17:11:19 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - db15300a-3623-42fa-aece-8bbd5b8609ca
+        status: 200 OK
+        code: 200
+        duration: 234.586672ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261112091134-7dcaff287d45 (go1.27.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/metadata
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 59
+        body: '{"platform":"external","partition":"scw","domain":"scw.eu"}'
+        headers:
+            Content-Length:
+                - "59"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 13 Nov 2026 17:11:19 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 6b4e53f2-190d-4f15-b34d-7dc359af4575
+        status: 200 OK
+        code: 200
+        duration: 10.90173ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 108
+        host: api.scaleway.com
+        body: '{"name":"cli-test-instance-volume-update","tags":["cli-test","instance-volume","update"],"size":30000000000}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261112091134-7dcaff287d45 (go1.27.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/volumes/3caf5ae7-83d6-49f0-9583-ae73bd9e8859
+        method: PATCH
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 453
+        body: '{"srn":"srn://instance.scw.eu/zones/fr-par-1/volumes/3caf5ae7-83d6-49f0-9583-ae73bd9e8859", "id":"3caf5ae7-83d6-49f0-9583-ae73bd9e8859", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-test-instance-volume-update", "tags":["cli-test", "instance-volume", "update"], "size":30000000000, "status":"available", "volume_type":"l_ssd", "created_at":"2026-11-13T17:11:19.548356Z", "updated_at":"2026-11-13T17:11:19.655602Z", "zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "453"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 13 Nov 2026 17:11:19 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "48"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - d03bb8e4-0e1e-4414-83b2-201877aa6b87
+        status: 200 OK
+        code: 200
+        duration: 142.344921ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.39.1-0.20261112091134-7dcaff287d45 (go1.27.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/volumes/3caf5ae7-83d6-49f0-9583-ae73bd9e8859
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 13 Nov 2026 17:11:19 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 06dd7254-31b5-41e3-bf03-aae2a38168e5
+        status: 204 No Content
+        code: 204
+        duration: 128.652321ms

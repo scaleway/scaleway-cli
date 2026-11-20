@@ -66,8 +66,7 @@ IP         PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
     "id": "737d3510-55ac-475d-9adc-ab0ddc56a9f6",
     "ip": "51.159.8.181",
     "port": 27851,
-    "name": null,
-    "load_balancer": {}
+    "name": null
   },
   "tags": [],
   "settings": [
@@ -112,8 +111,7 @@ IP         PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
       "id": "737d3510-55ac-475d-9adc-ab0ddc56a9f6",
       "ip": "51.159.8.181",
       "port": 27851,
-      "name": null,
-      "load_balancer": {}
+      "name": null
     }
   ],
   "logs_policy": {
@@ -123,7 +121,8 @@ IP         PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
   "backup_same_region": false,
   "maintenances": [],
   "encryption": {
-    "enabled": false
+    "enabled": false,
+    "kms_key_id": null
   },
   "acls": [
     {

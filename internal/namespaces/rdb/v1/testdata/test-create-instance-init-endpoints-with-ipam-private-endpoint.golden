@@ -122,7 +122,8 @@ Password:
   "backup_same_region": false,
   "maintenances": [],
   "encryption": {
-    "enabled": false
+    "enabled": false,
+    "kms_key_id": null
   },
   "password": "{4xdl*#QOoP+\u00263XRkGA)]"
 }
