@@ -1,0 +1,81 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go (go1.27.1) cli-e2e-test
+        url: https://api.scaleway.com/metadata
+        method: GET
+      response:
+        content_length: 59
+        body: '{"platform":"external","partition":"scw","domain":"scw.eu"}'
+        headers:
+            Content-Length:
+                - "59"
+            Content-Type:
+                - application/json
+        status: 200 OK
+        code: 200
+        duration: 0s
+    - id: 1
+      request:
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go (go1.27.1) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/pl-waw-1/clusters/955763a4-77ed-4ce9-9380-7932e3d3592c
+        method: GET
+      response:
+        content_length: 800
+        body: '{"id": "955763a4-77ed-4ce9-9380-7932e3d3592c", "name": "redis-trusting-rosalind", "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42", "status": "ready", "version": "8.6.6", "endpoints": [{"port": 6379, "private_network": {"id": "b5c5f69d-9ca8-497c-8e14-9fe219a24f2a", "service_ips": ["172.16.12.2/22"], "zone": "pl-waw-1", "provisioning_mode": "ipam"}, "ips": ["172.16.12.2"], "id": "b246e168-808c-4908-9a31-5faa37e5493d"}], "tags": [], "node_type": "RED1-micro", "created_at": "2026-10-26T09:44:21.269362Z", "updated_at": "2026-10-26T09:48:45.920483Z", "tls_enabled": true, "cluster_settings": [], "acl_rules": [], "cluster_size": 1, "zone": "pl-waw-1", "user_name": "default", "upgradable_versions": [], "srn": "srn://redis.scw.eu/zones/pl-waw-1/clusters/955763a4-77ed-4ce9-9380-7932e3d3592c"}'
+        headers:
+            Content-Length:
+                - "800"
+            Content-Type:
+                - application/json
+        status: 200 OK
+        code: 200
+        duration: 0s
+    - id: 2
+      request:
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go (go1.27.1) cli-e2e-test
+        url: https://api.scaleway.com/vpc-gw/v2/zones/pl-waw-1/gateways?order_by=created_at_asc&page=1
+        method: GET
+      response:
+        content_length: 1201
+        body: '{"gateways": [{"id": "a86e6447-2a9f-475f-9ef6-98f34e32b3f3", "srn": "srn://public-gateway.scw.eu/zones/pl-waw-1/gateways/a86e6447-2a9f-475f-9ef6-98f34e32b3f3", "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42", "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42", "created_at": "2026-10-26T09:47:35.523882Z", "updated_at": "2026-10-26T09:52:21.240197Z", "type": "VPC-GW-S", "bandwidth": 100, "status": "running", "name": "pgw-inspiring-banzai", "tags": [], "ipv4": {"id": "2928c602-a0f9-4125-ab46-9765ff9b27ff", "address": "151.115.59.64", "reverse": "64-59-115-151.instances.scw.cloud", "gateway_id": "a86e6447-2a9f-475f-9ef6-98f34e32b3f3", "zone": "pl-waw-1"}, "gateway_networks": [{"id": "3439f075-c65a-4f28-9ef7-fdb7c1087cd2", "gateway_id": "a86e6447-2a9f-475f-9ef6-98f34e32b3f3", "private_network_id": "b5c5f69d-9ca8-497c-8e14-9fe219a24f2a", "mac_address": "02:00:00:1C:C6:30", "masquerade_enabled": true, "status": "ready", "push_default_route": true, "zone": "pl-waw-1"}], "version": "0.8.5", "can_upgrade_to": null, "bastion_enabled": true, "bastion_port": 61000, "smtp_enabled": false, "is_legacy": false, "bastion_allowed_ips": ["0.0.0.0/0"], "zone": "pl-waw-1"}], "total_count": 1}'
+        headers:
+            Content-Type:
+                - application/json
+        status: 200 OK
+        code: 200
+        duration: 0s
+    - id: 3
+      request:
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go (go1.27.1) cli-e2e-test
+        url: https://api.scaleway.com/redis/v1/zones/pl-waw-1/clusters/955763a4-77ed-4ce9-9380-7932e3d3592c/certificate
+        method: GET
+      response:
+        content_length: 186
+        body: '{"name": "certificate.crt", "content_type": "application/octet-stream", "content": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJ0ZXN0Y2VydGlmaWNhdGUKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="}'
+        headers:
+            Content-Length:
+                - "186"
+            Content-Type:
+                - application/json
+        status: 200 OK
+        code: 200
+        duration: 0s
