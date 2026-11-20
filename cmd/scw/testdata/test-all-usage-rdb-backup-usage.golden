@@ -16,6 +16,7 @@ AVAILABLE COMMANDS:
   update      Update a database backup
 
 WORKFLOW COMMANDS:
+  prune       Delete old database backups according to a retention policy
   wait        Wait for a backup to reach a stable state
 
 FLAGS:
