@@ -6,12 +6,11 @@ USAGE:
   scw annotations value <command>
 
 AVAILABLE COMMANDS:
-  create                  Add a value definition to a key.
-  delete                  Delete a value definition. Fails if the value is currently bound to any resource.
-  delete-all-matching-key Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.
-  get                     Retrieve a specific value.
-  list                    List all values, sorted alphabetically by name.
-  update                  Update name or description.
+  create      Add a value definition to a key.
+  delete      Delete a value definition. Fails if the value is currently bound to any resource.
+  get         Retrieve a specific value.
+  list        List all values, sorted alphabetically by name.
+  update      Update name or description.
 
 FLAGS:
   -h, --help[=true|false]                help for value

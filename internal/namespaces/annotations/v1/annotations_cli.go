@@ -34,13 +34,10 @@ func GetGeneratedCommands() *core.Commands {
 		annotationsValueGet(),
 		annotationsValueUpdate(),
 		annotationsValueDelete(),
-		annotationsValueDeleteAllMatchingKey(),
 		annotationsKeyValueList(),
 		annotationsBindingCreate(),
 		annotationsBindingList(),
 		annotationsBindingDelete(),
-		annotationsBindingDeleteAllMatchingValue(),
-		annotationsBindingDeleteAllMatchingSrn(),
 	)
 }
 
@@ -447,35 +444,6 @@ func annotationsValueDelete() *core.Command {
 	}
 }
 
-func annotationsValueDeleteAllMatchingKey() *core.Command {
-	return &core.Command{
-		Short:     `Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.`,
-		Long:      `Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.`,
-		Namespace: "annotations",
-		Resource:  "value",
-		Verb:      "delete-all-matching-key",
-		// Deprecated:    true,
-		ArgsType: reflect.TypeFor[annotations.DeleteAllValuesMatchingKeyRequest](),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "key-id",
-				Short:      `ID of the key for which to delete all values.`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-		},
-		Run: func(ctx context.Context, args any) (i any, e error) {
-			request := args.(*annotations.DeleteAllValuesMatchingKeyRequest)
-
-			client := core.ExtractClient(ctx)
-			api := annotations.NewAPI(client)
-
-			return api.DeleteAllValuesMatchingKey(request, scw.WithContext(ctx))
-		},
-	}
-}
-
 func annotationsKeyValueList() *core.Command {
 	return &core.Command{
 		Short:     `List all keys and values for an organization, sorted alphabetically by key name and value name.`,
@@ -609,65 +577,6 @@ func annotationsBindingDelete() *core.Command {
 				Resource: "binding",
 				Verb:     "delete",
 			}, nil
-		},
-	}
-}
-
-func annotationsBindingDeleteAllMatchingValue() *core.Command {
-	return &core.Command{
-		Short:     `Delete ALL bindings associated with a value.`,
-		Long:      `Delete ALL bindings associated with a value.`,
-		Namespace: "annotations",
-		Resource:  "binding",
-		Verb:      "delete-all-matching-value",
-		// Deprecated:    true,
-		ArgsType: reflect.TypeFor[annotations.DeleteAllBindingsMatchingValueRequest](),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "value-id",
-				Short:      `ID of the value for which all bindings should be deleted.`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-		},
-		Run: func(ctx context.Context, args any) (i any, e error) {
-			request := args.(*annotations.DeleteAllBindingsMatchingValueRequest)
-
-			client := core.ExtractClient(ctx)
-			api := annotations.NewAPI(client)
-
-			return api.DeleteAllBindingsMatchingValue(request, scw.WithContext(ctx))
-		},
-	}
-}
-
-func annotationsBindingDeleteAllMatchingSrn() *core.Command {
-	return &core.Command{
-		Short:     `Delete ALL bindings associated with a Scaleway Resource Name.`,
-		Long:      `Delete ALL bindings associated with a Scaleway Resource Name.`,
-		Namespace: "annotations",
-		Resource:  "binding",
-		Verb:      "delete-all-matching-srn",
-		// Deprecated:    true,
-		ArgsType: reflect.TypeFor[annotations.DeleteAllBindingsMatchingSRNRequest](),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "target-srn",
-				Short:      `SRN of the resource for which all bindings should be deleted.`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			core.OrganizationIDArgSpec(),
-		},
-		Run: func(ctx context.Context, args any) (i any, e error) {
-			request := args.(*annotations.DeleteAllBindingsMatchingSRNRequest)
-
-			client := core.ExtractClient(ctx)
-			api := annotations.NewAPI(client)
-
-			return api.DeleteAllBindingsMatchingSRN(request, scw.WithContext(ctx))
 		},
 	}
 }

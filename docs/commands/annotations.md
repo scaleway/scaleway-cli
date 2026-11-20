@@ -46,45 +46,6 @@ scw annotations binding delete [arg=value ...]
 
 
 
-### Delete ALL bindings associated with a Scaleway Resource Name.
-
-Delete ALL bindings associated with a Scaleway Resource Name.
-
-**Usage:**
-
-```shell
-scw annotations binding delete-all-matching-srn [arg=value ...]
-```
-
-
-**Arguments:**
-
-| Name            | Description                                                                        | Argument Specifications |
-|-----------------|------------------------------------------------------------------------------------|-------------------------|
-| target-srn      | SRN of the resource for which all bindings should be deleted.                      |                         |
-| organization-id | Organization ID to use. If none is passed the default organization ID will be used |                         |
-
-
-
-### Delete ALL bindings associated with a value.
-
-Delete ALL bindings associated with a value.
-
-**Usage:**
-
-```shell
-scw annotations binding delete-all-matching-value [arg=value ...]
-```
-
-
-**Arguments:**
-
-| Name     | Description                                               | Argument Specifications |
-|----------|-----------------------------------------------------------|-------------------------|
-| value-id | ID of the value for which all bindings should be deleted. |                         |
-
-
-
 ### List all bindings, or filter by Scaleway Resource Name or value ID. Response order by ID.
 
 List all bindings, or filter by Scaleway Resource Name or value ID. Response order by ID.
@@ -276,25 +237,6 @@ scw annotations value delete [arg=value ...]
 | Name     | Description                | Argument Specifications |
 |----------|----------------------------|-------------------------|
 | value-id | ID of the value to delete. | Required                |
-
-
-
-### Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.
-
-Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.
-
-**Usage:**
-
-```shell
-scw annotations value delete-all-matching-key [arg=value ...]
-```
-
-
-**Arguments:**
-
-| Name   | Description                                   | Argument Specifications |
-|--------|-----------------------------------------------|-------------------------|
-| key-id | ID of the key for which to delete all values. |                         |
 
 
 
