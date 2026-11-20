@@ -7,18 +7,18 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var gatewayNetworkStatusMarshalSpecs = human.EnumMarshalSpecs{
-	vpcgw.GatewayNetworkStatusAttaching:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	vpcgw.GatewayNetworkStatusConfiguring:   &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	vpcgw.GatewayNetworkStatusCreated:       &human.EnumMarshalSpec{Attribute: color.FgGreen},
-	vpcgw.GatewayNetworkStatusDetaching:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	vpcgw.GatewayNetworkStatusReady:         &human.EnumMarshalSpec{Attribute: color.FgGreen},
-	vpcgw.GatewayNetworkStatusUnknownStatus: &human.EnumMarshalSpec{Attribute: color.Faint},
+var gatewayNetworkStatusFormat = humanv2.EnumFormats[vpcgw.GatewayNetworkStatus]{
+	vpcgw.GatewayNetworkStatusAttaching:     humanv2.EnumFormat{Color: color.FgBlue},
+	vpcgw.GatewayNetworkStatusConfiguring:   humanv2.EnumFormat{Color: color.FgBlue},
+	vpcgw.GatewayNetworkStatusCreated:       humanv2.EnumFormat{Color: color.FgGreen},
+	vpcgw.GatewayNetworkStatusDetaching:     humanv2.EnumFormat{Color: color.FgBlue},
+	vpcgw.GatewayNetworkStatusReady:         humanv2.EnumFormat{Color: color.FgGreen},
+	vpcgw.GatewayNetworkStatusUnknownStatus: humanv2.EnumFormat{Color: color.Faint},
 }
 
 func gatewayNetworkCreateBuilder(c *core.Command) *core.Command {

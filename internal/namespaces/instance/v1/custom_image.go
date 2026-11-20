@@ -10,7 +10,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -24,68 +24,14 @@ const (
 // Marshalers
 //
 
-// imageStateMarshalSpecs allows to override the displayed instance.ImageState.
+// imageStateFormat allows to override the displayed instance.ImageState.
 var (
-	imageStateMarshalSpecs = human.EnumMarshalSpecs{
-		instance.ImageStateCreating:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		instance.ImageStateAvailable: &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		instance.ImageStateError:     &human.EnumMarshalSpec{Attribute: color.FgRed},
+	imageStateFormat = humanv2.EnumFormats[instance.ImageState]{
+		instance.ImageStateCreating:  humanv2.EnumFormat{Color: color.FgBlue},
+		instance.ImageStateAvailable: humanv2.EnumFormat{Color: color.FgGreen},
+		instance.ImageStateError:     humanv2.EnumFormat{Color: color.FgRed},
 	}
 )
-
-func imagesMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
-	type humanImage struct {
-		ID               string
-		Name             string
-		State            instance.ImageState
-		Zone             scw.Zone
-		Volumes          []scw.Size
-		ServerName       string
-		ServerID         string
-		Arch             instance.Arch
-		OrganizationID   string
-		ProjectID        string
-		CreationDate     *time.Time
-		ModificationDate *time.Time
-	}
-
-	images := i.([]*imageListItem)
-	humanImages := make([]*humanImage, 0, len(images))
-	for _, image := range images {
-		// We must sort map key to make sure volume size are in the correct order.
-		extraVolumeKeys := make([]string, 0, len(image.ExtraVolumes))
-		for key := range image.ExtraVolumes {
-			extraVolumeKeys = append(extraVolumeKeys, key)
-		}
-		sort.Strings(extraVolumeKeys)
-
-		// For each image we want to display a list of volume size separated with `,`
-		// e.g: 10 GB, 20 GB
-		volumes := make([]scw.Size, 0, len(extraVolumeKeys)+1)
-		volumes = append(volumes, image.RootVolume.Size)
-
-		for _, key := range extraVolumeKeys {
-			volumes = append(volumes, image.ExtraVolumes[key].Size)
-		}
-
-		humanImages = append(humanImages, &humanImage{
-			ID:               image.ID,
-			Name:             image.Name,
-			State:            image.State,
-			Zone:             image.Zone,
-			Volumes:          volumes,
-			ServerName:       image.ServerName,
-			ServerID:         image.ServerID,
-			Arch:             image.Arch,
-			OrganizationID:   image.Organization,
-			ProjectID:        image.Project,
-			CreationDate:     image.CreationDate,
-			ModificationDate: image.ModificationDate,
-		})
-	}
-
-	return human.Marshal(humanImages, nil)
-}
 
 //
 // Builders
@@ -157,9 +103,37 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 type imageListItem struct {
 	*instance.Image
 
+	// Volumes is the display-only list of volume sizes (root volume plus one
+	// per extra volume, in sorted-key order), mirroring v1's imagesMarshalerFunc.
+	Volumes []scw.Size `json:"-"`
+
 	// Replace Image.FromServer
 	ServerID   string `json:"server_id"`
 	ServerName string `json:"server_name"`
+}
+
+// imageListLayout selects the image list table columns, mirroring the field
+// set of the v1 imagesMarshalerFunc view.
+var imageListLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{
+			Path: "",
+			Fields: []humanv2.Field{
+				{Path: "ID"},
+				{Path: "Name"},
+				{Path: "State"},
+				{Path: "Zone"},
+				{Path: "Volumes"},
+				{Path: "ServerName"},
+				{Path: "ServerID"},
+				{Path: "Arch"},
+				{Path: "Organization", Label: "ORGANIZATION ID"},
+				{Path: "Project", Label: "PROJECT ID"},
+				{Path: "CreationDate"},
+				{Path: "ModificationDate"},
+			},
+		},
+	},
 }
 
 // imageListBuilder list the images for a given organization/project.
@@ -243,6 +217,28 @@ func imageListBuilder(c *core.Command) *core.Command {
 
 					newCustomImage.Image.ExtraVolumes[index].Size = blockVolume.Size
 				}
+			}
+
+			// For each image we want to display a list of volume sizes separated with
+			// `,` (e.g: 10 GB, 20 GB), root volume first then extra volumes in
+			// sorted-key order.
+			// We must sort map keys to make sure volume sizes are in the correct order.
+			extraVolumeKeys := make([]string, 0, len(image.ExtraVolumes))
+			for key := range image.ExtraVolumes {
+				extraVolumeKeys = append(extraVolumeKeys, key)
+			}
+			sort.Strings(extraVolumeKeys)
+
+			newCustomImage.Volumes = make([]scw.Size, 0, len(extraVolumeKeys)+1)
+			newCustomImage.Volumes = append(
+				newCustomImage.Volumes,
+				newCustomImage.Image.RootVolume.Size,
+			)
+			for _, key := range extraVolumeKeys {
+				newCustomImage.Volumes = append(
+					newCustomImage.Volumes,
+					newCustomImage.Image.ExtraVolumes[key].Size,
+				)
 			}
 
 			customImages = append(customImages, newCustomImage)

@@ -2,8 +2,7 @@ package interlink
 
 import (
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
-	interlink "github.com/scaleway/scaleway-sdk-go/api/interlink/v1beta1"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 )
 
 func GetCommands() *core.Commands {
@@ -11,14 +10,8 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("interlink").Groups = []string{"network"}
 
-	human.RegisterMarshalerFunc(
-		interlink.BgpStatus(""),
-		human.EnumMarshalFunc(bgpStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		interlink.LinkStatus(""),
-		human.EnumMarshalFunc(linkStatusMarshalSpecs),
-	)
+	humanv2.RegisterEnumFormat(bgpStatusFormat)
+	humanv2.RegisterEnumFormat(linkStatusFormat)
 
 	return cmds
 }

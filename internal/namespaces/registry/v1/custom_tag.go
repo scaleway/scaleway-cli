@@ -8,7 +8,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -20,11 +20,11 @@ import (
 
 // tagStatusMarshalerFunc marshals a registry.TagStatus.
 var (
-	tagStatusMarshalSpecs = human.EnumMarshalSpecs{
-		registry.TagStatusReady:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		registry.TagStatusLocked:   &human.EnumMarshalSpec{Attribute: color.FgRed},
-		registry.TagStatusError:    &human.EnumMarshalSpec{Attribute: color.FgRed},
-		registry.TagStatusDeleting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	tagStatusFormat = humanv2.EnumFormats[registry.TagStatus]{
+		registry.TagStatusReady:    humanv2.EnumFormat{Color: color.FgGreen},
+		registry.TagStatusLocked:   humanv2.EnumFormat{Color: color.FgRed},
+		registry.TagStatusError:    humanv2.EnumFormat{Color: color.FgRed},
+		registry.TagStatusDeleting: humanv2.EnumFormat{Color: color.FgBlue},
 	}
 )
 

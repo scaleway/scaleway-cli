@@ -6,18 +6,18 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	flexibleip "github.com/scaleway/scaleway-sdk-go/api/flexibleip/v1alpha1"
 )
 
-var ipStatusMarshalSpecs = human.EnumMarshalSpecs{
-	flexibleip.FlexibleIPStatusAttached:  &human.EnumMarshalSpec{Attribute: color.FgGreen},
-	flexibleip.FlexibleIPStatusDetaching: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	flexibleip.FlexibleIPStatusError:     &human.EnumMarshalSpec{Attribute: color.FgRed},
-	flexibleip.FlexibleIPStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed},
-	flexibleip.FlexibleIPStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen},
-	flexibleip.FlexibleIPStatusUnknown:   &human.EnumMarshalSpec{Attribute: color.Faint},
-	flexibleip.FlexibleIPStatusUpdating:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
+var ipStatusFormat = humanv2.EnumFormats[flexibleip.FlexibleIPStatus]{
+	flexibleip.FlexibleIPStatusAttached:  humanv2.EnumFormat{Color: color.FgGreen},
+	flexibleip.FlexibleIPStatusDetaching: humanv2.EnumFormat{Color: color.FgBlue},
+	flexibleip.FlexibleIPStatusError:     humanv2.EnumFormat{Color: color.FgRed},
+	flexibleip.FlexibleIPStatusLocked:    humanv2.EnumFormat{Color: color.FgRed},
+	flexibleip.FlexibleIPStatusReady:     humanv2.EnumFormat{Color: color.FgGreen},
+	flexibleip.FlexibleIPStatusUnknown:   humanv2.EnumFormat{Color: color.Faint},
+	flexibleip.FlexibleIPStatusUpdating:  humanv2.EnumFormat{Color: color.FgBlue},
 }
 
 const (

@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Image d4067cdc-dc9d-4810-8a26-0dae51d7df42 requires 50 GB on root volume, but root volume is constrained between 0 B and 20 GB on DEV1-S
+image d4067cdc-dc9d-4810-8a26-0dae51d7df42 requires 50 GB on root volume, but root volume is constrained between 0 B and 20 GB on DEV1-S
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
   "error": "image d4067cdc-dc9d-4810-8a26-0dae51d7df42 requires 50 GB on root volume, but root volume is constrained between 0 B and 20 GB on DEV1-S"

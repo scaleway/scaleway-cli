@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Cannot create the server: you cannot use an existing volume as a root volume
+cannot create the server: you cannot use an existing volume as a root volume
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
   "error": "cannot create the server: you cannot use an existing volume as a root volume"

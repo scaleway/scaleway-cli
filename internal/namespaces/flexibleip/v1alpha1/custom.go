@@ -2,8 +2,7 @@ package flexibleip
 
 import (
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
-	fip "github.com/scaleway/scaleway-sdk-go/api/flexibleip/v1alpha1"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 )
 
 func GetCommands() *core.Commands {
@@ -11,15 +10,8 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("fip").Groups = []string{"baremetal"}
 
-	human.RegisterMarshalerFunc(
-		fip.FlexibleIPStatus(""),
-		human.EnumMarshalFunc(ipStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		fip.MACAddressStatus(""),
-		human.EnumMarshalFunc(macAddressStatusMarshalSpecs),
-	)
-
+	humanv2.RegisterEnumFormat(ipStatusFormat)
+	humanv2.RegisterEnumFormat(macAddressStatusFormat)
 	cmds.MustFind("fip", "ip", "create").Override(createIPBuilder)
 
 	return cmds

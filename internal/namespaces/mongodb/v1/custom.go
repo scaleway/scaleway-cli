@@ -2,8 +2,7 @@ package mongodb
 
 import (
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
-	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 )
 
 func GetCommands() *core.Commands {
@@ -11,19 +10,9 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("mongodb").Groups = []string{"database"}
 
-	human.RegisterMarshalerFunc(
-		mongodb.SnapshotStatus(""),
-		human.EnumMarshalFunc(snapshotStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		mongodb.InstanceStatus(""),
-		human.EnumMarshalFunc(instanceStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		mongodb.NodeTypeStock(""),
-		human.EnumMarshalFunc(nodeTypeStockMarshalSpecs),
-	)
-
+	humanv2.RegisterEnumFormat(snapshotStatusFormat)
+	humanv2.RegisterEnumFormat(instanceStatusFormat)
+	humanv2.RegisterEnumFormat(nodeTypeStockFormat)
 	cmds.MustFind("mongodb", "instance", "create").Override(instanceCreateBuilder)
 
 	cmds.Merge(core.NewCommands(

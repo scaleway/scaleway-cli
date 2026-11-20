@@ -11,7 +11,7 @@ import (
 	"runtime"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 )
 
 const githubURL = "https://github.com/scaleway/scaleway-cli/issues/new"
@@ -114,7 +114,7 @@ func (i *issue) renderTemplate(bodyTemplate string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	buildInfoStr, err := human.Marshal(i.BuildInfo, nil)
+	buildInfoStr, err := humanv2.Render(i.BuildInfo, humanv2.Layout{})
 	if err != nil {
 		return "", err
 	}

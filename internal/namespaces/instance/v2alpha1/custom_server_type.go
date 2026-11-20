@@ -8,7 +8,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 	pcu "github.com/scaleway/scaleway-sdk-go/api/product_catalog/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -18,59 +18,44 @@ import (
 // Marshalers
 //
 
-var serverTypesAvailabilityMarshalSpecs = human.EnumMarshalSpecs{
-	instance.ServerTypeAvailabilityAvailable: &human.EnumMarshalSpec{
-		Attribute: color.FgGreen,
+var serverTypesAvailabilityFormat = humanv2.EnumFormats[instance.ServerTypeAvailability]{
+	instance.ServerTypeAvailabilityAvailable: humanv2.EnumFormat{
+		Color: color.FgGreen,
 	},
-	instance.ServerTypeAvailabilityLowStock: &human.EnumMarshalSpec{
-		Attribute: color.FgYellow,
+	instance.ServerTypeAvailabilityLowStock: humanv2.EnumFormat{
+		Color: color.FgYellow,
 	},
-	instance.ServerTypeAvailabilityOutOfStock: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
+	instance.ServerTypeAvailabilityOutOfStock: humanv2.EnumFormat{
+		Color: color.FgRed,
 	},
-	instance.ServerTypeAvailabilityUnavailable: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
+	instance.ServerTypeAvailabilityUnavailable: humanv2.EnumFormat{
+		Color: color.FgRed,
 	},
-	instance.ServerTypeAvailabilityUnknownAvailability: &human.EnumMarshalSpec{
-		Attribute: color.Faint,
+	instance.ServerTypeAvailabilityUnknownAvailability: humanv2.EnumFormat{
+		Color: color.Faint,
 	},
 }
 
-// serverTypesListMarshalerFunc marshals a Server Type for the list view.
-// This is mostly done to discard local_volume_max_size from the human output but keep it in other outputs.
-func serverTypesListMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	// humanServerTypeInList is the custom ServerType type used for list view.
-	type humanServerTypeInList struct {
-		Name             string
-		HourlyPrice      *scw.Money
-		SupportedStorage string
-		CPU              uint32
-		GPU              uint32
-		RAM              scw.Size
-		Arch             string
-		Bandwidth        scw.Size
-		Availability     instance.ServerTypeAvailability
-		MaxFileSystems   *uint32
-	}
-
-	customServerTypes := i.([]*customServerType)
-	humanServerTypes := make([]*humanServerTypeInList, 0, len(customServerTypes))
-	for _, serverType := range customServerTypes {
-		humanServerTypes = append(humanServerTypes, &humanServerTypeInList{
-			Name:             serverType.Name,
-			HourlyPrice:      serverType.HourlyPrice,
-			SupportedStorage: serverType.SupportedStorage,
-			CPU:              serverType.CPU,
-			GPU:              serverType.GPU,
-			RAM:              serverType.RAM,
-			Arch:             serverType.Arch,
-			Bandwidth:        serverType.Bandwidth,
-			Availability:     serverType.Availability,
-			MaxFileSystems:   serverType.MaxFileSystems,
-		})
-	}
-
-	return human.Marshal(humanServerTypes, opt)
+// serverTypeListLayout renders the server-type list table, dropping
+// LocalVolumeMaxSize from human output but keeping it in other outputs.
+var serverTypeListLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{
+			Path: "",
+			Fields: []humanv2.Field{
+				{Path: "Name"},
+				{Path: "HourlyPrice"},
+				{Path: "SupportedStorage"},
+				{Path: "CPU"},
+				{Path: "GPU"},
+				{Path: "RAM"},
+				{Path: "Arch"},
+				{Path: "Bandwidth"},
+				{Path: "Availability"},
+				{Path: "MaxFileSystems"},
+			},
+		},
+	},
 }
 
 //

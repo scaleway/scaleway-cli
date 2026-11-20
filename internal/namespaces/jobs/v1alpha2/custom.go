@@ -3,20 +3,20 @@ package jobs
 import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	jobs "github.com/scaleway/scaleway-sdk-go/api/jobs/v1alpha2"
 )
 
-var jobRunStateMarshalSpecs = human.EnumMarshalSpecs{
-	jobs.JobRunStateUnknownState: &human.EnumMarshalSpec{Attribute: color.Faint},
-	jobs.JobRunStateQueued:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	jobs.JobRunStateInitialized:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	jobs.JobRunStateValidated:    &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	jobs.JobRunStateRunning:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	jobs.JobRunStateSucceeded:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
-	jobs.JobRunStateFailed:       &human.EnumMarshalSpec{Attribute: color.FgRed},
-	jobs.JobRunStateInterrupting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	jobs.JobRunStateInterrupted:  &human.EnumMarshalSpec{Attribute: color.FgRed},
+var jobRunStateFormat = humanv2.EnumFormats[jobs.JobRunState]{
+	jobs.JobRunStateUnknownState: humanv2.EnumFormat{Color: color.Faint},
+	jobs.JobRunStateQueued:       humanv2.EnumFormat{Color: color.FgBlue},
+	jobs.JobRunStateInitialized:  humanv2.EnumFormat{Color: color.FgBlue},
+	jobs.JobRunStateValidated:    humanv2.EnumFormat{Color: color.FgBlue},
+	jobs.JobRunStateRunning:      humanv2.EnumFormat{Color: color.FgBlue},
+	jobs.JobRunStateSucceeded:    humanv2.EnumFormat{Color: color.FgGreen},
+	jobs.JobRunStateFailed:       humanv2.EnumFormat{Color: color.FgRed},
+	jobs.JobRunStateInterrupting: humanv2.EnumFormat{Color: color.FgBlue},
+	jobs.JobRunStateInterrupted:  humanv2.EnumFormat{Color: color.FgRed},
 }
 
 func GetCommands() *core.Commands {
@@ -24,11 +24,7 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("jobs").Groups = []string{"serverless"}
 
-	human.RegisterMarshalerFunc(
-		jobs.JobRunState(""),
-		human.EnumMarshalFunc(jobRunStateMarshalSpecs),
-	)
-
+	humanv2.RegisterEnumFormat(jobRunStateFormat)
 	cmds.Merge(core.NewCommands(
 		jobsRunWait(),
 	))

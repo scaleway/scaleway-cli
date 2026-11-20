@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Cannot create the server: first volume size must be at least 10 GB for this image
+cannot create the server: first volume size must be at least 10 GB for this image
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
   "error": "cannot create the server: first volume size must be at least 10 GB for this image"

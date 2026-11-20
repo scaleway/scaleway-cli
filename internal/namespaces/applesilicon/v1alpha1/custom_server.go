@@ -11,7 +11,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -26,27 +26,12 @@ const (
 	serverActionReboot
 )
 
-var serverStatusMarshalSpecs = human.EnumMarshalSpecs{
-	applesilicon.ServerStatusError: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
-		Value:     "error",
-	},
-	applesilicon.ServerStatusReady: &human.EnumMarshalSpec{
-		Attribute: color.FgGreen,
-		Value:     "ready",
-	},
-	applesilicon.ServerStatusRebooting: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "rebooting",
-	},
-	applesilicon.ServerStatusStarting: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "starting",
-	},
-	applesilicon.ServerStatusUpdating: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "updating",
-	},
+var serverStatusFormat = humanv2.EnumFormats[applesilicon.ServerStatus]{
+	applesilicon.ServerStatusError:     humanv2.EnumFormat{Color: color.FgRed, Value: "error"},
+	applesilicon.ServerStatusReady:     humanv2.EnumFormat{Color: color.FgGreen, Value: "ready"},
+	applesilicon.ServerStatusRebooting: humanv2.EnumFormat{Color: color.FgBlue, Value: "rebooting"},
+	applesilicon.ServerStatusStarting:  humanv2.EnumFormat{Color: color.FgBlue, Value: "starting"},
+	applesilicon.ServerStatusUpdating:  humanv2.EnumFormat{Color: color.FgBlue, Value: "updating"},
 }
 
 func serverCreateBuilder(c *core.Command) *core.Command {

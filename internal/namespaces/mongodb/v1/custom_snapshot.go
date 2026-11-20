@@ -2,30 +2,30 @@ package mongodb
 
 import (
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
 )
 
-var snapshotStatusMarshalSpecs = human.EnumMarshalSpecs{
-	mongodb.SnapshotStatusCreating: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "creating",
+var snapshotStatusFormat = humanv2.EnumFormats[mongodb.SnapshotStatus]{
+	mongodb.SnapshotStatusCreating: humanv2.EnumFormat{
+		Color: color.FgBlue,
+		Value: "creating",
 	},
-	mongodb.SnapshotStatusDeleting: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "deleting",
+	mongodb.SnapshotStatusDeleting: humanv2.EnumFormat{
+		Color: color.FgBlue,
+		Value: "deleting",
 	},
-	mongodb.SnapshotStatusError: &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-	mongodb.SnapshotStatusLocked: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
-		Value:     "locked",
+	mongodb.SnapshotStatusError: humanv2.EnumFormat{Color: color.FgRed, Value: "error"},
+	mongodb.SnapshotStatusLocked: humanv2.EnumFormat{
+		Color: color.FgRed,
+		Value: "locked",
 	},
-	mongodb.SnapshotStatusReady: &human.EnumMarshalSpec{
-		Attribute: color.FgGreen,
-		Value:     "ready",
+	mongodb.SnapshotStatusReady: humanv2.EnumFormat{
+		Color: color.FgGreen,
+		Value: "ready",
 	},
-	mongodb.SnapshotStatusRestoring: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "restoring",
+	mongodb.SnapshotStatusRestoring: humanv2.EnumFormat{
+		Color: color.FgBlue,
+		Value: "restoring",
 	},
 }

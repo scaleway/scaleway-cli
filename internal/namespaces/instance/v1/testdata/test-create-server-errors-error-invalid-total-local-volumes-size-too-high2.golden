@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Cannot create the server: DEV1-S total local volume size must be between 0 B and 20 GB, got 30 GB
+cannot create the server: DEV1-S total local volume size must be between 0 B and 20 GB, got 30 GB
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
   "error": "cannot create the server: DEV1-S total local volume size must be between 0 B and 20 GB, got 30 GB"

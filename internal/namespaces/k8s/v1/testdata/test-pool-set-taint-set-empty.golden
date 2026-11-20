@@ -28,7 +28,6 @@ MaxSurge        0
 
 Node labels:
 
-
 Node taints:
 KEY  VALUE  EFFECT
 foo  bar    NoSchedule

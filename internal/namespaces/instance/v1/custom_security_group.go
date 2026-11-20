@@ -1,11 +1,9 @@
 package instance
 
 import (
-	"strconv"
-
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
@@ -13,49 +11,23 @@ import (
 // Marshalers
 //
 
-var securityGroupRuleActionMarshalSpecs = human.EnumMarshalSpecs{
-	instance.SecurityGroupRuleActionDrop:   &human.EnumMarshalSpec{Attribute: color.FgRed},
-	instance.SecurityGroupRuleActionAccept: &human.EnumMarshalSpec{Attribute: color.FgGreen},
-}
-
-func marshalSecurityGroupRules(i any, _ *human.MarshalOpt) (out string, err error) {
-	rules := i.([]*instance.SecurityGroupRule)
-
-	type humanRule struct {
-		ID        string
-		Direction string
-		Protocol  instance.SecurityGroupRuleProtocol
-		Action    instance.SecurityGroupRuleAction
-		IPRange   string
-		Dest      string
+var (
+	securityGroupPolicyFormat = humanv2.EnumFormats[instance.SecurityGroupPolicy]{
+		instance.SecurityGroupPolicyDrop:   humanv2.EnumFormat{Color: color.FgRed},
+		instance.SecurityGroupPolicyAccept: humanv2.EnumFormat{Color: color.FgGreen},
 	}
 
-	toHumanRule := func(rule *instance.SecurityGroupRule) *humanRule {
-		dest := "ALL"
-		if rule.DestPortFrom != nil {
-			dest = strconv.Itoa(int(*rule.DestPortFrom))
-		}
-		if rule.DestPortTo != nil {
-			dest += "-" + strconv.Itoa(int(*rule.DestPortTo))
-		}
-
-		return &humanRule{
-			ID:        rule.ID,
-			Direction: string(rule.Direction),
-			Protocol:  rule.Protocol,
-			Action:    rule.Action,
-			IPRange:   rule.IPRange.String(),
-			Dest:      dest,
-		}
-	}
-	humanRules := make([]*humanRule, len(rules))
-
-	for i, rule := range rules {
-		humanRules[i] = toHumanRule(rule)
+	securityGroupRuleActionFormat = humanv2.EnumFormats[instance.SecurityGroupRuleAction]{
+		instance.SecurityGroupRuleActionDrop:   humanv2.EnumFormat{Color: color.FgRed},
+		instance.SecurityGroupRuleActionAccept: humanv2.EnumFormat{Color: color.FgGreen},
 	}
 
-	return human.Marshal(humanRules, nil)
-}
+	securityGroupStateFormat = humanv2.EnumFormats[instance.SecurityGroupState]{
+		instance.SecurityGroupStateAvailable:    humanv2.EnumFormat{Color: color.FgGreen},
+		instance.SecurityGroupStateSyncing:      humanv2.EnumFormat{Color: color.FgBlue},
+		instance.SecurityGroupStateSyncingError: humanv2.EnumFormat{Color: color.FgRed},
+	}
+)
 
 //
 // Builders

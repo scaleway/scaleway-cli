@@ -2,7 +2,7 @@ package domain
 
 import (
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	domain "github.com/scaleway/scaleway-sdk-go/api/domain/v2beta1"
 )
 
@@ -12,10 +12,10 @@ import (
 
 // zoneStatusMarshalerFunc marshals a domain.DNSZoneStatus.
 var (
-	zoneStatusMarshalSpecs = human.EnumMarshalSpecs{
-		domain.DNSZoneStatusActive:  &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		domain.DNSZoneStatusError:   &human.EnumMarshalSpec{Attribute: color.FgRed},
-		domain.DNSZoneStatusLocked:  &human.EnumMarshalSpec{Attribute: color.FgRed},
-		domain.DNSZoneStatusPending: &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	zoneStatusFormat = humanv2.EnumFormats[domain.DNSZoneStatus]{
+		domain.DNSZoneStatusActive:  humanv2.EnumFormat{Color: color.FgGreen},
+		domain.DNSZoneStatusError:   humanv2.EnumFormat{Color: color.FgRed},
+		domain.DNSZoneStatusLocked:  humanv2.EnumFormat{Color: color.FgRed},
+		domain.DNSZoneStatusPending: humanv2.EnumFormat{Color: color.FgBlue},
 	}
 )

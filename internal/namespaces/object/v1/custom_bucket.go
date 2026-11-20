@@ -274,6 +274,10 @@ func bucketListCommand() *core.Command {
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
+		View: &core.View{Fields: []*core.ViewField{
+			{FieldName: "Name", Label: "Name"},
+			{FieldName: "CreationDate", Label: "Creation Date"},
+		}},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketListArgs)
 
