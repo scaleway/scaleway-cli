@@ -142,6 +142,36 @@ func Test_InstanceConnect(t *testing.T) {
 		AfterFunc: deleteConnectInstance(),
 	}))
 
+	t.Run("username-override", core.Test(&core.TestConfig{
+		Commands:        mongodb.GetCommands(),
+		DisableParallel: true,
+		BeforeFunc:      createConnectInstance("connect-test-username-override"),
+		Cmd: "scw mongodb instance connect {{ .Instance.ID }}" +
+			" username=not-the-provisioned-admin password=" + mongodbTestPass,
+		OverrideExec: func(_ *core.ExecFuncCtx, cmd *exec.Cmd) (int, error) {
+			if len(cmd.Args) < 2 {
+				return 0, fmt.Errorf("unexpected args: %v", cmd.Args)
+			}
+			parsed, err := url.Parse(cmd.Args[1])
+			if err != nil {
+				return 0, fmt.Errorf("invalid ConnURL: %w", err)
+			}
+			if parsed.User.Username() != "not-the-provisioned-admin" {
+				return 0, fmt.Errorf("username override ignored: %s", parsed.User.Username())
+			}
+
+			return 0, nil
+		},
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+				checkNoCertLeftover(t, ctx.Meta["Instance"].(*mongodbSDK.Instance).ID)
+			},
+		),
+		AfterFunc: deleteConnectInstance(),
+	}))
+
 	t.Run("template", core.Test(&core.TestConfig{
 		Commands: mongodb.GetCommands(),
 		// No API: username/password set and template only uses {{.Username}}.

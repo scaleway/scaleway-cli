@@ -54,9 +54,6 @@ func getPrivateEndpoint(endpoints []*mongodb.Endpoint) (*mongodb.Endpoint, error
 
 // pickAdminUser returns the name of the first user holding the db_admin role,
 // falling back to the first user in the list.
-// ponytail: db_admin is used as the "admin" marker (the initial user created at
-// provision time). If an instance has several db_admin users the first one wins;
-// upgrade to a dedicated flag/role if that proves ambiguous.
 func pickAdminUser(users []*mongodb.User) (string, error) {
 	fallback := ""
 	for _, user := range users {
