@@ -78,7 +78,7 @@ func Test_Group(t *testing.T) {
 			" scaling-policy-spec.minimum-size=1 scaling-policy-spec.maximum-size=5",
 		Check: core.TestCheckCombine(
 			core.TestCheckStderrContains(
-				`At least one argument from the 'scaling-policy-target' group is required`,
+				`at least one argument from the 'scaling-policy-target' group is required`,
 			),
 			core.TestCheckExitCode(1),
 		),

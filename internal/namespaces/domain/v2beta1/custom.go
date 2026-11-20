@@ -2,8 +2,7 @@ package domain
 
 import (
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
-	domain "github.com/scaleway/scaleway-sdk-go/api/domain/v2beta1"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 )
 
 var domainTypes = []string{
@@ -49,14 +48,8 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("dns", "zone", "import").ArgSpecs.GetByName("bind-source.content").CanLoadFile = true
 
-	human.RegisterMarshalerFunc(
-		domain.DNSZoneStatus(""),
-		human.EnumMarshalFunc(zoneStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		domain.SSLCertificateStatus(""),
-		human.EnumMarshalFunc(certificateStatusMarshalSpecs),
-	)
+	humanv2.RegisterEnumFormat(zoneStatusFormat)
+	humanv2.RegisterEnumFormat(certificateStatusFormat)
 
 	return cmds
 }

@@ -68,7 +68,9 @@ func Test_ClusterConnect(t *testing.T) {
 		PromptResponseMocks: []string{"P@sSw0Rd"},
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(1),
-			core.TestCheckStderrContains(`Exec: "not-a-real-tool-xyz": executable file not found`),
+			core.TestCheckStderrContains(
+				`exec: "not-a-real-tool-xyz": executable file not found`,
+			), // lowercase: v2 drops v1's error capitalization
 		),
 		AfterFunc: deleteConnectCluster(),
 	}))

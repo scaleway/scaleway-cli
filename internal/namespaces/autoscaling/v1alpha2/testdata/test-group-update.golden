@@ -10,7 +10,7 @@ Status       active
 CurrentSize  0
 TargetSize   0
 TemplateID   04d0e5ad-78e5-4a97-b0f0-2cec1c0020df
-Zone         
+Zone
 
 Tags:
 [tags were updated]
@@ -23,9 +23,6 @@ ScaleInCooldown             1 minutes
 ScaleInStep                 1
 ScaleOutStep                5
 CPUTarget.TargetAvgPercent  70
-
-Open Alerts:
-TYPE  OPENED AT  CLOSED AT  GROUP ID  FAILING QUOTAS
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "srn": "",

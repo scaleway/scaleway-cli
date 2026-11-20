@@ -1,15 +1,15 @@
 package autoscaling
 
 import (
+	"reflect"
+
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	autoscaling "github.com/scaleway/scaleway-sdk-go/api/autoscaling/v1alpha2"
 )
 
 func GetCommands() *core.Commands {
 	commands := GetGeneratedCommands()
-
-	human.RegisterMarshalerFunc(autoscaling.Group{}, groupMarshalerFunc)
 
 	commands.MustFind("autoscaling", "group", "create").Override(GroupCreateBuilder)
 	commands.MustFind("autoscaling", "group", "update").Override(GroupUpdateBuilder)
@@ -20,6 +20,8 @@ func GetCommands() *core.Commands {
 	commands.MustFind("autoscaling", "alerts", "list").Override(AlertsListBuilder)
 	commands.MustFind("autoscaling", "logs", "list").Override(LogsListBuilder)
 	commands.MustFind("autoscaling", "servers", "list").Override(ServersListBuilder)
+
+	humanv2.RegisterLayout(reflect.TypeFor[autoscaling.Group](), groupLayout)
 
 	return commands
 }

@@ -355,10 +355,6 @@ func (sb *ServerBuilder) BuildVolumes() error {
 	// Sanitize the volume map to respect API schemas
 	sb.createReq.Volumes = volumes
 
-	if sb.serverType != nil {
-		sb.createReq.Volumes = addDefaultVolumes(sb.createReq.Volumes)
-	}
-
 	return nil
 }
 

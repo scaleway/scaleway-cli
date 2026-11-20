@@ -1,11 +1,10 @@
 package instance
 
 import (
-	"fmt"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
@@ -78,17 +77,20 @@ func GetCommands() *core.Commands {
 		instanceServerTypeGet(),
 	)
 
-	//
 	// Server
 	//
-	human.RegisterMarshalerFunc(instance.CreateServerResponse{}, marshallNestedField("Server"))
-	human.RegisterMarshalerFunc(
-		instance.ServerState(""),
-		human.EnumMarshalFunc(serverStateMarshalSpecs),
+	humanv2.RegisterLayout(
+		reflect.TypeFor[instance.CreateServerResponse](),
+		humanv2.Layout{
+			Sections: []humanv2.Section{
+				{Path: "Server", Main: true},
+			},
+		},
 	)
-	human.RegisterMarshalerFunc(instance.ServerLocation{}, serverLocationMarshalerFunc)
-	human.RegisterMarshalerFunc([]*instance.Server{}, serversMarshalerFunc)
-	human.RegisterMarshalerFunc(instance.Bootscript{}, bootscriptMarshalerFunc)
+	humanv2.RegisterEnumFormat(serverStateFormat)
+	humanv2.RegisterFormatFunc(serverLocationFormatFunc)
+	humanv2.RegisterLayout(reflect.TypeFor[[]serverListEntry](), serverListLayout)
+	humanv2.RegisterFormatFunc(bootscriptFormatFunc)
 
 	cmds.MustFind("instance").Groups = []string{"compute"}
 
@@ -122,10 +124,16 @@ func GetCommands() *core.Commands {
 	//
 	cmds.MustFind("instance", "server-type", "get").Override(serverTypeGetBuilder)
 
-	//
 	// IP
 	//
-	human.RegisterMarshalerFunc(instance.CreateIPResponse{}, marshallNestedField("IP"))
+	humanv2.RegisterLayout(
+		reflect.TypeFor[instance.CreateIPResponse](),
+		humanv2.Layout{
+			Sections: []humanv2.Section{
+				{Path: "IP", Main: true},
+			},
+		},
+	)
 
 	cmds.MustFind("instance", "ip", "create").Override(ipCreateBuilder)
 	cmds.MustFind("instance", "ip", "list").Override(ipListBuilder)
@@ -134,16 +142,18 @@ func GetCommands() *core.Commands {
 		ipDetachCommand(),
 	))
 
-	//
 	// Image
 	//
-	human.RegisterMarshalerFunc(instance.CreateImageResponse{}, marshallNestedField("Image"))
-	human.RegisterMarshalerFunc([]*imageListItem{}, imagesMarshalerFunc)
-	human.RegisterMarshalerFunc(
-		instance.ImageState(""),
-		human.EnumMarshalFunc(imageStateMarshalSpecs),
+	humanv2.RegisterLayout(
+		reflect.TypeFor[instance.CreateImageResponse](),
+		humanv2.Layout{
+			Sections: []humanv2.Section{
+				{Path: "Image", Main: true},
+			},
+		},
 	)
-
+	humanv2.RegisterLayout(reflect.TypeFor[[]*imageListItem](), imageListLayout)
+	humanv2.RegisterEnumFormat(imageStateFormat)
 	cmds.MustFind("instance", "image", "create").Override(imageCreateBuilder)
 	cmds.MustFind("instance", "image", "list").Override(imageListBuilder)
 	cmds.MustFind("instance", "image", "delete").Override(imageDeleteBuilder)
@@ -151,18 +161,17 @@ func GetCommands() *core.Commands {
 		imageWaitCommand(),
 	))
 
-	//
 	// Security Group Rule
 	//
-	human.RegisterMarshalerFunc(
-		instance.CreateSecurityGroupRuleResponse{},
-		marshallNestedField("Rule"),
+	humanv2.RegisterLayout(
+		reflect.TypeFor[instance.CreateSecurityGroupRuleResponse](),
+		humanv2.Layout{
+			Sections: []humanv2.Section{
+				{Path: "Rule", Main: true},
+			},
+		},
 	)
-	human.RegisterMarshalerFunc(
-		instance.SecurityGroupRuleAction(""),
-		human.EnumMarshalFunc(securityGroupRuleActionMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc([]*instance.SecurityGroupRule{}, marshalSecurityGroupRules)
+	humanv2.RegisterEnumFormat(securityGroupRuleActionFormat)
 
 	cmds.MustFind("instance", "security-group", "list-default-rules").
 		Override(securityGroupListDefaultRulesBuilder)
@@ -190,21 +199,17 @@ func GetCommands() *core.Commands {
 	//
 	// Private NICs
 	//
-	human.RegisterMarshalerFunc(
-		instance.PrivateNICState(""),
-		human.EnumMarshalFunc(privateNICStateMarshalSpecs),
-	)
 
 	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic"))
 	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "create"))
 	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "list"))
 	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "update"))
 	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "delete"))
+
+	humanv2.RegisterEnumFormat(privateNICStateFormat)
 	cmds.MustFind("instance", "private-nic", "get").Override(privateNicGetBuilder)
 
 	// SSH Utilities
-
-	human.RegisterMarshalerFunc([]*SSHKeyFormat(nil), marshalSSHKeys)
 
 	cmds.Merge(core.NewCommands(
 		instanceSSH(),
@@ -223,16 +228,4 @@ func GetCommands() *core.Commands {
 	cmds.Merge(core.NewCommands(serverCockpitCommand()))
 
 	return cmds
-}
-
-// marshallNestedField will marshal only the given field of a struct.
-func marshallNestedField(nestedKey string) human.MarshalerFunc {
-	return func(i any, opt *human.MarshalOpt) (s string, err error) {
-		if reflect.TypeOf(i).Kind() != reflect.Struct {
-			return "", fmt.Errorf("%T must be a struct", i)
-		}
-		nestedValue := reflect.ValueOf(i).FieldByName(nestedKey)
-
-		return human.Marshal(nestedValue.Interface(), opt)
-	}
 }

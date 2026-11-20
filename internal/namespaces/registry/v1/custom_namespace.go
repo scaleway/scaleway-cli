@@ -2,7 +2,7 @@ package registry
 
 import (
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 )
 
@@ -12,10 +12,10 @@ import (
 
 // namespaceStatusMarshalerFunc marshals a registry.NamespaceStatus.
 var (
-	namespaceStatusMarshalSpecs = human.EnumMarshalSpecs{
-		registry.NamespaceStatusReady:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		registry.NamespaceStatusLocked:   &human.EnumMarshalSpec{Attribute: color.FgRed},
-		registry.NamespaceStatusError:    &human.EnumMarshalSpec{Attribute: color.FgRed},
-		registry.NamespaceStatusDeleting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
+	namespaceStatusFormat = humanv2.EnumFormats[registry.NamespaceStatus]{
+		registry.NamespaceStatusReady:    humanv2.EnumFormat{Color: color.FgGreen},
+		registry.NamespaceStatusLocked:   humanv2.EnumFormat{Color: color.FgRed},
+		registry.NamespaceStatusError:    humanv2.EnumFormat{Color: color.FgRed},
+		registry.NamespaceStatusDeleting: humanv2.EnumFormat{Color: color.FgBlue},
 	}
 )

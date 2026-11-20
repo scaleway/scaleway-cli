@@ -5,67 +5,46 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/dustin/go-humanize"
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	productcatalog "github.com/scaleway/scaleway-sdk-go/api/product_catalog/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var offerAvailabilityMarshalSpecs = human.EnumMarshalSpecs{
-	baremetal.OfferStockEmpty: &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "empty"},
-	baremetal.OfferStockLow:   &human.EnumMarshalSpec{Attribute: color.FgYellow, Value: "low"},
-	baremetal.OfferStockAvailable: &human.EnumMarshalSpec{
-		Attribute: color.FgGreen,
-		Value:     "available",
+var offerStockFormat = humanv2.EnumFormats[baremetal.OfferStock]{
+	baremetal.OfferStockEmpty:     humanv2.EnumFormat{Color: color.FgRed, Value: "empty"},
+	baremetal.OfferStockLow:       humanv2.EnumFormat{Color: color.FgYellow, Value: "low"},
+	baremetal.OfferStockAvailable: humanv2.EnumFormat{Color: color.FgGreen, Value: "available"},
+}
+
+var offerLayout = humanv2.Layout{
+	Sections: []humanv2.Section{
+		{Path: "Disks", Title: "Disks"},
+		{Path: "CPUs", Title: "CPUs"},
+		{Path: "Memories", Title: "Memories"},
+		{Path: "Options", Title: "Options"},
+		{Path: "Bandwidth", Title: "Bandwidth(Mbit/s)"},
+		{Path: "PrivateBandwidth", Title: "PrivateBandwidth(Mbit/s)"},
 	},
 }
 
-func listOfferMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp baremetal.Offer
-	baremetalOffer := tmp(i.(baremetal.Offer))
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "Disks",
-			Title:     "Disks",
-		},
-		{
-			FieldName: "CPUs",
-			Title:     "CPUs",
-		},
-		{
-			FieldName: "Memories",
-			Title:     "Memories",
-		},
-		{
-			FieldName: "Options",
-			Title:     "Options",
-		},
-		{
-			FieldName: "Bandwidth",
-			Title:     "Bandwidth(Mbit/s)",
-		},
-		{
-			FieldName: "PrivateBandwidth",
-			Title:     "PrivateBandwidth(Mbit/s)",
-		},
-	}
-	baremetalOffer.PrivateBandwidth /= 1000000
-	baremetalOffer.Bandwidth /= 1000000
-	str, err := human.Marshal(baremetalOffer, opt)
-	if err != nil {
-		return "", err
-	}
+type Bandwidth uint64
 
-	return str, nil
+func (b Bandwidth) String() string {
+	return humanize.Bytes(uint64(b)) + "/s"
 }
 
 type customOffer struct {
 	*baremetal.Offer
-	KgCo2Equivalent    *float32 `json:"kg_co2_equivalent"`
-	M3WaterUsage       *float32 `json:"m3_water_usage"`
-	CloudInitSupported bool     `json:"cloud_init_supported"`
+	Bandwidth          Bandwidth `json:"bandwidth"`
+	MaxBandwidth       Bandwidth `json:"max_bandwidth"`
+	PrivateBandwidth   Bandwidth `json:"private_bandwidth"`
+	KgCo2Equivalent    *float32  `json:"kg_co2_equivalent"`
+	M3WaterUsage       *float32  `json:"m3_water_usage"`
+	CloudInitSupported bool      `json:"cloud_init_supported"`
 }
 
 func serverOfferListBuilder(c *core.Command) *core.Command {
@@ -134,25 +113,21 @@ func serverOfferListBuilder(c *core.Command) *core.Command {
 
 		var customOfferRes []customOffer
 		for _, offer := range offers.Offers {
-			cloudInitSupported := slices.Contains(offer.Tags, "cloud-init")
-			impact, ok := impactMap[offer.Name]
-			if !ok {
-				customOfferRes = append(customOfferRes, customOffer{
-					Offer:              offer,
-					KgCo2Equivalent:    nil,
-					M3WaterUsage:       nil,
-					CloudInitSupported: cloudInitSupported,
-				})
-
-				continue
+			custom := customOffer{
+				Offer:              offer,
+				Bandwidth:          Bandwidth(offer.Bandwidth),
+				MaxBandwidth:       Bandwidth(offer.MaxBandwidth),
+				PrivateBandwidth:   Bandwidth(offer.PrivateBandwidth),
+				CloudInitSupported: slices.Contains(offer.Tags, "cloud-init"),
 			}
 
-			customOfferRes = append(customOfferRes, customOffer{
-				Offer:              offer,
-				KgCo2Equivalent:    impact.EnvironmentalImpactEstimation.KgCo2Equivalent,
-				M3WaterUsage:       impact.EnvironmentalImpactEstimation.M3WaterUsage,
-				CloudInitSupported: cloudInitSupported,
-			})
+			impact, ok := impactMap[offer.Name]
+			if ok {
+				custom.KgCo2Equivalent = impact.EnvironmentalImpactEstimation.KgCo2Equivalent
+				custom.M3WaterUsage = impact.EnvironmentalImpactEstimation.M3WaterUsage
+			}
+
+			customOfferRes = append(customOfferRes, custom)
 		}
 
 		return customOfferRes, nil

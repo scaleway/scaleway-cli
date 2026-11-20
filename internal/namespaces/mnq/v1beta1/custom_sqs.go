@@ -6,14 +6,14 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	mnq "github.com/scaleway/scaleway-sdk-go/api/mnq/v1beta1"
 )
 
-var mnqSqsInfoStatusMarshalSpecs = human.EnumMarshalSpecs{
-	mnq.SqsInfoStatusUnknownStatus: &human.EnumMarshalSpec{Attribute: color.Faint},
-	mnq.SqsInfoStatusEnabled:       &human.EnumMarshalSpec{Attribute: color.FgGreen},
-	mnq.SqsInfoStatusDisabled:      &human.EnumMarshalSpec{Attribute: color.FgRed},
+var mnqSqsInfoStatusFormat = humanv2.EnumFormats[mnq.SqsInfoStatus]{
+	mnq.SqsInfoStatusUnknownStatus: humanv2.EnumFormat{Color: color.Faint},
+	mnq.SqsInfoStatusEnabled:       humanv2.EnumFormat{Color: color.FgGreen},
+	mnq.SqsInfoStatusDisabled:      humanv2.EnumFormat{Color: color.FgRed},
 }
 
 func mnqSqsListCredentialsBuilder(c *core.Command) *core.Command {

@@ -1,50 +1,48 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    Name                Stock      Disks  CPUs  Memories  Bandwidth   PrivateBandwidth  CloudInit supported  CO2 (kg/hour)  Water (m³/hour)  Price per hour
-8779d2c1-cd10-4a34-a006-cb5b1fb5cbc7  EM-A116X-SSD        available  2      1     1         500000000   1000000000        true                 0.01281002     5.890525e-07     € 0.077
-e1680dec-52aa-4cbc-b70c-ef32d863fdb0  EM-A610R-NVME       empty      2      1     1         500000000   1000000000        true                 -              -                € 0.11
-bd757ca3-a71b-4158-9ef5-39436b6db2a4  EM-L101X-SATA       low        2      1     1         1000000000  1000000000        true                 0.0155900745   7.3156525e-07    € 0.122
-6ec5bbb2-8267-41cd-aaf6-d43ea1b59372  EM-A315X-SSD        empty      2      1     1         1000000000  1000000000        true                 0.015545019    7.695686e-07     € 0.153
-5a505e81-5f6a-42bd-acec-0b290be92697  EM-A410X-SSD        empty      2      1     1         1000000000  1000000000        true                 0.015003014    6.650593e-07     € 0.153
-c5853302-63e4-40c7-a711-4a91629565c8  EM-L105X-SATA       available  4      1     1         1000000000  1000000000        true                 0.016983224    7.600678e-07     € 0.213
-0964171b-4716-4403-9f6a-2f40d4230fa5  EM-B130E-NVME       empty      2      1     1         3000000000  10000000000       true                 -              -                € 0.247
-8c2cf291-a3d3-4dc5-967f-f498a088411d  EM-B111X-SATA       available  2      2     1         1000000000  1000000000        true                 0.022749875    1.1115991e-06    € 0.263
-a5065ba4-dde2-45f3-adec-1ebbb27b766b  EM-B112X-SSD        available  2      2     1         1000000000  1000000000        true                 0.02332065     1.1115991e-06    € 0.263
-835ef36b-9659-450b-9110-8119deae0e15  EM-B130E-NVME-64G   empty      2      1     1         3000000000  10000000000       true                 -              -                € 0.315
-c753f736-fbb4-4689-ae93-623f9d08dce5  EM-B211X-SATA       empty      2      2     1         1000000000  1000000000        false                0.024065403    1.0450932e-06    € 0.321
-ddaf8ba6-b2b2-4279-8af3-51930fb602f8  EM-B212X-SSD        empty      2      2     1         1000000000  1000000000        true                 0.026313491    1.2351102e-06    € 0.321
-0f93f4cd-29e1-4f28-ae8b-3cfd9729cd65  EM-B230E-NVME       empty      2      1     1         3000000000  10000000000       true                 -              -                € 0.329
-206ea234-9097-4ae1-af68-6d2be09f47ed  EM-B220E-NVME       empty      2      1     1         1000000000  10000000000       true                 -              -                € 0.333
-a204136d-656b-44b7-9735-88ca2f62cb1f  EM-L110X-SATA       available  4      1     1         1000000000  1000000000        true                 0.016983224    7.600678e-07     € 0.366
-0e1f7c5b-05bf-4863-ba58-9ee07496d1f7  EM-I120E-NVME       low        2      1     1         1000000000  25000000000       true                 -              -                € 0.37
-e9dee4f8-c37b-42a2-8bc1-1409218973d5  EM-B230E-NVME-128G  empty      2      1     1         3000000000  10000000000       true                 -              -                € 0.411
-a60ae97c-268c-40cb-af5f-dd276e917ed7  EM-B320E-NVME       empty      2      1     1         1000000000  10000000000       true                 -              -                € 0.417
-6fb2a065-b4fd-4436-aebe-da0d2ecaf641  EM-B330E-NVME       empty      2      1     1         3000000000  10000000000       true                 -              -                € 0.438
-d14eef5e-3279-42db-bb57-bb2bbe6a5b28  EM-B420E-NVME       low        2      1     1         1000000000  10000000000       true                 -              -                € 0.444
-faaf5d66-99d3-46d0-a948-5c1b65caf2a3  EM-B330E-NVME-128G  empty      2      1     1         3000000000  10000000000       true                 -              -                € 0.521
-d73011fa-02e0-46bc-992c-8bb62c767e97  EM-B520E-NVME       low        2      1     1         1000000000  10000000000       true                 -              -                € 0.528
-1b46dfad-ec29-4f6e-af14-6af753e15630  EM-B430E-NVME       empty      2      1     1         3000000000  10000000000       true                 -              -                € 0.548
-fa9c839b-c6de-401e-9156-e9b9016d712b  EM-B430E-NVME-128G  empty      2      1     1         3000000000  10000000000       true                 -              -                € 0.63
-fd7605a7-7493-49ba-9019-0e9c2897d4a0  EM-I220E-NVME       low        2      1     1         1000000000  25000000000       true                 -              -                € 0.63
-7e81d4d4-a84b-4dd0-9f44-f0ac34a09e3a  EM-I210E-NVME       empty      2      1     1         1000000000  10000000000       true                 -              -                € 0.667
-402efe20-4dcb-49af-bc80-1008bcc749a6  EM-L220E-NVME       low        4      1     1         1000000000  10000000000       true                 -              -                € 0.685
-ddb09834-8680-4339-b5e3-19ca5205fa1f  EM-I215E-NVME       available  2      1     1         1000000000  10000000000       true                 -              -                € 0.904
-66cdd2c4-664c-47af-b0ad-a70e12999f0e  EM-I320E-NVME       available  2      1     1         1000000000  25000000000       true                 -              -                € 0.959
-18137894-b9a7-4e7b-b026-518ab8a3e41e  EM-L420E-NVME       low        4      1     1         1000000000  10000000000       true                 -              -                € 1.014
-6e905149-d776-49c1-824d-8161f40968e9  EM-I420E-NVME       low        2      1     1         1000000000  25000000000       true                 -              -                € 1.233
-526f75ed-4482-4e57-9c53-82f2983129ba  EM-L520E-NVME       empty      4      1     1         1000000000  25000000000       true                 -              -                € 1.233
-b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME       empty      2      1     1         1000000000  25000000000       true                 -              -                € 1.562
-51131a3a-7a9b-44c7-8228-2c071c185b77  EM-I620E-NVME       empty      2      1     1         1000000000  25000000000       true                 -              -                € 1.863
-c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1     1         1000000000  25000000000       true                 -              -                € 2.055
-49c3ff54-7949-4a53-8f52-f2ea17c451b1  EM-I525E-NVME       empty      4      1     1         1000000000  25000000000       true                 -              -                € 2.877
+ID                                    Name                Stock      Disks  CPUs  Memories  Bandwidth  PrivateBandwidth  CloudInit supported  CO2 (kg/hour)  Water (m³/hour)  Price per hour
+8779d2c1-cd10-4a34-a006-cb5b1fb5cbc7  EM-A116X-SSD        available  2      1     1         500 MB/s   1.0 GB/s          true                 0.01281002     5.890525e-07     € 0.077
+e1680dec-52aa-4cbc-b70c-ef32d863fdb0  EM-A610R-NVME       empty      2      1     1         500 MB/s   1.0 GB/s          true                 -              -                € 0.11
+bd757ca3-a71b-4158-9ef5-39436b6db2a4  EM-L101X-SATA       low        2      1     1         1.0 GB/s   1.0 GB/s          true                 0.0155900745   7.3156525e-07    € 0.122
+6ec5bbb2-8267-41cd-aaf6-d43ea1b59372  EM-A315X-SSD        empty      2      1     1         1.0 GB/s   1.0 GB/s          true                 0.015545019    7.695686e-07     € 0.153
+5a505e81-5f6a-42bd-acec-0b290be92697  EM-A410X-SSD        empty      2      1     1         1.0 GB/s   1.0 GB/s          true                 0.015003014    6.650593e-07     € 0.153
+c5853302-63e4-40c7-a711-4a91629565c8  EM-L105X-SATA       available  4      1     1         1.0 GB/s   1.0 GB/s          true                 0.016983224    7.600678e-07     € 0.213
+0964171b-4716-4403-9f6a-2f40d4230fa5  EM-B130E-NVME       empty      2      1     1         3.0 GB/s   10 GB/s           true                 -              -                € 0.247
+8c2cf291-a3d3-4dc5-967f-f498a088411d  EM-B111X-SATA       available  2      2     1         1.0 GB/s   1.0 GB/s          true                 0.022749875    1.1115991e-06    € 0.263
+a5065ba4-dde2-45f3-adec-1ebbb27b766b  EM-B112X-SSD        available  2      2     1         1.0 GB/s   1.0 GB/s          true                 0.02332065     1.1115991e-06    € 0.263
+835ef36b-9659-450b-9110-8119deae0e15  EM-B130E-NVME-64G   empty      2      1     1         3.0 GB/s   10 GB/s           true                 -              -                € 0.315
+c753f736-fbb4-4689-ae93-623f9d08dce5  EM-B211X-SATA       empty      2      2     1         1.0 GB/s   1.0 GB/s          false                0.024065403    1.0450932e-06    € 0.321
+ddaf8ba6-b2b2-4279-8af3-51930fb602f8  EM-B212X-SSD        empty      2      2     1         1.0 GB/s   1.0 GB/s          true                 0.026313491    1.2351102e-06    € 0.321
+0f93f4cd-29e1-4f28-ae8b-3cfd9729cd65  EM-B230E-NVME       empty      2      1     1         3.0 GB/s   10 GB/s           true                 -              -                € 0.329
+206ea234-9097-4ae1-af68-6d2be09f47ed  EM-B220E-NVME       empty      2      1     1         1.0 GB/s   10 GB/s           true                 -              -                € 0.333
+a204136d-656b-44b7-9735-88ca2f62cb1f  EM-L110X-SATA       available  4      1     1         1.0 GB/s   1.0 GB/s          true                 0.016983224    7.600678e-07     € 0.366
+0e1f7c5b-05bf-4863-ba58-9ee07496d1f7  EM-I120E-NVME       low        2      1     1         1.0 GB/s   25 GB/s           true                 -              -                € 0.37
+e9dee4f8-c37b-42a2-8bc1-1409218973d5  EM-B230E-NVME-128G  empty      2      1     1         3.0 GB/s   10 GB/s           true                 -              -                € 0.411
+a60ae97c-268c-40cb-af5f-dd276e917ed7  EM-B320E-NVME       empty      2      1     1         1.0 GB/s   10 GB/s           true                 -              -                € 0.417
+6fb2a065-b4fd-4436-aebe-da0d2ecaf641  EM-B330E-NVME       empty      2      1     1         3.0 GB/s   10 GB/s           true                 -              -                € 0.438
+d14eef5e-3279-42db-bb57-bb2bbe6a5b28  EM-B420E-NVME       low        2      1     1         1.0 GB/s   10 GB/s           true                 -              -                € 0.444
+faaf5d66-99d3-46d0-a948-5c1b65caf2a3  EM-B330E-NVME-128G  empty      2      1     1         3.0 GB/s   10 GB/s           true                 -              -                € 0.521
+d73011fa-02e0-46bc-992c-8bb62c767e97  EM-B520E-NVME       low        2      1     1         1.0 GB/s   10 GB/s           true                 -              -                € 0.528
+1b46dfad-ec29-4f6e-af14-6af753e15630  EM-B430E-NVME       empty      2      1     1         3.0 GB/s   10 GB/s           true                 -              -                € 0.548
+fa9c839b-c6de-401e-9156-e9b9016d712b  EM-B430E-NVME-128G  empty      2      1     1         3.0 GB/s   10 GB/s           true                 -              -                € 0.63
+fd7605a7-7493-49ba-9019-0e9c2897d4a0  EM-I220E-NVME       low        2      1     1         1.0 GB/s   25 GB/s           true                 -              -                € 0.63
+7e81d4d4-a84b-4dd0-9f44-f0ac34a09e3a  EM-I210E-NVME       empty      2      1     1         1.0 GB/s   10 GB/s           true                 -              -                € 0.667
+402efe20-4dcb-49af-bc80-1008bcc749a6  EM-L220E-NVME       low        4      1     1         1.0 GB/s   10 GB/s           true                 -              -                € 0.685
+ddb09834-8680-4339-b5e3-19ca5205fa1f  EM-I215E-NVME       available  2      1     1         1.0 GB/s   10 GB/s           true                 -              -                € 0.904
+66cdd2c4-664c-47af-b0ad-a70e12999f0e  EM-I320E-NVME       available  2      1     1         1.0 GB/s   25 GB/s           true                 -              -                € 0.959
+18137894-b9a7-4e7b-b026-518ab8a3e41e  EM-L420E-NVME       low        4      1     1         1.0 GB/s   10 GB/s           true                 -              -                € 1.014
+6e905149-d776-49c1-824d-8161f40968e9  EM-I420E-NVME       low        2      1     1         1.0 GB/s   25 GB/s           true                 -              -                € 1.233
+526f75ed-4482-4e57-9c53-82f2983129ba  EM-L520E-NVME       empty      4      1     1         1.0 GB/s   25 GB/s           true                 -              -                € 1.233
+b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME       empty      2      1     1         1.0 GB/s   25 GB/s           true                 -              -                € 1.562
+51131a3a-7a9b-44c7-8228-2c071c185b77  EM-I620E-NVME       empty      2      1     1         1.0 GB/s   25 GB/s           true                 -              -                € 1.863
+c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1     1         1.0 GB/s   25 GB/s           true                 -              -                € 2.055
+49c3ff54-7949-4a53-8f52-f2ea17c451b1  EM-I525E-NVME       empty      4      1     1         1.0 GB/s   25 GB/s           true                 -              -                € 2.877
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
     "id": "8779d2c1-cd10-4a34-a006-cb5b1fb5cbc7",
     "name": "EM-A116X-SSD",
     "stock": "available",
-    "bandwidth": 500000000,
-    "max_bandwidth": 1000000000,
     "commercial_range": "aluminium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -166,7 +164,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 1000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -177,7 +174,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 500000000,
+    "max_bandwidth": 1000000000,
+    "private_bandwidth": 1000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": 0.01281002,
     "m3_water_usage": 5.890525e-7,
     "cloud_init_supported": true
@@ -186,8 +189,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "e1680dec-52aa-4cbc-b70c-ef32d863fdb0",
     "name": "EM-A610R-NVME",
     "stock": "empty",
-    "bandwidth": 500000000,
-    "max_bandwidth": 1000000000,
     "commercial_range": "aluminium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -433,7 +434,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 1000000000,
     "shared_bandwidth": true,
     "tags": [
       "new",
@@ -445,7 +445,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 500000000,
+    "max_bandwidth": 1000000000,
+    "private_bandwidth": 1000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -454,8 +460,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "bd757ca3-a71b-4158-9ef5-39436b6db2a4",
     "name": "EM-L101X-SATA",
     "stock": "low",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 1000000000,
     "commercial_range": "lithium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -632,7 +636,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 1000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -643,7 +646,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 1000000000,
+    "private_bandwidth": 1000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": 0.0155900745,
     "m3_water_usage": 7.3156525e-7,
     "cloud_init_supported": true
@@ -652,8 +661,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "6ec5bbb2-8267-41cd-aaf6-d43ea1b59372",
     "name": "EM-A315X-SSD",
     "stock": "empty",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 1000000000,
     "commercial_range": "aluminium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -761,7 +768,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 1000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -772,7 +778,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 1000000000,
+    "private_bandwidth": 1000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": 0.015545019,
     "m3_water_usage": 7.695686e-7,
     "cloud_init_supported": true
@@ -781,8 +793,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "5a505e81-5f6a-42bd-acec-0b290be92697",
     "name": "EM-A410X-SSD",
     "stock": "empty",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 1000000000,
     "commercial_range": "aluminium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -986,7 +996,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 1000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -997,7 +1006,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 1000000000,
+    "private_bandwidth": 1000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": 0.015003014,
     "m3_water_usage": 6.650593e-7,
     "cloud_init_supported": true
@@ -1006,8 +1021,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "c5853302-63e4-40c7-a711-4a91629565c8",
     "name": "EM-L105X-SATA",
     "stock": "available",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 1000000000,
     "commercial_range": "lithium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -1192,7 +1205,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 1000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -1203,7 +1215,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 1000000000,
+    "private_bandwidth": 1000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": 0.016983224,
     "m3_water_usage": 7.600678e-7,
     "cloud_init_supported": true
@@ -1212,8 +1230,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "0964171b-4716-4403-9f6a-2f40d4230fa5",
     "name": "EM-B130E-NVME",
     "stock": "empty",
-    "bandwidth": 3000000000,
-    "max_bandwidth": 10000000000,
     "commercial_range": "beryllium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -1494,7 +1510,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 10000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -1505,7 +1520,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 3000000000,
+    "max_bandwidth": 10000000000,
+    "private_bandwidth": 10000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -1514,8 +1535,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "8c2cf291-a3d3-4dc5-967f-f498a088411d",
     "name": "EM-B111X-SATA",
     "stock": "available",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 1000000000,
     "commercial_range": "beryllium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -1752,7 +1771,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 1000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -1763,7 +1781,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 1000000000,
+    "private_bandwidth": 1000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": 0.022749875,
     "m3_water_usage": 0.0000011115991,
     "cloud_init_supported": true
@@ -1772,8 +1796,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "a5065ba4-dde2-45f3-adec-1ebbb27b766b",
     "name": "EM-B112X-SSD",
     "stock": "available",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 1000000000,
     "commercial_range": "beryllium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -2010,7 +2032,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 1000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -2021,7 +2042,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 1000000000,
+    "private_bandwidth": 1000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": 0.02332065,
     "m3_water_usage": 0.0000011115991,
     "cloud_init_supported": true
@@ -2030,8 +2057,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "835ef36b-9659-450b-9110-8119deae0e15",
     "name": "EM-B130E-NVME-64G",
     "stock": "empty",
-    "bandwidth": 3000000000,
-    "max_bandwidth": 10000000000,
     "commercial_range": "beryllium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -2312,7 +2337,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 10000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -2323,7 +2347,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 3000000000,
+    "max_bandwidth": 10000000000,
+    "private_bandwidth": 10000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -2332,8 +2362,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "c753f736-fbb4-4689-ae93-623f9d08dce5",
     "name": "EM-B211X-SATA",
     "stock": "empty",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 1000000000,
     "commercial_range": "beryllium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -2561,7 +2589,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 1000000000,
     "shared_bandwidth": true,
     "tags": [],
     "gpus": [],
@@ -2569,7 +2596,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 1000000000,
+    "private_bandwidth": 1000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": 0.024065403,
     "m3_water_usage": 0.0000010450932,
     "cloud_init_supported": false
@@ -2578,8 +2611,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "ddaf8ba6-b2b2-4279-8af3-51930fb602f8",
     "name": "EM-B212X-SSD",
     "stock": "empty",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 1000000000,
     "commercial_range": "beryllium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -2807,7 +2838,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 1000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -2818,7 +2848,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 1000000000,
+    "private_bandwidth": 1000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": 0.026313491,
     "m3_water_usage": 0.0000012351102,
     "cloud_init_supported": true
@@ -2827,8 +2863,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "0f93f4cd-29e1-4f28-ae8b-3cfd9729cd65",
     "name": "EM-B230E-NVME",
     "stock": "empty",
-    "bandwidth": 3000000000,
-    "max_bandwidth": 10000000000,
     "commercial_range": "beryllium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -3109,7 +3143,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 10000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -3120,7 +3153,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 3000000000,
+    "max_bandwidth": 10000000000,
+    "private_bandwidth": 10000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -3129,8 +3168,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "206ea234-9097-4ae1-af68-6d2be09f47ed",
     "name": "EM-B220E-NVME",
     "stock": "empty",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 10000000000,
     "commercial_range": "beryllium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -3435,7 +3472,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 10000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -3446,7 +3482,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 10000000000,
+    "private_bandwidth": 10000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -3455,8 +3497,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "a204136d-656b-44b7-9735-88ca2f62cb1f",
     "name": "EM-L110X-SATA",
     "stock": "available",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 1000000000,
     "commercial_range": "lithium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -3641,7 +3681,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 1000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -3652,7 +3691,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 1000000000,
+    "private_bandwidth": 1000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": 0.016983224,
     "m3_water_usage": 7.600678e-7,
     "cloud_init_supported": true
@@ -3661,8 +3706,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "0e1f7c5b-05bf-4863-ba58-9ee07496d1f7",
     "name": "EM-I120E-NVME",
     "stock": "low",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 25000000000,
     "commercial_range": "iridium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -4023,7 +4066,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 25000000000,
     "shared_bandwidth": true,
     "tags": [
       "new",
@@ -4035,7 +4077,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 25000000000,
+    "private_bandwidth": 25000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -4044,8 +4092,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "e9dee4f8-c37b-42a2-8bc1-1409218973d5",
     "name": "EM-B230E-NVME-128G",
     "stock": "empty",
-    "bandwidth": 3000000000,
-    "max_bandwidth": 10000000000,
     "commercial_range": "beryllium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -4326,7 +4372,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 10000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -4337,7 +4382,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 3000000000,
+    "max_bandwidth": 10000000000,
+    "private_bandwidth": 10000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -4346,8 +4397,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "a60ae97c-268c-40cb-af5f-dd276e917ed7",
     "name": "EM-B320E-NVME",
     "stock": "empty",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 10000000000,
     "commercial_range": "beryllium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -4652,7 +4701,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 10000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -4663,7 +4711,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 10000000000,
+    "private_bandwidth": 10000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -4672,8 +4726,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "6fb2a065-b4fd-4436-aebe-da0d2ecaf641",
     "name": "EM-B330E-NVME",
     "stock": "empty",
-    "bandwidth": 3000000000,
-    "max_bandwidth": 10000000000,
     "commercial_range": "beryllium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -4954,7 +5006,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 10000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -4965,7 +5016,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 3000000000,
+    "max_bandwidth": 10000000000,
+    "private_bandwidth": 10000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -4974,8 +5031,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "d14eef5e-3279-42db-bb57-bb2bbe6a5b28",
     "name": "EM-B420E-NVME",
     "stock": "low",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 10000000000,
     "commercial_range": "beryllium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -5280,7 +5335,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 10000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -5291,7 +5345,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 10000000000,
+    "private_bandwidth": 10000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -5300,8 +5360,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "faaf5d66-99d3-46d0-a948-5c1b65caf2a3",
     "name": "EM-B330E-NVME-128G",
     "stock": "empty",
-    "bandwidth": 3000000000,
-    "max_bandwidth": 10000000000,
     "commercial_range": "beryllium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -5582,7 +5640,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 10000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -5593,7 +5650,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 3000000000,
+    "max_bandwidth": 10000000000,
+    "private_bandwidth": 10000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -5602,8 +5665,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "d73011fa-02e0-46bc-992c-8bb62c767e97",
     "name": "EM-B520E-NVME",
     "stock": "low",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 10000000000,
     "commercial_range": "beryllium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -5908,7 +5969,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 10000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -5919,7 +5979,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 10000000000,
+    "private_bandwidth": 10000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -5928,8 +5994,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "1b46dfad-ec29-4f6e-af14-6af753e15630",
     "name": "EM-B430E-NVME",
     "stock": "empty",
-    "bandwidth": 3000000000,
-    "max_bandwidth": 10000000000,
     "commercial_range": "beryllium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -6210,7 +6274,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 10000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -6221,7 +6284,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 3000000000,
+    "max_bandwidth": 10000000000,
+    "private_bandwidth": 10000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -6230,8 +6299,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "fa9c839b-c6de-401e-9156-e9b9016d712b",
     "name": "EM-B430E-NVME-128G",
     "stock": "empty",
-    "bandwidth": 3000000000,
-    "max_bandwidth": 10000000000,
     "commercial_range": "beryllium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -6512,7 +6579,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 10000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -6523,7 +6589,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 3000000000,
+    "max_bandwidth": 10000000000,
+    "private_bandwidth": 10000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -6532,8 +6604,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "fd7605a7-7493-49ba-9019-0e9c2897d4a0",
     "name": "EM-I220E-NVME",
     "stock": "low",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 25000000000,
     "commercial_range": "iridium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -6894,7 +6964,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 25000000000,
     "shared_bandwidth": true,
     "tags": [
       "new",
@@ -6906,7 +6975,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 25000000000,
+    "private_bandwidth": 25000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -6915,8 +6990,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "7e81d4d4-a84b-4dd0-9f44-f0ac34a09e3a",
     "name": "EM-I210E-NVME",
     "stock": "empty",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 10000000000,
     "commercial_range": "iridium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -7212,7 +7285,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 10000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -7223,7 +7295,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 10000000000,
+    "private_bandwidth": 10000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -7232,8 +7310,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "402efe20-4dcb-49af-bc80-1008bcc749a6",
     "name": "EM-L220E-NVME",
     "stock": "low",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 10000000000,
     "commercial_range": "lithium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -7532,7 +7608,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 10000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -7543,7 +7618,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 10000000000,
+    "private_bandwidth": 10000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -7552,8 +7633,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "ddb09834-8680-4339-b5e3-19ca5205fa1f",
     "name": "EM-I215E-NVME",
     "stock": "available",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 10000000000,
     "commercial_range": "iridium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -7863,7 +7942,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 10000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -7874,7 +7952,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 10000000000,
+    "private_bandwidth": 10000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -7883,8 +7967,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "66cdd2c4-664c-47af-b0ad-a70e12999f0e",
     "name": "EM-I320E-NVME",
     "stock": "available",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 25000000000,
     "commercial_range": "iridium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -8245,7 +8327,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 25000000000,
     "shared_bandwidth": true,
     "tags": [
       "new",
@@ -8257,7 +8338,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 25000000000,
+    "private_bandwidth": 25000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -8266,8 +8353,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "18137894-b9a7-4e7b-b026-518ab8a3e41e",
     "name": "EM-L420E-NVME",
     "stock": "low",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 10000000000,
     "commercial_range": "lithium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -8566,7 +8651,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 10000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -8577,7 +8661,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 10000000000,
+    "private_bandwidth": 10000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -8586,8 +8676,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "6e905149-d776-49c1-824d-8161f40968e9",
     "name": "EM-I420E-NVME",
     "stock": "low",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 25000000000,
     "commercial_range": "iridium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -8948,7 +9036,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 25000000000,
     "shared_bandwidth": true,
     "tags": [
       "new",
@@ -8960,7 +9047,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 25000000000,
+    "private_bandwidth": 25000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -8969,8 +9062,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "526f75ed-4482-4e57-9c53-82f2983129ba",
     "name": "EM-L520E-NVME",
     "stock": "empty",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 10000000000,
     "commercial_range": "lithium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -9274,7 +9365,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 25000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -9285,7 +9375,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 10000000000,
+    "private_bandwidth": 25000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -9294,8 +9390,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "b20ba18e-34e8-44aa-b909-93cbff7635b5",
     "name": "EM-I520E-NVME",
     "stock": "empty",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 25000000000,
     "commercial_range": "iridium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -9656,7 +9750,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 25000000000,
     "shared_bandwidth": true,
     "tags": [
       "new",
@@ -9668,7 +9761,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 25000000000,
+    "private_bandwidth": 25000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -9677,8 +9776,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "51131a3a-7a9b-44c7-8228-2c071c185b77",
     "name": "EM-I620E-NVME",
     "stock": "empty",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 25000000000,
     "commercial_range": "iridium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -10039,7 +10136,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 25000000000,
     "shared_bandwidth": true,
     "tags": [
       "new",
@@ -10051,7 +10147,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 25000000000,
+    "private_bandwidth": 25000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -10060,8 +10162,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "c0069aba-31a5-401d-9bdb-58bcdd7859e6",
     "name": "EM-L620E-NVME",
     "stock": "empty",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 10000000000,
     "commercial_range": "lithium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -10365,7 +10465,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 25000000000,
     "shared_bandwidth": true,
     "tags": [
       "install-system-v2",
@@ -10376,7 +10475,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 10000000000,
+    "private_bandwidth": 25000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true
@@ -10385,8 +10490,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "id": "49c3ff54-7949-4a53-8f52-f2ea17c451b1",
     "name": "EM-I525E-NVME",
     "stock": "empty",
-    "bandwidth": 1000000000,
-    "max_bandwidth": 25000000000,
     "commercial_range": "iridium",
     "price_per_hour": {
       "currency_code": "EUR",
@@ -10755,7 +10858,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         "type": "option_type_unknown"
       }
     ],
-    "private_bandwidth": 25000000000,
     "shared_bandwidth": true,
     "tags": [
       "new",
@@ -10767,7 +10869,13 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
     "commitments_available": [],
     "zone": "fr-par-1",
     "dual_attach": false,
+<<<<<<< HEAD
     "srn": "",
+=======
+    "bandwidth": 1000000000,
+    "max_bandwidth": 25000000000,
+    "private_bandwidth": 25000000000,
+>>>>>>> 1131d3baa (enumformat)
     "kg_co2_equivalent": null,
     "m3_water_usage": null,
     "cloud_init_supported": true

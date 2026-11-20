@@ -1,8 +1,10 @@
 package iot
 
 import (
+	"reflect"
+
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/api/iot/v1"
 )
 
@@ -11,23 +13,11 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("iot").Groups = []string{"integration"}
 
-	human.RegisterMarshalerFunc(iot.HubStatus(""), human.EnumMarshalFunc(hubStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(
-		iot.DeviceMessageFiltersRulePolicy(""),
-		human.EnumMarshalFunc(deviceMessageFiltersRulePolicyMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		iot.DeviceStatus(""),
-		human.EnumMarshalFunc(deviceStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		&iot.CreateNetworkResponse{},
-		iotNetworkCreateResponseMarshalerFunc,
-	)
-	human.RegisterMarshalerFunc(
-		&iot.CreateDeviceResponse{},
-		iotDeviceCreateResponseMarshalerFunc,
-	)
+	humanv2.RegisterEnumFormat(hubStatusFormat)
+	humanv2.RegisterEnumFormat(deviceMessageFiltersRulePolicyFormat)
+	humanv2.RegisterEnumFormat(deviceStatusFormat)
+	humanv2.RegisterFormatFunc(iotCreateNetworkView)
+	humanv2.RegisterLayout(reflect.TypeFor[iot.CreateDeviceResponse](), iotDeviceCreateLayout)
 
 	cmds.MustFind("iot", "hub", "create").Override(hubCreateBuilder)
 

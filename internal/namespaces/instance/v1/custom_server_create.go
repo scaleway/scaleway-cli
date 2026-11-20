@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
-	"strconv"
 	"strings"
 
 	"github.com/dustin/go-humanize"
@@ -366,30 +365,6 @@ func instanceServerCreateRun(ctx context.Context, argsI any) (i any, e error) {
 		server,
 		warnings,
 	}, nil
-}
-
-func addDefaultVolumes(
-	volumes map[string]*instance.VolumeServerTemplate,
-) map[string]*instance.VolumeServerTemplate {
-	defaultVolumes := []*instance.VolumeServerTemplate(nil)
-
-	if defaultVolumes != nil {
-		if volumes == nil {
-			volumes = make(map[string]*instance.VolumeServerTemplate)
-		}
-		maxKey := 1
-		for k := range volumes {
-			key, err := strconv.Atoi(k)
-			if err == nil && key > maxKey {
-				maxKey = key
-			}
-		}
-		for i, vol := range defaultVolumes {
-			volumes[strconv.Itoa(maxKey+i)] = vol
-		}
-	}
-
-	return volumes
 }
 
 func validateImageServerTypeCompatibility(

@@ -1,8 +1,11 @@
 package instance
 
 import (
+	"reflect"
+
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
+	instance "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 )
 
@@ -90,10 +93,7 @@ func GetCommands() *core.Commands {
 	//
 	// Private Network Interfaces
 	//
-	human.RegisterMarshalerFunc(
-		instanceSDK.PrivateNetworkInterfaceStatus(""),
-		human.EnumMarshalFunc(privateNetworkInterfaceStateMarshalSpecs),
-	)
+	humanv2.RegisterEnumFormat(privateNetworkInterfaceStateEnumFormat)
 
 	cmds.MustFind("instance", "private-network-interface", "create").
 		Override(privateNetworkInterfaceCreateBuilder)
@@ -109,20 +109,11 @@ func GetCommands() *core.Commands {
 	//
 	// Security Group
 	//
-	human.RegisterMarshalerFunc(instanceSDK.SecurityGroup{}, securityGroupMarshalerFunc)
-	human.RegisterMarshalerFunc([]*instanceSDK.SecurityGroupRule{}, securityGroupRulesMarshalerFunc)
-	human.RegisterMarshalerFunc(
-		instanceSDK.SecurityGroupRulePortRange{},
-		securityGroupRulePortRangeMarshalerFunc,
-	)
-	human.RegisterMarshalerFunc(
-		instanceSDK.SecurityGroupAction(""),
-		human.EnumMarshalFunc(securityGroupActionMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		instanceSDK.SecurityGroupRuleAction(""),
-		human.EnumMarshalFunc(securityGroupRuleActionMarshalSpecs),
-	)
+	humanv2.RegisterLayout(reflect.TypeFor[*instance.SecurityGroup](), securityGroupLayout)
+	humanv2.RegisterLayout(reflect.TypeFor[[]*instance.SecurityGroupRule](), securityGroupRulesLayout)
+	humanv2.RegisterFormatFunc(securityGroupRulePortRangeFormatFunc)
+	humanv2.RegisterEnumFormat(securityGroupActionFormat)
+	humanv2.RegisterEnumFormat(securityGroupRuleActionFormat)
 
 	cmds.MustFind("instance", "security-group", "create").Override(securityGroupCreateBuilder)
 	cmds.MustFind("instance", "security-group", "get").Override(securityGroupGetBuilder)
@@ -140,11 +131,8 @@ func GetCommands() *core.Commands {
 	//
 	// Server-Type
 	//
-	human.RegisterMarshalerFunc(
-		instanceSDK.ServerTypeAvailability(""),
-		human.EnumMarshalFunc(serverTypesAvailabilityMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc([]*customServerType{}, serverTypesListMarshalerFunc)
+	humanv2.RegisterEnumFormat(serverTypesAvailabilityFormat)
+	humanv2.RegisterLayout(reflect.TypeFor[[]*customServerType](), serverTypeListLayout)
 
 	cmds.MustFind("instance", "server-type", "list").Override(serverTypeListBuilder)
 
@@ -172,7 +160,7 @@ func GetCommands() *core.Commands {
 	//
 	// Templates
 	//
-	human.RegisterMarshalerFunc(instanceSDK.Template{}, templateMarshalerFunc)
+	humanv2.RegisterLayout(reflect.TypeFor[instanceSDK.Template](), templateLayout)
 
 	cmds.MustFind("instance", "template", "create").Override(TemplateCreateBuilder)
 	cmds.MustFind("instance", "template", "get").Override(TemplateGetBuilder)
@@ -206,10 +194,7 @@ func GetCommands() *core.Commands {
 	//
 	// Volume
 	//
-	human.RegisterMarshalerFunc(
-		instanceSDK.VolumeStatus(""),
-		human.EnumMarshalFunc(volumeStatusMarshalSpecs),
-	)
+	humanv2.RegisterEnumFormat(volumeStatusFormat)
 
 	cmds.MustFind("instance", "volume", "create").Override(volumeCreateBuilder)
 	cmds.MustFind("instance", "volume", "update").Override(volumeUpdateBuilder)
