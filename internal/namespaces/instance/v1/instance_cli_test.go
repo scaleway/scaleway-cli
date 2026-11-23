@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
+	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	instanceV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v2alpha1"
 	instanceSDKV2 "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"

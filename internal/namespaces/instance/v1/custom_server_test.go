@@ -5,11 +5,11 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
-	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
+	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	instanceV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v2alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
-	blockSDK "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
+	blockSDK "github.com/scaleway/scaleway-sdk-go/api/block/v1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	instanceSDKV2 "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"

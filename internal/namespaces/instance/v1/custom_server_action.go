@@ -10,7 +10,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
-	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
+	block "github.com/scaleway/scaleway-sdk-go/api/block/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -383,8 +383,9 @@ func serverTerminateCommand() *core.Command {
 						continue
 					}
 
-					if _, err := api.DetachVolume(&instance.DetachVolumeRequest{
+					if _, err := api.DetachServerVolume(&instance.DetachServerVolumeRequest{
 						Zone:     terminateServerArgs.Zone,
+						ServerID: terminateServerArgs.ServerID,
 						VolumeID: volume.ID,
 					}); err != nil {
 						return nil, err
@@ -404,8 +405,9 @@ func serverTerminateCommand() *core.Command {
 						continue
 					}
 
-					_, err = api.DetachVolume(&instance.DetachVolumeRequest{
+					_, err = api.DetachServerVolume(&instance.DetachServerVolumeRequest{
 						VolumeID: volume.ID,
+						ServerID: terminateServerArgs.ServerID,
 						Zone:     volume.Zone,
 					}, scw.WithContext(ctx))
 					if err != nil {

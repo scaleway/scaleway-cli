@@ -7,7 +7,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/commands"
 	"github.com/scaleway/scaleway-cli/v2/internal/fetch"
 	account "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v3"
-	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
+	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1"
 	flexibleip "github.com/scaleway/scaleway-cli/v2/internal/namespaces/flexibleip/v1alpha1"
 	function "github.com/scaleway/scaleway-cli/v2/internal/namespaces/function/v1beta1"

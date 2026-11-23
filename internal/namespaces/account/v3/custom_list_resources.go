@@ -12,7 +12,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/fetch"
 	applesilicon "github.com/scaleway/scaleway-cli/v2/internal/namespaces/applesilicon/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
-	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
+	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1"
 	file "github.com/scaleway/scaleway-cli/v2/internal/namespaces/file/v1alpha1"
