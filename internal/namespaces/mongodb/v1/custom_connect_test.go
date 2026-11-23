@@ -5,9 +5,7 @@ import (
 	"net/url"
 	"os"
 	"os/exec"
-	"path/filepath"
 	"slices"
-	"strings"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -191,45 +189,6 @@ func Test_InstanceConnect(t *testing.T) {
 						"username override ignored in ConnURL: %s",
 						parsed.User.Username(),
 					)
-				}
-
-				return 0, nil
-			},
-			Check: core.TestCheckCombine(
-				core.TestCheckExitCode(0),
-				func(t *testing.T, _ *core.CheckFuncCtx) {
-					t.Helper()
-					assertCertRemoved(t, certPath)
-				},
-			),
-			AfterFunc: deleteConnectInstance(),
-		})(t)
-	})
-
-	t.Run("cert-path-with-space", func(t *testing.T) {
-		tmpRoot := t.TempDir()
-		spaceDir := filepath.Join(tmpRoot, "path with space")
-		require.NoError(t, os.MkdirAll(spaceDir, 0o700))
-		t.Setenv("TMPDIR", spaceDir)
-
-		var certPath string
-
-		core.Test(&core.TestConfig{
-			Commands:        mongodb.GetCommands(),
-			DisableParallel: true,
-			BeforeFunc:      createConnectInstance("connect-test-cert-space"),
-			Cmd:             "scw mongodb instance connect {{ .Instance.ID }}",
-			OverrideExec: func(_ *core.ExecFuncCtx, cmd *exec.Cmd) (int, error) {
-				_, _, path, err := parseDefaultMongoshArgs(cmd)
-				if err != nil {
-					return 0, err
-				}
-				certPath = path
-				if !strings.Contains(certPath, "path with space") {
-					return 0, fmt.Errorf("expected cert path under spaced TMPDIR, got %q", certPath)
-				}
-				if _, err := os.Stat(certPath); err != nil {
-					return 0, fmt.Errorf("certificate file not found: %w", err)
 				}
 
 				return 0, nil

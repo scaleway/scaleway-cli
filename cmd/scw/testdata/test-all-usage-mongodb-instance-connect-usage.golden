@@ -2,7 +2,7 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Connect to a MongoDB® Database Instance using locally installed mongosh.
 
-When no username is given, the first db_admin user is used (falling back to the first user). With the default template, mongosh prompts for the password unless password= is provided (in which case it is placed in ConnURL). The instance TLS certificate is downloaded to a unique temporary file (removed when the command exits).
+When no username is given, the first db_admin user is used (falling back to the first user). With the default template, mongosh prompts for the password unless password= is provided (in which case it is placed in ConnURL). The command prefers a public endpoint and falls back to a private one. The instance TLS certificate is downloaded to a unique temporary file (removed when the command exits).
 
 Use template to connect with a different tool instead. Its value (default: the mongosh command below) is rendered as a Go text/template and the result is executed as the connect command.
 Available variables:
@@ -15,14 +15,10 @@ EXAMPLES:
   Connect to a MongoDB instance
     scw mongodb instance connect 11111111-1111-1111-1111-111111111111
 
-  Connect via private network
-    scw mongodb instance connect 11111111-1111-1111-1111-111111111111 private-network=true
-
   Connect with a custom command
     scw mongodb instance connect 11111111-1111-1111-1111-111111111111 template="my-mongo-tool --uri {{.ConnURL}}"
 
 ARGS:
-  [private-network=false]                                                                Connect by the private network endpoint attached.
   instance-id                                                                            UUID of the instance
   [username]                                                                             Name of the user to connect with (defaults to the first db_admin, else the first user)
   [password]                                                                             Password for ConnURL. If omitted, the default template lets mongosh prompt for it

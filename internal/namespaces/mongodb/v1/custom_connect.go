@@ -23,37 +23,16 @@ import (
 const defaultConnectTemplate = `mongosh {{.ConnURL}} --username {{.Username}} --tlsCAFile "{{.CertPath}}"`
 
 type instanceConnectArgs struct {
-	Region         scw.Region
-	PrivateNetwork bool
-	InstanceID     string
-	Username       string
-	Password       string
-	Template       string
+	Region     scw.Region
+	InstanceID string
+	Username   string
+	Password   string
+	Template   string
 }
 
-func getPublicEndpoint(endpoints []*mongodb.Endpoint) (*mongodb.Endpoint, error) {
-	for _, e := range endpoints {
-		if e.PublicNetwork != nil {
-			return e, nil
-		}
-	}
-
-	return nil, errors.New("public endpoint not found")
-}
-
-func getPrivateEndpoint(endpoints []*mongodb.Endpoint) (*mongodb.Endpoint, error) {
-	for _, e := range endpoints {
-		if e.PrivateNetwork != nil {
-			return e, nil
-		}
-	}
-
-	return nil, errors.New("private endpoint not found")
-}
-
-// pickAdminUser returns the name of the first user holding the db_admin role,
+// PickAdminUser returns the name of the first user holding the db_admin role,
 // falling back to the first user in the list.
-func pickAdminUser(users []*mongodb.User) (string, error) {
+func PickAdminUser(users []*mongodb.User) (string, error) {
 	fallback := ""
 	for _, user := range users {
 		if fallback == "" {
@@ -81,8 +60,7 @@ type instanceConnectTemplateData struct {
 	Username   string
 	Password   string
 
-	privateNetwork bool
-	client         *scw.Client
+	client *scw.Client
 
 	instance     *mongodb.Instance
 	instanceOnce sync.Once
@@ -111,11 +89,11 @@ func (d *instanceConnectTemplateData) Endpoint() (*mongodb.Endpoint, error) {
 		return nil, err
 	}
 
-	if d.privateNetwork {
-		return getPrivateEndpoint(instance.Endpoints)
-	}
-
-	return getPublicEndpoint(instance.Endpoints)
+	return connect.PreferPublic(
+		instance.Endpoints,
+		func(e *mongodb.Endpoint) bool { return e.PublicNetwork != nil },
+		func(e *mongodb.Endpoint) bool { return e.PrivateNetwork != nil },
+	)
 }
 
 // CertPath returns the path of the temporary TLS certificate file.
@@ -196,18 +174,13 @@ func instanceConnectCommand() *core.Command {
 		Short:     `Connect to a MongoDB® Database Instance using locally installed mongosh, or a custom command via template`,
 		Long: `Connect to a MongoDB® Database Instance using locally installed mongosh.
 
-When no username is given, the first db_admin user is used (falling back to the first user). With the default template, mongosh prompts for the password unless password= is provided (in which case it is placed in ConnURL). The instance TLS certificate is downloaded to a unique temporary file (removed when the command exits).
+When no username is given, the first db_admin user is used (falling back to the first user). With the default template, mongosh prompts for the password unless password= is provided (in which case it is placed in ConnURL). The command prefers a public endpoint and falls back to a private one. The instance TLS certificate is downloaded to a unique temporary file (removed when the command exits).
 
 Use template to connect with a different tool instead. Its value (default: the mongosh command below) is rendered as a Go text/template and the result is executed as the connect command.
 Available variables:
 {{.InstanceID}}, {{.Instance}} (the instance object), {{.Endpoint}} ({{.Endpoint.DNSRecord}}), {{.Region}}, {{.Username}}, {{.Password}}, {{.ConnURL}}, {{.CertPath}}, {{.Organization}} and {{.Project}}.`,
 		ArgsType: reflect.TypeFor[instanceConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
-			{
-				Name:    "private-network",
-				Short:   `Connect by the private network endpoint attached.`,
-				Default: core.DefaultValueSetter("false"),
-			},
 			{
 				Name:       "instance-id",
 				Short:      `UUID of the instance`,
@@ -243,20 +216,19 @@ Available variables:
 				if err != nil {
 					return nil, err
 				}
-				username, err = pickAdminUser(users.Users)
+				username, err = PickAdminUser(users.Users)
 				if err != nil {
 					return nil, err
 				}
 			}
 
 			templateData := &instanceConnectTemplateData{
-				TemplateData:   connect.NewTemplateData(ctx),
-				InstanceID:     args.InstanceID,
-				Region:         args.Region,
-				Username:       username,
-				Password:       args.Password,
-				privateNetwork: args.PrivateNetwork,
-				client:         client,
+				TemplateData: connect.NewTemplateData(ctx),
+				InstanceID:   args.InstanceID,
+				Region:       args.Region,
+				Username:     username,
+				Password:     args.Password,
+				client:       client,
 			}
 			defer func() {
 				if templateData.certPath == "" {
@@ -287,10 +259,6 @@ Available variables:
 			{
 				Short: "Connect to a MongoDB instance",
 				Raw:   `scw mongodb instance connect 11111111-1111-1111-1111-111111111111`,
-			},
-			{
-				Short: "Connect via private network",
-				Raw:   `scw mongodb instance connect 11111111-1111-1111-1111-111111111111 private-network=true`,
 			},
 			{
 				Short: "Connect with a custom command",
