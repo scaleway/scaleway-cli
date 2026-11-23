@@ -46,9 +46,9 @@ scw annotations binding delete [arg=value ...]
 
 
 
-### Delete ALL bindings associated with a Scaleway Resource Name.
+### (Deprecated) Delete ALL bindings associated with a Scaleway Resource Name.
 
-Delete ALL bindings associated with a Scaleway Resource Name.
+(Deprecated) Delete ALL bindings associated with a Scaleway Resource Name.
 
 **Usage:**
 
@@ -66,9 +66,9 @@ scw annotations binding delete-all-matching-srn [arg=value ...]
 
 
 
-### Delete ALL bindings associated with a value.
+### (Deprecated) Delete ALL bindings associated with a value.
 
-Delete ALL bindings associated with a value.
+(Deprecated) Delete ALL bindings associated with a value.
 
 **Usage:**
 
@@ -279,9 +279,9 @@ scw annotations value delete [arg=value ...]
 
 
 
-### Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.
+### (Deprecated) Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.
 
-Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.
+(Deprecated) Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.
 
 **Usage:**
 
