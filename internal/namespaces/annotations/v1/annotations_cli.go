@@ -168,7 +168,7 @@ func annotationsKeyGet() *core.Command {
 				Short:      `ID of the key to retrieve.`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -197,7 +197,7 @@ func annotationsKeyUpdate() *core.Command {
 				Short:      `ID of the key to update.`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
@@ -240,7 +240,7 @@ func annotationsKeyDelete() *core.Command {
 				Short:      `ID of the key to delete.`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -354,7 +354,7 @@ func annotationsValueGet() *core.Command {
 				Short:      `ID of the value to retrieve.`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -383,7 +383,7 @@ func annotationsValueUpdate() *core.Command {
 				Short:      `ID of the value to update.`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
@@ -426,7 +426,7 @@ func annotationsValueDelete() *core.Command {
 				Short:      `ID of the value to delete.`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -449,8 +449,8 @@ func annotationsValueDelete() *core.Command {
 
 func annotationsValueDeleteAllMatchingKey() *core.Command {
 	return &core.Command{
-		Short:     `Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.`,
-		Long:      `Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.`,
+		Short:     `(Deprecated) Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.`,
+		Long:      `(Deprecated) Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.`,
 		Namespace: "annotations",
 		Resource:  "value",
 		Verb:      "delete-all-matching-key",
@@ -592,7 +592,7 @@ func annotationsBindingDelete() *core.Command {
 				Short:      `ID of the binding to delete.`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -615,8 +615,8 @@ func annotationsBindingDelete() *core.Command {
 
 func annotationsBindingDeleteAllMatchingValue() *core.Command {
 	return &core.Command{
-		Short:     `Delete ALL bindings associated with a value.`,
-		Long:      `Delete ALL bindings associated with a value.`,
+		Short:     `(Deprecated) Delete ALL bindings associated with a value.`,
+		Long:      `(Deprecated) Delete ALL bindings associated with a value.`,
 		Namespace: "annotations",
 		Resource:  "binding",
 		Verb:      "delete-all-matching-value",
@@ -644,8 +644,8 @@ func annotationsBindingDeleteAllMatchingValue() *core.Command {
 
 func annotationsBindingDeleteAllMatchingSrn() *core.Command {
 	return &core.Command{
-		Short:     `Delete ALL bindings associated with a Scaleway Resource Name.`,
-		Long:      `Delete ALL bindings associated with a Scaleway Resource Name.`,
+		Short:     `(Deprecated) Delete ALL bindings associated with a Scaleway Resource Name.`,
+		Long:      `(Deprecated) Delete ALL bindings associated with a Scaleway Resource Name.`,
 		Namespace: "annotations",
 		Resource:  "binding",
 		Verb:      "delete-all-matching-srn",
