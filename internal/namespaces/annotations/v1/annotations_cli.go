@@ -449,8 +449,8 @@ func annotationsValueDelete() *core.Command {
 
 func annotationsValueDeleteAllMatchingKey() *core.Command {
 	return &core.Command{
-		Short:     `Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.`,
-		Long:      `Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.`,
+		Short:     `(Deprecated) Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.`,
+		Long:      `(Deprecated) Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.`,
 		Namespace: "annotations",
 		Resource:  "value",
 		Verb:      "delete-all-matching-key",
@@ -615,8 +615,8 @@ func annotationsBindingDelete() *core.Command {
 
 func annotationsBindingDeleteAllMatchingValue() *core.Command {
 	return &core.Command{
-		Short:     `Delete ALL bindings associated with a value.`,
-		Long:      `Delete ALL bindings associated with a value.`,
+		Short:     `(Deprecated) Delete ALL bindings associated with a value.`,
+		Long:      `(Deprecated) Delete ALL bindings associated with a value.`,
 		Namespace: "annotations",
 		Resource:  "binding",
 		Verb:      "delete-all-matching-value",
@@ -644,8 +644,8 @@ func annotationsBindingDeleteAllMatchingValue() *core.Command {
 
 func annotationsBindingDeleteAllMatchingSrn() *core.Command {
 	return &core.Command{
-		Short:     `Delete ALL bindings associated with a Scaleway Resource Name.`,
-		Long:      `Delete ALL bindings associated with a Scaleway Resource Name.`,
+		Short:     `(Deprecated) Delete ALL bindings associated with a Scaleway Resource Name.`,
+		Long:      `(Deprecated) Delete ALL bindings associated with a Scaleway Resource Name.`,
 		Namespace: "annotations",
 		Resource:  "binding",
 		Verb:      "delete-all-matching-srn",
