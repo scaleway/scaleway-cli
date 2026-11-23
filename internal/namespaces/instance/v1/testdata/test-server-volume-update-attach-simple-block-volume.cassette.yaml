@@ -1679,7 +1679,7 @@ interactions:
       - application/json
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes
     method: POST
   response:
     body: '{"id":"34d6fbac-c841-4683-a660-ca186ed49097", "name":"Test_ServerVolumeUpdate/Attach/simple_block_volume",
@@ -1719,7 +1719,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/34d6fbac-c841-4683-a660-ca186ed49097
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/34d6fbac-c841-4683-a660-ca186ed49097
     method: GET
   response:
     body: '{"id":"34d6fbac-c841-4683-a660-ca186ed49097", "name":"Test_ServerVolumeUpdate/Attach/simple_block_volume",
@@ -1759,7 +1759,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/34d6fbac-c841-4683-a660-ca186ed49097
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/34d6fbac-c841-4683-a660-ca186ed49097
     method: GET
   response:
     body: '{"id":"34d6fbac-c841-4683-a660-ca186ed49097", "name":"Test_ServerVolumeUpdate/Attach/simple_block_volume",
@@ -1833,7 +1833,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/34d6fbac-c841-4683-a660-ca186ed49097
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/34d6fbac-c841-4683-a660-ca186ed49097
     method: GET
   response:
     body: '{"id":"34d6fbac-c841-4683-a660-ca186ed49097", "name":"Test_ServerVolumeUpdate/Attach/simple_block_volume",
@@ -1952,7 +1952,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/e432af84-ece2-4238-b9d9-b30344e6e784
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/e432af84-ece2-4238-b9d9-b30344e6e784
     method: GET
   response:
     body: '{"id":"e432af84-ece2-4238-b9d9-b30344e6e784", "name":"Ubuntu 22.04 Jammy
@@ -1998,7 +1998,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/34d6fbac-c841-4683-a660-ca186ed49097
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/34d6fbac-c841-4683-a660-ca186ed49097
     method: GET
   response:
     body: '{"id":"34d6fbac-c841-4683-a660-ca186ed49097", "name":"Test_ServerVolumeUpdate/Attach/simple_block_volume",
@@ -2146,7 +2146,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/e432af84-ece2-4238-b9d9-b30344e6e784
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/e432af84-ece2-4238-b9d9-b30344e6e784
     method: GET
   response:
     body: '{"id":"e432af84-ece2-4238-b9d9-b30344e6e784", "name":"Ubuntu 22.04 Jammy
@@ -2183,7 +2183,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/e432af84-ece2-4238-b9d9-b30344e6e784
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/e432af84-ece2-4238-b9d9-b30344e6e784
     method: DELETE
   response:
     body: ""
@@ -2218,7 +2218,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/34d6fbac-c841-4683-a660-ca186ed49097
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/34d6fbac-c841-4683-a660-ca186ed49097
     method: GET
   response:
     body: '{"id":"34d6fbac-c841-4683-a660-ca186ed49097", "name":"Test_ServerVolumeUpdate/Attach/simple_block_volume",
@@ -2255,7 +2255,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/34d6fbac-c841-4683-a660-ca186ed49097
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/34d6fbac-c841-4683-a660-ca186ed49097
     method: DELETE
   response:
     body: ""

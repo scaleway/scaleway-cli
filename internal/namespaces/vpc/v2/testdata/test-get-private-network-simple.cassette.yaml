@@ -2520,7 +2520,7 @@ interactions:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.37.0.20260917153350-2de72c5cf6d2 (go1.27.1; darwin;
         amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/180bec98-be39-4823-94f4-ff13502f3283
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/180bec98-be39-4823-94f4-ff13502f3283
     method: GET
   response:
     body: '{"id":"180bec98-be39-4823-94f4-ff13502f3283","name":"Ubuntu 20.04 Focal
@@ -2560,7 +2560,7 @@ interactions:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.37.0.20260917153350-2de72c5cf6d2 (go1.27.1; darwin;
         amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/180bec98-be39-4823-94f4-ff13502f3283
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/180bec98-be39-4823-94f4-ff13502f3283
     method: DELETE
   response:
     body: ""

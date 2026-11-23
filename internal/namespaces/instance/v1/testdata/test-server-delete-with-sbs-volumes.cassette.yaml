@@ -13,7 +13,7 @@ interactions:
       - application/json
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes
     method: POST
   response:
     body: '{"id":"e6f2bab9-8967-44b1-8ecb-5fdfedf6dd0c", "name":"cli-test-server-delete-with-sbs-volumes",
@@ -1753,7 +1753,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/e6f2bab9-8967-44b1-8ecb-5fdfedf6dd0c
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/e6f2bab9-8967-44b1-8ecb-5fdfedf6dd0c
     method: GET
   response:
     body: '{"id":"e6f2bab9-8967-44b1-8ecb-5fdfedf6dd0c", "name":"cli-test-server-delete-with-sbs-volumes",
@@ -1974,7 +1974,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/30bbb24b-2d95-45f3-8653-56486d80d9d2
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/30bbb24b-2d95-45f3-8653-56486d80d9d2
     method: GET
   response:
     body: '{"id":"30bbb24b-2d95-45f3-8653-56486d80d9d2", "name":"Ubuntu 22.04 Jammy
@@ -2011,7 +2011,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/30bbb24b-2d95-45f3-8653-56486d80d9d2
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/30bbb24b-2d95-45f3-8653-56486d80d9d2
     method: DELETE
   response:
     body: ""
@@ -2046,7 +2046,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/e6f2bab9-8967-44b1-8ecb-5fdfedf6dd0c
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/e6f2bab9-8967-44b1-8ecb-5fdfedf6dd0c
     method: GET
   response:
     body: '{"id":"e6f2bab9-8967-44b1-8ecb-5fdfedf6dd0c", "name":"cli-test-server-delete-with-sbs-volumes",
@@ -2083,7 +2083,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/e6f2bab9-8967-44b1-8ecb-5fdfedf6dd0c
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/e6f2bab9-8967-44b1-8ecb-5fdfedf6dd0c
     method: DELETE
   response:
     body: ""
@@ -2113,7 +2113,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/e6f2bab9-8967-44b1-8ecb-5fdfedf6dd0c
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/e6f2bab9-8967-44b1-8ecb-5fdfedf6dd0c
     method: GET
   response:
     body: '{"message":"resource is not found","resource":"volume","resource_id":"e6f2bab9-8967-44b1-8ecb-5fdfedf6dd0c","type":"not_found"}'
