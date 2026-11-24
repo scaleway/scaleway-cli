@@ -3,7 +3,7 @@
 Retrieve a specific value.
 
 USAGE:
-  scw annotations value get [arg=value ...]
+  scw annotations value get <value-id ...> [arg=value ...]
 
 ARGS:
   value-id   ID of the value to retrieve.

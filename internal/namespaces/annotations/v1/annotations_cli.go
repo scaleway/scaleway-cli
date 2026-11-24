@@ -168,7 +168,7 @@ func annotationsKeyGet() *core.Command {
 				Short:      `ID of the key to retrieve.`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -197,7 +197,7 @@ func annotationsKeyUpdate() *core.Command {
 				Short:      `ID of the key to update.`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
@@ -240,7 +240,7 @@ func annotationsKeyDelete() *core.Command {
 				Short:      `ID of the key to delete.`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -354,7 +354,7 @@ func annotationsValueGet() *core.Command {
 				Short:      `ID of the value to retrieve.`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -383,7 +383,7 @@ func annotationsValueUpdate() *core.Command {
 				Short:      `ID of the value to update.`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
@@ -426,7 +426,7 @@ func annotationsValueDelete() *core.Command {
 				Short:      `ID of the value to delete.`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -592,7 +592,7 @@ func annotationsBindingDelete() *core.Command {
 				Short:      `ID of the binding to delete.`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
