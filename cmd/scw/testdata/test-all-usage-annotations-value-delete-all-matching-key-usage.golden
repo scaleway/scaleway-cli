@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.
+(Deprecated) Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.
 
 USAGE:
   scw annotations value delete-all-matching-key [arg=value ...]
