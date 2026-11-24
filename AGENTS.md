@@ -144,6 +144,7 @@ See [docs/developer.md](docs/developer.md) for complete testing guide.
 - **Naming**: Use dashes `-` for commands/args, underscores `_` for response fields (except UUIDs)
 - **PR titles**: Follow [conventional commits](https://www.conventionalcommits.org/) (e.g., `fix(instance): fix server create`, `feat(core): add new feature`)
 - **Beta features**: Guarded by `SCW_ENABLE_BETA=true` environment variable
+- **Tests needing helpers**: export the function (`ParseFoo`); do not add `export_test.go` aliases that re-export unexported symbols
 
 ### Dependencies
 
