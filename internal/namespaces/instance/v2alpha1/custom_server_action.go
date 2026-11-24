@@ -3,31 +3,18 @@ package instance
 import (
 	"context"
 	"errors"
+	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	instance "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-func waitForServer(ctx context.Context, serverID string, zone scw.Zone) (any, error) {
-	req := &instance.WaitForServerRequest{
-		ServerID:      serverID,
-		Zone:          zone,
-		Timeout:       new(serverActionTimeout),
-		RetryInterval: core.DefaultRetryInterval,
-	}
-
-	return instance.NewAPI(core.ExtractClient(ctx)).
-		WaitForServer(req, scw.WithContext(ctx))
-}
+const serverActionTimeout = 10 * time.Minute
 
 func serverStartBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("server-id").Positional = true
-	c.WaitFunc = func(ctx context.Context, argsI, _ any) (any, error) {
-		req := argsI.(*instance.StartServerRequest)
-
-		return waitForServer(ctx, req.ServerID, req.Zone)
-	}
+	c.WaitFunc = serverWaitFunc
 	c.Examples = append(c.Examples, []*core.Example{
 		{
 			Short:    "Start a server in the default zone with a given id",
@@ -44,11 +31,7 @@ func serverStartBuilder(c *core.Command) *core.Command {
 
 func serverStopBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("server-id").Positional = true
-	c.WaitFunc = func(ctx context.Context, argsI, _ any) (any, error) {
-		req := argsI.(*instance.StopServerRequest)
-
-		return waitForServer(ctx, req.ServerID, req.Zone)
-	}
+	c.WaitFunc = serverWaitFunc
 	c.Examples = append(c.Examples, []*core.Example{
 		{
 			Short:    "Stop a server in the default zone with a given id",
@@ -65,11 +48,7 @@ func serverStopBuilder(c *core.Command) *core.Command {
 
 func serverRebootBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("server-id").Positional = true
-	c.WaitFunc = func(ctx context.Context, argsI, _ any) (any, error) {
-		req := argsI.(*instance.RebootServerRequest)
-
-		return waitForServer(ctx, req.ServerID, req.Zone)
-	}
+	c.WaitFunc = serverWaitFunc
 	c.Examples = append(c.Examples, []*core.Example{
 		{
 			Short:    "Reboot a server in the default zone with a given id",
@@ -86,11 +65,7 @@ func serverRebootBuilder(c *core.Command) *core.Command {
 
 func serverPauseBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("server-id").Positional = true
-	c.WaitFunc = func(ctx context.Context, argsI, _ any) (any, error) {
-		req := argsI.(*instance.PauseServerRequest)
-
-		return waitForServer(ctx, req.ServerID, req.Zone)
-	}
+	c.WaitFunc = serverWaitFunc
 	c.Examples = append(c.Examples, []*core.Example{
 		{
 			Short:    "Pause a server in the default zone with a given id",
@@ -110,7 +85,7 @@ func serverStopAndDeleteBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, argsI, _ any) (any, error) {
 		req := argsI.(*instance.StopAndDeleteServerRequest)
 
-		server, err := waitForServer(ctx, req.ServerID, req.Zone)
+		server, err := waitForServer(ctx, req.ServerID, req.Zone, nil, nil)
 		if err != nil {
 			if _, ok := errors.AsType[*scw.ResourceNotFoundError](err); !ok {
 				return nil, err

@@ -2399,11 +2399,11 @@ scw instance server wait <server-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name      | Description                                                             | Argument Specifications                                                                                                                                 |
-|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| timeout   | Timeout of the wait                                                     | Default: `10m0s`                                                                                                                                        |
-| server-id | ID of the server affected by the action.                                | Required                                                                                                                                                |
-| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name      | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| timeout   | Timeout of the wait                                                     | Default: `10m0s`                                                                                                                                                                |
+| server-id | ID of the server affected by the action.                                | Required                                                                                                                                                                        |
+| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 **Examples:**

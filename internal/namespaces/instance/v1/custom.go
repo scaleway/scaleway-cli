@@ -102,7 +102,6 @@ func GetCommands() *core.Commands {
 		serverDeleteCommand(),
 		serverSSHCommand(),
 		serverEnableRoutedIPCommand(),
-		serverWaitCommand(),
 		serverAttachIPCommand(),
 		serverDetachIPCommand(),
 		// Deprecated

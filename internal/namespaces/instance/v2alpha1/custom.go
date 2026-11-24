@@ -165,6 +165,10 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "server", "stop").Override(serverStopBuilder)
 	cmds.MustFind("instance", "server", "stop-and-delete").Override(serverStopAndDeleteBuilder)
 
+	cmds.Merge(core.NewCommands(
+		serverWaitCommand(),
+	))
+
 	//
 	// Server-Type
 	//
