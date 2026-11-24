@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Delete ALL bindings associated with a value.
+(Deprecated) Delete ALL bindings associated with a value.
 
 USAGE:
   scw annotations binding delete-all-matching-value [arg=value ...]
