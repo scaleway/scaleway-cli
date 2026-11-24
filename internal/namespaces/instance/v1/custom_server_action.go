@@ -15,62 +15,18 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-func serverStartCommand() *core.Command {
-	return &core.Command{
-		Short:     `Power on server`,
-		Namespace: "instance",
-		Resource:  "server",
-		Verb:      "start",
-		ArgsType:  reflect.TypeFor[instanceUniqueActionRequest](),
-		Run:       getRunServerAction(instance.ServerActionPoweron),
-		WaitFunc:  waitForServerFunc(),
-		ArgSpecs:  serverActionArgSpecs,
-		Examples: []*core.Example{
-			{
-				Short:    "Start a server in the default zone with a given id",
-				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
-			},
-			{
-				Short:    "Start a server in fr-par-1 zone with a given id",
-				ArgsJSON: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
-			},
-		},
-	}
-}
-
-func serverStopCommand() *core.Command {
-	return &core.Command{
-		Short:     `Power off server`,
-		Namespace: "instance",
-		Resource:  "server",
-		Verb:      "stop",
-		ArgsType:  reflect.TypeFor[instanceUniqueActionRequest](),
-		Run:       getRunServerAction(instance.ServerActionPoweroff),
-		WaitFunc:  waitForServerFunc(),
-		ArgSpecs:  serverActionArgSpecs,
-		Examples: []*core.Example{
-			{
-				Short:    "Stop a server in the default zone with a given id",
-				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
-			},
-			{
-				Short:    "Stop a server in fr-par-1 zone with a given id",
-				ArgsJSON: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
-			},
-		},
-	}
-}
-
 func serverStandbyCommand() *core.Command {
 	return &core.Command{
-		Short:     `Put server in standby mode`,
-		Namespace: "instance",
-		Resource:  "server",
-		Verb:      "standby",
-		ArgsType:  reflect.TypeFor[instanceUniqueActionRequest](),
-		Run:       getRunServerAction(instance.ServerActionStopInPlace),
-		WaitFunc:  waitForServerFunc(),
-		ArgSpecs:  serverActionArgSpecs,
+		Short:              `Put server in standby mode`,
+		Namespace:          "instance",
+		Resource:           "server",
+		Verb:               "standby",
+		Deprecated:         true,
+		DeprecationMessage: "please use 'scw instance server pause' instead.",
+		ArgsType:           reflect.TypeFor[instanceUniqueActionRequest](),
+		Run:                getRunServerAction(instance.ServerActionStopInPlace),
+		WaitFunc:           waitForServerFunc(),
+		ArgSpecs:           serverActionArgSpecs,
 		Examples: []*core.Example{
 			{
 				Short:    "Put in standby a server in the default zone with a given id",
@@ -78,29 +34,6 @@ func serverStandbyCommand() *core.Command {
 			},
 			{
 				Short:    "Put in standby a server in fr-par-1 zone with a given id",
-				ArgsJSON: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
-			},
-		},
-	}
-}
-
-func serverRebootCommand() *core.Command {
-	return &core.Command{
-		Short:     `Reboot server`,
-		Namespace: "instance",
-		Resource:  "server",
-		Verb:      "reboot",
-		ArgsType:  reflect.TypeFor[instanceUniqueActionRequest](),
-		Run:       getRunServerAction(instance.ServerActionReboot),
-		WaitFunc:  waitForServerFunc(),
-		ArgSpecs:  serverActionArgSpecs,
-		Examples: []*core.Example{
-			{
-				Short:    "Reboot a server in the default zone with a given id",
-				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111"}`,
-			},
-			{
-				Short:    "Reboot a server in fr-par-1 zone with a given id",
 				ArgsJSON: `{"zone":"fr-par-1", "server_id": "11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
@@ -258,12 +191,14 @@ const (
 
 func serverTerminateCommand() *core.Command {
 	return &core.Command{
-		Short:     `Terminate server`,
-		Long:      `Terminates a server with the given ID and all of its volumes.`,
-		Namespace: "instance",
-		Verb:      "terminate",
-		Resource:  "server",
-		ArgsType:  reflect.TypeFor[customTerminateServerRequest](),
+		Short:              `Terminate server`,
+		Long:               `Terminates a server with the given ID and all of its volumes.`,
+		Namespace:          "instance",
+		Verb:               "terminate",
+		Resource:           "server",
+		Deprecated:         true,
+		DeprecationMessage: "please use 'scw instance server stop-and-delete' instead.",
+		ArgsType:           reflect.TypeFor[customTerminateServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -588,11 +523,13 @@ func serverActionCommand() *core.Command {
 	})
 
 	return &core.Command{
-		Short:     `Perform a raw API action on a server`,
-		Namespace: "instance",
-		Resource:  "server",
-		Verb:      "action",
-		ArgsType:  reflect.TypeFor[instanceActionRequest](),
+		Short:              `Perform a raw API action on a server`,
+		Namespace:          "instance",
+		Resource:           "server",
+		Verb:               "action",
+		Deprecated:         true,
+		DeprecationMessage: "please use the dedicated command for the action (e.g. for 'action=reboot', use 'scw instance server reboot' instead).",
+		ArgsType:           reflect.TypeFor[instanceActionRequest](),
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*instanceActionRequest)
 

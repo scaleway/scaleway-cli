@@ -100,17 +100,15 @@ func GetCommands() *core.Commands {
 		serverBackupCommand(),
 		serverCreateCommand(),
 		serverDeleteCommand(),
-		serverTerminateCommand(),
 		serverSSHCommand(),
-		serverActionCommand(),
-		serverStartCommand(),
-		serverStopCommand(),
-		serverStandbyCommand(),
-		serverRebootCommand(),
 		serverEnableRoutedIPCommand(),
 		serverWaitCommand(),
 		serverAttachIPCommand(),
 		serverDetachIPCommand(),
+		// Deprecated
+		serverActionCommand(),
+		serverStandbyCommand(),
+		serverTerminateCommand(),
 	))
 
 	if cmdConsole := serverConsoleCommand(); cmdConsole != nil {

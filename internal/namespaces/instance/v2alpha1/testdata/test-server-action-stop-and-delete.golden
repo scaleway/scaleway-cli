@@ -1,0 +1,67 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID            4717c717-6747-4a7d-9b85-8e1ac81c78c4
+Srn           srn://instance.scw.eu/zones/fr-par-1/servers/4717c717-6747-4a7d-9b85-8e1ac81c78c4
+Name          cli-srv-hungry-elbakyan
+ProjectID     fa1e3217-dc80-42ac-85c3-3f034b78b552
+ServerType    DEV1-S
+Status        stopping
+Architecture  x86_64
+CreatedAt     few seconds ago
+UpdatedAt     few seconds ago
+RescueMode    false
+StatusDetail  terminating
+Zone          fr-par-1
+
+Volumes:
+ID                                    VOLUME TYPE
+a74300e6-9555-43f7-a253-91441faaf142  sbs
+
+Public Network Interface:
+Status           available
+MacAddress       de:00:00:0f:17:e8
+SecurityGroupID  da505169-540e-4c2b-b0da-c854139224e0
+DNS              4717c717-6747-4a7d-9b85-8e1ac81c78c4.pub.instances.scw.cloud
+
+Runtime Info:
+Spot            false
+PhysicalHostID  932f4e4c-5f35-4483-b3d8-5c3e68173b5b
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "4717c717-6747-4a7d-9b85-8e1ac81c78c4",
+  "srn": "srn://instance.scw.eu/zones/fr-par-1/servers/4717c717-6747-4a7d-9b85-8e1ac81c78c4",
+  "name": "cli-srv-hungry-elbakyan",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "tags": [],
+  "server_type": "DEV1-S",
+  "placement_group_id": null,
+  "dedicated_pool_id": null,
+  "status": "stopping",
+  "volumes": [
+    {
+      "id": "a74300e6-9555-43f7-a253-91441faaf142",
+      "volume_type": "sbs"
+    }
+  ],
+  "filesystems": [],
+  "architecture": "x86_64",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "private_network_interfaces": [],
+  "rescue_mode": false,
+  "boot_volume_id": null,
+  "status_detail": "terminating",
+  "windows_rdp_password": null,
+  "public_network_interface": {
+    "status": "available",
+    "mac_address": "de:00:00:0f:17:e8",
+    "security_group_id": "da505169-540e-4c2b-b0da-c854139224e0",
+    "ips": [],
+    "dns": "4717c717-6747-4a7d-9b85-8e1ac81c78c4.pub.instances.scw.cloud"
+  },
+  "zone": "fr-par-1",
+  "runtime_info": {
+    "spot": false,
+    "physical_host_id": "932f4e4c-5f35-4483-b3d8-5c3e68173b5b"
+  }
+}

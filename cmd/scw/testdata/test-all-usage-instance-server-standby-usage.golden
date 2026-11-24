@@ -1,5 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Command "standby" is deprecated, please use 'scw instance server pause' instead.
 Put server in standby mode
 
 USAGE:

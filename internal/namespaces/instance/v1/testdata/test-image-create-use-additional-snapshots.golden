@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                     9968bab3-ca70-4ea9-a1bb-d6aa8fbf8126
-Name                   cli-img-elated-borg
+ID                     399a6f19-119d-4424-91b2-5f44cbad3655
+Name                   cli-img-zealous-goodall
 Arch                   x86_64
 CreationDate           few seconds ago
 ModificationDate       few seconds ago
 FromServer             -
 Organization           fa1e3217-dc80-42ac-85c3-3f034b78b552
 Public                 false
-RootVolume.ID          1379c1e5-057c-47e1-bea8-57b3d2412b11
+RootVolume.ID          e4afd4f1-f0d3-4818-9153-690202157cff
 RootVolume.Name        cli-test-image-create-snapshotA
 RootVolume.Size        10 GB
 RootVolume.VolumeType  l_ssd
@@ -18,8 +18,8 @@ Zone                   fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "image": {
-    "id": "9968bab3-ca70-4ea9-a1bb-d6aa8fbf8126",
-    "name": "cli-img-elated-borg",
+    "id": "399a6f19-119d-4424-91b2-5f44cbad3655",
+    "name": "cli-img-zealous-goodall",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "modification_date": "1970-01-01T00:00:00.0Z",
@@ -29,7 +29,7 @@ Zone                   fr-par-1
     "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "public": false,
     "root_volume": {
-      "id": "1379c1e5-057c-47e1-bea8-57b3d2412b11",
+      "id": "e4afd4f1-f0d3-4818-9153-690202157cff",
       "name": "cli-test-image-create-snapshotA",
       "size": 10000000000,
       "volume_type": "l_ssd"

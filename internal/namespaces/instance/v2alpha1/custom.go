@@ -43,6 +43,11 @@ func GetCommands() *core.Commands {
 		instanceSecurityGroupSetRules(),
 		instanceSecurityGroupUpdateRule(),
 		instanceSecurityGroupDeleteRules(),
+		instanceServerStart(),
+		instanceServerReboot(),
+		instanceServerPause(),
+		instanceServerStop(),
+		instanceServerStopAndDelete(),
 		instanceServerGetCompatibleTypes(),
 		instanceServerTypeList(),
 		instanceSnapshotList(),
@@ -136,6 +141,29 @@ func GetCommands() *core.Commands {
 		securityGroupClearCommand(),
 		securityGroupEditCommand(),
 	))
+
+	//
+	// Server
+	//
+	human.RegisterMarshalerFunc(instanceSDK.Server{}, serverMarshalerFunc)
+	human.RegisterMarshalerFunc(
+		instanceSDK.ServerStatus(""),
+		human.EnumMarshalFunc(serverStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		instanceSDK.ServerPublicNetworkInterfaceStatus(""),
+		human.EnumMarshalFunc(serverPublicNetworkInterfaceStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		instanceSDK.ServerPrivateNetworkInterfaceStatus(""),
+		human.EnumMarshalFunc(serverPrivateNetworkInterfaceStatusMarshalSpecs),
+	)
+
+	cmds.MustFind("instance", "server", "start").Override(serverStartBuilder)
+	cmds.MustFind("instance", "server", "reboot").Override(serverRebootBuilder)
+	cmds.MustFind("instance", "server", "pause").Override(serverPauseBuilder)
+	cmds.MustFind("instance", "server", "stop").Override(serverStopBuilder)
+	cmds.MustFind("instance", "server", "stop-and-delete").Override(serverStopAndDeleteBuilder)
 
 	//
 	// Server-Type

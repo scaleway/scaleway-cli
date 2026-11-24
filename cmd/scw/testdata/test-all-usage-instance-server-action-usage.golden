@@ -1,5 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Command "action" is deprecated, please use the dedicated command for the action (e.g. for 'action=reboot', use 'scw instance server reboot' instead).
 Perform a raw API action on a server
 
 USAGE:

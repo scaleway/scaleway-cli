@@ -8,7 +8,6 @@ USAGE:
   scw instance server <command>
 
 AVAILABLE COMMANDS:
-  action               Perform a raw API action on a server
   attach-filesystem    Attach a filesystem volume to an Instance
   attach-ip            Attach an IP to a server
   attach-volume        Attach a volume to an Instance
@@ -26,13 +25,16 @@ AVAILABLE COMMANDS:
   get-rdp-password     Get your server rdp password and decrypt it using your ssh key
   list                 List all Instances
   list-actions         List Instance actions
-  reboot               Reboot server
+  pause                Pause an Instance
+  reboot               Reboot an Instance
   ssh                  SSH into a server
-  standby              Put server in standby mode
-  start                Power on server
-  stop                 Power off server
-  terminate            Terminate server
+  start                Start an Instance
+  stop                 Stop an Instance
+  stop-and-delete      Stop and delete an Instance
   update               Update an Instance
+  action               Perform a raw API action on a server (Deprecated)
+  standby              Put server in standby mode (Deprecated)
+  terminate            Terminate server (Deprecated)
 
 WORKFLOW COMMANDS:
   wait                 Wait for server to reach a stable state

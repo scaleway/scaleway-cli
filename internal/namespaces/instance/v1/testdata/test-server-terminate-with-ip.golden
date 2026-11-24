@@ -1,9 +1,10 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Command "terminate" is deprecated, please use 'scw instance server stop-and-delete' instead.
 ✅ Success.
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 successfully deleted block volume "Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0"
-successfully deleted ip 51.15.252.153
+successfully deleted ip 51.158.120.9
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "message": "Success",

@@ -1,9 +1,10 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Command "terminate" is deprecated, please use 'scw instance server stop-and-delete' instead.
 ✅ Success.
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 successfully deleted block volume "Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0"
-successfully deleted block volume "cli-vol-sad-haibt"
+successfully deleted block volume "cli-vol-magical-chandrasekhar"
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "message": "Success",
