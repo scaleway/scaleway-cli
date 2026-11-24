@@ -1518,7 +1518,7 @@ func instanceServerAttachIP() *core.Command {
 			},
 			{
 				Name:       "move-allowed",
-				Short:      `Whether moving the IP is allowed`,
+				Short:      `When enabled, allows attaching the IP even if it is already attached to another server`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

@@ -34,7 +34,7 @@ Detach an annotation from a resource.
 **Usage:**
 
 ```shell
-scw annotations binding delete [arg=value ...]
+scw annotations binding delete <binding-id ...> [arg=value ...]
 ```
 
 
@@ -46,9 +46,9 @@ scw annotations binding delete [arg=value ...]
 
 
 
-### Delete ALL bindings associated with a Scaleway Resource Name.
+### (Deprecated) Delete ALL bindings associated with a Scaleway Resource Name.
 
-Delete ALL bindings associated with a Scaleway Resource Name.
+(Deprecated) Delete ALL bindings associated with a Scaleway Resource Name.
 
 **Usage:**
 
@@ -66,9 +66,9 @@ scw annotations binding delete-all-matching-srn [arg=value ...]
 
 
 
-### Delete ALL bindings associated with a value.
+### (Deprecated) Delete ALL bindings associated with a value.
 
-Delete ALL bindings associated with a value.
+(Deprecated) Delete ALL bindings associated with a value.
 
 **Usage:**
 
@@ -139,7 +139,7 @@ Delete a key definition. Fails if the key has any associated values.
 **Usage:**
 
 ```shell
-scw annotations key delete [arg=value ...]
+scw annotations key delete <key-id ...> [arg=value ...]
 ```
 
 
@@ -158,7 +158,7 @@ Retrieve a specific key.
 **Usage:**
 
 ```shell
-scw annotations key get [arg=value ...]
+scw annotations key get <key-id ...> [arg=value ...]
 ```
 
 
@@ -196,7 +196,7 @@ Update name or description. All associated resources will immediately display th
 **Usage:**
 
 ```shell
-scw annotations key update [arg=value ...]
+scw annotations key update <key-id ...> [arg=value ...]
 ```
 
 
@@ -267,7 +267,7 @@ Delete a value definition. Fails if the value is currently bound to any resource
 **Usage:**
 
 ```shell
-scw annotations value delete [arg=value ...]
+scw annotations value delete <value-id ...> [arg=value ...]
 ```
 
 
@@ -279,9 +279,9 @@ scw annotations value delete [arg=value ...]
 
 
 
-### Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.
+### (Deprecated) Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.
 
-Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.
+(Deprecated) Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.
 
 **Usage:**
 
@@ -305,7 +305,7 @@ Retrieve a specific value.
 **Usage:**
 
 ```shell
-scw annotations value get [arg=value ...]
+scw annotations value get <value-id ...> [arg=value ...]
 ```
 
 
@@ -344,7 +344,7 @@ Update name or description.
 **Usage:**
 
 ```shell
-scw annotations value update [arg=value ...]
+scw annotations value update <value-id ...> [arg=value ...]
 ```
 
 
