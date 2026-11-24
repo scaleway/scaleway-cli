@@ -3,7 +3,7 @@
 Delete a key definition. Fails if the key has any associated values.
 
 USAGE:
-  scw annotations key delete [arg=value ...]
+  scw annotations key delete <key-id ...> [arg=value ...]
 
 ARGS:
   key-id   ID of the key to delete.

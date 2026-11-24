@@ -3,7 +3,7 @@
 Detach an annotation from a resource.
 
 USAGE:
-  scw annotations binding delete [arg=value ...]
+  scw annotations binding delete <binding-id ...> [arg=value ...]
 
 ARGS:
   binding-id   ID of the binding to delete.

@@ -3,7 +3,7 @@
 Delete a value definition. Fails if the value is currently bound to any resource.
 
 USAGE:
-  scw annotations value delete [arg=value ...]
+  scw annotations value delete <value-id ...> [arg=value ...]
 
 ARGS:
   value-id   ID of the value to delete.
