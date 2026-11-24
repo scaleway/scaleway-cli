@@ -263,6 +263,8 @@ Keep in mind that your external node needs to have wget in order to download the
 
 			return &core.SuccessResult{Empty: true}, nil
 		},
+		// Shell-centric SSH command that forwards SCW_SECRET_KEY to a remote node, must not be exposed to MCP.
+		ExcludeFromMCP: true,
 	}
 }
 

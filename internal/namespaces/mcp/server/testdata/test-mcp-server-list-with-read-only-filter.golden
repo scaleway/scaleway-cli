@@ -11,7 +11,6 @@ k8s        cluster       list-available-types     k8s_cluster_list-available-typ
 k8s        cluster       list-available-versions  k8s_cluster_list-available-versions  List available versions for a Cluster
 k8s        cluster       wait                     k8s_cluster_wait                     Wait for a cluster to reach a stable state
 k8s        cluster-type  list                     k8s_cluster-type_list                List cluster types
-k8s        kubeconfig    get                      k8s_kubeconfig_get                   Retrieve a kubeconfig
 k8s        node          get                      k8s_node_get                         Get a Node in a Cluster
 k8s        node          list                     k8s_node_list                        List Nodes in a Cluster
 k8s        node          wait                     k8s_node_wait                        Wait for a node to reach a stable state
@@ -93,13 +92,6 @@ k8s        version       list                     k8s_version_list              
     "verb": "list",
     "tool_name": "k8s_cluster-type_list",
     "short": "List cluster types"
-  },
-  {
-    "namespace": "k8s",
-    "resource": "kubeconfig",
-    "verb": "get",
-    "tool_name": "k8s_kubeconfig_get",
-    "short": "Retrieve a kubeconfig"
   },
   {
     "namespace": "k8s",

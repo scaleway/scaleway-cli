@@ -62,8 +62,7 @@ work_mem                         8
     "id": "8834804a-b146-4719-8d0d-de6c114ee328",
     "ip": "51.159.74.117",
     "port": 5417,
-    "name": null,
-    "load_balancer": {}
+    "name": null
   },
   "tags": [],
   "settings": [
@@ -108,8 +107,7 @@ work_mem                         8
       "id": "8834804a-b146-4719-8d0d-de6c114ee328",
       "ip": "51.159.74.117",
       "port": 5417,
-      "name": null,
-      "load_balancer": {}
+      "name": null
     }
   ],
   "logs_policy": {

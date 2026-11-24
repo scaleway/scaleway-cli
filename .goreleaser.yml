@@ -49,12 +49,27 @@ checksum:
   algorithm: sha256
 
 changelog:
-  use: github
   sort: asc
+  use: github
   filters:
     exclude:
       - '^docs:'
       - '^test:'
+  groups:
+    - title: "Features:"
+      regexp: "^feat(\\(.+\\))?:?.*$"
+      order: 100
+    - title: "Fixes:"
+      regexp: "^fix(\\(.+\\))?:?.*$"
+      order: 200
+    - title: "Documentation:"
+      regexp: "^docs(\\(.+\\))?:?.*$"
+      order: 300
+    - title: "Dependencies:"
+      regexp: "^chore\\(deps\\):?.*$"
+      order: 400
+    - title: "Other:"
+      order: 9999
 
 dockers_v2:
   - images:
@@ -115,6 +130,7 @@ release:
 
 winget:
   - name: cli
+    url_template: "https://github.com/scaleway/scaleway-cli/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
     publisher: Scaleway SAS
     short_description: Command Line Interface for Scaleway
     package_identifier: "Scaleway.cli"

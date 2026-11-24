@@ -135,6 +135,8 @@ Custom data sources are required for push; Scaleway-managed data sources are rea
 			},
 		},
 		Run: cockpitConfigGetRun,
+		// Generated snippets can embed Cockpit write tokens, must not be exposed to MCP.
+		ExcludeFromMCP: true,
 	}
 }
 
