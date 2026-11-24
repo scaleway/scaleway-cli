@@ -24,10 +24,11 @@ func GetCommands() *core.Commands {
 }
 
 type loginArgs struct {
-	Port      int
-	PrintURL  bool
-	ExpiresAt *time.Time
-	ProjectID string
+	Port           int
+	PrintURL       bool
+	ExpiresAt      *time.Time
+	ProjectID      string
+	OrganizationID string
 }
 
 func loginCommand() *core.Command {
@@ -53,6 +54,10 @@ Once you connected to Scaleway, the profile should be configured.
 			{
 				Name:  "project-id",
 				Short: "Project ID to use for this login session for the API key created during login",
+			},
+			{
+				Name:  "organization-id",
+				Short: "Organization in which the API key is created, defaults to the default_organization_id of the profile",
 			},
 			{
 				Name:  "print-url",
@@ -81,9 +86,11 @@ Once you connected to Scaleway, the profile should be configured.
 
 			callbackURL := fmt.Sprintf("http://localhost:%d/callback", wb.Port())
 
-			params := url.Values{}
-			params.Add("redirectToUrl", callbackURL)
-			accountURL := "https://account.scaleway.com/authenticate?" + params.Encode()
+			organizationID := args.OrganizationID
+			if organizationID == "" {
+				organizationID = profileOrganizationID(ctx)
+			}
+			accountURL := buildLoginURL(callbackURL, organizationID)
 
 			logger.Debugf("Web server started, waiting for callback on %s\n", callbackURL)
 
@@ -153,6 +160,22 @@ Once you connected to Scaleway, the profile should be configured.
 				return nil, err
 			}
 
+			if organizationID != "" && project.OrganizationID != organizationID {
+				cleanErr := api.DeleteAPIKey(&iam.DeleteAPIKeyRequest{
+					AccessKey: apiKey.AccessKey,
+				})
+				if cleanErr != nil {
+					logger.Warningf("Failed to clean API key: %s\n", cleanErr.Error())
+				}
+
+				return nil, fmt.Errorf(
+					"the API key was created in organization %s instead of %s, it has been deleted: log in to organization %s and retry",
+					project.OrganizationID,
+					organizationID,
+					organizationID,
+				)
+			}
+
 			resp, err := initCommand.Command().Run(ctx, &initCommand.Args{
 				AccessKey:      apiKey.AccessKey,
 				SecretKey:      *apiKey.SecretKey,
@@ -168,7 +191,7 @@ Once you connected to Scaleway, the profile should be configured.
 					AccessKey: apiKey.AccessKey,
 				})
 				if cleanErr != nil {
-					logger.Warningf("Failed to clean API key: %s\n", err.Error())
+					logger.Warningf("Failed to clean API key: %s\n", cleanErr.Error())
 				}
 
 				return nil, err
@@ -177,6 +200,41 @@ Once you connected to Scaleway, the profile should be configured.
 			return resp, nil
 		},
 	}
+}
+
+// buildLoginURL returns the page opened by the browser to authenticate.
+// The authenticate page uses the last organization session of
+// account.scaleway.com: when an organization is targeted, the member login
+// page of that organization is opened first, it then redirects to the
+// authenticate page.
+func buildLoginURL(callbackURL string, organizationID string) string {
+	params := url.Values{}
+	params.Add("redirectToUrl", callbackURL)
+	authenticateURL := "https://account.scaleway.com/authenticate?" + params.Encode()
+	if organizationID == "" {
+		return authenticateURL
+	}
+
+	params = url.Values{}
+	params.Add("organizationIdOrAlias", organizationID)
+	params.Add("redirectToUrl", authenticateURL)
+
+	return "https://account.scaleway.com/member-login?" + params.Encode()
+}
+
+// profileOrganizationID returns the default_organization_id of the profile
+// being initialized, or an empty string.
+func profileOrganizationID(ctx context.Context) string {
+	config, err := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
+	if err != nil {
+		return ""
+	}
+	profile, err := config.GetProfile(core.ExtractProfileName(ctx))
+	if err != nil || profile.DefaultOrganizationID == nil {
+		return ""
+	}
+
+	return *profile.DefaultOrganizationID
 }
 
 type Token struct {
