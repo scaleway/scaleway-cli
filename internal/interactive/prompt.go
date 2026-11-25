@@ -9,7 +9,7 @@ import (
 
 	"github.com/chzyer/readline"
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 )
 
@@ -197,7 +197,7 @@ func Readline(ctx context.Context, config *ReadlineConfig) (string, error) {
 		err = validateFunc(s)
 		// If ValidateFunc returns an error we print it and Readline again
 		if err != nil {
-			s, err := human.Marshal(err, nil)
+			s, err := humanv2.Render(err)
 			if err != nil {
 				return "", err
 			}
