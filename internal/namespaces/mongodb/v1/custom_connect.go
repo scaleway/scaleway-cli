@@ -157,11 +157,6 @@ func (d *instanceConnectTemplateData) downloadCertificate() (string, error) {
 
 		return "", fmt.Errorf("failed to close certificate file: %w", err)
 	}
-	if err := os.Chmod(certPath, 0o600); err != nil {
-		_ = os.Remove(certPath)
-
-		return "", fmt.Errorf("failed to set certificate permissions: %w", err)
-	}
 
 	return certPath, nil
 }
@@ -245,7 +240,7 @@ Available variables:
 			}
 
 			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
-			exitCode, err := connect.ExecCmd(ctx, cmd)
+			exitCode, err := core.ExecCmd(ctx, cmd)
 			if err != nil {
 				return nil, err
 			}
