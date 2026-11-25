@@ -2186,6 +2186,7 @@ func instancePlacementGroupCreate() *core.Command {
 					"unknown_policy_type",
 					"low_latency",
 					"max_availability",
+					"max_availability_enforced",
 				},
 			},
 			{
@@ -2322,6 +2323,7 @@ func instancePlacementGroupUpdate() *core.Command {
 					"unknown_policy_type",
 					"low_latency",
 					"max_availability",
+					"max_availability_enforced",
 				},
 			},
 			{
