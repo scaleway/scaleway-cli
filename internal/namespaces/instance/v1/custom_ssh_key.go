@@ -246,6 +246,7 @@ Keep in mind that SSH keys are scoped by project.`,
 			if err := session.Err(ctx); err != nil {
 				return nil, err
 			}
+
 			return &core.SuccessResult{Empty: true}, nil
 		},
 	}
