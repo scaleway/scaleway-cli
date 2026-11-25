@@ -6,7 +6,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -17,6 +17,13 @@ const (
 )
 
 func GetCommands() *core.Commands {
+	humanv2.RegisterLayout(reflect.TypeFor[*infoResult](), humanv2.Layout{
+		Sections: []humanv2.Section{
+			{Path: "BuildInfo", Title: "Build Info"},
+			{Path: "Settings", Title: "Settings"},
+		},
+	})
+
 	return core.NewCommands(
 		infosRoot(),
 	)
@@ -25,23 +32,6 @@ func GetCommands() *core.Commands {
 type infoResult struct {
 	BuildInfo *core.BuildInfo `json:"build_info"`
 	Settings  []*setting      `json:"settings"`
-}
-
-func (i *infoResult) MarshalHuman() (string, error) {
-	type tmp infoResult
-
-	return human.Marshal(tmp(*i), &human.MarshalOpt{
-		Sections: []*human.MarshalSection{
-			{
-				FieldName: "BuildInfo",
-				Title:     "Build Info",
-			},
-			{
-				FieldName: "Settings",
-				Title:     "Settings",
-			},
-		},
-	})
 }
 
 type setting struct {
