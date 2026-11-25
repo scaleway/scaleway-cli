@@ -3,7 +3,7 @@
 Update name or description. All associated resources will immediately display the new name.
 
 USAGE:
-  scw annotations key update [arg=value ...]
+  scw annotations key update <key-id ...> [arg=value ...]
 
 ARGS:
   key-id          ID of the key to update.
