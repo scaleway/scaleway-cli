@@ -7,6 +7,7 @@ import (
 	"os/exec"
 )
 
+// OverrideExecFunc replaces subprocess execution in CLI tests.
 type OverrideExecFunc func(cmd *exec.Cmd) (exitCode int, err error)
 
 func defaultOverrideExec(cmd *exec.Cmd) (exitCode int, err error) {
@@ -18,6 +19,10 @@ func defaultOverrideExec(cmd *exec.Cmd) (exitCode int, err error) {
 	return 0, err
 }
 
+// ExecCmd runs cmd with the CLI streams and honors the configured execution hook.
+//
+// Deprecated: Retained for compatibility with external Go callers. New commands
+// in scaleway-cli should use internal/connect.ExecCmd.
 func ExecCmd(ctx context.Context, cmd *exec.Cmd) (exitCode int, err error) {
 	meta := ExtractMeta(ctx)
 

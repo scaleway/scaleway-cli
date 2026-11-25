@@ -3,7 +3,6 @@ package k8s
 import (
 	"context"
 	"os"
-	"os/exec"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -120,7 +119,7 @@ Available variables:
 				return nil, err
 			}
 
-			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
+			cmd := connect.Command(cmdArgs[0], cmdArgs[1:]...)
 			// Drop any user KUBECONFIG so the tool only sees this cluster.
 			connect.SetEnv(cmd, "KUBECONFIG", kubeconfigFile.Name())
 

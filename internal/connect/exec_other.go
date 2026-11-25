@@ -3,19 +3,15 @@
 package connect
 
 import (
+	"os"
 	"os/exec"
 )
 
-// runChild runs cmd. On platforms without unix signals there is nothing to
-// forward, so the child is run as-is.
-func runChild(cmd *exec.Cmd) (exitCode int, err error) {
-	if err := cmd.Run(); err != nil {
-		if exitErr, ok := err.(*exec.ExitError); ok {
-			return exitErr.ExitCode(), nil
-		}
+func runChild(cmd *exec.Cmd) (int, error) {
+	return childResult(cmd.Run())
+}
 
-		return 0, err
-	}
-
-	return 0, nil
+func forwardSignal(process *os.Process, _ os.Signal) {
+	// Windows cannot send an interrupt to an individual process.
+	_ = process.Kill()
 }

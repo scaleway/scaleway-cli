@@ -7,11 +7,11 @@ import (
 	"html/template"
 	"log"
 	"net/url"
-	"os/exec"
 	"runtime"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
 )
 
 const githubURL = "https://github.com/scaleway/scaleway-cli/issues/new"
@@ -87,21 +87,20 @@ func (i *issue) getURL() string {
 }
 
 func (i *issue) openInBrowser(ctx context.Context) error {
-	var err error
-	var openCmd *exec.Cmd
+	var command []string
 
 	switch runtime.GOOS {
 	case linux:
-		openCmd = exec.Command("xdg-open", i.getURL()) //nolint:gosec
+		command = []string{"xdg-open", i.getURL()}
 	case Windows:
-		openCmd = exec.Command("rundll32", "url.dll,FileProtocolHandler", i.getURL()) //nolint:gosec
+		command = []string{"rundll32", "url.dll,FileProtocolHandler", i.getURL()}
 	case darwin:
-		openCmd = exec.Command("open", i.getURL()) //nolint:gosec
+		command = []string{"open", i.getURL()}
 	default:
 		return errors.New("unsupported platform")
 	}
 
-	exitCode, err := core.ExecCmd(ctx, openCmd)
+	exitCode, err := connect.ExecCmd(ctx, connect.Command(command[0], command[1:]...))
 	if exitCode != 0 {
 		return &core.CliError{Empty: true, Code: exitCode}
 	}

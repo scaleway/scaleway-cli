@@ -7,12 +7,12 @@ import (
 	"errors"
 	"fmt"
 	"hash/crc32"
-	"os/exec"
 	"reflect"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -184,7 +184,13 @@ Keep in mind that SSH keys are scoped by project.`,
 				return nil, fmt.Errorf("failed to fetch servers: %w", err)
 			}
 
+			session := connect.ListenForSignals()
+			defer session.Close()
+
 			for i, server := range servers.Servers {
+				if err := session.Err(ctx); err != nil {
+					return nil, err
+				}
 				msg := fmt.Sprintf("Loading SSH keys on server %q", server.Name)
 				if i == 0 {
 					_, _ = interactive.Println(">", msg)
@@ -213,11 +219,15 @@ Keep in mind that SSH keys are scoped by project.`,
 						"--upgrade",
 					}
 
-					sshCmd := exec.Command("ssh", sshArgs...)
+					sshCmd := connect.CommandContext(ctx, "ssh", sshArgs...)
 
 					_, _ = interactive.Println(sshCmd)
 
-					exitCode, err := core.ExecCmd(ctx, sshCmd)
+					exitCode, err := session.ExecCmd(ctx, sshCmd)
+					// OpenSSH can handle a signal itself and return 255.
+					if interruptErr := session.Err(ctx); interruptErr != nil {
+						return nil, interruptErr
+					}
 					if err != nil || exitCode != 0 {
 						if err != nil {
 							_, _ = interactive.Println("Failed:", err)
@@ -233,6 +243,9 @@ Keep in mind that SSH keys are scoped by project.`,
 				}
 			}
 
+			if err := session.Err(ctx); err != nil {
+				return nil, err
+			}
 			return &core.SuccessResult{Empty: true}, nil
 		},
 	}

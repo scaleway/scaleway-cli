@@ -4,11 +4,11 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"os/exec"
 	"reflect"
 	"strconv"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -102,9 +102,9 @@ func instanceServerSSHRun(ctx context.Context, argsI any) (i any, e error) {
 		sshArgs = append(sshArgs, args.Command)
 	}
 
-	sshCmd := exec.Command("ssh", sshArgs...)
+	sshCmd := connect.Command("ssh", sshArgs...)
 
-	exitCode, err := core.ExecCmd(ctx, sshCmd)
+	exitCode, err := connect.ExecCmd(ctx, sshCmd)
 	if err != nil {
 		return nil, err
 	}

@@ -24,6 +24,7 @@ linters:
     - contextcheck # Check whether the function uses a non-inherited context.
     - copyloopvar # copyloopvar is a linter detects places where loop variables are copied [fast: true, auto-fix: false]
     - decorder # check declaration order and count of types, constants, variables and functions [fast: true, auto-fix: false]
+    - depguard # Enforces the subprocess execution boundary.
     - dogsled # Checks assignments with too many blank identifiers (e.g. x, _, _, _, := f()) [fast: true, auto-fix: false]
     - durationcheck # check for two durations multiplied together [fast: false, auto-fix: false]
     - errchkjson # Checks types passed to the json encoding functions. Reports unsupported types and optionally reports occasions, where the check for the returned error can be omitted. [fast: false, auto-fix: false]
@@ -80,6 +81,23 @@ linters:
     - zerologlint # Detects the wrong usage of `zerolog` that a user forgets to dispatch with `Send` or `Msg` [fast: false, auto-fix: false]
 
   settings:
+    depguard:
+      rules:
+        subprocesses:
+          files:
+            - "$all"
+            - "!$test"
+            - "!**/internal/connect/**"
+            # Existing plugin, editor, Git metadata, lookup and test-hook code.
+            - "!**/cmd/scw/main.go"
+            - "!**/core/exec.go"
+            - "!**/core/testing.go"
+            - "!**/internal/editor/editor.go"
+            - "!**/internal/namespaces/config/commands.go"
+            - "!**/internal/namespaces/registry/v1/custom_docker_helper.go"
+          deny:
+            - pkg: os/exec$
+              desc: use internal/connect to construct and run subprocesses
     goconst:
       min-len: 5
     gosec:

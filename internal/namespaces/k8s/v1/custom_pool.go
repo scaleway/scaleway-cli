@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"os/exec"
 	"reflect"
 	"strings"
 	"time"
@@ -13,6 +12,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -269,7 +269,7 @@ Keep in mind that your external node needs to have wget in order to download the
 }
 
 func execSSHCommand(ctx context.Context, args []string, printSeparator bool) error {
-	remoteCmd := exec.Command("ssh", args...)
+	remoteCmd := connect.Command("ssh", args...)
 
 	cmdToPrint := make([]string, 0, len(remoteCmd.Args))
 	for _, arg := range remoteCmd.Args {
@@ -286,7 +286,7 @@ func execSSHCommand(ctx context.Context, args []string, printSeparator bool) err
 
 	_, _ = interactive.Println(cmdToPrint)
 
-	exitCode, err := core.ExecCmd(ctx, remoteCmd)
+	exitCode, err := connect.ExecCmd(ctx, remoteCmd)
 	if err != nil {
 		return err
 	}

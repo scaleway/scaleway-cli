@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"reflect"
 	"sync"
@@ -246,7 +245,7 @@ Available variables:
 				return nil, err
 			}
 
-			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
+			cmd := connect.Command(cmdArgs[0], cmdArgs[1:]...)
 			// Drop any user REDISCLI_AUTH so the tool only sees this session's password.
 			connect.SetEnv(cmd, "REDISCLI_AUTH", password)
 
