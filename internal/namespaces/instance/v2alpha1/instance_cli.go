@@ -40,6 +40,7 @@ func GetGeneratedCommands() *core.Commands {
 		instanceServerGetCompatibleTypes(),
 		instanceServerTypeList(),
 		instanceServerStart(),
+		instanceServerStartSpot(),
 		instanceServerReboot(),
 		instanceServerPause(),
 		instanceServerStop(),
@@ -1047,6 +1048,50 @@ func instanceServerStart() *core.Command {
 			api := instance.NewAPI(client)
 
 			return api.StartServer(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func instanceServerStartSpot() *core.Command {
+	return &core.Command{
+		Short: `Start an Instance as Spot`,
+		Long: `Spot instances are billed at a discount compared to regular instances. However, they can be interrupted
+at any time.`,
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "start-spot",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[instance.StartSpotServerRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `ID of the server to start as spot instance`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneFrPar3,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZoneNlAms3,
+				scw.ZonePlWaw1,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+				scw.ZoneItMil1,
+				scw.ZoneItMil2,
+				scw.ZoneItMil3,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*instance.StartSpotServerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := instance.NewAPI(client)
+
+			return api.StartSpotServer(request, scw.WithContext(ctx))
 		},
 	}
 }
