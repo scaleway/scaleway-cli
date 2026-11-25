@@ -4,9 +4,9 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
+	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
-	blockSDK "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
+	blockSDK "github.com/scaleway/scaleway-sdk-go/api/block/v1"
 	"github.com/stretchr/testify/require"
 )
 

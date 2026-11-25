@@ -202,7 +202,7 @@ interactions:
       - application/json
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/snapshots
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/snapshots
     method: POST
   response:
     proto: HTTP/2.0
@@ -234,7 +234,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/snapshots/1a550866-b3b8-4c15-9bd6-9ea86bce8771
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/snapshots/1a550866-b3b8-4c15-9bd6-9ea86bce8771
     method: GET
   response:
     proto: HTTP/2.0
@@ -266,7 +266,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/snapshots/1a550866-b3b8-4c15-9bd6-9ea86bce8771
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/snapshots/1a550866-b3b8-4c15-9bd6-9ea86bce8771
     method: GET
   response:
     proto: HTTP/2.0
@@ -481,7 +481,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/snapshots/1a550866-b3b8-4c15-9bd6-9ea86bce8771
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/snapshots/1a550866-b3b8-4c15-9bd6-9ea86bce8771
     method: GET
   response:
     proto: HTTP/2.0
@@ -545,7 +545,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/snapshots/1a550866-b3b8-4c15-9bd6-9ea86bce8771
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/snapshots/1a550866-b3b8-4c15-9bd6-9ea86bce8771
     method: GET
   response:
     proto: HTTP/2.0
@@ -614,7 +614,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/9ec61b69-70f4-4f09-bc45-cb93374b89fe
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/9ec61b69-70f4-4f09-bc45-cb93374b89fe
     method: GET
   response:
     proto: HTTP/2.0
@@ -646,7 +646,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/f89855d4-819a-4027-ad7d-442a64384c82
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/f89855d4-819a-4027-ad7d-442a64384c82
     method: GET
   response:
     proto: HTTP/2.0
@@ -740,7 +740,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/d7a87c48-622c-4b61-aeea-1cffccab6b11
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/d7a87c48-622c-4b61-aeea-1cffccab6b11
     method: GET
   response:
     proto: HTTP/2.0
@@ -772,7 +772,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/d7a87c48-622c-4b61-aeea-1cffccab6b11
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/d7a87c48-622c-4b61-aeea-1cffccab6b11
     method: GET
   response:
     proto: HTTP/2.0
@@ -804,7 +804,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/d7a87c48-622c-4b61-aeea-1cffccab6b11
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/d7a87c48-622c-4b61-aeea-1cffccab6b11
     method: DELETE
   response:
     proto: HTTP/2.0
@@ -928,7 +928,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/9ec61b69-70f4-4f09-bc45-cb93374b89fe
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/9ec61b69-70f4-4f09-bc45-cb93374b89fe
     method: GET
   response:
     proto: HTTP/2.0
@@ -960,7 +960,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/9ec61b69-70f4-4f09-bc45-cb93374b89fe
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/9ec61b69-70f4-4f09-bc45-cb93374b89fe
     method: DELETE
   response:
     proto: HTTP/2.0
@@ -990,7 +990,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/f89855d4-819a-4027-ad7d-442a64384c82
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/f89855d4-819a-4027-ad7d-442a64384c82
     method: GET
   response:
     proto: HTTP/2.0
@@ -1022,7 +1022,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/f89855d4-819a-4027-ad7d-442a64384c82
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/f89855d4-819a-4027-ad7d-442a64384c82
     method: DELETE
   response:
     proto: HTTP/2.0
@@ -1052,7 +1052,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/snapshots/1a550866-b3b8-4c15-9bd6-9ea86bce8771
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/snapshots/1a550866-b3b8-4c15-9bd6-9ea86bce8771
     method: DELETE
   response:
     proto: HTTP/2.0

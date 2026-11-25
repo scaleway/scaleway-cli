@@ -368,7 +368,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/099f14f0-9c71-43f7-9de3-7bcc8e281e9f
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/099f14f0-9c71-43f7-9de3-7bcc8e281e9f
     method: GET
   response:
     proto: HTTP/2.0
@@ -400,7 +400,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/099f14f0-9c71-43f7-9de3-7bcc8e281e9f
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/099f14f0-9c71-43f7-9de3-7bcc8e281e9f
     method: GET
   response:
     proto: HTTP/2.0
@@ -432,7 +432,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/099f14f0-9c71-43f7-9de3-7bcc8e281e9f
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/099f14f0-9c71-43f7-9de3-7bcc8e281e9f
     method: DELETE
   response:
     proto: HTTP/2.0

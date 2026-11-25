@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
+	block "github.com/scaleway/scaleway-sdk-go/api/block/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )

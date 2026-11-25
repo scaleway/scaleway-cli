@@ -1848,7 +1848,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/43a34f02-f678-43a1-89a7-8f7bd671200b
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/43a34f02-f678-43a1-89a7-8f7bd671200b
     method: GET
   response:
     body: '{"id":"43a34f02-f678-43a1-89a7-8f7bd671200b", "name":"Ubuntu 22.04 Jammy
@@ -2004,7 +2004,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/43a34f02-f678-43a1-89a7-8f7bd671200b
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/43a34f02-f678-43a1-89a7-8f7bd671200b
     method: GET
   response:
     body: '{"id":"43a34f02-f678-43a1-89a7-8f7bd671200b", "name":"Ubuntu 22.04 Jammy
@@ -2041,7 +2041,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/43a34f02-f678-43a1-89a7-8f7bd671200b
+    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/43a34f02-f678-43a1-89a7-8f7bd671200b
     method: DELETE
   response:
     body: ""

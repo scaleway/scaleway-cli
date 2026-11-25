@@ -4,11 +4,11 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
+	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1"
 	file "github.com/scaleway/scaleway-cli/v2/internal/namespaces/file/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
-	blockSDK "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
+	blockSDK "github.com/scaleway/scaleway-sdk-go/api/block/v1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"

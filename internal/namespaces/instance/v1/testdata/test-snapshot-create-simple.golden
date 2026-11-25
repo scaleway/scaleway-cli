@@ -13,6 +13,8 @@ UpdatedAt            few seconds ago
 Status               available
 Zone                 fr-par-1
 Class                sbs
+Public               false
+Srn                  -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "f6dd67cc-d77b-4e47-b16d-8e64dd626404",
@@ -31,5 +33,8 @@ Class                sbs
   "status": "available",
   "tags": [],
   "zone": "fr-par-1",
-  "class": "sbs"
+  "class": "sbs",
+  "public": false,
+  "kms_key_id": null,
+  "srn": ""
 }

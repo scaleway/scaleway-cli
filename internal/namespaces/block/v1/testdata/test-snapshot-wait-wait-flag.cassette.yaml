@@ -1,0 +1,347 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 151
+        host: api.scaleway.com
+        body: '{"name":"cli-vol-strange-blackburn","perf_iops":5000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","from_empty":{"size":20000000000},"tags":null}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.40.1 (go1.27.4; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 513
+        body: '{"srn":"srn://block.scw.eu/zones/fr-par-1/volumes/7c0097c1-76a8-4313-b8d3-dc7157c33917","id":"7c0097c1-76a8-4313-b8d3-dc7157c33917","name":"cli-vol-strange-blackburn","type":"sbs_5k","size":20000000000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","created_at":"2026-11-25T10:32:19.338365Z","updated_at":"2026-11-25T10:32:19.338365Z","references":[],"parent_snapshot_id":null,"status":"creating","tags":[],"specs":{"perf_iops":5000,"class":"sbs"},"last_detached_at":null,"kms_key_id":null,"zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "513"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 25 Nov 2026 10:32:19 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "48"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - a7d0b4c9-0eb6-4084-b2c5-b5c9a5d4ea01
+        status: 200 OK
+        code: 200
+        duration: 201.485708ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.40.1 (go1.27.4; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/metadata
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 59
+        body: '{"platform":"external","partition":"scw","domain":"scw.eu"}'
+        headers:
+            Content-Length:
+                - "59"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 25 Nov 2026 10:32:19 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "48"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 182f7822-5216-43df-893b-8f6e029cfd6f
+        status: 200 OK
+        code: 200
+        duration: 17.789208ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.40.1 (go1.27.4; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/7c0097c1-76a8-4313-b8d3-dc7157c33917
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 513
+        body: '{"srn":"srn://block.scw.eu/zones/fr-par-1/volumes/7c0097c1-76a8-4313-b8d3-dc7157c33917","id":"7c0097c1-76a8-4313-b8d3-dc7157c33917","name":"cli-vol-strange-blackburn","type":"sbs_5k","size":20000000000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","created_at":"2026-11-25T10:32:19.338365Z","updated_at":"2026-11-25T10:32:19.338365Z","references":[],"parent_snapshot_id":null,"status":"creating","tags":[],"specs":{"perf_iops":5000,"class":"sbs"},"last_detached_at":null,"kms_key_id":null,"zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "513"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 25 Nov 2026 10:32:19 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "48"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - cab30399-a734-4009-8604-7502e79dbbb6
+        status: 200 OK
+        code: 200
+        duration: 64.631708ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.40.1 (go1.27.4; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/7c0097c1-76a8-4313-b8d3-dc7157c33917
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 514
+        body: '{"srn":"srn://block.scw.eu/zones/fr-par-1/volumes/7c0097c1-76a8-4313-b8d3-dc7157c33917","id":"7c0097c1-76a8-4313-b8d3-dc7157c33917","name":"cli-vol-strange-blackburn","type":"sbs_5k","size":20000000000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","created_at":"2026-11-25T10:32:19.338365Z","updated_at":"2026-11-25T10:32:19.462545Z","references":[],"parent_snapshot_id":null,"status":"available","tags":[],"specs":{"perf_iops":5000,"class":"sbs"},"last_detached_at":null,"kms_key_id":null,"zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "514"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 25 Nov 2026 10:32:24 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 27d1495d-21c7-4ecc-9245-acec807c00df
+        status: 200 OK
+        code: 200
+        duration: 53.960458ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 163
+        host: api.scaleway.com
+        body: '{"volume_id":"7c0097c1-76a8-4313-b8d3-dc7157c33917","name":"cli-snp-ecstatic-moser","project_id":"4d333544-41be-4b0b-8907-0b9036859747","tags":null,"public":false}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.40.1 (go1.27.4; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/block/v1/zones/fr-par-1/snapshots
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 568
+        body: '{"srn":"srn://block.scw.eu/zones/fr-par-1/snapshots/d373fde9-ad28-44ec-9c33-0405d73c9c61","id":"d373fde9-ad28-44ec-9c33-0405d73c9c61","name":"cli-snp-ecstatic-moser","parent_volume":{"id":"7c0097c1-76a8-4313-b8d3-dc7157c33917","name":"cli-vol-strange-blackburn","type":"sbs_5k","status":"available"},"size":20000000000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","created_at":"2026-11-25T10:32:24.601897Z","updated_at":"2026-11-25T10:32:24.601897Z","references":[],"status":"creating","tags":[],"class":"sbs","zone":"fr-par-1","public":false,"kms_key_id":null}'
+        headers:
+            Content-Length:
+                - "568"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 25 Nov 2026 10:32:24 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 23e33ad9-1e71-4cc2-b5c9-1e3c90abe41c
+        status: 200 OK
+        code: 200
+        duration: 137.493584ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.40.1 (go1.27.4; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/block/v1/zones/fr-par-1/snapshots/d373fde9-ad28-44ec-9c33-0405d73c9c61
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 568
+        body: '{"srn":"srn://block.scw.eu/zones/fr-par-1/snapshots/d373fde9-ad28-44ec-9c33-0405d73c9c61","id":"d373fde9-ad28-44ec-9c33-0405d73c9c61","name":"cli-snp-ecstatic-moser","parent_volume":{"id":"7c0097c1-76a8-4313-b8d3-dc7157c33917","name":"cli-vol-strange-blackburn","type":"sbs_5k","status":"available"},"size":20000000000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","created_at":"2026-11-25T10:32:24.601897Z","updated_at":"2026-11-25T10:32:24.601897Z","references":[],"status":"creating","tags":[],"class":"sbs","zone":"fr-par-1","public":false,"kms_key_id":null}'
+        headers:
+            Content-Length:
+                - "568"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 25 Nov 2026 10:32:24 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - c1cced0f-359d-412d-be95-c3209a482a95
+        status: 200 OK
+        code: 200
+        duration: 42.416292ms
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.40.1 (go1.27.4; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/block/v1/zones/fr-par-1/snapshots/d373fde9-ad28-44ec-9c33-0405d73c9c61
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 569
+        body: '{"srn":"srn://block.scw.eu/zones/fr-par-1/snapshots/d373fde9-ad28-44ec-9c33-0405d73c9c61","id":"d373fde9-ad28-44ec-9c33-0405d73c9c61","name":"cli-snp-ecstatic-moser","parent_volume":{"id":"7c0097c1-76a8-4313-b8d3-dc7157c33917","name":"cli-vol-strange-blackburn","type":"sbs_5k","status":"available"},"size":20000000000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","created_at":"2026-11-25T10:32:24.601897Z","updated_at":"2026-11-25T10:32:26.720978Z","references":[],"status":"available","tags":[],"class":"sbs","zone":"fr-par-1","public":false,"kms_key_id":null}'
+        headers:
+            Content-Length:
+                - "569"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 25 Nov 2026 10:32:29 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 048aeae3-266a-405b-97b4-8453343b866e
+        status: 200 OK
+        code: 200
+        duration: 48.915ms
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.40.1 (go1.27.4; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/block/v1/zones/fr-par-1/snapshots/d373fde9-ad28-44ec-9c33-0405d73c9c61
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 25 Nov 2026 10:32:29 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 52a36b57-5b78-4a49-937a-55397c64d6a6
+        status: 204 No Content
+        code: 204
+        duration: 79.164417ms
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.40.1 (go1.27.4; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/7c0097c1-76a8-4313-b8d3-dc7157c33917
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 25 Nov 2026 10:32:29 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge03)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "48"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 61dc5b56-c370-495e-85b5-798107990539
+        status: 204 No Content
+        code: 204
+        duration: 77.191833ms

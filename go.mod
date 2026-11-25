@@ -29,7 +29,7 @@ require (
 	github.com/modelcontextprotocol/go-sdk v1.8.0
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/opencontainers/image-spec v1.1.1
-	github.com/scaleway/scaleway-sdk-go v1.40.2-0.20261124135702-161beef41adb
+	github.com/scaleway/scaleway-sdk-go v1.40.2-0.20261125130438-6ba3d675ed33
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
 	github.com/spf13/cobra v1.10.2
 	github.com/spf13/pflag v1.1.0
