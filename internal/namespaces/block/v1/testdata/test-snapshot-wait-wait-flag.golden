@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                   5c294275-4494-465c-911a-8de22e17da0b
-Name                 cli-snp-goofy-driscoll
-ParentVolume.ID      81706e2d-3543-42b8-8ad4-af1686e9af22
-ParentVolume.Name    cli-vol-festive-heisenberg
+ID                   d373fde9-ad28-44ec-9c33-0405d73c9c61
+Name                 cli-snp-ecstatic-moser
+ParentVolume.ID      7c0097c1-76a8-4313-b8d3-dc7157c33917
+ParentVolume.Name    cli-vol-strange-blackburn
 ParentVolume.Type    sbs_5k
 ParentVolume.Status  available
 Size                 20 GB
@@ -14,14 +14,14 @@ Status               available
 Zone                 fr-par-1
 Class                sbs
 Public               false
-Srn                  srn://block.scw.eu/zones/fr-par-1/snapshots/5c294275-4494-465c-911a-8de22e17da0b
+Srn                  srn://block.scw.eu/zones/fr-par-1/snapshots/d373fde9-ad28-44ec-9c33-0405d73c9c61
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "5c294275-4494-465c-911a-8de22e17da0b",
-  "name": "cli-snp-goofy-driscoll",
+  "id": "d373fde9-ad28-44ec-9c33-0405d73c9c61",
+  "name": "cli-snp-ecstatic-moser",
   "parent_volume": {
-    "id": "81706e2d-3543-42b8-8ad4-af1686e9af22",
-    "name": "cli-vol-festive-heisenberg",
+    "id": "7c0097c1-76a8-4313-b8d3-dc7157c33917",
+    "name": "cli-vol-strange-blackburn",
     "type": "sbs_5k",
     "status": "available"
   },
@@ -36,5 +36,5 @@ Srn                  srn://block.scw.eu/zones/fr-par-1/snapshots/5c294275-4494-4
   "class": "sbs",
   "public": false,
   "kms_key_id": null,
-  "srn": "srn://block.scw.eu/zones/fr-par-1/snapshots/5c294275-4494-465c-911a-8de22e17da0b"
+  "srn": "srn://block.scw.eu/zones/fr-par-1/snapshots/d373fde9-ad28-44ec-9c33-0405d73c9c61"
 }

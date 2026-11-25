@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              8477d22c-60c4-476e-9581-fece95d7ef20
-Name            cli-vol-awesome-yalow
+ID              0518c747-a396-43f2-8424-fa519025f896
+Name            cli-vol-elastic-kalam
 Type            sbs_5k
 Size            20 GB
 ProjectID       4d333544-41be-4b0b-8907-0b9036859747
@@ -11,11 +11,11 @@ Status          available
 Zone            fr-par-1
 Specs.PerfIops  5000
 Specs.Class     sbs
-Srn             srn://block.scw.eu/zones/fr-par-1/volumes/8477d22c-60c4-476e-9581-fece95d7ef20
+Srn             srn://block.scw.eu/zones/fr-par-1/volumes/0518c747-a396-43f2-8424-fa519025f896
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "8477d22c-60c4-476e-9581-fece95d7ef20",
-  "name": "cli-vol-awesome-yalow",
+  "id": "0518c747-a396-43f2-8424-fa519025f896",
+  "name": "cli-vol-elastic-kalam",
   "type": "sbs_5k",
   "size": 20000000000,
   "project_id": "4d333544-41be-4b0b-8907-0b9036859747",
@@ -32,5 +32,5 @@ Srn             srn://block.scw.eu/zones/fr-par-1/volumes/8477d22c-60c4-476e-958
   },
   "last_detached_at": null,
   "kms_key_id": null,
-  "srn": "srn://block.scw.eu/zones/fr-par-1/volumes/8477d22c-60c4-476e-9581-fece95d7ef20"
+  "srn": "srn://block.scw.eu/zones/fr-par-1/volumes/0518c747-a396-43f2-8424-fa519025f896"
 }

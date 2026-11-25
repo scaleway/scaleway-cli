@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              7a74c089-3d5a-4304-939b-26222d370fbd
-Name            cli-vol-agitated-sutherland
+ID              04a9720f-44c1-4712-95c5-96a2b3096407
+Name            cli-vol-musing-mcnulty
 Type            sbs_5k
 Size            20 GB
 ProjectID       4d333544-41be-4b0b-8907-0b9036859747
@@ -11,11 +11,11 @@ Status          available
 Zone            fr-par-1
 Specs.PerfIops  5000
 Specs.Class     sbs
-Srn             srn://block.scw.eu/zones/fr-par-1/volumes/7a74c089-3d5a-4304-939b-26222d370fbd
+Srn             srn://block.scw.eu/zones/fr-par-1/volumes/04a9720f-44c1-4712-95c5-96a2b3096407
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "7a74c089-3d5a-4304-939b-26222d370fbd",
-  "name": "cli-vol-agitated-sutherland",
+  "id": "04a9720f-44c1-4712-95c5-96a2b3096407",
+  "name": "cli-vol-musing-mcnulty",
   "type": "sbs_5k",
   "size": 20000000000,
   "project_id": "4d333544-41be-4b0b-8907-0b9036859747",
@@ -32,5 +32,5 @@ Srn             srn://block.scw.eu/zones/fr-par-1/volumes/7a74c089-3d5a-4304-939
   },
   "last_detached_at": null,
   "kms_key_id": null,
-  "srn": "srn://block.scw.eu/zones/fr-par-1/volumes/7a74c089-3d5a-4304-939b-26222d370fbd"
+  "srn": "srn://block.scw.eu/zones/fr-par-1/volumes/04a9720f-44c1-4712-95c5-96a2b3096407"
 }

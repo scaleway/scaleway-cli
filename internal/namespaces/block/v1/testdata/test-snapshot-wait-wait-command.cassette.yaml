@@ -1,354 +1,347 @@
 ---
-version: 1
+version: 2
 interactions:
-- request:
-    body: '{"name":"cli-vol-recursing-sammet","perf_iops":5000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","from_empty":{"size":20000000000},"tags":null}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.39.1-0.20261117160957-d8a4a43caa34 (go1.27.4; darwin; arm64)
-        cli-e2e-test
-    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes
-    method: POST
-  response:
-    body: '{"srn":"srn://block.scw.eu/zones/fr-par-1/volumes/53569650-258d-4068-b5f9-75788d4f2fcb","id":"53569650-258d-4068-b5f9-75788d4f2fcb","name":"cli-vol-recursing-sammet","type":"sbs_5k","size":20000000000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","created_at":"2026-11-23T08:01:06.405922Z","updated_at":"2026-11-23T08:01:06.405922Z","references":[],"parent_snapshot_id":null,"status":"creating","tags":[],"specs":{"perf_iops":5000,"class":"sbs"},"last_detached_at":null,"kms_key_id":null,"zone":"fr-par-1"}'
-    headers:
-      Content-Length:
-      - "512"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 23 Nov 2026 08:01:06 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Ratelimit-Limit:
-      - 50, 50;w=1
-      X-Ratelimit-Remaining:
-      - "49"
-      X-Ratelimit-Reset:
-      - "1"
-      X-Request-Id:
-      - 130bb7b2-3e3d-441c-97e9-283e180c950e
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.39.1-0.20261117160957-d8a4a43caa34 (go1.27.4; darwin; arm64)
-        cli-e2e-test
-    url: https://api.scaleway.com/metadata
-    method: GET
-  response:
-    body: '{"platform":"external","partition":"scw","domain":"scw.eu"}'
-    headers:
-      Content-Length:
-      - "59"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 23 Nov 2026 08:01:06 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Ratelimit-Limit:
-      - 50, 50;w=1
-      X-Ratelimit-Remaining:
-      - "48"
-      X-Ratelimit-Reset:
-      - "1"
-      X-Request-Id:
-      - 16604096-8f55-4bba-b289-b1773d098c51
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.39.1-0.20261117160957-d8a4a43caa34 (go1.27.4; darwin; arm64)
-        cli-e2e-test
-    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/53569650-258d-4068-b5f9-75788d4f2fcb
-    method: GET
-  response:
-    body: '{"srn":"srn://block.scw.eu/zones/fr-par-1/volumes/53569650-258d-4068-b5f9-75788d4f2fcb","id":"53569650-258d-4068-b5f9-75788d4f2fcb","name":"cli-vol-recursing-sammet","type":"sbs_5k","size":20000000000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","created_at":"2026-11-23T08:01:06.405922Z","updated_at":"2026-11-23T08:01:06.405922Z","references":[],"parent_snapshot_id":null,"status":"creating","tags":[],"specs":{"perf_iops":5000,"class":"sbs"},"last_detached_at":null,"kms_key_id":null,"zone":"fr-par-1"}'
-    headers:
-      Content-Length:
-      - "512"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 23 Nov 2026 08:01:06 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Ratelimit-Limit:
-      - 50, 50;w=1
-      X-Ratelimit-Remaining:
-      - "48"
-      X-Ratelimit-Reset:
-      - "1"
-      X-Request-Id:
-      - 9ed1f6ed-26fe-430c-834f-3e74b3118e7b
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.39.1-0.20261117160957-d8a4a43caa34 (go1.27.4; darwin; arm64)
-        cli-e2e-test
-    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/53569650-258d-4068-b5f9-75788d4f2fcb
-    method: GET
-  response:
-    body: '{"srn":"srn://block.scw.eu/zones/fr-par-1/volumes/53569650-258d-4068-b5f9-75788d4f2fcb","id":"53569650-258d-4068-b5f9-75788d4f2fcb","name":"cli-vol-recursing-sammet","type":"sbs_5k","size":20000000000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","created_at":"2026-11-23T08:01:06.405922Z","updated_at":"2026-11-23T08:01:06.536890Z","references":[],"parent_snapshot_id":null,"status":"available","tags":[],"specs":{"perf_iops":5000,"class":"sbs"},"last_detached_at":null,"kms_key_id":null,"zone":"fr-par-1"}'
-    headers:
-      Content-Length:
-      - "513"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 23 Nov 2026 08:01:11 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Ratelimit-Limit:
-      - 50, 50;w=1
-      X-Ratelimit-Remaining:
-      - "49"
-      X-Ratelimit-Reset:
-      - "1"
-      X-Request-Id:
-      - b60a47d6-44a9-4d36-a3a0-4e5e1bc9bb84
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"volume_id":"53569650-258d-4068-b5f9-75788d4f2fcb","name":"cli-snp-agitated-roentgen","project_id":"4d333544-41be-4b0b-8907-0b9036859747","tags":null,"public":false}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.39.1-0.20261117160957-d8a4a43caa34 (go1.27.4; darwin; arm64)
-        cli-e2e-test
-    url: https://api.scaleway.com/block/v1/zones/fr-par-1/snapshots
-    method: POST
-  response:
-    body: '{"srn":"srn://block.scw.eu/zones/fr-par-1/snapshots/6a728e75-00b7-4620-8b3c-462d966d65a4","id":"6a728e75-00b7-4620-8b3c-462d966d65a4","name":"cli-snp-agitated-roentgen","parent_volume":{"id":"53569650-258d-4068-b5f9-75788d4f2fcb","name":"cli-vol-recursing-sammet","type":"sbs_5k","status":"available"},"size":20000000000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","created_at":"2026-11-23T08:01:11.641536Z","updated_at":"2026-11-23T08:01:11.641536Z","references":[],"status":"creating","tags":[],"class":"sbs","zone":"fr-par-1","public":false,"kms_key_id":null}'
-    headers:
-      Content-Length:
-      - "570"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 23 Nov 2026 08:01:11 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Ratelimit-Limit:
-      - 50, 50;w=1
-      X-Ratelimit-Remaining:
-      - "49"
-      X-Ratelimit-Reset:
-      - "1"
-      X-Request-Id:
-      - d17d9a71-2e8e-433f-8e0b-9335b5d48ce0
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.39.1-0.20261117160957-d8a4a43caa34 (go1.27.4; darwin; arm64)
-        cli-e2e-test
-    url: https://api.scaleway.com/block/v1/zones/fr-par-1/snapshots/6a728e75-00b7-4620-8b3c-462d966d65a4
-    method: GET
-  response:
-    body: '{"srn":"srn://block.scw.eu/zones/fr-par-1/snapshots/6a728e75-00b7-4620-8b3c-462d966d65a4","id":"6a728e75-00b7-4620-8b3c-462d966d65a4","name":"cli-snp-agitated-roentgen","parent_volume":{"id":"53569650-258d-4068-b5f9-75788d4f2fcb","name":"cli-vol-recursing-sammet","type":"sbs_5k","status":"available"},"size":20000000000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","created_at":"2026-11-23T08:01:11.641536Z","updated_at":"2026-11-23T08:01:11.641536Z","references":[],"status":"creating","tags":[],"class":"sbs","zone":"fr-par-1","public":false,"kms_key_id":null}'
-    headers:
-      Content-Length:
-      - "570"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 23 Nov 2026 08:01:11 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Ratelimit-Limit:
-      - 50, 50;w=1
-      X-Ratelimit-Remaining:
-      - "47"
-      X-Ratelimit-Reset:
-      - "1"
-      X-Request-Id:
-      - 90ee04ec-a955-46da-b6e3-97d39adf4b88
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.39.1-0.20261117160957-d8a4a43caa34 (go1.27.4; darwin; arm64)
-        cli-e2e-test
-    url: https://api.scaleway.com/block/v1/zones/fr-par-1/snapshots/6a728e75-00b7-4620-8b3c-462d966d65a4
-    method: GET
-  response:
-    body: '{"srn":"srn://block.scw.eu/zones/fr-par-1/snapshots/6a728e75-00b7-4620-8b3c-462d966d65a4","id":"6a728e75-00b7-4620-8b3c-462d966d65a4","name":"cli-snp-agitated-roentgen","parent_volume":{"id":"53569650-258d-4068-b5f9-75788d4f2fcb","name":"cli-vol-recursing-sammet","type":"sbs_5k","status":"available"},"size":20000000000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","created_at":"2026-11-23T08:01:11.641536Z","updated_at":"2026-11-23T08:01:13.257625Z","references":[],"status":"available","tags":[],"class":"sbs","zone":"fr-par-1","public":false,"kms_key_id":null}'
-    headers:
-      Content-Length:
-      - "571"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 23 Nov 2026 08:01:16 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Ratelimit-Limit:
-      - 50, 50;w=1
-      X-Ratelimit-Remaining:
-      - "49"
-      X-Ratelimit-Reset:
-      - "1"
-      X-Request-Id:
-      - 7be77003-5a14-4028-afca-acec4d768cbb
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.39.1-0.20261117160957-d8a4a43caa34 (go1.27.4; darwin; arm64)
-        cli-e2e-test
-    url: https://api.scaleway.com/block/v1/zones/fr-par-1/snapshots/6a728e75-00b7-4620-8b3c-462d966d65a4
-    method: DELETE
-  response:
-    body: ""
-    headers:
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 23 Nov 2026 08:01:16 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Ratelimit-Limit:
-      - 50, 50;w=1
-      X-Ratelimit-Remaining:
-      - "49"
-      X-Ratelimit-Reset:
-      - "1"
-      X-Request-Id:
-      - 4ae242ce-8f60-4b29-81d8-cb75ad2aa648
-    status: 204 No Content
-    code: 204
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.39.1-0.20261117160957-d8a4a43caa34 (go1.27.4; darwin; arm64)
-        cli-e2e-test
-    url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/53569650-258d-4068-b5f9-75788d4f2fcb
-    method: DELETE
-  response:
-    body: ""
-    headers:
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 23 Nov 2026 08:01:16 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Ratelimit-Limit:
-      - 50, 50;w=1
-      X-Ratelimit-Remaining:
-      - "48"
-      X-Ratelimit-Reset:
-      - "1"
-      X-Request-Id:
-      - c496ced4-2d8a-4291-8404-fa720e251ece
-    status: 204 No Content
-    code: 204
-    duration: ""
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 149
+        host: api.scaleway.com
+        body: '{"name":"cli-vol-nostalgic-tharp","perf_iops":5000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","from_empty":{"size":20000000000},"tags":null}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.40.1 (go1.27.4; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 511
+        body: '{"srn":"srn://block.scw.eu/zones/fr-par-1/volumes/091a666e-a577-42e2-9b93-35d9952ac8f8","id":"091a666e-a577-42e2-9b93-35d9952ac8f8","name":"cli-vol-nostalgic-tharp","type":"sbs_5k","size":20000000000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","created_at":"2026-11-25T10:31:12.562942Z","updated_at":"2026-11-25T10:31:12.562942Z","references":[],"parent_snapshot_id":null,"status":"creating","tags":[],"specs":{"perf_iops":5000,"class":"sbs"},"last_detached_at":null,"kms_key_id":null,"zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "511"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 25 Nov 2026 10:31:12 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 9c7c4ac9-1ca8-4455-87f5-7ba4d027f767
+        status: 200 OK
+        code: 200
+        duration: 266.073583ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.40.1 (go1.27.4; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/metadata
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 59
+        body: '{"platform":"external","partition":"scw","domain":"scw.eu"}'
+        headers:
+            Content-Length:
+                - "59"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 25 Nov 2026 10:31:12 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 737dd4be-00b7-4ba6-944f-239d6462f6bb
+        status: 200 OK
+        code: 200
+        duration: 14.742375ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.40.1 (go1.27.4; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/091a666e-a577-42e2-9b93-35d9952ac8f8
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 511
+        body: '{"srn":"srn://block.scw.eu/zones/fr-par-1/volumes/091a666e-a577-42e2-9b93-35d9952ac8f8","id":"091a666e-a577-42e2-9b93-35d9952ac8f8","name":"cli-vol-nostalgic-tharp","type":"sbs_5k","size":20000000000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","created_at":"2026-11-25T10:31:12.562942Z","updated_at":"2026-11-25T10:31:12.562942Z","references":[],"parent_snapshot_id":null,"status":"creating","tags":[],"specs":{"perf_iops":5000,"class":"sbs"},"last_detached_at":null,"kms_key_id":null,"zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "511"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 25 Nov 2026 10:31:12 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 98729061-9faf-47ea-8f3f-91f09d9a1cbf
+        status: 200 OK
+        code: 200
+        duration: 55.165959ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.40.1 (go1.27.4; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/091a666e-a577-42e2-9b93-35d9952ac8f8
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 512
+        body: '{"srn":"srn://block.scw.eu/zones/fr-par-1/volumes/091a666e-a577-42e2-9b93-35d9952ac8f8","id":"091a666e-a577-42e2-9b93-35d9952ac8f8","name":"cli-vol-nostalgic-tharp","type":"sbs_5k","size":20000000000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","created_at":"2026-11-25T10:31:12.562942Z","updated_at":"2026-11-25T10:31:12.690427Z","references":[],"parent_snapshot_id":null,"status":"available","tags":[],"specs":{"perf_iops":5000,"class":"sbs"},"last_detached_at":null,"kms_key_id":null,"zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "512"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 25 Nov 2026 10:31:17 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - ebf657e9-b99f-48f9-a318-a33cc27e743e
+        status: 200 OK
+        code: 200
+        duration: 56.8615ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 160
+        host: api.scaleway.com
+        body: '{"volume_id":"091a666e-a577-42e2-9b93-35d9952ac8f8","name":"cli-snp-dreamy-wing","project_id":"4d333544-41be-4b0b-8907-0b9036859747","tags":null,"public":false}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.40.1 (go1.27.4; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/block/v1/zones/fr-par-1/snapshots
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 563
+        body: '{"srn":"srn://block.scw.eu/zones/fr-par-1/snapshots/fbd79819-3852-46d8-b276-a7d66e84a1bc","id":"fbd79819-3852-46d8-b276-a7d66e84a1bc","name":"cli-snp-dreamy-wing","parent_volume":{"id":"091a666e-a577-42e2-9b93-35d9952ac8f8","name":"cli-vol-nostalgic-tharp","type":"sbs_5k","status":"available"},"size":20000000000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","created_at":"2026-11-25T10:31:17.842586Z","updated_at":"2026-11-25T10:31:17.842586Z","references":[],"status":"creating","tags":[],"class":"sbs","zone":"fr-par-1","public":false,"kms_key_id":null}'
+        headers:
+            Content-Length:
+                - "563"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 25 Nov 2026 10:31:17 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 5867b4bf-f7b9-4465-9c48-153f5c83af86
+        status: 200 OK
+        code: 200
+        duration: 143.414416ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.40.1 (go1.27.4; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/block/v1/zones/fr-par-1/snapshots/fbd79819-3852-46d8-b276-a7d66e84a1bc
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 563
+        body: '{"srn":"srn://block.scw.eu/zones/fr-par-1/snapshots/fbd79819-3852-46d8-b276-a7d66e84a1bc","id":"fbd79819-3852-46d8-b276-a7d66e84a1bc","name":"cli-snp-dreamy-wing","parent_volume":{"id":"091a666e-a577-42e2-9b93-35d9952ac8f8","name":"cli-vol-nostalgic-tharp","type":"sbs_5k","status":"available"},"size":20000000000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","created_at":"2026-11-25T10:31:17.842586Z","updated_at":"2026-11-25T10:31:17.842586Z","references":[],"status":"creating","tags":[],"class":"sbs","zone":"fr-par-1","public":false,"kms_key_id":null}'
+        headers:
+            Content-Length:
+                - "563"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 25 Nov 2026 10:31:17 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 10cab0c4-7766-404a-8959-c62782ce9ea2
+        status: 200 OK
+        code: 200
+        duration: 62.420541ms
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.40.1 (go1.27.4; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/block/v1/zones/fr-par-1/snapshots/fbd79819-3852-46d8-b276-a7d66e84a1bc
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 564
+        body: '{"srn":"srn://block.scw.eu/zones/fr-par-1/snapshots/fbd79819-3852-46d8-b276-a7d66e84a1bc","id":"fbd79819-3852-46d8-b276-a7d66e84a1bc","name":"cli-snp-dreamy-wing","parent_volume":{"id":"091a666e-a577-42e2-9b93-35d9952ac8f8","name":"cli-vol-nostalgic-tharp","type":"sbs_5k","status":"available"},"size":20000000000,"project_id":"4d333544-41be-4b0b-8907-0b9036859747","created_at":"2026-11-25T10:31:17.842586Z","updated_at":"2026-11-25T10:31:21.260065Z","references":[],"status":"available","tags":[],"class":"sbs","zone":"fr-par-1","public":false,"kms_key_id":null}'
+        headers:
+            Content-Length:
+                - "564"
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 25 Nov 2026 10:31:22 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - b3c92b36-e480-40e4-94b1-5ad61b7820cb
+        status: 200 OK
+        code: 200
+        duration: 47.652959ms
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.40.1 (go1.27.4; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/block/v1/zones/fr-par-1/snapshots/fbd79819-3852-46d8-b276-a7d66e84a1bc
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 25 Nov 2026 10:31:23 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 835d2243-3bf3-44d1-9ee6-fe5dbfa0dcf5
+        status: 204 No Content
+        code: 204
+        duration: 95.598875ms
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.40.1 (go1.27.4; darwin; arm64) cli-e2e-test
+        url: https://api.scaleway.com/block/v1/zones/fr-par-1/volumes/091a666e-a577-42e2-9b93-35d9952ac8f8
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Type:
+                - application/json
+            Date:
+                - Wed, 25 Nov 2026 10:31:23 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - adaa541f-6e2d-48c6-9817-ac69cb3e61a1
+        status: 204 No Content
+        code: 204
+        duration: 97.977375ms

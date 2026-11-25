@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                   6a728e75-00b7-4620-8b3c-462d966d65a4
-Name                 cli-snp-agitated-roentgen
-ParentVolume.ID      53569650-258d-4068-b5f9-75788d4f2fcb
-ParentVolume.Name    cli-vol-recursing-sammet
+ID                   fbd79819-3852-46d8-b276-a7d66e84a1bc
+Name                 cli-snp-dreamy-wing
+ParentVolume.ID      091a666e-a577-42e2-9b93-35d9952ac8f8
+ParentVolume.Name    cli-vol-nostalgic-tharp
 ParentVolume.Type    sbs_5k
 ParentVolume.Status  available
 Size                 20 GB
@@ -14,14 +14,14 @@ Status               available
 Zone                 fr-par-1
 Class                sbs
 Public               false
-Srn                  srn://block.scw.eu/zones/fr-par-1/snapshots/6a728e75-00b7-4620-8b3c-462d966d65a4
+Srn                  srn://block.scw.eu/zones/fr-par-1/snapshots/fbd79819-3852-46d8-b276-a7d66e84a1bc
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "6a728e75-00b7-4620-8b3c-462d966d65a4",
-  "name": "cli-snp-agitated-roentgen",
+  "id": "fbd79819-3852-46d8-b276-a7d66e84a1bc",
+  "name": "cli-snp-dreamy-wing",
   "parent_volume": {
-    "id": "53569650-258d-4068-b5f9-75788d4f2fcb",
-    "name": "cli-vol-recursing-sammet",
+    "id": "091a666e-a577-42e2-9b93-35d9952ac8f8",
+    "name": "cli-vol-nostalgic-tharp",
     "type": "sbs_5k",
     "status": "available"
   },
@@ -36,5 +36,5 @@ Srn                  srn://block.scw.eu/zones/fr-par-1/snapshots/6a728e75-00b7-4
   "class": "sbs",
   "public": false,
   "kms_key_id": null,
-  "srn": "srn://block.scw.eu/zones/fr-par-1/snapshots/6a728e75-00b7-4620-8b3c-462d966d65a4"
+  "srn": "srn://block.scw.eu/zones/fr-par-1/snapshots/fbd79819-3852-46d8-b276-a7d66e84a1bc"
 }
