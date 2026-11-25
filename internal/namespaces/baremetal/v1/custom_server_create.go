@@ -53,10 +53,7 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 			Name:           tmpRequest.Name,
 			Description:    tmpRequest.Description,
 			Tags:           tmpRequest.Tags,
-		}
-
-		if tmpRequest.Install != nil {
-			request.Install = tmpRequest.Install
+			Install:        tmpRequest.Install,
 		}
 
 		// We need to find the offer ID.
