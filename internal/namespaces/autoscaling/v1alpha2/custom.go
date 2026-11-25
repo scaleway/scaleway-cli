@@ -1,15 +1,28 @@
 package autoscaling
 
 import (
+	"reflect"
+
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	autoscaling "github.com/scaleway/scaleway-sdk-go/api/autoscaling/v1alpha2"
 )
 
 func GetCommands() *core.Commands {
 	commands := GetGeneratedCommands()
 
-	human.RegisterMarshalerFunc(autoscaling.Group{}, groupMarshalerFunc)
+	humanv2.RegisterLayout(reflect.TypeFor[autoscaling.Group](), humanv2.Layout{
+		Sections: []humanv2.Section{
+			{Path: "Tags", Omittable: true},
+			{Path: "ScalingPolicy", Title: "Scaling Policy"},
+			{Path: "OpenAlerts", Title: "Open Alerts"},
+			{
+				Path:      "LoadBalancerConfiguration",
+				Omittable: true,
+				Title:     "LoadBalancer Configuration",
+			},
+		},
+	})
 
 	commands.MustFind("autoscaling", "group", "create").Override(GroupCreateBuilder)
 	commands.MustFind("autoscaling", "group", "update").Override(GroupUpdateBuilder)
