@@ -16,6 +16,8 @@ Deletable         true
 Managed           false
 CreationIP        51.159.46.153
 Srn               srn://iam.scw.eu/api-keys/SCWD2ZWJXT6WQ0HAZN4M
+
+Policies:
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "APIKey": {
