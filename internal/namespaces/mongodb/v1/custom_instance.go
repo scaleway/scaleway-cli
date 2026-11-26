@@ -6,9 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -16,41 +14,6 @@ import (
 const (
 	instanceActionTimeout = 20 * time.Minute
 )
-
-var instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
-	mongodb.InstanceStatusConfiguring: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "configuring",
-	},
-	mongodb.InstanceStatusDeleting: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "deleting",
-	},
-	mongodb.InstanceStatusError: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
-		Value:     "error",
-	},
-	mongodb.InstanceStatusInitializing: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "initializing",
-	},
-	mongodb.InstanceStatusLocked: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
-		Value:     "locked",
-	},
-	mongodb.InstanceStatusProvisioning: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "provisioning",
-	},
-	mongodb.InstanceStatusReady: &human.EnumMarshalSpec{
-		Attribute: color.FgGreen,
-		Value:     "ready",
-	},
-	mongodb.InstanceStatusSnapshotting: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "snapshotting",
-	},
-}
 
 func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("node-amount").Default = core.DefaultValueSetter("1")
