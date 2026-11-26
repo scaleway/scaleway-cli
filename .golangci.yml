@@ -90,7 +90,6 @@ linters:
             - "!**/internal/connect/**"
             # Existing plugin, editor, Git metadata, lookup and test-hook code.
             - "!**/cmd/scw/main.go"
-            - "!**/core/exec.go"
             - "!**/core/testing.go"
             - "!**/internal/editor/editor.go"
             - "!**/internal/namespaces/config/commands.go"
