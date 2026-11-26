@@ -5,63 +5,14 @@ import (
 	"errors"
 	"net/http"
 	"reflect"
-	"strings"
 	"time"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var (
-	defaultLBTimeout     = 10 * time.Minute
-	lbStatusMarshalSpecs = human.EnumMarshalSpecs{
-		lb.LBStatusError:     &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-		lb.LBStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "locked"},
-		lb.LBStatusMigrating: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "migrating"},
-		lb.LBStatusPending:   &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "pending"},
-		lb.LBStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
-		lb.LBStatusStopped:   &human.EnumMarshalSpec{Attribute: color.Faint, Value: "stopped"},
-		lb.LBStatusUnknown:   &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
-	}
-)
-
-func lbMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp lb.LB
-	loadbalancer := tmp(i.(lb.LB))
-
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "IP",
-			Title:     "IPs",
-		},
-		{
-			FieldName: "Instances",
-			Title:     "LB Instances",
-		},
-	}
-
-	if len(loadbalancer.Tags) != 0 && loadbalancer.Tags[0] == kapsuleTag {
-		lbResp, err := human.Marshal(loadbalancer, opt)
-		if err != nil {
-			return "", err
-		}
-
-		return strings.Join([]string{
-			lbResp,
-			warningKapsuleTaggedMessageView(),
-		}, "\n\n"), nil
-	}
-
-	str, err := human.Marshal(loadbalancer, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
-}
+var defaultLBTimeout = 10 * time.Minute
 
 func lbWaitCommand() *core.Command {
 	return &core.Command{

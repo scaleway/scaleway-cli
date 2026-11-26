@@ -6,36 +6,10 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
-
-var certificateStatusMarshalSpecs = human.EnumMarshalSpecs{
-	lb.CertificateStatusError:   &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-	lb.CertificateStatusPending: &human.EnumMarshalSpec{Attribute: color.FgBlue, Value: "pending"},
-	lb.CertificateStatusReady:   &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
-}
-
-func lbCertificateMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp lb.Certificate
-	certificate := tmp(i.(lb.Certificate))
-
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "LB",
-		},
-	}
-
-	str, err := human.Marshal(certificate, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
-}
 
 func certificateCreateBuilder(c *core.Command) *core.Command {
 	leCommonNameArgSpecs := c.ArgSpecs.GetByName("letsencrypt.common-name")
