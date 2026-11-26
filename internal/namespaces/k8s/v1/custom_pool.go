@@ -10,9 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -22,60 +20,12 @@ const (
 	poolActionTimeout = 10 * time.Minute
 )
 
-//
-// Marshalers
-//
-
-// poolStatusMarshalSpecs marshals a k8s.PoolStatus.
-var (
-	poolStatusMarshalSpecs = human.EnumMarshalSpecs{
-		k8s.PoolStatusScaling:   &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		k8s.PoolStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		k8s.PoolStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed},
-		k8s.PoolStatusUpgrading: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		k8s.PoolStatusWarning:   &human.EnumMarshalSpec{Attribute: color.FgHiYellow},
-	}
-)
-
 const (
 	poolActionCreate = iota
 	poolActionUpdate
 	poolActionUpgrade
 	poolActionDelete
 )
-
-func poolMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type humanPool k8s.Pool
-	pool := humanPool(i.(k8s.Pool))
-
-	// Sections
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "UpgradePolicy",
-			Title:     "Upgrade Policy",
-		},
-		{
-			FieldName: "Labels",
-			Title:     "Node labels",
-		},
-		{
-			FieldName: "Taints",
-			Title:     "Node taints",
-		},
-
-		{
-			FieldName: "StartupTaints",
-			Title:     "Node startup taints",
-		},
-	}
-
-	str, err := human.Marshal(pool, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
-}
 
 func poolCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = waitForPoolFunc(poolActionCreate)
