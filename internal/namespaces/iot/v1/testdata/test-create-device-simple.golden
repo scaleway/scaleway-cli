@@ -1,6 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Device:
 ID                               a05ddfe9-8819-4c60-8d2a-02b47fd86e94
 Srn                              -
 Name                             foo
@@ -48,7 +47,6 @@ kOG4721dGjdaGyHURgZ4E8Bgmy2NXqah8kSqxCs6ZZjgNSlMiN4zNbZqtTz8MbPI
 76E=
 -----END CERTIFICATE-----
 
-
 Private Key:
 -----BEGIN RSA PRIVATE KEY-----
 MIIEpAIBAAKCAQEA2yB1xwNIDYcHXMUKOelQV8qdt/07s3mPcaN7gHUYR8GchsEG
@@ -77,7 +75,6 @@ vamcjqRtaPWXKVgh/IQJqvkCgYEArsGLUuarO2Z+RVK2orRA4QSXK4TYTZtuUgNb
 ItvnX/NJdVTgaX/Wdin4m0NOImggAV2tjtktrysB1ZvciQI/FXr6kywfopyYQFuW
 xL2e4af6yovxqcjAmnDYvYHu8gw8hfcR01yIPjhfouWvJSz4rf2B4Q==
 -----END RSA PRIVATE KEY-----
-
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "device": {

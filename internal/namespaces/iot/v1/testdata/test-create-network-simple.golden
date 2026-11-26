@@ -1,6 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Network:
 ID           46903b9a-cc59-4c15-bb0d-0863bc9a10a8
 Srn          -
 Name         cli-network-crazy-brattain
@@ -13,7 +12,8 @@ Region       fr-par
 
 WARNING: The secret below is displayed only once, we do not keep it. Make sure to store it securely
 
-Secret: eyJOZXRJRCI6IjQ2OTAzYjlhLWNjNTktNGMxNS1iYjBkLTA4NjNiYzlhMTBhOCIsIk5ldEtleSI6IjgxZDMwMmZiLTQ4MGYtNGZlZC1iOWFiLTZjM2NmYjBlNzI4YiJ9
+Secret:
+eyJOZXRJRCI6IjQ2OTAzYjlhLWNjNTktNGMxNS1iYjBkLTA4NjNiYzlhMTBhOCIsIk5ldEtleSI6IjgxZDMwMmZiLTQ4MGYtNGZlZC1iOWFiLTZjM2NmYjBlNzI4YiJ9
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "network": {
