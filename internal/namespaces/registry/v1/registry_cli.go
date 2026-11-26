@@ -129,6 +129,7 @@ func registryNamespaceList() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -217,6 +218,7 @@ func registryNamespaceGet() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -268,6 +270,7 @@ func registryNamespaceCreate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -316,6 +319,7 @@ func registryNamespaceUpdate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -350,6 +354,7 @@ func registryNamespaceDelete() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -418,6 +423,7 @@ func registryImageList() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -494,6 +500,7 @@ func registryImageGet() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -541,6 +548,7 @@ func registryImageUpdate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -575,6 +583,7 @@ func registryImageDelete() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -629,6 +638,7 @@ func registryTagList() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -673,6 +683,7 @@ func registryTagGet() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -714,6 +725,7 @@ func registryTagDelete() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
