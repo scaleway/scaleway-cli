@@ -1,0 +1,67 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID            d4916b13-679e-4291-9474-b1e082a353e7
+Srn           srn://instance.scw.eu/zones/fr-par-1/servers/d4916b13-679e-4291-9474-b1e082a353e7
+Name          cli-srv-beautiful-ellis
+ProjectID     fa1e3217-dc80-42ac-85c3-3f034b78b552
+ServerType    DEV1-S
+Status        started
+Architecture  x86_64
+CreatedAt     few seconds ago
+UpdatedAt     few seconds ago
+RescueMode    false
+StatusDetail  booting kernel
+Zone          fr-par-1
+
+Volumes:
+ID                                    VOLUME TYPE
+77523e65-39ac-4eb6-8611-b0946e028538  sbs
+
+Public Network Interface:
+Status           available
+MacAddress       de:00:00:2c:65:7c
+SecurityGroupID  da505169-540e-4c2b-b0da-c854139224e0
+DNS              d4916b13-679e-4291-9474-b1e082a353e7.pub.instances.scw.cloud
+
+Runtime Info:
+Spot            false
+PhysicalHostID  9c502f3b-e151-4ba2-a2e5-11646903de61
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "d4916b13-679e-4291-9474-b1e082a353e7",
+  "srn": "srn://instance.scw.eu/zones/fr-par-1/servers/d4916b13-679e-4291-9474-b1e082a353e7",
+  "name": "cli-srv-beautiful-ellis",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "tags": [],
+  "server_type": "DEV1-S",
+  "placement_group_id": null,
+  "dedicated_pool_id": null,
+  "status": "started",
+  "volumes": [
+    {
+      "id": "77523e65-39ac-4eb6-8611-b0946e028538",
+      "volume_type": "sbs"
+    }
+  ],
+  "filesystems": [],
+  "architecture": "x86_64",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "private_network_interfaces": [],
+  "rescue_mode": false,
+  "boot_volume_id": null,
+  "status_detail": "booting kernel",
+  "windows_rdp_password": null,
+  "public_network_interface": {
+    "status": "available",
+    "mac_address": "de:00:00:2c:65:7c",
+    "security_group_id": "da505169-540e-4c2b-b0da-c854139224e0",
+    "ips": [],
+    "dns": "d4916b13-679e-4291-9474-b1e082a353e7.pub.instances.scw.cloud"
+  },
+  "zone": "fr-par-1",
+  "runtime_info": {
+    "spot": false,
+    "physical_host_id": "9c502f3b-e151-4ba2-a2e5-11646903de61"
+  }
+}

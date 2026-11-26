@@ -55,11 +55,8 @@ func testServerCommand(params string) string {
 	return baseCommand + params
 }
 
-// createServer creates a stopped ubuntu-bionic server and
-// register it in the context Meta at metaKey.
 func startServer(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, "scw instance server start -w {{ ."+metaKey+
-		".ID }}")
+	return core.ExecBeforeCmd(fmt.Sprintf("scw instance server start -w {{ .%s.ID }}", metaKey))
 }
 
 func getServerFromMeta(meta core.TestMetadata, metaKey string) *instanceSDK.Server {
@@ -89,6 +86,16 @@ func deleteServer(metaKey string) core.AfterFunc {
 
 		return core.ExecAfterCmd(
 			"scw instance server delete {{ ." + metaKey + ".ID }} with-ip=true with-volumes=all",
+		)(
+			ctx,
+		)
+	}
+}
+
+func stopAndDeleteServer() core.AfterFunc {
+	return func(ctx *core.AfterFuncCtx) error {
+		return core.ExecAfterCmd(
+			"scw instance server stop-and-delete -w {{ .Server.ID }} delete-all-ips=true delete-all-volumes=true",
 		)(
 			ctx,
 		)

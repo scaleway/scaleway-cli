@@ -8,8 +8,10 @@ import (
 )
 
 func Test_ServerSSH(t *testing.T) {
+	cmds := instanceV1AndV2Commands()
+
 	t.Run("Simple", core.Test(&core.TestConfig{
-		Commands: instance.GetCommands(),
+		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true ip=new")),
 			startServer("Server"),
@@ -23,12 +25,12 @@ func Test_ServerSSH(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc:       deleteServer("Server"),
+		AfterFunc:       stopAndDeleteServer(),
 		DisableParallel: true,
 	}))
 
 	t.Run("With-Exit-Code", core.Test(&core.TestConfig{
-		Commands: instance.GetCommands(),
+		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd("Server", testServerCommand("stopped=true ip=new")),
 			startServer("Server"),
@@ -42,7 +44,7 @@ func Test_ServerSSH(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(130),
 		),
-		AfterFunc:       deleteServer("Server"),
+		AfterFunc:       stopAndDeleteServer(),
 		DisableParallel: true,
 	}))
 

@@ -2030,9 +2030,44 @@ scw instance server list-actions [arg=value ...]
 
 
 
-### Reboot server
+### Pause an Instance
+
+Pause a running Instance.
+
+**Usage:**
+
+```shell
+scw instance server pause <server-id ...> [arg=value ...]
+```
 
 
+**Arguments:**
+
+| Name      | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| server-id | ID of the server to pause                                               | Required                                                                                                                                                                        |
+| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
+
+
+**Examples:**
+
+
+Pause a server in the default zone with a given id
+```shell
+scw instance server pause 11111111-1111-1111-1111-111111111111
+```
+
+Pause a server in fr-par-1 zone with a given id
+```shell
+scw instance server pause 11111111-1111-1111-1111-111111111111 zone=fr-par-1
+```
+
+
+
+
+### Reboot an Instance
+
+Reboot a running or paused Instance.
 
 **Usage:**
 
@@ -2043,10 +2078,10 @@ scw instance server reboot <server-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name      | Description                                                             | Argument Specifications                                                                                                                                 |
-|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| server-id | ID of the server affected by the action.                                | Required                                                                                                                                                |
-| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name      | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| server-id | ID of the server to reboot                                              | Required                                                                                                                                                                        |
+| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 **Examples:**
@@ -2123,9 +2158,9 @@ scw instance server standby 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 
 
 
-### Power on server
+### Start an Instance
 
-
+Start a stopped or paused Instance.
 
 **Usage:**
 
@@ -2136,10 +2171,10 @@ scw instance server start <server-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name      | Description                                                             | Argument Specifications                                                                                                                                 |
-|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| server-id | ID of the server affected by the action.                                | Required                                                                                                                                                |
-| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name      | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| server-id | ID of the server to start                                               | Required                                                                                                                                                                        |
+| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 **Examples:**
@@ -2158,9 +2193,9 @@ scw instance server start 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 
 
 
-### Power off server
+### Stop an Instance
 
-
+Stop a running or paused Instance.
 
 **Usage:**
 
@@ -2171,10 +2206,10 @@ scw instance server stop <server-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name      | Description                                                             | Argument Specifications                                                                                                                                 |
-|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| server-id | ID of the server affected by the action.                                | Required                                                                                                                                                |
-| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name      | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| server-id | ID of the server to stop                                                | Required                                                                                                                                                                        |
+| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 **Examples:**
@@ -2188,6 +2223,47 @@ scw instance server stop 11111111-1111-1111-1111-111111111111
 Stop a server in fr-par-1 zone with a given id
 ```shell
 scw instance server stop 11111111-1111-1111-1111-111111111111 zone=fr-par-1
+```
+
+
+
+
+### Stop and delete an Instance
+
+Stop and delete a running or paused Instance.
+
+**Usage:**
+
+```shell
+scw instance server stop-and-delete <server-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name                           | Description                                                             | Argument Specifications                                                                                                                                                         |
+|--------------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| server-id                      | ID of the server to stop and delete                                     | Required                                                                                                                                                                        |
+| delete-all-ips                 | Whether to delete all IPs attached to the server                        |                                                                                                                                                                                 |
+| delete-ip-ids.{index}          | List of IP IDs to delete                                                |                                                                                                                                                                                 |
+| delete-all-volumes             | Whether to delete all volumes attached to the server                    |                                                                                                                                                                                 |
+| delete-volume-ids.{index}      | List of volume IDs to delete                                            |                                                                                                                                                                                 |
+| keep-all-private-nics          | Whether to keep all private network interfaces                          |                                                                                                                                                                                 |
+| delete-private-nic-ids.{index} | List of private network interface IDs to delete                         |                                                                                                                                                                                 |
+| zone                           | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
+
+
+**Examples:**
+
+
+Stop and delete a server in the default zone with a given id
+```shell
+scw instance server stop-and-delete 11111111-1111-1111-1111-111111111111
+```
+
+Stop and delete a server in fr-par-1 zone with a given id
+```shell
+scw instance server stop-and-delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 ```
 
 
@@ -2323,11 +2399,11 @@ scw instance server wait <server-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name      | Description                                                             | Argument Specifications                                                                                                                                 |
-|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| timeout   | Timeout of the wait                                                     | Default: `10m0s`                                                                                                                                        |
-| server-id | ID of the server affected by the action.                                | Required                                                                                                                                                |
-| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name      | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| timeout   | Timeout of the wait                                                     | Default: `10m0s`                                                                                                                                                                |
+| server-id | ID of the server affected by the action.                                | Required                                                                                                                                                                        |
+| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
 **Examples:**

@@ -13,10 +13,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-const (
-	serverActionTimeout = 10 * time.Minute
-	volumeCreateTimeout = 10 * time.Minute
-)
+const volumeCreateTimeout = 10 * time.Minute
 
 //
 // Marshalers

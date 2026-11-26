@@ -194,38 +194,3 @@ func Test_ServerBackup(t *testing.T) {
 		),
 	}))
 }
-
-func Test_ServerAction(t *testing.T) {
-	t.Run("manual poweron", core.Test(&core.TestConfig{
-		Commands: instance.GetCommands(),
-		BeforeFunc: core.ExecStoreBeforeCmd(
-			"Server",
-			testServerCommand("stopped=true image=ubuntu_jammy"),
-		),
-		Cmd: `scw instance server action {{ .Server.ID }} action=poweron --wait`,
-		Check: core.TestCheckCombine(
-			core.TestCheckExitCode(0),
-			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				t.Helper()
-				storedServer := testhelpers.MapValue[*instance.ServerWithWarningsResponse](
-					t,
-					ctx.Meta,
-					"Server",
-				).Server
-				api := instanceSDK.NewAPI(ctx.Client)
-				resp, err := api.GetServer(&instanceSDK.GetServerRequest{
-					Zone:     storedServer.Zone,
-					ServerID: storedServer.ID,
-				})
-				require.NoError(t, err)
-				assert.Equal(t, instanceSDK.ServerStateRunning, resp.Server.State)
-			},
-			core.TestCheckGolden(),
-		),
-		AfterFunc: core.AfterFuncCombine(
-			core.ExecAfterCmd(
-				"scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=all force-shutdown=true",
-			),
-		),
-	}))
-}

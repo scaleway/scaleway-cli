@@ -1,5 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Command "terminate" is deprecated, please use 'scw instance server stop-and-delete' instead.
 ✅ Success.
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
