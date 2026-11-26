@@ -30,10 +30,7 @@ Size   5.0 GB
 Class  lssd
 
 Backup Schedule:
-Disabled   false
-NextRunAt  few seconds ago
-Frequency  1 days
-Retention  7 days
+Enabled
 
 Settings:
 NAME                             VALUE

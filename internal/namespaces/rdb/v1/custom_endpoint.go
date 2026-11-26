@@ -7,7 +7,6 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -15,24 +14,6 @@ import (
 type rdbEndpointCustomResult struct {
 	Endpoints []*rdb.Endpoint
 	Success   core.SuccessResult
-}
-
-func rdbEndpointCustomResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	result := i.(rdbEndpointCustomResult)
-	messageStr, err := result.Success.MarshalHuman()
-	if err != nil {
-		return "", err
-	}
-	if len(result.Endpoints) == 0 {
-		return messageStr, nil
-	}
-
-	endpointsStr, err := human.Marshal(result.Endpoints, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return messageStr + "\n" + endpointsStr, nil
 }
 
 type rdbEndpointSpecCustom struct {

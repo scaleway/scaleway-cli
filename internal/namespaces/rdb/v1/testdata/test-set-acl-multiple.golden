@@ -1,6 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ ACL rules successfully set.
+
+Rules:
 IP              PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
 1.2.3.4/32      tcp       inbound    allow   first        26377
 11.11.11.11/32  tcp       inbound    allow   third        26377

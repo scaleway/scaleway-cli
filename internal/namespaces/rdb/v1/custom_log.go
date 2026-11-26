@@ -3,7 +3,6 @@ package rdb
 import (
 	"context"
 	"errors"
-	"fmt"
 	"io"
 	"net/url"
 	"os"
@@ -12,23 +11,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
-
-var logStatusMarshalSpecs = human.EnumMarshalSpecs{
-	rdb.InstanceLogStatusUnknown: &human.EnumMarshalSpec{Attribute: color.Faint, Value: "unknown"},
-	rdb.InstanceLogStatusReady:   &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
-	rdb.InstanceLogStatusCreating: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "creating",
-	},
-	rdb.InstanceLogStatusError: &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "error"},
-}
 
 func logPrepareBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
@@ -66,20 +53,6 @@ type logDownloadArgs struct {
 type logDownloadResult struct {
 	Size     scw.Size `json:"size"`
 	FileName string   `json:"file_name"`
-}
-
-func logDownloadResultMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
-	result := i.(logDownloadResult)
-	sizeStr, err := human.Marshal(result.Size, nil)
-	if err != nil {
-		return "", err
-	}
-
-	return fmt.Sprintf(
-		"Log downloaded to %s successfully (%s written)",
-		result.FileName,
-		sizeStr,
-	), nil
 }
 
 func getLogDefaultFileName(rawURL string) (string, error) {

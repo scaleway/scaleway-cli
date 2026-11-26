@@ -5,18 +5,11 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
-
-var aclRuleActionMarshalSpecs = human.EnumMarshalSpecs{
-	rdb.ACLRuleActionAllow: &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "allow"},
-	rdb.ACLRuleActionDeny:  &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "deny"},
-}
 
 type rdbACLCustomArgs struct {
 	Region     scw.Region
@@ -35,20 +28,6 @@ type rdbACLAddCustomArgs struct {
 type CustomACLResult struct {
 	Rules   []*rdb.ACLRule
 	Success core.SuccessResult
-}
-
-func rdbACLCustomResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	result := i.(CustomACLResult)
-	messageStr, err := result.Success.MarshalHuman()
-	if err != nil {
-		return "", err
-	}
-	aclStr, err := human.Marshal(result.Rules, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return messageStr + "\n" + aclStr, nil
 }
 
 func aclAddBuilder(c *core.Command) *core.Command {

@@ -3,7 +3,6 @@ package rdb
 import (
 	"context"
 	"errors"
-	"fmt"
 	"io"
 	"net/url"
 	"os"
@@ -12,9 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -23,37 +20,6 @@ import (
 const (
 	backupActionTimeout = 20 * time.Minute
 )
-
-var backupStatusMarshalSpecs = human.EnumMarshalSpecs{
-	rdb.DatabaseBackupStatusUnknown: &human.EnumMarshalSpec{
-		Attribute: color.Faint,
-		Value:     "unknown",
-	},
-	rdb.DatabaseBackupStatusCreating: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "creating",
-	},
-	rdb.DatabaseBackupStatusReady: &human.EnumMarshalSpec{
-		Attribute: color.FgGreen,
-		Value:     "ready",
-	},
-	rdb.DatabaseBackupStatusRestoring: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "restoring",
-	},
-	rdb.DatabaseBackupStatusDeleting: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "deleting",
-	},
-	rdb.DatabaseBackupStatusError: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
-		Value:     "error",
-	},
-	rdb.DatabaseBackupStatusExporting: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "exporting",
-	},
-}
 
 type backupWaitRequest struct {
 	BackupID string
@@ -372,20 +338,6 @@ func getDefaultFileName(rawURL string) (string, error) {
 type backupDownloadResult struct {
 	Size     scw.Size `json:"size"`
 	FileName string   `json:"file_name"`
-}
-
-func backupResultMarshallerFunc(i any, _ *human.MarshalOpt) (string, error) {
-	backupResult := i.(backupDownloadResult)
-	sizeStr, err := human.Marshal(backupResult.Size, nil)
-	if err != nil {
-		return "", err
-	}
-
-	return fmt.Sprintf(
-		"Backup downloaded to %s successfully (%s written)",
-		backupResult.FileName,
-		sizeStr,
-	), nil
 }
 
 func backupDownloadCommand() *core.Command {
