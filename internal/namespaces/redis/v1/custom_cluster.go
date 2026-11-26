@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/semver"
 	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -217,44 +216,45 @@ func redisSettingAddBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-func redisClusterGetMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp redis.Cluster
-	redisClusterResponse := tmp(i.(redis.Cluster))
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "Endpoints",
-			Title:     "Endpoints",
-		},
-		{
-			FieldName: "ACLRules",
-			Title:     "ACLRules",
-		},
-	}
-	opt.SubOptions = map[string]*human.MarshalOpt{
-		"Endpoints": {
-			Fields: []*human.MarshalFieldOpt{
-				{
-					FieldName: "ID",
-					Label:     "ID",
-				},
-				{
-					FieldName: "Port",
-					Label:     "Port",
-				},
-				{
-					FieldName: "IPs",
-					Label:     "IPs",
-				},
-			},
-		},
-	}
-	str, err := human.Marshal(redisClusterResponse, opt)
-	if err != nil {
-		return "", err
-	}
+// TODO
+// func redisClusterGetMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
+// 	type tmp redis.Cluster
+// 	redisClusterResponse := tmp(i.(redis.Cluster))
+// 	opt.Sections = []*human.MarshalSection{
+// 		{
+// 			FieldName: "Endpoints",
+// 			Title:     "Endpoints",
+// 		},
+// 		{
+// 			FieldName: "ACLRules",
+// 			Title:     "ACLRules",
+// 		},
+// 	}
+// 	opt.SubOptions = map[string]*human.MarshalOpt{
+// 		"Endpoints": {
+// 			Fields: []*human.MarshalFieldOpt{
+// 				{
+// 					FieldName: "ID",
+// 					Label:     "ID",
+// 				},
+// 				{
+// 					FieldName: "Port",
+// 					Label:     "Port",
+// 				},
+// 				{
+// 					FieldName: "IPs",
+// 					Label:     "IPs",
+// 				},
+// 			},
+// 		},
+// 	}
+// 	str, err := human.Marshal(redisClusterResponse, opt)
+// 	if err != nil {
+// 		return "", err
+// 	}
 
-	return str, nil
-}
+// 	return str, nil
+// }
 
 var completeClusterCache *redis.Cluster
 

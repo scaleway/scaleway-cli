@@ -6,9 +6,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -22,16 +20,17 @@ const (
 // Marshalers
 //
 
-var volumeStatusMarshalSpecs = human.EnumMarshalSpecs{
-	instance.VolumeStatusAvailable:     &human.EnumMarshalSpec{Attribute: color.FgGreen},
-	instance.VolumeStatusSnapshotting:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	instance.VolumeStatusAttaching:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	instance.VolumeStatusDetaching:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	instance.VolumeStatusCreating:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	instance.VolumeStatusMigrating:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	instance.VolumeStatusError:         &human.EnumMarshalSpec{Attribute: color.FgRed},
-	instance.VolumeStatusUnknownStatus: &human.EnumMarshalSpec{Attribute: color.Faint},
-}
+// TODO
+// var volumeStatusMarshalSpecs = human.EnumMarshalSpecs{
+// 	instance.VolumeStatusAvailable:     &human.EnumMarshalSpec{Attribute: color.FgGreen},
+// 	instance.VolumeStatusSnapshotting:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
+// 	instance.VolumeStatusAttaching:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
+// 	instance.VolumeStatusDetaching:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
+// 	instance.VolumeStatusCreating:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
+// 	instance.VolumeStatusMigrating:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
+// 	instance.VolumeStatusError:         &human.EnumMarshalSpec{Attribute: color.FgRed},
+// 	instance.VolumeStatusUnknownStatus: &human.EnumMarshalSpec{Attribute: color.Faint},
+// }
 
 // Builders
 

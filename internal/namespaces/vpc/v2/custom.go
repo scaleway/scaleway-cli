@@ -2,8 +2,6 @@ package vpc
 
 import (
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
-	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
 )
 
 func GetCommands() *core.Commands {
@@ -14,7 +12,7 @@ func GetCommands() *core.Commands {
 	cmds.Remove("vpc", "post")
 	cmds.MustFind("vpc", "private-network", "get").Override(privateNetworkGetBuilder)
 	cmds.MustFind("vpc", "private-network", "delete").Override(privateNetworkDeleteBuilder)
-	human.RegisterMarshalerFunc(vpc.PrivateNetwork{}, privateNetworkMarshalerFunc)
+	// human.RegisterMarshalerFunc(vpc.PrivateNetwork{}, privateNetworkMarshalerFunc)
 
 	cmds.Merge(core.NewCommands(
 		vpcACLEditCommand(),

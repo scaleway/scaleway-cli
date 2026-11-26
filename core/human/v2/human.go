@@ -10,7 +10,6 @@ import (
 	"strings"
 	"sync"
 
-	// "github.com/kr/pretty"
 	"github.com/scaleway/scaleway-cli/v2/internal/tabwriter"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/strcase"

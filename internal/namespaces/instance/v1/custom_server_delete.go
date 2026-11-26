@@ -8,7 +8,7 @@ import (
 	"sort"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	block "github.com/scaleway/scaleway-sdk-go/api/block/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
@@ -193,7 +193,7 @@ func serverDeleteCommand() *core.Command {
 				if err != nil {
 					return nil, err
 				}
-				humanSize, err := human.Marshal(volume.Size, nil)
+				humanSize, err := humanv2.Format(volume.Size)
 				if err != nil {
 					logger.Debugf("cannot marshal human size %v", volume.Size)
 				}

@@ -24,7 +24,7 @@ type SuccessResult struct {
 
 var _ humanv2.Formatter = &SuccessResult{}
 
-func (s *SuccessResult) FormatHuman() (string, error) {
+func (s SuccessResult) FormatHuman() (string, error) {
 	if s.Empty {
 		return "", nil
 	}
@@ -42,10 +42,6 @@ func (s *SuccessResult) FormatHuman() (string, error) {
 
 	return message, nil
 }
-
-// This type can be return by a command that need to output specific content on stdout directly.
-// When a command return this type, default printer will not be used and bytes will be directly print on stdout.
-type RawResult []byte
 
 var standardSuccessMessages = map[string]string{
 	"delete": "%s has been successfully deleted.",
@@ -96,3 +92,7 @@ func (mr MultiResults) FormatHuman() (string, error) {
 
 	return strings.Join(strs, "\n"), nil
 }
+
+// This type can be return by a command that need to output specific content on stdout directly.
+// When a command return this type, default printer will not be used and bytes will be directly print on stdout.
+type RawResult []byte

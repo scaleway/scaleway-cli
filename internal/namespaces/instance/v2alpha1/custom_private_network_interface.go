@@ -7,30 +7,29 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	instance "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var privateNetworkInterfaceStateMarshalSpecs = human.EnumMarshalSpecs{
-	instance.PrivateNetworkInterfaceStatusAttaching: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-	},
-	instance.PrivateNetworkInterfaceStatusAvailable: &human.EnumMarshalSpec{
-		Attribute: color.FgGreen,
-	},
-	instance.PrivateNetworkInterfaceStatusDetaching: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-	},
-	instance.PrivateNetworkInterfaceStatusSyncing: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-	},
-	instance.PrivateNetworkInterfaceStatusUnknownStatus: &human.EnumMarshalSpec{
-		Attribute: color.Faint,
-	},
-}
+// TODO
+// var privateNetworkInterfaceStateMarshalSpecs = human.EnumMarshalSpecs{
+// 	instance.PrivateNetworkInterfaceStatusAttaching: &human.EnumMarshalSpec{
+// 		Attribute: color.FgBlue,
+// 	},
+// 	instance.PrivateNetworkInterfaceStatusAvailable: &human.EnumMarshalSpec{
+// 		Attribute: color.FgGreen,
+// 	},
+// 	instance.PrivateNetworkInterfaceStatusDetaching: &human.EnumMarshalSpec{
+// 		Attribute: color.FgBlue,
+// 	},
+// 	instance.PrivateNetworkInterfaceStatusSyncing: &human.EnumMarshalSpec{
+// 		Attribute: color.FgBlue,
+// 	},
+// 	instance.PrivateNetworkInterfaceStatusUnknownStatus: &human.EnumMarshalSpec{
+// 		Attribute: color.Faint,
+// 	},
+// }
 
 func privateNetworkInterfaceCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("private-network-id").Required = true
