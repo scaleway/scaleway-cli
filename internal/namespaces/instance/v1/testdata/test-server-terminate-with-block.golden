@@ -4,7 +4,7 @@ Command "terminate" is deprecated, please use 'scw instance server stop-and-dele
 ✅ Success.
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 successfully deleted block volume "Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0"
-successfully deleted block volume "cli-vol-magical-chandrasekhar"
+successfully deleted block volume "cli-vol-zen-sammet"
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "message": "Success",
