@@ -171,7 +171,6 @@ func GetCommands() *core.Commands {
 		serverWaitCommand(),
 	))
 
-
 	//
 	// Server-Type
 	//
