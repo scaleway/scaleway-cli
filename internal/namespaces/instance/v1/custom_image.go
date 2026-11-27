@@ -4,13 +4,10 @@ import (
 	"context"
 	"errors"
 	"reflect"
-	"sort"
 	"strconv"
 	"time"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	block "github.com/scaleway/scaleway-sdk-go/api/block/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -25,67 +22,68 @@ const (
 //
 
 // imageStateMarshalSpecs allows to override the displayed instance.ImageState.
-var (
-	imageStateMarshalSpecs = human.EnumMarshalSpecs{
-		instance.ImageStateCreating:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		instance.ImageStateAvailable: &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		instance.ImageStateError:     &human.EnumMarshalSpec{Attribute: color.FgRed},
-	}
-)
+// var (
+// 	imageStateMarshalSpecs = human.EnumMarshalSpecs{
+// 		instance.ImageStateCreating:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
+// 		instance.ImageStateAvailable: &human.EnumMarshalSpec{Attribute: color.FgGreen},
+// 		instance.ImageStateError:     &human.EnumMarshalSpec{Attribute: color.FgRed},
+// 	}
+// )
 
-func imagesMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
-	type humanImage struct {
-		ID               string
-		Name             string
-		State            instance.ImageState
-		Zone             scw.Zone
-		Volumes          []scw.Size
-		ServerName       string
-		ServerID         string
-		Arch             instance.Arch
-		OrganizationID   string
-		ProjectID        string
-		CreationDate     *time.Time
-		ModificationDate *time.Time
-	}
+// TODO
+// func imagesMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
+// 	type humanImage struct {
+// 		ID               string
+// 		Name             string
+// 		State            instance.ImageState
+// 		Zone             scw.Zone
+// 		Volumes          []scw.Size
+// 		ServerName       string
+// 		ServerID         string
+// 		Arch             instance.Arch
+// 		OrganizationID   string
+// 		ProjectID        string
+// 		CreationDate     *time.Time
+// 		ModificationDate *time.Time
+// 	}
 
-	images := i.([]*imageListItem)
-	humanImages := make([]*humanImage, 0, len(images))
-	for _, image := range images {
-		// We must sort map key to make sure volume size are in the correct order.
-		extraVolumeKeys := make([]string, 0, len(image.ExtraVolumes))
-		for key := range image.ExtraVolumes {
-			extraVolumeKeys = append(extraVolumeKeys, key)
-		}
-		sort.Strings(extraVolumeKeys)
+// 	images := i.([]*imageListItem)
+// 	humanImages := make([]*humanImage, 0, len(images))
+// 	for _, image := range images {
+// 		// We must sort map key to make sure volume size are in the correct order.
+// 		extraVolumeKeys := make([]string, 0, len(image.ExtraVolumes))
+// 		for key := range image.ExtraVolumes {
+// 			extraVolumeKeys = append(extraVolumeKeys, key)
+// 		}
+// 		sort.Strings(extraVolumeKeys)
 
-		// For each image we want to display a list of volume size separated with `,`
-		// e.g: 10 GB, 20 GB
-		volumes := make([]scw.Size, 0, len(extraVolumeKeys)+1)
-		volumes = append(volumes, image.RootVolume.Size)
+// 		// For each image we want to display a list of volume size separated with `,`
+// 		// e.g: 10 GB, 20 GB
+// 		volumes := make([]scw.Size, 0, len(extraVolumeKeys)+1)
+// 		volumes = append(volumes, image.RootVolume.Size)
 
-		for _, key := range extraVolumeKeys {
-			volumes = append(volumes, image.ExtraVolumes[key].Size)
-		}
+// 		for _, key := range extraVolumeKeys {
+// 			volumes = append(volumes, image.ExtraVolumes[key].Size)
+// 		}
 
-		humanImages = append(humanImages, &humanImage{
-			ID:               image.ID,
-			Name:             image.Name,
-			State:            image.State,
-			Zone:             image.Zone,
-			Volumes:          volumes,
-			ServerName:       image.ServerName,
-			ServerID:         image.ServerID,
-			Arch:             image.Arch,
-			OrganizationID:   image.Organization,
-			ProjectID:        image.Project,
-			CreationDate:     image.CreationDate,
-			ModificationDate: image.ModificationDate,
-		})
-	}
+// 		humanImages = append(humanImages, &humanImage{
+// 			ID:               image.ID,
+// 			Name:             image.Name,
+// 			State:            image.State,
+// 			Zone:             image.Zone,
+// 			Volumes:          volumes,
+// 			ServerName:       image.ServerName,
+// 			ServerID:         image.ServerID,
+// 			Arch:             image.Arch,
+// 			OrganizationID:   image.Organization,
+// 			ProjectID:        image.Project,
+// 			CreationDate:     image.CreationDate,
+// 			ModificationDate: image.ModificationDate,
+// 		})
+// 	}
 
-	return human.Marshal(humanImages, nil)
-}
+// 	return human.Marshal(humanImages, nil)
+// }
 
 //
 // Builders

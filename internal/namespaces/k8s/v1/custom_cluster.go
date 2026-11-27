@@ -9,9 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -21,75 +19,12 @@ const (
 	clusterActionTimeout = 10 * time.Minute
 )
 
-//
-// Marshalers
-//
-
-// clusterStatusMarshalerFunc marshals a k8s.ClusterStatus.
-var (
-	clusterStatusMarshalSpecs = human.EnumMarshalSpecs{
-		k8s.ClusterStatusCreating:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		k8s.ClusterStatusReady:        &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		k8s.ClusterStatusPoolRequired: &human.EnumMarshalSpec{Attribute: color.FgRed},
-		k8s.ClusterStatusLocked:       &human.EnumMarshalSpec{Attribute: color.FgRed},
-		k8s.ClusterStatusUpdating:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	}
-)
-
 const (
 	clusterActionCreate = iota
 	clusterActionUpdate
 	clusterActionUpgrade
 	clusterActionDelete
 )
-
-func clusterMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type humanCluster k8s.Cluster
-	cluster := humanCluster(i.(k8s.Cluster))
-
-	// Sections
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "AutoscalerConfig",
-			Title:     "Autoscaler configuration",
-		},
-		{
-			FieldName: "AutoUpgrade",
-			Title:     "Auto-upgrade settings",
-		},
-		{
-			FieldName: "OpenIDConnectConfig",
-			Title:     "Open ID Connect configuration",
-		},
-	}
-
-	str, err := human.Marshal(cluster, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
-}
-
-func clusterAvailableTypesListMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type humanResponse k8s.ListClusterAvailableTypesResponse
-	types := humanResponse(i.(k8s.ListClusterAvailableTypesResponse))
-
-	// Sections
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "ClusterTypes",
-			Title:     "Cluster Types",
-		},
-	}
-
-	str, err := human.Marshal(types, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
-}
 
 func clusterAvailableVersionsListBuilder(c *core.Command) *core.Command {
 	c.AddInterceptors(

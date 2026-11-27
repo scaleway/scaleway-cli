@@ -1,6 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ Endpoint e609c33d-72a5-4d32-89a2-3706fba74fec successfully added.
+
+Endpoints:
 ID                                    IP             PORT  NAME  HOSTNAME
 af6a39da-94fe-462f-81d3-ba36dae53b8c  195.154.71.12  7212  -     -
 e609c33d-72a5-4d32-89a2-3706fba74fec  172.16.0.3     5432  -     -

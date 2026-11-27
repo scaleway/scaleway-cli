@@ -3,34 +3,9 @@ package lb
 import (
 	"context"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 )
-
-var aclMarshalSpecs = human.EnumMarshalSpecs{
-	lb.ACLActionTypeAllow: &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "allow"},
-	lb.ACLActionTypeDeny:  &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "deny"},
-}
-
-func lbACLMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp lb.ACL
-	acl := tmp(i.(lb.ACL))
-
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "Frontend",
-		},
-	}
-
-	str, err := human.Marshal(acl, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
-}
 
 func ACLGetBuilder(c *core.Command) *core.Command {
 	c.Interceptor = interceptACL()

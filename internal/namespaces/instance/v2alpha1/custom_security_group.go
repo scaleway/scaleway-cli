@@ -4,12 +4,9 @@ import (
 	"context"
 	"fmt"
 	"reflect"
-	"strconv"
 	"strings"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	instance "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -24,122 +21,123 @@ const (
 // Marshalers
 //
 
-var (
-	securityGroupActionMarshalSpecs = human.EnumMarshalSpecs{
-		instance.SecurityGroupActionDrop:   &human.EnumMarshalSpec{Attribute: color.FgRed},
-		instance.SecurityGroupActionAccept: &human.EnumMarshalSpec{Attribute: color.FgGreen},
-	}
+// TODO
+// var (
+// 	securityGroupActionMarshalSpecs = human.EnumMarshalSpecs{
+// 		instance.SecurityGroupActionDrop:   &human.EnumMarshalSpec{Attribute: color.FgRed},
+// 		instance.SecurityGroupActionAccept: &human.EnumMarshalSpec{Attribute: color.FgGreen},
+// 	}
 
-	securityGroupRuleActionMarshalSpecs = human.EnumMarshalSpecs{
-		instance.SecurityGroupRuleActionDrop:   &human.EnumMarshalSpec{Attribute: color.FgRed},
-		instance.SecurityGroupRuleActionAccept: &human.EnumMarshalSpec{Attribute: color.FgGreen},
-	}
-)
+// 	securityGroupRuleActionMarshalSpecs = human.EnumMarshalSpecs{
+// 		instance.SecurityGroupRuleActionDrop:   &human.EnumMarshalSpec{Attribute: color.FgRed},
+// 		instance.SecurityGroupRuleActionAccept: &human.EnumMarshalSpec{Attribute: color.FgGreen},
+// 	}
+// )
 
-func securityGroupMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmpSecurityGroup instance.SecurityGroup
-	securityGroup := tmpSecurityGroup(i.(instance.SecurityGroup))
+// func securityGroupMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
+// 	type tmpSecurityGroup instance.SecurityGroup
+// 	securityGroup := tmpSecurityGroup(i.(instance.SecurityGroup))
 
-	// Sections
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName:   "Tags",
-			Title:       "Tags",
-			HideIfEmpty: true,
-		},
-		{
-			FieldName: "Rules",
-			Title:     "Rules",
-		},
-		{
-			FieldName: "DefaultRules",
-			Title:     "Default Rules",
-		},
-	}
+// 	// Sections
+// 	opt.Sections = []*human.MarshalSection{
+// 		{
+// 			FieldName:   "Tags",
+// 			Title:       "Tags",
+// 			HideIfEmpty: true,
+// 		},
+// 		{
+// 			FieldName: "Rules",
+// 			Title:     "Rules",
+// 		},
+// 		{
+// 			FieldName: "DefaultRules",
+// 			Title:     "Default Rules",
+// 		},
+// 	}
 
-	str, err := human.Marshal(securityGroup, opt)
-	if err != nil {
-		return "", err
-	}
+// 	str, err := human.Marshal(securityGroup, opt)
+// 	if err != nil {
+// 		return "", err
+// 	}
 
-	return str, nil
-}
+// 	return str, nil
+// }
 
-func securityGroupRulesMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmpSecurityGroupRules []*instance.SecurityGroupRule
-	securityGroupRules := tmpSecurityGroupRules(i.([]*instance.SecurityGroupRule))
+// func securityGroupRulesMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
+// 	type tmpSecurityGroupRules []*instance.SecurityGroupRule
+// 	securityGroupRules := tmpSecurityGroupRules(i.([]*instance.SecurityGroupRule))
 
-	opt.Fields = []*human.MarshalFieldOpt{
-		{
-			Label:     "ID",
-			FieldName: "ID",
-		},
-		{
-			Label:     "PROTOCOL",
-			FieldName: "Protocol",
-		},
-		{
-			Label:     "DIRECTION",
-			FieldName: "Direction",
-		},
-		{
-			Label:     "ACTION",
-			FieldName: "Action",
-		},
-		{
-			Label:     "SOURCE IP RANGE",
-			FieldName: "SourceIPRange",
-		},
-		{
-			Label:     "SOURCE PORTS",
-			FieldName: "SourcePorts",
-		},
-		{
-			Label:     "DEST IP RANGE",
-			FieldName: "DestinationIPRange",
-		},
-		{
-			Label:     "DEST PORTS",
-			FieldName: "DestinationPorts",
-		},
-	}
+// 	opt.Fields = []*human.MarshalFieldOpt{
+// 		{
+// 			Label:     "ID",
+// 			FieldName: "ID",
+// 		},
+// 		{
+// 			Label:     "PROTOCOL",
+// 			FieldName: "Protocol",
+// 		},
+// 		{
+// 			Label:     "DIRECTION",
+// 			FieldName: "Direction",
+// 		},
+// 		{
+// 			Label:     "ACTION",
+// 			FieldName: "Action",
+// 		},
+// 		{
+// 			Label:     "SOURCE IP RANGE",
+// 			FieldName: "SourceIPRange",
+// 		},
+// 		{
+// 			Label:     "SOURCE PORTS",
+// 			FieldName: "SourcePorts",
+// 		},
+// 		{
+// 			Label:     "DEST IP RANGE",
+// 			FieldName: "DestinationIPRange",
+// 		},
+// 		{
+// 			Label:     "DEST PORTS",
+// 			FieldName: "DestinationPorts",
+// 		},
+// 	}
 
-	str, err := human.Marshal(securityGroupRules, opt)
-	if err != nil {
-		return "", err
-	}
+// 	str, err := human.Marshal(securityGroupRules, opt)
+// 	if err != nil {
+// 		return "", err
+// 	}
 
-	return str, nil
-}
+// 	return str, nil
+// }
 
-func securityGroupRulePortRangeMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmpSecurityGroupRulePortRange instance.SecurityGroupRulePortRange
-	securityGroupRulePortRange := tmpSecurityGroupRulePortRange(
-		i.(instance.SecurityGroupRulePortRange),
-	)
+// func securityGroupRulePortRangeMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
+// 	type tmpSecurityGroupRulePortRange instance.SecurityGroupRulePortRange
+// 	securityGroupRulePortRange := tmpSecurityGroupRulePortRange(
+// 		i.(instance.SecurityGroupRulePortRange),
+// 	)
 
-	humanReadablePortRange := fmt.Sprintf(
-		"%d-%d",
-		securityGroupRulePortRange.Start,
-		securityGroupRulePortRange.End,
-	)
+// 	humanReadablePortRange := fmt.Sprintf(
+// 		"%d-%d",
+// 		securityGroupRulePortRange.Start,
+// 		securityGroupRulePortRange.End,
+// 	)
 
-	if securityGroupRulePortRange.Start == SecurityGroupRulePortMin &&
-		securityGroupRulePortRange.End == SecurityGroupRulePortMax {
-		humanReadablePortRange = "ALL"
-	}
+// 	if securityGroupRulePortRange.Start == SecurityGroupRulePortMin &&
+// 		securityGroupRulePortRange.End == SecurityGroupRulePortMax {
+// 		humanReadablePortRange = "ALL"
+// 	}
 
-	if securityGroupRulePortRange.Start == securityGroupRulePortRange.End {
-		humanReadablePortRange = strconv.Itoa(int(securityGroupRulePortRange.Start))
-	}
+// 	if securityGroupRulePortRange.Start == securityGroupRulePortRange.End {
+// 		humanReadablePortRange = strconv.Itoa(int(securityGroupRulePortRange.Start))
+// 	}
 
-	str, err := human.Marshal(humanReadablePortRange, opt)
-	if err != nil {
-		return "", err
-	}
+// 	str, err := human.Marshal(humanReadablePortRange, opt)
+// 	if err != nil {
+// 		return "", err
+// 	}
 
-	return str, nil
-}
+// 	return str, nil
+// }
 
 //
 // Builders

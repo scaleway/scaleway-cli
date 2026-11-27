@@ -12,7 +12,7 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -28,31 +28,32 @@ type SSHKeyFormat struct {
 	Key  string `json:"key"`
 }
 
-func marshalSSHKeys(i any, opts *human.MarshalOpt) (string, error) {
-	// Custom type to avoid recursion when marshaling
-	type humanKey struct {
-		Name string
-		Type string
-		Key  string
-	}
+// TODO
+// func marshalSSHKeys(i any, opts *human.MarshalOpt) (string, error) {
+// 	// Custom type to avoid recursion when marshaling
+// 	type humanKey struct {
+// 		Name string
+// 		Type string
+// 		Key  string
+// 	}
 
-	keys := i.([]*SSHKeyFormat)
-	humanKeys := make([]*humanKey, len(keys))
-	for i, key := range keys {
-		hKey := &humanKey{
-			Name: key.Name,
-			Type: key.Type,
-			Key:  key.Key,
-		}
-		if len(hKey.Key) > 16 {
-			hKey.Key = hKey.Key[:16]
-		}
+// 	keys := i.([]*SSHKeyFormat)
+// 	humanKeys := make([]*humanKey, len(keys))
+// 	for i, key := range keys {
+// 		hKey := &humanKey{
+// 			Name: key.Name,
+// 			Type: key.Type,
+// 			Key:  key.Key,
+// 		}
+// 		if len(hKey.Key) > 16 {
+// 			hKey.Key = hKey.Key[:16]
+// 		}
 
-		humanKeys[i] = hKey
-	}
+// 		humanKeys[i] = hKey
+// 	}
 
-	return human.Marshal(humanKeys, opts)
-}
+// 	return human.Marshal(humanKeys, opts)
+// }
 
 func instanceSSH() *core.Command {
 	return &core.Command{
@@ -365,7 +366,7 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 			}
 
 			msg := "Removed keys"
-			removedKeysMsg, err := human.Marshal(removedKeys, nil)
+			removedKeysMsg, err := humanv2.Render(removedKeys)
 			if err == nil {
 				msg = msg + "\n" + removedKeysMsg
 			}

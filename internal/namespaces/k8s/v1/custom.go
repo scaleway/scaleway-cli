@@ -3,10 +3,12 @@ package k8s
 import (
 	"context"
 	"errors"
+	"reflect"
 
+	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
-	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
+	"github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -40,19 +42,62 @@ func GetCommands() *core.Commands {
 		k8sPoolRemoveLabelCommand(),
 	))
 
-	human.RegisterMarshalerFunc(k8s.Version{}, versionMarshalerFunc)
-	human.RegisterMarshalerFunc(k8s.Cluster{}, clusterMarshalerFunc)
-	human.RegisterMarshalerFunc(k8s.Pool{}, poolMarshalerFunc)
-	human.RegisterMarshalerFunc(
-		k8s.ClusterStatus(""),
-		human.EnumMarshalFunc(clusterStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(k8s.PoolStatus(""), human.EnumMarshalFunc(poolStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(k8s.NodeStatus(""), human.EnumMarshalFunc(nodeStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(
-		k8s.ListClusterAvailableTypesResponse{},
-		clusterAvailableTypesListMarshalerFunc,
-	)
+	humanv2.RegisterEnumFormat(humanv2.EnumFormats[k8s.ClusterStatus]{
+		k8s.ClusterStatusCreating:     humanv2.EnumFormat{Color: color.FgBlue},
+		k8s.ClusterStatusReady:        humanv2.EnumFormat{Color: color.FgGreen},
+		k8s.ClusterStatusPoolRequired: humanv2.EnumFormat{Color: color.FgRed},
+		k8s.ClusterStatusLocked:       humanv2.EnumFormat{Color: color.FgRed},
+		k8s.ClusterStatusUpdating:     humanv2.EnumFormat{Color: color.FgBlue},
+	})
+
+	humanv2.RegisterLayout(reflect.TypeFor[k8s.Cluster](), humanv2.Layout{
+		Sections: []humanv2.Section{
+			{Path: "AutoscalerConfig", Title: "Autoscaler configuration"},
+			{Path: "AutoUpgrade", Title: "Auto-upgrade settings"},
+			{Path: "OpenIDConnectConfig", Title: "Open ID Connect configuration"},
+		},
+	})
+
+	humanv2.RegisterLayout(reflect.TypeFor[k8s.ListClusterAvailableTypesResponse](), humanv2.Layout{
+		Sections: []humanv2.Section{
+			{Path: "ClusterTypes", Title: "Cluster Types"},
+		},
+	})
+
+	humanv2.RegisterEnumFormat(humanv2.EnumFormats[k8s.NodeStatus]{
+		k8s.NodeStatusCreating:      humanv2.EnumFormat{Color: color.FgBlue},
+		k8s.NodeStatusRebooting:     humanv2.EnumFormat{Color: color.FgBlue},
+		k8s.NodeStatusReady:         humanv2.EnumFormat{Color: color.FgGreen},
+		k8s.NodeStatusNotReady:      humanv2.EnumFormat{Color: color.FgYellow},
+		k8s.NodeStatusCreationError: humanv2.EnumFormat{Color: color.FgRed},
+		k8s.NodeStatusLocked:        humanv2.EnumFormat{Color: color.FgRed},
+	})
+
+	humanv2.RegisterEnumFormat(humanv2.EnumFormats[k8s.PoolStatus]{
+		k8s.PoolStatusScaling:   humanv2.EnumFormat{Color: color.FgBlue},
+		k8s.PoolStatusReady:     humanv2.EnumFormat{Color: color.FgGreen},
+		k8s.PoolStatusLocked:    humanv2.EnumFormat{Color: color.FgRed},
+		k8s.PoolStatusUpgrading: humanv2.EnumFormat{Color: color.FgBlue},
+		k8s.PoolStatusWarning:   humanv2.EnumFormat{Color: color.FgHiYellow},
+	})
+
+	humanv2.RegisterLayout(reflect.TypeFor[k8s.Pool](), humanv2.Layout{
+		Sections: []humanv2.Section{
+			{Path: "UpgradePolicy", Title: "Upgrade Policy"},
+			{Path: "Labels", Title: "Node labels"},
+			{Path: "Taints", Title: "Node taints"},
+			{Path: "StartupTaints", Title: "Node startup taints"},
+		},
+	})
+
+	humanv2.RegisterLayout(reflect.TypeFor[k8s.Version](), humanv2.Layout{
+		Sections: []humanv2.Section{
+			{Path: "AvailableKubeletArgs", Title: "Available Kubelet Arguments"},
+			{Path: "AvailableCnis", Title: "Available CNIs"},
+			{Path: "AvailableFeatureGates", Title: "Available Feature Gates"},
+			{Path: "AvailableAdmissionPlugins", Title: "Available Admission Plugins"},
+		},
+	})
 
 	cmds.MustFind("k8s", "cluster", "list-available-versions").
 		Override(clusterAvailableVersionsListBuilder)

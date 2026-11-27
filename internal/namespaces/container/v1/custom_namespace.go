@@ -4,27 +4,11 @@ import (
 	"context"
 	"time"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/container/v1"
 )
 
-var (
-	containerNamespaceActionTimeout = 5 * time.Minute
-
-	namespaceStatusMarshalSpecs = human.EnumMarshalSpecs{
-		container.NamespaceStatusCreating:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		container.NamespaceStatusDeleting:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		container.NamespaceStatusError:         &human.EnumMarshalSpec{Attribute: color.FgRed},
-		container.NamespaceStatusLocked:        &human.EnumMarshalSpec{Attribute: color.FgRed},
-		container.NamespaceStatusLocking:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		container.NamespaceStatusReady:         &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		container.NamespaceStatusUpdating:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		container.NamespaceStatusUpgrading:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		container.NamespaceStatusUnknownStatus: &human.EnumMarshalSpec{Attribute: color.Faint},
-	}
-)
+var containerNamespaceActionTimeout = 5 * time.Minute
 
 func waitForContainerNamespace(ctx context.Context, _, respI any) (any, error) {
 	ns := respI.(*container.Namespace)

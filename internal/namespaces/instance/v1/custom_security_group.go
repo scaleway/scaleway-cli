@@ -1,61 +1,57 @@
 package instance
 
 import (
-	"strconv"
-
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
-	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 )
 
 //
 // Marshalers
 //
 
-var securityGroupRuleActionMarshalSpecs = human.EnumMarshalSpecs{
-	instance.SecurityGroupRuleActionDrop:   &human.EnumMarshalSpec{Attribute: color.FgRed},
-	instance.SecurityGroupRuleActionAccept: &human.EnumMarshalSpec{Attribute: color.FgGreen},
-}
+// TODO
+// var securityGroupRuleActionMarshalSpecs = human.EnumMarshalSpecs{
+// 	instance.SecurityGroupRuleActionDrop:   &human.EnumMarshalSpec{Attribute: color.FgRed},
+// 	instance.SecurityGroupRuleActionAccept: &human.EnumMarshalSpec{Attribute: color.FgGreen},
+// }
 
-func marshalSecurityGroupRules(i any, _ *human.MarshalOpt) (out string, err error) {
-	rules := i.([]*instance.SecurityGroupRule)
+// func marshalSecurityGroupRules(i any, _ *human.MarshalOpt) (out string, err error) {
+// 	rules := i.([]*instance.SecurityGroupRule)
 
-	type humanRule struct {
-		ID        string
-		Direction string
-		Protocol  instance.SecurityGroupRuleProtocol
-		Action    instance.SecurityGroupRuleAction
-		IPRange   string
-		Dest      string
-	}
+// 	type humanRule struct {
+// 		ID        string
+// 		Direction string
+// 		Protocol  instance.SecurityGroupRuleProtocol
+// 		Action    instance.SecurityGroupRuleAction
+// 		IPRange   string
+// 		Dest      string
+// 	}
 
-	toHumanRule := func(rule *instance.SecurityGroupRule) *humanRule {
-		dest := "ALL"
-		if rule.DestPortFrom != nil {
-			dest = strconv.Itoa(int(*rule.DestPortFrom))
-		}
-		if rule.DestPortTo != nil {
-			dest += "-" + strconv.Itoa(int(*rule.DestPortTo))
-		}
+// 	toHumanRule := func(rule *instance.SecurityGroupRule) *humanRule {
+// 		dest := "ALL"
+// 		if rule.DestPortFrom != nil {
+// 			dest = strconv.Itoa(int(*rule.DestPortFrom))
+// 		}
+// 		if rule.DestPortTo != nil {
+// 			dest += "-" + strconv.Itoa(int(*rule.DestPortTo))
+// 		}
 
-		return &humanRule{
-			ID:        rule.ID,
-			Direction: string(rule.Direction),
-			Protocol:  rule.Protocol,
-			Action:    rule.Action,
-			IPRange:   rule.IPRange.String(),
-			Dest:      dest,
-		}
-	}
-	humanRules := make([]*humanRule, len(rules))
+// 		return &humanRule{
+// 			ID:        rule.ID,
+// 			Direction: string(rule.Direction),
+// 			Protocol:  rule.Protocol,
+// 			Action:    rule.Action,
+// 			IPRange:   rule.IPRange.String(),
+// 			Dest:      dest,
+// 		}
+// 	}
+// 	humanRules := make([]*humanRule, len(rules))
 
-	for i, rule := range rules {
-		humanRules[i] = toHumanRule(rule)
-	}
+// 	for i, rule := range rules {
+// 		humanRules[i] = toHumanRule(rule)
+// 	}
 
-	return human.Marshal(humanRules, nil)
-}
+// 	return human.Marshal(humanRules, nil)
+// }
 
 //
 // Builders

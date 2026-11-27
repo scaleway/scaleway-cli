@@ -1,18 +1,11 @@
 package object
 
 import (
-	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 )
 
 func GetCommands() *core.Commands {
 	cmds := core.NewCommands()
-
-	human.RegisterMarshalerFunc(BucketResponse{}, bucketResponseMarshalerFunc)
-	human.RegisterMarshalerFunc(bucketInfo{}, bucketInfoMarshalerFunc)
-	human.RegisterMarshalerFunc(BucketGetResult{}, bucketGetResultMarshalerFunc)
-	human.RegisterMarshalerFunc(s3.ListBucketsOutput{}.Buckets, bucketMarshalerFunc)
 
 	if cmdObjectRoot := objectRoot(); cmdObjectRoot != nil {
 		cmds.Add(cmdObjectRoot)
@@ -82,6 +75,94 @@ func GetCommands() *core.Commands {
 	}
 
 	cmds.Add(bucketCockpitCommand())
+
+	// human.RegisterMarshalerFunc(BucketResponse{}, bucketResponseMarshalerFunc)
+	// human.RegisterMarshalerFunc(bucketInfo{}, bucketInfoMarshalerFunc)
+	// human.RegisterMarshalerFunc(BucketGetResult{}, bucketGetResultMarshalerFunc)
+	// human.RegisterMarshalerFunc(s3.ListBucketsOutput{}.Buckets, bucketMarshalerFunc)
+	// TODO
+	// func bucketResponseMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
+	// 	resp := i.(BucketResponse)
+
+	// 	messageStr, err := resp.SuccessResult.MarshalHuman()
+	// 	if err != nil {
+	// 		return "", err
+	// 	}
+	// 	bucketStr, err := bucketInfoMarshalerFunc(*resp.BucketInfo, opt)
+	// 	if err != nil {
+	// 		return "", err
+	// 	}
+
+	// 	return strings.Join([]string{
+	// 		messageStr,
+	// 		bucketStr,
+	// 	}, "\n"), nil
+	// }
+	//
+	// func bucketInfoMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
+	// 	// To avoid recursion of human.Marshal we create a dummy type
+	// 	type tmp bucketInfo
+	// 	info := tmp(i.(bucketInfo))
+
+	// 	opt.Sections = []*human.MarshalSection{
+	// 		{
+	// 			FieldName:   "Tags",
+	// 			HideIfEmpty: true,
+	// 		},
+	// 		{
+	// 			FieldName:   "ACL",
+	// 			HideIfEmpty: true,
+	// 		},
+	// 	}
+	// 	str, err := human.Marshal(info, opt)
+	// 	if err != nil {
+	// 		return "", err
+	// 	}
+
+	// 	return str, nil
+	// }
+
+	// func bucketGetResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
+	// 	type tmp BucketGetResult
+	// 	result := tmp(i.(BucketGetResult))
+	// 	opt.Sections = []*human.MarshalSection{
+	// 		{
+	// 			FieldName:   "Tags",
+	// 			HideIfEmpty: true,
+	// 		},
+	// 		{
+	// 			FieldName:   "ACL",
+	// 			HideIfEmpty: true,
+	// 		},
+	// 	}
+	// 	str, err := human.Marshal(result, opt)
+	// 	if err != nil {
+	// 		return "", err
+	// 	}
+
+	// 	return str, nil
+	// }
+
+	// func bucketMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
+	// 	type tmp []types.Bucket
+	// 	result := tmp(i.([]types.Bucket))
+	// 	opt.Fields = []*human.MarshalFieldOpt{
+	// 		{
+	// 			FieldName: "Name",
+	// 			Label:     "Name",
+	// 		},
+	// 		{
+	// 			FieldName: "CreationDate",
+	// 			Label:     "Creation Date",
+	// 		},
+	// 	}
+	// 	str, err := human.Marshal(result, opt)
+	// 	if err != nil {
+	// 		return "", err
+	// 	}
+
+	// 	return str, nil
+	// }
 
 	return cmds
 }

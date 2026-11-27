@@ -14,13 +14,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
-	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	rdbSDK "github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -31,53 +28,6 @@ const (
 	errorMessagePrivateEndpointNotFound = "private endpoint not found"
 	errorMessageEndpointNotFound        = "any endpoint is associated on your instance"
 )
-
-var instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
-	rdbSDK.InstanceStatusUnknown: &human.EnumMarshalSpec{
-		Attribute: color.Faint,
-		Value:     "unknown",
-	},
-	rdbSDK.InstanceStatusReady: &human.EnumMarshalSpec{
-		Attribute: color.FgGreen,
-		Value:     "ready",
-	},
-	rdbSDK.InstanceStatusProvisioning: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "provisioning",
-	},
-	rdbSDK.InstanceStatusConfiguring: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "configuring",
-	},
-	rdbSDK.InstanceStatusDeleting: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "deleting",
-	},
-	rdbSDK.InstanceStatusError: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
-		Value:     "error",
-	},
-	rdbSDK.InstanceStatusAutohealing: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "auto-healing",
-	},
-	rdbSDK.InstanceStatusLocked: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
-		Value:     "locked",
-	},
-	rdbSDK.InstanceStatusInitializing: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "initialized",
-	},
-	rdbSDK.InstanceStatusDiskFull: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
-		Value:     "disk_full",
-	},
-	rdbSDK.InstanceStatusBackuping: &human.EnumMarshalSpec{
-		Attribute: color.FgBlue,
-		Value:     "backuping",
-	},
-}
 
 type serverWaitRequest struct {
 	InstanceID string
@@ -94,101 +44,6 @@ type rdbCreateInstanceRequestCustom struct {
 	*rdbSDK.CreateInstanceRequest
 	InitEndpoints    []*rdbEndpointSpecCustom `json:"init-endpoints"`
 	GeneratePassword bool
-}
-
-func createInstanceResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	instanceResult := i.(CreateInstanceResult)
-
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "Endpoint",
-		},
-		{
-			FieldName: "Volume",
-		},
-		{
-			FieldName: "BackupSchedule",
-		},
-		{
-			FieldName: "Settings",
-		},
-	}
-
-	instanceStr, err := human.Marshal(instanceResult.Instance, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return strings.Join([]string{
-		instanceStr,
-		terminal.Style("Password: ", color.Bold) + "\n" + instanceResult.Password,
-	}, "\n\n"), nil
-}
-
-func instanceMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	// To avoid recursion of human.Marshal we create a dummy type
-	type tmp rdbSDK.Instance
-	instance := tmp(i.(rdbSDK.Instance))
-
-	// Sections
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "Endpoint",
-		},
-		{
-			FieldName: "Volume",
-		},
-		{
-			FieldName: "BackupSchedule",
-		},
-		{
-			FieldName: "Settings",
-		},
-	}
-
-	str, err := human.Marshal(instance, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
-}
-
-func backupScheduleMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	backupSchedule := i.(rdbSDK.BackupSchedule)
-
-	if opt.TableCell {
-		if backupSchedule.Disabled {
-			return "Disabled", nil
-		}
-
-		return "Enabled", nil
-	}
-
-	// To avoid recursion of human.Marshal we create a dummy type
-	type LocalBackupSchedule rdbSDK.BackupSchedule
-	type tmp struct {
-		LocalBackupSchedule
-		Frequency *scw.Duration `json:"frequency"`
-		Retention *scw.Duration `json:"retention"`
-	}
-
-	localBackupSchedule := tmp{
-		LocalBackupSchedule: LocalBackupSchedule(backupSchedule),
-		Frequency: &scw.Duration{
-			Seconds: int64(backupSchedule.Frequency) * 3600,
-		},
-		Retention: &scw.Duration{
-			Seconds: int64(backupSchedule.Retention) * 24 * 3600,
-		},
-	}
-
-	str, err := human.Marshal(localBackupSchedule, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
 }
 
 func instanceCloneBuilder(c *core.Command) *core.Command {

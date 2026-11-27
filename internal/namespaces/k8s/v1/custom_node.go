@@ -5,25 +5,13 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
 )
 
 const (
 	nodeActionTimeout = 10 * time.Minute
 )
-
-// nodeStatusMarshalSpecs allows to override the displayed status color
-var nodeStatusMarshalSpecs = human.EnumMarshalSpecs{
-	k8s.NodeStatusCreating:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	k8s.NodeStatusRebooting:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	k8s.NodeStatusReady:         &human.EnumMarshalSpec{Attribute: color.FgGreen},
-	k8s.NodeStatusNotReady:      &human.EnumMarshalSpec{Attribute: color.FgYellow},
-	k8s.NodeStatusCreationError: &human.EnumMarshalSpec{Attribute: color.FgRed},
-	k8s.NodeStatusLocked:        &human.EnumMarshalSpec{Attribute: color.FgRed},
-}
 
 const (
 	nodeActionReboot = iota

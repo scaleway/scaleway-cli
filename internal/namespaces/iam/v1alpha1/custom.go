@@ -9,26 +9,17 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-var logActionMarshalSpecs = human.EnumMarshalSpecs{
-	iam.LogActionUnknownAction: &human.EnumMarshalSpec{Attribute: color.Faint},
-	iam.LogActionCreated:       &human.EnumMarshalSpec{Attribute: color.FgGreen},
-	iam.LogActionUpdated:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	iam.LogActionDeleted:       &human.EnumMarshalSpec{Attribute: color.FgRed},
-}
-
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
 	cmds.MustFind("iam").Groups = []string{"security"}
-
-	human.RegisterMarshalerFunc(iam.LogAction(""), human.EnumMarshalFunc(logActionMarshalSpecs))
 
 	cmds.Merge(core.NewCommands(
 		initWithSSHCommand(),
@@ -58,9 +49,23 @@ func GetCommands() *core.Commands {
 	iamCmd.ArgsType = iamApiKeyCustomBuilder.argType
 	iamCmd.ArgSpecs = iamApiKeyCustomBuilder.argSpecs
 	iamCmd.Run = iamApiKeyCustomBuilder.run
-	human.RegisterMarshalerFunc(apiKeyResponse{}, apiKeyMarshalerFunc)
 
 	cmds.MustFind("iam", "api-key", "list").Override(iamApiKeyListCustomBuilder)
+
+	humanv2.RegisterEnumFormat(humanv2.EnumFormats[iam.LogAction]{
+		iam.LogActionUnknownAction: humanv2.EnumFormat{Color: color.Faint},
+		iam.LogActionCreated:       humanv2.EnumFormat{Color: color.FgGreen},
+		iam.LogActionUpdated:       humanv2.EnumFormat{Color: color.FgBlue},
+		iam.LogActionDeleted:       humanv2.EnumFormat{Color: color.FgRed},
+	})
+
+	humanv2.RegisterLayout(reflect.TypeFor[apiKeyResponse](), humanv2.Layout{
+		Sections: []humanv2.Section{
+			{Path: "EntityType"},
+			{Path: "APIKey"},
+			{Path: "Policies"},
+		},
+	})
 
 	return cmds
 }

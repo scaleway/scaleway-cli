@@ -57,11 +57,11 @@ f42a040b-6c91-4b11-beb0-b0b21e641fda  Windows 2019 standard    false    monthly 
 f74a6322-070e-41dd-a13f-8165ea63aca8  Windows 2019 datacenter  false    monthly              € 168.00  false       e04414b9-16d4-4ffb-8ba1-6b80704c7d2a  option_type_unknown
 83a8fb91-47b4-4c20-82f9-84c31d79bfd8  Windows 2022 standard    false    monthly              € 25.20   false       bf705b90-1548-4368-98ca-d17dbd8dd860  option_type_unknown
 
-Bandwidth(Mbit/s):
-1000
+Bandwidth(bit/s):
+1000000000
 
-PrivateBandwidth(Mbit/s):
-1000
+PrivateBandwidth(bit/s):
+1000000000
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "c5853302-63e4-40c7-a711-4a91629565c8",

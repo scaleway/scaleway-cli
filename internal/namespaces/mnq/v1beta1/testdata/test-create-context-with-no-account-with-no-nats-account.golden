@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Failed to list nats account: no nats account found, please create a NATS account with 'scw mnq nats create-account'
+failed to list nats account: no nats account found, please create a NATS account with 'scw mnq nats create-account'
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
   "error": "failed to list nats account: no nats account found, please create a NATS account with 'scw mnq nats create-account'"

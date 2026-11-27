@@ -4,30 +4,8 @@ import (
 	"context"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 )
-
-func lbFrontendMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp lb.Frontend
-	frontend := tmp(i.(lb.Frontend))
-
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "LB",
-		},
-		{
-			FieldName: "Backend",
-		},
-	}
-
-	str, err := human.Marshal(frontend, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
-}
 
 func frontendGetBuilder(c *core.Command) *core.Command {
 	c.Interceptor = interceptFrontend()

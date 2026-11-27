@@ -1,8 +1,9 @@
 package domain
 
 import (
+	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	domain "github.com/scaleway/scaleway-sdk-go/api/domain/v2beta1"
 )
 
@@ -49,14 +50,19 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("dns", "zone", "import").ArgSpecs.GetByName("bind-source.content").CanLoadFile = true
 
-	human.RegisterMarshalerFunc(
-		domain.DNSZoneStatus(""),
-		human.EnumMarshalFunc(zoneStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		domain.SSLCertificateStatus(""),
-		human.EnumMarshalFunc(certificateStatusMarshalSpecs),
-	)
+	humanv2.RegisterEnumFormat(humanv2.EnumFormats[domain.DNSZoneStatus]{
+		domain.DNSZoneStatusActive:  humanv2.EnumFormat{Color: color.FgGreen},
+		domain.DNSZoneStatusError:   humanv2.EnumFormat{Color: color.FgRed},
+		domain.DNSZoneStatusLocked:  humanv2.EnumFormat{Color: color.FgRed},
+		domain.DNSZoneStatusPending: humanv2.EnumFormat{Color: color.FgBlue},
+	})
+	humanv2.RegisterEnumFormat(humanv2.EnumFormats[domain.SSLCertificateStatus]{
+		domain.SSLCertificateStatusError:   humanv2.EnumFormat{Color: color.FgRed},
+		domain.SSLCertificateStatusNew:     humanv2.EnumFormat{Color: color.FgBlue},
+		domain.SSLCertificateStatusPending: humanv2.EnumFormat{Color: color.FgBlue},
+		domain.SSLCertificateStatusSuccess: humanv2.EnumFormat{Color: color.FgGreen},
+		domain.SSLCertificateStatusUnknown: humanv2.EnumFormat{Color: color.Faint},
+	})
 
 	return cmds
 }

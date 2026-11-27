@@ -1,9 +1,11 @@
 package lb
 
 import (
+	"reflect"
+
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 )
@@ -18,27 +20,128 @@ func warningKapsuleTaggedMessageView() string {
 }
 
 func GetCommands() *core.Commands {
-	human.RegisterMarshalerFunc(lb.LBTypeStock(""), human.EnumMarshalFunc(lbTypeStockMarshalSpecs))
-	human.RegisterMarshalerFunc(lb.LBStatus(""), human.EnumMarshalFunc(lbStatusMarshalSpecs))
-	human.RegisterMarshalerFunc(
-		lb.CertificateStatus(""),
-		human.EnumMarshalFunc(certificateStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(lb.ACLActionType(""), human.EnumMarshalFunc(aclMarshalSpecs))
-	human.RegisterMarshalerFunc(
-		lb.BackendServerStatsHealthCheckStatus(""),
-		human.EnumMarshalFunc(backendServerStatsHealthCheckStatusMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(
-		lb.BackendServerStatsServerState(""),
-		human.EnumMarshalFunc(backendServerStatsServerStateMarshalSpecs),
-	)
-	human.RegisterMarshalerFunc(lb.LB{}, lbMarshalerFunc)
-	human.RegisterMarshalerFunc(lb.Backend{}, lbBackendMarshalerFunc)
-	human.RegisterMarshalerFunc(lb.Frontend{}, lbFrontendMarshalerFunc)
-	human.RegisterMarshalerFunc(lb.Certificate{}, lbCertificateMarshalerFunc)
-	human.RegisterMarshalerFunc(lb.ACL{}, lbACLMarshalerFunc)
-	human.RegisterMarshalerFunc([]*lb.PrivateNetwork{}, lbPrivateNetworksMarshalerFunc)
+	humanv2.RegisterEnumFormat(humanv2.EnumFormats[lb.LBTypeStock]{
+		lb.LBTypeStockLowStock:   humanv2.EnumFormat{Color: color.FgYellow, Value: "low stock"},
+		lb.LBTypeStockAvailable:  humanv2.EnumFormat{Color: color.FgGreen, Value: "available"},
+		lb.LBTypeStockOutOfStock: humanv2.EnumFormat{Color: color.FgRed, Value: "out of stock"},
+	})
+
+	humanv2.RegisterEnumFormat(humanv2.EnumFormats[lb.LBStatus]{
+		lb.LBStatusError:     humanv2.EnumFormat{Color: color.FgRed, Value: "error"},
+		lb.LBStatusLocked:    humanv2.EnumFormat{Color: color.FgRed, Value: "locked"},
+		lb.LBStatusMigrating: humanv2.EnumFormat{Color: color.FgBlue, Value: "migrating"},
+		lb.LBStatusPending:   humanv2.EnumFormat{Color: color.FgBlue, Value: "pending"},
+		lb.LBStatusReady:     humanv2.EnumFormat{Color: color.FgGreen, Value: "ready"},
+		lb.LBStatusStopped:   humanv2.EnumFormat{Color: color.Faint, Value: "stopped"},
+		lb.LBStatusUnknown:   humanv2.EnumFormat{Color: color.Faint, Value: "unknown"},
+	})
+
+	humanv2.RegisterEnumFormat(humanv2.EnumFormats[lb.CertificateStatus]{
+		lb.CertificateStatusError:   humanv2.EnumFormat{Color: color.FgRed, Value: "error"},
+		lb.CertificateStatusPending: humanv2.EnumFormat{Color: color.FgBlue, Value: "pending"},
+		lb.CertificateStatusReady:   humanv2.EnumFormat{Color: color.FgGreen, Value: "ready"},
+	})
+
+	humanv2.RegisterEnumFormat(humanv2.EnumFormats[lb.ACLActionType]{
+		lb.ACLActionTypeAllow:    humanv2.EnumFormat{Color: color.FgGreen, Value: "allow"},
+		lb.ACLActionTypeDeny:     humanv2.EnumFormat{Color: color.FgRed, Value: "deny"},
+		lb.ACLActionTypeRedirect: humanv2.EnumFormat{Value: "redirect"},
+	})
+
+	humanv2.RegisterEnumFormat(humanv2.EnumFormats[lb.BackendServerStatsHealthCheckStatus]{
+		lb.BackendServerStatsHealthCheckStatusPassed:   humanv2.EnumFormat{Color: color.FgGreen, Value: "passed"},
+		lb.BackendServerStatsHealthCheckStatusFailed:   humanv2.EnumFormat{Color: color.FgRed, Value: "failed"},
+		lb.BackendServerStatsHealthCheckStatusUnknown:  humanv2.EnumFormat{Color: color.Faint, Value: "unknown"},
+		lb.BackendServerStatsHealthCheckStatusNeutral:  humanv2.EnumFormat{Color: color.Faint, Value: "neutral"},
+		lb.BackendServerStatsHealthCheckStatusCondpass: humanv2.EnumFormat{Color: color.FgBlue, Value: "condition passed"},
+	})
+	humanv2.RegisterEnumFormat(humanv2.EnumFormats[lb.BackendServerStatsServerState]{
+		lb.BackendServerStatsServerStateStopped:  humanv2.EnumFormat{Color: color.FgRed, Value: "stopped"},
+		lb.BackendServerStatsServerStateStarting: humanv2.EnumFormat{Color: color.FgBlue, Value: "starting"},
+		lb.BackendServerStatsServerStateRunning:  humanv2.EnumFormat{Color: color.FgGreen, Value: "running"},
+		lb.BackendServerStatsServerStateStopping: humanv2.EnumFormat{Color: color.FgBlue, Value: "stopping"},
+	})
+
+	humanv2.RegisterLayout(reflect.TypeFor[lb.LB](), humanv2.Layout{
+		Sections: []humanv2.Section{
+			{Path: "IP", Title: "IPs"},
+			{Path: "Instances", Title: "LB Instances"},
+		},
+	})
+	humanv2.RegisterLayout(reflect.TypeFor[lb.Backend](), humanv2.Layout{
+		Sections: []humanv2.Section{
+			{Path: "HealthCheck"},
+			{Path: "Pool"},
+			{Path: "LB"},
+			{Path: "LB.IP", Title: "IPs"},
+			{Path: "LB.Instances", Title: "LB Instances"},
+		},
+	})
+	humanv2.RegisterLayout(reflect.TypeFor[lb.Frontend](), humanv2.Layout{
+		Sections: []humanv2.Section{
+			{Path: "LB"},
+			{Path: "LB.IP", Title: "IPs"},
+			{Path: "LB.Instances", Title: "LB Instances"},
+			{Path: "Backend"},
+			{Path: "Backend.HealthCheck", Title: "Health Check"},
+			{Path: "Backend.Pool", Title: "Pool"},
+			{Path: "Backend.LB", Title: "Lb"},
+			{Path: "Backend.LB.IP", Title: "IPs"},
+			{Path: "Backend.LB.Instances", Title: "LB Instances"},
+		},
+	})
+	humanv2.RegisterLayout(reflect.TypeFor[lb.Certificate](), humanv2.Layout{
+		Sections: []humanv2.Section{
+			{Path: "LB"},
+		},
+	})
+	humanv2.RegisterLayout(reflect.TypeFor[lb.ACL](), humanv2.Layout{
+		Sections: []humanv2.Section{
+			{Path: "Frontend"},
+		},
+	})
+	humanv2.RegisterLayout(reflect.TypeFor[[]*lb.LB](), humanv2.Layout{
+		Sections: []humanv2.Section{{
+			Path: "", Main: true,
+			Fields: []humanv2.Field{
+				{Path: "ID"},
+				{Path: "Name"},
+				{Path: "Description"},
+				{Path: "Status"},
+				{Path: "Instances"},
+				{Path: "OrganizationID"},
+				{Path: "ProjectID"},
+				{Path: "IP"},
+				{Path: "IpamIPs"},
+				{Path: "Tags"},
+				{Path: "FrontendCount"},
+				{Path: "BackendCount"},
+				{Path: "Type"},
+				{Path: "SslCompatibilityLevel"},
+				{Path: "CreatedAt"},
+				{Path: "UpdatedAt"},
+				{Path: "PrivateNetworkCount"},
+				{Path: "RouteCount"},
+				{Path: "Region"},
+				{Path: "Zone"},
+				{Path: "Srn"},
+			},
+		}},
+	})
+	humanv2.RegisterLayout(reflect.TypeFor[[]*lb.PrivateNetwork](), humanv2.Layout{
+		Sections: []humanv2.Section{{
+			Path: "", Main: true,
+			Fields: []humanv2.Field{
+				{Path: "IpamIDs"},
+				{Path: "DHCPConfig.IPID"},
+				{Path: "StaticConfig.IPAddress"},
+				{Path: "PrivateNetworkID"},
+				{Path: "Status"},
+				{Path: "CreatedAt"},
+				{Path: "UpdatedAt"},
+			},
+		}},
+	})
 
 	cmds := GetGeneratedCommands()
 

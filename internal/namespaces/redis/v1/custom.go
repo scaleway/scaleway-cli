@@ -2,8 +2,6 @@ package redis
 
 import (
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
-	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 )
 
 func GetCommands() *core.Commands {
@@ -11,7 +9,8 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("redis").Groups = []string{"database"}
 
-	human.RegisterMarshalerFunc(redis.Cluster{}, redisClusterGetMarshalerFunc)
+	// TODO
+	// human.RegisterMarshalerFunc(redis.Cluster{}, redisClusterGetMarshalerFunc)
 
 	cmds.Merge(core.NewCommands(clusterWaitCommand(), clusterConnectCommand()))
 	cmds.MustFind("redis", "cluster", "create").Override(clusterCreateBuilder)

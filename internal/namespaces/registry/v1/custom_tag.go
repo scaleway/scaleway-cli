@@ -6,9 +6,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -19,14 +17,15 @@ import (
 //
 
 // tagStatusMarshalerFunc marshals a registry.TagStatus.
-var (
-	tagStatusMarshalSpecs = human.EnumMarshalSpecs{
-		registry.TagStatusReady:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		registry.TagStatusLocked:   &human.EnumMarshalSpec{Attribute: color.FgRed},
-		registry.TagStatusError:    &human.EnumMarshalSpec{Attribute: color.FgRed},
-		registry.TagStatusDeleting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	}
-)
+// TODO
+// var (
+// 	tagStatusMarshalSpecs = human.EnumMarshalSpecs{
+// 		registry.TagStatusReady:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
+// 		registry.TagStatusLocked:   &human.EnumMarshalSpec{Attribute: color.FgRed},
+// 		registry.TagStatusError:    &human.EnumMarshalSpec{Attribute: color.FgRed},
+// 		registry.TagStatusDeleting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
+// 	}
+// )
 
 type CustomTag struct {
 	registry.Tag

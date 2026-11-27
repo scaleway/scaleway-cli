@@ -12,9 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	block "github.com/scaleway/scaleway-sdk-go/api/block/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
@@ -32,98 +30,99 @@ const (
 //
 
 // serverStateMarshalSpecs allows to override the displayed instance.ServerState.
-var (
-	serverStateMarshalSpecs = human.EnumMarshalSpecs{
-		instance.ServerStateRunning: &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		instance.ServerStateStopped: &human.EnumMarshalSpec{
-			Attribute: color.Faint,
-			Value:     "archived",
-		},
-		instance.ServerStateStoppedInPlace: &human.EnumMarshalSpec{Attribute: color.Faint},
-		instance.ServerStateStarting:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		instance.ServerStateStopping:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		instance.ServerStateLocked:         &human.EnumMarshalSpec{Attribute: color.FgRed},
-	}
-)
+// TODO
+// var (
+// 	serverStateMarshalSpecs = human.EnumMarshalSpecs{
+// 		instance.ServerStateRunning: &human.EnumMarshalSpec{Attribute: color.FgGreen},
+// 		instance.ServerStateStopped: &human.EnumMarshalSpec{
+// 			Attribute: color.Faint,
+// 			Value:     "archived",
+// 		},
+// 		instance.ServerStateStoppedInPlace: &human.EnumMarshalSpec{Attribute: color.Faint},
+// 		instance.ServerStateStarting:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
+// 		instance.ServerStateStopping:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
+// 		instance.ServerStateLocked:         &human.EnumMarshalSpec{Attribute: color.FgRed},
+// 	}
+// )
 
 // serverLocationMarshalerFunc marshals a instance.ServerLocation.
-func serverLocationMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
-	location := i.(instance.ServerLocation)
-	zone, err := scw.ParseZone(location.ZoneID)
-	if err != nil {
-		return "", err
-	}
+// func serverLocationMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
+// 	location := i.(instance.ServerLocation)
+// 	zone, err := scw.ParseZone(location.ZoneID)
+// 	if err != nil {
+// 		return "", err
+// 	}
 
-	return string(zone), nil
-}
+// 	return string(zone), nil
+// }
 
 // serversMarshalerFunc marshals a Server.
-func serversMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	// humanServerInList is the custom Server type used for list view.
-	type humanServerInList struct {
-		ID                string
-		Name              string
-		Type              string
-		State             instance.ServerState
-		Zone              scw.Zone
-		PublicIP          net.IP
-		PrivateIP         *string
-		Tags              []string
-		ImageName         string
-		RoutedIPEnabled   *bool
-		PlacementGroup    *instance.PlacementGroup
-		ModificationDate  *time.Time
-		CreationDate      *time.Time
-		Volumes           int
-		Protected         bool
-		SecurityGroupName string
-		SecurityGroupID   string
-		StateDetail       string
-		Arch              instance.Arch
-		ImageID           string
-		ProjectID         string
-	}
+// func serversMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
+// 	// humanServerInList is the custom Server type used for list view.
+// 	type humanServerInList struct {
+// 		ID                string
+// 		Name              string
+// 		Type              string
+// 		State             instance.ServerState
+// 		Zone              scw.Zone
+// 		PublicIP          net.IP
+// 		PrivateIP         *string
+// 		Tags              []string
+// 		ImageName         string
+// 		RoutedIPEnabled   *bool
+// 		PlacementGroup    *instance.PlacementGroup
+// 		ModificationDate  *time.Time
+// 		CreationDate      *time.Time
+// 		Volumes           int
+// 		Protected         bool
+// 		SecurityGroupName string
+// 		SecurityGroupID   string
+// 		StateDetail       string
+// 		Arch              instance.Arch
+// 		ImageID           string
+// 		ProjectID         string
+// 	}
 
-	servers := i.([]*instance.Server)
-	humanServers := make([]*humanServerInList, 0, len(servers))
-	for _, server := range servers {
-		publicIPAddress := net.IP(nil)
-		if server.PublicIP != nil {
-			publicIPAddress = server.PublicIP.Address
-		}
-		serverImageID := ""
-		serverImageName := ""
-		if server.Image != nil {
-			serverImageID = server.Image.ID
-			serverImageName = server.Image.Name
-		}
-		humanServers = append(humanServers, &humanServerInList{
-			ID:                server.ID,
-			Name:              server.Name,
-			Type:              server.CommercialType,
-			State:             server.State,
-			Zone:              server.Zone,
-			PublicIP:          publicIPAddress,
-			PrivateIP:         server.PrivateIP,
-			Tags:              server.Tags,
-			ImageName:         serverImageName,
-			RoutedIPEnabled:   server.RoutedIPEnabled, //nolint: staticcheck // Field is deprecated but still supported
-			PlacementGroup:    server.PlacementGroup,
-			ModificationDate:  server.ModificationDate,
-			CreationDate:      server.CreationDate,
-			Volumes:           len(server.Volumes),
-			Protected:         server.Protected,
-			SecurityGroupName: server.SecurityGroup.Name,
-			SecurityGroupID:   server.SecurityGroup.ID,
-			StateDetail:       server.StateDetail,
-			Arch:              server.Arch,
-			ImageID:           serverImageID,
-			ProjectID:         server.Project,
-		})
-	}
+// 	servers := i.([]*instance.Server)
+// 	humanServers := make([]*humanServerInList, 0, len(servers))
+// 	for _, server := range servers {
+// 		publicIPAddress := net.IP(nil)
+// 		if server.PublicIP != nil {
+// 			publicIPAddress = server.PublicIP.Address
+// 		}
+// 		serverImageID := ""
+// 		serverImageName := ""
+// 		if server.Image != nil {
+// 			serverImageID = server.Image.ID
+// 			serverImageName = server.Image.Name
+// 		}
+// 		humanServers = append(humanServers, &humanServerInList{
+// 			ID:                server.ID,
+// 			Name:              server.Name,
+// 			Type:              server.CommercialType,
+// 			State:             server.State,
+// 			Zone:              server.Zone,
+// 			PublicIP:          publicIPAddress,
+// 			PrivateIP:         server.PrivateIP,
+// 			Tags:              server.Tags,
+// 			ImageName:         serverImageName,
+// 			RoutedIPEnabled:   server.RoutedIPEnabled, //nolint: staticcheck // Field is deprecated but still supported
+// 			PlacementGroup:    server.PlacementGroup,
+// 			ModificationDate:  server.ModificationDate,
+// 			CreationDate:      server.CreationDate,
+// 			Volumes:           len(server.Volumes),
+// 			Protected:         server.Protected,
+// 			SecurityGroupName: server.SecurityGroup.Name,
+// 			SecurityGroupID:   server.SecurityGroup.ID,
+// 			StateDetail:       server.StateDetail,
+// 			Arch:              server.Arch,
+// 			ImageID:           serverImageID,
+// 			ProjectID:         server.Project,
+// 		})
+// 	}
 
-	return human.Marshal(humanServers, opt)
-}
+// 	return human.Marshal(humanServers, opt)
+// }
 
 type customVolume struct {
 	ID               string     `json:"id"`
@@ -160,11 +159,11 @@ type ServerWithWarningsResponse struct {
 }
 
 // serversMarshalerFunc marshals a BootscriptID.
-func bootscriptMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
-	bootscript := i.(instance.Bootscript)
+// func bootscriptMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
+// 	bootscript := i.(instance.Bootscript)
 
-	return bootscript.Title, nil
-}
+// 	return bootscript.Title, nil
+// }
 
 //
 // Builders

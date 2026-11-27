@@ -1,6 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ ACL rule 1.2.3.4/32 successfully added.
+
+Rules:
 IP          PROTOCOL  DIRECTION  ACTION  DESCRIPTION       PORT
 0.0.0.0/0   tcp       inbound    allow   Allow All         27078
 1.2.3.4/32  tcp       inbound    allow   Allow 1.2.3.4/32  27078

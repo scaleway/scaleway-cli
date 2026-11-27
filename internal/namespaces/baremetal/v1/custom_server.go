@@ -7,9 +7,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	baremetal "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -18,21 +16,6 @@ import (
 const (
 	ServerActionTimeout = 20 * time.Minute
 )
-
-var serverPingStatusMarshalSpecs = human.EnumMarshalSpecs{
-	baremetal.ServerPingStatusPingStatusDown: &human.EnumMarshalSpec{
-		Attribute: color.FgRed,
-		Value:     "down",
-	},
-	baremetal.ServerPingStatusPingStatusUp: &human.EnumMarshalSpec{
-		Attribute: color.FgGreen,
-		Value:     "up",
-	},
-	baremetal.ServerPingStatusPingStatusUnknown: &human.EnumMarshalSpec{
-		Attribute: color.Faint,
-		Value:     "unknown",
-	},
-}
 
 func serverWaitCommand() *core.Command {
 	type serverWaitRequest struct {
@@ -234,31 +217,4 @@ func serverListBuilder(c *core.Command) *core.Command {
 	}
 
 	return c
-}
-
-func serverMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp baremetal.Server
-	baremetalServer := tmp(i.(baremetal.Server))
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "IPs",
-			Title:     "IPs",
-		},
-		{
-			FieldName:   "Options",
-			Title:       "Options",
-			HideIfEmpty: true,
-		},
-		{
-			FieldName:   "Install",
-			Title:       "Install",
-			HideIfEmpty: true,
-		},
-	}
-	str, err := human.Marshal(baremetalServer, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
 }

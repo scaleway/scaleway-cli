@@ -4,9 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -16,14 +14,15 @@ import (
 //
 
 // imageStatusMarshalerFunc marshals a registry.ImageStatus.
-var (
-	imageStatusMarshalSpecs = human.EnumMarshalSpecs{
-		registry.ImageStatusReady:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		registry.ImageStatusLocked:   &human.EnumMarshalSpec{Attribute: color.FgRed},
-		registry.ImageStatusError:    &human.EnumMarshalSpec{Attribute: color.FgRed},
-		registry.ImageStatusDeleting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	}
-)
+// TODO
+// var (
+// 	imageStatusMarshalSpecs = human.EnumMarshalSpecs{
+// 		registry.ImageStatusReady:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
+// 		registry.ImageStatusLocked:   &human.EnumMarshalSpec{Attribute: color.FgRed},
+// 		registry.ImageStatusError:    &human.EnumMarshalSpec{Attribute: color.FgRed},
+// 		registry.ImageStatusDeleting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
+// 	}
+// )
 
 type CustomImage struct {
 	registry.Image

@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
@@ -22,15 +22,9 @@ type SuccessResult struct {
 	TargetResource any
 }
 
-// This type can be return by a command that need to output specific content on stdout directly.
-// When a command return this type, default printer will not be used and bytes will be directly print on stdout.
-type RawResult []byte
+var _ humanv2.Formatter = &SuccessResult{}
 
-var standardSuccessMessages = map[string]string{
-	"delete": "%s has been successfully deleted.",
-}
-
-func (s *SuccessResult) MarshalHuman() (string, error) {
+func (s SuccessResult) FormatHuman() (string, error) {
 	if s.Empty {
 		return "", nil
 	}
@@ -47,6 +41,10 @@ func (s *SuccessResult) MarshalHuman() (string, error) {
 	}
 
 	return message, nil
+}
+
+var standardSuccessMessages = map[string]string{
+	"delete": "%s has been successfully deleted.",
 }
 
 func (s *SuccessResult) MarshalJSON() ([]byte, error) {
@@ -80,10 +78,12 @@ func (s *SuccessResult) getMessage() string {
 
 type MultiResults []any
 
-func (mr *MultiResults) MarshalHuman() (string, error) {
+var _ humanv2.Formatter = &MultiResults{}
+
+func (mr MultiResults) FormatHuman() (string, error) {
 	strs := []string(nil)
-	for _, r := range *mr {
-		str, err := human.Marshal(r, nil)
+	for _, r := range mr {
+		str, err := humanv2.Render(r)
 		if err != nil {
 			return "", err
 		}
@@ -92,3 +92,7 @@ func (mr *MultiResults) MarshalHuman() (string, error) {
 
 	return strings.Join(strs, "\n"), nil
 }
+
+// This type can be return by a command that need to output specific content on stdout directly.
+// When a command return this type, default printer will not be used and bytes will be directly print on stdout.
+type RawResult []byte

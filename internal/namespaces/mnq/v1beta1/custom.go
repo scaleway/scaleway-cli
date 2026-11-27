@@ -1,8 +1,9 @@
 package mnq
 
 import (
+	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
 	mnq "github.com/scaleway/scaleway-sdk-go/api/mnq/v1beta1"
 )
 
@@ -11,10 +12,11 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("mnq").Groups = []string{"integration"}
 
-	human.RegisterMarshalerFunc(
-		mnq.SnsInfoStatus(""),
-		human.EnumMarshalFunc(mnqSqsInfoStatusMarshalSpecs),
-	)
+	humanv2.RegisterEnumFormat(humanv2.EnumFormats[mnq.SqsInfoStatus]{
+		mnq.SqsInfoStatusUnknownStatus: humanv2.EnumFormat{Color: color.Faint},
+		mnq.SqsInfoStatusEnabled:       humanv2.EnumFormat{Color: color.FgGreen},
+		mnq.SqsInfoStatusDisabled:      humanv2.EnumFormat{Color: color.FgRed},
+	})
 
 	cmds.MustFind("mnq", "nats", "get-account").Override(mnqNatsGetAccountBuilder)
 	cmds.MustFind("mnq", "nats", "list-credentials").Override(mnqNatsListCredentialsBuilder)

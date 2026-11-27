@@ -8,7 +8,8 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/commands"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
+	humanv2 "github.com/scaleway/scaleway-cli/v2/core/human/v2"
+
 	"github.com/stretchr/testify/assert"
 )
 
@@ -78,7 +79,7 @@ func Test_Alias(t *testing.T) {
 		AfterFunc: core.AfterFuncCombine(
 			func(ctx *core.AfterFuncCtx) error {
 				res := ctx.ExecuteCmd([]string{"scw", "alias", "list"})
-				resString, err := human.Marshal(res, nil)
+				resString, err := humanv2.Render(res)
 				if err != nil {
 					return err
 				}

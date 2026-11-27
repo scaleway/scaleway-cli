@@ -8,9 +8,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/inference/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -20,32 +18,6 @@ const (
 	deploymentActionCreate  = 1
 	deploymentActionDelete  = 2
 )
-
-var deploymentStateMarshalSpecs = human.EnumMarshalSpecs{
-	inference.DeploymentStatusCreating:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	inference.DeploymentStatusDeploying: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	inference.DeploymentStatusDeleting:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
-	inference.DeploymentStatusError:     &human.EnumMarshalSpec{Attribute: color.FgRed},
-	inference.DeploymentStatusReady:     &human.EnumMarshalSpec{Attribute: color.FgGreen},
-	inference.DeploymentStatusLocked:    &human.EnumMarshalSpec{Attribute: color.FgRed},
-}
-
-func DeploymentMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
-	type tmp inference.Deployment
-	deployment := tmp(i.(inference.Deployment))
-	opt.Sections = []*human.MarshalSection{
-		{
-			FieldName: "Endpoints",
-			Title:     "Endpoints",
-		},
-	}
-	str, err := human.Marshal(deployment, opt)
-	if err != nil {
-		return "", err
-	}
-
-	return str, nil
-}
 
 func deploymentDeleteBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = waitForDeploymentFunc(deploymentActionDelete)
