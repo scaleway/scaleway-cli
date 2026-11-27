@@ -9,7 +9,7 @@ ARGS:
   namespace-id      ID of the namespace to update
   [description]     Namespace description
   [is-public]       Defines whether or not the namespace is public
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
 FLAGS:
   -h, --help[=true|false]                help for update
