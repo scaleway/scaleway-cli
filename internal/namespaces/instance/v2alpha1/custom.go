@@ -48,6 +48,7 @@ func GetCommands() *core.Commands {
 		instanceServerPause(),
 		instanceServerStop(),
 		instanceServerStopAndDelete(),
+		instanceServerStartSpot(),
 		instanceServerGetCompatibleTypes(),
 		instanceServerTypeList(),
 		instanceSnapshotList(),
@@ -164,10 +165,12 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "server", "pause").Override(serverPauseBuilder)
 	cmds.MustFind("instance", "server", "stop").Override(serverStopBuilder)
 	cmds.MustFind("instance", "server", "stop-and-delete").Override(serverStopAndDeleteBuilder)
+	cmds.MustFind("instance", "server", "start-spot").Override(serverStartSpotBuilder)
 
 	cmds.Merge(core.NewCommands(
 		serverWaitCommand(),
 	))
+
 
 	//
 	// Server-Type

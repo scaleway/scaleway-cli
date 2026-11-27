@@ -124,6 +124,25 @@ func serverMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 }
 
 //
+// Builders
+//
+
+func serverStartSpotBuilder(c *core.Command) *core.Command {
+	c.ArgSpecs.GetByName("server-id").Positional = true
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
+		return instance.NewAPI(core.ExtractClient(ctx)).
+			WaitForServer(&instance.WaitForServerRequest{
+				Zone:          respI.(*instance.Server).Zone,
+				ServerID:      respI.(*instance.Server).ID,
+				Timeout:       new(serverActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
+			})
+	}
+
+	return c
+}
+
+//
 // Custom commands
 //
 

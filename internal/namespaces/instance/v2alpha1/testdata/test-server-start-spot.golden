@@ -1,0 +1,61 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                      ccd27c30-9805-4758-aeec-fe70ea9c770b
+Srn                                     srn://instance.scw.eu/zones/pl-waw-3/servers/ccd27c30-9805-4758-aeec-fe70ea9c770b
+Name                                    cli-srv-jolly-cerf
+ProjectID                               fa1e3217-dc80-42ac-85c3-3f034b78b552
+ServerType                              POP2-2C-8G
+Status                                  started
+Volumes.0.ID                            e4c37ccd-bf54-41c6-9b7b-06069ce2a469
+Volumes.0.VolumeType                    sbs
+Architecture                            x86_64
+CreatedAt                               few seconds ago
+UpdatedAt                               few seconds ago
+RescueMode                              false
+StatusDetail                            booting kernel
+PublicNetworkInterface.Status           available
+PublicNetworkInterface.MacAddress       de:00:00:2a:d0:8e
+PublicNetworkInterface.SecurityGroupID  ba003d66-9446-4fab-8e22-3de38ddbfb52
+PublicNetworkInterface.DNS              ccd27c30-9805-4758-aeec-fe70ea9c770b.pub.instances.scw.cloud
+Zone                                    pl-waw-3
+RuntimeInfo.Spot                        true
+RuntimeInfo.PhysicalHostID              9b233120-fe63-4dca-8735-d4ed8802d75b
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "ccd27c30-9805-4758-aeec-fe70ea9c770b",
+  "srn": "srn://instance.scw.eu/zones/pl-waw-3/servers/ccd27c30-9805-4758-aeec-fe70ea9c770b",
+  "name": "cli-srv-jolly-cerf",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "tags": [],
+  "server_type": "POP2-2C-8G",
+  "placement_group_id": null,
+  "dedicated_pool_id": null,
+  "status": "started",
+  "volumes": [
+    {
+      "id": "e4c37ccd-bf54-41c6-9b7b-06069ce2a469",
+      "volume_type": "sbs"
+    }
+  ],
+  "filesystems": [],
+  "architecture": "x86_64",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "private_network_interfaces": [],
+  "rescue_mode": false,
+  "boot_volume_id": null,
+  "status_detail": "booting kernel",
+  "windows_rdp_password": null,
+  "public_network_interface": {
+    "status": "available",
+    "mac_address": "de:00:00:2a:d0:8e",
+    "security_group_id": "ba003d66-9446-4fab-8e22-3de38ddbfb52",
+    "ips": [],
+    "dns": "ccd27c30-9805-4758-aeec-fe70ea9c770b.pub.instances.scw.cloud"
+  },
+  "zone": "pl-waw-3",
+  "runtime_info": {
+    "spot": true,
+    "physical_host_id": "9b233120-fe63-4dca-8735-d4ed8802d75b"
+  }
+}
