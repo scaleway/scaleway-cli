@@ -471,6 +471,12 @@ echo "$out"
 echo "$out" | grep -qE '^Version +2\.[0-9]+\.[0-9]+' || { echo "cli smoke test failed: unexpected version output"; exit 1; }
 '''
 
+[tasks.'check:lockfile']
+description = "check that the mise.lock is up to date"
+run = '''
+mise lock --check
+'''
+
 [tasks.sweep]
 run = '''
 go run ./cmd/scw-sweeper
