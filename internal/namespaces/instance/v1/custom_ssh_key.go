@@ -239,20 +239,19 @@ func fetchKeysOnServers(
 			_, _ = interactive.Println(sshCmd)
 
 			exitCode, err := session.ExecCmd(ctx, sshCmd)
-			// OpenSSH can handle a signal itself and return 255.
-			if interruptErr := session.Err(ctx); interruptErr != nil {
-				return interruptErr
-			}
-			if err != nil || exitCode != 0 {
-				if err != nil {
-					_, _ = interactive.Println("Failed:", err)
-				} else {
-					_, _ = interactive.Println(
-						"Failed: ssh command failed with exit code",
-						exitCode,
-					)
-				}
-			} else {
+			// OpenSSH may handle the signal itself and exit 255; ExecCmd still
+			// returns InterruptedError when the session caught SIGINT/SIGTERM.
+			switch {
+			case connect.IsInterrupted(err):
+				return err
+			case err != nil:
+				_, _ = interactive.Println("Failed:", err)
+			case exitCode != 0:
+				_, _ = interactive.Println(
+					"Failed: ssh command failed with exit code",
+					exitCode,
+				)
+			default:
 				_, _ = interactive.Println("Success")
 			}
 		}

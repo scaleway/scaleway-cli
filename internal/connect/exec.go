@@ -24,6 +24,8 @@ func CommandContext(ctx context.Context, name string, args ...string) *exec.Cmd 
 }
 
 // LookPath resolves an executable using the current PATH.
+// It lives here so callers can check PATH without importing os/exec
+// (depguard bans that package outside connect).
 func LookPath(name string) (string, error) {
 	return exec.LookPath(name)
 }
@@ -56,6 +58,23 @@ func SetEnv(cmd *exec.Cmd, key, value string) {
 // A child killed by a signal exits with 128+signal, the shell convention.
 func ExecCmd(ctx context.Context, cmd *exec.Cmd) (exitCode int, err error) {
 	return execCmd(ctx, cmd, runChild)
+}
+
+// InterruptedError means the SignalSession received SIGINT or SIGTERM.
+type InterruptedError struct {
+	Signal os.Signal
+	Code   int
+}
+
+func (e *InterruptedError) Error() string {
+	return fmt.Sprintf("received %s", e.Signal)
+}
+
+// IsInterrupted reports whether err is (or wraps) an InterruptedError.
+func IsInterrupted(err error) bool {
+	var ie *InterruptedError
+
+	return errors.As(err, &ie)
 }
 
 // SignalSession runs successive child processes under a single signal subscription.
@@ -100,15 +119,27 @@ func (s *SignalSession) Err(ctx context.Context) error {
 		code = 143
 	}
 
-	return &core.CliError{Err: fmt.Errorf("received %s", s.caught), Empty: true, Code: code}
+	return &core.CliError{
+		Err:   &InterruptedError{Signal: s.caught, Code: code},
+		Empty: true,
+		Code:  code,
+	}
 }
 
+// ExecCmd runs cmd in this session. On interrupt it returns an InterruptedError
+// (wrapped in core.CliError), including when the child exits on its own after
+// the signal — callers must not continue the loop in that case.
 func (s *SignalSession) ExecCmd(ctx context.Context, cmd *exec.Cmd) (int, error) {
 	if err := s.Err(ctx); err != nil {
 		return 0, err
 	}
 
-	return execCmd(ctx, cmd, s.runChild)
+	code, err := execCmd(ctx, cmd, s.runChild)
+	if interruptErr := s.Err(ctx); interruptErr != nil {
+		return code, interruptErr
+	}
+
+	return code, err
 }
 
 func (s *SignalSession) runChild(cmd *exec.Cmd) (int, error) {

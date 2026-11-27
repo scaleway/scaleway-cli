@@ -27,6 +27,18 @@ func TestCommandCanceledBeforeExec(t *testing.T) {
 	}
 }
 
+func TestIsInterrupted(t *testing.T) {
+	t.Parallel()
+
+	if connect.IsInterrupted(errors.New("ssh failed")) {
+		t.Fatal("plain error must not be interrupted")
+	}
+	ie := &connect.InterruptedError{Signal: os.Interrupt, Code: 130}
+	if !connect.IsInterrupted(ie) {
+		t.Fatal("InterruptedError must match")
+	}
+}
+
 func TestSetEnv(t *testing.T) {
 	t.Parallel()
 

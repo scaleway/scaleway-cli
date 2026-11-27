@@ -74,3 +74,50 @@ func Test_ExecCmd_interrupted(t *testing.T) {
 		})
 	}
 }
+
+func Test_SignalSession_ExecCmd_interrupted(t *testing.T) {
+	signals := make(chan os.Signal, 1)
+	signal.Notify(signals, syscall.SIGINT, syscall.SIGTERM)
+	defer signal.Stop(signals)
+
+	for _, sig := range []syscall.Signal{syscall.SIGINT, syscall.SIGTERM} {
+		t.Run(sig.String(), func(t *testing.T) {
+			ctx, cancel := context.WithTimeout(t.Context(), 10*time.Second)
+			defer cancel()
+
+			errCh := make(chan error, 1)
+			ready := make(subprocessStarted)
+			go func() {
+				errCh <- connect.WithSignalSession(ctx, func(session *connect.SignalSession) error {
+					cmd := exec.CommandContext(ctx, "sleep", "30")
+					cmd.Stdin = ready
+					_, err := session.ExecCmd(ctx, cmd)
+
+					return err
+				})
+			}()
+
+			select {
+			case <-ready:
+			case <-ctx.Done():
+				t.Fatal("child did not start")
+			}
+
+			require.NoError(t, syscall.Kill(os.Getpid(), sig))
+
+			select {
+			case err := <-errCh:
+				require.True(t, connect.IsInterrupted(err), "got %v", err)
+				var ie *connect.InterruptedError
+				require.ErrorAs(t, err, &ie)
+				want := 130
+				if sig == syscall.SIGTERM {
+					want = 143
+				}
+				assert.Equal(t, want, ie.Code)
+			case <-ctx.Done():
+				t.Fatal("session did not return after signal")
+			}
+		})
+	}
+}

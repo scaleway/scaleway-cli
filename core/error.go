@@ -35,6 +35,10 @@ func (s *CliError) Error() string {
 	return s.Err.Error()
 }
 
+func (s *CliError) Unwrap() error {
+	return s.Err
+}
+
 func (s *CliError) MarshalHuman() (string, error) {
 	if s.Empty {
 		return "", nil
