@@ -1,0 +1,67 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID            17c21580-4af1-45ad-b589-f50ba7dbb817
+Srn           srn://instance.scw.eu/zones/pl-waw-3/servers/17c21580-4af1-45ad-b589-f50ba7dbb817
+Name          cli-srv-hardcore-greider
+ProjectID     fa1e3217-dc80-42ac-85c3-3f034b78b552
+ServerType    POP2-2C-8G
+Status        started
+Architecture  x86_64
+CreatedAt     few seconds ago
+UpdatedAt     few seconds ago
+RescueMode    false
+StatusDetail  booting kernel
+Zone          pl-waw-3
+
+Volumes:
+ID                                    VOLUME TYPE
+10302af1-0b7c-4f6f-bebd-8e3c3a1ea2db  sbs
+
+Public Network Interface:
+Status           available
+MacAddress       de:00:00:d6:89:34
+SecurityGroupID  ba003d66-9446-4fab-8e22-3de38ddbfb52
+DNS              17c21580-4af1-45ad-b589-f50ba7dbb817.pub.instances.scw.cloud
+
+Runtime Info:
+Spot            true
+PhysicalHostID  c558c495-ea05-4c02-a103-6a33ccf64f99
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "17c21580-4af1-45ad-b589-f50ba7dbb817",
+  "srn": "srn://instance.scw.eu/zones/pl-waw-3/servers/17c21580-4af1-45ad-b589-f50ba7dbb817",
+  "name": "cli-srv-hardcore-greider",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "tags": [],
+  "server_type": "POP2-2C-8G",
+  "placement_group_id": null,
+  "dedicated_pool_id": null,
+  "status": "started",
+  "volumes": [
+    {
+      "id": "10302af1-0b7c-4f6f-bebd-8e3c3a1ea2db",
+      "volume_type": "sbs"
+    }
+  ],
+  "filesystems": [],
+  "architecture": "x86_64",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "private_network_interfaces": [],
+  "rescue_mode": false,
+  "boot_volume_id": null,
+  "status_detail": "booting kernel",
+  "windows_rdp_password": null,
+  "public_network_interface": {
+    "status": "available",
+    "mac_address": "de:00:00:d6:89:34",
+    "security_group_id": "ba003d66-9446-4fab-8e22-3de38ddbfb52",
+    "ips": [],
+    "dns": "17c21580-4af1-45ad-b589-f50ba7dbb817.pub.instances.scw.cloud"
+  },
+  "zone": "pl-waw-3",
+  "runtime_info": {
+    "spot": true,
+    "physical_host_id": "c558c495-ea05-4c02-a103-6a33ccf64f99"
+  }
+}

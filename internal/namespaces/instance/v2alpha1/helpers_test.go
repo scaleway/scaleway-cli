@@ -63,7 +63,11 @@ func deleteServerV1(metaKey string) core.AfterFunc {
 		server := getServerFromMeta(ctx.Meta, metaKey)
 		if server.State == instanceSDKV1.ServerStateRunning {
 			err := core.ExecAfterCmd(
-				fmt.Sprintf("scw instance server stop -w {{ .%s.ID }}", metaKey),
+				fmt.Sprintf(
+					"scw instance server stop -w {{ .%s.ID }} zone=%s",
+					metaKey,
+					server.Zone,
+				),
 			)(
 				ctx,
 			)
@@ -73,7 +77,10 @@ func deleteServerV1(metaKey string) core.AfterFunc {
 		}
 
 		return core.ExecAfterCmd(fmt.Sprintf(
-			"scw instance server delete {{ .%s.ID }} with-ip=true with-volumes=all", metaKey),
+			"scw instance server delete {{ .%s.ID }} with-ip=true with-volumes=all zone=%s",
+			metaKey,
+			server.Zone,
+		),
 		)(
 			ctx,
 		)

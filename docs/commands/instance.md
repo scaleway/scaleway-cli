@@ -2193,6 +2193,27 @@ scw instance server start 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 
 
 
+### Start an Instance as Spot
+
+Spot instances are billed at a discount compared to regular instances. However, they can be interrupted
+at any time.
+
+**Usage:**
+
+```shell
+scw instance server start-spot <server-id ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name      | Description                                                             | Argument Specifications                                                                                                                                                         |
+|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| server-id | ID of the server to start as spot instance                              | Required                                                                                                                                                                        |
+| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
+
+
+
 ### Stop an Instance
 
 Stop a running or paused Instance.

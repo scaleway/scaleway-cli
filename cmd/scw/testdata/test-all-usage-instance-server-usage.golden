@@ -29,6 +29,7 @@ AVAILABLE COMMANDS:
   reboot               Reboot an Instance
   ssh                  SSH into a server
   start                Start an Instance
+  start-spot           Start an Instance as Spot
   stop                 Stop an Instance
   stop-and-delete      Stop and delete an Instance
   update               Update an Instance
