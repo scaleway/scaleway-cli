@@ -8,10 +8,11 @@ USAGE:
   scw login [arg=value ...]
 
 ARGS:
-  [port]         The port number used to wait for browser's response
-  [expires-at]   Expiration date of the API key (ISO 8601 or relative like +1y, +90d). Required when your organization enforces max-api-key-expiration-duration.
-  [project-id]   Project ID to use for this login session for the API key created during login
-  [print-url]    Print the login url instead of trying to open the browser automatically
+  [port]              The port number used to wait for browser's response
+  [expires-at]        Expiration date of the API key (ISO 8601 or relative like +1y, +90d). Required when your organization enforces max-api-key-expiration-duration.
+  [project-id]        Project ID to use for this login session for the API key created during login
+  [organization-id]   Organization in which the API key is created, defaults to the default_organization_id of the profile
+  [print-url]         Print the login url instead of trying to open the browser automatically
 
 FLAGS:
   -h, --help[=true|false]                help for login
