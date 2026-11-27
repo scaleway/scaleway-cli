@@ -1,11 +1,43 @@
 package connect_test
 
 import (
+	"context"
+	"errors"
+	"os"
 	"os/exec"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/connect"
 )
+
+func TestCommandCanceledBeforeExec(t *testing.T) {
+	t.Parallel()
+
+	binary, err := os.Executable()
+	if err != nil {
+		t.Fatal(err)
+	}
+	ctx, cancel := context.WithCancel(t.Context())
+	cmd := connect.CommandContext(ctx, binary, "-test.run=^$")
+	cancel()
+
+	_, err = connect.ExecCmd(ctx, cmd)
+	if !errors.Is(err, context.Canceled) || cmd.Process != nil {
+		t.Fatalf("process = %v, error = %v; want nil, context.Canceled", cmd.Process, err)
+	}
+}
+
+func TestIsInterrupted(t *testing.T) {
+	t.Parallel()
+
+	if connect.IsInterrupted(errors.New("ssh failed")) {
+		t.Fatal("plain error must not be interrupted")
+	}
+	ie := &connect.InterruptedError{Signal: os.Interrupt, Code: 130}
+	if !connect.IsInterrupted(ie) {
+		t.Fatal("InterruptedError must match")
+	}
+}
 
 func TestSetEnv(t *testing.T) {
 	t.Parallel()

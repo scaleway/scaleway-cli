@@ -95,11 +95,16 @@ func vpcACLEditCommand() *core.Command {
 				return nil, fmt.Errorf("failed to list ACL rules: %w", err)
 			}
 
-			editedSetRequest, err := editor.UpdateResourceEditor(rules, setRequest, &editor.Config{
-				PutRequest:  true,
-				MarshalMode: args.Mode,
-				Template:    vpcACLEditYamlExample,
-			})
+			editedSetRequest, err := editor.UpdateResourceEditor(
+				ctx,
+				rules,
+				setRequest,
+				&editor.Config{
+					PutRequest:  true,
+					MarshalMode: args.Mode,
+					Template:    vpcACLEditYamlExample,
+				},
+			)
 			if err != nil {
 				return nil, err
 			}

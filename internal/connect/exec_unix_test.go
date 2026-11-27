@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 	"os/exec"
+	"os/signal"
 	"syscall"
 	"testing"
 	"time"
@@ -16,35 +17,107 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+type subprocessStarted chan struct{}
+
+func (ready subprocessStarted) Read([]byte) (int, error) {
+	close(ready)
+
+	return 0, io.EOF
+}
+
 func Test_ExecCmd_interrupted(t *testing.T) {
-	cmd := exec.Command("sleep", "300")
-	cmd.Stdout = io.Discard
-	cmd.Stderr = io.Discard
+	// Keep the test process alive if the runner fails to register its handler.
+	signals := make(chan os.Signal, 1)
+	signal.Notify(signals, syscall.SIGINT, syscall.SIGTERM)
+	defer signal.Stop(signals)
 
-	res := make(chan struct {
-		code int
-		err  error
-	}, 1)
-	go func() {
-		code, err := connect.ExecCmd(context.Background(), cmd)
-		res <- struct {
-			code int
-			err  error
-		}{code, err}
-	}()
+	for _, sig := range []syscall.Signal{syscall.SIGINT, syscall.SIGTERM} {
+		t.Run(sig.String(), func(t *testing.T) {
+			ctx, cancel := context.WithTimeout(t.Context(), 10*time.Second)
+			defer cancel()
 
-	// Give the child time to start. The signal handler is registered before
-	// the child starts, so there is no window where the test process would
-	// use the default (terminate) handler.
-	time.Sleep(200 * time.Millisecond)
-	require.NoError(t, syscall.Kill(os.Getpid(), syscall.SIGINT))
+			type result struct {
+				code int
+				err  error
+			}
+			const children = 2
+			results := make(chan result, children)
 
-	select {
-	case r := <-res:
-		require.NoError(t, r.err)
-		assert.Equal(t, 130, r.code, "child killed by SIGINT must exit with 130")
-		assert.False(t, cmd.ProcessState.Success())
-	case <-time.After(10 * time.Second):
-		t.Fatal("ExecCmd did not return after SIGINT")
+			for range children {
+				ready := make(subprocessStarted)
+				cmd := exec.CommandContext(ctx, "sleep", "30")
+				// os/exec starts copying stdin only after starting the child.
+				cmd.Stdin = ready
+				go func() {
+					code, err := connect.ExecCmd(ctx, cmd)
+					results <- result{code: code, err: err}
+				}()
+
+				select {
+				case <-ready:
+				case <-ctx.Done():
+					t.Fatal("child did not start")
+				}
+			}
+
+			require.NoError(t, syscall.Kill(os.Getpid(), sig))
+
+			for range children {
+				select {
+				case result := <-results:
+					require.NoError(t, result.err)
+					assert.Equal(t, 128+int(sig), result.code)
+				case <-ctx.Done():
+					t.Fatal("child did not exit after signal")
+				}
+			}
+		})
+	}
+}
+
+func Test_SignalSession_ExecCmd_interrupted(t *testing.T) {
+	signals := make(chan os.Signal, 1)
+	signal.Notify(signals, syscall.SIGINT, syscall.SIGTERM)
+	defer signal.Stop(signals)
+
+	for _, sig := range []syscall.Signal{syscall.SIGINT, syscall.SIGTERM} {
+		t.Run(sig.String(), func(t *testing.T) {
+			ctx, cancel := context.WithTimeout(t.Context(), 10*time.Second)
+			defer cancel()
+
+			errCh := make(chan error, 1)
+			ready := make(subprocessStarted)
+			go func() {
+				errCh <- connect.WithSignalSession(ctx, func(session *connect.SignalSession) error {
+					cmd := exec.CommandContext(ctx, "sleep", "30")
+					cmd.Stdin = ready
+					_, err := session.ExecCmd(ctx, cmd)
+
+					return err
+				})
+			}()
+
+			select {
+			case <-ready:
+			case <-ctx.Done():
+				t.Fatal("child did not start")
+			}
+
+			require.NoError(t, syscall.Kill(os.Getpid(), sig))
+
+			select {
+			case err := <-errCh:
+				require.True(t, connect.IsInterrupted(err), "got %v", err)
+				var ie *connect.InterruptedError
+				require.ErrorAs(t, err, &ie)
+				want := 130
+				if sig == syscall.SIGTERM {
+					want = 143
+				}
+				assert.Equal(t, want, ie.Code)
+			case <-ctx.Done():
+				t.Fatal("session did not return after signal")
+			}
+		})
 	}
 }

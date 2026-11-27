@@ -9,7 +9,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"os/exec"
 	"path"
 	"path/filepath"
 	"reflect"
@@ -18,6 +17,7 @@ import (
 	"text/template"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -126,7 +126,7 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI any) (i any, e erro
 	}
 
 	_, _ = interactive.Println()
-	_, err = exec.LookPath("docker-credential-" + binaryName)
+	_, err = connect.LookPath("docker-credential-" + binaryName)
 	if err != nil {
 		_, _ = interactive.Println(
 			fmt.Sprintf(

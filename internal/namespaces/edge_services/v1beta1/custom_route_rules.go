@@ -100,12 +100,17 @@ Otherwise, opens the editor with full rules including backend_stage_id for each 
 				ignoreFields = []string{"backend_stage_id"}
 			}
 
-			editedSetRequest, err := editor.UpdateResourceEditor(rules, setRequest, &editor.Config{
-				PutRequest:   true,
-				MarshalMode:  args.Mode,
-				Template:     template,
-				IgnoreFields: ignoreFields,
-			})
+			editedSetRequest, err := editor.UpdateResourceEditor(
+				ctx,
+				rules,
+				setRequest,
+				&editor.Config{
+					PutRequest:   true,
+					MarshalMode:  args.Mode,
+					Template:     template,
+					IgnoreFields: ignoreFields,
+				},
+			)
 			if err != nil {
 				return nil, err
 			}

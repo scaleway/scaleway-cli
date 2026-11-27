@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"os/exec"
 	"path"
 	"reflect"
 	"runtime"
@@ -17,6 +16,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
 	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
@@ -1006,10 +1006,10 @@ func instanceConnectCommand() *core.Command {
 			}
 
 			// Run command
-			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
+			cmd := connect.Command(cmdArgs[0], cmdArgs[1:]...)
 			// cmd.Stdin = os.Stdin
 			core.ExtractLogger(ctx).Debugf("executing: %s\n", cmd.Args)
-			exitCode, err := core.ExecCmd(ctx, cmd)
+			exitCode, err := connect.ExecCmd(ctx, cmd)
 			if err != nil {
 				return nil, err
 			}
@@ -1081,6 +1081,7 @@ You can modify the values and save the file to apply the new configuration.`,
 			}
 
 			editedRequestRaw, err := editor.UpdateResourceEditor(
+				ctx,
 				initialRequest,
 				&rdbSDK.SetInstanceSettingsRequest{
 					Region:     args.Region,

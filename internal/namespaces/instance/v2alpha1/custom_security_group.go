@@ -484,6 +484,7 @@ func securityGroupEditCommand() *core.Command {
 			}
 
 			editedSetRequest, err := editor.UpdateResourceEditor(
+				ctx,
 				resource,
 				setRequest,
 				&editor.Config{

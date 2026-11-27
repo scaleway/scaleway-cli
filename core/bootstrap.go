@@ -53,10 +53,7 @@ type BootstrapConfig struct {
 	// This is useful for tests as it allows overriding env without relying on global state.
 	OverrideEnv map[string]string
 
-	// OverrideExec allow to override exec.Cmd.Run method. In order for this to work
-	// your code must call le core.ExecCmd function to execute a given command.
-	// If this function is not defined the exec.Cmd.Run function will be called directly.
-	// This function is intended to be use for tests purposes.
+	// OverrideExec replaces subprocess execution through connect.ExecCmd in tests.
 	OverrideExec OverrideExecFunc
 
 	// Optional we use it if defined

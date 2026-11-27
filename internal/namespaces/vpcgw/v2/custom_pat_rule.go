@@ -61,11 +61,16 @@ func vpcgwPATRulesEditCommand() *core.Command {
 				return nil, fmt.Errorf("failed to list PAT rules: %w", err)
 			}
 
-			editedSetRequest, err := editor.UpdateResourceEditor(rules, setRequest, &editor.Config{
-				PutRequest:  true,
-				MarshalMode: args.Mode,
-				Template:    vpcgwPATRulesEditYamlExample,
-			})
+			editedSetRequest, err := editor.UpdateResourceEditor(
+				ctx,
+				rules,
+				setRequest,
+				&editor.Config{
+					PutRequest:  true,
+					MarshalMode: args.Mode,
+					Template:    vpcgwPATRulesEditYamlExample,
+				},
+			)
 			if err != nil {
 				return nil, err
 			}

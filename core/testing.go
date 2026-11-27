@@ -135,6 +135,9 @@ type ExecFuncCtx struct {
 	Client *scw.Client
 }
 
+// OverrideExecFunc receives the prepared os/exec command before it starts.
+type OverrideExecFunc func(cmd *exec.Cmd) (exitCode int, err error)
+
 type OverrideExecTestFunc func(ctx *ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error)
 
 type BeforeFuncCtx struct {
