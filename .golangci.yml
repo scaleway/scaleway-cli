@@ -88,12 +88,9 @@ linters:
             - "$all"
             - "!$test"
             - "!**/internal/connect/**"
-            # Existing plugin, editor, Git metadata, lookup and test-hook code.
+            # Existing plugin dispatch and the test hook signature.
             - "!**/cmd/scw/main.go"
             - "!**/core/testing.go"
-            - "!**/internal/editor/editor.go"
-            - "!**/internal/namespaces/config/commands.go"
-            - "!**/internal/namespaces/registry/v1/custom_docker_helper.go"
           deny:
             - pkg: os/exec$
               desc: use internal/connect to construct and run subprocesses

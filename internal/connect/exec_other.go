@@ -1,4 +1,4 @@
-//go:build !unix
+//go:build !unix && !windows
 
 package connect
 
@@ -11,7 +11,6 @@ func runChild(cmd *exec.Cmd) (int, error) {
 	return childResult(cmd.Run())
 }
 
-func forwardSignal(process *os.Process, _ os.Signal) {
-	// Windows cannot send an interrupt to an individual process.
-	_ = process.Kill()
+func forwardSignal(process *os.Process, sig os.Signal) {
+	_ = process.Signal(sig)
 }

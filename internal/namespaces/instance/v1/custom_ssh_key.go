@@ -184,72 +184,81 @@ Keep in mind that SSH keys are scoped by project.`,
 				return nil, fmt.Errorf("failed to fetch servers: %w", err)
 			}
 
-			session := connect.ListenForSignals()
-			defer session.Close()
-
-			for i, server := range servers.Servers {
-				if err := session.Err(ctx); err != nil {
-					return nil, err
-				}
-				msg := fmt.Sprintf("Loading SSH keys on server %q", server.Name)
-				if i == 0 {
-					_, _ = interactive.Println(">", msg)
-				} else {
-					_, _ = interactive.Println("\n>", msg)
-				}
-
-				if server.State != instance.ServerStateRunning {
-					_, _ = interactive.Printf("Failed: server %q is not running", server.Name)
-
-					continue
-				}
-
-				if len(server.PublicIPs) == 0 {
-					_, _ = interactive.Printf("Failed: server %q has no public IP", server.Name)
-
-					continue
-				}
-
-				for _, publicIP := range server.PublicIPs {
-					sshArgs := []string{
-						publicIP.Address.String(),
-						"-t",
-						"-l", args.Username,
-						"/usr/sbin/scw-fetch-ssh-keys",
-						"--upgrade",
-					}
-
-					sshCmd := connect.CommandContext(ctx, "ssh", sshArgs...)
-
-					_, _ = interactive.Println(sshCmd)
-
-					exitCode, err := session.ExecCmd(ctx, sshCmd)
-					// OpenSSH can handle a signal itself and return 255.
-					if interruptErr := session.Err(ctx); interruptErr != nil {
-						return nil, interruptErr
-					}
-					if err != nil || exitCode != 0 {
-						if err != nil {
-							_, _ = interactive.Println("Failed:", err)
-						} else {
-							_, _ = interactive.Println(
-								"Failed: ssh command failed with exit code",
-								exitCode,
-							)
-						}
-					} else {
-						_, _ = interactive.Println("Success")
-					}
-				}
-			}
-
-			if err := session.Err(ctx); err != nil {
+			err = connect.WithSignalSession(ctx, func(session *connect.SignalSession) error {
+				return fetchKeysOnServers(ctx, session, servers.Servers, args.Username)
+			})
+			if err != nil {
 				return nil, err
 			}
 
 			return &core.SuccessResult{Empty: true}, nil
 		},
 	}
+}
+
+func fetchKeysOnServers(
+	ctx context.Context,
+	session *connect.SignalSession,
+	servers []*instance.Server,
+	username string,
+) error {
+	for i, server := range servers {
+		if err := session.Err(ctx); err != nil {
+			return err
+		}
+		msg := fmt.Sprintf("Loading SSH keys on server %q", server.Name)
+		if i == 0 {
+			_, _ = interactive.Println(">", msg)
+		} else {
+			_, _ = interactive.Println("\n>", msg)
+		}
+
+		if server.State != instance.ServerStateRunning {
+			_, _ = interactive.Printf("Failed: server %q is not running", server.Name)
+
+			continue
+		}
+
+		if len(server.PublicIPs) == 0 {
+			_, _ = interactive.Printf("Failed: server %q has no public IP", server.Name)
+
+			continue
+		}
+
+		for _, publicIP := range server.PublicIPs {
+			sshArgs := []string{
+				publicIP.Address.String(),
+				"-t",
+				"-l", username,
+				"/usr/sbin/scw-fetch-ssh-keys",
+				"--upgrade",
+			}
+
+			sshCmd := connect.CommandContext(ctx, "ssh", sshArgs...)
+
+			_, _ = interactive.Println(sshCmd)
+
+			exitCode, err := session.ExecCmd(ctx, sshCmd)
+			// OpenSSH can handle a signal itself and return 255.
+			if interruptErr := session.Err(ctx); interruptErr != nil {
+				return interruptErr
+			}
+			if err != nil || exitCode != 0 {
+				if err != nil {
+					_, _ = interactive.Println("Failed:", err)
+				} else {
+					_, _ = interactive.Println(
+						"Failed: ssh command failed with exit code",
+						exitCode,
+					)
+				}
+			} else {
+				_, _ = interactive.Println("Success")
+			}
+		}
+	}
+
+	return nil
 }
 
 type sshListKeysRequest struct {

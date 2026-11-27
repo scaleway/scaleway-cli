@@ -23,6 +23,11 @@ func CommandContext(ctx context.Context, name string, args ...string) *exec.Cmd 
 	return exec.CommandContext(ctx, name, args...) //nolint:gosec
 }
 
+// LookPath resolves an executable using the current PATH.
+func LookPath(name string) (string, error) {
+	return exec.LookPath(name)
+}
+
 // SetEnv replaces any existing key in the command's environment with
 // key=value, so the child process only sees this session's value.
 func SetEnv(cmd *exec.Cmd, key, value string) {
@@ -53,22 +58,32 @@ func ExecCmd(ctx context.Context, cmd *exec.Cmd) (exitCode int, err error) {
 	return execCmd(ctx, cmd, runChild)
 }
 
-// SignalSession listens between successive child processes. Use it sequentially
-// and close it when the last command returns.
+// SignalSession runs successive child processes under a single signal subscription.
+// Its methods must be called sequentially inside WithSignalSession.
 type SignalSession struct {
 	signals chan os.Signal
 	caught  os.Signal
 }
 
-func ListenForSignals() *SignalSession {
+// WithSignalSession keeps interrupts observable between successive commands.
+func WithSignalSession(ctx context.Context, run func(*SignalSession) error) error {
+	session := listenForSignals()
+	defer signal.Stop(session.signals)
+	if err := session.Err(ctx); err != nil {
+		return err
+	}
+	if err := run(session); err != nil {
+		return err
+	}
+
+	return session.Err(ctx)
+}
+
+func listenForSignals() *SignalSession {
 	s := &SignalSession{signals: make(chan os.Signal, 1)}
 	signal.Notify(s.signals, os.Interrupt, syscall.SIGTERM)
 
 	return s
-}
-
-func (s *SignalSession) Close() {
-	signal.Stop(s.signals)
 }
 
 // Err reports a signal received during or between commands, or cancellation of ctx.

@@ -5,11 +5,12 @@ package connect
 import (
 	"os"
 	"os/exec"
+	"os/signal"
 )
 
 func runChild(cmd *exec.Cmd) (int, error) {
-	session := ListenForSignals()
-	defer session.Close()
+	session := listenForSignals()
+	defer signal.Stop(session.signals)
 
 	return session.runChild(cmd)
 }

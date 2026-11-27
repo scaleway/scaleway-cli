@@ -1081,6 +1081,7 @@ You can modify the values and save the file to apply the new configuration.`,
 			}
 
 			editedRequestRaw, err := editor.UpdateResourceEditor(
+				ctx,
 				initialRequest,
 				&rdbSDK.SetInstanceSettingsRequest{
 					Region:     args.Region,

@@ -1,12 +1,14 @@
 package editor
 
 import (
+	"context"
+	"errors"
 	"fmt"
 	"os"
-	"os/exec"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/config"
+	"github.com/scaleway/scaleway-cli/v2/internal/connect"
 )
 
 var (
@@ -37,22 +39,35 @@ type (
 	}
 )
 
-func editorPathAndArgs(fileName string) (string, []string) {
-	defaultEditor := config.GetDefaultEditor()
-	editorAndArguments := strings.Fields(defaultEditor)
-	args := []string{fileName}
-
-	if len(editorAndArguments) > 1 {
-		args = append(editorAndArguments[1:], args...)
+// OpenFile opens fileName in the configured editor and waits for it to exit.
+func OpenFile(ctx context.Context, fileName string) error {
+	editor := config.GetDefaultEditor()
+	var args []string
+	// An executable path can contain spaces. Otherwise accept EDITOR with flags.
+	if _, err := connect.LookPath(editor); err != nil {
+		fields := strings.Fields(editor)
+		if len(fields) == 0 {
+			return errors.New("empty editor command")
+		}
+		editor = fields[0]
+		args = fields[1:]
+	}
+	args = append(args, fileName)
+	exitCode, err := connect.ExecCmd(ctx, connect.Command(editor, args...))
+	if err != nil {
+		return err
+	}
+	if exitCode != 0 {
+		return fmt.Errorf("editor exited with code %d", exitCode)
 	}
 
-	return editorAndArguments[0], args
+	return nil
 }
 
 // edit create a temporary file with given content, start a text editor then return edited content
 // temporary file will be deleted on complete
 // temporary file is not deleted if edit fails
-func edit(content []byte) ([]byte, error) {
+func edit(ctx context.Context, content []byte) ([]byte, error) {
 	if SkipEditor {
 		return content, nil
 	}
@@ -63,12 +78,7 @@ func edit(content []byte) ([]byte, error) {
 	}
 	defer os.Remove(tmpFileName)
 
-	editorPath, args := editorPathAndArgs(tmpFileName)
-	cmd := exec.Command(editorPath, args...)
-	cmd.Stdin = os.Stdin
-	cmd.Stdout = os.Stdout
-
-	err = cmd.Run()
+	err = OpenFile(ctx, tmpFileName)
 	if err != nil {
 		return nil, fmt.Errorf("failed to edit temporary file %q: %w", tmpFileName, err)
 	}
@@ -84,6 +94,7 @@ func edit(content []byte) ([]byte, error) {
 // updateResourceEditor takes a complete resource and a partial updateRequest
 // will return a copy of updateRequest that has been edited
 func updateResourceEditor(
+	ctx context.Context,
 	resource any,
 	updateRequest any,
 	cfg *Config,
@@ -117,7 +128,7 @@ func updateResourceEditor(
 	}
 
 	// Start text editor to edit marshaled request
-	updateRequestMarshaled, err = edit(updateRequestMarshaled)
+	updateRequestMarshaled, err = edit(ctx, updateRequestMarshaled)
 	if err != nil {
 		return nil, fmt.Errorf("failed to edit marshalled data: %w", err)
 	}
@@ -152,9 +163,10 @@ func updateResourceEditor(
 // Only edited fields will be present in returned updateRequest
 // If putRequest is true, all fields will be present, edited or not
 func UpdateResourceEditor(
+	ctx context.Context,
 	resource any,
 	updateRequest any,
 	cfg *Config,
 ) (any, error) {
-	return updateResourceEditor(resource, updateRequest, cfg)
+	return updateResourceEditor(ctx, resource, updateRequest, cfg)
 }
