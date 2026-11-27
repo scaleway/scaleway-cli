@@ -636,7 +636,7 @@ func instanceServerGet() *core.Command {
 				Short:      `ID of the server to retrieve`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -685,7 +685,7 @@ func instanceServerUpdate() *core.Command {
 				Short:      `ID of the server to update`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
@@ -812,7 +812,7 @@ func instanceServerDelete() *core.Command {
 				Short:      `ID of the server to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "delete-all-ips",
@@ -901,21 +901,24 @@ func instanceServerGetCompatibleTypes() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "page-token",
+				Short:      `Token for pagination`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "page-size",
+				Short:      `Number of server types to return per page`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "server-id",
+				Short:      `ID of the server`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -1024,7 +1027,7 @@ func instanceServerStart() *core.Command {
 				Short:      `ID of the server to start`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -1068,7 +1071,7 @@ at any time.`,
 				Short:      `ID of the server to start as spot instance`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -1111,7 +1114,7 @@ func instanceServerReboot() *core.Command {
 				Short:      `ID of the server to reboot`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -1154,7 +1157,7 @@ func instanceServerPause() *core.Command {
 				Short:      `ID of the server to pause`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -1197,7 +1200,7 @@ func instanceServerStop() *core.Command {
 				Short:      `ID of the server to stop`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -1240,7 +1243,7 @@ func instanceServerStopAndDelete() *core.Command {
 				Short:      `ID of the server to stop and delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "delete-all-ips",
@@ -1325,7 +1328,7 @@ func instanceServerAttachVolume() *core.Command {
 				Short:      `ID of the server to attach the volume to`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "volume-id",
@@ -1395,7 +1398,7 @@ func instanceServerDetachVolume() *core.Command {
 				Short:      `ID of the server to detach the volume from`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "volume-id",
@@ -1445,7 +1448,7 @@ func instanceServerAttachFilesystem() *core.Command {
 				Short:      `ID of the server to attach the filesystem to`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "filesystem-id",
@@ -1495,7 +1498,7 @@ func instanceServerDetachFilesystem() *core.Command {
 				Short:      `ID of the server to detach the filesystem from`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "filesystem-id",
@@ -1545,7 +1548,7 @@ func instanceServerAttachIP() *core.Command {
 				Short:      `ID of the server to attach the IP to`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "ip-id",
@@ -1609,7 +1612,7 @@ func instanceServerDetachIP() *core.Command {
 				Short:      `ID of the server to detach the IP from`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "ip-id",
@@ -1659,7 +1662,7 @@ func instanceServerSetDefaultIP() *core.Command {
 				Short:      `ID of the server to set the default IP for`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "ip-id",
@@ -1709,7 +1712,7 @@ func instanceServerAttachPrivateNetworkInterface() *core.Command {
 				Short:      `ID of the server to attach the private network interface to`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "private-network-interface-id",
@@ -1759,7 +1762,7 @@ func instanceServerDetachPrivateNetworkInterface() *core.Command {
 				Short:      `ID of the server to detach the private network interface from`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "private-network-interface-id",
@@ -1973,7 +1976,7 @@ func instancePrivateNetworkInterfaceGet() *core.Command {
 				Short:      `ID of the private network interface to retrieve`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -2016,7 +2019,7 @@ func instancePrivateNetworkInterfaceUpdate() *core.Command {
 				Short:      `ID of the private network interface to update`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "security-group-id",
@@ -2073,7 +2076,7 @@ func instancePrivateNetworkInterfaceDelete() *core.Command {
 				Short:      `ID of the private network interface to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -2681,7 +2684,7 @@ func instanceSecurityGroupGet() *core.Command {
 				Short:      `ID of the security group to retrieve`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -2724,7 +2727,7 @@ func instanceSecurityGroupUpdate() *core.Command {
 				Short:      `ID of the security group to update`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
@@ -2833,7 +2836,7 @@ func instanceSecurityGroupDelete() *core.Command {
 				Short:      `ID of the security group to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -2881,9 +2884,9 @@ func instanceSecurityGroupAddRules() *core.Command {
 			{
 				Name:       "security-group-id",
 				Short:      `ID of the security group to add rules to`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "security-group-rules.{index}.protocol",
@@ -3012,9 +3015,9 @@ func instanceSecurityGroupSetRules() *core.Command {
 			{
 				Name:       "security-group-id",
 				Short:      `ID of the security group to set rules for`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "security-group-rules.{index}.protocol",
@@ -3145,7 +3148,7 @@ func instanceSecurityGroupUpdateRule() *core.Command {
 				Short:      `ID of the rule to update`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "protocol",
@@ -3340,7 +3343,7 @@ func instanceUserDataList() *core.Command {
 				Short:      `The ID of the server`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -3383,7 +3386,7 @@ func instanceUserDataGet() *core.Command {
 				Short:      `The ID of the server`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "key",
@@ -3433,7 +3436,7 @@ func instanceUserDataSet() *core.Command {
 				Short:      `The ID of the server`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "key",
@@ -3497,7 +3500,7 @@ func instanceUserDataDelete() *core.Command {
 				Short:      `The ID of the server`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "key",
@@ -3554,7 +3557,7 @@ func instanceUserDataGetCloudInit() *core.Command {
 				Short:      `The ID of the server`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -3597,7 +3600,7 @@ func instanceUserDataSetCloudInit() *core.Command {
 				Short:      `The ID of the server`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "content",
@@ -3936,7 +3939,7 @@ func instanceTemplateGet() *core.Command {
 				Short:      `Unique ID of the template to retrieve`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -3986,7 +3989,7 @@ func instanceTemplateUpdate() *core.Command {
 				Short:      `Unique ID of the template to update`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "tags.{index}",
@@ -4161,7 +4164,7 @@ func instanceTemplateDelete() *core.Command {
 				Short:      `Unique ID of the template to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -4225,7 +4228,7 @@ func instanceTemplateListUserDataKeys() *core.Command {
 				Short:      `Unique ID of the template`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -4268,7 +4271,7 @@ func instanceTemplateGetUserData() *core.Command {
 				Short:      `Unique ID of the template`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "key",
@@ -4318,7 +4321,7 @@ func instanceTemplateSetUserData() *core.Command {
 				Short:      `Unique ID of the template`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "key",
@@ -4382,7 +4385,7 @@ func instanceTemplateDeleteUserData() *core.Command {
 				Short:      `Unique ID of the template`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "key",
@@ -4439,7 +4442,7 @@ func instanceTemplateGetCloudInit() *core.Command {
 				Short:      `Unique ID of the template`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -4482,7 +4485,7 @@ func instanceTemplateSetCloudInit() *core.Command {
 				Short:      `Unique ID of the template`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "content",
@@ -4539,7 +4542,7 @@ func instanceTemplateCheck() *core.Command {
 				Short:      `Unique ID of the template to check`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -4589,7 +4592,7 @@ func instanceTemplateCreateServer() *core.Command {
 				Short:      `Unique ID of the template to use`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",

@@ -1418,7 +1418,7 @@ Update the properties of a rule from a specified security group.
 **Usage:**
 
 ```shell
-scw instance security-group update-rule [arg=value ...]
+scw instance security-group update-rule <security-group-rule-id ...> [arg=value ...]
 ```
 
 
@@ -1914,9 +1914,9 @@ scw instance server get-compatible-types <server-id ...> [arg=value ...]
 
 | Name       | Description                                                             | Argument Specifications                                                                                                                                                         |
 |------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| page-token |                                                                         |                                                                                                                                                                                 |
-| page-size  |                                                                         |                                                                                                                                                                                 |
-| server-id  |                                                                         | Required                                                                                                                                                                        |
+| page-token | Token for pagination                                                    |                                                                                                                                                                                 |
+| page-size  | Number of server types to return per page                               |                                                                                                                                                                                 |
+| server-id  | ID of the server                                                        | Required                                                                                                                                                                        |
 | zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `it-mil-2`, `it-mil-3` |
 
 
