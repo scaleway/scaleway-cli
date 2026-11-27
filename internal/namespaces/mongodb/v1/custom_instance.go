@@ -9,6 +9,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/passwordgenerator"
 	mongodb "github.com/scaleway/scaleway-sdk-go/api/mongodb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -52,23 +53,66 @@ var instanceStatusMarshalSpecs = human.EnumMarshalSpecs{
 	},
 }
 
+type mongodbCreateInstanceRequestCustom struct {
+	*mongodb.CreateInstanceRequest
+	GeneratePassword bool
+}
+
+type CreateInstanceResult struct {
+	*mongodb.Instance
+	Password string `json:"password,omitempty"`
+}
+
 func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("node-amount").Default = core.DefaultValueSetter("1")
 	c.ArgSpecs.GetByName("version").Default = fetchLatestEngine
 	c.ArgSpecs.GetByName("volume.size-bytes").Default = core.DefaultValueSetter("5GB")
 	c.ArgSpecs.GetByName("volume.type").Default = core.DefaultValueSetter("sbs_5k")
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
+	c.ArgSpecs.AddBefore("password", passwordgenerator.ArgSpec(true))
+	c.ArgSpecs.GetByName("password").Required = false
+	c.ArgsType = reflect.TypeFor[mongodbCreateInstanceRequestCustom]()
 
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
-		getResp := respI.(*mongodb.Instance)
+		prev := respI.(CreateInstanceResult)
 		api := mongodb.NewAPI(core.ExtractClient(ctx))
 
-		return api.WaitForInstance(&mongodb.WaitForInstanceRequest{
-			InstanceID:    getResp.ID,
-			Region:        getResp.Region,
+		instance, err := api.WaitForInstance(&mongodb.WaitForInstanceRequest{
+			InstanceID:    prev.ID,
+			Region:        prev.Region,
 			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
+		if err != nil {
+			return nil, err
+		}
+
+		return CreateInstanceResult{Instance: instance, Password: prev.Password}, nil
+	}
+
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
+		api := mongodb.NewAPI(core.ExtractClient(ctx))
+		customRequest := argsI.(*mongodbCreateInstanceRequestCustom)
+		req := customRequest.CreateInstanceRequest
+
+		generated := customRequest.GeneratePassword && req.Password == ""
+		var err error
+		req.Password, err = passwordgenerator.Resolve(customRequest.GeneratePassword, req.Password)
+		if err != nil {
+			return nil, err
+		}
+
+		instance, err := api.CreateInstance(req, scw.WithContext(ctx))
+		if err != nil {
+			return nil, err
+		}
+
+		result := CreateInstanceResult{Instance: instance}
+		if generated {
+			result.Password = req.Password
+		}
+
+		return result, nil
 	}
 
 	return c
@@ -95,6 +139,8 @@ func autoCompleteNodeType(
 	region := scw.Region("")
 	switch req := request.(type) {
 	case *mongodb.CreateInstanceRequest:
+		region = req.Region
+	case *mongodbCreateInstanceRequestCustom:
 		region = req.Region
 	case *mongodb.UpgradeInstanceRequest:
 		region = req.Region

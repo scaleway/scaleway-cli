@@ -6,10 +6,11 @@ USAGE:
   scw searchdb user update [arg=value ...]
 
 ARGS:
-  deployment-id     ID of the deployment in which to create the user
-  username          Username of the deployment user
-  [password]        Password of the deployment user
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  deployment-id               ID of the deployment in which to create the user
+  username                    Username of the deployment user
+  [generate-password=false]   Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols
+  [password]                  Password of the deployment user
+  [region=fr-par]             Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help[=true|false]                help for update

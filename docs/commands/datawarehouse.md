@@ -117,6 +117,7 @@ scw datawarehouse deployment create [arg=value ...]
 | version                                              | ClickHouse® version to use for the deployment                                                                                                                                                                                                                                                                             |                                         |
 | replica-count                                        | Number of replicas for the deployment                                                                                                                                                                                                                                                                                     |                                         |
 | shard-count                                          | Number of shard for the deployment                                                                                                                                                                                                                                                                                        |                                         |
+| generate-password                                    | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols                                                                                                                                                                                                 | Default: `true`                         |
 | password                                             | Password for the initial user                                                                                                                                                                                                                                                                                             |                                         |
 | cpu-min                                              | Minimum CPU count for the deployment                                                                                                                                                                                                                                                                                      |                                         |
 | cpu-max                                              | Maximum CPU count for the deployment                                                                                                                                                                                                                                                                                      |                                         |
@@ -328,13 +329,14 @@ scw datawarehouse user create [arg=value ...]
 
 **Arguments:**
 
-| Name          | Description                                                                 | Argument Specifications                 |
-|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
-| deployment-id | UUID of the deployment                                                      | Required                                |
-| name          | Name of the user                                                            |                                         |
-| password      | Password for the user                                                       |                                         |
-| is-admin      | Indicates if the user is an administrator                                   |                                         |
-| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+| Name              | Description                                                                                                               | Argument Specifications                 |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id     | UUID of the deployment                                                                                                    | Required                                |
+| name              | Name of the user                                                                                                          |                                         |
+| generate-password | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols | Default: `true`                         |
+| password          | Password for the user                                                                                                     |                                         |
+| is-admin          | Indicates if the user is an administrator                                                                                 |                                         |
+| region            | Region to target. If none is passed will use default region from the config                                               | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -394,13 +396,14 @@ scw datawarehouse user update [arg=value ...]
 
 **Arguments:**
 
-| Name          | Description                                                                 | Argument Specifications                 |
-|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
-| deployment-id | UUID of the deployment                                                      | Required                                |
-| name          | Name of the user                                                            | Required                                |
-| password      | New password for the user                                                   |                                         |
-| is-admin      | Updates the user administrator permissions                                  |                                         |
-| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+| Name              | Description                                                                                                               | Argument Specifications                 |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id     | UUID of the deployment                                                                                                    | Required                                |
+| name              | Name of the user                                                                                                          | Required                                |
+| generate-password | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols | Default: `false`                        |
+| password          | New password for the user                                                                                                 |                                         |
+| is-admin          | Updates the user administrator permissions                                                                                |                                         |
+| region            | Region to target. If none is passed will use default region from the config                                               | Default: `fr-par`<br />One of: `fr-par` |
 
 
 

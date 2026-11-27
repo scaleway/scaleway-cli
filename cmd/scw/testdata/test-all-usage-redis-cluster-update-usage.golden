@@ -6,12 +6,13 @@ USAGE:
   scw redis cluster update <cluster-id ...> [arg=value ...]
 
 ARGS:
-  [name]            Name of the Database Instance
-  [tags.{index}]    Database Instance tags
-  [user-name]       Name of the Database Instance user
-  [password]        Password of the Database Instance user
-  cluster-id        UUID of the Database Instance to update
-  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
+  [name]                      Name of the Database Instance
+  [tags.{index}]              Database Instance tags
+  [user-name]                 Name of the Database Instance user
+  [generate-password=false]   Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols
+  [password]                  Password of the Database Instance user
+  cluster-id                  UUID of the Database Instance to update
+  [zone=fr-par-1]             Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2)
 
 FLAGS:
   -h, --help[=true|false]                help for update

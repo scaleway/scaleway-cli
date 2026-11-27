@@ -12,6 +12,7 @@ ARGS:
   [node-count]                                             Number of nodes.
   [node-type]                                              Node type
   [user-name]                                              Username for the deployment user
+  [generate-password=false]                                Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols
   [password]                                               Password for the deployment user
   [volume.type]                                            Define the type of the Volume (unknown_type | sbs_5k | sbs_15k)
   [volume.size-bytes]                                      Define the size of the Volume

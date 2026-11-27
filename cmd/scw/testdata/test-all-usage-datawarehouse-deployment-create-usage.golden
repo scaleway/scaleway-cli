@@ -12,6 +12,7 @@ ARGS:
   [version]                                                ClickHouse® version to use for the deployment
   [replica-count]                                          Number of replicas for the deployment
   [shard-count]                                            Number of shard for the deployment
+  [generate-password=true]                                 Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols
   [password]                                               Password for the initial user
   [cpu-min]                                                Minimum CPU count for the deployment
   [cpu-max]                                                Maximum CPU count for the deployment

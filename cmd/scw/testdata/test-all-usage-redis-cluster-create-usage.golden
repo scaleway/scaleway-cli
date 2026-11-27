@@ -12,7 +12,8 @@ ARGS:
   [tags.{index}]                                            Tags to apply to the Database Instance
   node-type                                                 Type of node to use for the Database Instance
   user-name                                                 Name of the user created upon Database Instance creation
-  password                                                  Password of the user
+  [generate-password=true]                                  Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols
+  [password]                                                Password of the user
   [cluster-size]                                            Number of nodes in the Redis™ cluster
   [acl-rules.{index}.ip-cidr]                               IPv4 network address of the rule
   [acl-rules.{index}.description]                           Description of the rule

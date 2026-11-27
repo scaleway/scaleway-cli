@@ -20,22 +20,23 @@ scw searchdb deployment create [arg=value ...]
 
 **Arguments:**
 
-| Name                                                 | Description                                                                 | Argument Specifications                     |
-|------------------------------------------------------|-----------------------------------------------------------------------------|---------------------------------------------|
-| project-id                                           | Project ID to use. If none is passed the default project ID will be used    |                                             |
-| name                                                 | Name of the deployment                                                      |                                             |
-| tags.{index}                                         | Tags                                                                        |                                             |
-| ~~node-amount~~                                      | DEPRECATED: Use node_count instead. Number of nodes                         | Deprecated                                  |
-| node-count                                           | Number of nodes.                                                            |                                             |
-| node-type                                            | Node type                                                                   |                                             |
-| user-name                                            | Username for the deployment user                                            |                                             |
-| password                                             | Password for the deployment user                                            |                                             |
-| volume.type                                          | Define the type of the Volume                                               | One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
-| volume.size-bytes                                    | Define the size of the Volume                                               |                                             |
-| endpoints.{index}.public                             |                                                                             |                                             |
-| endpoints.{index}.private-network.private-network-id |                                                                             |                                             |
-| version                                              | The Opensearch version to use                                               |                                             |
-| region                                               | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`     |
+| Name                                                 | Description                                                                                                               | Argument Specifications                     |
+|------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
+| project-id                                           | Project ID to use. If none is passed the default project ID will be used                                                  |                                             |
+| name                                                 | Name of the deployment                                                                                                    |                                             |
+| tags.{index}                                         | Tags                                                                                                                      |                                             |
+| ~~node-amount~~                                      | DEPRECATED: Use node_count instead. Number of nodes                                                                       | Deprecated                                  |
+| node-count                                           | Number of nodes.                                                                                                          |                                             |
+| node-type                                            | Node type                                                                                                                 |                                             |
+| user-name                                            | Username for the deployment user                                                                                          |                                             |
+| generate-password                                    | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols | Default: `false`                            |
+| password                                             | Password for the deployment user                                                                                          |                                             |
+| volume.type                                          | Define the type of the Volume                                                                                             | One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
+| volume.size-bytes                                    | Define the size of the Volume                                                                                             |                                             |
+| endpoints.{index}.public                             |                                                                                                                           |                                             |
+| endpoints.{index}.private-network.private-network-id |                                                                                                                           |                                             |
+| version                                              | The Opensearch version to use                                                                                             |                                             |
+| region                                               | Region to target. If none is passed will use default region from the config                                               | Default: `fr-par`<br />One of: `fr-par`     |
 
 
 
@@ -238,12 +239,13 @@ scw searchdb user create [arg=value ...]
 
 **Arguments:**
 
-| Name          | Description                                                                 | Argument Specifications                 |
-|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
-| deployment-id | ID of the deployment in which to create the user                            | Required                                |
-| username      | Username of the deployment user                                             |                                         |
-| password      | Password of the deployment user                                             |                                         |
-| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+| Name              | Description                                                                                                               | Argument Specifications                 |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id     | ID of the deployment in which to create the user                                                                          | Required                                |
+| username          | Username of the deployment user                                                                                           |                                         |
+| generate-password | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols | Default: `true`                         |
+| password          | Password of the deployment user                                                                                           |                                         |
+| region            | Region to target. If none is passed will use default region from the config                                               | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -303,12 +305,13 @@ scw searchdb user update [arg=value ...]
 
 **Arguments:**
 
-| Name          | Description                                                                 | Argument Specifications                 |
-|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
-| deployment-id | ID of the deployment in which to create the user                            | Required                                |
-| username      | Username of the deployment user                                             | Required                                |
-| password      | Password of the deployment user                                             |                                         |
-| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+| Name              | Description                                                                                                               | Argument Specifications                 |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id     | ID of the deployment in which to create the user                                                                          | Required                                |
+| username          | Username of the deployment user                                                                                           | Required                                |
+| generate-password | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols | Default: `false`                        |
+| password          | Password of the deployment user                                                                                           |                                         |
+| region            | Region to target. If none is passed will use default region from the config                                               | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
