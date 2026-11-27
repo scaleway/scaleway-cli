@@ -24,6 +24,14 @@ const (
 	metaNamePNB      = "PrivateNetworkB"
 )
 
+func Test_GetCluster(t *testing.T) {
+	t.Run("Cluster with private endpoint", core.Test(&core.TestConfig{
+		Commands: redis.GetCommands(),
+		Cmd:      "scw redis cluster get 5776c10c-23db-4a47-a8ce-7115b01711ee zone=fr-par-1",
+		Check:    core.TestCheckGolden(),
+	}))
+}
+
 func Test_Endpoints(t *testing.T) {
 	cmds := redis.GetCommands()
 	cmds.Merge(vpc.GetCommands())
