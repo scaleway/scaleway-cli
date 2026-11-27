@@ -1,0 +1,264 @@
+package cockpit
+
+import (
+	"context"
+	"encoding/json/v2"
+	"errors"
+	"fmt"
+	"net/http"
+	"net/url"
+	"slices"
+	"strconv"
+	"strings"
+	"time"
+
+	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-sdk-go/api/cockpit/v1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
+)
+
+// pollInterval is how often Follow asks Cockpit for new lines.
+const pollInterval = 2 * time.Second
+
+// Resource identifies the logs of a Scaleway resource in Cockpit.
+type Resource struct {
+	// Type is the Loki resource_type label (e.g. serverless_container, rdb_instance_postgresql).
+	Type   string
+	ID     string
+	Region scw.Region
+}
+
+type Entry struct {
+	Timestamp        time.Time `json:"timestamp"`
+	ResourceInstance string    `json:"resource_instance"`
+	Message          string    `json:"message"`
+}
+
+func (e Entry) MarshalHuman() (string, error) {
+	return e.Timestamp.UTC().Format(time.RFC3339) + " " + e.ResourceInstance + " " + e.Message, nil
+}
+
+// Lines is a batch of log entries. Human and JSON match stream=true (one line / object per entry).
+type Lines []Entry
+
+func (l Lines) MarshalHuman() (string, error) {
+	lines := make([]string, 0, len(l))
+	for _, e := range l {
+		line, err := e.MarshalHuman()
+		if err != nil {
+			return "", err
+		}
+		lines = append(lines, line)
+	}
+
+	return strings.Join(lines, "\n"), nil
+}
+
+// Recent returns the newest logs of r over the last span, at most entryCount if set.
+func Recent(ctx context.Context, r Resource, span time.Duration, entryCount *int) (Lines, error) {
+	s, err := openLogs(ctx, r)
+	if err != nil {
+		return nil, err
+	}
+
+	now := time.Now()
+	entries, err := s.query(ctx, now.Add(-span), now, false)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(entries) == 0 {
+		return nil, fmt.Errorf("no logs found for %s %s in the last %s", r.Type, r.ID, span)
+	}
+
+	if entryCount != nil {
+		if *entryCount < 0 {
+			return nil, errors.New("entry-count must be non-negative")
+		}
+		if *entryCount < len(entries) {
+			entries = entries[:*entryCount]
+		}
+	}
+
+	return Lines(entries), nil
+}
+
+// Follow emits the newest logs of r over the last span, then every new line until ctx is done.
+// Each entry is emitted alone so -o json is JSONL and human matches Recent.
+// ponytail: polls query_range from the last seen timestamp, lines ingested late with an older
+// timestamp are skipped; switch to Loki's /tail websocket if that matters.
+func Follow(ctx context.Context, r Resource, span time.Duration, emit func(any) error) error {
+	s, err := openLogs(ctx, r)
+	if err != nil {
+		return err
+	}
+
+	ticker := time.NewTicker(pollInterval)
+	defer ticker.Stop()
+
+	start := time.Now().Add(-span)
+	// The first query goes backward to get the newest lines of the window, then we read forward.
+	forward := false
+
+	for {
+		entries, err := s.query(ctx, start, time.Now(), forward)
+		if err != nil {
+			return err
+		}
+
+		if !forward {
+			slices.Reverse(entries)
+			forward = true
+		}
+
+		if len(entries) > 0 {
+			start = entries[len(entries)-1].Timestamp.Add(time.Nanosecond)
+
+			for _, entry := range entries {
+				err = emit(entry)
+				if err != nil {
+					return err
+				}
+			}
+		}
+
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case <-ticker.C:
+		}
+	}
+}
+
+type session struct {
+	httpClient *http.Client
+	url        string
+	token      string
+	selector   string
+}
+
+// openLogs finds the Scaleway logs data source and authenticates with the IAM secret key.
+func openLogs(ctx context.Context, r Resource) (*session, error) {
+	client := core.ExtractClient(ctx)
+	api := cockpit.NewRegionalAPI(client)
+
+	ds, err := api.ListDataSources(&cockpit.RegionalAPIListDataSourcesRequest{
+		Region: r.Region,
+		Origin: cockpit.DataSourceOriginScaleway,
+		Types:  []cockpit.DataSourceType{cockpit.DataSourceTypeLogs},
+	}, scw.WithAllPages(), scw.WithContext(ctx))
+	if err != nil {
+		return nil, err
+	}
+
+	if ds.TotalCount == 0 {
+		return nil, errors.New("could not find any cockpit datasource to fetch the logs from")
+	}
+
+	secretKey, ok := client.GetSecretKey()
+	if !ok {
+		return nil, errors.New("could not get secret key")
+	}
+
+	return &session{
+		httpClient: core.ExtractHTTPClient(ctx),
+		url:        ds.DataSources[0].URL + "/loki/api/v1/query_range",
+		token:      secretKey,
+		selector:   fmt.Sprintf(`{resource_type="%s", resource_id="%s"}`, r.Type, r.ID),
+	}, nil
+}
+
+type lokiResponse struct {
+	Data struct {
+		Result []struct {
+			Stream map[string]string `json:"stream"`
+			Values [][]string        `json:"values"`
+		} `json:"result"`
+	} `json:"data"`
+}
+
+// query returns the lines of every stream between start and end, oldest first when forward,
+// newest first otherwise.
+func (s *session) query(ctx context.Context, start, end time.Time, forward bool) ([]Entry, error) {
+	values := url.Values{}
+	values.Set("query", s.selector)
+	values.Set("start", start.Format(time.RFC3339Nano))
+	values.Set("end", end.Format(time.RFC3339Nano))
+
+	if forward {
+		values.Set("direction", "forward")
+		values.Set("limit", "5000")
+	}
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, s.url+"?"+values.Encode(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Set("X-Auth-Token", s.token)
+
+	resp, err := s.httpClient.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("error querying logs: %w", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("error querying logs: %s", resp.Status)
+	}
+
+	var lokiResp lokiResponse
+
+	err = json.UnmarshalRead(resp.Body, &lokiResp)
+	if err != nil {
+		return nil, fmt.Errorf("error parsing logs: %w", err)
+	}
+
+	var entries []Entry
+
+	for _, stream := range lokiResp.Data.Result {
+		for i, value := range stream.Values {
+			entry, err := ParseValue(value)
+			if err != nil {
+				return nil, fmt.Errorf("failed to parse log entry at index %d: %w", i, err)
+			}
+
+			if entry.ResourceInstance == "" {
+				entry.ResourceInstance = stream.Stream["instance"]
+			}
+
+			entries = append(entries, entry)
+		}
+	}
+
+	slices.SortStableFunc(entries, func(a, b Entry) int {
+		if forward {
+			return a.Timestamp.Compare(b.Timestamp)
+		}
+
+		return b.Timestamp.Compare(a.Timestamp)
+	})
+
+	return entries, nil
+}
+
+// ParseValue decodes a Loki [timestamp, line] pair. Lines that are not JSON are kept as the message.
+func ParseValue(value []string) (Entry, error) {
+	if len(value) < 2 {
+		return Entry{}, fmt.Errorf("expected 2 parts, got %d", len(value))
+	}
+
+	nanos, err := strconv.ParseInt(value[0], 10, 64)
+	if err != nil {
+		return Entry{}, err
+	}
+
+	entry := Entry{}
+	if json.Unmarshal([]byte(value[1]), &entry) != nil {
+		entry.Message = value[1]
+	}
+
+	entry.Timestamp = time.Unix(0, nanos)
+
+	return entry, nil
+}

@@ -19,6 +19,7 @@ AVAILABLE COMMANDS:
   get-certificate   Get the TLS certificate of a Database Instance
   get-metrics       [deprecated] Get Database Instance metrics
   list              List Database Instances
+  logs              Show Database Instance logs
   renew-certificate Renew the TLS certificate of a Database Instance
   restart           Restart Database Instance
   update            Update an instance

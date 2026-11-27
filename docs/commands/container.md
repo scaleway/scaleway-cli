@@ -187,6 +187,7 @@ scw container container logs <container-id ...> [arg=value ...]
 | container-id | ID of the container which logs are to be displayed                                 |                                                             |
 | time-span    | Time range for which to retrieve container logs in duration format, defaults to 2h | Default: `2h`                                               |
 | entry-count  | Maximum number of log entries to be displayed                                      |                                                             |
+| stream       | Keep printing new results until interrupted (Ctrl+C)                               |                                                             |
 | region       | Region to target. If none is passed will use default region from the config        | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
