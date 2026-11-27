@@ -3,9 +3,11 @@ package core_test
 import (
 	"context"
 	"reflect"
+	"strings"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_CorePrinter(t *testing.T) {
@@ -239,4 +241,52 @@ func Test_TemplatePrinter(t *testing.T) {
 		},
 		Check: core.TestCheckGolden(),
 	}))
+}
+
+func Test_WarnUnknownTemplateFields(t *testing.T) {
+	type Human struct {
+		ID   string `json:"id"`
+		Name string `json:"name"`
+	}
+
+	cmd := &core.Command{
+		Namespace:    "get",
+		ResponseType: reflect.TypeFor[*Human](),
+	}
+
+	tests := map[string]struct {
+		outputFlag    string
+		expectedWarns bool
+	}{
+		"no-response-type":       {outputFlag: "template={{ .Foo }}", expectedWarns: false},
+		"non-template-output":    {outputFlag: "json", expectedWarns: false},
+		"valid-field":            {outputFlag: "template={{ .ID }}", expectedWarns: false},
+		"valid-field-chain":      {outputFlag: "template={{ .ID }}-{{ .Name }}", expectedWarns: false},
+		"unknown-field":          {outputFlag: "template={{ .Foo }}", expectedWarns: true},
+		"slice-response-element": {outputFlag: "template={{ .ID }} {{ .Name }}", expectedWarns: false},
+		"empty-template":         {outputFlag: "template=", expectedWarns: false},
+	}
+
+	for name, tc := range tests {
+		t.Run(name, func(t *testing.T) {
+			c := cmd
+			if name == "no-response-type" {
+				c = &core.Command{Namespace: "get"}
+			}
+			if name == "slice-response-element" {
+				c = &core.Command{Namespace: "list", ResponseType: reflect.TypeFor[[]*Human]()}
+			}
+
+			var stderr strings.Builder
+			core.WarnUnknownTemplateFields(c, tc.outputFlag, &stderr)
+
+			if tc.expectedWarns {
+				assert.Contains(t, stderr.String(), "not found in")
+				assert.Contains(t, stderr.String(), "Foo")
+				assert.Contains(t, stderr.String(), "ID, Name")
+			} else {
+				assert.Empty(t, stderr.String())
+			}
+		})
+	}
 }

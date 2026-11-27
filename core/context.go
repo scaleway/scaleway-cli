@@ -38,6 +38,9 @@ type Meta struct {
 	httpClient                  *http.Client
 	isClientFromBootstrapConfig bool
 	BetaMode                    bool
+
+	// outputFlag is the effective output flag (CLI flag or config file value).
+	outputFlag string
 }
 
 type contextKey int

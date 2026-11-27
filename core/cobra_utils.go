@@ -23,6 +23,9 @@ func cobraRun(cmd *Command) func(*cobra.Command, []string) error {
 		meta := ExtractMeta(ctx)
 		meta.command = cmd
 
+		// Check --template fields against the command response type, if known.
+		WarnUnknownTemplateFields(cmd, meta.outputFlag, meta.stderr)
+
 		// Check if --list-sub-commands flag is set
 		listSubCommandsFlag, err := cobraCmd.PersistentFlags().GetBool("list-sub-commands")
 		if err == nil && listSubCommandsFlag {
