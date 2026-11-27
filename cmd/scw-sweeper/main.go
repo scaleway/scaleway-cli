@@ -18,7 +18,7 @@ import (
 	instanceSweeper "github.com/scaleway/scaleway-sdk-go/api/instance/v1/sweepers"
 	iotSweeper "github.com/scaleway/scaleway-sdk-go/api/iot/v1/sweepers"
 	ipamSweeper "github.com/scaleway/scaleway-sdk-go/api/ipam/v1/sweepers"
-	jobsSweeper "github.com/scaleway/scaleway-sdk-go/api/jobs/v1alpha1/sweepers"
+	jobsSweeper "github.com/scaleway/scaleway-sdk-go/api/jobs/v1alpha2/sweepers"
 	k8sSweeper "github.com/scaleway/scaleway-sdk-go/api/k8s/v1/sweepers"
 	lbSweeper "github.com/scaleway/scaleway-sdk-go/api/lb/v1/sweepers"
 	mnqSweeper "github.com/scaleway/scaleway-sdk-go/api/mnq/v1beta1/sweepers"
