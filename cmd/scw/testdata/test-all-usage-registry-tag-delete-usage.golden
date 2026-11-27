@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   tag-id            UUID of the tag
   [timeout]         Maximum time to handle the request
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
 DEPRECATED ARGS:
   [force]   If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated)
